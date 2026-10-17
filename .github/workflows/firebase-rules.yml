@@ -1,3 +1,4 @@
+# Yetki eklendi: Firebase Admin + Service Usage Consumer
 # firestore.rules değiştiğinde güvenlik kurallarını Firebase'e otomatik yükler.
 name: Firebase kurallarını yükle
 
