@@ -267,6 +267,91 @@ tr.click:hover td{background:var(--surface-2)}
   a{color:#000;text-decoration:none}
 }
 
+/* Oyunlar */
+body.game-mode{background:#15142a}
+.gm{min-height:100vh;color:#fff;background:radial-gradient(1200px 600px at 50% -10%,#3a2f7a 0%,#15142a 60%);padding:0 18px 30px;font-size:17px}
+.gm .spinner{border-color:#ffffff33;border-top-color:#fff}
+.g-top{display:flex;align-items:center;gap:14px;justify-content:space-between;padding:12px 0;font-size:15px;opacity:.95;flex-wrap:wrap}
+.g-x{background:#ffffff1f;border:0;color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer;font:inherit;font-size:14px}
+.g-x:disabled{opacity:.4}
+.g-btn{background:#fff;color:#1d1940;border:0;padding:14px 26px;border-radius:12px;font:inherit;font-weight:700;font-size:18px;cursor:pointer;box-shadow:0 4px 0 #0005}
+.g-btn.ghost{background:#ffffff26;color:#fff;box-shadow:none}
+.g-btn:disabled{opacity:.45;cursor:default}
+.g-act{display:flex;gap:12px;justify-content:center;margin-top:22px;flex-wrap:wrap}
+.g-lobby{display:flex;gap:30px;justify-content:center;align-items:center;flex-wrap:wrap;margin:16px 0 22px}
+.g-join{text-align:center}.g-join-l{font-size:20px;opacity:.85}.g-pin{font-size:clamp(56px,10vw,110px);font-weight:700;letter-spacing:.08em;line-height:1.05}
+.g-url{opacity:.75;font-size:15px}
+.g-qr{background:#fff;color:#333;border-radius:14px;padding:12px;text-align:center}
+.g-plist{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:1000px;margin:0 auto}
+.g-pl{background:#ffffff26;padding:8px 14px;border-radius:10px;font-weight:600;animation:tin .25s ease}
+.g-wait{opacity:.7}
+.g-qh{display:flex;justify-content:space-between;align-items:center;font-size:18px;opacity:.95;margin:6px 0 12px}
+.g-timer{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#7c45b4;font-weight:700;font-size:26px;font-family:"IBM Plex Mono",monospace}
+.g-timer.low{background:#d21f3c}.g-timer.sm{width:42px;height:42px;font-size:18px}
+.g-stem{background:#fff;color:#1d1940;border-radius:14px;padding:22px 26px;font-size:clamp(20px,2.4vw,30px);font-weight:600;line-height:1.35;text-align:center;white-space:pre-wrap;max-width:1200px;margin:0 auto}
+.g-img{text-align:center;margin:12px 0}.g-img .q-img{max-height:300px;margin:0 auto;display:inline-block}
+.g-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:1200px;margin:16px auto 0}
+.g-opts.n5 .g-opt:last-child{grid-column:1/-1}
+.g-opt{position:relative;display:flex;align-items:center;gap:14px;background:var(--c);color:#fff;border:0;border-radius:12px;padding:18px 20px;font:inherit;font-size:clamp(16px,1.8vw,24px);font-weight:600;text-align:left;box-shadow:0 4px 0 #0004;min-height:76px}
+button.g-opt{cursor:pointer}button.g-opt:active{transform:translateY(2px)}
+.g-shape{font-size:30px;width:34px;text-align:center;flex:none}
+.g-txt{flex:1}
+.g-cnt{background:#0003;border-radius:8px;padding:2px 10px;font-family:"IBM Plex Mono",monospace}
+.g-check{font-size:28px;font-weight:700}
+.g-opt.dim{opacity:.35}
+.g-opt.ok{outline:4px solid #fff;outline-offset:2px}
+.g-expl{max-width:1000px;margin:16px auto 0;background:#ffffff1f;border-radius:12px;padding:12px 16px;font-size:16px;white-space:pre-wrap}
+.g-h{text-align:center;font-size:32px;margin:10px 0 18px}
+.g-lead{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.g-lr{display:flex;align-items:center;gap:14px;background:#fff;color:#1d1940;border-radius:12px;padding:12px 18px;font-size:20px;font-weight:600}
+.g-lead.small .g-lr{font-size:16px;padding:8px 14px;background:#ffffffe6}
+.g-rank{width:34px;font-family:"IBM Plex Mono",monospace;opacity:.6}.g-ln{flex:1}.g-ls{font-family:"IBM Plex Mono",monospace}
+.g-delta{color:#23800f;font-size:15px}
+.g-pod{display:flex;align-items:flex-end;justify-content:center;gap:12px;margin:10px 0 22px}
+.g-pd{text-align:center;width:min(28vw,220px)}.g-pn{font-weight:700;font-size:20px;margin-bottom:4px}.g-ps{font-family:"IBM Plex Mono",monospace;margin-bottom:6px}
+.g-pb{background:#fff;color:#1d1940;border-radius:12px 12px 0 0;font-size:40px;font-weight:700;display:grid;place-items:center}
+.g-pd.p1 .g-pb{height:170px;background:#ffd34d}.g-pd.p2 .g-pb{height:120px;background:#d8dbe3}.g-pd.p3 .g-pb{height:90px;background:#e7a56b}
+.gm.player{padding:0 12px 20px}
+.g-ptop{display:flex;justify-content:space-between;padding:12px 2px;font-weight:600}
+.g-pmsg{text-align:center;padding:40px 10px}.g-pmsg h2{font-size:26px;margin:8px 0}.g-big{font-size:64px;font-weight:700;line-height:1.1}
+.g-pmsg.ok{color:#9ff59a}.g-pmsg.bad{color:#ffb3b3}.g-gain{font-size:36px;font-weight:700;font-family:"IBM Plex Mono",monospace}
+.g-pq .g-ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.g-pstem{background:#ffffff1a;border-radius:10px;padding:10px 12px;font-size:14px;white-space:pre-wrap;margin-bottom:4px;max-height:110px;overflow:auto}
+.g-pq .g-opts{grid-template-columns:1fr;gap:10px}
+.g-pq .g-opt{min-height:64px;font-size:17px}
+.pin-in{font-size:30px;text-align:center;letter-spacing:.3em;font-family:"IBM Plex Mono",monospace;margin:10px 0}
+/* Bilgi tahtası */
+.jb{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px;max-width:1300px;margin:0 auto}
+.jb.edit{gap:6px}
+.jc{display:flex;flex-direction:column;gap:4px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:6px}
+.jc .btn{align-self:flex-end}
+.jcell{border:0;border-radius:10px;font:inherit;cursor:pointer}
+.jcell.e{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;background:var(--surface);border:1px solid var(--line);padding:8px;min-height:84px;font-size:12px;color:var(--ink)}
+.jcell.e b{font-size:15px;color:var(--accent)}.jcell.e span{overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.jcell.e.empty{opacity:.55;border-style:dashed}
+.jh{background:#2b2466;color:#fff;border-radius:10px;padding:14px 8px;text-align:center;font-weight:700;font-size:clamp(13px,1.4vw,19px);display:grid;place-items:center;min-height:70px;text-transform:uppercase;letter-spacing:.02em}
+.jb.play .jcell{background:#3d32a0;color:#ffd34d;font-size:clamp(24px,3.4vw,46px);font-weight:700;font-family:"IBM Plex Mono",monospace;min-height:clamp(64px,11vh,110px);box-shadow:0 4px 0 #0005}
+.jb.play .jcell:hover{background:#4c40bf}
+.jb.play .jcell.used{background:#ffffff0d;box-shadow:none;cursor:default}
+.jteams{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.jt{background:#ffffff1a;border-radius:14px;padding:12px 18px;min-width:150px;text-align:center}
+.jt.win{background:#ffd34d;color:#1d1940}
+.jtn{font-weight:700;font-size:18px}.jts{font-size:34px;font-weight:700}.jts.neg{color:#ff8d8d}
+.jtb{display:flex;gap:6px;justify-content:center;margin-top:6px}.jtb button{background:#ffffff26;color:inherit;border:0;border-radius:6px;padding:3px 8px;cursor:pointer;font:inherit;font-size:12px}
+.jq-ov{position:fixed;inset:0;z-index:60;background:#15142a;overflow:auto;padding:18px;color:#fff}
+.jq{width:min(1100px,100%);margin:0 auto}
+.jq-h{display:flex;justify-content:space-between;font-size:22px;margin-bottom:12px;text-transform:uppercase}.jq-h b{color:#ffd34d;font-size:30px}
+.jq-stem{background:#3d32a0;border-radius:14px;padding:22px;font-size:clamp(18px,2.2vw,28px);font-weight:600;line-height:1.35;white-space:pre-wrap;text-align:center}
+.jq-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.jq-o{background:#ffffff1f;border-radius:10px;padding:14px 16px;font-size:clamp(15px,1.6vw,21px)}
+.jq-o b{color:#ffd34d;margin-right:6px}.jq-o.ok{background:#23800f}.jq-o.dim{opacity:.4}
+.jq-act{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.jq-teams{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.jq-t{background:#ffffff14;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;align-items:center;min-width:150px}
+.jq-t button{border:0;border-radius:8px;padding:8px 12px;font:inherit;font-weight:700;cursor:pointer;width:100%}
+.jq-t button.ok{background:#23800f;color:#fff}.jq-t button.bad{background:#ffffff26;color:#ffb3b3}
+@media (max-width:700px){.g-opts,.jq-opts{grid-template-columns:1fr}.jb.play .jcell{font-size:20px}}
+
 /* Picker */
 .pick{max-height:62vh;overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
 .pick .pr{display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line-2);align-items:flex-start;cursor:pointer}
@@ -345,7 +430,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, query, where,
-  serverTimestamp, Timestamp, writeBatch }
+  serverTimestamp, Timestamp, writeBatch, onSnapshot }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const $app = document.getElementById("app");
@@ -431,10 +516,13 @@ const S = { user:null, email:"", isAdmin:false, isAuthor:false, resident:null, m
   questions:[], cases:{}, pools:{}, templates:[], exams:[], residents:[] };
 let T = null; // aktif sınav oturumu
 // Paylaşılan bağlantı / QR: #sinav=<id>
-function readDeep(){ const m=location.hash.match(/sinav=([A-Za-z0-9_-]+)/); if(m){ S.deep=m[1]; try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){} return true; } return false; }
+function readDeep(){ const m=location.hash.match(/sinav=([A-Za-z0-9_-]+)/), o=location.hash.match(/oyun=(\d{6})/);
+  if(m) S.deep=m[1]; if(o) S.deepGame=o[1];
+  if(m||o){ try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){} return true; } return false; }
 readDeep();
 // Sayfa açıkken yeni bir sınav bağlantısı açılırsa
 window.addEventListener("hashchange",()=>{ if(!readDeep()||!S.user) return;
+  if(S.deepGame){ const id=S.deepGame; S.deepGame=null; return go(S.mode==="admin"?"liveHost":"livePlay",{id}); }
   if(S.mode==="admin"){ const id=S.deep; S.deep=null; go("results",{id}); } else if(S.resident){ S.mode="resident"; go("home"); } });
 
 onAuthStateChanged(auth, async u=>{
@@ -446,6 +534,7 @@ onAuthStateChanged(auth, async u=>{
   try{ const r=await getDoc(doc(db,"residents",S.email)); S.resident=r.exists()?r.data():null; }catch(e){ S.resident=null; }
   S.isAuthor=false;
   if(!S.isAdmin){ try{ const r=await getDoc(doc(db,"meta","roles")); S.isAuthor=r.exists()&&(r.data().authors||[]).map(x=>String(x).toLowerCase()).includes(S.email); }catch(e){} }
+  if(S.deepGame){ const id=S.deepGame; S.deepGame=null; S.mode=S.isAdmin?"admin":S.resident?"resident":S.isAuthor?"author":"player"; return go(S.isAdmin?"liveHost":"livePlay",{id}); }
   if(S.isAdmin){ S.mode="admin"; if(S.deep){ const id=S.deep; S.deep=null; go("results",{id}); } else go("exams"); }
   else if(S.resident){ S.mode="resident"; go("home"); }
   else if(S.isAuthor){ S.mode="author"; go("bank"); }
@@ -457,6 +546,7 @@ function renderLogin(){
     <div class="mark">AT</div><h1>${esc(SITE_TITLE)}</h1><div class="sub">${esc(SITE_SUB)}</div>
     <button class="btn primary gbtn" id="gin">Google ile giriş yap</button>
     ${S.deep?`<p class="note" style="margin-top:16px;text-align:left">Size bir sınav bağlantısı paylaşıldı. Devam etmek için Google hesabınızla giriş yapın.</p>`:""}
+    ${S.deepGame?`<p class="note" style="margin-top:16px;text-align:left">Canlı yarışmaya katılmak için Google hesabınızla giriş yapın.</p>`:""}
     <p class="small muted" style="margin-top:16px">Yalnızca yöneticinin listeye eklediği hesaplar sınavlara erişebilir.</p>
   </div>${credit()}</div>`;
   document.getElementById("gin").onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>fail(e,"Giriş yapılamadı"));
@@ -464,16 +554,20 @@ function renderLogin(){
 function renderNoAccess(){
   $app.innerHTML=`<div class="center"><div class="card login"><div class="mark">?</div><h1>Erişim yok</h1>
     <p class="muted"><b>${esc(S.email)}</b> hesabı asistan listesinde bulunmuyor. Bu e-postayı sorumlu öğretim üyesine iletin.</p>
+    <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line-2);text-align:left"><b>Canlı yarışmaya mı katılıyorsunuz?</b><div class="small muted" style="margin:2px 0 8px">Ekrandaki 6 haneli PIN'i girin.</div>
+      <div class="row" style="flex-wrap:nowrap"><input type="text" id="pin" inputmode="numeric" maxlength="6" placeholder="PIN"><button class="btn primary" id="pinGo">Katıl</button></div></div>
     <button class="btn gbtn" id="out">Farklı hesapla giriş</button></div>${credit()}</div>`;
   document.getElementById("out").onclick=()=>signOut(auth);
+  const pg=()=>{ const v=document.getElementById("pin").value.replace(/\D/g,""); if(v.length!==6) return toast("6 haneli PIN girin",true); S.mode="player"; go("livePlay",{id:v}); };
+  document.getElementById("pinGo").onclick=pg; document.getElementById("pin").onkeydown=e=>{ if(e.key==="Enter") pg(); };
 }
 
 /* ---------------- yönlendirme & kabuk ---------------- */
-function go(view, params={}){ if(T && view!=="take") stopTake(); S.view=view; S.params=params; window.scrollTo(0,0); render(); }
+function go(view, params={}){ if(T && view!=="take") stopTake(); if(G) stopGame(); S.view=view; S.params=params; window.scrollTo(0,0); render(); }
 function shell(content, tabs){
   const name = S.user.displayName || S.email;
-  const role = S.mode==="admin" ? "Yönetici" : S.mode==="author" ? "Soru yazarı" : (S.resident?.kidem ? `Asistan · ${S.resident.kidem}. yıl` : "Asistan");
-  const other = S.mode==="resident" ? (S.isAdmin?"admin":S.isAuthor?"author":null) : (S.resident?"resident":null);
+  const role = S.mode==="admin" ? "Yönetici" : S.mode==="author" ? "Soru yazarı" : S.mode==="player" ? "Katılımcı" : (S.resident?.kidem ? `Asistan · ${S.resident.kidem}. yıl` : "Asistan");
+  const other = S.mode==="player" ? null : S.mode==="resident" ? (S.isAdmin?"admin":S.isAuthor?"author":null) : (S.resident?"resident":null);
   const switcher = other ? `<button class="btn sm" id="sw" data-to="${other}">${{admin:"Yönetici görünümü",author:"Soru yazarı görünümü",resident:"Asistan görünümü"}[other]}</button>` : "";
   return `<header class="top"><div class="top-in">
     <div class="brand"><div class="mark">AT</div><div>${esc(SITE_TITLE)}<small>${esc(SITE_SUB)}</small></div></div>
@@ -482,8 +576,8 @@ function shell(content, tabs){
   </div></header><main>${content}</main>${credit()}`;
 }
 function adminTabs(){
-  const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["residents","Asistanlar"],["settings","Ayarlar"]];
-  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents"}[S.view]||S.view;
+  const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["games","Oyunlar"],["residents","Asistanlar"],["settings","Ayarlar"]];
+  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents",liveHost:"games",jEdit:"games",jPlay:"games"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join("");
 }
 function bindShell(){
@@ -494,7 +588,13 @@ function bindShell(){
 async function render(){
   const v=S.view;
   try{
+    if(v==="livePlay") return await viewLivePlay(S.params.id);
+    if(S.mode==="player") return viewLiveJoin();
     if(S.mode==="admin"){
+      if(v==="games") return await viewGames();
+      if(v==="liveHost") return await viewLiveHost(S.params.id);
+      if(v==="jEdit") return await viewJEdit(S.params.id);
+      if(v==="jPlay") return await viewJPlay(S.params.id);
       if(v==="exams") return await viewExams();
       if(v==="examEdit") return await viewExamEdit(S.params.id,S.params.copyFrom);
       if(v==="results") return await viewResults(S.params.id);
@@ -507,13 +607,14 @@ async function render(){
       return await viewBank();
     } else {
       if(v==="practice") return await viewPractice();
+      if(v==="live") return viewLiveJoin();
       if(v==="home") return await viewHome();
       if(v==="take") return await viewTake(S.params.id);
       if(v==="review") return await viewReview(S.params.id);
     }
   }catch(e){ fail(e,"Sayfa yüklenemedi"); }
 }
-function tabsFor(){ return S.mode==="admin"?adminTabs():S.mode==="author"?`<button data-tab="bank" class="on">Soru Bankası</button>`:residentTabs(); }
+function tabsFor(){ return S.mode==="admin"?adminTabs():S.mode==="author"?`<button data-tab="bank" class="on">Soru Bankası</button>`:S.mode==="player"?`<button data-tab="join" class="on">Yarışmaya katıl</button>`:residentTabs(); }
 function paint(content, tabs){ $app.innerHTML=shell(content, tabs || tabsFor()); bindShell(); hydrateImages($app); mountCharts(); }
 
 /* ---------------- veri yükleme (yönetici) ---------------- */
@@ -1894,7 +1995,7 @@ async function viewResidents(){
    ASİSTAN — ANA SAYFA
    ===================================================================== */
 const myDevice=()=>{ let d=lsGet("acilDevice"); if(!d){ d="d"+newId(); lsSet("acilDevice",d); } return d; };
-function residentTabs(){ const t=[["home","Sınavlarım"],["practice","Alıştırma"]]; const cur={take:"home",review:"home"}[S.view]||S.view;
+function residentTabs(){ const t=[["home","Sınavlarım"],["practice","Alıştırma"],["live","Yarışma"]]; const cur={take:"home",review:"home",livePlay:"live"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join(""); }
 async function viewHome(){
   paint(`<div class="spinner"></div>`,residentTabs());
@@ -2265,6 +2366,309 @@ function endPractice(ses){
     <div class="row">${wrong.length?`<button class="btn primary" id="pRe">Yanlışları tekrar çöz (${wrong.length})</button>`:""}<button class="btn" id="pNew">Yeni alıştırma</button></div>`,residentTabs());
   document.getElementById("pRe")?.addEventListener("click",()=>startPractice(shuffle(wrong)));
   document.getElementById("pNew").onclick=()=>viewPractice();
+}
+
+/* =====================================================================
+   OYUNLAR — CANLI YARIŞMA (Kahoot tarzı) ve BİLGİ TAHTASI (Jeopardy tarzı)
+   ===================================================================== */
+// Yarışma cevap anahtarı: key[i] doğru şık indeksi (Firestore iç içe dizi kabul etmez)
+const gkey=(K,i)=>{ const k=K?.key?.[i]; return k==null?[]:(Array.isArray(k)?k:[k]); };
+const GCOL=[["#d21f3c","▲"],["#1b62c4","◆"],["#b98400","●"],["#23800f","■"],["#7c45b4","★"]];
+let G=null; // aktif oyun (abonelikler ve sayaç)
+function stopGame(){ if(G){ (G.unsubs||[]).forEach(u=>{ try{ u(); }catch(e){} }); clearInterval(G.tick); G=null; } document.body.classList.remove("game-mode"); }
+const gameLink=gid=>location.origin+location.pathname+"#oyun="+gid;
+const gameShell=(inner,cls="")=>`<div class="gm ${cls}">${inner}</div>`;
+function gameOpts(q,{reveal=null,dist=null,tap=false}={}){
+  const tot=dist?dist.reduce((s,v)=>s+v,0):0;
+  return `<div class="g-opts n${q.options.length}">${q.options.map((o,j)=>{ const ok=reveal&&reveal.includes(j);
+    return `<${tap?"button":"div"} class="g-opt ${reveal?(ok?"ok":"dim"):""}" style="--c:${GCOL[j][0]}" ${tap?`data-ch="${j}"`:""}><span class="g-shape">${GCOL[j][1]}</span><span class="g-txt">${esc(o)}</span>${dist?`<span class="g-cnt">${dist[j]||0}</span>`:""}${ok?`<span class="g-check">✓</span>`:""}</${tap?"button":"div"}>`; }).join("")}</div>`;
+}
+
+/* ---------- Oyunlar sayfası (yönetici) ---------- */
+async function viewGames(){
+  paint(`<div class="spinner"></div>`);
+  const [gs,js]=await Promise.all([getDocs(collection(db,"games")).catch(()=>({docs:[]})),getDocs(collection(db,"jeopardy")).catch(()=>({docs:[]}))]);
+  const games=gs.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0)).slice(0,15);
+  const boards=js.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0));
+  const GST={lobby:["Bekleme odası","info"],question:["Oynanıyor","acc"],reveal:["Oynanıyor","acc"],leader:["Oynanıyor","acc"],end:["Bitti",""]};
+  paint(`<div class="page-head"><div><h1>Oyunlar</h1><div class="sub">Soru bankanızdaki çoktan seçmeli sorularla derste veya eğitim toplantısında oynanan yarışmalar.</div></div></div>
+    <div class="grid2" style="align-items:start">
+      <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Canlı Yarışma</h2><button class="btn primary" id="newLive">+ Yeni yarışma</button></div>
+        <p class="small muted">Sorular ekrana yansıtılır; katılımcılar telefonlarından PIN veya QR kodla girip cevaplar. Doğru ve hızlı cevap daha çok puan getirir; her sorudan sonra puan tablosu çıkar.</p>
+        <div class="list" style="gap:0">${games.map(g=>{ const [l,c]=GST[g.state]||["",""]; return `<div class="tplrow"><div class="grow" style="min-width:0"><b>${esc(g.title)}</b> <span class="badge ${c}">${l}</span><div class="small muted">PIN ${g.id} · ${(g.questions||[]).length} soru · ${fmtDT(g.createdAt)}</div></div>
+          <div class="row" style="flex-wrap:nowrap">${g.state!=="end"?`<button class="btn sm primary" data-host="${g.id}">Aç</button>`:`<button class="btn sm" data-host="${g.id}">Sonuç</button>`}<button class="btn sm ghost danger" data-gdel="${g.id}">✕</button></div></div>`; }).join("")||`<div class="small muted">Henüz yarışma yok.</div>`}</div></div>
+      <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Bilgi Tahtası</h2><button class="btn primary" id="newJ">+ Yeni tahta</button></div>
+        <p class="small muted">Jeopardy tarzı: konu sütunları ve 100–500 puanlık sorular. Takımlar sırayla soru seçer; doğru cevap puan kazandırır, yanlış cevap puan kaybettirir. Tek ekrandan siz yönetirsiniz.</p>
+        <div class="list" style="gap:0">${boards.map(b=>{ const used=(b.cats||[]).flatMap(c=>c.cells||[]).filter(x=>x&&x.used).length, all=(b.cats||[]).flatMap(c=>c.cells||[]).filter(x=>x&&x.qid).length;
+          return `<div class="tplrow"><div class="grow" style="min-width:0"><b>${esc(b.title)}</b><div class="small muted">${(b.cats||[]).length} konu · ${(b.teams||[]).map(t=>esc(t.name)).join(", ")} · ${used}/${all} soru oynandı</div></div>
+          <div class="row" style="flex-wrap:nowrap"><button class="btn sm primary" data-jplay="${b.id}">Oyna</button><button class="btn sm" data-jedit="${b.id}">Düzenle</button><button class="btn sm ghost danger" data-jdel="${b.id}">✕</button></div></div>`; }).join("")||`<div class="small muted">Henüz tahta yok.</div>`}</div></div>
+    </div>`);
+  document.getElementById("newLive").onclick=liveSetupDlg;
+  document.getElementById("newJ").onclick=()=>go("jEdit",{id:null});
+  $app.querySelectorAll("[data-host]").forEach(b=>b.onclick=()=>go("liveHost",{id:b.dataset.host}));
+  $app.querySelectorAll("[data-jplay]").forEach(b=>b.onclick=()=>go("jPlay",{id:b.dataset.jplay}));
+  $app.querySelectorAll("[data-jedit]").forEach(b=>b.onclick=()=>go("jEdit",{id:b.dataset.jedit}));
+  $app.querySelectorAll("[data-gdel]").forEach(b=>b.onclick=async()=>{ if(!await confirmDlg("Yarışmayı sil","<p>Yarışma, katılımcılar ve cevaplar silinir.</p>","Sil",true)) return;
+    try{ const id=b.dataset.gdel; const [p,a]=await Promise.all([getDocs(collection(db,"games",id,"players")),getDocs(collection(db,"games",id,"answers"))]);
+      await batchOps([...p.docs.map(d=>bb=>bb.delete(d.ref)),...a.docs.map(d=>bb=>bb.delete(d.ref)),bb=>bb.delete(doc(db,"games",id)),bb=>bb.delete(doc(db,"gameKeys",id))]); toast("Silindi"); viewGames(); }catch(e){ fail(e); } });
+  $app.querySelectorAll("[data-jdel]").forEach(b=>b.onclick=async()=>{ if(!await confirmDlg("Tahtayı sil","<p>Tahta ve skorlar silinir.</p>","Sil",true)) return; try{ await deleteDoc(doc(db,"jeopardy",b.dataset.jdel)); toast("Silindi"); viewGames(); }catch(e){ fail(e); } });
+}
+
+/* ---------- Canlı yarışma: kurulum ---------- */
+async function liveSetupDlg(){
+  await loadBank();
+  const pool=q=>approvedQ(q)&&q.type!=="open"&&!q.caseId&&(q.options||[]).length>=2;
+  const m=modal(`<div class="modal-h"><h2>Yeni canlı yarışma</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="field"><label class="f">Başlık</label><input type="text" id="lt" value="Canlı Yarışma · ${new Date().toLocaleDateString("tr-TR")}"></div>
+    <div class="grid2"><div class="field"><label class="f">Havuz</label><select id="lp"><option value="">Tüm havuzlar</option>${poolList().map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join("")}</select></div>
+      <div class="field"><label class="f">Konu</label><select id="lk"></select></div></div>
+    <div class="grid3"><div class="field"><label class="f">Soru sayısı</label><input type="number" id="ln" min="1" max="60" value="10"></div>
+      <div class="field"><label class="f">Soru başına süre</label><select id="ld"><option value="10">10 sn</option><option value="20" selected>20 sn</option><option value="30">30 sn</option><option value="45">45 sn</option><option value="60">60 sn</option><option value="90">90 sn</option></select></div>
+      <div class="field"><label class="f">Uygun soru</label><div id="lc" style="padding:8px 0;font-weight:600"></div></div></div>
+    <div class="field"><label class="f">Kimler katılabilir?</label>
+      <label class="check" style="margin-bottom:6px"><input type="radio" name="la" value="res" checked> Yalnız asistan listesindekiler</label>
+      <label class="check"><input type="radio" name="la" value="all"> <span>Google hesabıyla giriş yapan herkes <span class="small muted">(ör. stajyer öğrenciler, kurs katılımcıları)</span></span></label></div>
+    <div class="small muted">Yalnız onaylı, vakaya bağlı olmayan çoktan seçmeli sorular kullanılır; sorular ve şıklar karıştırılır.</div></div>
+    <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="lGo">Oluştur ve aç</button></div>`);
+  const cand=()=>{ const p=m.el.querySelector("#lp").value, k=m.el.querySelector("#lk").value; return S.questions.filter(q=>pool(q)&&(!p||poolOf(q)===p)&&(!k||q.topic===k)); };
+  const fillTopics=()=>{ const p=m.el.querySelector("#lp").value; const ts=[...new Set(S.questions.filter(q=>pool(q)&&(!p||poolOf(q)===p)).map(q=>q.topic).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"tr"));
+    m.el.querySelector("#lk").innerHTML=`<option value="">Tüm konular</option>`+ts.map(t=>`<option>${esc(t)}</option>`).join(""); upd(); };
+  const upd=()=>{ m.el.querySelector("#lc").textContent=cand().length; };
+  m.el.querySelector("#lp").onchange=fillTopics; m.el.querySelector("#lk").onchange=upd; fillTopics();
+  m.el.querySelector("#lGo").onclick=async()=>{
+    const c=cand(), n=Math.min(60,parseInt(m.el.querySelector("#ln").value,10)||0); if(!n) return toast("Soru sayısı girin",true); if(!c.length) return toast("Uygun soru yok",true);
+    const pick=shuffle(c).slice(0,n), questions=[], key=[], expl=[];
+    pick.forEach(q=>{ const perm=shuffle(q.options.map((_,j)=>j)); questions.push({qid:q.id,stem:q.stem,options:perm.map(j=>q.options[j]),...(q.imageId?{imageId:q.imageId}:{}),topic:q.topic||""});
+      key.push(perm.indexOf(q.correct)); expl.push(q.explanation||""); });
+    try{ m.el.querySelector("#lGo").disabled=true;
+      let gid; for(let i=0;i<20;i++){ gid=String(100000+Math.floor(Math.random()*900000)); const ex=await getDoc(doc(db,"games",gid)); if(!ex.exists()) break; }
+      await setDoc(doc(db,"gameKeys",gid),{key,expl});
+      await setDoc(doc(db,"games",gid),{title:m.el.querySelector("#lt").value.trim()||"Canlı Yarışma",state:"lobby",qIndex:-1,qDuration:Number(m.el.querySelector("#ld").value),
+        audience:m.el.querySelector("[name=la]:checked").value,questions,host:S.email,createdAt:serverTimestamp()});
+      m.close(); go("liveHost",{id:gid}); }catch(e){ fail(e); m.el.querySelector("#lGo").disabled=false; }
+  };
+}
+
+/* ---------- Canlı yarışma: sunucu ekranı ---------- */
+async function viewLiveHost(gid){
+  stopGame(); document.body.classList.add("game-mode");
+  $app.innerHTML=gameShell(`<div class="spinner"></div>`);
+  const ks=await getDoc(doc(db,"gameKeys",gid)); const KEY=ks.exists()?ks.data():{key:[],expl:[]};
+  G={gid,unsubs:[],game:null,players:[],answers:[],key:KEY,localStart:0,busy:false};
+  const draw=()=>{ if(!G||!G.game) return; const g=G.game, Q=g.questions||[], q=Q[g.qIndex], P=G.players;
+    const top=`<div class="g-top"><button class="g-x" id="gx">← Oyunlar</button><b>${esc(g.title)}</b><span>PIN <b class="mono">${gid}</b> · ${P.length} oyuncu</span></div>`;
+    let body="";
+    if(g.state==="lobby"){
+      body=`<div class="g-lobby"><div class="g-join"><div class="g-join-l">Telefonunuzla katılın</div><div class="g-pin mono">${gid}</div><div class="g-url">${esc(location.host+location.pathname)} → “Yarışma” sekmesi → PIN</div></div>
+        <div class="g-qr">${qrSVG(gameLink(gid),230)}<div class="small">veya QR kodu okutun</div></div></div>
+        <div class="g-plist">${P.map(p=>`<span class="g-pl">${esc(p.name)}</span>`).join("")||`<span class="g-wait">Oyuncular bekleniyor…</span>`}</div>
+        <div class="g-act"><button class="g-btn" id="gStart" ${P.length?"":"disabled"}>Başlat (${Q.length} soru)</button></div>`;
+    } else if(g.state==="question"){
+      const ans=G.answers.filter(a=>a.qIndex===g.qIndex).length;
+      body=`<div class="g-qh"><span>Soru ${g.qIndex+1} / ${Q.length}</span><span class="g-timer" id="gT">${g.qDuration}</span><span>${ans} / ${P.length} cevap</span></div>
+        <div class="g-stem">${esc(q.stem)}</div>${q.imageId?`<div class="g-img">${imgTag(q.imageId)}</div>`:""}${gameOpts(q)}
+        <div class="g-act"><button class="g-btn ghost" id="gReveal">Süreyi bitir</button></div>`;
+    } else if(g.state==="reveal"){
+      const rv=g.reveal||{};
+      body=`<div class="g-qh"><span>Soru ${g.qIndex+1} / ${Q.length}</span><span>${rv.n||0} cevap · ${rv.ok||0} doğru</span></div>
+        <div class="g-stem">${esc(q.stem)}</div>${gameOpts(q,{reveal:rv.correct||[],dist:rv.dist||[]})}
+        ${G.key.expl?.[g.qIndex]?`<div class="g-expl">${esc(G.key.expl[g.qIndex])}</div>`:""}
+        <div class="g-act"><button class="g-btn" id="gLead">Puan tablosu →</button></div>`;
+    } else if(g.state==="leader"){
+      const s=[...P].sort((a,b)=>(b.score||0)-(a.score||0)), last=g.qIndex>=Q.length-1;
+      body=`<h2 class="g-h">Puan tablosu</h2><div class="g-lead">${s.slice(0,8).map((p,i)=>`<div class="g-lr"><span class="g-rank">${i+1}</span><span class="g-ln">${esc(p.name)}</span>${p.last&&p.last.q===g.qIndex&&p.last.pts?`<span class="g-delta">+${p.last.pts}</span>`:""}<span class="g-ls">${p.score||0}</span></div>`).join("")}</div>
+        <div class="g-act"><button class="g-btn" id="gNext">${last?"Sonuçları göster":"Sonraki soru →"}</button></div>`;
+    } else {
+      const s=[...P].sort((a,b)=>(b.score||0)-(a.score||0));
+      body=`<h2 class="g-h">🏆 Sonuçlar</h2><div class="g-pod">${[1,0,2].map(i=>s[i]?`<div class="g-pd p${i+1}"><div class="g-pn">${esc(s[i].name)}</div><div class="g-ps">${s[i].score||0}</div><div class="g-pb">${i+1}</div></div>`:"").join("")}</div>
+        <div class="g-lead small">${s.slice(3,15).map((p,i)=>`<div class="g-lr"><span class="g-rank">${i+4}</span><span class="g-ln">${esc(p.name)}</span><span class="g-ls">${p.score||0}</span></div>`).join("")}</div>
+        <div class="g-act"><button class="g-btn ghost" id="gXls">Excel'e aktar</button><button class="g-btn" id="gx2">Oyunlar'a dön</button></div>`;
+    }
+    $app.innerHTML=gameShell(top+body,"host");
+    hydrateImages($app);
+    const on=(id,f)=>document.getElementById(id)?.addEventListener("click",f);
+    on("gx",()=>go("games")); on("gx2",()=>go("games"));
+    on("gStart",()=>startQ(0)); on("gReveal",reveal); on("gLead",()=>updateDoc(doc(db,"games",gid),{state:"leader"}).catch(fail));
+    on("gNext",()=>g.qIndex>=Q.length-1?updateDoc(doc(db,"games",gid),{state:"end"}).catch(fail):startQ(g.qIndex+1));
+    on("gXls",()=>liveExcel(gid,G.game,G.players,G.key));
+  };
+  const startQ=async i=>{ if(G.busy) return; G.busy=true; try{ G.localStart=Date.now(); await updateDoc(doc(db,"games",gid),{state:"question",qIndex:i,qStartAt:serverTimestamp(),reveal:null}); }catch(e){ fail(e); } G.busy=false; };
+  const reveal=async()=>{ if(!G||G.busy||G.game.state!=="question") return; G.busy=true;
+    try{ const g=G.game, i=g.qIndex, q=g.questions[i], corr=gkey(G.key,i), t0=tsMs(g.qStartAt)||G.localStart, dur=g.qDuration*1000;
+      const ans=(await getDocs(collection(db,"games",gid,"answers"))).docs.map(d=>d.data()).filter(a=>a.qIndex===i);
+      const dist=q.options.map((_,j)=>ans.filter(a=>a.choice===j).length);
+      const byUid={}; ans.forEach(a=>byUid[a.uid]=a);
+      const ops=G.players.map(p=>{ const a=byUid[p.uid]; const ok=!!a&&corr.includes(a.choice);
+        const el=a?Math.max(0,(tsMs(a.at)||t0)-t0):dur; const pts=ok?Math.round(1000*(1-0.5*Math.min(1,el/dur))):0;
+        return b=>b.update(doc(db,"games",gid,"players",p.uid),{score:(p.score||0)+pts,last:{q:i,pts,ok,choice:a?a.choice:null}}); });
+      await batchOps([...ops,b=>b.update(doc(db,"games",gid),{state:"reveal",reveal:{q:i,correct:corr,dist,n:ans.length,ok:ans.filter(a=>corr.includes(a.choice)).length}})]);
+    }catch(e){ fail(e); } G.busy=false; };
+  G.unsubs.push(onSnapshot(doc(db,"games",gid),s=>{ if(!G) return; if(!s.exists()){ toast("Yarışma bulunamadı",true); return go("games"); }
+    const prev=G.game; G.game={id:gid,...s.data()}; if(G.game.state==="question"&&(!prev||prev.qIndex!==G.game.qIndex||prev.state!=="question")&&!G.localStart) G.localStart=Date.now(); draw(); }));
+  G.unsubs.push(onSnapshot(collection(db,"games",gid,"players"),s=>{ if(!G) return; G.players=s.docs.map(d=>({uid:d.id,...d.data()})); draw(); }));
+  G.unsubs.push(onSnapshot(collection(db,"games",gid,"answers"),s=>{ if(!G) return; G.answers=s.docs.map(d=>d.data());
+    const g=G.game; if(g&&g.state==="question"){ const n=G.answers.filter(a=>a.qIndex===g.qIndex).length; const el=document.querySelector(".g-qh span:last-child"); if(el) el.textContent=`${n} / ${G.players.length} cevap`;
+      if(G.players.length&&n>=G.players.length) setTimeout(reveal,600); } }));
+  G.tick=setInterval(()=>{ if(!G||!G.game||G.game.state!=="question") { if(G) G.localStart=G.game?.state==="question"?G.localStart:0; return; }
+    const left=Math.ceil((G.localStart+G.game.qDuration*1000-Date.now())/1000); const el=document.getElementById("gT"); if(el){ el.textContent=Math.max(0,left); el.classList.toggle("low",left<=5); }
+    if(left<=0) reveal(); },250);
+}
+async function liveExcel(gid,g,players,key){
+  if(!window.XLSX) return toast("Excel kütüphanesi yüklenemedi",true);
+  const ans=(await getDocs(collection(db,"games",gid,"answers"))).docs.map(d=>d.data());
+  const s=[...players].sort((a,b)=>(b.score||0)-(a.score||0));
+  const s1=s.map((p,i)=>({"Sıra":i+1,"Ad":p.name,"E-posta":p.email||"","Puan":p.score||0,"Doğru":ans.filter(a=>a.uid===p.uid&&gkey(key,a.qIndex).includes(a.choice)).length,"Cevaplanan":ans.filter(a=>a.uid===p.uid).length}));
+  const s2=(g.questions||[]).map((q,i)=>{ const a=ans.filter(x=>x.qIndex===i); const ok=a.filter(x=>gkey(key,i).includes(x.choice)).length; const t=a.map(x=>(tsMs(x.at)||0)-(tsMs(g.qStartAt)||0));
+    return {"No":i+1,"Konu":q.topic||"","Soru":q.stem,"Doğru cevap":gkey(key,i).map(j=>q.options[j]).join(" / "),"Cevaplayan":a.length,"Doğru":ok,"Doğru oranı %":a.length?Math.round(ok/a.length*100):""}; });
+  const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s1.length?s1:[{"Ad":"—"}]),"Sıralama"); XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s2),"Sorular");
+  XLSX.writeFile(wb,`${g.title.replace(/[\\/:*?"<>|]/g,"_")} - sonuçlar.xlsx`);
+}
+
+/* ---------- Canlı yarışma: oyuncu (telefon) ---------- */
+function viewLiveJoin(){
+  paint(`<div class="page-head"><div><h1>Yarışmaya katıl</h1><div class="sub">Ekrandaki 6 haneli PIN'i girin.</div></div></div>
+    <div class="card pad" style="max-width:420px"><input type="text" id="pin" inputmode="numeric" maxlength="6" placeholder="PIN" class="pin-in"><button class="btn primary gbtn" id="pinGo">Katıl</button></div>`);
+  const goPin=()=>{ const v=document.getElementById("pin").value.replace(/\D/g,""); if(v.length!==6) return toast("6 haneli PIN girin",true); go("livePlay",{id:v}); };
+  document.getElementById("pinGo").onclick=goPin; document.getElementById("pin").onkeydown=e=>{ if(e.key==="Enter") goPin(); }; document.getElementById("pin").focus();
+}
+async function viewLivePlay(gid){
+  stopGame(); document.body.classList.add("game-mode");
+  $app.innerHTML=gameShell(`<div class="spinner"></div>`,"player");
+  const uid=S.user.uid;
+  let g; try{ const s=await getDoc(doc(db,"games",gid)); if(!s.exists()) throw 0; g=s.data(); }
+  catch(e){ stopGame(); toast("Bu PIN ile yarışma bulunamadı veya katılma izniniz yok",true); return go(S.mode==="player"?"join":S.mode==="resident"?"live":"games"); }
+  const me=await getDoc(doc(db,"games",gid,"players",uid)).catch(()=>null);
+  if(!me?.exists()){
+    if(g.state==="end"){ $app.innerHTML=gameShell(`<div class="g-pmsg"><h2>Yarışma bitti</h2><button class="g-btn" id="bk">Geri</button></div>`,"player"); document.getElementById("bk").onclick=()=>{ stopGame(); go(S.mode==="player"?"join":"live"); }; return; }
+    const nm=S.resident?.name||S.user.displayName||S.email.split("@")[0];
+    $app.innerHTML=gameShell(`<div class="g-pmsg"><div class="small">${esc(g.title)}</div><h2>Katılmak için adınız</h2><input type="text" id="nm" maxlength="30" value="${esc(nm)}" class="pin-in" style="letter-spacing:0;font-size:20px"><button class="g-btn" id="jn">Katıl</button></div>`,"player");
+    await new Promise(res=>{ document.getElementById("jn").onclick=async()=>{ const n=document.getElementById("nm").value.trim(); if(!n) return toast("Ad girin",true);
+      try{ await setDoc(doc(db,"games",gid,"players",uid),{uid,name:n,email:S.email,score:0,joinedAt:serverTimestamp()}); res(); }catch(e){ fail(e,"Katılınamadı"); } }; });
+  }
+  G={gid,unsubs:[],game:null,me:null,answered:{},seenQ:-1,qLocal:0};
+  const draw=()=>{ if(!G||!G.game) return; const g=G.game, q=(g.questions||[])[g.qIndex], me=G.me||{};
+    const head=`<div class="g-ptop"><span>${esc(me.name||"")}</span><span class="mono">${me.score||0} puan</span></div>`;
+    let body="";
+    if(g.state==="lobby") body=`<div class="g-pmsg"><div class="g-big">✓</div><h2>Katıldınız!</h2><p>Ekrana bakın; yarışma birazdan başlıyor.</p></div>`;
+    else if(g.state==="question"){
+      if(G.answered[g.qIndex]!=null) body=`<div class="g-pmsg"><div class="g-big" style="color:${GCOL[G.answered[g.qIndex]][0]}">${GCOL[G.answered[g.qIndex]][1]}</div><h2>Cevabınız alındı</h2><p>Diğerleri bekleniyor…</p></div>`;
+      else body=`<div class="g-pq"><div class="g-ph"><span>Soru ${g.qIndex+1}</span><span class="g-timer sm" id="gT"></span></div><div class="g-pstem">${esc(q.stem)}</div>${gameOpts(q,{tap:true})}</div>`;
+    } else if(g.state==="reveal"||g.state==="leader"){
+      const l=me.last&&me.last.q===g.qIndex?me.last:null, corr=(g.reveal?.correct||[]).map(j=>q.options[j]);
+      if(g.state==="reveal") body=`<div class="g-pmsg ${l?.ok?"ok":"bad"}"><div class="g-big">${l?.ok?"✓":"✗"}</div><h2>${l?.ok?"Doğru!":l&&l.choice!=null?"Yanlış":"Süre doldu"}</h2>${l?.ok?`<div class="g-gain">+${l.pts}</div>`:`<p>Doğru cevap: <b>${esc(corr.join(" / "))}</b></p>`}</div>`;
+      else body=`<div class="g-pmsg"><h2>Sıralamanız</h2><div class="g-big mono" id="rk">…</div><p>${me.score||0} puan</p></div>`;
+    } else body=`<div class="g-pmsg"><h2>Yarışma bitti</h2><div class="g-big mono" id="rk">…</div><p>${me.score||0} puan</p><button class="g-btn" id="bk">Kapat</button></div>`;
+    $app.innerHTML=gameShell(head+body,"player");
+    hydrateImages($app);
+    $app.querySelectorAll("[data-ch]").forEach(b=>b.onclick=async()=>{ const ch=Number(b.dataset.ch), i=g.qIndex; if(G.answered[i]!=null) return; G.answered[i]=ch; draw();
+      try{ await setDoc(doc(db,"games",gid,"answers",i+"_"+uid),{uid,qIndex:i,choice:ch,at:serverTimestamp()}); }catch(e){ delete G.answered[i]; toast("Cevap gönderilemedi (süre dolmuş olabilir)",true); draw(); } });
+    document.getElementById("bk")?.addEventListener("click",()=>{ stopGame(); go(S.mode==="player"?"join":"live"); });
+    if(document.getElementById("rk")) getDocs(collection(db,"games",gid,"players")).then(s=>{ const arr=s.docs.map(d=>d.data()).sort((a,b)=>(b.score||0)-(a.score||0)); const r=arr.findIndex(p=>p.uid===uid)+1; const el=document.getElementById("rk"); if(el) el.textContent=`${r} / ${arr.length}`; }).catch(()=>{});
+  };
+  G.unsubs.push(onSnapshot(doc(db,"games",gid),s=>{ if(!G||!s.exists()) return; G.game=s.data(); if(G.game.state==="question"&&G.seenQ!==G.game.qIndex){ G.seenQ=G.game.qIndex; G.qLocal=Date.now(); } draw(); }));
+  G.unsubs.push(onSnapshot(doc(db,"games",gid,"players",uid),s=>{ if(!G) return; G.me=s.exists()?s.data():null; draw(); }));
+  G.tick=setInterval(()=>{ const el=document.getElementById("gT"); if(!el||!G?.game) return; const left=Math.ceil((G.qLocal+G.game.qDuration*1000-Date.now())/1000); el.textContent=Math.max(0,left); el.classList.toggle("low",left<=5); },250);
+}
+
+/* ---------- Bilgi tahtası: düzenleme ---------- */
+const J_VALUES=[100,200,300,400,500];
+function jCell(q,v){ return q?{qid:q.id,value:v,stem:q.stem,options:q.options,correct:q.correct,explanation:q.explanation||"",...(q.imageId?{imageId:q.imageId}:{}),used:false}:{qid:null,value:v,used:false}; }
+async function viewJEdit(id){
+  paint(`<div class="spinner"></div>`);
+  await loadBank(); if(!S.qhist) computeQHist().catch(()=>{});
+  let B={title:"Bilgi Tahtası",teams:[{name:"Takım 1",score:0},{name:"Takım 2",score:0},{name:"Takım 3",score:0}],pool:"",values:[...J_VALUES],cats:[],log:[]};
+  if(id){ const s=await getDoc(doc(db,"jeopardy",id)); if(s.exists()) B={...B,...s.data()}; }
+  const okQ=q=>approvedQ(q)&&q.type!=="open"&&!q.caseId&&(q.options||[]).length>=2&&(!B.pool||poolOf(q)===B.pool);
+  const topicsAll=()=>[...new Set(S.questions.filter(okQ).map(q=>q.topic).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"tr"));
+  if(!B.cats.length) B.cats=topicsAll().slice(0,5).map(t=>({title:t,topic:t,cells:[]}));
+  const fill=ci=>{ const used=new Set(B.cats.flatMap((c,i)=>i===ci?[]:(c.cells||[]).map(x=>x.qid)).filter(Boolean)); const c=B.cats[ci];
+    let cand=shuffle(S.questions.filter(q=>okQ(q)&&q.topic===c.topic&&!used.has(q.id)));
+    if(S.qhist) cand.sort((a,b)=>(lastHist(b.id)?.p??50)-(lastHist(a.id)?.p??50)); // kolaydan zora
+    c.cells=B.values.map((v,r)=>jCell(cand[r],v)); };
+  const draw=()=>{
+    $app.querySelector("main").innerHTML=`<div class="page-head"><div><button class="btn sm ghost" id="bk" style="margin-left:-8px">← Oyunlar</button><h1>${id?"Tahtayı düzenle":"Yeni bilgi tahtası"}</h1>
+        <div class="sub">Her sütun bir konu; hücreler soru bankasından otomatik dolar${S.qhist?" (geçmiş sınav verisine göre kolaydan zora)":""}. Hücreye tıklayarak soruyu değiştirebilirsiniz.</div></div>
+        <div class="row"><button class="btn" id="jSave">Kaydet</button><button class="btn primary" id="jPlay">Kaydet ve oyna</button></div></div>
+      <div class="grid3" style="margin-bottom:12px">
+        <div class="field"><label class="f">Başlık</label><input type="text" id="jt" value="${esc(B.title)}"></div>
+        <div class="field"><label class="f">Havuz</label><select id="jp"><option value="">Tüm havuzlar</option>${poolList().map(p=>`<option value="${p.id}" ${B.pool===p.id?"selected":""}>${esc(p.name)}</option>`).join("")}</select></div>
+        <div class="field"><label class="f">Takımlar (her satıra bir takım)</label><textarea id="jtm" style="min-height:60px">${esc(B.teams.map(t=>t.name).join("\n"))}</textarea></div></div>
+      <div class="row" style="margin-bottom:10px"><button class="btn sm" id="jAdd" ${B.cats.length>=6?"disabled":""}>+ Konu sütunu</button><button class="btn sm" id="jRe">Tüm hücreleri yeniden doldur</button><span class="small muted">En fazla 6 sütun · 5 satır (100–500 puan)</span></div>
+      <div class="jb edit" style="--n:${B.cats.length}">
+        ${B.cats.map((c,ci)=>`<div class="jc"><select data-ct="${ci}">${topicsAll().map(t=>`<option ${t===c.topic?"selected":""}>${esc(t)}</option>`).join("")}</select>
+          <input type="text" data-cn="${ci}" value="${esc(c.title)}" placeholder="Sütun başlığı"><button class="btn sm ghost danger" data-cx="${ci}" title="Sütunu kaldır">✕</button></div>`).join("")}
+        ${B.values.map((v,r)=>B.cats.map((c,ci)=>{ const x=c.cells?.[r]; return `<button class="jcell e ${x?.qid?"":"empty"}" data-cell="${ci}_${r}"><b>${v}</b><span>${x?.qid?esc(x.stem.slice(0,70)):"Soru yok"}</span></button>`; }).join("")).join("")}
+      </div>`;
+    const $=id=>document.getElementById(id);
+    const sync=()=>{ B.title=$("jt").value.trim()||"Bilgi Tahtası"; const names=$("jtm").value.split("\n").map(s=>s.trim()).filter(Boolean).slice(0,8);
+      B.teams=names.map(n=>({name:n,score:(B.teams.find(t=>t.name===n)||{}).score||0})); };
+    $("bk").onclick=()=>go("games");
+    $("jp").onchange=e=>{ sync(); B.pool=e.target.value; B.cats.forEach((c,i)=>{ if(!topicsAll().includes(c.topic)) c.topic=topicsAll()[0]||""; fill(i); }); draw(); };
+    $("jAdd").onclick=()=>{ sync(); const t=topicsAll().find(t=>!B.cats.some(c=>c.topic===t))||topicsAll()[0]; if(!t) return toast("Uygun soru yok",true); B.cats.push({title:t,topic:t,cells:[]}); fill(B.cats.length-1); draw(); };
+    $("jRe").onclick=()=>{ sync(); B.cats.forEach((_,i)=>fill(i)); draw(); };
+    document.querySelectorAll("[data-ct]").forEach(s=>s.onchange=()=>{ sync(); const c=B.cats[s.dataset.ct]; if(c.title===c.topic) c.title=s.value; c.topic=s.value; fill(Number(s.dataset.ct)); draw(); });
+    document.querySelectorAll("[data-cn]").forEach(s=>s.oninput=()=>{ B.cats[s.dataset.cn].title=s.value; });
+    document.querySelectorAll("[data-cx]").forEach(b=>b.onclick=()=>{ sync(); B.cats.splice(Number(b.dataset.cx),1); draw(); });
+    document.querySelectorAll("[data-cell]").forEach(b=>b.onclick=()=>{ sync(); const [ci,r]=b.dataset.cell.split("_").map(Number); const c=B.cats[ci];
+      const used=new Set(B.cats.flatMap(cc=>(cc.cells||[]).map(x=>x.qid)).filter(Boolean));
+      const list=S.questions.filter(q=>okQ(q)&&q.topic===c.topic&&(!used.has(q.id)||c.cells[r]?.qid===q.id));
+      const m=modal(`<div class="modal-h"><h2>${esc(c.title)} · ${B.values[r]} puan</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b"><div class="pick">${list.map(q=>{ const l=lastHist(q.id);
+        return `<label class="pr"><input type="radio" name="jq" value="${q.id}" ${c.cells[r]?.qid===q.id?"checked":""}><span class="t">${esc(q.stem)}</span>${l?`<span class="badge">%${Math.round(l.p)} doğru</span>`:""}</label>`; }).join("")||`<div class="empty">Bu konuda kullanılmamış soru yok.</div>`}</div></div>
+        <div class="modal-f"><button class="btn danger" id="jqClr">Hücreyi boşalt</button><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="jqOk">Seç</button></div>`);
+      m.el.querySelector("#jqOk").onclick=()=>{ const v=m.el.querySelector("[name=jq]:checked")?.value; if(!v) return; c.cells[r]=jCell(S.questions.find(q=>q.id===v),B.values[r]); m.close(); draw(); };
+      m.el.querySelector("#jqClr").onclick=()=>{ c.cells[r]=jCell(null,B.values[r]); m.close(); draw(); }; });
+    const save=async play=>{ sync(); if(!B.cats.length) return toast("En az bir konu sütunu ekleyin",true); if(B.teams.length<1) return toast("En az bir takım girin",true);
+      try{ const jid=id||newId(); const data={...B,updatedAt:serverTimestamp(),...(id?{}:{createdAt:serverTimestamp()})}; await setDoc(doc(db,"jeopardy",jid),data,{merge:true}); toast("Tahta kaydedildi");
+        if(play) go("jPlay",{id:jid}); else if(!id) go("jEdit",{id:jid}); }catch(e){ fail(e); } };
+    $("jSave").onclick=()=>save(false); $("jPlay").onclick=()=>save(true);
+  };
+  B.cats.forEach((c,i)=>{ if(!c.cells||!c.cells.length) fill(i); });
+  paint(`<div></div>`); draw();
+}
+
+/* ---------- Bilgi tahtası: oyun ekranı ---------- */
+async function viewJPlay(id){
+  stopGame(); document.body.classList.add("game-mode");
+  $app.innerHTML=gameShell(`<div class="spinner"></div>`);
+  const s=await getDoc(doc(db,"jeopardy",id)); if(!s.exists()){ stopGame(); toast("Tahta bulunamadı",true); return go("games"); }
+  const B=s.data(); B.log=B.log||[]; G={unsubs:[]};
+  const persist=()=>updateDoc(doc(db,"jeopardy",id),{teams:B.teams,cats:B.cats,log:B.log.slice(-200)}).catch(e=>console.error(e));
+  const allCells=()=>B.cats.flatMap(c=>c.cells||[]).filter(x=>x&&x.qid);
+  const draw=()=>{
+    const done=allCells().every(x=>x.used), sorted=[...B.teams].sort((a,b)=>b.score-a.score);
+    $app.innerHTML=gameShell(`<div class="g-top"><button class="g-x" id="gx">← Oyunlar</button><b>${esc(B.title)}</b><span><button class="g-x" id="jUndo" ${B.log.length?"":"disabled"}>↶ Geri al</button> <button class="g-x" id="jReset">Sıfırla</button></span></div>
+      ${done?`<h2 class="g-h">🏆 ${esc(sorted[0]?.name||"")} kazandı!</h2>`:""}
+      <div class="jb play" style="--n:${B.cats.length}">${B.cats.map(c=>`<div class="jh">${esc(c.title)}</div>`).join("")}
+        ${B.values.map((v,r)=>B.cats.map((c,ci)=>{ const x=c.cells?.[r]; return x?.qid&&!x.used?`<button class="jcell" data-q="${ci}_${r}">${x.value}</button>`:`<div class="jcell used"></div>`; }).join("")).join("")}</div>
+      <div class="jteams">${B.teams.map((t,ti)=>`<div class="jt ${done&&t===sorted[0]?"win":""}"><div class="jtn">${esc(t.name)}</div><div class="jts mono ${t.score<0?"neg":""}">${t.score}</div>
+        <div class="jtb"><button data-adj="${ti}_-100">−100</button><button data-adj="${ti}_100">+100</button></div></div>`).join("")}</div>`,"jeo");
+    const on=(i,f)=>document.getElementById(i)?.addEventListener("click",f);
+    on("gx",()=>go("games"));
+    on("jUndo",()=>{ const l=B.log.pop(); if(!l) return; B.teams[l.t]&&(B.teams[l.t].score-=l.d); if(l.close){ const x=B.cats[l.ci]?.cells?.[l.r]; if(x) x.used=false; } persist(); draw(); });
+    on("jReset",async()=>{ if(!await confirmDlg("Tahtayı sıfırla","<p>Tüm skorlar sıfırlanır ve sorular yeniden açılır.</p>","Sıfırla",true)) return; B.teams.forEach(t=>t.score=0); allCells().forEach(x=>x.used=false); B.log=[]; persist(); draw(); });
+    $app.querySelectorAll("[data-adj]").forEach(b=>b.onclick=()=>{ const [t,d]=b.dataset.adj.split("_").map(Number); B.teams[t].score+=d; B.log.push({t,d}); persist(); draw(); });
+    $app.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>openQ(...b.dataset.q.split("_").map(Number)));
+  };
+  const openQ=(ci,r)=>{ const c=B.cats[ci], x=c.cells[r]; let shown=false, opts=true;
+    const ov=document.createElement("div"); ov.className="jq-ov"; document.body.appendChild(ov);
+    const close=used=>{ ov.remove(); if(used){ x.used=true; persist(); } draw(); };
+    const render=()=>{ ov.innerHTML=`<div class="jq"><div class="jq-h"><span>${esc(c.title)}</span><b class="mono">${x.value}</b></div>
+      <div class="jq-stem">${esc(x.stem)}</div>${x.imageId?`<div class="g-img">${imgTag(x.imageId)}</div>`:""}
+      ${opts?`<div class="jq-opts">${x.options.map((o,j)=>`<div class="jq-o ${shown?(j===x.correct?"ok":"dim"):""}"><b>${LET[j]}</b> ${esc(o)}</div>`).join("")}</div>`:shown?`<div class="jq-o ok"><b>Cevap:</b> ${esc(x.options[x.correct])}</div>`:""}
+      ${shown&&x.explanation?`<div class="g-expl">${esc(x.explanation)}</div>`:""}
+      <div class="jq-act">${shown?"":`<button class="g-btn" id="qShow">Cevabı göster</button>`}<button class="g-btn ghost" id="qOpt">${opts?"Şıkları gizle":"Şıkları göster"}</button></div>
+      <div class="jq-teams">${B.teams.map((t,ti)=>`<div class="jq-t"><span>${esc(t.name)} <b class="mono">${t.score}</b></span><button class="ok" data-w="${ti}_1">✓ +${x.value}</button><button class="bad" data-w="${ti}_-1">✗ −${x.value}</button></div>`).join("")}</div>
+      <div class="jq-act"><button class="g-btn ghost" id="qNone">Kimse bilemedi · kapat</button><button class="g-btn ghost" id="qBack">Vazgeç (soruyu açık bırak)</button></div></div>`;
+      hydrateImages(ov);
+      ov.querySelector("#qShow")?.addEventListener("click",()=>{ shown=true; render(); });
+      ov.querySelector("#qOpt").onclick=()=>{ opts=!opts; render(); };
+      ov.querySelector("#qNone").onclick=()=>close(true); ov.querySelector("#qBack").onclick=()=>close(false);
+      ov.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{ const [t,s]=b.dataset.w.split("_").map(Number); const d=s*x.value; B.teams[t].score+=d;
+        if(s>0){ B.log.push({t,d,ci,r,close:true}); close(true); } else { B.log.push({t,d}); persist(); render(); } });
+    };
+    render();
+  };
+  draw();
 }
 
 </script>
