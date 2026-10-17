@@ -35,6 +35,7 @@ service cloud.firestore {
     // Soru bankası ve vakalar: yalnız yönetici
     match /questions/{id} { allow read, write: if isAdmin(); }
     match /cases/{id}     { allow read, write: if isAdmin(); }
+    match /pools/{id}     { allow read, write: if isAdmin(); }
 
     // Görseller: asistan yalnız kimliğini bildiği görseli açabilir, listeleyemez
     match /images/{id} {

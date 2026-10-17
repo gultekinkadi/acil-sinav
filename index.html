@@ -157,6 +157,20 @@ tr.click:hover td{background:var(--surface-2)}
 .toolbar input[type=search]{max-width:280px}
 .toolbar select{width:auto}
 
+/* Havuzlar */
+.pools{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 13px;cursor:pointer;font-weight:500;font-size:14px;color:var(--ink);white-space:nowrap}
+.chip:hover{border-color:var(--muted)}
+.chip .n{color:var(--muted);font-weight:400;margin-left:6px;font-variant-numeric:tabular-nums}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip.on .n{color:inherit;opacity:.85}
+.chip.add{border-style:dashed;color:var(--muted)}
+.pool-act{display:inline-flex;gap:2px;margin-left:4px}
+.selbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 12px;margin-bottom:10px;background:var(--accent-soft);border-radius:var(--r)}
+.qcheck{margin-top:3px;accent-color:var(--accent);width:16px;height:16px;flex:none;cursor:pointer}
+.case-head .qcheck{margin-top:2px}
+@media (max-width:600px){.qitem,.case-head{flex-wrap:wrap}.qitem .body,.case-head>.grow{flex:1 1 calc(100% - 40px)}.qitem>.row,.case-head>.row{margin-left:28px}}
+
 /* Picker */
 .pick{max-height:62vh;overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
 .pick .pr{display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line-2);align-items:flex-start;cursor:pointer}
@@ -318,7 +332,7 @@ const db = getFirestore(fb);
 
 /* ---------------- durum ---------------- */
 const S = { user:null, email:"", isAdmin:false, resident:null, mode:"resident", view:"", params:{},
-  questions:[], cases:{}, exams:[], residents:[] };
+  questions:[], cases:{}, pools:{}, exams:[], residents:[] };
 let T = null; // aktif sınav oturumu
 
 onAuthStateChanged(auth, async u=>{
@@ -391,7 +405,8 @@ function paint(content, tabs){ $app.innerHTML=shell(content, tabs ?? (S.mode==="
 
 /* ---------------- veri yükleme (yönetici) ---------------- */
 async function loadBank(){
-  const [qs,cs]=await Promise.all([getDocs(collection(db,"questions")),getDocs(collection(db,"cases"))]);
+  const [qs,cs,ps]=await Promise.all([getDocs(collection(db,"questions")),getDocs(collection(db,"cases")),getDocs(collection(db,"pools"))]);
+  S.pools={}; ps.docs.forEach(d=>S.pools[d.id]={id:d.id,...d.data()});
   S.questions=qs.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(a.createdAt)||0)-(tsMs(b.createdAt)||0));
   S.cases={}; cs.docs.forEach(d=>S.cases[d.id]={id:d.id,...d.data()});
 }
@@ -461,7 +476,8 @@ async function viewExamEdit(id){
     sel:new Set((ex?.items||[]).map(i=>i.qid)) };
   // sınavda olup bankadan silinmiş sorular
   const orphan=(ex?.items||[]).filter(i=>!S.questions.find(q=>q.id===i.qid));
-  let filt="", topicF="";
+  let filt="", topicF="", poolF=id?"":(lsGet("bankPool")||"");
+  if(poolF && poolF!==NOPOOL && !S.pools[poolF]) poolF="";
 
   paint(`<div class="page-head"><div><h1>${id?"Sınavı düzenle":"Yeni sınav"}</h1>
       <div class="sub">Sorular kaydetme anında sınava kopyalanır; bankada sonradan yapılan değişiklik için sınavı yeniden kaydedin.</div></div>
@@ -482,18 +498,18 @@ async function viewExamEdit(id){
         <div class="card pad" style="background:var(--surface-2);box-shadow:none" id="summary"></div>
       </div>
       <div>
-        <div class="toolbar"><input type="search" id="pf" placeholder="Soru ara…"><select id="pt"><option value="">Tüm konular</option>${topics().map(t=>`<option>${esc(t)}</option>`).join("")}</select>
+        <div class="toolbar"><select id="pp" style="width:auto"><option value="">Tüm havuzlar</option>${poolList().map(p=>`<option value="${p.id}" ${poolF===p.id?"selected":""}>${esc(p.name)}</option>`).join("")}${S.questions.some(q=>poolOf(q)===NOPOOL)?`<option value="${NOPOOL}" ${poolF===NOPOOL?"selected":""}>Havuzsuz</option>`:""}</select><input type="search" id="pf" placeholder="Soru ara…"><select id="pt"><option value="">Tüm konular</option>${topics().map(t=>`<option>${esc(t)}</option>`).join("")}</select>
           <button class="btn sm" id="selAll">Görünenleri seç</button><button class="btn sm" id="selNone">Temizle</button></div>
         ${orphan.length?`<div class="small" style="color:var(--warn);margin-bottom:8px">${orphan.length} soru bankadan silinmiş; kaydederseniz sınavdan çıkarılır.</div>`:""}
         <div class="pick" id="pick"></div>
       </div>
     </div>`);
 
-  const visible = q => (!topicF || q.topic===topicF) && (!filt || trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
+  const visible = q => (!poolF || poolOf(q)===poolF) && (!topicF || q.topic===topicF) && (!filt || trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
   function drawPick(){
     const blocks=bankBlocks(S.questions.filter(visible));
     const row=(q,sub)=>`<label class="pr ${sub?"sub":""}"><input type="checkbox" data-q="${q.id}" ${D.sel.has(q.id)?"checked":""}>
-      <span class="t">${esc(q.stem)}</span><span class="badge">${q.type==="open"?"Açık uçlu":"ÇS"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.imageId?`<span class="badge info">Görsel</span>`:""}</label>`;
+      <span class="t">${esc(q.stem)}</span>${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}<span class="badge">${q.type==="open"?"Açık uçlu":"ÇS"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.imageId?`<span class="badge info">Görsel</span>`:""}</label>`;
     document.getElementById("pick").innerHTML = blocks.length ? blocks.map(b=> b.kind==="q" ? row(b.q) :
       `<label class="pr case"><input type="checkbox" data-case="${b.c.id}" ${b.qs.every(q=>D.sel.has(q.id))?"checked":""}><span class="t">Vaka: ${esc(b.c.title||"(başlıksız)")}</span><span class="badge info">${b.qs.length} soru</span></label>${b.qs.map(q=>row(q,true)).join("")}`
     ).join("") : `<div class="empty">Soru bulunamadı.</div>`;
@@ -505,10 +521,13 @@ async function viewExamEdit(id){
     const qs=S.questions.filter(q=>D.sel.has(q.id));
     const mcq=qs.filter(q=>q.type!=="open").length, open=qs.length-mcq, pts=qs.reduce((s,q)=>s+(Number(q.points)||1),0);
     const img=qs.filter(q=>q.imageId).length, cs=new Set(qs.map(q=>q.caseId).filter(Boolean)).size;
-    document.getElementById("summary").innerHTML=`<b>${qs.length} soru seçildi</b><div class="small muted">${mcq} çoktan seçmeli · ${open} açık uçlu · ${cs} vaka · ${img} görselli<br>Toplam ${fmtNum(pts)} puan</div>`;
+    const byPool={}; qs.forEach(q=>{ const n=poolName(poolOf(q)===NOPOOL?null:q.poolId); byPool[n]=(byPool[n]||0)+1; });
+    const pl=Object.entries(byPool);
+    document.getElementById("summary").innerHTML=`<b>${qs.length} soru seçildi</b><div class="small muted">${mcq} çoktan seçmeli · ${open} açık uçlu · ${cs} vaka · ${img} görselli<br>Toplam ${fmtNum(pts)} puan${pl.length>1||(pl.length&&pl[0][0]!=="Havuzsuz")?`<br>${pl.map(([n,c])=>`${esc(n)}: ${c}`).join(" · ")}`:""}</div>`;
   }
   drawPick();
   document.getElementById("pf").oninput=e=>{ filt=trLower(e.target.value); drawPick(); };
+  document.getElementById("pp").onchange=e=>{ poolF=e.target.value; drawPick(); };
   document.getElementById("pt").onchange=e=>{ topicF=e.target.value; drawPick(); };
   document.getElementById("selAll").onclick=()=>{ S.questions.filter(visible).forEach(q=>D.sel.add(q.id)); drawPick(); };
   document.getElementById("selNone").onclick=()=>{ D.sel.clear(); drawPick(); };
@@ -754,54 +773,153 @@ async function viewAttempt(examId, uid){
   });
 }
 
+/* ---------------- havuzlar ---------------- */
+const NOPOOL="__none";
+const lsGet=k=>{ try{ return localStorage.getItem(k); }catch(e){ return null; } };
+const lsSet=(k,v)=>{ try{ localStorage.setItem(k,v); }catch(e){} };
+function poolList(){ return Object.values(S.pools).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0)); }
+function poolName(id){ return id&&S.pools[id]?S.pools[id].name:"Havuzsuz"; }
+function poolOf(q){ return q.poolId&&S.pools[q.poolId]?q.poolId:NOPOOL; }
+function poolOptions(sel,{none="— Havuzsuz —",withNew=false}={}){
+  return (none!==null?`<option value="">${none}</option>`:"")+poolList().map(p=>`<option value="${p.id}" ${sel===p.id?"selected":""}>${esc(p.name)}</option>`).join("")+(withNew?`<option value="__new">+ Yeni havuz…</option>`:"");
+}
+function promptDlg(title,label,val="",ph=""){
+  return new Promise(res=>{
+    const m=modal(`<div class="modal-h"><h2>${esc(title)}</h2></div><div class="modal-b"><label class="f">${esc(label)}</label><input type="text" id="pv" value="${esc(val)}" placeholder="${esc(ph)}"></div>
+      <div class="modal-f"><button class="btn" data-x>Vazgeç</button><button class="btn primary" data-ok>Kaydet</button></div>`,"narrow");
+    const i=m.el.querySelector("#pv"); i.focus(); i.select();
+    const ok=()=>{ const v=i.value.trim(); if(!v) return toast("Ad boş olamaz",true); m.close(); res(v); };
+    m.el.querySelector("[data-ok]").onclick=ok; i.onkeydown=e=>{ if(e.key==="Enter") ok(); };
+    m.el.querySelector("[data-x]").onclick=()=>{ m.close(); res(null); };
+  });
+}
+async function createPool(name){
+  name=(name||"").trim(); if(!name) return null;
+  const dup=poolList().find(p=>trLower(p.name)===trLower(name)); if(dup){ toast("Bu adda bir havuz zaten var; o seçildi"); return dup.id; }
+  const id=newId(); await setDoc(doc(db,"pools",id),{name,createdAt:serverTimestamp()});
+  S.pools[id]={id,name,createdAt:Timestamp.fromMillis(Date.now())}; return id;
+}
+async function newPoolDlg(){ const n=await promptDlg("Yeni havuz","Havuz adı","","örn. 2026 Haziran Sınavı"); if(!n) return null; try{ return await createPool(n); }catch(e){ fail(e); return null; } }
+// "+ Yeni havuz…" seçeneği olan bir select'i bağlar
+function bindPoolSelect(sel, onChange){
+  let prev=sel.value;
+  sel.onchange=async()=>{
+    if(sel.value==="__new"){ const id=await newPoolDlg(); if(!id){ sel.value=prev; return; }
+      const none=sel.querySelector('option[value=""]')?.textContent??null; sel.innerHTML=poolOptions(id,{none,withNew:true}); sel.value=id; }
+    prev=sel.value; onChange&&onChange(sel.value);
+  };
+}
+async function batchOps(ops){ for(let i=0;i<ops.length;i+=400){ const b=writeBatch(db); ops.slice(i,i+400).forEach(f=>f(b)); await b.commit(); } }
+// Soruları (ve bağlı oldukları vakaları bütün olarak) havuza taşır
+async function moveToPool(ids,target){
+  const chosen=S.questions.filter(q=>ids.has(q.id));
+  const caseIds=new Set(chosen.map(q=>q.caseId).filter(c=>c&&S.cases[c]));
+  const all=new Map(chosen.map(q=>[q.id,q])); S.questions.filter(q=>caseIds.has(q.caseId)).forEach(q=>all.set(q.id,q));
+  await batchOps([...[...all.keys()].map(id=>b=>b.update(doc(db,"questions",id),{poolId:target||null})),
+    ...[...caseIds].map(id=>b=>b.update(doc(db,"cases",id),{poolId:target||null}))]);
+  return {n:all.size, extra:all.size-chosen.length};
+}
+
 /* =====================================================================
    YÖNETİCİ — SORU BANKASI
    ===================================================================== */
 async function viewBank(){
   paint(`<div class="spinner"></div>`);
   await loadBank();
-  let filt="", topicF="", typeF="";
+  let filt="", topicF="", typeF="", poolF=lsGet("bankPool")||"";
+  if(poolF && poolF!==NOPOOL && !S.pools[poolF]) poolF="";
+  const sel=new Set();
   paint(`<div class="page-head"><div><h1>Soru Bankası</h1><div class="sub" id="bcount"></div></div>
     <div class="row"><button class="btn" id="imp">Excel'den içe aktar</button><button class="btn" id="newCase">+ Vaka</button><button class="btn primary" id="newQ">+ Soru</button></div></div>
+    <div class="pools" id="pools"></div>
     <div class="toolbar"><input type="search" id="bf" placeholder="Soru, vaka veya konu ara…">
       <select id="bt"><option value="">Tüm konular</option>${topics().map(t=>`<option>${esc(t)}</option>`).join("")}</select>
-      <select id="by"><option value="">Tüm türler</option><option value="mcq">Çoktan seçmeli</option><option value="open">Açık uçlu</option></select></div>
+      <select id="by"><option value="">Tüm türler</option><option value="mcq">Çoktan seçmeli</option><option value="open">Açık uçlu</option></select>
+      <button class="btn sm ghost" id="selVis">Görünenleri seç</button></div>
+    <div class="selbar hidden" id="selbar"></div>
     <div class="list" id="blist"></div>`);
-  const qRow=q=>`<div class="qitem"><div class="body"><div class="qmeta"><span class="badge ${q.type==="open"?"warn":""}">${q.type==="open"?"Açık uçlu":"Çoktan seçmeli"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge">${q.points||1} puan</span>${q.type!=="open"?`<span class="badge ok">Doğru: ${LET[q.correct]}</span>`:""}</div>
+  const vis=q=>(!poolF||poolOf(q)===poolF)&&(!topicF||q.topic===topicF)&&(!typeF||(q.type||"mcq")===typeF)&&(!filt||trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
+  const qRow=q=>`<div class="qitem"><input type="checkbox" class="qcheck" data-sel="${q.id}" ${sel.has(q.id)?"checked":""} aria-label="Seç"><div class="body"><div class="qmeta">${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}<span class="badge ${q.type==="open"?"warn":""}">${q.type==="open"?"Açık uçlu":"Çoktan seçmeli"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge">${q.points||1} puan</span>${q.type!=="open"?`<span class="badge ok">Doğru: ${LET[q.correct]}</span>`:""}</div>
     <div class="stem">${esc(q.stem)}</div>${imgTag(q.imageId,true)}</div>
     <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-eq="${q.id}">Düzenle</button><button class="btn sm ghost" data-dup="${q.id}" title="Kopyala">⧉</button><button class="btn sm ghost danger" data-dq="${q.id}" title="Sil">✕</button></div></div>`;
+
+  function drawPools(){
+    const cnt={}; S.questions.forEach(q=>{ const p=poolOf(q); cnt[p]=(cnt[p]||0)+1; });
+    const chip=(id,label,n)=>`<button class="chip ${poolF===id?"on":""}" data-pool="${id}">${esc(label)}<span class="n">${n||0}</span></button>`;
+    const cur=poolF&&poolF!==NOPOOL?S.pools[poolF]:null;
+    document.getElementById("pools").innerHTML=chip("","Tüm sorular",S.questions.length)+poolList().map(p=>chip(p.id,p.name,cnt[p.id])).join("")
+      +(cnt[NOPOOL]||poolF===NOPOOL?chip(NOPOOL,"Havuzsuz",cnt[NOPOOL]):"")+`<button class="chip add" id="addPool">+ Yeni havuz</button>`
+      +(cur?`<span class="pool-act"><button class="btn sm ghost" id="renPool">Yeniden adlandır</button><button class="btn sm ghost danger" id="delPool">Havuzu sil</button></span>`:"");
+    document.querySelectorAll("#pools [data-pool]").forEach(b=>b.onclick=()=>{ poolF=b.dataset.pool; lsSet("bankPool",poolF); sel.clear(); drawPools(); draw(); });
+    document.getElementById("addPool").onclick=async()=>{ const id=await newPoolDlg(); if(id){ poolF=id; lsSet("bankPool",id); sel.clear(); drawPools(); draw(); toast("Havuz oluşturuldu"); } };
+    document.getElementById("renPool")?.addEventListener("click",async()=>{ const n=await promptDlg("Havuzu yeniden adlandır","Havuz adı",cur.name); if(!n) return;
+      try{ await updateDoc(doc(db,"pools",cur.id),{name:n}); S.pools[cur.id].name=n; drawPools(); draw(); toast("Kaydedildi"); }catch(e){ fail(e); } });
+    document.getElementById("delPool")?.addEventListener("click",()=>deletePool(cur));
+  }
+  async function deletePool(p){
+    const qs=S.questions.filter(q=>q.poolId===p.id), cs=Object.values(S.cases).filter(c=>c.poolId===p.id);
+    const m=modal(`<div class="modal-h"><h2>Havuzu sil</h2></div><div class="modal-b"><p style="margin-top:0"><b>${esc(p.name)}</b> havuzunda ${qs.length} soru${cs.length?` ve ${cs.length} vaka`:""} var.</p>
+      ${qs.length||cs.length?`<label class="check" style="margin-bottom:8px"><input type="radio" name="dm" value="keep" checked> Soruları “Havuzsuz”a taşı, yalnız havuzu sil</label>
+      <label class="check"><input type="radio" name="dm" value="all"> <span>Havuzu <b style="color:var(--bad)">içindeki tüm sorularla birlikte</b> sil</span></label>`:""}
+      <p class="small muted">Daha önce kaydedilmiş sınavlar etkilenmez.</p></div>
+      <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn danger" id="dp">Sil</button></div>`,"narrow");
+    m.el.querySelector("#dp").onclick=async()=>{
+      const all=m.el.querySelector('[name=dm][value=all]')?.checked;
+      try{ m.el.querySelector("#dp").disabled=true;
+        await batchOps([...qs.map(q=>b=>all?b.delete(doc(db,"questions",q.id)):b.update(doc(db,"questions",q.id),{poolId:null})),
+          ...cs.map(c=>b=>all?b.delete(doc(db,"cases",c.id)):b.update(doc(db,"cases",c.id),{poolId:null})), b=>b.delete(doc(db,"pools",p.id))]);
+        m.close(); lsSet("bankPool",""); toast("Havuz silindi"); viewBank(); }catch(e){ fail(e); }
+    };
+  }
+  function drawSel(){
+    const bar=document.getElementById("selbar"); bar.classList.toggle("hidden",!sel.size); if(!sel.size){ bar.innerHTML=""; return; }
+    bar.innerHTML=`<b>${sel.size} soru seçili</b><span class="grow"></span>
+      <select id="mvp" style="width:auto">${poolOptions("",{none:"Havuzsuz",withNew:true}).replace('<option value="">','<option value="" disabled selected hidden>Havuza taşı…</option><option value="">')}</select>
+      <button class="btn sm primary" id="mvGo">Taşı</button><button class="btn sm danger" id="delSel">Sil</button><button class="btn sm ghost" id="clrSel">Seçimi kaldır</button>`;
+    const s=document.getElementById("mvp"); s.selectedIndex=0; bindPoolSelect(s);
+    document.getElementById("mvGo").onclick=async()=>{ if(s.selectedIndex===0) return toast("Hedef havuzu seçin",true);
+      try{ const r=await moveToPool(sel,s.value||null); toast(`${r.n} soru “${poolName(s.value)}” havuzuna taşındı${r.extra?` (vaka bütünlüğü için +${r.extra} soru)`:""}`); sel.clear(); viewBank(); }catch(e){ fail(e); } };
+    document.getElementById("delSel").onclick=async()=>{ if(!await confirmDlg("Seçilenleri sil",`<p>${sel.size} soru bankadan silinir. Kaydedilmiş sınavlar etkilenmez.</p>`,"Sil",true)) return;
+      try{ await batchOps([...sel].map(id=>b=>b.delete(doc(db,"questions",id)))); toast("Silindi"); sel.clear(); viewBank(); }catch(e){ fail(e); } };
+    document.getElementById("clrSel").onclick=()=>{ sel.clear(); draw(); };
+  }
   function draw(){
-    const vis=q=>(!topicF||q.topic===topicF)&&(!typeF||(q.type||"mcq")===typeF)&&(!filt||trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
     const list=S.questions.filter(vis);
     const blocks=bankBlocks(list);
-    // soru içermeyen vakalar
-    const emptyCases=Object.values(S.cases).filter(c=>!S.questions.some(q=>q.caseId===c.id)&&!topicF&&!typeF&&(!filt||trLower(c.title+" "+c.text).includes(filt))).map(c=>({kind:"case",c,qs:[]}));
-    const all=[...blocks,...emptyCases].reverse();
-    document.getElementById("bcount").textContent=`${S.questions.length} soru · ${Object.keys(S.cases).length} vaka${list.length!==S.questions.length?` · ${list.length} gösteriliyor`:""}`;
+    const emptyCases=Object.values(S.cases).filter(c=>!S.questions.some(q=>q.caseId===c.id)&&(!poolF||(c.poolId&&S.pools[c.poolId]?c.poolId:NOPOOL)===poolF)&&!topicF&&!typeF&&(!filt||trLower(c.title+" "+c.text).includes(filt))).map(c=>({kind:"case",c,qs:[]}));
+    // bir havuz seçiliyken eklenme sırası (1. soru üstte); "Tüm sorular"da en yeni üstte
+    const all=poolF?[...blocks,...emptyCases]:[...blocks,...emptyCases].reverse();
+    const scope=poolF?S.questions.filter(q=>poolOf(q)===poolF).length:S.questions.length;
+    document.getElementById("bcount").textContent=(poolF?`${poolName(poolF===NOPOOL?null:poolF)} · ${scope} soru`:`${S.questions.length} soru · ${Object.keys(S.cases).length} vaka · ${poolList().length} havuz`)+(list.length!==scope?` · ${list.length} gösteriliyor`:"");
     document.getElementById("blist").innerHTML=all.length?all.map(b=>b.kind==="q"?`<div class="card">${qRow(b.q)}</div>`:
-      `<div class="case-card"><div class="case-head"><div class="grow" style="min-width:0"><div class="qmeta"><span class="badge info">Vaka</span><span class="badge">${b.qs.length} soru</span></div>
+      `<div class="case-card"><div class="case-head">${b.qs.length?`<input type="checkbox" class="qcheck" data-selcase="${b.c.id}" ${b.qs.every(q=>sel.has(q.id))?"checked":""} aria-label="Vakayı seç">`:""}<div class="grow" style="min-width:0"><div class="qmeta">${!poolF&&b.c.poolId&&S.pools[b.c.poolId]?`<span class="badge acc">${esc(poolName(b.c.poolId))}</span>`:""}<span class="badge info">Vaka</span><span class="badge">${b.qs.length} soru</span></div>
         <b>${esc(b.c.title||"(başlıksız vaka)")}</b><div class="txt">${esc(b.c.text)}</div>${imgTag(b.c.imageId,true)}</div>
         <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-addq="${b.c.id}">+ Soru</button><button class="btn sm" data-ec="${b.c.id}">Düzenle</button><button class="btn sm ghost danger" data-dc="${b.c.id}">✕</button></div></div>
         <div class="case-sub">${b.qs.map(qRow).join("")}</div></div>`).join("")
-      :`<div class="card empty">${S.questions.length?"Eşleşen soru yok.":"Soru bankası boş. “+ Soru” ile başlayın veya Excel'den toplu aktarın."}</div>`;
+      :`<div class="card empty">${!S.questions.length?"Soru bankası boş. “+ Soru” ile başlayın veya Excel'den toplu aktarın.":poolF&&!scope?"Bu havuz boş. “+ Soru” veya “Excel'den içe aktar” ile bu havuza soru ekleyin.":"Eşleşen soru yok."}</div>`;
     hydrateImages(document.getElementById("blist"));
+    $app.querySelectorAll("[data-sel]").forEach(c=>c.onchange=()=>{ c.checked?sel.add(c.dataset.sel):sel.delete(c.dataset.sel); drawSel(); const cb=c.closest(".case-card")?.querySelector("[data-selcase]"); if(cb) cb.checked=S.questions.filter(q=>q.caseId===cb.dataset.selcase&&vis(q)).every(q=>sel.has(q.id)); });
+    $app.querySelectorAll("[data-selcase]").forEach(c=>c.onchange=()=>{ S.questions.filter(q=>q.caseId===c.dataset.selcase&&vis(q)).forEach(q=>c.checked?sel.add(q.id):sel.delete(q.id)); draw(); });
     $app.querySelectorAll("[data-eq]").forEach(b=>b.onclick=()=>editQuestion(S.questions.find(q=>q.id===b.dataset.eq)));
     $app.querySelectorAll("[data-dup]").forEach(b=>b.onclick=()=>{ const q=S.questions.find(x=>x.id===b.dataset.dup); editQuestion({...q,id:null}); });
     $app.querySelectorAll("[data-dq]").forEach(b=>b.onclick=async()=>{ if(!await confirmDlg("Soruyu sil","<p>Soru bankadan silinir. Daha önce kaydedilmiş sınavlardaki kopyası etkilenmez.</p>","Sil",true)) return;
       try{ await deleteDoc(doc(db,"questions",b.dataset.dq)); toast("Silindi"); viewBank(); }catch(e){ fail(e); } });
-    $app.querySelectorAll("[data-addq]").forEach(b=>b.onclick=()=>editQuestion({caseId:b.dataset.addq}));
+    $app.querySelectorAll("[data-addq]").forEach(b=>b.onclick=()=>editQuestion({caseId:b.dataset.addq,poolId:S.cases[b.dataset.addq]?.poolId||null}));
     $app.querySelectorAll("[data-ec]").forEach(b=>b.onclick=()=>editCase(S.cases[b.dataset.ec]));
     $app.querySelectorAll("[data-dc]").forEach(b=>b.onclick=async()=>{ const qs=S.questions.filter(q=>q.caseId===b.dataset.dc);
       if(!await confirmDlg("Vakayı sil",`<p>Vaka${qs.length?` ve bağlı <b>${qs.length} soru</b>`:""} bankadan silinir.</p>`,"Sil",true)) return;
       try{ const w=writeBatch(db); qs.forEach(q=>w.delete(doc(db,"questions",q.id))); w.delete(doc(db,"cases",b.dataset.dc)); await w.commit(); toast("Silindi"); viewBank(); }catch(e){ fail(e); } });
+    drawSel();
   }
-  draw();
+  drawPools(); draw();
+  const curPool=()=>poolF&&poolF!==NOPOOL?poolF:null;
   document.getElementById("bf").oninput=e=>{ filt=trLower(e.target.value); draw(); };
   document.getElementById("bt").onchange=e=>{ topicF=e.target.value; draw(); };
   document.getElementById("by").onchange=e=>{ typeF=e.target.value; draw(); };
-  document.getElementById("newQ").onclick=()=>editQuestion({});
-  document.getElementById("newCase").onclick=()=>editCase({});
-  document.getElementById("imp").onclick=importDialog;
+  document.getElementById("selVis").onclick=()=>{ S.questions.filter(vis).forEach(q=>sel.add(q.id)); draw(); };
+  document.getElementById("newQ").onclick=()=>editQuestion({poolId:curPool()});
+  document.getElementById("newCase").onclick=()=>editCase({poolId:curPool()});
+  document.getElementById("imp").onclick=()=>importDialog(curPool());
 }
 
 function imageField(cur){
@@ -824,15 +942,18 @@ function editQuestion(q){
   const isNew=!q.id; const st={imageId:q.imageId||null,newImg:null};
   let type=q.type||"mcq";
   const opts=[...(q.options||[]),"","","","",""].slice(0,5);
-  const caseOpts=Object.values(S.cases).map(c=>`<option value="${c.id}" ${q.caseId===c.id?"selected":""}>${esc(c.title||c.text.slice(0,50))}</option>`).join("");
+  const caseOpts=Object.values(S.cases).map(c=>`<option value="${c.id}" ${q.caseId===c.id?"selected":""}>${esc(c.title||c.text.slice(0,50))}${c.poolId&&S.pools[c.poolId]?` (${esc(poolName(c.poolId))})`:""}</option>`).join("");
   const m=modal(`<div class="modal-h"><h2>${isNew?"Yeni soru":"Soruyu düzenle"}</h2><button class="btn sm ghost" data-close>✕</button></div>
     <div class="modal-b">
+      <div class="grid2">
+        <div class="field"><label class="f">Havuz</label><select id="q_pool">${poolOptions(q.poolId&&S.pools[q.poolId]?q.poolId:"",{withNew:true})}</select><div class="small muted hidden" id="poolNote" style="margin-top:4px">Vakaya bağlı soru, vakanın havuzunda durur.</div></div>
+        <div class="field"><label class="f">Bağlı vaka</label><select id="q_case"><option value="">— Bağımsız soru —</option>${caseOpts}</select></div>
+      </div>
       <div class="grid3">
         <div class="field"><label class="f">Tür</label><select id="q_type"><option value="mcq">Çoktan seçmeli</option><option value="open" ${type==="open"?"selected":""}>Açık uçlu</option></select></div>
         <div class="field"><label class="f">Konu</label><input type="text" id="q_topic" list="tlist" value="${esc(q.topic||"")}" placeholder="örn. Toksikoloji"><datalist id="tlist">${topics().map(t=>`<option value="${esc(t)}">`).join("")}</datalist></div>
         <div class="field"><label class="f">Puan</label><input type="number" id="q_pts" min="0.5" step="0.5" value="${q.points||1}"></div>
       </div>
-      <div class="field"><label class="f">Bağlı vaka</label><select id="q_case"><option value="">— Bağımsız soru —</option>${caseOpts}</select></div>
       <div class="field"><label class="f">Soru kökü</label><textarea id="q_stem" style="min-height:110px">${esc(q.stem||"")}</textarea></div>
       ${imageField(q.imageId)}
       <div id="mcqBox" class="${type==="open"?"hidden":""}"><label class="f">Şıklar <span class="muted" style="font-weight:400">(doğru şıkkı işaretleyin; boş şıklar atlanır)</span></label>
@@ -841,12 +962,18 @@ function editQuestion(q){
     </div>
     <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="qsave">Kaydet</button></div>`);
   hydrateImages(m.el); bindImageField(m.el, st);
+  const poolSel=m.el.querySelector("#q_pool"), caseSel=m.el.querySelector("#q_case");
+  bindPoolSelect(poolSel);
+  const syncCase=()=>{ const c=S.cases[caseSel.value]; poolSel.disabled=!!c; m.el.querySelector("#poolNote").classList.toggle("hidden",!c);
+    if(c) poolSel.value=c.poolId&&S.pools[c.poolId]?c.poolId:""; };
+  caseSel.onchange=syncCase; syncCase();
   m.el.querySelector("#q_type").onchange=e=>{ type=e.target.value; m.el.querySelector("#mcqBox").classList.toggle("hidden",type==="open");
     m.el.querySelector("#explLbl").textContent=type==="open"?"Model cevap / değerlendirme notu":"Açıklama (sonuçta asistana gösterilir)"; };
   m.el.querySelector("#qsave").onclick=async()=>{
     const stem=m.el.querySelector("#q_stem").value.trim(); if(!stem) return toast("Soru kökü boş",true);
+    const caseId=caseSel.value||null;
     const data={type,stem,topic:m.el.querySelector("#q_topic").value.trim(),points:Number(m.el.querySelector("#q_pts").value)||1,
-      caseId:m.el.querySelector("#q_case").value||null,explanation:m.el.querySelector("#q_expl").value.trim()};
+      caseId,poolId:caseId?(S.cases[caseId]?.poolId||null):(poolSel.value&&poolSel.value!=="__new"?poolSel.value:null),explanation:m.el.querySelector("#q_expl").value.trim()};
     if(type==="mcq"){
       const raw=[...m.el.querySelectorAll("[data-opt]")].map(i=>i.value.trim()); const corRaw=Number(m.el.querySelector("[name=cor]:checked")?.value??0);
       if(!raw[corRaw]) return toast("İşaretli doğru şık boş",true);
@@ -863,27 +990,35 @@ function editQuestion(q){
 }
 function editCase(c){
   const st={imageId:c.imageId||null,newImg:null};
+  const qs=c.id?S.questions.filter(q=>q.caseId===c.id):[];
   const m=modal(`<div class="modal-h"><h2>${c.id?"Vakayı düzenle":"Yeni vaka"}</h2><button class="btn sm ghost" data-close>✕</button></div>
     <div class="modal-b"><p class="small muted" style="margin-top:0">Vaka metni, bağlı her sorunun üstünde gösterilir. Sınavda vakanın soruları birlikte kalır.</p>
+      <div class="field"><label class="f">Havuz</label><select id="c_pool">${poolOptions(c.poolId&&S.pools[c.poolId]?c.poolId:"",{withNew:true})}</select>
+        ${qs.length?`<div class="small muted" style="margin-top:4px">Havuzu değiştirirseniz bağlı ${qs.length} soru da taşınır.</div>`:""}</div>
       <div class="field"><label class="f">Başlık</label><input type="text" id="c_title" value="${esc(c.title||"")}" placeholder="örn. 68 yaşında göğüs ağrısı"></div>
       <div class="field"><label class="f">Vaka metni</label><textarea id="c_text" style="min-height:160px">${esc(c.text||"")}</textarea></div>
       ${imageField(c.imageId)}</div>
     <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="csave">Kaydet</button></div>`);
-  hydrateImages(m.el); bindImageField(m.el, st);
+  hydrateImages(m.el); bindImageField(m.el, st); bindPoolSelect(m.el.querySelector("#c_pool"));
   m.el.querySelector("#csave").onclick=async()=>{
     const text=m.el.querySelector("#c_text").value.trim(); if(!text) return toast("Vaka metni boş",true);
+    const pv=m.el.querySelector("#c_pool").value; const poolId=pv&&pv!=="__new"?pv:null;
     try{ const imageId=await persistImage(st); const id=c.id||newId();
-      await setDoc(doc(db,"cases",id),{title:m.el.querySelector("#c_title").value.trim(),text,imageId,...(c.id?{}:{createdAt:serverTimestamp()})},{merge:true});
+      await setDoc(doc(db,"cases",id),{title:m.el.querySelector("#c_title").value.trim(),text,imageId,poolId,...(c.id?{}:{createdAt:serverTimestamp()})},{merge:true});
+      const moved=qs.filter(q=>(q.poolId||null)!==poolId);
+      if(moved.length) await batchOps(moved.map(q=>b=>b.update(doc(db,"questions",q.id),{poolId})));
       m.close(); toast("Vaka kaydedildi"); viewBank(); }catch(e){ fail(e); }
   };
 }
 
-function importDialog(){
+function importDialog(defPool){
   const m=modal(`<div class="modal-h"><h2>Excel'den soru aktar</h2><button class="btn sm ghost" data-close>✕</button></div>
     <div class="modal-b"><p style="margin-top:0">Şablonu indirin, her satıra bir soru yazın ve yükleyin. Görseller ve vakalar sonradan arayüzden eklenir.</p>
       <p class="small muted">Sütunlar: <span class="mono">Konu · Tür (ÇS/AU) · Soru · A · B · C · D · E · Doğru (A–E) · Puan · Açıklama</span></p>
+      <div class="field"><label class="f">Hangi havuza aktarılsın?</label><select id="ip">${poolOptions(defPool||"",{withNew:true})}</select></div>
       <div class="row"><button class="btn" id="tpl">Şablonu indir</button><label class="btn primary">Dosya seç<input type="file" id="xf" accept=".xlsx,.xls,.csv" hidden></label></div>
       <div id="impRes" style="margin-top:14px"></div></div>`);
+  const ip=m.el.querySelector("#ip"); bindPoolSelect(ip);
   m.el.querySelector("#tpl").onclick=()=>{
     const ws=XLSX.utils.aoa_to_sheet([["Konu","Tür","Soru","A","B","C","D","E","Doğru","Puan","Açıklama"],
       ["Toksikoloji","ÇS","Parasetamol zehirlenmesinde antidot hangisidir?","Flumazenil","N-asetilsistein","Nalokson","Fomepizol","Atropin","B",1,"NAC glutatyon depolarını yeniler."],
@@ -913,8 +1048,10 @@ function importDialog(){
       m.el.querySelector("#impRes").innerHTML=`<div class="card pad" style="box-shadow:none"><b>${ok.length} soru aktarılmaya hazır</b>${errs.length?`<div class="small" style="color:var(--bad);margin-top:6px">${errs.map(esc).join("<br>")}</div>`:""}
         ${ok.length?`<div class="row" style="margin-top:10px"><button class="btn primary" id="doImp">Aktar</button></div>`:""}</div>`;
       m.el.querySelector("#doImp")?.addEventListener("click", async()=>{
-        try{ for(let i=0;i<ok.length;i+=400){ const b=writeBatch(db); ok.slice(i,i+400).forEach((q,j)=>b.set(doc(db,"questions",newId()),{...q,createdAt:Timestamp.fromMillis(Date.now()+i+j)})); await b.commit(); }
-          m.close(); toast(`${ok.length} soru eklendi`); viewBank(); }catch(err){ fail(err); }
+        const poolId=ip.value&&ip.value!=="__new"?ip.value:null;
+        try{ m.el.querySelector("#doImp").disabled=true; const t0=Date.now();
+          await batchOps(ok.map((q,j)=>b=>b.set(doc(db,"questions",newId()),{...q,poolId,createdAt:Timestamp.fromMillis(t0+j)})));
+          m.close(); lsSet("bankPool",poolId||""); toast(`${ok.length} soru “${poolName(poolId)}” havuzuna eklendi`); viewBank(); }catch(err){ fail(err); }
       });
     }catch(err){ fail(err,"Dosya okunamadı"); }
   };
