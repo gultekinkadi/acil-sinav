@@ -36,6 +36,7 @@ service cloud.firestore {
     match /questions/{id} { allow read, write: if isAdmin(); }
     match /cases/{id}     { allow read, write: if isAdmin(); }
     match /pools/{id}     { allow read, write: if isAdmin(); }
+    match /templates/{id} { allow read, write: if isAdmin(); }
 
     // Görseller: asistan yalnız kimliğini bildiği görseli açabilir, listeleyemez
     match /images/{id} {

@@ -173,6 +173,46 @@ tr.click:hover td{background:var(--surface-2)}
 .selall input{margin-top:0;width:16px;height:16px}
 @media (max-width:600px){.qitem,.case-head{flex-wrap:wrap}.qitem .body,.case-head>.grow{flex:1 1 calc(100% - 40px)}.qitem>.row,.case-head>.row{margin-left:28px}}
 
+/* İstatistik grafikleri */
+:root{--c1:#a8231c;--c2:#24548f}
+@media (prefers-color-scheme: dark){:root{--c1:#e0574e;--c2:#5f98dc}}
+.note{padding:10px 14px;border-radius:var(--r);background:var(--info-soft);color:var(--ink);font-size:14px;margin-bottom:16px}
+.stat-grid{margin-bottom:16px;align-items:stretch}
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart-slot{width:100%;min-height:40px}
+.chart .grid{stroke:var(--line-2);stroke-width:1}
+.chart .base{stroke:var(--line);stroke-width:1}
+.chart .ax{fill:var(--muted);font-size:11px;font-family:inherit}
+.chart .lbl{fill:var(--ink);font-size:11px;font-weight:600}
+.chart .bar1{fill:var(--c2)}
+.chart .hit{fill:transparent}
+.chart .hit:hover{fill:var(--ink);fill-opacity:.05}
+.chart .ln1{fill:none;stroke:var(--c1);stroke-width:2;stroke-linejoin:round}
+.chart .ln2{fill:none;stroke:var(--c2);stroke-width:2;stroke-dasharray:5 4;stroke-linejoin:round}
+.chart .dt1{fill:var(--c1);stroke:var(--surface);stroke-width:2}
+.chart .dt2{fill:var(--c2);stroke:var(--surface);stroke-width:2}
+.chart .dl1,.chart .dl2{fill:var(--ink);font-size:12px;font-weight:600}
+.chart .dl2{font-weight:500;fill:var(--muted)}
+.legend .lg1,.legend .lg2{display:inline-block;width:16px;height:0;border-top:2px solid var(--c1);margin-right:6px;vertical-align:middle;border-radius:0}
+.legend .lg2{border-top:2px dashed var(--c2)}
+.hbars{display:flex;flex-direction:column;gap:8px}
+.hb{display:grid;grid-template-columns:minmax(90px,170px) 1fr 52px;grid-template-areas:"l t v" ". s s";column-gap:10px;align-items:center;font-size:14px}
+.hb .hl{grid-area:l;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb .track{grid-area:t}
+.hb .hv{grid-area:v;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.hb .hs{grid-area:s;font-size:12px;color:var(--muted);margin-top:-2px}
+.track{display:block;height:10px;border-radius:99px;background:var(--line-2);overflow:hidden}
+.track>span{display:block;height:100%;background:var(--c2);border-radius:0 4px 4px 0}
+
+/* Açıklama şablonları */
+.tplsel{width:auto;max-width:190px;padding:4px 8px;font-size:13px}
+.descprev{margin-top:10px;padding:10px 12px;border:1px dashed var(--line);border-radius:8px;background:var(--surface-2);font-size:14px}
+.descprev .txt{white-space:pre-wrap}
+.clamp3{white-space:pre-wrap;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;color:var(--muted)}
+.tplrow{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line-2)}
+.tplrow:last-child{border-bottom:0}
+.tplprev{white-space:pre-wrap;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-top:2px}
+
 /* Picker */
 .pick{max-height:62vh;overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
 .pick .pr{display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line-2);align-items:flex-start;cursor:pointer}
@@ -218,7 +258,7 @@ footer.credit svg{width:16px;height:16px}
 .scorebox{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .bigscore{font-size:40px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .bar{height:8px;border-radius:99px;background:var(--line-2);overflow:hidden;min-width:60px}
-.bar>span{display:block;height:100%;background:var(--ok)}
+.bar>span{display:block;height:100%;background:var(--c2);border-radius:0 4px 4px 0}
 .qrev{padding:16px;border-bottom:1px solid var(--line-2)}
 .qrev:last-child{border-bottom:0}
 .expl{margin-top:10px;padding:10px 12px;background:var(--surface-2);border-radius:8px;font-size:14px;white-space:pre-wrap}
@@ -334,7 +374,7 @@ const db = getFirestore(fb);
 
 /* ---------------- durum ---------------- */
 const S = { user:null, email:"", isAdmin:false, resident:null, mode:"resident", view:"", params:{},
-  questions:[], cases:{}, pools:{}, exams:[], residents:[] };
+  questions:[], cases:{}, pools:{}, templates:[], exams:[], residents:[] };
 let T = null; // aktif sınav oturumu
 
 onAuthStateChanged(auth, async u=>{
@@ -378,7 +418,7 @@ function shell(content, tabs){
 }
 function adminTabs(){
   const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["residents","Asistanlar"]];
-  const cur = {examEdit:"exams",results:"exams",attempt:"exams"}[S.view]||S.view;
+  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join("");
 }
 function bindShell(){
@@ -394,6 +434,7 @@ async function render(){
       if(v==="examEdit") return await viewExamEdit(S.params.id);
       if(v==="results") return await viewResults(S.params.id);
       if(v==="attempt") return await viewAttempt(S.params.examId,S.params.uid);
+      if(v==="profile") return await viewProfile(S.params.email);
       if(v==="bank") return await viewBank();
       if(v==="residents") return await viewResidents();
     } else {
@@ -403,7 +444,7 @@ async function render(){
     }
   }catch(e){ fail(e,"Sayfa yüklenemedi"); }
 }
-function paint(content, tabs){ $app.innerHTML=shell(content, tabs ?? (S.mode==="admin"?adminTabs():"")); bindShell(); hydrateImages($app); }
+function paint(content, tabs){ $app.innerHTML=shell(content, tabs ?? (S.mode==="admin"?adminTabs():"")); bindShell(); hydrateImages($app); mountCharts(); }
 
 /* ---------------- veri yükleme (yönetici) ---------------- */
 async function loadBank(){
@@ -425,6 +466,83 @@ function bankBlocks(list=S.questions){
     } else blocks.push({kind:"q", q});
   }
   return blocks;
+}
+
+/* ---------------- açıklama şablonları ---------------- */
+const TPL_FIELDS=[["{sınav}","sınav adı"],["{soru}","soru sayısı"],["{puan}","toplam puan"],["{süre}","süre (dk)"],["{açılış}","açılış tarihi"],["{kapanış}","son başlama"],["{ceza}","yanlış cezası cümlesi"]];
+const BUILTIN_TPL=[
+  {id:"ornek-standart",name:"Standart sınav yönergesi",builtin:true,text:`Sevgili asistanlarımız,
+
+Bu sınav {soru} sorudan oluşmaktadır; toplam puan {puan}, süre {süre} dakikadır.
+
+• Sınava {kapanış} tarihine kadar başlayabilirsiniz. Başladığınız anda süre işlemeye başlar ve durdurulamaz.
+• {ceza}
+• Kitap, not, internet kaynağı kullanmak veya başka bir kişiden yardım almak yasaktır.
+• Sınav sırasında başka sekme veya uygulamaya geçişleriniz kayıt altına alınmaktadır.
+• Cevaplarınız otomatik kaydedilir; bağlantınız koparsa kaldığınız yerden devam edebilirsiniz.
+• Sonuçlar ve doğru cevaplar, tüm asistanlar sınavı tamamladıktan sonra yayınlanacaktır.
+
+Başarılar dileriz.
+Gazi Üniversitesi Tıp Fakültesi Acil Tıp Anabilim Dalı`},
+  {id:"ornek-kisa",name:"Kısa quiz",builtin:true,text:`{sınav}: {soru} soru, {süre} dakika. {ceza} Kaynak kullanmadan, tek başınıza cevaplayınız. Son başlama: {kapanış}.`},
+  {id:"ornek-vaka",name:"Vaka tabanlı sınav",builtin:true,text:`Bu sınav, acil serviste karşılaşılan vakalar üzerinden hazırlanmış {soru} sorudan oluşmaktadır (toplam {puan} puan, {süre} dakika).
+
+• Her vakanın soruları art arda gelir; vaka metni her sorunun üstünde tekrar gösterilir.
+• Görselli sorularda görselin üzerine tıklayarak büyütebilirsiniz.
+• Açık uçlu sorularda kısa ve öncelik sırasına göre yazmanız beklenmektedir.
+• {ceza}
+
+Son başlama: {kapanış}`}
+];
+function fillTpl(text,e){
+  if(!text) return "";
+  const items=e.items||[], pts=items.reduce((s,i)=>s+(Number(i.points)||1),0);
+  const ceza=e.penalty?`Yanlış cevaplar doğru cevapları götürür (${e.penalty===0.25?"4 yanlış 1 doğru":"5 yanlış 1 doğru"}).`:"Yanlış cevaplar doğru cevapları götürmez.";
+  const map={"sınav":e.title||"","sinav":e.title||"","soru":items.length,"puan":fmtNum(pts),"süre":e.durationMin,"sure":e.durationMin,
+    "açılış":fmtDT(e.startAt),"acilis":fmtDT(e.startAt),"kapanış":fmtDT(e.endAt),"kapanis":fmtDT(e.endAt),"ceza":ceza};
+  return String(text).replace(/\{([a-zçğıöşüİ]+)\}/gi,(m,k)=>{ const v=map[trLower(k)]; return v==null?m:String(v); });
+}
+async function loadTemplates(){ try{ const s=await getDocs(collection(db,"templates")); S.templates=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.name).localeCompare(String(b.name),"tr")); }catch(e){ S.templates=[]; } }
+function tplOptions(){
+  return `<option value="">Şablondan ekle…</option>${S.templates.length?`<optgroup label="Şablonlarım">${S.templates.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("")}</optgroup>`:""}
+    <optgroup label="Örnek şablonlar">${BUILTIN_TPL.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("")}</optgroup>`;
+}
+const findTpl=id=>S.templates.find(t=>t.id===id)||BUILTIN_TPL.find(t=>t.id===id);
+function choiceDlg(title,body,choices){ // choices: [[value,label,cls]]
+  return new Promise(res=>{ const m=modal(`<div class="modal-h"><h2>${esc(title)}</h2></div><div class="modal-b">${body}</div>
+    <div class="modal-f">${choices.map(([v,l,c])=>`<button class="btn ${c||""}" data-v="${v}">${esc(l)}</button>`).join("")}</div>`,"narrow");
+    m.el.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{ m.close(); res(b.dataset.v); }); });
+}
+function editTemplate(t,onSaved){
+  const m=modal(`<div class="modal-h"><h2>${t?.id&&!t.builtin?"Şablonu düzenle":"Yeni şablon"}</h2><button class="btn sm ghost" data-close>✕</button></div>
+    <div class="modal-b"><div class="field"><label class="f">Şablon adı</label><input type="text" id="t_n" value="${esc(t?.builtin?t.name+" (kopya)":t?.name||"")}" placeholder="örn. Dönem sonu sınavı"></div>
+      <div class="field"><label class="f">Metin</label><textarea id="t_x" style="min-height:240px">${esc(t?.text||"")}</textarea></div>
+      <div class="small muted">Alan eklemek için tıklayın; sınavın kendi değerleriyle doldurulur:</div>
+      <div class="row" style="gap:6px;margin-top:6px">${TPL_FIELDS.map(([k,l])=>`<button type="button" class="chip" data-ins="${k}" title="${esc(l)}">${esc(k)}</button>`).join("")}</div></div>
+    <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="t_s">Kaydet</button></div>`);
+  const ta=m.el.querySelector("#t_x");
+  m.el.querySelectorAll("[data-ins]").forEach(b=>b.onclick=()=>{ const a=ta.selectionStart??ta.value.length, z=ta.selectionEnd??a; ta.setRangeText(b.dataset.ins,a,z,"end"); ta.focus(); });
+  m.el.querySelector("#t_s").onclick=async()=>{
+    const name=m.el.querySelector("#t_n").value.trim(), text=ta.value.trim();
+    if(!name||!text) return toast("Ad ve metin gerekli",true);
+    const id=t?.id&&!t.builtin?t.id:newId();
+    try{ await setDoc(doc(db,"templates",id),{name,text,updatedAt:serverTimestamp()},{merge:true}); await loadTemplates(); m.close(); toast("Şablon kaydedildi"); onSaved&&onSaved(id); }catch(e){ fail(e); }
+  };
+}
+function manageTemplates(onChange){
+  const m=modal(`<div class="modal-h"><h2>Açıklama şablonları</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b" id="tm"></div>
+    <div class="modal-f"><button class="btn" data-close>Kapat</button><button class="btn primary" id="tNew">+ Yeni şablon</button></div>`);
+  const draw=()=>{
+    const row=(t)=>`<div class="tplrow"><div class="grow" style="min-width:0"><b>${esc(t.name)}</b>${t.builtin?` <span class="badge">örnek</span>`:""}<div class="small muted tplprev">${esc(t.text)}</div></div>
+      <div class="row" style="flex-wrap:nowrap">${t.builtin?`<button class="btn sm" data-cp="${t.id}">Kopyala ve düzenle</button>`:`<button class="btn sm" data-ed="${t.id}">Düzenle</button><button class="btn sm ghost danger" data-del="${t.id}">✕</button>`}</div></div>`;
+    m.el.querySelector("#tm").innerHTML=`<h3>Şablonlarım</h3>${S.templates.length?S.templates.map(row).join(""):`<p class="small muted">Henüz şablonunuz yok. Bir örneği kopyalayarak veya “+ Yeni şablon” ile başlayın.</p>`}
+      <h3 style="margin-top:18px">Örnek şablonlar</h3>${BUILTIN_TPL.map(row).join("")}`;
+    m.el.querySelectorAll("[data-cp]").forEach(b=>b.onclick=()=>editTemplate(findTpl(b.dataset.cp),()=>{ draw(); onChange&&onChange(); }));
+    m.el.querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>editTemplate(findTpl(b.dataset.ed),()=>{ draw(); onChange&&onChange(); }));
+    m.el.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{ const t=findTpl(b.dataset.del); if(!await confirmDlg("Şablonu sil",`<p><b>${esc(t.name)}</b> silinsin mi? Bu şablonla hazırlanmış sınav açıklamaları etkilenmez.</p>`,"Sil",true)) return;
+      try{ await deleteDoc(doc(db,"templates",t.id)); await loadTemplates(); draw(); onChange&&onChange(); toast("Silindi"); }catch(e){ fail(e); } });
+  };
+  draw(); m.el.querySelector("#tNew").onclick=()=>editTemplate(null,()=>{ draw(); onChange&&onChange(); });
 }
 
 /* =====================================================================
@@ -465,7 +583,7 @@ async function viewExams(){
 
 async function viewExamEdit(id){
   paint(`<div class="spinner"></div>`);
-  await loadBank();
+  await Promise.all([loadBank(),loadTemplates()]);
   let ex=null, key=null, attCount=0;
   if(id){
     const [a,b,c]=await Promise.all([getDoc(doc(db,"exams",id)),getDoc(doc(db,"examKeys",id)),getDocs(query(collection(db,"attempts"),where("examId","==",id)))]);
@@ -488,7 +606,11 @@ async function viewExamEdit(id){
     <div class="edgrid">
       <div class="card pad">
         <div class="field"><label class="f">Sınav adı</label><input type="text" id="e_title" value="${esc(D.title)}" placeholder="örn. Ekim 2026 Toksikoloji Sınavı"></div>
-        <div class="field"><label class="f">Açıklama (isteğe bağlı)</label><textarea id="e_desc" style="min-height:60px">${esc(D.description)}</textarea></div>
+        <div class="field"><div class="row" style="justify-content:space-between;margin-bottom:5px;gap:6px"><label class="f" style="margin:0">Açıklama (isteğe bağlı)</label>
+            <div class="row" style="gap:4px"><select id="tplSel" class="tplsel">${tplOptions()}</select><button class="btn sm ghost" id="tplMng" type="button">Şablonlar</button></div></div>
+          <textarea id="e_desc" style="min-height:120px" placeholder="Asistanlar sınava başlamadan önce görür. Hazır metin için “Şablondan ekle”yi kullanın.">${esc(D.description)}</textarea>
+          <div class="row" style="justify-content:space-between;margin-top:4px"><span class="small muted">{soru}, {süre} gibi alanlar sınav ayarlarıyla doldurulur.</span><button class="btn sm ghost" id="tplSave" type="button">Şablon olarak kaydet</button></div>
+          <div id="descPrev" class="descprev hidden"></div></div>
         <div class="grid2"><div class="field"><label class="f">Süre (dakika)</label><input type="number" id="e_dur" min="1" max="600" value="${D.durationMin}"></div>
           <div class="field"><label class="f">Yanlış cezası</label><select id="e_pen"><option value="0">Yok</option><option value="0.25" ${D.penalty==0.25?"selected":""}>4 yanlış 1 doğru</option><option value="0.2" ${D.penalty==0.2?"selected":""}>5 yanlış 1 doğru</option></select></div></div>
         <div class="field"><label class="f">Başlama açılışı</label><input type="datetime-local" id="e_start" value="${toLocalInput(D.startAt)}"></div>
@@ -525,9 +647,29 @@ async function viewExamEdit(id){
     const img=qs.filter(q=>q.imageId).length, cs=new Set(qs.map(q=>q.caseId).filter(Boolean)).size;
     const byPool={}; qs.forEach(q=>{ const n=poolName(poolOf(q)===NOPOOL?null:q.poolId); byPool[n]=(byPool[n]||0)+1; });
     const pl=Object.entries(byPool);
+    D.drawPrev&&D.drawPrev();
     document.getElementById("summary").innerHTML=`<b>${qs.length} soru seçildi</b><div class="small muted">${mcq} çoktan seçmeli · ${open} açık uçlu · ${cs} vaka · ${img} görselli<br>Toplam ${fmtNum(pts)} puan${pl.length>1||(pl.length&&pl[0][0]!=="Havuzsuz")?`<br>${pl.map(([n,c])=>`${esc(n)}: ${c}`).join(" · ")}`:""}</div>`;
   }
   drawPick();
+  // açıklama şablonları ve önizleme
+  const descEl=document.getElementById("e_desc"), tplSel=document.getElementById("tplSel");
+  const formExam=()=>({title:document.getElementById("e_title").value.trim(),durationMin:parseInt(document.getElementById("e_dur").value,10)||"",
+    startAt:new Date(document.getElementById("e_start").value).getTime(),endAt:new Date(document.getElementById("e_end").value).getTime(),
+    penalty:Number(document.getElementById("e_pen").value)||0,items:S.questions.filter(q=>D.sel.has(q.id)).map(q=>({points:Number(q.points)||1}))});
+  const drawPrev=()=>{ const t=descEl.value.trim(), pv=document.getElementById("descPrev");
+    if(!/\{[^}]+\}/.test(t)){ pv.classList.add("hidden"); return; }
+    pv.classList.remove("hidden"); pv.innerHTML=`<div class="small muted" style="margin-bottom:4px">Asistanlar böyle görecek:</div><div class="txt">${esc(fillTpl(t,formExam()))}</div>`; };
+  D.drawPrev=drawPrev;
+  ["e_title","e_dur","e_start","e_end","e_pen","e_desc"].forEach(i=>document.getElementById(i).addEventListener("input",drawPrev));
+  document.getElementById("e_pen").addEventListener("change",drawPrev);
+  tplSel.onchange=async()=>{ const t=findTpl(tplSel.value); tplSel.value=""; if(!t) return;
+    let mode="replace";
+    if(descEl.value.trim()){ mode=await choiceDlg("Şablonu ekle",`<p>Açıklama alanı dolu. <b>${esc(t.name)}</b> şablonu nasıl eklensin?</p>`,[["cancel","Vazgeç",""],["append","Sonuna ekle",""],["replace","Yerine koy","primary"]]); if(mode==="cancel") return; }
+    descEl.value=mode==="append"?descEl.value.trimEnd()+"\n\n"+t.text:t.text; drawPrev(); descEl.focus(); };
+  const refreshTpl=()=>{ tplSel.innerHTML=tplOptions(); };
+  document.getElementById("tplMng").onclick=()=>manageTemplates(refreshTpl);
+  document.getElementById("tplSave").onclick=()=>{ const t=descEl.value.trim(); if(!t) return toast("Önce açıklama yazın",true); editTemplate({text:t},refreshTpl); };
+  drawPrev();
   document.getElementById("pf").oninput=e=>{ filt=trLower(e.target.value); drawPick(); };
   document.getElementById("pp").onchange=e=>{ poolF=e.target.value; drawPick(); };
   document.getElementById("pt").onchange=e=>{ topicF=e.target.value; drawPick(); };
@@ -618,6 +760,93 @@ function gradeDoc(exam, key, att, sc){
     items:sc.items.map(i=>({...i, earned:i.earned??0, explanation:key?.explanations?.[i.qid]||""})), releasedAt:serverTimestamp() };
 }
 
+/* ---------------- sınav istatistikleri ---------------- */
+const avg=a=>a.length?a.reduce((s,v)=>s+v,0)/a.length:0;
+const sdev=a=>{ if(a.length<2) return 0; const m=avg(a); return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/a.length); };
+const fmt2=n=>n==null?"—":n.toLocaleString("tr-TR",{minimumFractionDigits:2,maximumFractionDigits:2});
+// Madde puanı: ÇS'de doğruysa sorunun puanı (ceza hariç), açık uçluda verilen puan
+const itemPts=i=>i.type==="mcq"?(i.res==="c"?i.max:0):Math.max(0,i.earned??0);
+// done: [{att, sc, res}]
+function examStats(exam, done){
+  const N=done.length, items=exam.items;
+  const M=done.map(x=>{ const m={}; x.sc.items.forEach(i=>m[i.qid]=itemPts(i)); return m; });
+  const totals=M.map(m=>items.reduce((s,it)=>s+(m[it.qid]||0),0));
+  // Ayırt edicilik: üst %27 ile alt %27 grubun madde başarı farkı (−1…+1)
+  const g=N>=4?Math.max(1,Math.round(N*0.27)):0;
+  const ord=done.map((_,i)=>i).sort((a,b)=>totals[b]-totals[a]);
+  const up=ord.slice(0,g), lo=ord.slice(N-g);
+  const disc={}; items.forEach(it=>{ disc[it.qid]=g?(avg(up.map(i=>M[i][it.qid]||0))-avg(lo.map(i=>M[i][it.qid]||0)))/it.points:null; });
+  // Güvenirlik: Cronbach α (tümü 1 puanlık ÇS ise KR-20'ye eşittir)
+  const relName=items.every(it=>it.type==="mcq")&&new Set(items.map(it=>it.points)).size===1?"KR-20":"Cronbach α";
+  let rel=null; const vt=sdev(totals)**2;
+  if(N>=3&&items.length>=2&&vt>0){ const k=items.length; const sv=items.reduce((s,it)=>s+sdev(M.map(m=>m[it.qid]||0))**2,0); rel=k/(k-1)*(1-sv/vt); }
+  // Konu bazında grup başarısı
+  const tp={}; items.forEach(it=>{ const t=it.topic||"Konu belirtilmemiş"; const o=tp[t]=tp[t]||{t,n:0,e:0,m:0}; o.n++; M.forEach(m=>{ o.e+=m[it.qid]||0; o.m+=it.points; }); });
+  const topics=Object.values(tp).map(o=>({...o,p:o.m?o.e/o.m*100:0})).sort((a,b)=>a.p-b.p);
+  // Kıdeme göre
+  const kd={}; done.forEach(x=>{ const k=x.res.kidem?String(x.res.kidem):"—"; (kd[k]=kd[k]||[]).push(x.sc.pct); });
+  const kidem=Object.entries(kd).map(([k,a])=>({k,n:a.length,m:avg(a),min:Math.min(...a),max:Math.max(...a)})).sort((a,b)=>a.k.localeCompare(b.k,"tr"));
+  // Puan dağılımı (%10'luk dilimler)
+  const bins=Array.from({length:10},(_,i)=>({lo:i*10,hi:i*10+10,n:0,names:[]}));
+  done.forEach(x=>{ const b=Math.min(9,Math.max(0,Math.floor(x.sc.pct/10))); bins[b].n++; bins[b].names.push(x.res.name||x.res.email); });
+  return {N,g,disc,rel,relName,topics,kidem,bins,sd:sdev(done.map(x=>x.sc.pct))};
+}
+function discBadge(d){
+  if(d==null) return `<span class="muted">—</span>`;
+  const [cls,l]=d<0?["bad","Negatif"]:d<0.2?["bad","Zayıf"]:d<0.3?["warn","Düzeltilmeli"]:d<0.4?["info","İyi"]:["ok","Çok iyi"];
+  return `<span class="badge ${cls}" title="Ayırt edicilik indeksi">${fmt2(d)} · ${l}</span>`;
+}
+function relLabel(r){ return r==null?"":r>=0.8?"İyi":r>=0.7?"Kabul edilebilir":r>=0.5?"Düşük":"Çok düşük"; }
+function discLabel(d){ return d==null?"":d<0?"Negatif":d<0.2?"Zayıf":d<0.3?"Düzeltilmeli":d<0.4?"İyi":"Çok iyi"; }
+
+/* ---------------- grafikler (satır içi SVG) ---------------- */
+// Grafikler kapsayıcının gerçek genişliğinde çizilir (yazılar her ekranda aynı boyutta kalır)
+const CHARTS=new Map();
+function chartSlot(fn){ const id="c"+newId(); CHARTS.set(id,fn); return `<div class="chart-slot" data-chart="${id}"></div>`; }
+function mountCharts(){
+  const live=new Set();
+  document.querySelectorAll("[data-chart]").forEach(el=>{ const fn=CHARTS.get(el.dataset.chart); live.add(el.dataset.chart); if(fn) el.innerHTML=fn(Math.max(260,Math.floor(el.clientWidth))); });
+  [...CHARTS.keys()].forEach(k=>{ if(!live.has(k)) CHARTS.delete(k); });
+}
+let _rsz; window.addEventListener("resize",()=>{ clearTimeout(_rsz); _rsz=setTimeout(mountCharts,150); });
+function histSVG(bins,W=520){
+  const H=210,pl=30,pr=8,pt=12,pb=28, mx=Math.max(1,...bins.map(b=>b.n));
+  const step=Math.max(1,Math.ceil(mx/4)), top=step*Math.ceil(mx/step), ih=H-pt-pb, cw=(W-pl-pr)/bins.length;
+  const y=v=>H-pb-v/top*ih;
+  let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Puan dağılımı histogramı">`;
+  for(let v=0;v<=top;v+=step) s+=`<line class="grid" x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${pl-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`;
+  bins.forEach((b,i)=>{ const x=pl+i*cw+1, w=cw-2;
+    if(b.n){ const h=b.n/top*ih, yy=H-pb-h, r=Math.min(4,h,w/2);
+      s+=`<path class="bar1" d="M${x},${H-pb} V${yy+r} Q${x},${yy} ${x+r},${yy} H${x+w-r} Q${x+w},${yy} ${x+w},${yy+r} V${H-pb} Z"/>`;
+      s+=`<text class="lbl" x="${x+w/2}" y="${yy-4}" text-anchor="middle">${b.n}</text>`; }
+    s+=`<rect class="hit" x="${pl+i*cw}" y="${pt}" width="${cw}" height="${ih}"><title>%${b.lo}–${b.hi===100?100:b.hi}: ${b.n} asistan${b.names.length?"\n"+b.names.map(esc).join("\n"):""}</title></rect>`;
+  });
+  for(let i=0;i<=10;i+=2) s+=`<text class="ax" x="${pl+i*cw}" y="${H-pb+16}" text-anchor="middle">${i*10}</text>`;
+  s+=`<line class="base" x1="${pl}" x2="${W-pr}" y1="${H-pb}" y2="${H-pb}"/></svg>`;
+  return s+`<div class="small muted" style="text-align:center;margin-top:-2px">Başarı yüzdesi · çubuk üstü: asistan sayısı</div>`;
+}
+function hbars(rows){ // [{label, p, sub}]
+  return `<div class="hbars">${rows.map(r=>`<div class="hb"><span class="hl" title="${esc(r.label)}">${esc(r.label)}</span><span class="track"><span style="width:${Math.max(0,Math.min(100,r.p))}%"></span></span><span class="hv">%${r1(r.p)}</span>${r.sub?`<span class="hs">${r.sub}</span>`:""}</div>`).join("")}</div>`;
+}
+function trendSVG(pts,W=680){ // [{label, title, you|null, cls}]
+  const H=250,pl=34,pr=W<500?78:96,pt=14,pb=34, n=pts.length, iw=W-pl-pr, ih=H-pt-pb;
+  const x=i=>n===1?pl+iw/2:pl+i*iw/(n-1), y=v=>pt+(1-Math.max(0,Math.min(100,v))/100)*ih;
+  let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Sınavlara göre başarı">`;
+  [0,25,50,75,100].forEach(v=>s+=`<line class="grid" x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${pl-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`);
+  const every=Math.ceil(n/Math.max(2,Math.floor(iw/80)));
+  pts.forEach((p,i)=>{ if(i%every===0||i===n-1) s+=`<text class="ax" x="${x(i)}" y="${H-pb+16}" text-anchor="middle">${esc(p.label)}</text>`; });
+  const line=(key,cls)=>{ let d="",pen=false; pts.forEach((p,i)=>{ if(p[key]==null){ pen=false; return; } d+=(pen?"L":"M")+x(i)+","+y(p[key])+" "; pen=true; }); return d?`<path class="${cls}" d="${d}"/>`:""; };
+  s+=line("cls","ln2")+line("you","ln1");
+  pts.forEach((p,i)=>{ if(p.cls!=null) s+=`<circle class="dt2" cx="${x(i)}" cy="${y(p.cls)}" r="4"/>`; if(p.you!=null) s+=`<circle class="dt1" cx="${x(i)}" cy="${y(p.you)}" r="5"/>`;
+    s+=`<rect class="hit" x="${x(i)-Math.max(12,iw/(2*Math.max(1,n-1)))}" y="${pt}" width="${2*Math.max(12,iw/(2*Math.max(1,n-1)))}" height="${ih}"><title>${esc(p.title)}\nAsistan: ${p.you==null?"girmedi":"%"+r1(p.you)}\nSınıf ortalaması: %${r1(p.cls)}</title></rect>`; });
+  // son noktalarda doğrudan etiket
+  const lastY=pts.map((p,i)=>[i,p.you]).filter(z=>z[1]!=null).pop(), lastC=pts.length-1;
+  if(lastY) s+=`<text class="dl1" x="${x(lastY[0])+9}" y="${y(lastY[1])+4}">Asistan %${r1(lastY[1])}</text>`;
+  const cy=y(pts[lastC].cls), yy=lastY&&lastY[0]===lastC&&Math.abs(y(lastY[1])-cy)<14?cy+(cy>y(lastY[1])?14:-14):cy;
+  s+=`<text class="dl2" x="${x(lastC)+9}" y="${yy+4}">Sınıf %${r1(pts[lastC].cls)}</text>`;
+  return s+`</svg>`;
+}
+
 /* =====================================================================
    YÖNETİCİ — SONUÇLAR
    ===================================================================== */
@@ -635,14 +864,15 @@ async function viewResults(id){
   atts.filter(a=>!S.residents.find(r=>r.email===(a.email||"").toLowerCase())).forEach(a=>rows.push({res:{name:a.name,email:a.email,kidem:""},att:a}));
   rows.forEach(x=>{ if(x.att){ x.fin=isFinished(exam,x.att); x.sc=scoreAttempt(exam,key,x.att); } });
   const done=rows.filter(x=>x.att&&x.fin), pctArr=done.map(x=>x.sc.pct).sort((a,b)=>a-b);
-  const mean=pctArr.length?pctArr.reduce((s,v)=>s+v,0)/pctArr.length:0;
+  const mean=avg(pctArr);
   const med=pctArr.length?(pctArr.length%2?pctArr[(pctArr.length-1)/2]:(pctArr[pctArr.length/2-1]+pctArr[pctArr.length/2])/2):0;
   const pending=done.reduce((s,x)=>s+x.sc.pending,0);
   const max=exam.items.reduce((s,i)=>s+i.points,0);
+  const ST=examStats(exam,done);
 
   const statusOf=x=>{ if(!x.att) return `<span class="badge">Girmedi</span>`; if(x.att.status==="submitted") return `<span class="badge ok">Teslim</span>`;
     return x.fin?`<span class="badge warn">Süre doldu</span>`:`<span class="badge acc">Sınavda</span>`; };
-  rows.sort((a,b)=>(b.sc?.pct??-1)-(a.sc?.pct??-1));
+  rows.sort((a,b)=>(b.sc?.pct??-1e9)-(a.sc?.pct??-1e9));
   const tbody=rows.map(x=>`<tr class="${x.att?"click":""}" ${x.att?`data-uid="${x.att.uid}"`:""}>
     <td><b>${esc(x.res.name||"—")}</b><div class="small muted">${esc(x.res.email)}</div></td><td>${x.res.kidem?x.res.kidem+". yıl":"—"}</td><td>${statusOf(x)}</td>
     <td class="num">${x.sc?x.sc.c:"—"}</td><td class="num">${x.sc?x.sc.w:"—"}</td><td class="num">${x.sc?x.sc.e:"—"}</td>
@@ -655,14 +885,17 @@ async function viewResults(id){
     const vals=done.map(x=>x.att.answers?.[it.qid]);
     if(it.type==="mcq"){
       const n=vals.length, dist=it.options.map((_,j)=>vals.filter(v=>v===j).length), empty=vals.filter(v=>v==null).length, cor=key.key[it.qid];
-      return {i,it,n,dist,empty,cor,p:n?dist[cor]/n*100:null};
+      return {i,it,n,dist,empty,cor,p:n?dist[cor]/n*100:null,d:ST.disc[it.qid]};
     }
     const sc=done.map(x=>x.att.openScores?.[it.qid]).filter(v=>v!=null);
-    return {i,it,n:vals.length,avg:sc.length?sc.reduce((s,v)=>s+v,0)/sc.length:null};
+    return {i,it,n:vals.length,avg:sc.length?avg(sc):null,d:ST.disc[it.qid]};
   });
-  const iaRows=ia.map(r=>`<tr><td class="num">${r.i+1}</td><td style="white-space:normal;min-width:240px;max-width:420px">${esc(r.it.stem.slice(0,140))}${r.it.stem.length>140?"…":""}</td>
+  const iaRows=ia.map(r=>`<tr><td class="num">${r.i+1}</td><td style="white-space:normal;min-width:240px;max-width:420px">${esc(r.it.stem.slice(0,140))}${r.it.stem.length>140?"…":""}${r.it.topic?`<div class="small muted">${esc(r.it.topic)}</div>`:""}</td>
     <td>${r.it.type==="mcq"?r.it.options.map((o,j)=>`<span class="badge ${j===r.cor?"ok":""}" title="${esc(o)}">${LET[j]} ${r.dist[j]}</span>`).join(" ")+(r.empty?` <span class="badge">Boş ${r.empty}</span>`:""):`<span class="badge">Açık uçlu</span>`}</td>
-    <td class="num">${r.it.type==="mcq"?(r.p==null?"—":`<span class="badge ${r.p<30?"bad":r.p>85?"info":"ok"}">%${r.p.toFixed(0)}</span>`):(r.avg==null?"—":fmtNum(r.avg)+" / "+r.it.points)}</td></tr>`).join("");
+    <td class="num">${r.it.type==="mcq"?(r.p==null?"—":`<span class="badge ${r.p<30?"bad":r.p>85?"info":"ok"}">%${r.p.toFixed(0)}</span>`):(r.avg==null?"—":fmtNum(r.avg)+" / "+r.it.points)}</td>
+    <td class="num">${discBadge(r.d)}</td></tr>`).join("");
+  const flagged=ia.filter(r=>r.d!=null&&r.d<0.2).length;
+  const smallN=done.length<10;
 
   paint(`<div class="page-head"><div><button class="btn sm ghost" id="back" style="margin-left:-8px">← Sınavlar</button><h1>${esc(exam.title)}</h1>
       <div class="sub">${exam.items.length} soru · ${fmtNum(max)} puan · ${exam.durationMin} dk${exam.penalty?" · yanlış cezası":""} · ${fmtDT(exam.startAt)} – ${fmtDT(exam.endAt)}</div></div>
@@ -672,15 +905,24 @@ async function viewResults(id){
     <div class="stats">
       <div class="stat"><div class="k">Katılım</div><div class="v">${atts.length}<span class="muted" style="font-size:14px"> / ${S.residents.length}</span></div></div>
       <div class="stat"><div class="k">Tamamlanan</div><div class="v">${done.length}</div></div>
-      <div class="stat"><div class="k">Ortalama</div><div class="v">%${r1(mean)}</div></div>
+      <div class="stat"><div class="k">Ortalama ± SS</div><div class="v">%${r1(mean)}<span class="muted" style="font-size:14px"> ± ${r1(ST.sd)}</span></div></div>
       <div class="stat"><div class="k">Medyan</div><div class="v">%${r1(med)}</div></div>
       <div class="stat"><div class="k">En yüksek / düşük</div><div class="v" style="font-size:18px">${pctArr.length?`%${r1(pctArr.at(-1))} / %${r1(pctArr[0])}`:"—"}</div></div>
+      <div class="stat" title="İç tutarlılık: sınavın aynı yetkinliği ne kadar tutarlı ölçtüğü. ≥0,80 iyi, 0,70–0,79 kabul edilebilir."><div class="k">Güvenirlik (${ST.relName})</div><div class="v">${ST.rel==null?"—":fmt2(ST.rel)}${ST.rel!=null?`<span class="muted" style="font-size:13px;font-weight:500"> ${relLabel(ST.rel)}</span>`:""}</div></div>
       <div class="stat"><div class="k">Puanlanacak açık uçlu</div><div class="v" style="${pending?"color:var(--warn)":""}">${pending}</div></div>
     </div>
+    ${done.length&&smallN?`<div class="note">Tamamlayan asistan sayısı ${done.length}. Ayırt edicilik ve güvenirlik yaklaşık 10 ve üzeri katılımcıyla anlamlı hale gelir; küçük gruplarda yön gösterici olarak yorumlayın.</div>`:""}
+    ${done.length?`<div class="grid2 stat-grid">
+      <div class="card pad"><h2>Puan dağılımı</h2>${chartSlot(w=>histSVG(ST.bins,w))}</div>
+      <div class="card pad"><h2>Kıdeme göre</h2>${hbars(ST.kidem.map(k=>({label:k.k==="—"?"Kıdem girilmemiş":k.k+". yıl",p:k.m,sub:`${k.n} kişi${k.n>1?` · %${r1(k.min)}–%${r1(k.max)}`:""}`})))}
+        <div class="small muted" style="margin-top:8px">Ortalama başarı yüzdesi · kişi sayısı ve aralık</div></div>
+    </div>
+    <div class="card pad" style="margin-bottom:22px"><h2>Konu bazında grup başarısı</h2><div class="small muted" style="margin:-6px 0 10px">En zayıf konu üstte. Çoktan seçmelilerde ceza uygulanmadan doğru oranı, açık uçlularda alınan puan.</div>
+      ${hbars(ST.topics.map(t=>({label:t.t,p:t.p,sub:`${t.n} soru`})))}</div>`:""}
     <h2>Asistanlar</h2><div class="small muted" style="margin:-6px 0 8px">Satıra tıklayarak cevapları görün ve açık uçlu soruları puanlayın.</div>
     <div class="tbl-wrap" style="margin-bottom:22px"><table><thead><tr><th>Asistan</th><th>Kıdem</th><th>Durum</th><th class="num">D</th><th class="num">Y</th><th class="num">B</th><th class="num">Açık uçlu</th><th class="num">Toplam</th><th class="num">%</th><th>Sayfadan ayrılma</th><th>Zaman</th></tr></thead><tbody>${tbody||`<tr><td colspan="11" class="empty">Asistan listesi boş.</td></tr>`}</tbody></table></div>
-    <h2>Madde analizi</h2><div class="small muted" style="margin:-6px 0 8px">Doğru şık yeşil. Güçlük: %30 altı çok zor, %85 üstü çok kolay.</div>
-    <div class="tbl-wrap"><table><thead><tr><th class="num">#</th><th>Soru</th><th>Şık dağılımı</th><th class="num">Doğru oranı</th></tr></thead><tbody>${iaRows}</tbody></table></div>`);
+    <h2>Madde analizi</h2><div class="small muted" style="margin:-6px 0 8px">Doğru şık yeşil. Güçlük: %30 altı çok zor, %85 üstü çok kolay. Ayırt edicilik (üst %27 – alt %27): ≥0,40 çok iyi · 0,30–0,39 iyi · 0,20–0,29 düzeltilmeli · &lt;0,20 zayıf · negatif ise soruyu gözden geçirin.${flagged?` <b style="color:var(--bad)">${flagged} soru 0,20'nin altında.</b>`:""}</div>
+    <div class="tbl-wrap"><table><thead><tr><th class="num">#</th><th>Soru</th><th>Şık dağılımı</th><th class="num">Doğru oranı</th><th class="num">Ayırt edicilik</th></tr></thead><tbody>${iaRows}</tbody></table></div>`);
 
   document.getElementById("back").onclick=()=>go("exams");
   $app.querySelectorAll("tr[data-uid]").forEach(t=>t.onclick=()=>go("attempt",{examId:id,uid:t.dataset.uid}));
@@ -696,6 +938,11 @@ async function viewResults(id){
   });
   document.getElementById("xls").onclick=()=>{
     if(!window.XLSX) return toast("Excel kütüphanesi yüklenemedi",true);
+    const s0=[["Sınav",exam.title],["Tarih",`${fmtDT(exam.startAt)} – ${fmtDT(exam.endAt)}`],["Soru sayısı",exam.items.length],["Maksimum puan",max],
+      ["Katılım",`${atts.length} / ${S.residents.length}`],["Tamamlayan",done.length],["Ortalama %",r1(mean)],["Standart sapma",r1(ST.sd)],["Medyan %",r1(med)],
+      ["En yüksek %",pctArr.length?r1(pctArr.at(-1)):""],["En düşük %",pctArr.length?r1(pctArr[0]):""],
+      [`Güvenirlik (${ST.relName})`,ST.rel==null?"hesaplanamadı":Math.round(ST.rel*100)/100],["Güvenirlik yorumu",relLabel(ST.rel)],
+      ["Ayırt ediciliği 0,20'nin altında soru",flagged],["Not",smallN?"Katılımcı sayısı 10'un altında; ayırt edicilik ve güvenirlik yön gösterici.":""]];
     const s1=rows.map(x=>({"Ad Soyad":x.res.name||"","E-posta":x.res.email||"","Kıdem":x.res.kidem||"",
       "Durum":!x.att?"Girmedi":x.att.status==="submitted"?"Teslim":x.fin?"Süre doldu":"Sınavda",
       "Başlama":x.att?fmtDT(x.att.startedAt):"","Teslim":x.att?.submittedAt?fmtDT(x.att.submittedAt):"",
@@ -705,16 +952,79 @@ async function viewResults(id){
     const s4=rows.filter(x=>x.att).flatMap(x=>(x.att.events||[]).map(e=>({"Ad Soyad":x.res.name||"","E-posta":x.res.email||"","Olay":EV_LBL[e.type]||e.type,"Saat":new Date(e.t).toLocaleString("tr-TR"),"Süre (sn)":e.type==="away"?(e.d??"kapanana kadar"):""})));
     const s2=ia.map(r=>({"No":r.i+1,"Konu":r.it.topic||"","Tür":r.it.type==="mcq"?"ÇS":"Açık uçlu","Soru":r.it.stem,
       "Doğru şık":r.it.type==="mcq"?LET[r.cor]:"", ...Object.fromEntries(LET.map((l,j)=>[l, r.it.type==="mcq"&&j<r.it.options.length?r.dist[j]:""])),
-      "Boş":r.it.type==="mcq"?r.empty:"","Doğru oranı %":r.it.type==="mcq"&&r.p!=null?r1(r.p):"","Ort. puan (AU)":r.avg!=null?r1(r.avg):""}));
+      "Boş":r.it.type==="mcq"?r.empty:"","Doğru oranı %":r.it.type==="mcq"&&r.p!=null?r1(r.p):"","Ort. puan (AU)":r.avg!=null?r1(r.avg):"",
+      "Ayırt edicilik":r.d==null?"":Math.round(r.d*100)/100,"Ayırt edicilik yorumu":discLabel(r.d)}));
+    const s5=ST.topics.map(t=>({"Konu":t.t,"Soru sayısı":t.n,"Grup başarısı %":r1(t.p)}));
+    const s6=ST.kidem.map(k=>({"Kıdem":k.k==="—"?"Girilmemiş":k.k+". yıl","Kişi":k.n,"Ortalama %":r1(k.m),"En düşük %":r1(k.min),"En yüksek %":r1(k.max)}));
+    const s7=ST.bins.map(b=>({"Dilim":`%${b.lo}–${b.hi}`,"Asistan sayısı":b.n,"Asistanlar":b.names.join(", ")}));
     const s3=rows.filter(x=>x.att).map(x=>{ const o={"Ad Soyad":x.res.name||"","E-posta":x.res.email||""};
       exam.items.forEach((it,i)=>{ const a=x.att.answers?.[it.qid]; o["S"+(i+1)]= it.type==="mcq"?(a==null?"":LET[a]):(a||""); }); return o; });
-    const wb=XLSX.utils.book_new();
+    const wb=XLSX.utils.book_new(), ws0=XLSX.utils.aoa_to_sheet(s0); ws0["!cols"]=[{wch:38},{wch:44}];
+    XLSX.utils.book_append_sheet(wb,ws0,"Özet");
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s1),"Sonuçlar");
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s2),"Madde Analizi");
-    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s3),"Cevaplar");
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s5.length?s5:[{"Konu":"—"}]),"Konu Analizi");
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s6.length?s6:[{"Kıdem":"—"}]),"Kıdem");
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s7),"Puan Dağılımı");
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s3.length?s3:[{"Ad Soyad":"—"}]),"Cevaplar");
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s4.length?s4:[{"Olay":"Kayıt yok"}]),"Ayrılma Kaydı");
     XLSX.writeFile(wb,`${exam.title.replace(/[\\/:*?"<>|]/g,"_")} - sonuçlar.xlsx`);
   };
+}
+
+/* =====================================================================
+   YÖNETİCİ — ASİSTAN GELİŞİM PROFİLİ
+   ===================================================================== */
+async function viewProfile(email){
+  paint(`<div class="spinner"></div>`);
+  await Promise.all([loadExams(),loadResidents()]);
+  const [as,ks]=await Promise.all([getDocs(collection(db,"attempts")),getDocs(collection(db,"examKeys"))]);
+  const keys={}; ks.docs.forEach(d=>keys[d.id]=d.data());
+  const atts=as.docs.map(d=>({id:d.id,...d.data()}));
+  const res=S.residents.find(r=>r.email===email)||{name:(atts.find(a=>(a.email||"").toLowerCase()===email)?.name)||email,email};
+  const list=[], tAgg={};
+  for(const e of [...S.exams].sort((a,b)=>tsMs(a.startAt)-tsMs(b.startAt))){
+    const fin=atts.filter(a=>a.examId===e.id&&isFinished(e,a)); if(!fin.length) continue;
+    const key=keys[e.id]||{key:{}};
+    const scs=fin.map(a=>({a,sc:scoreAttempt(e,key,a)}));
+    const mine=scs.find(x=>(x.a.email||"").toLowerCase()===email);
+    const cls=avg(scs.map(x=>x.sc.pct));
+    list.push({e,cls,n:scs.length,mine:mine?.sc||null,att:mine?.a||null,rank:mine?1+scs.filter(x=>x.sc.pct>mine.sc.pct).length:null});
+    if(!mine) continue;
+    e.items.forEach(it=>{ const t=it.topic||"Konu belirtilmemiş"; const o=tAgg[t]=tAgg[t]||{t,n:0,me:0,mm:0,ce:0,cm:0};
+      const f=sc=>{ const i=sc.items.find(z=>z.qid===it.qid); return i?itemPts(i):0; };
+      o.n++; o.me+=f(mine.sc); o.mm+=it.points; scs.forEach(x=>{ o.ce+=f(x.sc); o.cm+=it.points; }); });
+  }
+  const taken=list.filter(r=>r.mine);
+  const myAvg=avg(taken.map(r=>r.mine.pct)), clsAvg=avg(taken.map(r=>r.cls)), diff=myAvg-clsAvg;
+  const topics=Object.values(tAgg).map(o=>({...o,p:o.mm?o.me/o.mm*100:0,c:o.cm?o.ce/o.cm*100:0})).sort((a,b)=>(a.p-a.c)-(b.p-b.c));
+  const sign=v=>(v>0?"+":"")+r1(v);
+  const dshort=t=>{ const d=new Date(tsMs(t)); return d.toLocaleDateString("tr-TR",{day:"2-digit",month:"2-digit",year:"2-digit"}); };
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="back" style="margin-left:-8px">← Asistanlar</button><h1>${esc(res.name||email)}</h1>
+      <div class="sub">${esc(email)}${res.kidem?` · ${res.kidem}. yıl`:""} · Gelişim takibi</div></div></div>
+    <div class="stats">
+      <div class="stat"><div class="k">Girdiği sınav</div><div class="v">${taken.length}<span class="muted" style="font-size:14px"> / ${list.length}</span></div></div>
+      <div class="stat"><div class="k">Ortalama başarı</div><div class="v">${taken.length?"%"+r1(myAvg):"—"}</div></div>
+      <div class="stat"><div class="k">Aynı sınavlarda sınıf ort.</div><div class="v">${taken.length?"%"+r1(clsAvg):"—"}</div></div>
+      <div class="stat"><div class="k">Sınıf ortalamasına göre</div><div class="v">${taken.length?sign(diff)+" puan":"—"}</div></div>
+      <div class="stat"><div class="k">Son sınav</div><div class="v" style="font-size:18px">${taken.length?`%${r1(taken.at(-1).mine.pct)} · ${taken.at(-1).rank}/${taken.at(-1).n}. sıra`:"—"}</div></div>
+    </div>
+    ${list.length?`<div class="card pad" style="margin-bottom:18px"><div class="row" style="justify-content:space-between;margin-bottom:6px"><h2 style="margin:0">Sınavlara göre başarı</h2>
+      <div class="legend"><span><i class="lg1"></i>${esc(res.name||"Asistan")}</span><span><i class="lg2"></i>Sınıf ortalaması</span></div></div>
+      ${chartSlot(w=>trendSVG(list.map(r=>({label:dshort(r.e.startAt),title:r.e.title,you:r.mine?r.mine.pct:null,cls:r.cls})),w))}</div>`:""}
+    <h2>Sınavlar</h2>
+    <div class="tbl-wrap" style="margin-bottom:22px"><table><thead><tr><th>Sınav</th><th>Tarih</th><th class="num">Asistan %</th><th class="num">Sınıf ort. %</th><th class="num">Fark</th><th class="num">Sıra</th><th class="num">D / Y / B</th></tr></thead><tbody>
+      ${list.length?[...list].reverse().map(r=>`<tr class="${r.att?"click":""}" ${r.att?`data-ex="${r.e.id}" data-uid="${r.att.uid}"`:""}><td><b>${esc(r.e.title)}</b></td><td>${fmtDT(r.e.startAt).split(" ")[0]}</td>
+        <td class="num">${r.mine?`<b>%${r1(r.mine.pct)}</b>`:`<span class="badge">Girmedi</span>`}</td><td class="num">%${r1(r.cls)}</td>
+        <td class="num">${r.mine?`<span class="badge ${r.mine.pct-r.cls>=0?"ok":"bad"}">${sign(r.mine.pct-r.cls)}</span>`:""}</td>
+        <td class="num">${r.mine?`${r.rank} / ${r.n}`:""}</td><td class="num">${r.mine?`${r.mine.c} / ${r.mine.w} / ${r.mine.e}`:""}</td></tr>`).join(""):`<tr><td colspan="7" class="empty">Henüz tamamlanmış sınav yok.</td></tr>`}
+    </tbody></table></div>
+    ${topics.length?`<h2>Konu bazında (tüm sınavlar)</h2><div class="small muted" style="margin:-6px 0 8px">Sınıf ortalamasının en çok altında kaldığı konu üstte.</div>
+    <div class="tbl-wrap"><table><thead><tr><th>Konu</th><th class="num">Soru</th><th style="min-width:160px">Asistan</th><th class="num">Asistan %</th><th class="num">Sınıf %</th><th class="num">Fark</th></tr></thead><tbody>
+      ${topics.map(t=>`<tr><td>${esc(t.t)}</td><td class="num">${t.n}</td><td><div class="track"><span style="width:${t.p}%"></span></div></td><td class="num">%${r1(t.p)}</td><td class="num">%${r1(t.c)}</td><td class="num"><span class="badge ${t.p-t.c>=0?"ok":"bad"}">${sign(t.p-t.c)}</span></td></tr>`).join("")}
+    </tbody></table></div>`:""}`);
+  document.getElementById("back").onclick=()=>go("residents");
+  $app.querySelectorAll("tr[data-ex]").forEach(t=>t.onclick=()=>go("attempt",{examId:t.dataset.ex,uid:t.dataset.uid}));
 }
 
 async function viewAttempt(examId, uid){
@@ -746,7 +1056,7 @@ async function viewAttempt(examId, uid){
   const hasOpen=exam.items.some(i=>i.type==="open");
   paint(`<div class="page-head"><div><button class="btn sm ghost" id="back" style="margin-left:-8px">← ${esc(exam.title)}</button><h1>${esc(res.name||res.email)}</h1>
     <div class="sub">${esc(res.email)} · Başlama ${fmtDT(att.startedAt)} · ${att.submittedAt?"Teslim "+fmtDT(att.submittedAt):(isFinished(exam,att)?"Süre doldu":"Sınav sürüyor")}</div></div>
-    <div class="row"><button class="btn danger" id="reset">Oturumu sıfırla</button>${hasOpen?`<button class="btn primary" id="saveG">Puanları kaydet</button>`:""}</div></div>
+    <div class="row"><button class="btn" id="prof">Gelişim</button><button class="btn danger" id="reset">Oturumu sıfırla</button>${hasOpen?`<button class="btn primary" id="saveG">Puanları kaydet</button>`:""}</div></div>
     <div class="stats"><div class="stat"><div class="k">Doğru / Yanlış / Boş</div><div class="v">${sc.c} / ${sc.w} / ${sc.e}</div></div>
       <div class="stat"><div class="k">Toplam</div><div class="v">${fmtNum(sc.total)} <span class="muted" style="font-size:14px">/ ${fmtNum(sc.max)}</span></div></div>
       <div class="stat"><div class="k">Yüzde</div><div class="v">%${r1(sc.pct)}</div></div></div>
@@ -757,6 +1067,7 @@ async function viewAttempt(examId, uid){
     </tbody></table></div>
     <h2>Cevaplar</h2><div class="card">${qs}</div>`);
   document.getElementById("back").onclick=()=>go("results",{id:examId});
+  document.getElementById("prof").onclick=()=>go("profile",{email:(att.email||"").toLowerCase()});
   document.getElementById("reset").onclick=async()=>{
     if(!await confirmDlg("Oturumu sıfırla","<p>Bu asistanın cevapları ve varsa yayınlanmış sonucu silinir; sınava yeniden girebilir (sınav penceresi açıksa).</p>","Sıfırla",true)) return;
     try{ const b=writeBatch(db); b.delete(doc(db,"attempts",att.id)); b.delete(doc(db,"grades",att.id)); await b.commit(); toast("Oturum sıfırlandı"); go("results",{id:examId}); }catch(e){ fail(e); }
@@ -1072,7 +1383,7 @@ async function viewResidents(){
   paint(`<div class="spinner"></div>`);
   await loadResidents();
   const rows=S.residents.map(r=>`<tr><td><b>${esc(r.name)}</b></td><td>${esc(r.email)}</td><td>${r.kidem?r.kidem+". yıl":"—"}</td>
-    <td class="num"><button class="btn sm ghost" data-er="${esc(r.email)}">Düzenle</button><button class="btn sm ghost danger" data-dr="${esc(r.email)}">✕</button></td></tr>`).join("");
+    <td class="num"><button class="btn sm" data-pr="${esc(r.email)}">Gelişim</button><button class="btn sm ghost" data-er="${esc(r.email)}">Düzenle</button><button class="btn sm ghost danger" data-dr="${esc(r.email)}">✕</button></td></tr>`).join("");
   paint(`<div class="page-head"><div><h1>Asistanlar</h1><div class="sub">Yalnız bu listedeki Google hesapları sınavlara girebilir. (${S.residents.length} kişi)</div></div>
     <div class="row"><button class="btn" id="bulk">Toplu ekle</button><button class="btn primary" id="addR">+ Asistan</button></div></div>
     <div class="tbl-wrap"><table><thead><tr><th>Ad Soyad</th><th>Google e-posta</th><th>Kıdem</th><th></th></tr></thead><tbody>${rows||`<tr><td colspan="4" class="empty">Liste boş. Kendinizi de ekleyerek sınavları asistan gözüyle deneyebilirsiniz.</td></tr>`}</tbody></table></div>`);
@@ -1086,6 +1397,7 @@ async function viewResidents(){
       try{ await setDoc(doc(db,"residents",email),{name,kidem},{merge:true}); m.close(); toast("Kaydedildi"); viewResidents(); }catch(e){ fail(e); } }; };
   document.getElementById("addR").onclick=()=>form(null);
   $app.querySelectorAll("[data-er]").forEach(b=>b.onclick=()=>form(S.residents.find(r=>r.email===b.dataset.er)));
+  $app.querySelectorAll("[data-pr]").forEach(b=>b.onclick=()=>go("profile",{email:b.dataset.pr}));
   $app.querySelectorAll("[data-dr]").forEach(b=>b.onclick=async()=>{ if(!await confirmDlg("Listeden çıkar",`<p>${esc(b.dataset.dr)} artık sınavlara giremeyecek. Eski sonuçları silinmez.</p>`,"Çıkar",true)) return;
     try{ await deleteDoc(doc(db,"residents",b.dataset.dr)); toast("Çıkarıldı"); viewResidents(); }catch(e){ fail(e); } });
   document.getElementById("bulk").onclick=()=>{
@@ -1127,7 +1439,7 @@ async function viewHome(){
     else { st=`<span class="badge acc">Açık</span>`; btn=`<button class="btn primary" data-start="${e.id}">Sınava başla</button>`; }
     return `<div class="card pad"><div class="row" style="align-items:flex-start"><div class="grow">
       <div class="row" style="gap:8px;margin-bottom:4px"><h3 style="margin:0">${esc(e.title)}</h3>${st}</div>
-      ${e.description?`<div class="small" style="margin-bottom:4px;white-space:pre-wrap">${esc(e.description)}</div>`:""}
+      ${e.description&&!(att||grade)?`<div class="small clamp3" style="margin-bottom:4px">${esc(fillTpl(e.description,e))}</div>`:""}
       <div class="small muted">${e.items.length} soru · ${fmtNum(pts)} puan · ${e.durationMin} dakika · Son başlama ${fmtDT(e.endAt)}</div></div>
       <div class="row">${btn}</div></div></div>`;
   };
@@ -1137,7 +1449,7 @@ async function viewHome(){
   $app.querySelectorAll("[data-rev]").forEach(b=>b.onclick=()=>go("review",{id:b.dataset.rev}));
   $app.querySelectorAll("[data-start]").forEach(b=>b.onclick=async()=>{
     const e=exams.find(x=>x.id===b.dataset.start);
-    const ok=await confirmDlg("Sınava başla",`<p><b>${esc(e.title)}</b></p><ul style="padding-left:18px;margin:0">
+    const ok=await confirmDlg("Sınava başla",`<p><b>${esc(e.title)}</b></p>${e.description?`<div class="descprev" style="margin:0 0 12px"><div class="txt">${esc(fillTpl(e.description,e))}</div></div>`:""}<ul style="padding-left:18px;margin:0">
       <li>${e.items.length} soru, <b>${e.durationMin} dakika</b>.</li><li>Süre başladığında durmaz; sayfayı kapatsanız da işlemeye devam eder.</li>
       <li>Cevaplarınız otomatik kaydedilir; bağlantı koparsa kaldığınız yerden devam edebilirsiniz.</li><li>Süre bitince sınav otomatik teslim edilir.</li><li>Sınav sayfasından ayrılmalarınız (başka sekme, uygulama, ekran kilidi) kaydedilir ve sorumlu öğretim üyesine gösterilir.</li>
       ${e.penalty?`<li>Yanlış cevaplar doğruları götürür (${e.penalty===0.25?"4 yanlış 1 doğru":"5 yanlış 1 doğru"}).</li>`:""}</ul>`,"Başla");
