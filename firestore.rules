@@ -157,6 +157,42 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    // Canlı yarışma: belge kimliği 6 haneli PIN. Katılım: asistanlar veya (audience=='all' ise) Google ile giren herkes
+    function gameOf(gid) { return get(/databases/$(database)/documents/games/$(gid)).data; }
+    function canJoin(g) { return isAdmin() || isResident() || g.get('audience', 'res') == 'all'; }
+    match /games/{gid} {
+      allow get: if signedIn() && canJoin(resource.data);
+      allow list, write: if isAdmin();
+      match /players/{uid} {
+        allow read: if signedIn() && canJoin(gameOf(gid));
+        allow create: if signedIn() && request.auth.uid == uid && canJoin(gameOf(gid))
+          && gameOf(gid).state != 'end'
+          && request.resource.data.keys().hasOnly(['uid', 'name', 'email', 'score', 'joinedAt'])
+          && request.resource.data.uid == uid && request.resource.data.email == myEmail()
+          && request.resource.data.score == 0 && request.resource.data.joinedAt == request.time
+          && request.resource.data.name is string && request.resource.data.name.size() <= 40;
+        allow update, delete: if isAdmin();
+      }
+      match /answers/{aid} {
+        allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+        // soru başına tek cevap; yalnız soru açıkken ve süre içinde (+2 sn)
+        allow create: if signedIn()
+          && exists(/databases/$(database)/documents/games/$(gid)/players/$(request.auth.uid))
+          && gameOf(gid).state == 'question'
+          && request.resource.data.keys().hasOnly(['uid', 'qIndex', 'choice', 'at'])
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.qIndex == gameOf(gid).qIndex
+          && aid == string(gameOf(gid).qIndex) + '_' + request.auth.uid
+          && request.resource.data.choice is int
+          && request.resource.data.at == request.time
+          && request.time <= gameOf(gid).qStartAt + duration.value(gameOf(gid).qDuration + 2, 's');
+        allow update, delete: if isAdmin();
+      }
+    }
+    match /gameKeys/{gid} { allow read, write: if isAdmin(); }
+    // Bilgi tahtası (tek ekran, yönetici yönetir)
+    match /jeopardy/{id} { allow read, write: if isAdmin(); }
+
     // Alıştırma ilerlemesi: asistan kendi belgesini yazar; yönetici okur
     match /practice/{uid} {
       allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);

@@ -38,6 +38,12 @@ await env.withSecurityRulesDisabled(async c => {
   await setDoc(doc(d, "questions/qn"), { stem: "n", practice: false });
   await setDoc(doc(d, "questions/qy"), { stem: "y", status: "pending", author: "yazar@gmail.com", practice: false });
   await setDoc(doc(d, "questions/qo"), { stem: "o", status: "pending", author: "baska@gmail.com", practice: false });
+  await setDoc(doc(d, "games/111111"), { title: "G", state: "question", qIndex: 0, qDuration: 20, qStartAt: ts(now - 3000), audience: "res", questions: [] });
+  await setDoc(doc(d, "games/222222"), { title: "H", state: "question", qIndex: 1, qDuration: 20, qStartAt: ts(now - 3000), audience: "all", questions: [] });
+  await setDoc(doc(d, "games/333333"), { title: "K", state: "question", qIndex: 0, qDuration: 10, qStartAt: ts(now - 60000), audience: "res", questions: [] });
+  await setDoc(doc(d, "games/333333/players/u1"), { uid: "u1", name: "A", score: 0 });
+  await setDoc(doc(d, "gameKeys/111111"), { key: [[0]] });
+  await setDoc(doc(d, "jeopardy/j1"), { title: "J" });
 });
 
 console.log("Sınav erişimi");
@@ -96,6 +102,23 @@ await t("yazar sınavları okuyamaz", () => assertFails(getDoc(doc(yazar, "exams
 await t("yazar sonuçları okuyamaz", () => assertFails(getDoc(doc(yazar, "grades/e1_u1"))));
 await t("yazar rolleri değiştiremez", () => assertFails(setDoc(doc(yazar, "meta/roles"), { authors: ["yazar@gmail.com", "x@gmail.com"] })));
 await t("yönetici rolleri değiştirir", () => assertSucceeds(setDoc(doc(admin, "meta/roles"), { authors: ["yazar@gmail.com"] })));
+
+console.log("Canlı yarışma / bilgi tahtası");
+const pl = (uid, email, extra = {}) => ({ uid, name: "Oyuncu", email, score: 0, joinedAt: serverTimestamp(), ...extra });
+const an = (uid, q, extra = {}) => ({ uid, qIndex: q, choice: 1, at: serverTimestamp(), ...extra });
+await t("asistan asistan-oyununa katılır", () => assertSucceeds(setDoc(doc(ayse, "games/111111/players/u1"), pl("u1", "ayse@gmail.com"))));
+await t("listede olmayan asistan-oyununu göremez", () => assertFails(getDoc(doc(yabanci, "games/111111"))));
+await t("listede olmayan herkese-açık oyuna katılır", () => assertSucceeds(setDoc(doc(yabanci, "games/222222/players/x1"), pl("x1", "yabanci@gmail.com"))));
+await t("puanla katılamaz", () => assertFails(setDoc(doc(ali, "games/111111/players/u2"), pl("u2", "ali@gmail.com", { score: 999 }))));
+await t("katılımcı cevap verir", () => assertSucceeds(setDoc(doc(ayse, "games/111111/answers/0_u1"), an("u1", 0))));
+await t("ikinci kez cevap veremez", () => assertFails(setDoc(doc(ayse, "games/111111/answers/0_u1"), an("u1", 0, { choice: 2 }))));
+await t("başka soruya cevap yazamaz", () => assertFails(setDoc(doc(yabanci, "games/222222/answers/0_x1"), an("x1", 0))));
+await t("süre dolduktan sonra cevap veremez", () => assertFails(setDoc(doc(ayse, "games/333333/answers/0_u1"), an("u1", 0))));
+await t("katılmadan cevap veremez", () => assertFails(setDoc(doc(ali, "games/111111/answers/0_u2"), an("u2", 0))));
+await t("katılımcı kendi puanını yazamaz", () => assertFails(updateDoc(doc(ayse, "games/111111/players/u1"), { score: 5000 })));
+await t("katılımcı cevap anahtarını okuyamaz", () => assertFails(getDoc(doc(ayse, "gameKeys/111111"))));
+await t("yönetici puanı yazar", () => assertSucceeds(updateDoc(doc(admin, "games/111111/players/u1"), { score: 900 })));
+await t("asistan bilgi tahtasını okuyamaz", () => assertFails(getDoc(doc(ayse, "jeopardy/j1"))));
 
 await env.cleanup();
 console.log(`\n${pass} geçti, ${failN} başarısız`);
