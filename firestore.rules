@@ -18,6 +18,10 @@ service cloud.firestore {
     function isResident() {
       return signedIn() && exists(/databases/$(database)/documents/residents/$(myEmail()));
     }
+    // Sınava atanmış mı? (assigned alanı yoksa tüm asistanlar)
+    function assignedTo(e) {
+      return !('assigned' in e) || e.assigned == null || myEmail() in e.assigned;
+    }
     function examOf(eid) {
       return get(/databases/$(database)/documents/exams/$(eid)).data;
     }
@@ -46,7 +50,13 @@ service cloud.firestore {
 
     // Sınavlar (cevap anahtarı İÇERMEZ)
     match /exams/{id} {
-      allow read: if isAdmin() || (isResident() && resource.data.published == true);
+      allow get: if isAdmin() || (isResident() && resource.data.published == true && assignedTo(resource.data));
+      allow list, write: if isAdmin();
+    }
+
+    // Yayındaki sınavların kimlik listesi (asistanların sınav sayfası için)
+    match /meta/examIndex {
+      allow read: if isAdmin() || isResident();
       allow write: if isAdmin();
     }
 
@@ -64,6 +74,7 @@ service cloud.firestore {
         && request.resource.data.status == 'started'
         && request.resource.data.startedAt == request.time
         && examOf(request.resource.data.examId).published == true
+        && assignedTo(examOf(request.resource.data.examId))
         && request.time >= examOf(request.resource.data.examId).startAt
         && request.time <= examOf(request.resource.data.examId).endAt;
 

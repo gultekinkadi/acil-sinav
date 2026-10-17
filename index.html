@@ -213,6 +213,14 @@ tr.click:hover td{background:var(--surface-2)}
 .tplrow:last-child{border-bottom:0}
 .tplprev{white-space:pre-wrap;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-top:2px}
 
+/* Asistan atama */
+.asg-list{max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:4px 10px;background:var(--surface)}
+.asg-list .check{padding:6px 0;border-bottom:1px solid var(--line-2);align-items:center}
+.asg-list .check:last-child{border-bottom:0}
+.asg-list .check input{margin-top:0}
+.asg-all{align-items:center}.asg-all input{margin-top:0}
+.chip.sm{padding:3px 10px;font-size:13px}
+
 /* Picker */
 .pick{max-height:62vh;overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
 .pick .pr{display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line-2);align-items:flex-start;cursor:pointer}
@@ -468,6 +476,18 @@ function bankBlocks(list=S.questions){
   return blocks;
 }
 
+/* ---------------- sınava atanan asistanlar ---------------- */
+// assigned alanı yoksa (eski sınavlar) tüm asistanlar girebilir
+const isAssigned=(e,email)=>!Array.isArray(e.assigned)||e.assigned.includes(String(email||"").toLowerCase());
+const eligibleResidents=e=>Array.isArray(e.assigned)?S.residents.filter(r=>e.assigned.includes(r.email)):S.residents;
+// Asistanların sınav listesi için yayındaki sınavların kimlik listesi (asistan sınavları tek tek okur; kurallar atamayı denetler)
+async function syncExamIndex(exams){
+  const ids=(exams||S.exams).filter(e=>e.published).map(e=>e.id).sort();
+  try{ const cur=await getDoc(doc(db,"meta","examIndex")); const old=cur.exists()?(cur.data().ids||[]).slice().sort():null;
+    if(old&&old.length===ids.length&&old.every((v,i)=>v===ids[i])) return;
+    await setDoc(doc(db,"meta","examIndex"),{ids,updatedAt:serverTimestamp()}); }catch(e){ console.error(e); }
+}
+
 /* ---------------- açıklama şablonları ---------------- */
 const TPL_FIELDS=[["{sınav}","sınav adı"],["{soru}","soru sayısı"],["{puan}","toplam puan"],["{süre}","süre (dk)"],["{açılış}","açılış tarihi"],["{kapanış}","son başlama"],["{ceza}","yanlış cezası cümlesi"]];
 const BUILTIN_TPL=[
@@ -557,7 +577,8 @@ function examState(e){
 }
 async function viewExams(){
   paint(`<div class="spinner"></div>`);
-  await loadExams();
+  await Promise.all([loadExams(),loadResidents()]);
+  syncExamIndex();
   const att=await getDocs(collection(db,"attempts"));
   const cnt={}; att.docs.forEach(d=>{ const x=d.data(); cnt[x.examId]=(cnt[x.examId]||0)+1; });
   const cards=S.exams.map(e=>{
@@ -565,7 +586,7 @@ async function viewExams(){
     return `<div class="card pad"><div class="row" style="align-items:flex-start">
       <div class="grow"><div class="row" style="gap:8px;margin-bottom:4px"><h3 style="margin:0">${esc(e.title)}</h3><span class="badge ${cls}">${st}</span></div>
         <div class="small muted">${(e.items||[]).length} soru · ${fmtNum(pts)} puan · ${e.durationMin} dk · ${fmtDT(e.startAt)} – ${fmtDT(e.endAt)}</div>
-        <div class="small muted">${cnt[e.id]||0} katılım${e.shuffleQ?" · soru karıştırma":""}${e.shuffleO?" · şık karıştırma":""}${e.penalty?" · 4Y=1D":""}</div></div>
+        <div class="small muted">${Array.isArray(e.assigned)?`${eligibleResidents(e).length} asistana atandı`:"Tüm asistanlar"} · ${cnt[e.id]||0} katılım${e.shuffleQ?" · soru karıştırma":""}${e.shuffleO?" · şık karıştırma":""}${e.penalty?" · 4Y=1D":""}</div></div>
       <div class="row"><button class="btn sm" data-res="${e.id}">Sonuçlar</button><button class="btn sm" data-edit="${e.id}">Düzenle</button>
       <button class="btn sm ${e.published?"":"primary"}" data-pub="${e.id}">${e.published?"Yayından kaldır":"Yayınla"}</button></div></div></div>`;
   }).join("");
@@ -577,13 +598,13 @@ async function viewExams(){
   $app.querySelectorAll("[data-res]").forEach(b=>b.onclick=()=>go("results",{id:b.dataset.res}));
   $app.querySelectorAll("[data-pub]").forEach(b=>b.onclick=async()=>{
     const e=S.exams.find(x=>x.id===b.dataset.pub);
-    try{ await updateDoc(doc(db,"exams",e.id),{published:!e.published}); toast(e.published?"Yayından kaldırıldı":"Yayınlandı"); viewExams(); }catch(err){ fail(err); }
+    try{ await updateDoc(doc(db,"exams",e.id),{published:!e.published}); e.published=!e.published; await syncExamIndex(); toast(e.published?"Yayınlandı":"Yayından kaldırıldı"); viewExams(); }catch(err){ fail(err); }
   });
 }
 
 async function viewExamEdit(id){
   paint(`<div class="spinner"></div>`);
-  await Promise.all([loadBank(),loadTemplates()]);
+  await Promise.all([loadBank(),loadTemplates(),loadResidents()]);
   let ex=null, key=null, attCount=0;
   if(id){
     const [a,b,c]=await Promise.all([getDoc(doc(db,"exams",id)),getDoc(doc(db,"examKeys",id)),getDocs(query(collection(db,"attempts"),where("examId","==",id)))]);
@@ -593,7 +614,8 @@ async function viewExamEdit(id){
   const D={ title:ex?.title||"", description:ex?.description||"", durationMin:ex?.durationMin||40,
     startAt:tsMs(ex?.startAt)||now, endAt:tsMs(ex?.endAt)||now+7*864e5,
     shuffleQ:ex?ex.shuffleQ:true, shuffleO:ex?ex.shuffleO:true, penalty:ex?.penalty||0, published:ex?.published||false,
-    sel:new Set((ex?.items||[]).map(i=>i.qid)) };
+    sel:new Set((ex?.items||[]).map(i=>i.qid)),
+    asg:new Set(Array.isArray(ex?.assigned)?ex.assigned:S.residents.map(r=>r.email)) };
   // sınavda olup bankadan silinmiş sorular
   const orphan=(ex?.items||[]).filter(i=>!S.questions.find(q=>q.id===i.qid));
   let filt="", topicF="", poolF=id?"":(lsGet("bankPool")||"");
@@ -618,7 +640,12 @@ async function viewExamEdit(id){
           <div class="small muted" style="margin-top:4px">Asistan bu aralıkta istediği an başlar; süre başladığı andan itibaren işler.</div></div>
         <div class="field"><label class="check"><input type="checkbox" id="e_sq" ${D.shuffleQ?"checked":""}> Soru sırasını her asistana karıştır <span class="muted small">(vakanın soruları birlikte kalır)</span></label></div>
         <div class="field"><label class="check"><input type="checkbox" id="e_so" ${D.shuffleO?"checked":""}> Şık sırasını karıştır</label></div>
-        <div class="field"><label class="check"><input type="checkbox" id="e_pub" ${D.published?"checked":""}> Yayında (asistanlar görebilir)</label></div>
+        <div class="field"><label class="check"><input type="checkbox" id="e_pub" ${D.published?"checked":""}> Yayında (seçili asistanlar görebilir)</label></div>
+        <div class="field asg"><div class="row" style="justify-content:space-between;margin-bottom:6px"><label class="f" style="margin:0">Sınava girecek asistanlar</label><span class="small muted" id="asgN"></span></div>
+          <label class="check asg-all"><input type="checkbox" id="asgAll"> <b>Tümünü seç</b></label>
+          <div class="row" style="gap:4px;margin:6px 0 8px" id="asgK"></div>
+          <div class="asg-list" id="asgList"></div>
+          ${S.residents.length?"":`<div class="small" style="color:var(--warn)">Asistan listesi boş. Önce Asistanlar sayfasından asistan ekleyin.</div>`}</div>
         <div class="card pad" style="background:var(--surface-2);box-shadow:none" id="summary"></div>
       </div>
       <div>
@@ -651,6 +678,20 @@ async function viewExamEdit(id){
     document.getElementById("summary").innerHTML=`<b>${qs.length} soru seçildi</b><div class="small muted">${mcq} çoktan seçmeli · ${open} açık uçlu · ${cs} vaka · ${img} görselli<br>Toplam ${fmtNum(pts)} puan${pl.length>1||(pl.length&&pl[0][0]!=="Havuzsuz")?`<br>${pl.map(([n,c])=>`${esc(n)}: ${c}`).join(" · ")}`:""}</div>`;
   }
   drawPick();
+  // sınava girecek asistanlar
+  const kidemler=[...new Set(S.residents.map(r=>r.kidem).filter(Boolean))].sort((a,b)=>a-b);
+  const drawAsg=()=>{
+    const n=S.residents.filter(r=>D.asg.has(r.email)).length, all=S.residents.length;
+    const cb=document.getElementById("asgAll"); cb.checked=all>0&&n===all; cb.indeterminate=n>0&&n<all; cb.disabled=!all;
+    document.getElementById("asgN").textContent=`${n} / ${all} seçili`;
+    document.getElementById("asgK").innerHTML=kidemler.map(k=>{ const g=S.residents.filter(r=>r.kidem===k), on=g.every(r=>D.asg.has(r.email));
+      return `<button type="button" class="chip sm ${on?"on":""}" data-k="${k}" title="${on?"Kaldır":"Seç"}: tüm ${k}. yıllar">${k}. yıl<span class="n">${g.length}</span></button>`; }).join("");
+    document.getElementById("asgList").innerHTML=S.residents.map(r=>`<label class="check"><input type="checkbox" data-asg="${esc(r.email)}" ${D.asg.has(r.email)?"checked":""}> <span class="grow">${esc(r.name)}</span><span class="small muted">${r.kidem?r.kidem+". yıl":""}</span></label>`).join("");
+    document.querySelectorAll("[data-asg]").forEach(c=>c.onchange=()=>{ c.checked?D.asg.add(c.dataset.asg):D.asg.delete(c.dataset.asg); drawAsg(); });
+    document.querySelectorAll("#asgK [data-k]").forEach(b=>b.onclick=()=>{ const g=S.residents.filter(r=>r.kidem===Number(b.dataset.k)); const on=g.every(r=>D.asg.has(r.email)); g.forEach(r=>on?D.asg.delete(r.email):D.asg.add(r.email)); drawAsg(); });
+  };
+  document.getElementById("asgAll").onchange=e=>{ S.residents.forEach(r=>e.target.checked?D.asg.add(r.email):D.asg.delete(r.email)); drawAsg(); };
+  drawAsg();
   // açıklama şablonları ve önizleme
   const descEl=document.getElementById("e_desc"), tplSel=document.getElementById("tplSel");
   const formExam=()=>({title:document.getElementById("e_title").value.trim(),durationMin:parseInt(document.getElementById("e_dur").value,10)||"",
@@ -681,7 +722,7 @@ async function viewExamEdit(id){
     try{
       const atts=await getDocs(query(collection(db,"attempts"),where("examId","==",id)));
       const b=writeBatch(db); atts.docs.forEach(d=>{ b.delete(d.ref); b.delete(doc(db,"grades",d.id)); });
-      b.delete(doc(db,"exams",id)); b.delete(doc(db,"examKeys",id)); await b.commit(); toast("Sınav silindi"); go("exams");
+      b.delete(doc(db,"exams",id)); b.delete(doc(db,"examKeys",id)); await b.commit(); await loadExams(); await syncExamIndex(); toast("Sınav silindi"); go("exams");
     }catch(e){ fail(e); }
   });
   document.getElementById("save").onclick=async()=>{
@@ -692,6 +733,8 @@ async function viewExamEdit(id){
     if(!(dur>0)) return toast("Süre geçersiz",true);
     if(!(st<en)) return toast("Kapanış, açılıştan sonra olmalı",true);
     if(!D.sel.size) return toast("En az bir soru seçin",true);
+    const assigned=S.residents.map(r=>r.email).filter(e=>D.asg.has(e));
+    if(!assigned.length) return toast("Sınava girecek en az bir asistan seçin",true);
     const chosen=S.questions.filter(q=>D.sel.has(q.id)); // banka sırası (vakalar bitişik)
     const ordered=bankBlocks(chosen).flatMap(b=>b.kind==="q"?[b.q]:b.qs);
     const items=[], cases={}, k={}, expl={};
@@ -708,13 +751,13 @@ async function viewExamEdit(id){
       startAt:Timestamp.fromMillis(st),endAt:Timestamp.fromMillis(en),
       shuffleQ:document.getElementById("e_sq").checked,shuffleO:document.getElementById("e_so").checked,
       penalty:Number(document.getElementById("e_pen").value)||0,published:document.getElementById("e_pub").checked,
-      items,cases,updatedAt:serverTimestamp(),resultsReleased:ex?.resultsReleased||false};
+      items,cases,assigned,updatedAt:serverTimestamp(),resultsReleased:ex?.resultsReleased||false};
     if(!id) data.createdAt=serverTimestamp();
     try{
       const b=writeBatch(db);
       b.set(doc(db,"exams",eid),data,{merge:true});
       b.set(doc(db,"examKeys",eid),{key:k,explanations:expl});
-      await b.commit(); toast("Sınav kaydedildi"); go("exams");
+      await b.commit(); await loadExams(); await syncExamIndex(); toast("Sınav kaydedildi"); go("exams");
     }catch(e){ fail(e,"Kaydedilemedi"); }
   };
 }
@@ -860,8 +903,9 @@ async function viewResults(id){
   const {exam,key,atts}=await loadResultData(id);
   const byEmail={}; atts.forEach(a=>byEmail[(a.email||"").toLowerCase()]=a);
   const rows=[];
-  for(const r of S.residents){ rows.push({res:r, att:byEmail[r.email]||null}); }
-  atts.filter(a=>!S.residents.find(r=>r.email===(a.email||"").toLowerCase())).forEach(a=>rows.push({res:{name:a.name,email:a.email,kidem:""},att:a}));
+  const elig=eligibleResidents(exam);
+  for(const r of elig){ rows.push({res:r, att:byEmail[r.email]||null}); }
+  atts.filter(a=>!elig.find(r=>r.email===(a.email||"").toLowerCase())).forEach(a=>rows.push({res:{name:a.name,email:a.email,kidem:""},att:a}));
   rows.forEach(x=>{ if(x.att){ x.fin=isFinished(exam,x.att); x.sc=scoreAttempt(exam,key,x.att); } });
   const done=rows.filter(x=>x.att&&x.fin), pctArr=done.map(x=>x.sc.pct).sort((a,b)=>a-b);
   const mean=avg(pctArr);
@@ -903,7 +947,7 @@ async function viewResults(id){
       <button class="btn primary" id="rel">${exam.resultsReleased?"Sonuçları güncelle":"Sonuçları asistanlara yayınla"}</button>
       ${exam.resultsReleased?`<button class="btn" id="unrel">Yayından kaldır</button>`:""}</div></div>
     <div class="stats">
-      <div class="stat"><div class="k">Katılım</div><div class="v">${atts.length}<span class="muted" style="font-size:14px"> / ${S.residents.length}</span></div></div>
+      <div class="stat"><div class="k">Katılım</div><div class="v">${atts.length}<span class="muted" style="font-size:14px"> / ${elig.length}</span></div></div>
       <div class="stat"><div class="k">Tamamlanan</div><div class="v">${done.length}</div></div>
       <div class="stat"><div class="k">Ortalama ± SS</div><div class="v">%${r1(mean)}<span class="muted" style="font-size:14px"> ± ${r1(ST.sd)}</span></div></div>
       <div class="stat"><div class="k">Medyan</div><div class="v">%${r1(med)}</div></div>
@@ -939,7 +983,7 @@ async function viewResults(id){
   document.getElementById("xls").onclick=()=>{
     if(!window.XLSX) return toast("Excel kütüphanesi yüklenemedi",true);
     const s0=[["Sınav",exam.title],["Tarih",`${fmtDT(exam.startAt)} – ${fmtDT(exam.endAt)}`],["Soru sayısı",exam.items.length],["Maksimum puan",max],
-      ["Katılım",`${atts.length} / ${S.residents.length}`],["Tamamlayan",done.length],["Ortalama %",r1(mean)],["Standart sapma",r1(ST.sd)],["Medyan %",r1(med)],
+      ["Katılım",`${atts.length} / ${elig.length}`],["Atanan asistan",Array.isArray(exam.assigned)?elig.map(r=>r.name).join(", "):"Tüm asistanlar"],["Tamamlayan",done.length],["Ortalama %",r1(mean)],["Standart sapma",r1(ST.sd)],["Medyan %",r1(med)],
       ["En yüksek %",pctArr.length?r1(pctArr.at(-1)):""],["En düşük %",pctArr.length?r1(pctArr[0]):""],
       [`Güvenirlik (${ST.relName})`,ST.rel==null?"hesaplanamadı":Math.round(ST.rel*100)/100],["Güvenirlik yorumu",relLabel(ST.rel)],
       ["Ayırt ediciliği 0,20'nin altında soru",flagged],["Not",smallN?"Katılımcı sayısı 10'un altında; ayırt edicilik ve güvenirlik yön gösterici.":""]];
@@ -985,6 +1029,7 @@ async function viewProfile(email){
   const list=[], tAgg={};
   for(const e of [...S.exams].sort((a,b)=>tsMs(a.startAt)-tsMs(b.startAt))){
     const fin=atts.filter(a=>a.examId===e.id&&isFinished(e,a)); if(!fin.length) continue;
+    if(!isAssigned(e,email)&&!fin.some(a=>(a.email||"").toLowerCase()===email)) continue;
     const key=keys[e.id]||{key:{}};
     const scs=fin.map(a=>({a,sc:scoreAttempt(e,key,a)}));
     const mine=scs.find(x=>(x.a.email||"").toLowerCase()===email);
@@ -1420,8 +1465,9 @@ async function viewResidents(){
    ===================================================================== */
 async function viewHome(){
   paint(`<div class="spinner"></div>`,"");
-  const es=await getDocs(query(collection(db,"exams"),where("published","==",true)));
-  const exams=es.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>tsMs(b.startAt)-tsMs(a.startAt));
+  let ids=[]; try{ const ix=await getDoc(doc(db,"meta","examIndex")); ids=ix.exists()?(ix.data().ids||[]):[]; }catch(e){ console.error(e); }
+  const got=await Promise.all(ids.map(id=>getDoc(doc(db,"exams",id)).then(d=>d.exists()?{id,...d.data()}:null).catch(()=>null)));
+  const exams=got.filter(e=>e&&e.published&&isAssigned(e,S.email)).sort((a,b)=>tsMs(b.startAt)-tsMs(a.startAt));
   const uid=S.user.uid;
   const info=await Promise.all(exams.map(async e=>{
     const [a,g]=await Promise.all([getDoc(doc(db,"attempts",e.id+"_"+uid)).catch(()=>null),getDoc(doc(db,"grades",e.id+"_"+uid)).catch(()=>null)]);
