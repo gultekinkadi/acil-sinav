@@ -1,15 +1,44 @@
-# Yetki eklendi: Firebase Admin + Service Usage Consumer (2. deneme)
-# firestore.rules değiştiğinde güvenlik kurallarını Firebase'e otomatik yükler.
+# firestore.rules değiştiğinde: önce kural testleri emülatörde çalışır, geçerse kurallar Firebase'e yüklenir.
 name: Firebase kurallarını yükle
 
 on:
   push:
     branches: [main]
-    paths: [firestore.rules, firebase.json, .github/workflows/firebase-rules.yml]
+    paths: [firestore.rules, firebase.json, tests/**, .github/workflows/firebase-rules.yml]
   workflow_dispatch:
 
 jobs:
+  test-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Test bağımlılıkları
+        working-directory: tests
+        run: npm install --no-audit --no-fund
+      - name: Kural testleri (emülatör)
+        run: |
+          cat > /tmp/fb-test.json <<'JSON'
+          {"firestore":{"rules":"firestore.rules"},"emulators":{"firestore":{"port":8085},"ui":{"enabled":false}}}
+          JSON
+          cp /tmp/fb-test.json firebase.test.json
+          npx --yes firebase-tools@13 emulators:exec --config firebase.test.json --only firestore --project demo-acil-sinav "node tests/rules.test.mjs" 2>&1 | tee /tmp/test.txt
+          rc=${PIPESTATUS[0]}
+          if [ $rc -ne 0 ]; then
+            msg=$(grep -E "✗|Error|error" /tmp/test.txt | head -5 | tr '\n' ' ' | cut -c1-700)
+            echo "::error::Kural testleri başarısız: ${msg:-ayrıntı yok}"
+            exit $rc
+          fi
+          echo "::notice::$(grep -E 'geçti' /tmp/test.txt | tail -1)"
+
   deploy-rules:
+    needs: test-rules
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

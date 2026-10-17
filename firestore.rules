@@ -18,6 +18,12 @@ service cloud.firestore {
     function isResident() {
       return signedIn() && exists(/databases/$(database)/documents/residents/$(myEmail()));
     }
+    // Soru yazarı: meta/roles belgesindeki authors listesinde
+    function isAuthor() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/meta/roles)
+        && myEmail() in get(/databases/$(database)/documents/meta/roles).data.get('authors', []);
+    }
     // Sınava atanmış mı? (assigned alanı yoksa tüm asistanlar)
     function assignedTo(e) {
       return !('assigned' in e) || e.assigned == null || myEmail() in e.assigned;
@@ -29,6 +35,14 @@ service cloud.firestore {
     function ownsId(aid) {
       return signedIn() && aid == aid.split('_')[0] + '_' + request.auth.uid;
     }
+    // Asistanın kişisel son başlama zamanı (geç başlama izni varsa o)
+    function lastStart(e) {
+      return e.get('lateUntil', {}) == null ? e.endAt : e.get('lateUntil', {}).get(myEmail(), e.endAt);
+    }
+    // Yazarın yazabileceği soru/vaka içeriği: onay bekler, yazarı kendisi, alıştırmaya açık değil
+    function authorDraft(d) {
+      return d.status == 'pending' && d.author == myEmail() && d.get('practice', false) == false;
+    }
 
     // Asistan listesi: yalnız yönetici yönetir, herkes kendi kaydını görebilir
     match /residents/{em} {
@@ -36,16 +50,32 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // Soru bankası ve vakalar: yalnız yönetici
-    match /questions/{id} { allow read, write: if isAdmin(); }
-    match /cases/{id}     { allow read, write: if isAdmin(); }
-    match /pools/{id}     { allow read, write: if isAdmin(); }
+    // Soru bankası ve vakalar
+    //  - yönetici: tam yetki
+    //  - soru yazarı: okur; yalnız kendi onay bekleyen/reddedilen taslaklarını yazar
+    //  - asistan: yalnız alıştırmaya açık (practice == true) olanları okur
+    match /questions/{id} {
+      allow read: if isAdmin() || isAuthor() || (isResident() && resource.data.practice == true);
+      allow create: if isAdmin() || (isAuthor() && authorDraft(request.resource.data));
+      allow update: if isAdmin() || (isAuthor() && resource.data.author == myEmail()
+                        && resource.data.status in ['pending', 'rejected'] && authorDraft(request.resource.data));
+      allow delete: if isAdmin() || (isAuthor() && resource.data.author == myEmail() && resource.data.status in ['pending', 'rejected']);
+    }
+    match /cases/{id} {
+      allow read: if isAdmin() || isAuthor() || (isResident() && resource.data.practice == true);
+      allow create: if isAdmin() || (isAuthor() && authorDraft(request.resource.data));
+      allow update: if isAdmin() || (isAuthor() && resource.data.get('author', '') == myEmail()
+                        && resource.data.get('status', '') in ['pending', 'rejected'] && authorDraft(request.resource.data));
+      allow delete: if isAdmin();
+    }
+    match /pools/{id}     { allow read: if isAdmin() || isAuthor(); allow write: if isAdmin(); }
     match /templates/{id} { allow read, write: if isAdmin(); }
 
     // Görseller: asistan yalnız kimliğini bildiği görseli açabilir, listeleyemez
     match /images/{id} {
-      allow get: if isAdmin() || isResident();
-      allow list, write: if isAdmin();
+      allow get: if isAdmin() || isAuthor() || isResident();
+      allow create: if isAdmin() || isAuthor();
+      allow list, update, delete: if isAdmin();
     }
 
     // Sınavlar (cevap anahtarı İÇERMEZ)
@@ -57,6 +87,11 @@ service cloud.firestore {
     // Yayındaki sınavların kimlik listesi (asistanların sınav sayfası için)
     match /meta/examIndex {
       allow read: if isAdmin() || isResident();
+      allow write: if isAdmin();
+    }
+    // Roller (soru yazarları)
+    match /meta/roles {
+      allow read: if signedIn();
       allow write: if isAdmin();
     }
 
@@ -73,10 +108,14 @@ service cloud.firestore {
         && request.resource.data.uid == request.auth.uid
         && request.resource.data.status == 'started'
         && request.resource.data.startedAt == request.time
+        && request.resource.data.get('deadlineAt', null) == null
         && examOf(request.resource.data.examId).published == true
         && assignedTo(examOf(request.resource.data.examId))
         && request.time >= examOf(request.resource.data.examId).startAt
-        && request.time <= examOf(request.resource.data.examId).endAt;
+        && request.time <= lastStart(examOf(request.resource.data.examId))
+        // kişiye özel sette çekilen soru sayısı plandaki kadar olmalı
+        && (examOf(request.resource.data.examId).get('drawCount', null) == null
+            || request.resource.data.order.size() == examOf(request.resource.data.examId).drawCount);
 
       // Asistan: yalnız süre içinde, teslim etmeden önce, yalnız cevap alanlarını değiştirebilir
       allow update: if isAdmin() || (
@@ -84,9 +123,15 @@ service cloud.firestore {
         && resource.data.status == 'started'
         && request.resource.data.status in ['started', 'submitted']
         && request.resource.data.diff(resource.data).affectedKeys()
-             .hasOnly(['answers', 'flags', 'events', 'status', 'submittedAt', 'updatedAt'])
-        && request.time <= resource.data.startedAt
-             + duration.value(int(examOf(resource.data.examId).durationMin) * 60 + 120, 's')
+             .hasOnly(['answers', 'flags', 'events', 'qtime', 'pos', 'device', 'status', 'submittedAt', 'updatedAt'])
+        // cihaz kilidi yalnız boşken alınabilir
+        && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['device']) || resource.data.get('device', null) == null)
+        // sıralı sınavda geri dönülemez
+        && request.resource.data.get('pos', 0) >= resource.data.get('pos', 0)
+        // süre: yöneticinin verdiği ek süre varsa o, yoksa başlama + sınav süresi (+2 dk tolerans)
+        && request.time <= (resource.data.get('deadlineAt', null) != null
+             ? resource.data.deadlineAt + duration.value(120, 's')
+             : resource.data.startedAt + duration.value(int(examOf(resource.data.examId).durationMin) * 60 + 120, 's'))
       );
 
       allow delete: if isAdmin();
@@ -96,6 +141,26 @@ service cloud.firestore {
     match /grades/{aid} {
       allow read: if isAdmin() || ownsId(aid);
       allow write: if isAdmin();
+    }
+
+    // İtirazlar: asistan, sonucu yayınlanmış sınavda soru başına bir itiraz yazar; yönetici karar verir
+    match /appeals/{apid} {
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create: if isResident()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == myEmail()
+        && apid == request.resource.data.examId + '_' + request.auth.uid + '_' + request.resource.data.qid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.text is string && request.resource.data.text.size() <= 4000
+        && exists(/databases/$(database)/documents/grades/$(request.resource.data.examId + '_' + request.auth.uid))
+        && examOf(request.resource.data.examId).get('appealsOpen', true) != false;
+      allow update, delete: if isAdmin();
+    }
+
+    // Alıştırma ilerlemesi: asistan kendi belgesini yazar; yönetici okur
+    match /practice/{uid} {
+      allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);
+      allow write: if signedIn() && request.auth.uid == uid && isResident();
     }
   }
 }
