@@ -44,3 +44,19 @@ Başka yönetici eklemek isterseniz e-postasını hem `ADMIN_EMAILS` listesine h
 - Sınav sırasında sekme değiştirme/kopyalama engellenmez (gözetimli ortam varsayılmıştır).
 - Bir soruyu bankada düzenlediğinizde, mevcut sınava yansıması için sınavı açıp yeniden **Kaydet**'e basın.
 - Teknik sorun yaşayan asistan için: Sonuçlar → asistan satırı → **Oturumu sıfırla**.
+
+## Özellik özeti (Ekim 2026 güncellemesi)
+
+- **Soru iptali / cevap anahtarı düzeltme:** Sonuçlar → Madde analizi → “Düzenle”. Birden fazla doğru şık, “herkese doğru” veya “puanlama dışı” iptal. Puanlar ve yayınlanmış sonuçlar yeniden hesaplanır.
+- **İtiraz:** Sonuçlar yayınlandığında asistan soru bazında itiraz eder; Sonuçlar → İtirazlar’dan kabul/ret. İtirazlar sınav bazında kapatılabilir.
+- **Sınav planı:** Havuz + konu + adet satırlarıyla rastgele seçim; herkese aynı set veya her asistana farklı set.
+- **Alıştırma modu:** Soru Bankası’nda bir havuzu “Alıştırmaya aç” → asistanlar Alıştırma sekmesinden çözer. Alıştırmadaki soruları sınavda kullanmayın.
+- **Ek süre / yeniden açma / geç başlama / cihaz kilidi kaldırma:** asistanın sonuç detayından veya sonuç tablosundan.
+- **Soru geçmişi:** Soru Bankası’nda her sorunun kullanıldığı sınavlardaki güçlük ve ayırt edicilik değerleri; “İstatistik” filtresi.
+- **Sınav kopyalama, geçme notu, sıralı mod, tam ekran, tek cihaz kilidi, paylaşma bağlantısı + QR.**
+- **Soru yazarı rolü:** Ayarlar → Soru yazarları. Yazarların soruları onayınızdan sonra kullanılabilir.
+- **Excel’e aktarma** (soru bankası) ve **Yazdır / PDF** (sonuç belgesi, gelişim raporu).
+
+## Güvenlik kuralı testleri
+
+`tests/rules.test.mjs` her kural değişikliğinde GitHub Actions’ta Firestore emülatöründe çalışır; testler geçmezse kurallar Firebase’e yüklenmez.

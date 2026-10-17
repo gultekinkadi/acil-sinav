@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 <style>
 :root{
   --bg:#f5f4f0; --surface:#ffffff; --surface-2:#faf9f6; --ink:#1b1e23; --muted:#646a73; --line:#e2dfd8; --line-2:#ece9e3;
@@ -221,6 +222,51 @@ tr.click:hover td{background:var(--surface-2)}
 .asg-all{align-items:center}.asg-all input{margin-top:0}
 .chip.sm{padding:3px 10px;font-size:13px}
 
+/* Yeni bileşenler */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;padding:3px;background:var(--surface);margin-bottom:12px;gap:2px}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:7px;cursor:pointer;font-weight:500;color:var(--muted)}
+.seg button.on{background:var(--accent-soft);color:var(--accent)}
+.planrow{display:grid;grid-template-columns:1fr 1fr 74px auto auto;gap:6px;align-items:center;margin-bottom:6px}
+@media (max-width:600px){.planrow{grid-template-columns:1fr 1fr;}}
+.bad-t{color:var(--bad)}
+.secbox{border:1px solid var(--line-2);border-radius:8px;padding:10px 12px;background:var(--surface-2)}
+.share{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.share-qr{flex:none;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.qr{display:block}
+.qr-full{position:fixed;inset:0;background:#fff;z-index:100;display:grid;place-items:center;cursor:zoom-out;color:#111}
+.qr-full-in{text-align:center;padding:20px}.qr-full-in h1{font-size:28px;margin-bottom:16px;color:#111}.qr-full-in .qr{margin:0 auto}
+.qr-url{font-family:"IBM Plex Mono",monospace;font-size:15px;margin:14px 0 6px;word-break:break-all}
+.card.hl{outline:2px solid var(--accent);outline-offset:2px}
+.apbox{margin-top:10px;padding:10px 12px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line-2)}
+.fs-gate{position:fixed;inset:0;z-index:70;background:rgba(10,12,15,.75);display:grid;place-items:center;padding:16px}
+.nb:disabled{cursor:default;opacity:.55}.nb.cur:disabled{opacity:1}
+.pdot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--info);margin-left:6px;vertical-align:middle}
+.chip.on .pdot{background:currentColor}
+.badge.hist{cursor:pointer}
+.ptopics{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.ptopic{display:flex;flex-direction:column;gap:3px;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:9px;padding:10px 12px;cursor:pointer;color:var(--ink)}
+.ptopic .small{color:var(--muted)}
+.ptopic.on{border-color:var(--accent);background:var(--accent-soft)}
+.ptopic .track{height:6px;margin-top:4px}
+.pfb{margin-top:12px;padding:10px 12px;border-radius:8px;background:var(--surface-2)}
+.pfb.ok{background:var(--ok-soft)}.pfb.bad{background:var(--bad-soft)}
+.print-only{display:none}
+.print-head{border-bottom:2px solid #111;padding-bottom:8px;margin-bottom:14px;font-size:13px}
+.print-head .ph-t{font-size:20px;font-weight:700;margin:4px 0}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-2:#f6f6f6;--ink:#000;--muted:#444;--line:#ccc;--line-2:#ddd}
+  body{background:#fff!important;font-size:12px}
+  header.top,footer.credit,.no-print,.btn,#toast,.modal-bg,.toolbar,nav.tabs{display:none!important}
+  .print-only{display:block!important}
+  main{max-width:none;padding:0}
+  .card,.stat{box-shadow:none!important}
+  .stat,.scorebox,.case-box{break-inside:avoid}
+  .qrev{break-inside:avoid}
+  .opt{border-width:1px;padding:4px 8px}.opts{gap:4px;margin-top:8px}.qrev{padding:10px 12px}.opt .L{width:20px;height:20px;font-size:11px}
+  .q-img{max-height:260px}
+  a{color:#000;text-decoration:none}
+}
+
 /* Picker */
 .pick{max-height:62vh;overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
 .pick .pr{display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line-2);align-items:flex-start;cursor:pointer}
@@ -381,9 +427,15 @@ const auth = getAuth(fb);
 const db = getFirestore(fb);
 
 /* ---------------- durum ---------------- */
-const S = { user:null, email:"", isAdmin:false, resident:null, mode:"resident", view:"", params:{},
+const S = { user:null, email:"", isAdmin:false, isAuthor:false, resident:null, mode:"resident", view:"", params:{}, deep:null,
   questions:[], cases:{}, pools:{}, templates:[], exams:[], residents:[] };
 let T = null; // aktif sınav oturumu
+// Paylaşılan bağlantı / QR: #sinav=<id>
+function readDeep(){ const m=location.hash.match(/sinav=([A-Za-z0-9_-]+)/); if(m){ S.deep=m[1]; try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){} return true; } return false; }
+readDeep();
+// Sayfa açıkken yeni bir sınav bağlantısı açılırsa
+window.addEventListener("hashchange",()=>{ if(!readDeep()||!S.user) return;
+  if(S.mode==="admin"){ const id=S.deep; S.deep=null; go("results",{id}); } else if(S.resident){ S.mode="resident"; go("home"); } });
 
 onAuthStateChanged(auth, async u=>{
   S.user=u;
@@ -392,8 +444,11 @@ onAuthStateChanged(auth, async u=>{
   S.isAdmin=ADMIN_EMAILS.map(e=>e.toLowerCase()).includes(S.email);
   $app.innerHTML=`<div class="spinner"></div>`;
   try{ const r=await getDoc(doc(db,"residents",S.email)); S.resident=r.exists()?r.data():null; }catch(e){ S.resident=null; }
-  if(S.isAdmin){ S.mode="admin"; go("exams"); }
+  S.isAuthor=false;
+  if(!S.isAdmin){ try{ const r=await getDoc(doc(db,"meta","roles")); S.isAuthor=r.exists()&&(r.data().authors||[]).map(x=>String(x).toLowerCase()).includes(S.email); }catch(e){} }
+  if(S.isAdmin){ S.mode="admin"; if(S.deep){ const id=S.deep; S.deep=null; go("results",{id}); } else go("exams"); }
   else if(S.resident){ S.mode="resident"; go("home"); }
+  else if(S.isAuthor){ S.mode="author"; go("bank"); }
   else renderNoAccess();
 });
 
@@ -401,6 +456,7 @@ function renderLogin(){
   $app.innerHTML=`<div class="center"><div class="card login">
     <div class="mark">AT</div><h1>${esc(SITE_TITLE)}</h1><div class="sub">${esc(SITE_SUB)}</div>
     <button class="btn primary gbtn" id="gin">Google ile giriş yap</button>
+    ${S.deep?`<p class="note" style="margin-top:16px;text-align:left">Size bir sınav bağlantısı paylaşıldı. Devam etmek için Google hesabınızla giriş yapın.</p>`:""}
     <p class="small muted" style="margin-top:16px">Yalnızca yöneticinin listeye eklediği hesaplar sınavlara erişebilir.</p>
   </div>${credit()}</div>`;
   document.getElementById("gin").onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>fail(e,"Giriş yapılamadı"));
@@ -416,8 +472,9 @@ function renderNoAccess(){
 function go(view, params={}){ if(T && view!=="take") stopTake(); S.view=view; S.params=params; window.scrollTo(0,0); render(); }
 function shell(content, tabs){
   const name = S.user.displayName || S.email;
-  const role = S.mode==="admin" ? "Yönetici" : (S.resident?.kidem ? `Asistan · ${S.resident.kidem}. yıl` : "Asistan");
-  const switcher = S.isAdmin && S.resident ? `<button class="btn sm" id="sw">${S.mode==="admin"?"Asistan görünümü":"Yönetici görünümü"}</button>` : "";
+  const role = S.mode==="admin" ? "Yönetici" : S.mode==="author" ? "Soru yazarı" : (S.resident?.kidem ? `Asistan · ${S.resident.kidem}. yıl` : "Asistan");
+  const other = S.mode==="resident" ? (S.isAdmin?"admin":S.isAuthor?"author":null) : (S.resident?"resident":null);
+  const switcher = other ? `<button class="btn sm" id="sw" data-to="${other}">${{admin:"Yönetici görünümü",author:"Soru yazarı görünümü",resident:"Asistan görünümü"}[other]}</button>` : "";
   return `<header class="top"><div class="top-in">
     <div class="brand"><div class="mark">AT</div><div>${esc(SITE_TITLE)}<small>${esc(SITE_SUB)}</small></div></div>
     <nav class="tabs">${tabs||""}</nav>
@@ -425,13 +482,13 @@ function shell(content, tabs){
   </div></header><main>${content}</main>${credit()}`;
 }
 function adminTabs(){
-  const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["residents","Asistanlar"]];
+  const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["residents","Asistanlar"],["settings","Ayarlar"]];
   const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join("");
 }
 function bindShell(){
   document.getElementById("logout")?.addEventListener("click",()=>signOut(auth));
-  document.getElementById("sw")?.addEventListener("click",()=>{ S.mode=S.mode==="admin"?"resident":"admin"; go(S.mode==="admin"?"exams":"home"); });
+  document.getElementById("sw")?.addEventListener("click",e=>{ S.mode=e.currentTarget.dataset.to; go({admin:"exams",author:"bank",resident:"home"}[S.mode]); });
   document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>go(b.dataset.tab));
 }
 async function render(){
@@ -439,20 +496,25 @@ async function render(){
   try{
     if(S.mode==="admin"){
       if(v==="exams") return await viewExams();
-      if(v==="examEdit") return await viewExamEdit(S.params.id);
+      if(v==="examEdit") return await viewExamEdit(S.params.id,S.params.copyFrom);
       if(v==="results") return await viewResults(S.params.id);
       if(v==="attempt") return await viewAttempt(S.params.examId,S.params.uid);
       if(v==="profile") return await viewProfile(S.params.email);
       if(v==="bank") return await viewBank();
       if(v==="residents") return await viewResidents();
+      if(v==="settings") return await viewSettings();
+    } else if(S.mode==="author"){
+      return await viewBank();
     } else {
+      if(v==="practice") return await viewPractice();
       if(v==="home") return await viewHome();
       if(v==="take") return await viewTake(S.params.id);
       if(v==="review") return await viewReview(S.params.id);
     }
   }catch(e){ fail(e,"Sayfa yüklenemedi"); }
 }
-function paint(content, tabs){ $app.innerHTML=shell(content, tabs ?? (S.mode==="admin"?adminTabs():"")); bindShell(); hydrateImages($app); mountCharts(); }
+function tabsFor(){ return S.mode==="admin"?adminTabs():S.mode==="author"?`<button data-tab="bank" class="on">Soru Bankası</button>`:residentTabs(); }
+function paint(content, tabs){ $app.innerHTML=shell(content, tabs || tabsFor()); bindShell(); hydrateImages($app); mountCharts(); }
 
 /* ---------------- veri yükleme (yönetici) ---------------- */
 async function loadBank(){
@@ -565,6 +627,39 @@ function manageTemplates(onChange){
   draw(); m.el.querySelector("#tNew").onclick=()=>editTemplate(null,()=>{ draw(); onChange&&onChange(); });
 }
 
+/* ---------------- sınavı paylaş (bağlantı + QR) ---------------- */
+const examLink=id=>location.origin+location.pathname+"#sinav="+id;
+function qrMatrix(text){ if(!window.qrcode) return null; const q=qrcode(0,"M"); q.addData(text); q.make(); const n=q.getModuleCount(); return {n,dark:(r,c)=>q.isDark(r,c)}; }
+function qrSVG(text,px=220){ const m=qrMatrix(text); if(!m) return `<div class="small muted">QR kütüphanesi yüklenemedi.</div>`; const q=4, N=m.n+q*2; let d="";
+  for(let r=0;r<m.n;r++) for(let c=0;c<m.n;c++) if(m.dark(r,c)) d+=`M${c+q},${r+q}h1v1h-1z`;
+  return `<svg class="qr" viewBox="0 0 ${N} ${N}" width="${px}" height="${px}" shape-rendering="crispEdges" role="img" aria-label="Sınav QR kodu"><rect width="${N}" height="${N}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`; }
+function qrPNG(text,title){ const m=qrMatrix(text); if(!m) return null; const cell=12, q=4, N=(m.n+q*2)*cell, pad=title?56:0;
+  const c=document.createElement("canvas"); c.width=N; c.height=N+pad; const x=c.getContext("2d"); x.fillStyle="#fff"; x.fillRect(0,0,c.width,c.height); x.fillStyle="#000";
+  for(let r=0;r<m.n;r++) for(let k=0;k<m.n;k++) if(m.dark(r,k)) x.fillRect((k+q)*cell,(r+q)*cell,cell,cell);
+  if(title){ x.font="600 22px IBM Plex Sans, Arial, sans-serif"; x.textAlign="center"; x.fillText(title.length>40?title.slice(0,39)+"…":title,N/2,N+34); }
+  return c.toDataURL("image/png"); }
+function shareExam(e){
+  const link=examLink(e.id), when=`${fmtDT(e.startAt)} – ${fmtDT(e.endAt)}`;
+  const text=`${e.title}\nAçılış–kapanış: ${when}\nSüre: ${e.durationMin} dk\nSınava girmek için: ${link}`;
+  const m=modal(`<div class="modal-h"><h2>Sınavı paylaş</h2><button class="btn sm ghost" data-close>✕</button></div>
+    <div class="modal-b"><div class="share">
+      <div class="share-qr">${qrSVG(link,200)}<div class="small muted" style="text-align:center;margin-top:6px">Telefon kamerasıyla okutun</div></div>
+      <div class="grow" style="min-width:0"><b>${esc(e.title)}</b><div class="small muted" style="margin-bottom:10px">${when} · ${e.durationMin} dk</div>
+        ${!e.published?`<div class="note" style="background:var(--warn-soft)">Sınav henüz yayında değil; bağlantıyı açan asistanlar sınavı göremez.</div>`:""}
+        <label class="f">Bağlantı</label><div class="row" style="flex-wrap:nowrap"><input type="text" id="shL" value="${esc(link)}" readonly><button class="btn" id="shC">Kopyala</button></div>
+        <div class="row" style="margin-top:12px;gap:6px">
+          <a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(text)}">WhatsApp</a>
+          <a class="btn" href="mailto:?subject=${encodeURIComponent(e.title)}&body=${encodeURIComponent(text)}">E-posta</a>
+          ${navigator.share?`<button class="btn" id="shN">Paylaş…</button>`:""}
+          <button class="btn" id="shQ">QR'ı indir (PNG)</button>
+          <button class="btn" id="shF">Büyük QR göster</button></div>
+        <p class="small muted" style="margin-bottom:0">Bağlantıyı açan asistan Google ile giriş yapar ve doğrudan bu sınava yönlendirilir. Yalnız sınava atanmış asistanlar girebilir.</p></div></div></div>`);
+  m.el.querySelector("#shC").onclick=async()=>{ try{ await navigator.clipboard.writeText(link); toast("Bağlantı kopyalandı"); }catch(_){ const i=m.el.querySelector("#shL"); i.select(); document.execCommand("copy"); toast("Bağlantı kopyalandı"); } };
+  m.el.querySelector("#shN")?.addEventListener("click",()=>navigator.share({title:e.title,text,url:link}).catch(()=>{}));
+  m.el.querySelector("#shQ").onclick=()=>{ const u=qrPNG(link,e.title); if(!u) return toast("QR oluşturulamadı",true); const a=document.createElement("a"); a.href=u; a.download=`${e.title.replace(/[\\/:*?"<>|]/g,"_")} - QR.png`; document.body.appendChild(a); a.click(); a.remove(); };
+  m.el.querySelector("#shF").onclick=()=>{ const d=document.createElement("div"); d.className="qr-full"; d.innerHTML=`<div class="qr-full-in"><h1>${esc(e.title)}</h1>${qrSVG(link,Math.min(innerWidth,innerHeight)*0.62)}<div class="qr-url">${esc(link)}</div><div class="small muted">Kapatmak için tıklayın</div></div>`; d.onclick=()=>d.remove(); document.body.appendChild(d); };
+}
+
 /* =====================================================================
    YÖNETİCİ — SINAVLAR
    ===================================================================== */
@@ -579,15 +674,16 @@ async function viewExams(){
   paint(`<div class="spinner"></div>`);
   await Promise.all([loadExams(),loadResidents()]);
   syncExamIndex();
-  const att=await getDocs(collection(db,"attempts"));
+  const [att,aps]=await Promise.all([getDocs(collection(db,"attempts")),getDocs(query(collection(db,"appeals"),where("status","==","pending"))).catch(()=>({docs:[]}))]);
   const cnt={}; att.docs.forEach(d=>{ const x=d.data(); cnt[x.examId]=(cnt[x.examId]||0)+1; });
+  const apc={}; aps.docs.forEach(d=>{ const x=d.data(); apc[x.examId]=(apc[x.examId]||0)+1; });
   const cards=S.exams.map(e=>{
     const [st,cls]=examState(e); const pts=(e.items||[]).reduce((s,i)=>s+(i.points||0),0);
     return `<div class="card pad"><div class="row" style="align-items:flex-start">
-      <div class="grow"><div class="row" style="gap:8px;margin-bottom:4px"><h3 style="margin:0">${esc(e.title)}</h3><span class="badge ${cls}">${st}</span></div>
-        <div class="small muted">${(e.items||[]).length} soru · ${fmtNum(pts)} puan · ${e.durationMin} dk · ${fmtDT(e.startAt)} – ${fmtDT(e.endAt)}</div>
-        <div class="small muted">${Array.isArray(e.assigned)?`${eligibleResidents(e).length} asistana atandı`:"Tüm asistanlar"} · ${cnt[e.id]||0} katılım${e.shuffleQ?" · soru karıştırma":""}${e.shuffleO?" · şık karıştırma":""}${e.penalty?" · 4Y=1D":""}</div></div>
-      <div class="row"><button class="btn sm" data-res="${e.id}">Sonuçlar</button><button class="btn sm" data-edit="${e.id}">Düzenle</button>
+      <div class="grow"><div class="row" style="gap:8px;margin-bottom:4px"><h3 style="margin:0">${esc(e.title)}</h3><span class="badge ${cls}">${st}</span>${apc[e.id]?`<span class="badge bad">${apc[e.id]} itiraz bekliyor</span>`:""}</div>
+        <div class="small muted">${qCount(e)} soru${e.plan?.perResident?" (kişiye özel set)":""} · ${fmtNum(qPoints(e))} puan · ${e.durationMin} dk · ${fmtDT(e.startAt)} – ${fmtDT(e.endAt)}${hasPass(e)?` · geçme %${e.passPct}`:""}</div>
+        <div class="small muted">${Array.isArray(e.assigned)?`${eligibleResidents(e).length} asistana atandı`:"Tüm asistanlar"} · ${cnt[e.id]||0} katılım${e.shuffleQ?" · soru karıştırma":""}${e.shuffleO?" · şık karıştırma":""}${e.penalty?" · 4Y=1D":""}${e.sequential?" · sıralı":""}${e.fullscreen?" · tam ekran":""}${e.deviceLock?" · tek cihaz":""}</div></div>
+      <div class="row"><button class="btn sm" data-res="${e.id}">Sonuçlar</button><button class="btn sm" data-share="${e.id}">Paylaş</button><button class="btn sm ghost" data-copy="${e.id}" title="Aynı ayarlarla yeni sınav">Kopyala</button><button class="btn sm" data-edit="${e.id}">Düzenle</button>
       <button class="btn sm ${e.published?"":"primary"}" data-pub="${e.id}">${e.published?"Yayından kaldır":"Yayınla"}</button></div></div></div>`;
   }).join("");
   paint(`<div class="page-head"><div><h1>Sınavlar</h1><div class="sub">Sınav oluşturun, yayınlayın, sonuçları değerlendirin.</div></div>
@@ -596,34 +692,43 @@ async function viewExams(){
   document.getElementById("newExam").onclick=()=>go("examEdit",{id:null});
   $app.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>go("examEdit",{id:b.dataset.edit}));
   $app.querySelectorAll("[data-res]").forEach(b=>b.onclick=()=>go("results",{id:b.dataset.res}));
+  $app.querySelectorAll("[data-share]").forEach(b=>b.onclick=()=>shareExam(S.exams.find(x=>x.id===b.dataset.share)));
+  $app.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>go("examEdit",{id:null,copyFrom:b.dataset.copy}));
   $app.querySelectorAll("[data-pub]").forEach(b=>b.onclick=async()=>{
     const e=S.exams.find(x=>x.id===b.dataset.pub);
     try{ await updateDoc(doc(db,"exams",e.id),{published:!e.published}); e.published=!e.published; await syncExamIndex(); toast(e.published?"Yayınlandı":"Yayından kaldırıldı"); viewExams(); }catch(err){ fail(err); }
   });
 }
 
-async function viewExamEdit(id){
+const approvedQ=q=>!q.status||q.status==="approved";
+async function viewExamEdit(id,copyFrom){
   paint(`<div class="spinner"></div>`);
   await Promise.all([loadBank(),loadTemplates(),loadResidents()]);
   let ex=null, key=null, attCount=0;
   if(id){
     const [a,b,c]=await Promise.all([getDoc(doc(db,"exams",id)),getDoc(doc(db,"examKeys",id)),getDocs(query(collection(db,"attempts"),where("examId","==",id)))]);
     ex=a.exists()?a.data():null; key=b.exists()?b.data():null; attCount=c.size;
+  } else if(copyFrom){
+    const a=await getDoc(doc(db,"exams",copyFrom)); ex=a.exists()?a.data():null;
+    if(ex) ex={...ex,title:ex.title+" (kopya)",startAt:null,endAt:null,published:false,resultsReleased:false,lateUntil:null};
   }
   const now=Date.now();
   const D={ title:ex?.title||"", description:ex?.description||"", durationMin:ex?.durationMin||40,
     startAt:tsMs(ex?.startAt)||now, endAt:tsMs(ex?.endAt)||now+7*864e5,
     shuffleQ:ex?ex.shuffleQ:true, shuffleO:ex?ex.shuffleO:true, penalty:ex?.penalty||0, published:ex?.published||false,
-    sel:new Set((ex?.items||[]).map(i=>i.qid)),
+    passPct:hasPass(ex||{})?ex.passPct:"", sequential:!!ex?.sequential, fullscreen:!!ex?.fullscreen, deviceLock:!!ex?.deviceLock,
+    sel:new Set(ex?.plan?.perResident?[]:(ex?.items||[]).map(i=>i.qid)),
+    mode:ex?.plan?.perResident?"plan":"manual", perRes:!!ex?.plan?.perResident,
+    plan:(ex?.plan?.rows||[{pool:"",topic:"",n:10}]).map(r=>({pool:r.pool||"",topic:r.topic||"",n:Number(r.n)||1})),
     asg:new Set(Array.isArray(ex?.assigned)?ex.assigned:S.residents.map(r=>r.email)) };
   // sınavda olup bankadan silinmiş sorular
-  const orphan=(ex?.items||[]).filter(i=>!S.questions.find(q=>q.id===i.qid));
+  const orphan=ex?.plan?.perResident?[]:(ex?.items||[]).filter(i=>!S.questions.find(q=>q.id===i.qid));
   let filt="", topicF="", poolF=id?"":(lsGet("bankPool")||"");
   if(poolF && poolF!==NOPOOL && !S.pools[poolF]) poolF="";
 
-  paint(`<div class="page-head"><div><h1>${id?"Sınavı düzenle":"Yeni sınav"}</h1>
-      <div class="sub">Sorular kaydetme anında sınava kopyalanır; bankada sonradan yapılan değişiklik için sınavı yeniden kaydedin.</div></div>
-      <div class="row"><button class="btn" id="cancel">Vazgeç</button>${id?`<button class="btn danger" id="del">Sil</button>`:""}<button class="btn primary" id="save">Kaydet</button></div></div>
+  paint(`<div class="page-head"><div><h1>${id?"Sınavı düzenle":copyFrom?"Sınav kopyası":"Yeni sınav"}</h1>
+      <div class="sub">Sorular kaydetme anında sınava kopyalanır; bankada sonradan yapılan değişiklik için sınavı yeniden kaydedin.${copyFrom?" Kopyada tarihleri güncelleyin; sınav taslak olarak kaydedilir.":""}</div></div>
+      <div class="row"><button class="btn" id="cancel">Vazgeç</button>${id?`<button class="btn" id="shr">Paylaş</button><button class="btn danger" id="del">Sil</button>`:""}<button class="btn primary" id="save">Kaydet</button></div></div>
     ${attCount?`<div class="card pad" style="margin-bottom:14px;border-color:var(--warn)"><b style="color:var(--warn)">Dikkat:</b> Bu sınava ${attCount} katılım var. Soruları değiştirmek mevcut cevapların puanlamasını bozabilir; yalnızca tarih/süre gibi ayarları değiştirmeniz önerilir.</div>`:""}
     <div class="edgrid">
       <div class="card pad">
@@ -635,11 +740,16 @@ async function viewExamEdit(id){
           <div id="descPrev" class="descprev hidden"></div></div>
         <div class="grid2"><div class="field"><label class="f">Süre (dakika)</label><input type="number" id="e_dur" min="1" max="600" value="${D.durationMin}"></div>
           <div class="field"><label class="f">Yanlış cezası</label><select id="e_pen"><option value="0">Yok</option><option value="0.25" ${D.penalty==0.25?"selected":""}>4 yanlış 1 doğru</option><option value="0.2" ${D.penalty==0.2?"selected":""}>5 yanlış 1 doğru</option></select></div></div>
+        <div class="grid2"><div class="field"><label class="f">Geçme notu (%)</label><input type="number" id="e_pass" min="0" max="100" step="1" value="${esc(D.passPct)}" placeholder="isteğe bağlı"></div><div></div></div>
         <div class="field"><label class="f">Başlama açılışı</label><input type="datetime-local" id="e_start" value="${toLocalInput(D.startAt)}"></div>
         <div class="field"><label class="f">Son başlama / kapanış</label><input type="datetime-local" id="e_end" value="${toLocalInput(D.endAt)}">
           <div class="small muted" style="margin-top:4px">Asistan bu aralıkta istediği an başlar; süre başladığı andan itibaren işler.</div></div>
         <div class="field"><label class="check"><input type="checkbox" id="e_sq" ${D.shuffleQ?"checked":""}> Soru sırasını her asistana karıştır <span class="muted small">(vakanın soruları birlikte kalır)</span></label></div>
         <div class="field"><label class="check"><input type="checkbox" id="e_so" ${D.shuffleO?"checked":""}> Şık sırasını karıştır</label></div>
+        <div class="field secbox"><div class="small muted" style="font-weight:600;margin-bottom:6px">Sınav güvenliği</div>
+          <label class="check" style="margin-bottom:6px"><input type="checkbox" id="e_seq" ${D.sequential?"checked":""}> <span>Sıralı mod <span class="muted small">(önceki sorulara dönülemez)</span></span></label>
+          <label class="check" style="margin-bottom:6px"><input type="checkbox" id="e_fs" ${D.fullscreen?"checked":""}> <span>Tam ekran zorunlu <span class="muted small">(çıkışlar kaydedilir; telefonlarda desteklenmeyebilir)</span></span></label>
+          <label class="check"><input type="checkbox" id="e_dev" ${D.deviceLock?"checked":""}> <span>Tek cihaz kilidi <span class="muted small">(başlanan cihazdan devam edilir)</span></span></label></div>
         <div class="field"><label class="check"><input type="checkbox" id="e_pub" ${D.published?"checked":""}> Yayında (seçili asistanlar görebilir)</label></div>
         <div class="field asg"><div class="row" style="justify-content:space-between;margin-bottom:6px"><label class="f" style="margin:0">Sınava girecek asistanlar</label><span class="small muted" id="asgN"></span></div>
           <label class="check asg-all"><input type="checkbox" id="asgAll"> <b>Tümünü seç</b></label>
@@ -649,18 +759,29 @@ async function viewExamEdit(id){
         <div class="card pad" style="background:var(--surface-2);box-shadow:none" id="summary"></div>
       </div>
       <div>
+        <div class="seg" id="modeSeg"><button type="button" data-m="manual">Soruları elle seç</button><button type="button" data-m="plan">Sınav planı (rastgele)</button></div>
+        <div id="planBox" class="card pad hidden" style="margin-bottom:14px">
+          <div class="small muted" style="margin-bottom:10px">Havuz ve konuya göre kaç soru çekileceğini belirleyin. Yalnız onaylı ve vakaya bağlı olmayan sorular çekilir; satırlar aynı soruyu iki kez almaz.</div>
+          <div id="planRows"></div>
+          <button type="button" class="btn sm" id="planAdd">+ Satır ekle</button>
+          <div style="margin-top:14px"><label class="check" style="margin-bottom:6px"><input type="radio" name="pmode" value="same" ${D.perRes?"":"checked"}> <span><b>Herkese aynı sorular</b> — şimdi çek, seçimi kontrol edip düzenleyin</span></label>
+            <label class="check"><input type="radio" name="pmode" value="per" ${D.perRes?"checked":""}> <span><b>Her asistana farklı sorular</b> — her asistan başlarken plana göre kendi setini alır</span></label></div>
+          <div class="row" style="margin-top:12px;justify-content:space-between"><span class="small" id="planSum"></span><button type="button" class="btn primary" id="planDraw">Soruları çek</button></div>
+        </div>
+        <div id="manualBox">
         <div class="toolbar"><select id="pp" style="width:auto"><option value="">Tüm havuzlar</option>${poolList().map(p=>`<option value="${p.id}" ${poolF===p.id?"selected":""}>${esc(p.name)}</option>`).join("")}${S.questions.some(q=>poolOf(q)===NOPOOL)?`<option value="${NOPOOL}" ${poolF===NOPOOL?"selected":""}>Havuzsuz</option>`:""}</select><input type="search" id="pf" placeholder="Soru ara…"><select id="pt"><option value="">Tüm konular</option>${topics().map(t=>`<option>${esc(t)}</option>`).join("")}</select>
           <button class="btn sm" id="selAll">Görünenleri seç</button><button class="btn sm" id="selNone">Temizle</button></div>
         ${orphan.length?`<div class="small" style="color:var(--warn);margin-bottom:8px">${orphan.length} soru bankadan silinmiş; kaydederseniz sınavdan çıkarılır.</div>`:""}
         <div class="pick" id="pick"></div>
+        </div>
       </div>
     </div>`);
 
-  const visible = q => (!poolF || poolOf(q)===poolF) && (!topicF || q.topic===topicF) && (!filt || trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
+  const visible = q => approvedQ(q) && (!poolF || poolOf(q)===poolF) && (!topicF || q.topic===topicF) && (!filt || trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
   function drawPick(){
     const blocks=bankBlocks(S.questions.filter(visible));
     const row=(q,sub)=>`<label class="pr ${sub?"sub":""}"><input type="checkbox" data-q="${q.id}" ${D.sel.has(q.id)?"checked":""}>
-      <span class="t">${esc(q.stem)}</span>${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}<span class="badge">${q.type==="open"?"Açık uçlu":"ÇS"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.imageId?`<span class="badge info">Görsel</span>`:""}</label>`;
+      <span class="t">${esc(q.stem)}</span>${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}<span class="badge">${q.type==="open"?"Açık uçlu":"ÇS"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.imageId?`<span class="badge info">Görsel</span>`:""}${q.practice?`<span class="badge warn" title="Alıştırmaya açık: asistanlar cevabını görebilir">Alıştırma</span>`:""}${qhistBadge(q.id,true)}</label>`;
     document.getElementById("pick").innerHTML = blocks.length ? blocks.map(b=> b.kind==="q" ? row(b.q) :
       `<label class="pr case"><input type="checkbox" data-case="${b.c.id}" ${b.qs.every(q=>D.sel.has(q.id))?"checked":""}><span class="t">Vaka: ${esc(b.c.title||"(başlıksız)")}</span><span class="badge info">${b.qs.length} soru</span></label>${b.qs.map(q=>row(q,true)).join("")}`
     ).join("") : `<div class="empty">Soru bulunamadı.</div>`;
@@ -675,9 +796,44 @@ async function viewExamEdit(id){
     const byPool={}; qs.forEach(q=>{ const n=poolName(poolOf(q)===NOPOOL?null:q.poolId); byPool[n]=(byPool[n]||0)+1; });
     const pl=Object.entries(byPool);
     D.drawPrev&&D.drawPrev();
-    document.getElementById("summary").innerHTML=`<b>${qs.length} soru seçildi</b><div class="small muted">${mcq} çoktan seçmeli · ${open} açık uçlu · ${cs} vaka · ${img} görselli<br>Toplam ${fmtNum(pts)} puan${pl.length>1||(pl.length&&pl[0][0]!=="Havuzsuz")?`<br>${pl.map(([n,c])=>`${esc(n)}: ${c}`).join(" · ")}`:""}</div>`;
+    const prc=qs.filter(q=>q.practice).length;
+    if(D.mode==="plan"&&D.perRes){ const c=planCands(), tot=D.plan.reduce((s,r)=>s+(Number(r.n)||0),0);
+      document.getElementById("summary").innerHTML=`<b>Kişiye özel set: her asistana ${tot} soru</b><div class="small muted">${D.plan.length} plan satırı · toplam ${c.reduce((s,x)=>s+x.length,0)} aday soru${c.some(x=>x.some(q=>q.practice))?`<br><span style="color:var(--warn)">Aday sorular arasında alıştırmaya açık olanlar var; asistanlar cevaplarını önceden görebilir.</span>`:""}</div>`; return; }
+    document.getElementById("summary").innerHTML=`<b>${qs.length} soru seçildi</b><div class="small muted">${mcq} çoktan seçmeli · ${open} açık uçlu · ${cs} vaka · ${img} görselli<br>Toplam ${fmtNum(pts)} puan${pl.length>1||(pl.length&&pl[0][0]!=="Havuzsuz")?`<br>${pl.map(([n,c])=>`${esc(n)}: ${c}`).join(" · ")}`:""}${prc?`<br><span style="color:var(--warn)">${prc} soru alıştırmaya açık; asistanlar cevaplarını önceden görebilir.</span>`:""}</div>`;
   }
-  drawPick();
+  // ---- sınav planı ----
+  function planCands(){ const used=new Set(); return D.plan.map(r=>{ const c=S.questions.filter(q=>approvedQ(q)&&!q.caseId&&!used.has(q.id)&&(!r.pool||poolOf(q)===r.pool)&&(!r.topic||q.topic===r.topic)); c.forEach(q=>used.add(q.id)); return c; }); }
+  const topicsIn=pool=>[...new Set(S.questions.filter(q=>approvedQ(q)&&!q.caseId&&(!pool||poolOf(q)===pool)).map(q=>q.topic).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"tr"));
+  function drawPlan(){
+    const c=planCands();
+    document.getElementById("planRows").innerHTML=D.plan.map((r,i)=>`<div class="planrow">
+      <select data-pl="pool" data-i="${i}"><option value="">Tüm havuzlar</option>${poolList().map(p=>`<option value="${p.id}" ${r.pool===p.id?"selected":""}>${esc(p.name)}</option>`).join("")}${S.questions.some(q=>poolOf(q)===NOPOOL)?`<option value="${NOPOOL}" ${r.pool===NOPOOL?"selected":""}>Havuzsuz</option>`:""}</select>
+      <select data-pl="topic" data-i="${i}"><option value="">Tüm konular</option>${topicsIn(r.pool).map(t=>`<option ${r.topic===t?"selected":""}>${esc(t)}</option>`).join("")}</select>
+      <input type="number" min="1" data-pl="n" data-i="${i}" value="${r.n}" title="Çekilecek soru sayısı">
+      <span class="small ${c[i].length<r.n?"bad-t":"muted"}" style="white-space:nowrap">${c[i].length} uygun</span>
+      <button type="button" class="btn sm ghost danger" data-plx="${i}" ${D.plan.length<2?"disabled":""}>✕</button></div>`).join("");
+    document.querySelectorAll("[data-pl]").forEach(el=>el.onchange=()=>{ const r=D.plan[el.dataset.i]; if(el.dataset.pl==="n") r.n=Math.max(1,parseInt(el.value,10)||1); else { r[el.dataset.pl]=el.value; if(el.dataset.pl==="pool") r.topic=""; } drawPlan(); });
+    document.querySelectorAll("[data-plx]").forEach(b=>b.onclick=()=>{ D.plan.splice(Number(b.dataset.plx),1); drawPlan(); });
+    const tot=D.plan.reduce((s,r)=>s+r.n,0), short=D.plan.some((r,i)=>c[i].length<r.n);
+    document.getElementById("planSum").innerHTML=short?`<span class="bad-t">Bazı satırlarda yeterli soru yok.</span>`:`Toplam ${tot} soru`;
+    document.getElementById("planDraw").classList.toggle("hidden",D.perRes);
+    drawSummary();
+  }
+  document.getElementById("planAdd").onclick=()=>{ D.plan.push({pool:"",topic:"",n:5}); drawPlan(); };
+  document.querySelectorAll("[name=pmode]").forEach(r=>r.onchange=()=>{ D.perRes=r.value==="per"&&r.checked; drawPlan(); });
+  document.getElementById("planDraw").onclick=()=>{
+    const c=planCands(); if(D.plan.some((r,i)=>c[i].length<r.n)) return toast("Bazı satırlarda yeterli soru yok",true);
+    D.sel=new Set(); D.plan.forEach((r,i)=>shuffle(c[i]).slice(0,r.n).forEach(q=>D.sel.add(q.id)));
+    setMode("manual"); toast(`${D.sel.size} soru rastgele seçildi; listeden kontrol edip değiştirebilirsiniz`); };
+  function setMode(m){ D.mode=m; if(m==="manual") D.perRes=false;
+    document.querySelectorAll("#modeSeg [data-m]").forEach(b=>b.classList.toggle("on",b.dataset.m===m));
+    document.getElementById("planBox").classList.toggle("hidden",m!=="plan"); document.getElementById("manualBox").classList.toggle("hidden",m==="plan"&&D.perRes);
+    if(m==="plan"){ document.querySelector(`[name=pmode][value=${D.perRes?"per":"same"}]`).checked=true; drawPlan(); } else drawPick(); }
+  document.querySelectorAll("#modeSeg [data-m]").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+  document.querySelectorAll("[name=pmode]").forEach(r=>r.addEventListener("change",()=>document.getElementById("manualBox").classList.toggle("hidden",D.perRes)));
+  drawPick(); setMode(D.mode);
+  if(!S.qhist) computeQHist().then(()=>{ if(S.view==="examEdit"&&D.mode==="manual"&&document.getElementById("pick")) drawPick(); }).catch(e=>console.error(e));
+  document.getElementById("shr")?.addEventListener("click",()=>shareExam({id,...ex}));
   // sınava girecek asistanlar
   const kidemler=[...new Set(S.residents.map(r=>r.kidem).filter(Boolean))].sort((a,b)=>a-b);
   const drawAsg=()=>{
@@ -696,7 +852,8 @@ async function viewExamEdit(id){
   const descEl=document.getElementById("e_desc"), tplSel=document.getElementById("tplSel");
   const formExam=()=>({title:document.getElementById("e_title").value.trim(),durationMin:parseInt(document.getElementById("e_dur").value,10)||"",
     startAt:new Date(document.getElementById("e_start").value).getTime(),endAt:new Date(document.getElementById("e_end").value).getTime(),
-    penalty:Number(document.getElementById("e_pen").value)||0,items:S.questions.filter(q=>D.sel.has(q.id)).map(q=>({points:Number(q.points)||1}))});
+    penalty:Number(document.getElementById("e_pen").value)||0,
+    ...(D.mode==="plan"&&D.perRes?{plan:{perResident:true},drawCount:D.plan.reduce((s,r)=>s+r.n,0),items:planCands().flat().map(q=>({points:Number(q.points)||1}))}:{items:S.questions.filter(q=>D.sel.has(q.id)).map(q=>({points:Number(q.points)||1}))})});
   const drawPrev=()=>{ const t=descEl.value.trim(), pv=document.getElementById("descPrev");
     if(!/\{[^}]+\}/.test(t)){ pv.classList.add("hidden"); return; }
     pv.classList.remove("hidden"); pv.innerHTML=`<div class="small muted" style="margin-bottom:4px">Asistanlar böyle görecek:</div><div class="txt">${esc(fillTpl(t,formExam()))}</div>`; };
@@ -732,17 +889,23 @@ async function viewExamEdit(id){
     if(!title) return toast("Sınav adı gerekli",true);
     if(!(dur>0)) return toast("Süre geçersiz",true);
     if(!(st<en)) return toast("Kapanış, açılıştan sonra olmalı",true);
-    if(!D.sel.size) return toast("En az bir soru seçin",true);
+    const per=D.mode==="plan"&&D.perRes; let cands=null;
+    if(per){ cands=planCands(); if(D.plan.some((r,i)=>cands[i].length<r.n)) return toast("Plandaki bazı satırlarda yeterli soru yok",true);
+      if(cands.flat().length>600) return toast("Plan çok geniş (600'den fazla aday soru); havuz veya konuyu daraltın",true); }
+    else if(!D.sel.size) return toast("En az bir soru seçin",true);
+    const passRaw=document.getElementById("e_pass").value.trim(); const passPct=passRaw===""?null:Number(passRaw);
+    if(passPct!=null&&(isNaN(passPct)||passPct<0||passPct>100)) return toast("Geçme notu 0–100 arası olmalı",true);
     const assigned=S.residents.map(r=>r.email).filter(e=>D.asg.has(e));
     if(!assigned.length) return toast("Sınava girecek en az bir asistan seçin",true);
-    const chosen=S.questions.filter(q=>D.sel.has(q.id)); // banka sırası (vakalar bitişik)
+    const pick=per?new Set(cands.flat().map(q=>q.id)):D.sel;
+    const chosen=S.questions.filter(q=>pick.has(q.id)); // banka sırası (vakalar bitişik)
     const ordered=bankBlocks(chosen).flatMap(b=>b.kind==="q"?[b.q]:b.qs);
     const items=[], cases={}, k={}, expl={};
     for(const q of ordered){
       const it={qid:q.id,type:q.type==="open"?"open":"mcq",stem:q.stem,points:Number(q.points)||1,topic:q.topic||""};
       if(q.imageId) it.imageId=q.imageId;
       if(q.caseId && S.cases[q.caseId]){ it.caseId=q.caseId; const c=S.cases[q.caseId]; cases[q.caseId]={title:c.title||"",text:c.text||"",...(c.imageId?{imageId:c.imageId}:{})}; }
-      if(it.type==="mcq"){ it.options=q.options; k[q.id]=q.correct; }
+      if(it.type==="mcq"){ it.options=q.options; const pk=key?.key?.[q.id]; k[q.id]=Array.isArray(pk)?pk:q.correct; }
       expl[q.id]=q.explanation||"";
       items.push(it);
     }
@@ -751,57 +914,87 @@ async function viewExamEdit(id){
       startAt:Timestamp.fromMillis(st),endAt:Timestamp.fromMillis(en),
       shuffleQ:document.getElementById("e_sq").checked,shuffleO:document.getElementById("e_so").checked,
       penalty:Number(document.getElementById("e_pen").value)||0,published:document.getElementById("e_pub").checked,
-      items,cases,assigned,updatedAt:serverTimestamp(),resultsReleased:ex?.resultsReleased||false};
+      items,cases,assigned,passPct,sequential:document.getElementById("e_seq").checked,fullscreen:document.getElementById("e_fs").checked,deviceLock:document.getElementById("e_dev").checked,
+      plan:D.mode==="plan"||per?{perResident:per,rows:D.plan.map((r,i)=>({pool:r.pool,topic:r.topic,n:r.n,...(per?{qids:cands[i].map(q=>q.id)}:{})}))}:null,
+      drawCount:per?D.plan.reduce((s,r)=>s+r.n,0):null,
+      updatedAt:serverTimestamp(),resultsReleased:id?(ex?.resultsReleased||false):false};
     if(!id) data.createdAt=serverTimestamp();
     try{
       const b=writeBatch(db);
       b.set(doc(db,"exams",eid),data,{merge:true});
-      b.set(doc(db,"examKeys",eid),{key:k,explanations:expl});
+      const voided={}; Object.entries(key?.voided||{}).forEach(([q,v])=>{ if(k[q]!==undefined||expl[q]!==undefined) voided[q]=v; });
+      b.set(doc(db,"examKeys",eid),{key:k,explanations:expl,voided});
       await b.commit(); await loadExams(); await syncExamIndex(); toast("Sınav kaydedildi"); go("exams");
     }catch(e){ fail(e,"Kaydedilemedi"); }
   };
 }
 
 /* ---------------- sayfadan ayrılma kaydı ---------------- */
-const EV_LBL={away:"Sayfadan ayrıldı",open:"Sınavı açtı",reopen:"Sayfayı yeniden açtı"};
+const EV_LBL={away:"Sayfadan ayrıldı",open:"Sınavı açtı",reopen:"Sayfayı yeniden açtı",fsexit:"Tam ekrandan çıktı",device:"Başka cihazdan açma denemesi"};
 function awaySummary(att){
   const ev=(att?.events||[]).filter(e=>e.type==="away");
   const secs=ev.reduce((s,e)=>s+(e.d||0),0);
-  return {n:ev.length, secs, reopen:(att?.events||[]).filter(e=>e.type==="reopen").length};
+  return {n:ev.length, secs, reopen:(att?.events||[]).filter(e=>e.type==="reopen").length, fs:(att?.events||[]).filter(e=>e.type==="fsexit").length, dev:(att?.events||[]).filter(e=>e.type==="device").length};
 }
 const fmtSec=s=>s<60?`${s} sn`:`${Math.floor(s/60)} dk ${s%60?(s%60)+" sn":""}`.trim();
-function awayBadge(att){ const a=awaySummary(att); if(!a.n&&!a.reopen) return `<span class="badge ok">Yok</span>`;
-  return `<span class="badge ${a.n>=3||a.secs>=60?"bad":"warn"}">${a.n}× · ${fmtSec(a.secs)}</span>${a.reopen?` <span class="badge">${a.reopen} yeniden açma</span>`:""}`; }
+function awayBadge(att){ const a=awaySummary(att); if(!a.n&&!a.reopen&&!a.fs&&!a.dev) return `<span class="badge ok">Yok</span>`;
+  return `${a.n?`<span class="badge ${a.n>=3||a.secs>=60?"bad":"warn"}">${a.n}× · ${fmtSec(a.secs)}</span>`:""}${a.fs?` <span class="badge warn">${a.fs} tam ekran çıkışı</span>`:""}${a.dev?` <span class="badge bad">${a.dev} başka cihaz</span>`:""}${a.reopen?` <span class="badge">${a.reopen} yeniden açma</span>`:""}`; }
 
 /* ---------------- puanlama ---------------- */
+// Cevap anahtarı: key[qid] tek şık (sayı) veya kabul edilen şıklar (dizi); voided[qid]: "correct" (herkese doğru) | "drop" (çıkarıldı)
+const acceptedOf=(key,qid)=>{ const k=key?.key?.[qid]; return k==null?[]:(Array.isArray(k)?k:[k]); };
+const voidOf=(key,qid)=>key?.voided?.[qid]||null;
+const lateFor=(e,email)=>tsMs(e?.lateUntil?.[String(email||"").toLowerCase()])||null;
+const personalEnd=(e,email)=>Math.max(tsMs(e.endAt)||0, lateFor(e,email)||0);
+const qCount=e=>e.plan?.perResident?(e.drawCount||0):(e.items||[]).length;
+const qPoints=e=>{ const it=e.items||[]; if(!e.plan?.perResident) return it.reduce((s,i)=>s+(Number(i.points)||1),0); const a=it.length?it.reduce((s,i)=>s+(Number(i.points)||1),0)/it.length:1; return Math.round(a*(e.drawCount||0)*100)/100; };
+// Asistanın aldığı sorular (kişiye özel sette yalnız ona çekilenler)
+function itemsFor(exam,att){ const set=exam.plan?.perResident&&att?.order?new Set(att.order):null; return (exam.items||[]).filter(it=>!set||set.has(it.qid)); }
 function deadlineOf(exam, att){
   const s=tsMs(att.startedAt); if(!s) return null;
-  return Math.min(s+exam.durationMin*60000, tsMs(exam.endAt)+exam.durationMin*60000);
+  if(att.deadlineAt) return tsMs(att.deadlineAt);
+  return Math.min(s+exam.durationMin*60000, personalEnd(exam,att.email)+exam.durationMin*60000);
 }
 function isFinished(exam, att){ return att.status==="submitted" || (deadlineOf(exam,att)!=null && Date.now()>deadlineOf(exam,att)+120000); }
+const hasPass=e=>e.passPct!=null&&e.passPct!==""&&!isNaN(Number(e.passPct));
 function scoreAttempt(exam, key, att){
-  const r={c:0,w:0,e:0,mcqPts:0,openPts:0,pending:0,max:0,items:[]};
+  const r={c:0,w:0,e:0,v:0,mcqPts:0,openPts:0,pending:0,max:0,items:[]};
   const ans=att.answers||{}, os=att.openScores||{}, cm=att.comments||{};
-  for(const it of exam.items){
-    r.max+=it.points; const a=ans[it.qid];
+  for(const it of itemsFor(exam,att)){
+    const a=ans[it.qid], v=voidOf(key,it.qid);
+    if(v==="drop"){ r.items.push({qid:it.qid,type:it.type,given:it.type==="mcq"?(a??null):String(a||""),correct:it.type==="mcq"?acceptedOf(key,it.qid):null,earned:0,max:0,res:"x",dropped:true}); continue; }
+    r.max+=it.points;
     if(it.type==="mcq"){
-      const correct=key?.key?.[it.qid]; let earned=0, res="e";
-      if(a===undefined||a===null){ r.e++; }
-      else if(a===correct){ r.c++; earned=it.points; res="c"; }
+      const acc=acceptedOf(key,it.qid); let earned=0, res="e";
+      if(v==="correct"){ r.c++; r.v++; earned=it.points; res="c"; }
+      else if(a===undefined||a===null){ r.e++; }
+      else if(acc.includes(a)){ r.c++; earned=it.points; res="c"; }
       else { r.w++; earned=-(exam.penalty||0)*it.points; res="w"; }
-      r.mcqPts+=earned; r.items.push({qid:it.qid,type:"mcq",given:a??null,correct:correct??null,earned,max:it.points,res});
+      r.mcqPts+=earned; r.items.push({qid:it.qid,type:"mcq",given:a??null,correct:acc,earned,max:it.points,res,...(v?{voided:true}:{})});
     } else {
-      const txt=(a||"").trim(); let earned=os[it.qid];
+      const txt=(a||"").trim(); let earned=v==="correct"?it.points:os[it.qid];
       if(earned==null){ if(txt) r.pending++; earned= txt?null:0; }
-      r.openPts+=earned||0; r.items.push({qid:it.qid,type:"open",given:txt,earned,max:it.points,comment:cm[it.qid]||""});
+      r.openPts+=earned||0; r.items.push({qid:it.qid,type:"open",given:txt,earned,max:it.points,comment:cm[it.qid]||"",...(v?{voided:true}:{})});
     }
   }
-  r.total=r.mcqPts+r.openPts; r.pct=r.max?r.total/r.max*100:0; return r;
+  r.total=r.mcqPts+r.openPts; r.pct=r.max?r.total/r.max*100:0;
+  r.pass=hasPass(exam)?r.pct>=Number(exam.passPct):null;
+  return r;
 }
 function gradeDoc(exam, key, att, sc){
   return { uid:att.uid, examId:att.examId, examTitle:exam.title, total:sc.total, max:sc.max, pct:sc.pct, c:sc.c, w:sc.w, e:sc.e,
+    pass:sc.pass, passPct:hasPass(exam)?Number(exam.passPct):null,
     items:sc.items.map(i=>({...i, earned:i.earned??0, explanation:key?.explanations?.[i.qid]||""})), releasedAt:serverTimestamp() };
 }
+// Sonuçlar yayındaysa, anahtar/iptal değişikliğinden sonra yayınlanmış notları günceller
+async function regrade(exam,key,atts){
+  if(!exam.resultsReleased) return 0;
+  const fin=atts.filter(a=>isFinished(exam,a));
+  await batchOps(fin.map(a=>b=>b.set(doc(db,"grades",a.id),gradeDoc(exam,key,a,scoreAttempt(exam,key,a)))));
+  return fin.length;
+}
+const passBadge=p=>p==null?"":p?`<span class="badge ok">Başarılı</span>`:`<span class="badge bad">Başarısız</span>`;
+const voidBadge=v=>v==="correct"?`<span class="badge warn">İptal · herkese doğru</span>`:v==="drop"?`<span class="badge warn">İptal · puanlama dışı</span>`:"";
 
 /* ---------------- sınav istatistikleri ---------------- */
 const avg=a=>a.length?a.reduce((s,v)=>s+v,0)/a.length:0;
@@ -810,29 +1003,33 @@ const fmt2=n=>n==null?"—":n.toLocaleString("tr-TR",{minimumFractionDigits:2,ma
 // Madde puanı: ÇS'de doğruysa sorunun puanı (ceza hariç), açık uçluda verilen puan
 const itemPts=i=>i.type==="mcq"?(i.res==="c"?i.max:0):Math.max(0,i.earned??0);
 // done: [{att, sc, res}]
-function examStats(exam, done){
-  const N=done.length, items=exam.items;
-  const M=done.map(x=>{ const m={}; x.sc.items.forEach(i=>m[i.qid]=itemPts(i)); return m; });
-  const totals=M.map(m=>items.reduce((s,it)=>s+(m[it.qid]||0),0));
+function examStats(exam, done, key){
+  const N=done.length, items=(exam.items||[]).filter(it=>voidOf(key,it.qid)!=="drop");
+  const perRes=!!exam.plan?.perResident;
+  // M[i][qid]: yalnız o soruyu alan asistanlar için tanımlı
+  const M=done.map(x=>{ const m={}; x.sc.items.forEach(i=>{ if(!i.dropped) m[i.qid]=itemPts(i); }); return m; });
+  const pcts=done.map(x=>x.sc.pct);
   // Ayırt edicilik: üst %27 ile alt %27 grubun madde başarı farkı (−1…+1)
   const g=N>=4?Math.max(1,Math.round(N*0.27)):0;
-  const ord=done.map((_,i)=>i).sort((a,b)=>totals[b]-totals[a]);
+  const ord=done.map((_,i)=>i).sort((a,b)=>pcts[b]-pcts[a]);
   const up=ord.slice(0,g), lo=ord.slice(N-g);
-  const disc={}; items.forEach(it=>{ disc[it.qid]=g?(avg(up.map(i=>M[i][it.qid]||0))-avg(lo.map(i=>M[i][it.qid]||0)))/it.points:null; });
-  // Güvenirlik: Cronbach α (tümü 1 puanlık ÇS ise KR-20'ye eşittir)
+  const grp=(ix,q)=>ix.filter(i=>M[i][q]!==undefined).map(i=>M[i][q]);
+  const disc={}; items.forEach(it=>{ const U=grp(up,it.qid), L=grp(lo,it.qid); disc[it.qid]=g&&U.length&&L.length?(avg(U)-avg(L))/it.points:null; });
+  // Güvenirlik: Cronbach α (tümü 1 puanlık ÇS ise KR-20'ye eşittir). Kişiye özel setlerde hesaplanmaz.
   const relName=items.every(it=>it.type==="mcq")&&new Set(items.map(it=>it.points)).size===1?"KR-20":"Cronbach α";
-  let rel=null; const vt=sdev(totals)**2;
-  if(N>=3&&items.length>=2&&vt>0){ const k=items.length; const sv=items.reduce((s,it)=>s+sdev(M.map(m=>m[it.qid]||0))**2,0); rel=k/(k-1)*(1-sv/vt); }
+  let rel=null;
+  if(!perRes){ const totals=M.map(m=>items.reduce((s,it)=>s+(m[it.qid]||0),0)); const vt=sdev(totals)**2;
+    if(N>=3&&items.length>=2&&vt>0){ const k=items.length; const sv=items.reduce((s,it)=>s+sdev(M.map(m=>m[it.qid]||0))**2,0); rel=k/(k-1)*(1-sv/vt); } }
   // Konu bazında grup başarısı
-  const tp={}; items.forEach(it=>{ const t=it.topic||"Konu belirtilmemiş"; const o=tp[t]=tp[t]||{t,n:0,e:0,m:0}; o.n++; M.forEach(m=>{ o.e+=m[it.qid]||0; o.m+=it.points; }); });
-  const topics=Object.values(tp).map(o=>({...o,p:o.m?o.e/o.m*100:0})).sort((a,b)=>a.p-b.p);
+  const tp={}; items.forEach(it=>{ const t=it.topic||"Konu belirtilmemiş"; const o=tp[t]=tp[t]||{t,n:0,e:0,m:0}; o.n++; M.forEach(m=>{ if(m[it.qid]!==undefined){ o.e+=m[it.qid]; o.m+=it.points; } }); });
+  const topics=Object.values(tp).filter(o=>o.m>0).map(o=>({...o,p:o.e/o.m*100})).sort((a,b)=>a.p-b.p);
   // Kıdeme göre
   const kd={}; done.forEach(x=>{ const k=x.res.kidem?String(x.res.kidem):"—"; (kd[k]=kd[k]||[]).push(x.sc.pct); });
   const kidem=Object.entries(kd).map(([k,a])=>({k,n:a.length,m:avg(a),min:Math.min(...a),max:Math.max(...a)})).sort((a,b)=>a.k.localeCompare(b.k,"tr"));
   // Puan dağılımı (%10'luk dilimler)
   const bins=Array.from({length:10},(_,i)=>({lo:i*10,hi:i*10+10,n:0,names:[]}));
   done.forEach(x=>{ const b=Math.min(9,Math.max(0,Math.floor(x.sc.pct/10))); bins[b].n++; bins[b].names.push(x.res.name||x.res.email); });
-  return {N,g,disc,rel,relName,topics,kidem,bins,sd:sdev(done.map(x=>x.sc.pct))};
+  return {N,g,disc,rel,relName,topics,kidem,bins,perRes,sd:sdev(pcts)};
 }
 function discBadge(d){
   if(d==null) return `<span class="muted">—</span>`;
@@ -898,23 +1095,86 @@ async function loadResultData(id){
   await loadResidents();
   return { exam:{id,...e.data()}, key:k.exists()?k.data():{key:{},explanations:{}}, atts:a.docs.map(d=>({id:d.id,...d.data()})) };
 }
+async function loadAppeals(examId){
+  try{ const s=await getDocs(query(collection(db,"appeals"),where("examId","==",examId))); return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(a.createdAt)||0)-(tsMs(b.createdAt)||0)); }
+  catch(e){ console.error(e); return []; }
+}
+const APPEAL_ST={pending:["Bekliyor","warn"],accepted:["Kabul edildi","ok"],rejected:["Reddedildi","bad"]};
+const appealBadge=s=>{ const [l,c]=APPEAL_ST[s]||[s,""]; return `<span class="badge ${c}">${l}</span>`; };
+
+// Soru iptali / cevap anahtarı düzeltme (tüm puanlar yeniden hesaplanır)
+function itemDlg(exam,key,qid,atts,onDone){
+  const it=exam.items.find(i=>i.qid===qid); if(!it) return;
+  const acc=acceptedOf(key,qid), v=voidOf(key,qid)||"";
+  const m=modal(`<div class="modal-h"><h2>Soru ${exam.items.indexOf(it)+1}: cevap anahtarı ve iptal</h2><button class="btn sm ghost" data-close>✕</button></div>
+    <div class="modal-b"><div class="q-stem" style="font-size:15px;margin-bottom:14px">${esc(it.stem)}</div>
+    ${it.type==="mcq"?`<label class="f">Kabul edilen cevap(lar)</label><div class="small muted" style="margin-bottom:8px">Birden fazla şık işaretlenirse hepsi doğru sayılır.</div>
+      ${it.options.map((o,j)=>`<label class="check" style="margin-bottom:6px"><input type="checkbox" data-acc="${j}" ${acc.includes(j)?"checked":""}> <span><b>${LET[j]})</b> ${esc(o)}</span></label>`).join("")}
+      <label class="check small" style="margin:8px 0 4px"><input type="checkbox" id="iBank" checked> Tek doğru şık seçiliyse soru bankasındaki cevabı da güncelle</label>`:""}
+    <label class="f" style="margin-top:14px">Durum</label>
+    <label class="check" style="margin-bottom:6px"><input type="radio" name="vd" value="" ${!v?"checked":""}> Geçerli</label>
+    <label class="check" style="margin-bottom:6px"><input type="radio" name="vd" value="correct" ${v==="correct"?"checked":""}> <span>İptal: <b>herkese doğru</b> say (tam puan)</span></label>
+    <label class="check"><input type="radio" name="vd" value="drop" ${v==="drop"?"checked":""}> <span>İptal: <b>puanlamadan çıkar</b> (toplam puan bu soru kadar azalır)</span></label>
+    <p class="small muted" style="margin-bottom:0">Kaydettiğinizde tüm puanlar yeniden hesaplanır${exam.resultsReleased?"; yayınlanmış sonuçlar da güncellenir":""}.</p></div>
+    <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="iSave">Kaydet ve yeniden puanla</button></div>`);
+  m.el.querySelector("#iSave").onclick=async()=>{
+    const nv=m.el.querySelector("[name=vd]:checked").value;
+    const k2={key:{...(key.key||{})},explanations:{...(key.explanations||{})},voided:{...(key.voided||{})}};
+    let one=null;
+    if(it.type==="mcq"){ const sel=[...m.el.querySelectorAll("[data-acc]:checked")].map(c=>Number(c.dataset.acc));
+      if(!sel.length&&!nv) return toast("En az bir doğru şık seçin",true);
+      if(sel.length){ k2.key[qid]=sel.length===1?sel[0]:sel; if(sel.length===1) one=sel[0]; } }
+    if(nv) k2.voided[qid]=nv; else delete k2.voided[qid];
+    try{ m.el.querySelector("#iSave").disabled=true;
+      await setDoc(doc(db,"examKeys",exam.id),k2);
+      if(one!=null&&m.el.querySelector("#iBank")?.checked){ try{ await updateDoc(doc(db,"questions",qid),{correct:one}); }catch(e){} }
+      const n=await regrade(exam,k2,atts); m.close(); toast(`Kaydedildi; puanlar yeniden hesaplandı${n?` · ${n} yayınlanmış sonuç güncellendi`:""}`); onDone&&onDone();
+    }catch(e){ fail(e); m.el.querySelector("#iSave").disabled=false; }
+  };
+}
+function decideAppeal(a,accept,onDone){
+  const m=modal(`<div class="modal-h"><h2>İtirazı ${accept?"kabul et":"reddet"}</h2></div>
+    <div class="modal-b"><p style="margin-top:0"><b>${esc(a.name||a.email)}</b>: “${esc(a.text)}”</p>
+    <label class="f">Asistana yanıt (isteğe bağlı)</label><textarea id="apR" style="min-height:90px">${esc(a.reply||"")}</textarea>
+    ${accept?`<p class="small muted">Kabul ettikten sonra soruyu iptal etme veya cevap anahtarını düzeltme penceresi açılır.</p>`:""}</div>
+    <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn ${accept?"primary":"danger"}" id="apOk">${accept?"Kabul et":"Reddet"}</button></div>`,"narrow");
+  m.el.querySelector("#apOk").onclick=async()=>{
+    try{ await updateDoc(doc(db,"appeals",a.id),{status:accept?"accepted":"rejected",reply:m.el.querySelector("#apR").value.trim(),decidedAt:serverTimestamp()}); m.close(); toast(accept?"İtiraz kabul edildi":"İtiraz reddedildi"); onDone&&onDone(accept); }catch(e){ fail(e); }
+  };
+}
+function lateDlg(exam,res,onDone){
+  const cur=lateFor(exam,res.email);
+  const m=modal(`<div class="modal-h"><h2>Geç başlama izni</h2></div><div class="modal-b">
+    <p style="margin-top:0"><b>${esc(res.name)}</b> sınava aşağıdaki zamana kadar başlayabilir. Diğer asistanlar için kapanış değişmez.</p>
+    <label class="f">Son başlama</label><input type="datetime-local" id="lt" value="${toLocalInput(cur||Math.max(Date.now(),tsMs(exam.endAt))+864e5)}"></div>
+    <div class="modal-f">${cur?`<button class="btn danger" id="ltDel">İzni kaldır</button>`:""}<button class="btn" data-close>Vazgeç</button><button class="btn primary" id="ltOk">Kaydet</button></div>`,"narrow");
+  const save=async(ms)=>{ const lu={...(exam.lateUntil||{})}; if(ms) lu[res.email]=Timestamp.fromMillis(ms); else delete lu[res.email];
+    try{ await updateDoc(doc(db,"exams",exam.id),{lateUntil:lu}); m.close(); toast(ms?"Geç başlama izni verildi":"İzin kaldırıldı"); onDone&&onDone(); }catch(e){ fail(e); } };
+  m.el.querySelector("#ltOk").onclick=()=>{ const ms=new Date(m.el.querySelector("#lt").value).getTime(); if(!(ms>Date.now())) return toast("Gelecekte bir zaman seçin",true); save(ms); };
+  m.el.querySelector("#ltDel")?.addEventListener("click",()=>save(null));
+}
+
 async function viewResults(id){
   paint(`<div class="spinner"></div>`);
   const {exam,key,atts}=await loadResultData(id);
+  const appeals=await loadAppeals(id);
   const byEmail={}; atts.forEach(a=>byEmail[(a.email||"").toLowerCase()]=a);
   const rows=[];
   const elig=eligibleResidents(exam);
   for(const r of elig){ rows.push({res:r, att:byEmail[r.email]||null}); }
-  atts.filter(a=>!elig.find(r=>r.email===(a.email||"").toLowerCase())).forEach(a=>rows.push({res:{name:a.name,email:a.email,kidem:""},att:a}));
+  atts.filter(a=>!elig.find(r=>r.email===(a.email||"").toLowerCase())).forEach(a=>rows.push({res:S.residents.find(r=>r.email===(a.email||"").toLowerCase())||{name:a.name,email:a.email,kidem:""},att:a}));
   rows.forEach(x=>{ if(x.att){ x.fin=isFinished(exam,x.att); x.sc=scoreAttempt(exam,key,x.att); } });
   const done=rows.filter(x=>x.att&&x.fin), pctArr=done.map(x=>x.sc.pct).sort((a,b)=>a-b);
   const mean=avg(pctArr);
   const med=pctArr.length?(pctArr.length%2?pctArr[(pctArr.length-1)/2]:(pctArr[pctArr.length/2-1]+pctArr[pctArr.length/2])/2):0;
   const pending=done.reduce((s,x)=>s+x.sc.pending,0);
-  const max=exam.items.reduce((s,i)=>s+i.points,0);
-  const ST=examStats(exam,done);
+  const max=qPoints(exam);
+  const ST=examStats(exam,done,key);
+  const HP=hasPass(exam), passN=done.filter(x=>x.sc.pass).length;
+  const now=Date.now();
 
-  const statusOf=x=>{ if(!x.att) return `<span class="badge">Girmedi</span>`; if(x.att.status==="submitted") return `<span class="badge ok">Teslim</span>`;
+  const statusOf=x=>{ if(!x.att){ const l=lateFor(exam,x.res.email); return `<span class="badge">Girmedi</span>${l?` <span class="badge info" title="Geç başlama izni">${fmtDT(l)}'e kadar</span>`:""}`; }
+    if(x.att.status==="submitted") return `<span class="badge ok">Teslim</span>`;
     return x.fin?`<span class="badge warn">Süre doldu</span>`:`<span class="badge acc">Sınavda</span>`; };
   rows.sort((a,b)=>(b.sc?.pct??-1e9)-(a.sc?.pct??-1e9));
   const tbody=rows.map(x=>`<tr class="${x.att?"click":""}" ${x.att?`data-uid="${x.att.uid}"`:""}>
@@ -922,37 +1182,55 @@ async function viewResults(id){
     <td class="num">${x.sc?x.sc.c:"—"}</td><td class="num">${x.sc?x.sc.w:"—"}</td><td class="num">${x.sc?x.sc.e:"—"}</td>
     <td class="num">${x.sc?(x.sc.pending?`<span class="badge warn">${x.sc.pending} bekliyor</span>`:fmtNum(x.sc.openPts)):"—"}</td>
     <td class="num"><b>${x.sc?fmtNum(x.sc.total):"—"}</b></td><td class="num">${x.sc?"%"+r1(x.sc.pct):"—"}</td>
-    <td>${x.att?awayBadge(x.att):""}</td><td class="small muted">${x.att?fmtDT(x.att.submittedAt||x.att.startedAt):""}</td></tr>`).join("");
+    ${HP?`<td>${x.sc&&x.fin?passBadge(x.sc.pass):""}</td>`:""}
+    <td>${x.att?awayBadge(x.att):`<button class="btn sm ghost" data-late="${esc(x.res.email)}">Geç başlama</button>`}</td><td class="small muted">${x.att?fmtDT(x.att.submittedAt||x.att.startedAt):""}</td></tr>`).join("");
 
   // madde analizi
   const ia=exam.items.map((it,i)=>{
-    const vals=done.map(x=>x.att.answers?.[it.qid]);
+    const recv=done.filter(x=>x.sc.items.some(z=>z.qid===it.qid));
+    const v=voidOf(key,it.qid), acc=acceptedOf(key,it.qid);
+    const times=recv.map(x=>x.att.qtime?.[it.qid]).filter(t=>t>0);
+    const base={i,it,v,acc,n:recv.length,d:ST.disc[it.qid]??null,t:times.length?avg(times):null,ap:appeals.filter(a=>a.qid===it.qid&&a.status==="pending").length};
     if(it.type==="mcq"){
-      const n=vals.length, dist=it.options.map((_,j)=>vals.filter(v=>v===j).length), empty=vals.filter(v=>v==null).length, cor=key.key[it.qid];
-      return {i,it,n,dist,empty,cor,p:n?dist[cor]/n*100:null,d:ST.disc[it.qid]};
+      const vals=recv.map(x=>x.att.answers?.[it.qid]);
+      const dist=it.options.map((_,j)=>vals.filter(v=>v===j).length), empty=vals.filter(v=>v==null).length;
+      return {...base,dist,empty,p:recv.length?vals.filter(v=>acc.includes(v)).length/recv.length*100:null};
     }
-    const sc=done.map(x=>x.att.openScores?.[it.qid]).filter(v=>v!=null);
-    return {i,it,n:vals.length,avg:sc.length?avg(sc):null,d:ST.disc[it.qid]};
+    const sc=recv.map(x=>x.att.openScores?.[it.qid]).filter(v=>v!=null);
+    return {...base,avg:sc.length?avg(sc):null};
   });
-  const iaRows=ia.map(r=>`<tr><td class="num">${r.i+1}</td><td style="white-space:normal;min-width:240px;max-width:420px">${esc(r.it.stem.slice(0,140))}${r.it.stem.length>140?"…":""}${r.it.topic?`<div class="small muted">${esc(r.it.topic)}</div>`:""}</td>
-    <td>${r.it.type==="mcq"?r.it.options.map((o,j)=>`<span class="badge ${j===r.cor?"ok":""}" title="${esc(o)}">${LET[j]} ${r.dist[j]}</span>`).join(" ")+(r.empty?` <span class="badge">Boş ${r.empty}</span>`:""):`<span class="badge">Açık uçlu</span>`}</td>
+  const showIa=exam.plan?.perResident?ia.filter(r=>r.n>0):ia;
+  const iaRows=showIa.map(r=>`<tr><td class="num">${r.i+1}</td><td style="white-space:normal;min-width:240px;max-width:420px">${esc(r.it.stem.slice(0,140))}${r.it.stem.length>140?"…":""}
+      <div class="small muted">${esc(r.it.topic||"")}${exam.plan?.perResident?` · ${r.n} kişiye çıktı`:""}</div>${r.v||r.ap?`<div style="margin-top:4px">${voidBadge(r.v)}${r.ap?` <span class="badge bad">${r.ap} itiraz</span>`:""}</div>`:""}</td>
+    <td>${r.it.type==="mcq"?r.it.options.map((o,j)=>`<span class="badge ${r.acc.includes(j)?"ok":""}" title="${esc(o)}">${LET[j]} ${r.dist[j]}</span>`).join(" ")+(r.empty?` <span class="badge">Boş ${r.empty}</span>`:""):`<span class="badge">Açık uçlu</span>`}</td>
     <td class="num">${r.it.type==="mcq"?(r.p==null?"—":`<span class="badge ${r.p<30?"bad":r.p>85?"info":"ok"}">%${r.p.toFixed(0)}</span>`):(r.avg==null?"—":fmtNum(r.avg)+" / "+r.it.points)}</td>
-    <td class="num">${discBadge(r.d)}</td></tr>`).join("");
-  const flagged=ia.filter(r=>r.d!=null&&r.d<0.2).length;
+    <td class="num">${r.v==="drop"?`<span class="muted">—</span>`:discBadge(r.d)}</td>
+    <td class="num small">${r.t==null?"—":fmtSec(Math.round(r.t))}</td>
+    <td class="num"><button class="btn sm ghost" data-item="${r.it.qid}" title="Cevap anahtarı / iptal">Düzenle</button></td></tr>`).join("");
+  const flagged=ia.filter(r=>r.d!=null&&r.d<0.2&&!r.v).length;
   const smallN=done.length<10;
+  const apPend=appeals.filter(a=>a.status==="pending").length, apOpen=exam.appealsOpen!==false;
+  const apRows=appeals.map(a=>{ const it=exam.items.find(i=>i.qid===a.qid); const ix=exam.items.indexOf(it);
+    return `<tr><td style="white-space:normal;min-width:200px;max-width:320px"><b>Soru ${ix+1}</b> ${voidBadge(voidOf(key,a.qid))}<div class="small muted">${esc((it?.stem||"").slice(0,90))}${(it?.stem||"").length>90?"…":""}</div></td>
+      <td>${esc(a.name||a.email)}<div class="small muted">${fmtDT(a.createdAt)}</div></td>
+      <td style="white-space:pre-wrap;min-width:220px;max-width:380px">${esc(a.text)}${a.reply?`<div class="small muted" style="margin-top:4px">Yanıt: ${esc(a.reply)}</div>`:""}</td>
+      <td>${appealBadge(a.status)}</td>
+      <td class="num" style="white-space:nowrap">${a.status==="pending"?`<button class="btn sm primary" data-apok="${a.id}">Kabul</button> <button class="btn sm" data-apno="${a.id}">Ret</button>`:""} <button class="btn sm ghost" data-item="${a.qid}">Soruyu düzenle</button></td></tr>`; }).join("");
 
   paint(`<div class="page-head"><div><button class="btn sm ghost" id="back" style="margin-left:-8px">← Sınavlar</button><h1>${esc(exam.title)}</h1>
-      <div class="sub">${exam.items.length} soru · ${fmtNum(max)} puan · ${exam.durationMin} dk${exam.penalty?" · yanlış cezası":""} · ${fmtDT(exam.startAt)} – ${fmtDT(exam.endAt)}</div></div>
-    <div class="row"><button class="btn" id="xls">Excel'e aktar</button>
+      <div class="sub">${qCount(exam)} soru${exam.plan?.perResident?" (her asistana farklı set)":""} · ${fmtNum(max)} puan · ${exam.durationMin} dk${exam.penalty?" · yanlış cezası":""}${HP?` · geçme notu %${exam.passPct}`:""} · ${fmtDT(exam.startAt)} – ${fmtDT(exam.endAt)}</div></div>
+    <div class="row"><button class="btn" id="shr">Paylaş</button><button class="btn" id="xls">Excel'e aktar</button>
       <button class="btn primary" id="rel">${exam.resultsReleased?"Sonuçları güncelle":"Sonuçları asistanlara yayınla"}</button>
       ${exam.resultsReleased?`<button class="btn" id="unrel">Yayından kaldır</button>`:""}</div></div>
+    ${apPend?`<div class="note" style="background:var(--bad-soft)"><b>${apPend} itiraz</b> yanıt bekliyor. <a href="#itirazlar">İtirazlara git ↓</a></div>`:""}
     <div class="stats">
       <div class="stat"><div class="k">Katılım</div><div class="v">${atts.length}<span class="muted" style="font-size:14px"> / ${elig.length}</span></div></div>
       <div class="stat"><div class="k">Tamamlanan</div><div class="v">${done.length}</div></div>
       <div class="stat"><div class="k">Ortalama ± SS</div><div class="v">%${r1(mean)}<span class="muted" style="font-size:14px"> ± ${r1(ST.sd)}</span></div></div>
       <div class="stat"><div class="k">Medyan</div><div class="v">%${r1(med)}</div></div>
       <div class="stat"><div class="k">En yüksek / düşük</div><div class="v" style="font-size:18px">${pctArr.length?`%${r1(pctArr.at(-1))} / %${r1(pctArr[0])}`:"—"}</div></div>
-      <div class="stat" title="İç tutarlılık: sınavın aynı yetkinliği ne kadar tutarlı ölçtüğü. ≥0,80 iyi, 0,70–0,79 kabul edilebilir."><div class="k">Güvenirlik (${ST.relName})</div><div class="v">${ST.rel==null?"—":fmt2(ST.rel)}${ST.rel!=null?`<span class="muted" style="font-size:13px;font-weight:500"> ${relLabel(ST.rel)}</span>`:""}</div></div>
+      ${HP?`<div class="stat"><div class="k">Başarılı (≥ %${exam.passPct})</div><div class="v">${passN}<span class="muted" style="font-size:14px"> / ${done.length}</span></div></div>`:""}
+      <div class="stat" title="İç tutarlılık: sınavın aynı yetkinliği ne kadar tutarlı ölçtüğü. ≥0,80 iyi, 0,70–0,79 kabul edilebilir."><div class="k">Güvenirlik (${ST.relName})</div><div class="v">${ST.rel==null?"—":fmt2(ST.rel)}${ST.rel!=null?`<span class="muted" style="font-size:13px;font-weight:500"> ${relLabel(ST.rel)}</span>`:""}</div>${ST.perRes?`<div class="small muted">Farklı setlerde hesaplanmaz</div>`:""}</div>
       <div class="stat"><div class="k">Puanlanacak açık uçlu</div><div class="v" style="${pending?"color:var(--warn)":""}">${pending}</div></div>
     </div>
     ${done.length&&smallN?`<div class="note">Tamamlayan asistan sayısı ${done.length}. Ayırt edicilik ve güvenirlik yaklaşık 10 ve üzeri katılımcıyla anlamlı hale gelir; küçük gruplarda yön gösterici olarak yorumlayın.</div>`:""}
@@ -963,44 +1241,60 @@ async function viewResults(id){
     </div>
     <div class="card pad" style="margin-bottom:22px"><h2>Konu bazında grup başarısı</h2><div class="small muted" style="margin:-6px 0 10px">En zayıf konu üstte. Çoktan seçmelilerde ceza uygulanmadan doğru oranı, açık uçlularda alınan puan.</div>
       ${hbars(ST.topics.map(t=>({label:t.t,p:t.p,sub:`${t.n} soru`})))}</div>`:""}
-    <h2>Asistanlar</h2><div class="small muted" style="margin:-6px 0 8px">Satıra tıklayarak cevapları görün ve açık uçlu soruları puanlayın.</div>
-    <div class="tbl-wrap" style="margin-bottom:22px"><table><thead><tr><th>Asistan</th><th>Kıdem</th><th>Durum</th><th class="num">D</th><th class="num">Y</th><th class="num">B</th><th class="num">Açık uçlu</th><th class="num">Toplam</th><th class="num">%</th><th>Sayfadan ayrılma</th><th>Zaman</th></tr></thead><tbody>${tbody||`<tr><td colspan="11" class="empty">Asistan listesi boş.</td></tr>`}</tbody></table></div>
-    <h2>Madde analizi</h2><div class="small muted" style="margin:-6px 0 8px">Doğru şık yeşil. Güçlük: %30 altı çok zor, %85 üstü çok kolay. Ayırt edicilik (üst %27 – alt %27): ≥0,40 çok iyi · 0,30–0,39 iyi · 0,20–0,29 düzeltilmeli · &lt;0,20 zayıf · negatif ise soruyu gözden geçirin.${flagged?` <b style="color:var(--bad)">${flagged} soru 0,20'nin altında.</b>`:""}</div>
-    <div class="tbl-wrap"><table><thead><tr><th class="num">#</th><th>Soru</th><th>Şık dağılımı</th><th class="num">Doğru oranı</th><th class="num">Ayırt edicilik</th></tr></thead><tbody>${iaRows}</tbody></table></div>`);
+    <h2>Asistanlar</h2><div class="small muted" style="margin:-6px 0 8px">Satıra tıklayarak cevapları görün, açık uçluları puanlayın, ek süre verin. Girmeyen asistana “Geç başlama” ile kişisel izin verebilirsiniz.</div>
+    <div class="tbl-wrap" style="margin-bottom:22px"><table><thead><tr><th>Asistan</th><th>Kıdem</th><th>Durum</th><th class="num">D</th><th class="num">Y</th><th class="num">B</th><th class="num">Açık uçlu</th><th class="num">Toplam</th><th class="num">%</th>${HP?"<th>Sonuç</th>":""}<th>Sayfadan ayrılma</th><th>Zaman</th></tr></thead><tbody>${tbody||`<tr><td colspan="12" class="empty">Asistan listesi boş.</td></tr>`}</tbody></table></div>
+    <h2 id="itirazlar">İtirazlar ${apPend?`<span class="badge bad">${apPend} bekliyor</span>`:""}</h2>
+    <div class="row" style="margin:-6px 0 8px;justify-content:space-between"><span class="small muted">Asistanlar sonuçlar yayınlandıktan sonra soru bazında itiraz edebilir. Kabul ettiğiniz itirazda soruyu iptal edebilir veya cevap anahtarını düzeltebilirsiniz.</span>
+      <button class="btn sm" id="apTog">${apOpen?"İtirazları kapat":"İtirazları aç"}</button></div>
+    <div class="tbl-wrap" style="margin-bottom:22px"><table><thead><tr><th>Soru</th><th>Asistan</th><th>İtiraz</th><th>Durum</th><th></th></tr></thead><tbody>${apRows||`<tr><td colspan="5" class="empty">${exam.resultsReleased?(apOpen?"Henüz itiraz yok.":"İtirazlar kapalı."):"Sonuçlar yayınlandığında asistanlar itiraz edebilir."}</td></tr>`}</tbody></table></div>
+    <h2>Madde analizi</h2><div class="small muted" style="margin:-6px 0 8px">Doğru kabul edilen şık(lar) yeşil. Güçlük: %30 altı çok zor, %85 üstü çok kolay. Ayırt edicilik (üst %27 – alt %27): ≥0,40 çok iyi · 0,30–0,39 iyi · 0,20–0,29 düzeltilmeli · &lt;0,20 zayıf · negatif ise soruyu gözden geçirin. “Düzenle” ile soruyu iptal edebilir veya cevap anahtarını değiştirebilirsiniz; puanlar yeniden hesaplanır.${flagged?` <b style="color:var(--bad)">${flagged} soru 0,20'nin altında.</b>`:""}</div>
+    <div class="tbl-wrap"><table><thead><tr><th class="num">#</th><th>Soru</th><th>Şık dağılımı</th><th class="num">Doğru oranı</th><th class="num">Ayırt edicilik</th><th class="num">Ort. süre</th><th></th></tr></thead><tbody>${iaRows}</tbody></table></div>`);
 
+  const reload=()=>viewResults(id);
   document.getElementById("back").onclick=()=>go("exams");
+  document.getElementById("shr").onclick=()=>shareExam(exam);
   $app.querySelectorAll("tr[data-uid]").forEach(t=>t.onclick=()=>go("attempt",{examId:id,uid:t.dataset.uid}));
+  $app.querySelectorAll("[data-late]").forEach(b=>b.onclick=e=>{ e.stopPropagation(); lateDlg(exam,elig.find(r=>r.email===b.dataset.late)||{email:b.dataset.late,name:b.dataset.late},reload); });
+  $app.querySelectorAll("[data-item]").forEach(b=>b.onclick=()=>itemDlg(exam,key,b.dataset.item,atts,reload));
+  $app.querySelectorAll("[data-apok]").forEach(b=>b.onclick=()=>{ const a=appeals.find(x=>x.id===b.dataset.apok); decideAppeal(a,true,()=>itemDlg(exam,key,a.qid,atts,reload)); });
+  $app.querySelectorAll("[data-apno]").forEach(b=>b.onclick=()=>decideAppeal(appeals.find(x=>x.id===b.dataset.apno),false,reload));
+  document.getElementById("apTog").onclick=async()=>{ try{ await updateDoc(doc(db,"exams",id),{appealsOpen:!apOpen}); toast(apOpen?"İtirazlar kapatıldı":"İtirazlar açıldı"); reload(); }catch(e){ fail(e); } };
   document.getElementById("rel").onclick=async()=>{
     if(pending && !await confirmDlg("Puanlanmamış cevaplar var",`<p>${pending} açık uçlu cevap henüz puanlanmadı; bunlar 0 olarak yayınlanır. Yine de devam edilsin mi?</p>`,"Yayınla")) return;
-    if(!pending && !await confirmDlg("Sonuçları yayınla",`<p>Tamamlanan ${done.length} asistan kendi puanını, doğru cevapları ve açıklamaları görebilecek.</p>`,"Yayınla")) return;
-    try{ const b=writeBatch(db); done.forEach(x=>b.set(doc(db,"grades",x.att.id),gradeDoc(exam,key,x.att,x.sc)));
-      b.update(doc(db,"exams",id),{resultsReleased:true}); await b.commit(); toast("Sonuçlar yayınlandı"); viewResults(id); }catch(e){ fail(e); }
+    if(!pending && !await confirmDlg("Sonuçları yayınla",`<p>Tamamlanan ${done.length} asistan kendi puanını, doğru cevapları ve açıklamaları görebilecek${apOpen?"; sorulara itiraz edebilecek":""}.</p>`,"Yayınla")) return;
+    try{ await batchOps([...done.map(x=>b=>b.set(doc(db,"grades",x.att.id),gradeDoc(exam,key,x.att,x.sc))), b=>b.update(doc(db,"exams",id),{resultsReleased:true})]);
+      toast("Sonuçlar yayınlandı"); reload(); }catch(e){ fail(e); }
   };
   document.getElementById("unrel")?.addEventListener("click", async()=>{
     if(!await confirmDlg("Sonuçları gizle","<p>Asistanlar artık puanlarını göremeyecek.</p>","Gizle")) return;
-    try{ const b=writeBatch(db); atts.forEach(a=>b.delete(doc(db,"grades",a.id))); b.update(doc(db,"exams",id),{resultsReleased:false}); await b.commit(); toast("Sonuçlar gizlendi"); viewResults(id); }catch(e){ fail(e); }
+    try{ await batchOps([...atts.map(a=>b=>b.delete(doc(db,"grades",a.id))), b=>b.update(doc(db,"exams",id),{resultsReleased:false})]); toast("Sonuçlar gizlendi"); reload(); }catch(e){ fail(e); }
   });
   document.getElementById("xls").onclick=()=>{
     if(!window.XLSX) return toast("Excel kütüphanesi yüklenemedi",true);
-    const s0=[["Sınav",exam.title],["Tarih",`${fmtDT(exam.startAt)} – ${fmtDT(exam.endAt)}`],["Soru sayısı",exam.items.length],["Maksimum puan",max],
+    const s0=[["Sınav",exam.title],["Tarih",`${fmtDT(exam.startAt)} – ${fmtDT(exam.endAt)}`],["Soru sayısı",qCount(exam)],["Maksimum puan",max],
       ["Katılım",`${atts.length} / ${elig.length}`],["Atanan asistan",Array.isArray(exam.assigned)?elig.map(r=>r.name).join(", "):"Tüm asistanlar"],["Tamamlayan",done.length],["Ortalama %",r1(mean)],["Standart sapma",r1(ST.sd)],["Medyan %",r1(med)],
       ["En yüksek %",pctArr.length?r1(pctArr.at(-1)):""],["En düşük %",pctArr.length?r1(pctArr[0]):""],
+      ...(HP?[["Geçme notu %",Number(exam.passPct)],["Başarılı",`${passN} / ${done.length}`]]:[]),
       [`Güvenirlik (${ST.relName})`,ST.rel==null?"hesaplanamadı":Math.round(ST.rel*100)/100],["Güvenirlik yorumu",relLabel(ST.rel)],
-      ["Ayırt ediciliği 0,20'nin altında soru",flagged],["Not",smallN?"Katılımcı sayısı 10'un altında; ayırt edicilik ve güvenirlik yön gösterici.":""]];
+      ["Ayırt ediciliği 0,20'nin altında soru",flagged],["İptal edilen soru",Object.keys(key.voided||{}).length],["İtiraz (toplam / bekleyen)",`${appeals.length} / ${apPend}`],
+      ["Not",smallN?"Katılımcı sayısı 10'un altında; ayırt edicilik ve güvenirlik yön gösterici.":""]];
     const s1=rows.map(x=>({"Ad Soyad":x.res.name||"","E-posta":x.res.email||"","Kıdem":x.res.kidem||"",
       "Durum":!x.att?"Girmedi":x.att.status==="submitted"?"Teslim":x.fin?"Süre doldu":"Sınavda",
       "Başlama":x.att?fmtDT(x.att.startedAt):"","Teslim":x.att?.submittedAt?fmtDT(x.att.submittedAt):"",
       "Doğru":x.sc?.c??"","Yanlış":x.sc?.w??"","Boş":x.sc?.e??"","ÇS puanı":x.sc?r1(x.sc.mcqPts):"","Açık uçlu puanı":x.sc?r1(x.sc.openPts):"",
-      "Puanlanmamış":x.sc?.pending??"","Toplam":x.sc?r1(x.sc.total):"","Maksimum":max,"Yüzde":x.sc?r1(x.sc.pct):"",
-      "Sayfadan ayrılma (adet)":x.att?awaySummary(x.att).n:"","Ayrı kalınan süre (sn)":x.att?awaySummary(x.att).secs:"","Yeniden açma":x.att?awaySummary(x.att).reopen:""}));
+      "Puanlanmamış":x.sc?.pending??"","Toplam":x.sc?r1(x.sc.total):"","Maksimum":x.sc?x.sc.max:max,"Yüzde":x.sc?r1(x.sc.pct):"",
+      ...(HP?{"Sonuç":x.sc&&x.fin?(x.sc.pass?"Başarılı":"Başarısız"):""}:{}),
+      "Sayfadan ayrılma (adet)":x.att?awaySummary(x.att).n:"","Ayrı kalınan süre (sn)":x.att?awaySummary(x.att).secs:"","Yeniden açma":x.att?awaySummary(x.att).reopen:"",
+      "Geç başlama izni":lateFor(exam,x.res.email)?fmtDT(lateFor(exam,x.res.email)):""}));
     const s4=rows.filter(x=>x.att).flatMap(x=>(x.att.events||[]).map(e=>({"Ad Soyad":x.res.name||"","E-posta":x.res.email||"","Olay":EV_LBL[e.type]||e.type,"Saat":new Date(e.t).toLocaleString("tr-TR"),"Süre (sn)":e.type==="away"?(e.d??"kapanana kadar"):""})));
-    const s2=ia.map(r=>({"No":r.i+1,"Konu":r.it.topic||"","Tür":r.it.type==="mcq"?"ÇS":"Açık uçlu","Soru":r.it.stem,
-      "Doğru şık":r.it.type==="mcq"?LET[r.cor]:"", ...Object.fromEntries(LET.map((l,j)=>[l, r.it.type==="mcq"&&j<r.it.options.length?r.dist[j]:""])),
+    const s2=ia.map(r=>({"No":r.i+1,"Konu":r.it.topic||"","Tür":r.it.type==="mcq"?"ÇS":"Açık uçlu","Soru":r.it.stem,"Durum":r.v==="correct"?"İptal (herkese doğru)":r.v==="drop"?"İptal (puanlama dışı)":"Geçerli",
+      "Doğru şık":r.it.type==="mcq"?r.acc.map(j=>LET[j]).join(", "):"","Alan kişi":r.n, ...Object.fromEntries(LET.map((l,j)=>[l, r.it.type==="mcq"&&j<r.it.options.length?r.dist[j]:""])),
       "Boş":r.it.type==="mcq"?r.empty:"","Doğru oranı %":r.it.type==="mcq"&&r.p!=null?r1(r.p):"","Ort. puan (AU)":r.avg!=null?r1(r.avg):"",
-      "Ayırt edicilik":r.d==null?"":Math.round(r.d*100)/100,"Ayırt edicilik yorumu":discLabel(r.d)}));
+      "Ayırt edicilik":r.d==null?"":Math.round(r.d*100)/100,"Ayırt edicilik yorumu":discLabel(r.d),"Ort. süre (sn)":r.t==null?"":Math.round(r.t),"Bekleyen itiraz":r.ap||""}));
     const s5=ST.topics.map(t=>({"Konu":t.t,"Soru sayısı":t.n,"Grup başarısı %":r1(t.p)}));
     const s6=ST.kidem.map(k=>({"Kıdem":k.k==="—"?"Girilmemiş":k.k+". yıl","Kişi":k.n,"Ortalama %":r1(k.m),"En düşük %":r1(k.min),"En yüksek %":r1(k.max)}));
     const s7=ST.bins.map(b=>({"Dilim":`%${b.lo}–${b.hi}`,"Asistan sayısı":b.n,"Asistanlar":b.names.join(", ")}));
+    const s8=appeals.map(a=>({"Soru no":exam.items.findIndex(i=>i.qid===a.qid)+1,"Asistan":a.name||a.email,"Tarih":fmtDT(a.createdAt),"İtiraz":a.text,"Durum":(APPEAL_ST[a.status]||[a.status])[0],"Yanıt":a.reply||""}));
     const s3=rows.filter(x=>x.att).map(x=>{ const o={"Ad Soyad":x.res.name||"","E-posta":x.res.email||""};
       exam.items.forEach((it,i)=>{ const a=x.att.answers?.[it.qid]; o["S"+(i+1)]= it.type==="mcq"?(a==null?"":LET[a]):(a||""); }); return o; });
     const wb=XLSX.utils.book_new(), ws0=XLSX.utils.aoa_to_sheet(s0); ws0["!cols"]=[{wch:38},{wch:44}];
@@ -1010,6 +1304,7 @@ async function viewResults(id){
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s5.length?s5:[{"Konu":"—"}]),"Konu Analizi");
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s6.length?s6:[{"Kıdem":"—"}]),"Kıdem");
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s7),"Puan Dağılımı");
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s8.length?s8:[{"İtiraz":"Yok"}]),"İtirazlar");
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s3.length?s3:[{"Ad Soyad":"—"}]),"Cevaplar");
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s4.length?s4:[{"Olay":"Kayıt yok"}]),"Ayrılma Kaydı");
     XLSX.writeFile(wb,`${exam.title.replace(/[\\/:*?"<>|]/g,"_")} - sonuçlar.xlsx`);
@@ -1022,8 +1317,9 @@ async function viewResults(id){
 async function viewProfile(email){
   paint(`<div class="spinner"></div>`);
   await Promise.all([loadExams(),loadResidents()]);
-  const [as,ks]=await Promise.all([getDocs(collection(db,"attempts")),getDocs(collection(db,"examKeys"))]);
+  const [as,ks,pr]=await Promise.all([getDocs(collection(db,"attempts")),getDocs(collection(db,"examKeys")),getDocs(query(collection(db,"practice"),where("email","==",email))).catch(()=>({docs:[]}))]);
   const keys={}; ks.docs.forEach(d=>keys[d.id]=d.data());
+  const prq=pr.docs[0]?.data()?.q||{}; const prN=Object.keys(prq).length, prT=Object.values(prq).reduce((a,p)=>({c:a.c+(p.c||0),w:a.w+(p.w||0)}),{c:0,w:0});
   const atts=as.docs.map(d=>({id:d.id,...d.data()}));
   const res=S.residents.find(r=>r.email===email)||{name:(atts.find(a=>(a.email||"").toLowerCase()===email)?.name)||email,email};
   const list=[], tAgg={};
@@ -1036,23 +1332,25 @@ async function viewProfile(email){
     const cls=avg(scs.map(x=>x.sc.pct));
     list.push({e,cls,n:scs.length,mine:mine?.sc||null,att:mine?.a||null,rank:mine?1+scs.filter(x=>x.sc.pct>mine.sc.pct).length:null});
     if(!mine) continue;
-    e.items.forEach(it=>{ const t=it.topic||"Konu belirtilmemiş"; const o=tAgg[t]=tAgg[t]||{t,n:0,me:0,mm:0,ce:0,cm:0};
-      const f=sc=>{ const i=sc.items.find(z=>z.qid===it.qid); return i?itemPts(i):0; };
-      o.n++; o.me+=f(mine.sc); o.mm+=it.points; scs.forEach(x=>{ o.ce+=f(x.sc); o.cm+=it.points; }); });
+    e.items.forEach(it=>{ const g=sc=>sc.items.find(z=>z.qid===it.qid&&!z.dropped); const mi=g(mine.sc); if(!mi) return;
+      const t=it.topic||"Konu belirtilmemiş"; const o=tAgg[t]=tAgg[t]||{t,n:0,me:0,mm:0,ce:0,cm:0};
+      o.n++; o.me+=itemPts(mi); o.mm+=it.points; scs.forEach(x=>{ const xi=g(x.sc); if(xi){ o.ce+=itemPts(xi); o.cm+=it.points; } }); });
   }
   const taken=list.filter(r=>r.mine);
   const myAvg=avg(taken.map(r=>r.mine.pct)), clsAvg=avg(taken.map(r=>r.cls)), diff=myAvg-clsAvg;
   const topics=Object.values(tAgg).map(o=>({...o,p:o.mm?o.me/o.mm*100:0,c:o.cm?o.ce/o.cm*100:0})).sort((a,b)=>(a.p-a.c)-(b.p-b.c));
   const sign=v=>(v>0?"+":"")+r1(v);
   const dshort=t=>{ const d=new Date(tsMs(t)); return d.toLocaleDateString("tr-TR",{day:"2-digit",month:"2-digit",year:"2-digit"}); };
-  paint(`<div class="page-head"><div><button class="btn sm ghost" id="back" style="margin-left:-8px">← Asistanlar</button><h1>${esc(res.name||email)}</h1>
-      <div class="sub">${esc(email)}${res.kidem?` · ${res.kidem}. yıl`:""} · Gelişim takibi</div></div></div>
+  paint(`${printHead("Asistan Gelişim Raporu",`${res.name||email}${res.kidem?` · ${res.kidem}. yıl`:""}`)}
+    <div class="page-head"><div><button class="btn sm ghost no-print" id="back" style="margin-left:-8px">← Asistanlar</button><h1>${esc(res.name||email)}</h1>
+      <div class="sub">${esc(email)}${res.kidem?` · ${res.kidem}. yıl`:""} · Gelişim takibi</div></div><button class="btn no-print" id="prt">Yazdır / PDF</button></div>
     <div class="stats">
       <div class="stat"><div class="k">Girdiği sınav</div><div class="v">${taken.length}<span class="muted" style="font-size:14px"> / ${list.length}</span></div></div>
       <div class="stat"><div class="k">Ortalama başarı</div><div class="v">${taken.length?"%"+r1(myAvg):"—"}</div></div>
       <div class="stat"><div class="k">Aynı sınavlarda sınıf ort.</div><div class="v">${taken.length?"%"+r1(clsAvg):"—"}</div></div>
       <div class="stat"><div class="k">Sınıf ortalamasına göre</div><div class="v">${taken.length?sign(diff)+" puan":"—"}</div></div>
       <div class="stat"><div class="k">Son sınav</div><div class="v" style="font-size:18px">${taken.length?`%${r1(taken.at(-1).mine.pct)} · ${taken.at(-1).rank}/${taken.at(-1).n}. sıra`:"—"}</div></div>
+      <div class="stat"><div class="k">Alıştırma</div><div class="v" style="font-size:18px">${prN?`${prN} soru · %${r1(prT.c/Math.max(1,prT.c+prT.w)*100)}`:"—"}</div></div>
     </div>
     ${list.length?`<div class="card pad" style="margin-bottom:18px"><div class="row" style="justify-content:space-between;margin-bottom:6px"><h2 style="margin:0">Sınavlara göre başarı</h2>
       <div class="legend"><span><i class="lg1"></i>${esc(res.name||"Asistan")}</span><span><i class="lg2"></i>Sınıf ortalaması</span></div></div>
@@ -1069,50 +1367,79 @@ async function viewProfile(email){
       ${topics.map(t=>`<tr><td>${esc(t.t)}</td><td class="num">${t.n}</td><td><div class="track"><span style="width:${t.p}%"></span></div></td><td class="num">%${r1(t.p)}</td><td class="num">%${r1(t.c)}</td><td class="num"><span class="badge ${t.p-t.c>=0?"ok":"bad"}">${sign(t.p-t.c)}</span></td></tr>`).join("")}
     </tbody></table></div>`:""}`);
   document.getElementById("back").onclick=()=>go("residents");
+  document.getElementById("prt").onclick=()=>window.print();
   $app.querySelectorAll("tr[data-ex]").forEach(t=>t.onclick=()=>go("attempt",{examId:t.dataset.ex,uid:t.dataset.uid}));
 }
 
+const printHead=(title,sub)=>`<div class="print-only print-head"><div><b>Gazi Üniversitesi Tıp Fakültesi · Acil Tıp Anabilim Dalı</b></div><div class="ph-t">${esc(title)}</div>${sub?`<div>${esc(sub)}</div>`:""}<div class="small">Belge tarihi: ${new Date().toLocaleString("tr-TR")}</div></div>`;
+function extraTimeDlg(exam,att,onDone){
+  const dl=deadlineOf(exam,att), sub=att.status==="submitted";
+  const m=modal(`<div class="modal-h"><h2>Ek süre / yeniden aç</h2></div><div class="modal-b">
+    <p style="margin-top:0">Şu anki bitiş: <b>${dl?fmtDT(dl):"—"}</b>${sub?" · sınav teslim edilmiş":isFinished(exam,att)?" · süre dolmuş":""}</p>
+    <label class="f">Eklenecek süre (dakika)</label><input type="number" id="xm" min="1" max="600" value="10">
+    <div class="small muted" style="margin-top:4px">Süre dolmuşsa ek süre şimdiden itibaren başlar. Cevapları korunur; yalnız bu asistan etkilenir.</div>
+    ${sub?`<label class="check" style="margin-top:12px"><input type="checkbox" id="xr" checked> Teslim edilmiş sınavı yeniden aç (asistan kaldığı yerden devam eder)</label>`:""}</div>
+    <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="xOk">Uygula</button></div>`,"narrow");
+  m.el.querySelector("#xOk").onclick=async()=>{
+    const min=parseInt(m.el.querySelector("#xm").value,10); if(!(min>0)) return toast("Geçerli bir süre girin",true);
+    const nd=Math.max(Date.now(),dl||0)+min*60000; const upd={deadlineAt:Timestamp.fromMillis(nd)};
+    if(sub&&m.el.querySelector("#xr")?.checked){ upd.status="started"; upd.submittedAt=null; }
+    try{ await updateDoc(doc(db,"attempts",att.id),upd); m.close(); toast(`Yeni bitiş: ${fmtDT(nd)}`); onDone&&onDone(); }catch(e){ fail(e); }
+  };
+}
 async function viewAttempt(examId, uid){
   paint(`<div class="spinner"></div>`);
   const {exam,key,atts}=await loadResultData(examId);
   const att=atts.find(a=>a.uid===uid); if(!att){ toast("Katılım bulunamadı",true); return go("results",{id:examId}); }
   const res=S.residents.find(r=>r.email===(att.email||"").toLowerCase())||{name:att.name,email:att.email};
-  const sc=scoreAttempt(exam,key,att);
+  const sc=scoreAttempt(exam,key,att), fin=isFinished(exam,att);
   const os={...(att.openScores||{})}, cm={...(att.comments||{})};
+  const its=itemsFor(exam,att); const ord=(att.order||[]).filter(q=>its.find(i=>i.qid===q)); const byId={}; its.forEach(i=>byId[i.qid]=i);
+  const seq=ord.length?ord:its.map(i=>i.qid);
   let prevCase=null;
-  const qs=exam.items.map((it,i)=>{
-    const a=att.answers?.[it.qid]; let caseHtml="";
+  const qs=seq.map((q,i)=>{ const it=byId[q];
+    const a=att.answers?.[it.qid], v=voidOf(key,it.qid); let caseHtml="";
     if(it.caseId && it.caseId!==prevCase){ const c=exam.cases[it.caseId]; caseHtml=`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}</div>`; }
     prevCase=it.caseId||null;
     let body;
     if(it.type==="mcq"){
-      const cor=key.key[it.qid];
-      body=`<div class="opts">${it.options.map((o,j)=>`<div class="opt static ${j===cor?"right":(j===a?"wrong":"")}"><span class="L">${LET[j]}</span><span class="T">${esc(o)}</span></div>`).join("")}</div>
+      const acc=acceptedOf(key,it.qid);
+      body=`<div class="opts">${it.options.map((o,j)=>`<div class="opt static ${acc.includes(j)?"right":(j===a?"wrong":"")}"><span class="L">${LET[j]}</span><span class="T">${esc(o)}</span></div>`).join("")}</div>
         ${a==null?`<div class="small muted" style="margin-top:6px">Boş bırakıldı</div>`:""}`;
     } else {
       body=`<div class="small muted" style="margin:10px 0 4px">Asistanın cevabı</div><div class="openans">${esc(a||"")||`<span class="muted">Boş</span>`}</div>
         ${key.explanations?.[it.qid]?`<div class="expl"><b>Model cevap / not:</b> ${esc(key.explanations[it.qid])}</div>`:""}
-        <div class="row" style="margin-top:10px"><label class="f" style="margin:0">Puan</label><input type="number" data-os="${it.qid}" min="0" max="${it.points}" step="0.5" value="${os[it.qid]??""}" style="width:90px" placeholder="—"><span class="muted">/ ${it.points}</span>
-        <input type="text" data-cm="${it.qid}" value="${esc(cm[it.qid]||"")}" placeholder="Geri bildirim (asistan görür)" class="grow" style="min-width:200px"></div>`;
+        <div class="row no-print" style="margin-top:10px"><label class="f" style="margin:0">Puan</label><input type="number" data-os="${it.qid}" min="0" max="${it.points}" step="0.5" value="${os[it.qid]??""}" style="width:90px" placeholder="—"><span class="muted">/ ${it.points}</span>
+        <input type="text" data-cm="${it.qid}" value="${esc(cm[it.qid]||"")}" placeholder="Geri bildirim (asistan görür)" class="grow" style="min-width:200px"></div>
+        <div class="print-only small">Puan: ${os[it.qid]??"—"} / ${it.points}${cm[it.qid]?` · ${esc(cm[it.qid])}`:""}</div>`;
     }
-    return `<div class="qrev">${caseHtml}<div class="qmeta"><span class="badge">Soru ${i+1}</span><span class="badge">${it.points} puan</span>${it.topic?`<span class="badge">${esc(it.topic)}</span>`:""}</div>
+    const t=att.qtime?.[it.qid];
+    return `<div class="qrev">${caseHtml}<div class="qmeta"><span class="badge">Soru ${i+1}</span><span class="badge">${it.points} puan</span>${it.topic?`<span class="badge">${esc(it.topic)}</span>`:""}${t?`<span class="badge" title="Bu soruda geçirilen süre">⏱ ${fmtSec(t)}</span>`:""}${voidBadge(v)}</div>
       <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${body}</div>`;
   }).join("");
-  const hasOpen=exam.items.some(i=>i.type==="open");
-  paint(`<div class="page-head"><div><button class="btn sm ghost" id="back" style="margin-left:-8px">← ${esc(exam.title)}</button><h1>${esc(res.name||res.email)}</h1>
-    <div class="sub">${esc(res.email)} · Başlama ${fmtDT(att.startedAt)} · ${att.submittedAt?"Teslim "+fmtDT(att.submittedAt):(isFinished(exam,att)?"Süre doldu":"Sınav sürüyor")}</div></div>
-    <div class="row"><button class="btn" id="prof">Gelişim</button><button class="btn danger" id="reset">Oturumu sıfırla</button>${hasOpen?`<button class="btn primary" id="saveG">Puanları kaydet</button>`:""}</div></div>
+  const hasOpen=its.some(i=>i.type==="open");
+  const tot=Object.values(att.qtime||{}).reduce((s,v)=>s+v,0);
+  paint(`${printHead("Sınav Sonuç Belgesi",`${exam.title} · ${res.name||res.email}`)}
+    <div class="page-head"><div><button class="btn sm ghost no-print" id="back" style="margin-left:-8px">← ${esc(exam.title)}</button><h1>${esc(res.name||res.email)}</h1>
+    <div class="sub">${esc(res.email)} · Başlama ${fmtDT(att.startedAt)} · ${att.submittedAt?"Teslim "+fmtDT(att.submittedAt):(fin?"Süre doldu":"Sınav sürüyor · bitiş "+fmtDT(deadlineOf(exam,att)))}${att.deadlineAt?` · <span class="badge info">Ek süre verildi</span>`:""}${exam.deviceLock&&att.device?` · <span class="badge">Cihaz kilitli</span>`:""}</div></div>
+    <div class="row no-print"><button class="btn" id="prof">Gelişim</button><button class="btn" id="prt">Yazdır / PDF</button><button class="btn" id="xtra">Ek süre / yeniden aç</button>${exam.deviceLock&&att.device?`<button class="btn" id="unlock">Cihaz kilidini kaldır</button>`:""}<button class="btn danger" id="reset">Oturumu sıfırla</button>${hasOpen?`<button class="btn primary" id="saveG">Puanları kaydet</button>`:""}</div></div>
     <div class="stats"><div class="stat"><div class="k">Doğru / Yanlış / Boş</div><div class="v">${sc.c} / ${sc.w} / ${sc.e}</div></div>
       <div class="stat"><div class="k">Toplam</div><div class="v">${fmtNum(sc.total)} <span class="muted" style="font-size:14px">/ ${fmtNum(sc.max)}</span></div></div>
-      <div class="stat"><div class="k">Yüzde</div><div class="v">%${r1(sc.pct)}</div></div></div>
-    <h2>Sayfa hareketleri</h2><div class="small muted" style="margin:-6px 0 8px">Başka sekmeye/uygulamaya geçiş, ekran kilidi ve sayfanın yeniden açılması. ${awayBadge(att)}</div>
+      <div class="stat"><div class="k">Yüzde</div><div class="v">%${r1(sc.pct)}</div>${sc.pass!=null&&fin?passBadge(sc.pass):""}</div>
+      ${tot?`<div class="stat"><div class="k">Sorularda geçen süre</div><div class="v" style="font-size:18px">${fmtSec(tot)}</div></div>`:""}</div>
+    <div class="no-print"><h2>Sayfa hareketleri</h2><div class="small muted" style="margin:-6px 0 8px">Başka sekmeye/uygulamaya geçiş, ekran kilidi, tam ekrandan çıkış ve sayfanın yeniden açılması. ${awayBadge(att)}</div>
     <div class="tbl-wrap" style="margin-bottom:22px"><table><thead><tr><th>Saat</th><th>Olay</th><th class="num">Süre</th><th>Sınav başından itibaren</th></tr></thead><tbody>
-      ${(att.events||[]).length?(att.events||[]).map(e=>`<tr><td>${new Date(e.t).toLocaleTimeString("tr-TR")}</td><td>${e.type==="away"?`<span class="badge warn">${EV_LBL.away}</span>`:esc(EV_LBL[e.type]||e.type)}</td>
+      ${(att.events||[]).length?(att.events||[]).map(e=>`<tr><td>${new Date(e.t).toLocaleTimeString("tr-TR")}</td><td>${["away","fsexit","device"].includes(e.type)?`<span class="badge warn">${esc(EV_LBL[e.type]||e.type)}</span>`:esc(EV_LBL[e.type]||e.type)}</td>
         <td class="num">${e.type==="away"?(e.d==null?"kapanana kadar":fmtSec(e.d)):""}</td><td>${tsMs(att.startedAt)?(x=>String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"))(Math.max(0,Math.round((e.t-tsMs(att.startedAt))/1000))):""}</td></tr>`).join(""):`<tr><td colspan="4" class="empty">Kayıt yok</td></tr>`}
-    </tbody></table></div>
+    </tbody></table></div></div>
     <h2>Cevaplar</h2><div class="card">${qs}</div>`);
+  const reload=()=>viewAttempt(examId,uid);
   document.getElementById("back").onclick=()=>go("results",{id:examId});
   document.getElementById("prof").onclick=()=>go("profile",{email:(att.email||"").toLowerCase()});
+  document.getElementById("prt").onclick=()=>window.print();
+  document.getElementById("xtra").onclick=()=>extraTimeDlg(exam,att,reload);
+  document.getElementById("unlock")?.addEventListener("click",async()=>{ if(!await confirmDlg("Cihaz kilidini kaldır","<p>Asistan sınava başka bir cihazdan devam edebilecek. Açtığı ilk cihaz yeniden kilitlenir.</p>","Kaldır")) return;
+    try{ await updateDoc(doc(db,"attempts",att.id),{device:null}); toast("Cihaz kilidi kaldırıldı"); reload(); }catch(e){ fail(e); } });
   document.getElementById("reset").onclick=async()=>{
     if(!await confirmDlg("Oturumu sıfırla","<p>Bu asistanın cevapları ve varsa yayınlanmış sonucu silinir; sınava yeniden girebilir (sınav penceresi açıksa).</p>","Sıfırla",true)) return;
     try{ const b=writeBatch(db); b.delete(doc(db,"attempts",att.id)); b.delete(doc(db,"grades",att.id)); await b.commit(); toast("Oturum sıfırlandı"); go("results",{id:examId}); }catch(e){ fail(e); }
@@ -1125,8 +1452,8 @@ async function viewAttempt(examId, uid){
     if(bad) return toast("Puan 0 ile soru puanı arasında olmalı",true);
     try{
       await updateDoc(doc(db,"attempts",att.id),{openScores:os,comments:cm});
-      if(exam.resultsReleased && isFinished(exam,att)){ const a2={...att,openScores:os,comments:cm}; await setDoc(doc(db,"grades",att.id),gradeDoc(exam,key,a2,scoreAttempt(exam,key,a2))); }
-      toast("Puanlar kaydedildi"); viewAttempt(examId,uid);
+      if(exam.resultsReleased && fin){ const a2={...att,openScores:os,comments:cm}; await setDoc(doc(db,"grades",att.id),gradeDoc(exam,key,a2,scoreAttempt(exam,key,a2))); }
+      toast("Puanlar kaydedildi"); reload();
     }catch(e){ fail(e); }
   });
 }
@@ -1173,43 +1500,103 @@ async function moveToPool(ids,target){
   const chosen=S.questions.filter(q=>ids.has(q.id));
   const caseIds=new Set(chosen.map(q=>q.caseId).filter(c=>c&&S.cases[c]));
   const all=new Map(chosen.map(q=>[q.id,q])); S.questions.filter(q=>caseIds.has(q.caseId)).forEach(q=>all.set(q.id,q));
-  await batchOps([...[...all.keys()].map(id=>b=>b.update(doc(db,"questions",id),{poolId:target||null})),
-    ...[...caseIds].map(id=>b=>b.update(doc(db,"cases",id),{poolId:target||null}))]);
+  const prc=!!S.pools[target]?.practice;
+  await batchOps([...[...all.values()].map(q=>b=>b.update(doc(db,"questions",q.id),{poolId:target||null,practice:prc&&approvedQ(q)})),
+    ...[...caseIds].map(id=>b=>b.update(doc(db,"cases",id),{poolId:target||null,practice:prc}))]);
   return {n:all.size, extra:all.size-chosen.length};
 }
 
+/* ---------------- soru geçmişi (sınavlardaki güçlük / ayırt edicilik) ---------------- */
+async function computeQHist(){
+  const [ex,ks,as]=await Promise.all([getDocs(collection(db,"exams")),getDocs(collection(db,"examKeys")),getDocs(collection(db,"attempts"))]);
+  const keys={}; ks.docs.forEach(d=>keys[d.id]=d.data());
+  const atts=as.docs.map(d=>({id:d.id,...d.data()}));
+  const H={};
+  for(const d of ex.docs){ const e={id:d.id,...d.data()}; if(!e.items) continue; const key=keys[e.id]||{key:{}};
+    const done=atts.filter(a=>a.examId===e.id&&isFinished(e,a)).map(a=>({att:a,sc:scoreAttempt(e,key,a),res:{}}));
+    if(!done.length) continue;
+    const st=examStats(e,done,key);
+    e.items.forEach(it=>{ const recv=done.filter(x=>x.sc.items.some(i=>i.qid===it.qid&&!i.dropped)); if(!recv.length) return;
+      const p=avg(recv.map(x=>itemPts(x.sc.items.find(z=>z.qid===it.qid))/(it.points||1)))*100;
+      (H[it.qid]=H[it.qid]||[]).push({examId:e.id,title:e.title,date:tsMs(e.startAt)||0,n:recv.length,p,d:st.disc[it.qid]??null,v:voidOf(key,it.qid)}); });
+  }
+  Object.values(H).forEach(a=>a.sort((x,y)=>x.date-y.date));
+  S.qhist=H; return H;
+}
+const lastHist=qid=>{ const h=S.qhist?.[qid]; return h&&h.length?h[h.length-1]:null; };
+function qhistBadge(qid,compact){
+  if(!S.qhist) return "";
+  const h=S.qhist[qid]; if(!h||!h.length) return compact?"":`<span class="badge" title="Henüz hiçbir sınavda kullanılmadı">Kullanılmadı</span>`;
+  const l=h[h.length-1], cls=l.d==null?"":l.d<0.2?"bad":l.d<0.3?"warn":"ok";
+  return `<span class="badge ${cls} hist" data-hist="${qid}" title="Son kullanım: ${esc(l.title)} · ${l.n} kişi · tıklayın">${h.length} sınav · %${Math.round(l.p)}${l.d!=null?` · AE ${fmt2(l.d)}`:""}</span>`;
+}
+function showHist(qid){
+  const q=S.questions.find(x=>x.id===qid), h=S.qhist?.[qid]||[];
+  modal(`<div class="modal-h"><h2>Soru geçmişi</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="q-stem" style="font-size:14px;margin-bottom:12px">${esc((q?.stem||"").slice(0,240))}</div>
+    <div class="tbl-wrap"><table><thead><tr><th>Sınav</th><th>Tarih</th><th class="num">Kişi</th><th class="num">Doğru oranı</th><th class="num">Ayırt edicilik</th></tr></thead><tbody>
+    ${h.map(x=>`<tr><td>${esc(x.title)} ${voidBadge(x.v)}</td><td>${x.date?new Date(x.date).toLocaleDateString("tr-TR"):""}</td><td class="num">${x.n}</td><td class="num">%${Math.round(x.p)}</td><td class="num">${discBadge(x.d)}</td></tr>`).join("")}</tbody></table></div>
+    <p class="small muted">Doğru oranı %30 altı çok zor, %85 üstü çok kolay; ayırt edicilik 0,20 altı zayıf kabul edilir.</p></div>`);
+}
+const STATUS_B=q=>q.status==="pending"?`<span class="badge warn" title="${esc(q.author||"")}">Onay bekliyor${q.author?` · ${esc(q.author.split("@")[0])}`:""}</span>`:q.status==="rejected"?`<span class="badge bad" title="${esc(q.rejectReason||"")}">Reddedildi</span>`:"";
+async function togglePractice(p,onDone){
+  const on=!p.practice; const qs=S.questions.filter(q=>q.poolId===p.id), cs=Object.values(S.cases).filter(c=>c.poolId===p.id);
+  if(on&&!await confirmDlg("Havuzu alıştırmaya aç",`<p><b>${esc(p.name)}</b> havuzundaki onaylı ${qs.filter(approvedQ).length} soru, doğru cevapları ve açıklamalarıyla birlikte asistanların <b>Alıştırma</b> bölümünde görünecek.</p><p class="small" style="color:var(--warn)">Bu soruları ileride sınavda kullanırsanız asistanlar cevaplarını önceden görmüş olur. Alıştırma için ayrı bir havuz kullanmanız önerilir.</p>`,"Alıştırmaya aç")) return;
+  try{ await batchOps([b=>b.update(doc(db,"pools",p.id),{practice:on}), ...qs.map(q=>b=>b.update(doc(db,"questions",q.id),{practice:on&&approvedQ(q)})), ...cs.map(c=>b=>b.update(doc(db,"cases",c.id),{practice:on}))]);
+    toast(on?"Havuz alıştırmaya açıldı":"Havuz alıştırmadan kaldırıldı"); onDone&&onDone(); }catch(e){ fail(e); }
+}
+function exportBank(list){
+  if(!window.XLSX) return toast("Excel kütüphanesi yüklenemedi",true);
+  const rows=list.map(q=>{ const l=lastHist(q.id); return {"Havuz":q.poolId&&S.pools[q.poolId]?S.pools[q.poolId].name:"","Konu":q.topic||"","Tür":q.type==="open"?"AU":"ÇS","Soru":q.stem,
+    ...Object.fromEntries(LET.map((L,j)=>[L,q.type==="open"?"":(q.options||[])[j]||""])),"Doğru":q.type==="open"?"":LET[q.correct]||"","Puan":q.points||1,"Açıklama":q.explanation||"",
+    "Vaka":q.caseId&&S.cases[q.caseId]?(S.cases[q.caseId].title||"(vaka)"):"","Görsel":q.imageId?"var":"","Durum":q.status==="pending"?"Onay bekliyor":q.status==="rejected"?"Reddedildi":"Onaylı","Yazar":q.author||"",
+    "Kullanıldığı sınav":S.qhist?(S.qhist[q.id]||[]).length:"","Son doğru oranı %":l?Math.round(l.p):"","Son ayırt edicilik":l&&l.d!=null?Math.round(l.d*100)/100:"","Kimlik":q.id}; });
+  const ws=XLSX.utils.json_to_sheet(rows.length?rows:[{"Soru":"—"}]); ws["!cols"]=[{wch:16},{wch:14},{wch:5},{wch:60},{wch:18},{wch:18},{wch:18},{wch:18},{wch:18},{wch:6},{wch:5},{wch:40}];
+  const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"Sorular");
+  XLSX.writeFile(wb,`Soru bankası ${new Date().toLocaleDateString("tr-TR").replace(/\./g,"-")}.xlsx`);
+}
+
 /* =====================================================================
-   YÖNETİCİ — SORU BANKASI
+   YÖNETİCİ / SORU YAZARI — SORU BANKASI
    ===================================================================== */
 async function viewBank(){
   paint(`<div class="spinner"></div>`);
   await loadBank();
-  let filt="", topicF="", typeF="", poolF=lsGet("bankPool")||"";
+  const isA=S.mode==="admin", isAu=S.mode==="author";
+  let filt="", topicF="", typeF="", stF=isAu?"mine":"", hsF="", poolF=lsGet("bankPool")||"";
   if(poolF && poolF!==NOPOOL && !S.pools[poolF]) poolF="";
   const sel=new Set();
+  const nPend=S.questions.filter(q=>q.status==="pending").length;
   paint(`<div class="page-head"><div><h1>Soru Bankası</h1><div class="sub" id="bcount"></div></div>
-    <div class="row"><button class="btn" id="imp">Excel'den içe aktar</button><button class="btn" id="newCase">+ Vaka</button><button class="btn primary" id="newQ">+ Soru</button></div></div>
+    <div class="row">${isA?`<button class="btn" id="exp">Excel'e aktar</button>`:""}<button class="btn" id="imp">Excel'den içe aktar</button><button class="btn" id="newCase">+ Vaka</button><button class="btn primary" id="newQ">+ Soru</button></div></div>
+    ${isAu?`<div class="note">Soru yazarı olarak eklediğiniz sorular yönetici onayından sonra sınavlarda kullanılabilir. Onay bekleyen veya reddedilen kendi sorularınızı düzenleyebilirsiniz.</div>`:""}
+    ${isA&&nPend?`<div class="note" style="background:var(--warn-soft)"><b>${nPend} soru</b> onay bekliyor. <a href="#" id="goPend">Göster</a></div>`:""}
     <div class="pools" id="pools"></div>
-    <div class="toolbar"><label class="check selall"><input type="checkbox" id="selAllCb"> <span id="selAllLbl">Tümünü seç</span></label><input type="search" id="bf" placeholder="Soru, vaka veya konu ara…">
+    <div class="toolbar">${isA?`<label class="check selall"><input type="checkbox" id="selAllCb"> <span id="selAllLbl">Tümünü seç</span></label>`:""}<input type="search" id="bf" placeholder="Soru, vaka veya konu ara…">
       <select id="bt"><option value="">Tüm konular</option>${topics().map(t=>`<option>${esc(t)}</option>`).join("")}</select>
       <select id="by"><option value="">Tüm türler</option><option value="mcq">Çoktan seçmeli</option><option value="open">Açık uçlu</option></select>
-</div>
+      <select id="bs">${isAu?`<option value="mine" selected>Benim sorularım</option><option value="">Tüm sorular</option>`:`<option value="">Tüm durumlar</option><option value="pending">Onay bekleyen (${nPend})</option><option value="rejected">Reddedilen</option><option value="approved">Onaylı</option>`}</select>
+      ${isA?`<select id="bh"><option value="">İstatistik: tümü</option><option value="weak">Zayıf ayırt edici (&lt;0,20)</option><option value="hard">Çok zor (&lt;%30)</option><option value="easy">Çok kolay (&gt;%85)</option><option value="unused">Hiç kullanılmamış</option></select>`:""}</div>
     <div class="selbar hidden" id="selbar"></div>
     <div class="list" id="blist"></div>`);
-  const vis=q=>(!poolF||poolOf(q)===poolF)&&(!topicF||q.topic===topicF)&&(!typeF||(q.type||"mcq")===typeF)&&(!filt||trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
-  const qRow=q=>`<div class="qitem"><input type="checkbox" class="qcheck" data-sel="${q.id}" ${sel.has(q.id)?"checked":""} aria-label="Seç"><div class="body"><div class="qmeta">${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}<span class="badge ${q.type==="open"?"warn":""}">${q.type==="open"?"Açık uçlu":"Çoktan seçmeli"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge">${q.points||1} puan</span>${q.type!=="open"?`<span class="badge ok">Doğru: ${LET[q.correct]}</span>`:""}</div>
-    <div class="stem">${esc(q.stem)}</div>${imgTag(q.imageId,true)}</div>
-    <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-eq="${q.id}">Düzenle</button><button class="btn sm ghost" data-dup="${q.id}" title="Kopyala">⧉</button><button class="btn sm ghost danger" data-dq="${q.id}" title="Sil">✕</button></div></div>`;
+  const stOk=q=>!stF||(stF==="mine"?q.author===S.email:stF==="approved"?approvedQ(q):q.status===stF);
+  const hsOk=q=>{ if(!hsF) return true; const l=lastHist(q.id); if(hsF==="unused") return !l; if(!l) return false; return hsF==="weak"?(l.d!=null&&l.d<0.2):hsF==="hard"?l.p<30:l.p>85; };
+  const vis=q=>(!poolF||poolOf(q)===poolF)&&(!topicF||q.topic===topicF)&&(!typeF||(q.type||"mcq")===typeF)&&stOk(q)&&hsOk(q)&&(!filt||trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
+  const canEdit=q=>isA||(isAu&&q.author===S.email&&q.status!=="approved");
+  const qRow=q=>`<div class="qitem">${isA?`<input type="checkbox" class="qcheck" data-sel="${q.id}" ${sel.has(q.id)?"checked":""} aria-label="Seç">`:""}<div class="body"><div class="qmeta">${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}${STATUS_B(q)}<span class="badge ${q.type==="open"?"warn":""}">${q.type==="open"?"Açık uçlu":"Çoktan seçmeli"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge">${q.points||1} puan</span>${q.type!=="open"?`<span class="badge ok">Doğru: ${LET[q.correct]}</span>`:""}${q.practice?`<span class="badge info">Alıştırmada</span>`:""}${isA?qhistBadge(q.id):""}</div>
+    <div class="stem">${esc(q.stem)}</div>${imgTag(q.imageId,true)}${q.status==="rejected"&&q.rejectReason?`<div class="small" style="color:var(--bad);margin-top:4px">Ret gerekçesi: ${esc(q.rejectReason)}</div>`:""}</div>
+    <div class="row" style="flex-wrap:nowrap">${isA&&q.status==="pending"?`<button class="btn sm primary" data-apq="${q.id}">Onayla</button><button class="btn sm" data-rjq="${q.id}">Reddet</button>`:""}${canEdit(q)?`<button class="btn sm" data-eq="${q.id}">Düzenle</button>`:""}${isA?`<button class="btn sm ghost" data-dup="${q.id}" title="Kopyala">⧉</button>`:""}${canEdit(q)?`<button class="btn sm ghost danger" data-dq="${q.id}" title="Sil">✕</button>`:""}</div></div>`;
 
   function drawPools(){
     const cnt={}; S.questions.forEach(q=>{ const p=poolOf(q); cnt[p]=(cnt[p]||0)+1; });
-    const chip=(id,label,n)=>`<button class="chip ${poolF===id?"on":""}" data-pool="${id}">${esc(label)}<span class="n">${n||0}</span></button>`;
+    const chip=(id,label,n,prc)=>`<button class="chip ${poolF===id?"on":""}" data-pool="${id}">${esc(label)}${prc?`<span class="pdot" title="Alıştırmaya açık"></span>`:""}<span class="n">${n||0}</span></button>`;
     const cur=poolF&&poolF!==NOPOOL?S.pools[poolF]:null;
-    document.getElementById("pools").innerHTML=chip("","Tüm sorular",S.questions.length)+poolList().map(p=>chip(p.id,p.name,cnt[p.id])).join("")
-      +(cnt[NOPOOL]||poolF===NOPOOL?chip(NOPOOL,"Havuzsuz",cnt[NOPOOL]):"")+`<button class="chip add" id="addPool">+ Yeni havuz</button>`
-      +(cur?`<span class="pool-act"><button class="btn sm ghost" id="renPool">Yeniden adlandır</button><button class="btn sm ghost danger" id="delPool">Havuzu sil</button></span>`:"");
+    document.getElementById("pools").innerHTML=chip("","Tüm sorular",S.questions.length)+poolList().map(p=>chip(p.id,p.name,cnt[p.id],p.practice)).join("")
+      +(cnt[NOPOOL]||poolF===NOPOOL?chip(NOPOOL,"Havuzsuz",cnt[NOPOOL]):"")+(isA?`<button class="chip add" id="addPool">+ Yeni havuz</button>`:"")
+      +(cur&&isA?`<span class="pool-act"><button class="btn sm ghost" id="prcPool">${cur.practice?"Alıştırmadan kaldır":"Alıştırmaya aç"}</button><button class="btn sm ghost" id="renPool">Yeniden adlandır</button><button class="btn sm ghost danger" id="delPool">Havuzu sil</button></span>`:"");
     document.querySelectorAll("#pools [data-pool]").forEach(b=>b.onclick=()=>{ poolF=b.dataset.pool; lsSet("bankPool",poolF); sel.clear(); drawPools(); draw(); });
-    document.getElementById("addPool").onclick=async()=>{ const id=await newPoolDlg(); if(id){ poolF=id; lsSet("bankPool",id); sel.clear(); drawPools(); draw(); toast("Havuz oluşturuldu"); } };
+    document.getElementById("addPool")?.addEventListener("click",async()=>{ const id=await newPoolDlg(); if(id){ poolF=id; lsSet("bankPool",id); sel.clear(); drawPools(); draw(); toast("Havuz oluşturuldu"); } });
+    document.getElementById("prcPool")?.addEventListener("click",()=>togglePractice(cur,()=>viewBank()));
     document.getElementById("renPool")?.addEventListener("click",async()=>{ const n=await promptDlg("Havuzu yeniden adlandır","Havuz adı",cur.name); if(!n) return;
       try{ await updateDoc(doc(db,"pools",cur.id),{name:n}); S.pools[cur.id].name=n; drawPools(); draw(); toast("Kaydedildi"); }catch(e){ fail(e); } });
     document.getElementById("delPool")?.addEventListener("click",()=>deletePool(cur));
@@ -1224,24 +1611,29 @@ async function viewBank(){
     m.el.querySelector("#dp").onclick=async()=>{
       const all=m.el.querySelector('[name=dm][value=all]')?.checked;
       try{ m.el.querySelector("#dp").disabled=true;
-        await batchOps([...qs.map(q=>b=>all?b.delete(doc(db,"questions",q.id)):b.update(doc(db,"questions",q.id),{poolId:null})),
-          ...cs.map(c=>b=>all?b.delete(doc(db,"cases",c.id)):b.update(doc(db,"cases",c.id),{poolId:null})), b=>b.delete(doc(db,"pools",p.id))]);
+        await batchOps([...qs.map(q=>b=>all?b.delete(doc(db,"questions",q.id)):b.update(doc(db,"questions",q.id),{poolId:null,practice:false})),
+          ...cs.map(c=>b=>all?b.delete(doc(db,"cases",c.id)):b.update(doc(db,"cases",c.id),{poolId:null,practice:false})), b=>b.delete(doc(db,"pools",p.id))]);
         m.close(); lsSet("bankPool",""); toast("Havuz silindi"); viewBank(); }catch(e){ fail(e); }
     };
   }
+  const approve=async ids=>{ const qs=S.questions.filter(q=>ids.includes(q.id));
+    try{ await batchOps(qs.map(q=>b=>b.update(doc(db,"questions",q.id),{status:"approved",rejectReason:null,reviewedBy:S.email,reviewedAt:serverTimestamp(),practice:!!S.pools[q.poolId]?.practice}))); toast(`${qs.length} soru onaylandı`); viewBank(); }catch(e){ fail(e); } };
   function drawSel(){
-    // "Tümünü seç" kutusu: görünenlerin hepsi seçiliyse işaretli, bir kısmıysa yarım
+    if(!isA) return;
     const vq=S.questions.filter(vis), nSel=vq.filter(q=>sel.has(q.id)).length, cb=document.getElementById("selAllCb");
     cb.checked=vq.length>0&&nSel===vq.length; cb.indeterminate=nSel>0&&nSel<vq.length; cb.disabled=!vq.length;
     document.getElementById("selAllLbl").textContent=vq.length?`Tümünü seç (${vq.length})`:"Tümünü seç";
     const bar=document.getElementById("selbar"); bar.classList.toggle("hidden",!sel.size); if(!sel.size){ bar.innerHTML=""; return; }
-    const visN=S.questions.filter(vis).length;
+    const visN=vq.length, pendSel=S.questions.filter(q=>sel.has(q.id)&&q.status==="pending").length;
     bar.innerHTML=`<b>${sel.size} soru seçili</b>${sel.size<visN?`<button class="btn sm ghost" id="selAllBar">Tümünü seç (${visN})</button>`:""}<span class="grow"></span>
+      ${pendSel?`<button class="btn sm primary" id="apSel">Onayla (${pendSel})</button>`:""}
       <select id="mvp" style="width:auto">${poolOptions("",{none:"Havuzsuz",withNew:true}).replace('<option value="">','<option value="" disabled selected hidden>Havuza taşı…</option><option value="">')}</select>
-      <button class="btn sm primary" id="mvGo">Taşı</button><button class="btn sm danger" id="delSel">Sil</button><button class="btn sm ghost" id="clrSel">Seçimi kaldır</button>`;
+      <button class="btn sm primary" id="mvGo">Taşı</button><button class="btn sm" id="expSel">Excel'e aktar</button><button class="btn sm danger" id="delSel">Sil</button><button class="btn sm ghost" id="clrSel">Seçimi kaldır</button>`;
     const s=document.getElementById("mvp"); s.selectedIndex=0; bindPoolSelect(s);
+    document.getElementById("apSel")?.addEventListener("click",()=>approve(S.questions.filter(q=>sel.has(q.id)&&q.status==="pending").map(q=>q.id)));
     document.getElementById("mvGo").onclick=async()=>{ if(s.selectedIndex===0) return toast("Hedef havuzu seçin",true);
       try{ const r=await moveToPool(sel,s.value||null); toast(`${r.n} soru “${poolName(s.value)}” havuzuna taşındı${r.extra?` (vaka bütünlüğü için +${r.extra} soru)`:""}`); sel.clear(); viewBank(); }catch(e){ fail(e); } };
+    document.getElementById("expSel").onclick=()=>exportBank(S.questions.filter(q=>sel.has(q.id)));
     document.getElementById("delSel").onclick=async()=>{ if(!await confirmDlg("Seçilenleri sil",`<p>${sel.size} soru bankadan silinir. Kaydedilmiş sınavlar etkilenmez.</p>`,"Sil",true)) return;
       try{ await batchOps([...sel].map(id=>b=>b.delete(doc(db,"questions",id)))); toast("Silindi"); sel.clear(); viewBank(); }catch(e){ fail(e); } };
     document.getElementById("clrSel").onclick=()=>{ sel.clear(); draw(); };
@@ -1250,20 +1642,26 @@ async function viewBank(){
   function draw(){
     const list=S.questions.filter(vis);
     const blocks=bankBlocks(list);
-    const emptyCases=Object.values(S.cases).filter(c=>!S.questions.some(q=>q.caseId===c.id)&&(!poolF||(c.poolId&&S.pools[c.poolId]?c.poolId:NOPOOL)===poolF)&&!topicF&&!typeF&&(!filt||trLower(c.title+" "+c.text).includes(filt))).map(c=>({kind:"case",c,qs:[]}));
+    const emptyCases=isA&&!stF&&!hsF?Object.values(S.cases).filter(c=>!S.questions.some(q=>q.caseId===c.id)&&(!poolF||(c.poolId&&S.pools[c.poolId]?c.poolId:NOPOOL)===poolF)&&!topicF&&!typeF&&(!filt||trLower(c.title+" "+c.text).includes(filt))).map(c=>({kind:"case",c,qs:[]})):[];
     // bir havuz seçiliyken eklenme sırası (1. soru üstte); "Tüm sorular"da en yeni üstte
     const all=poolF?[...blocks,...emptyCases]:[...blocks,...emptyCases].reverse();
     const scope=poolF?S.questions.filter(q=>poolOf(q)===poolF).length:S.questions.length;
     document.getElementById("bcount").textContent=(poolF?`${poolName(poolF===NOPOOL?null:poolF)} · ${scope} soru`:`${S.questions.length} soru · ${Object.keys(S.cases).length} vaka · ${poolList().length} havuz`)+(list.length!==scope?` · ${list.length} gösteriliyor`:"");
+    const caseEdit=c=>isA||(isAu&&c.author===S.email&&c.status!=="approved");
     document.getElementById("blist").innerHTML=all.length?all.map(b=>b.kind==="q"?`<div class="card">${qRow(b.q)}</div>`:
-      `<div class="case-card"><div class="case-head">${b.qs.length?`<input type="checkbox" class="qcheck" data-selcase="${b.c.id}" ${b.qs.every(q=>sel.has(q.id))?"checked":""} aria-label="Vakayı seç">`:""}<div class="grow" style="min-width:0"><div class="qmeta">${!poolF&&b.c.poolId&&S.pools[b.c.poolId]?`<span class="badge acc">${esc(poolName(b.c.poolId))}</span>`:""}<span class="badge info">Vaka</span><span class="badge">${b.qs.length} soru</span></div>
+      `<div class="case-card"><div class="case-head">${isA&&b.qs.length?`<input type="checkbox" class="qcheck" data-selcase="${b.c.id}" ${b.qs.every(q=>sel.has(q.id))?"checked":""} aria-label="Vakayı seç">`:""}<div class="grow" style="min-width:0"><div class="qmeta">${!poolF&&b.c.poolId&&S.pools[b.c.poolId]?`<span class="badge acc">${esc(poolName(b.c.poolId))}</span>`:""}${STATUS_B(b.c)}<span class="badge info">Vaka</span><span class="badge">${b.qs.length} soru</span></div>
         <b>${esc(b.c.title||"(başlıksız vaka)")}</b><div class="txt">${esc(b.c.text)}</div>${imgTag(b.c.imageId,true)}</div>
-        <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-addq="${b.c.id}">+ Soru</button><button class="btn sm" data-ec="${b.c.id}">Düzenle</button><button class="btn sm ghost danger" data-dc="${b.c.id}">✕</button></div></div>
+        <div class="row" style="flex-wrap:nowrap">${isA&&b.c.status==="pending"?`<button class="btn sm primary" data-apc="${b.c.id}">Onayla</button>`:""}${caseEdit(b.c)?`<button class="btn sm" data-addq="${b.c.id}">+ Soru</button><button class="btn sm" data-ec="${b.c.id}">Düzenle</button>`:""}${isA?`<button class="btn sm ghost danger" data-dc="${b.c.id}">✕</button>`:""}</div></div>
         <div class="case-sub">${b.qs.map(qRow).join("")}</div></div>`).join("")
       :`<div class="card empty">${!S.questions.length?"Soru bankası boş. “+ Soru” ile başlayın veya Excel'den toplu aktarın.":poolF&&!scope?"Bu havuz boş. “+ Soru” veya “Excel'den içe aktar” ile bu havuza soru ekleyin.":"Eşleşen soru yok."}</div>`;
     hydrateImages(document.getElementById("blist"));
     $app.querySelectorAll("[data-sel]").forEach(c=>c.onchange=()=>{ c.checked?sel.add(c.dataset.sel):sel.delete(c.dataset.sel); drawSel(); const cb=c.closest(".case-card")?.querySelector("[data-selcase]"); if(cb) cb.checked=S.questions.filter(q=>q.caseId===cb.dataset.selcase&&vis(q)).every(q=>sel.has(q.id)); });
     $app.querySelectorAll("[data-selcase]").forEach(c=>c.onchange=()=>{ S.questions.filter(q=>q.caseId===c.dataset.selcase&&vis(q)).forEach(q=>c.checked?sel.add(q.id):sel.delete(q.id)); draw(); });
+    $app.querySelectorAll("[data-hist]").forEach(b=>b.onclick=()=>showHist(b.dataset.hist));
+    $app.querySelectorAll("[data-apq]").forEach(b=>b.onclick=()=>approve([b.dataset.apq]));
+    $app.querySelectorAll("[data-apc]").forEach(b=>b.onclick=async()=>{ try{ await updateDoc(doc(db,"cases",b.dataset.apc),{status:"approved"}); await approve(S.questions.filter(q=>q.caseId===b.dataset.apc&&q.status==="pending").map(q=>q.id)); }catch(e){ fail(e); } });
+    $app.querySelectorAll("[data-rjq]").forEach(b=>b.onclick=async()=>{ const r=await promptDlg("Soruyu reddet","Ret gerekçesi (soru yazarı görür)","","örn. Kaynak eksik, B şıkkı da doğru olabilir"); if(!r) return;
+      try{ await updateDoc(doc(db,"questions",b.dataset.rjq),{status:"rejected",rejectReason:r,reviewedBy:S.email,reviewedAt:serverTimestamp(),practice:false}); toast("Soru reddedildi"); viewBank(); }catch(e){ fail(e); } });
     $app.querySelectorAll("[data-eq]").forEach(b=>b.onclick=()=>editQuestion(S.questions.find(q=>q.id===b.dataset.eq)));
     $app.querySelectorAll("[data-dup]").forEach(b=>b.onclick=()=>{ const q=S.questions.find(x=>x.id===b.dataset.dup); editQuestion({...q,id:null}); });
     $app.querySelectorAll("[data-dq]").forEach(b=>b.onclick=async()=>{ if(!await confirmDlg("Soruyu sil","<p>Soru bankadan silinir. Daha önce kaydedilmiş sınavlardaki kopyası etkilenmez.</p>","Sil",true)) return;
@@ -1276,11 +1674,16 @@ async function viewBank(){
     drawSel();
   }
   drawPools(); draw();
+  if(isA) computeQHist().then(()=>{ if(S.view==="bank"&&document.getElementById("blist")) draw(); }).catch(e=>console.error(e));
   const curPool=()=>poolF&&poolF!==NOPOOL?poolF:null;
   document.getElementById("bf").oninput=e=>{ filt=trLower(e.target.value); draw(); };
   document.getElementById("bt").onchange=e=>{ topicF=e.target.value; draw(); };
   document.getElementById("by").onchange=e=>{ typeF=e.target.value; draw(); };
-  document.getElementById("selAllCb").onchange=e=>{ const vq=S.questions.filter(vis); if(e.target.checked) vq.forEach(q=>sel.add(q.id)); else vq.forEach(q=>sel.delete(q.id)); draw(); };
+  document.getElementById("bs").onchange=e=>{ stF=e.target.value; sel.clear(); draw(); };
+  document.getElementById("bh")?.addEventListener("change",e=>{ hsF=e.target.value; sel.clear(); if(hsF&&!S.qhist) toast("İstatistikler hesaplanıyor…"); draw(); });
+  document.getElementById("goPend")?.addEventListener("click",e=>{ e.preventDefault(); stF="pending"; document.getElementById("bs").value="pending"; poolF=""; drawPools(); draw(); });
+  document.getElementById("selAllCb")?.addEventListener("change",e=>{ const vq=S.questions.filter(vis); if(e.target.checked) vq.forEach(q=>sel.add(q.id)); else vq.forEach(q=>sel.delete(q.id)); draw(); });
+  document.getElementById("exp")?.addEventListener("click",()=>exportBank(S.questions.filter(vis)));
   document.getElementById("newQ").onclick=()=>editQuestion({poolId:curPool()});
   document.getElementById("newCase").onclick=()=>editCase({poolId:curPool()});
   document.getElementById("imp").onclick=()=>importDialog(curPool());
@@ -1310,7 +1713,7 @@ function editQuestion(q){
   const m=modal(`<div class="modal-h"><h2>${isNew?"Yeni soru":"Soruyu düzenle"}</h2><button class="btn sm ghost" data-close>✕</button></div>
     <div class="modal-b">
       <div class="grid2">
-        <div class="field"><label class="f">Havuz</label><select id="q_pool">${poolOptions(q.poolId&&S.pools[q.poolId]?q.poolId:"",{withNew:true})}</select><div class="small muted hidden" id="poolNote" style="margin-top:4px">Vakaya bağlı soru, vakanın havuzunda durur.</div></div>
+        <div class="field"><label class="f">Havuz</label><select id="q_pool">${poolOptions(q.poolId&&S.pools[q.poolId]?q.poolId:"",{withNew:S.mode==="admin"})}</select><div class="small muted hidden" id="poolNote" style="margin-top:4px">Vakaya bağlı soru, vakanın havuzunda durur.</div></div>
         <div class="field"><label class="f">Bağlı vaka</label><select id="q_case"><option value="">— Bağımsız soru —</option>${caseOpts}</select></div>
       </div>
       <div class="grid3">
@@ -1348,7 +1751,9 @@ function editQuestion(q){
       const btn=m.el.querySelector("#qsave"); btn.disabled=true;
       data.imageId=await persistImage(st);
       const id=q.id||newId(); if(!q.id) data.createdAt=serverTimestamp(); data.updatedAt=serverTimestamp();
-      await setDoc(doc(db,"questions",id),data,{merge:true}); m.close(); toast("Soru kaydedildi"); viewBank();
+      if(S.mode==="author"){ data.status="pending"; data.author=S.email; data.practice=false; data.rejectReason=null; }
+      else data.practice=!!S.pools[data.poolId]?.practice&&approvedQ({...q,...data});
+      await setDoc(doc(db,"questions",id),data,{merge:true}); m.close(); toast(S.mode==="author"?"Soru kaydedildi; yönetici onayına gönderildi":"Soru kaydedildi"); viewBank();
     }catch(e){ fail(e,"Kaydedilemedi"); m.el.querySelector("#qsave").disabled=false; }
   };
 }
@@ -1357,7 +1762,7 @@ function editCase(c){
   const qs=c.id?S.questions.filter(q=>q.caseId===c.id):[];
   const m=modal(`<div class="modal-h"><h2>${c.id?"Vakayı düzenle":"Yeni vaka"}</h2><button class="btn sm ghost" data-close>✕</button></div>
     <div class="modal-b"><p class="small muted" style="margin-top:0">Vaka metni, bağlı her sorunun üstünde gösterilir. Sınavda vakanın soruları birlikte kalır.</p>
-      <div class="field"><label class="f">Havuz</label><select id="c_pool">${poolOptions(c.poolId&&S.pools[c.poolId]?c.poolId:"",{withNew:true})}</select>
+      <div class="field"><label class="f">Havuz</label><select id="c_pool">${poolOptions(c.poolId&&S.pools[c.poolId]?c.poolId:"",{withNew:S.mode==="admin"})}</select>
         ${qs.length?`<div class="small muted" style="margin-top:4px">Havuzu değiştirirseniz bağlı ${qs.length} soru da taşınır.</div>`:""}</div>
       <div class="field"><label class="f">Başlık</label><input type="text" id="c_title" value="${esc(c.title||"")}" placeholder="örn. 68 yaşında göğüs ağrısı"></div>
       <div class="field"><label class="f">Vaka metni</label><textarea id="c_text" style="min-height:160px">${esc(c.text||"")}</textarea></div>
@@ -1368,9 +1773,10 @@ function editCase(c){
     const text=m.el.querySelector("#c_text").value.trim(); if(!text) return toast("Vaka metni boş",true);
     const pv=m.el.querySelector("#c_pool").value; const poolId=pv&&pv!=="__new"?pv:null;
     try{ const imageId=await persistImage(st); const id=c.id||newId();
-      await setDoc(doc(db,"cases",id),{title:m.el.querySelector("#c_title").value.trim(),text,imageId,poolId,...(c.id?{}:{createdAt:serverTimestamp()})},{merge:true});
+      const au=S.mode==="author", prc=!au&&!!S.pools[poolId]?.practice;
+      await setDoc(doc(db,"cases",id),{title:m.el.querySelector("#c_title").value.trim(),text,imageId,poolId,practice:prc,...(au?{status:"pending",author:S.email}:{}),...(c.id?{}:{createdAt:serverTimestamp()})},{merge:true});
       const moved=qs.filter(q=>(q.poolId||null)!==poolId);
-      if(moved.length) await batchOps(moved.map(q=>b=>b.update(doc(db,"questions",q.id),{poolId})));
+      if(moved.length&&!au) await batchOps(moved.map(q=>b=>b.update(doc(db,"questions",q.id),{poolId,practice:prc&&approvedQ(q)})));
       m.close(); toast("Vaka kaydedildi"); viewBank(); }catch(e){ fail(e); }
   };
 }
@@ -1378,8 +1784,8 @@ function editCase(c){
 function importDialog(defPool){
   const m=modal(`<div class="modal-h"><h2>Excel'den soru aktar</h2><button class="btn sm ghost" data-close>✕</button></div>
     <div class="modal-b"><p style="margin-top:0">Şablonu indirin, her satıra bir soru yazın ve yükleyin. Görseller ve vakalar sonradan arayüzden eklenir.</p>
-      <p class="small muted">Sütunlar: <span class="mono">Konu · Tür (ÇS/AU) · Soru · A · B · C · D · E · Doğru (A–E) · Puan · Açıklama</span></p>
-      <div class="field"><label class="f">Hangi havuza aktarılsın?</label><select id="ip">${poolOptions(defPool||"",{withNew:true})}</select></div>
+      <p class="small muted">Sütunlar: <span class="mono">Konu · Tür (ÇS/AU) · Soru · A · B · C · D · E · Doğru (A–E) · Puan · Açıklama</span>. İsteğe bağlı <span class="mono">Havuz</span> sütunu doluysa soru o havuza gider${S.mode==="admin"?" (yoksa oluşturulur)":""}; boşsa aşağıda seçtiğiniz havuza.</p>
+      <div class="field"><label class="f">Hangi havuza aktarılsın?</label><select id="ip">${poolOptions(defPool||"",{withNew:S.mode==="admin"})}</select></div>
       <div class="row"><button class="btn" id="tpl">Şablonu indir</button><label class="btn primary">Dosya seç<input type="file" id="xf" accept=".xlsx,.xls,.csv" hidden></label></div>
       <div id="impRes" style="margin-top:14px"></div></div>`);
   const ip=m.el.querySelector("#ip"); bindPoolSelect(ip);
@@ -1399,7 +1805,7 @@ function importDialog(defPool){
       rows.forEach((r,i)=>{
         const stem=pick(r,"soru","soru kökü"); if(!stem) return;
         const typ=norm(pick(r,"tür","tip"))==="au"||norm(pick(r,"tür","tip")).startsWith("açık")?"open":"mcq";
-        const q={type:typ,stem,topic:pick(r,"konu"),points:Number(pick(r,"puan").replace(",","."))||1,explanation:pick(r,"açıklama","aciklama"),caseId:null,imageId:null};
+        const q={type:typ,stem,topic:pick(r,"konu"),points:Number(pick(r,"puan").replace(",","."))||1,explanation:pick(r,"açıklama","aciklama"),caseId:null,imageId:null,_pool:pick(r,"havuz")};
         if(typ==="mcq"){
           const raw=LET.map(l=>pick(r,trLower(l))); const corL=pick(r,"doğru","dogru","cevap").toUpperCase(); const cj=LET.indexOf(corL);
           const kept=raw.map((t,j)=>({t,j})).filter(x=>x.t);
@@ -1413,12 +1819,36 @@ function importDialog(defPool){
         ${ok.length?`<div class="row" style="margin-top:10px"><button class="btn primary" id="doImp">Aktar</button></div>`:""}</div>`;
       m.el.querySelector("#doImp")?.addEventListener("click", async()=>{
         const poolId=ip.value&&ip.value!=="__new"?ip.value:null;
-        try{ m.el.querySelector("#doImp").disabled=true; const t0=Date.now();
-          await batchOps(ok.map((q,j)=>b=>b.set(doc(db,"questions",newId()),{...q,poolId,createdAt:Timestamp.fromMillis(t0+j)})));
+        try{ m.el.querySelector("#doImp").disabled=true; const t0=Date.now(), au=S.mode==="author";
+          const byName={}; poolList().forEach(p=>byName[trLower(p.name)]=p.id);
+          for(const q of ok){ if(q._pool&&!byName[trLower(q._pool)]&&!au) byName[trLower(q._pool)]=await createPool(q._pool); }
+          await batchOps(ok.map((q,j)=>{ const {_pool,...rest}=q; const pid=(_pool&&byName[trLower(_pool)])||poolId;
+            return b=>b.set(doc(db,"questions",newId()),{...rest,poolId:pid,createdAt:Timestamp.fromMillis(t0+j),...(au?{status:"pending",author:S.email,practice:false}:{practice:!!S.pools[pid]?.practice})}); }));
           m.close(); lsSet("bankPool",poolId||""); toast(`${ok.length} soru “${poolName(poolId)}” havuzuna eklendi`); viewBank(); }catch(err){ fail(err); }
       });
     }catch(err){ fail(err,"Dosya okunamadı"); }
   };
+}
+
+/* =====================================================================
+   YÖNETİCİ — AYARLAR (soru yazarları)
+   ===================================================================== */
+async function viewSettings(){
+  paint(`<div class="spinner"></div>`);
+  let roles={authors:[]}; try{ const r=await getDoc(doc(db,"meta","roles")); if(r.exists()) roles={authors:[],...r.data()}; }catch(e){ console.error(e); }
+  paint(`<div class="page-head"><div><h1>Ayarlar</h1><div class="sub">Yetkiler ve roller</div></div></div>
+    <div class="card pad" style="margin-bottom:16px"><h2>Soru yazarları</h2>
+      <div class="small muted" style="margin-bottom:10px">Soru yazarları (ör. diğer öğretim üyeleri) Google hesaplarıyla girip Soru Bankası'na soru ve vaka ekleyebilir. Sınavları, sonuçları ve asistan listesini göremezler. Ekledikleri sorular siz onaylayana kadar sınavlarda ve alıştırmada kullanılmaz.</div>
+      <div class="row" style="margin-bottom:12px"><input type="email" id="au" placeholder="ornek@gmail.com" style="max-width:320px"><button class="btn primary" id="auAdd">Ekle</button></div>
+      <div id="auList"></div></div>
+    <div class="card pad"><h2>Yöneticiler</h2><div class="small muted" style="margin-bottom:8px">Güvenlik nedeniyle yönetici e-postaları site kodunda ve Firebase kurallarında tanımlıdır.</div>
+      ${ADMIN_EMAILS.map(e=>`<div class="tplrow"><b>${esc(e)}</b></div>`).join("")}</div>`);
+  const save=async list=>{ try{ await setDoc(doc(db,"meta","roles"),{authors:list,updatedAt:serverTimestamp()},{merge:true}); roles.authors=list; draw(); toast("Kaydedildi"); }catch(e){ fail(e); } };
+  const draw=()=>{ document.getElementById("auList").innerHTML=roles.authors.length?roles.authors.map(e=>`<div class="tplrow"><span class="grow">${esc(e)}</span><button class="btn sm ghost danger" data-rm="${esc(e)}">Kaldır</button></div>`).join(""):`<div class="small muted">Henüz soru yazarı yok.</div>`;
+    document.querySelectorAll("[data-rm]").forEach(b=>b.onclick=async()=>{ if(await confirmDlg("Soru yazarını kaldır",`<p>${esc(b.dataset.rm)} artık soru ekleyemeyecek. Eklediği sorular bankada kalır.</p>`,"Kaldır",true)) save(roles.authors.filter(x=>x!==b.dataset.rm)); }); };
+  document.getElementById("auAdd").onclick=()=>{ const e=document.getElementById("au").value.trim().toLowerCase(); if(!/^\S+@\S+\.\S+$/.test(e)) return toast("Geçerli bir e-posta girin",true);
+    if(ADMIN_EMAILS.includes(e)) return toast("Bu hesap zaten yönetici",true); if(roles.authors.includes(e)) return toast("Zaten listede",true); save([...roles.authors,e]); };
+  draw();
 }
 
 /* =====================================================================
@@ -1463,8 +1893,11 @@ async function viewResidents(){
 /* =====================================================================
    ASİSTAN — ANA SAYFA
    ===================================================================== */
+const myDevice=()=>{ let d=lsGet("acilDevice"); if(!d){ d="d"+newId(); lsSet("acilDevice",d); } return d; };
+function residentTabs(){ const t=[["home","Sınavlarım"],["practice","Alıştırma"]]; const cur={take:"home",review:"home"}[S.view]||S.view;
+  return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join(""); }
 async function viewHome(){
-  paint(`<div class="spinner"></div>`,"");
+  paint(`<div class="spinner"></div>`,residentTabs());
   let ids=[]; try{ const ix=await getDoc(doc(db,"meta","examIndex")); ids=ix.exists()?(ix.data().ids||[]):[]; }catch(e){ console.error(e); }
   const got=await Promise.all(ids.map(id=>getDoc(doc(db,"exams",id)).then(d=>d.exists()?{id,...d.data()}:null).catch(()=>null)));
   const exams=got.filter(e=>e&&e.published&&isAssigned(e,S.email)).sort((a,b)=>tsMs(b.startAt)-tsMs(a.startAt));
@@ -1474,50 +1907,68 @@ async function viewHome(){
     return {e,att:a?.exists()?a.data():null,grade:g?.exists()?g.data():null};
   }));
   const now=Date.now();
-  const card=({e,att,grade})=>{
-    const pts=e.items.reduce((s,i)=>s+i.points,0);
+  const stateOf=({e,att,grade})=>{ const end=personalEnd(e,S.email);
+    if(grade) return "graded"; if(att&&isFinished(e,att)) return "submitted"; if(att) return "running";
+    if(now<tsMs(e.startAt)) return "soon"; if(now>end) return "closed"; return "open"; };
+  const card=x=>{ const {e,att,grade}=x, st0=stateOf(x), late=lateFor(e,S.email);
     let st, btn="";
-    if(grade){ st=`<span class="badge ok">Sonuç: %${r1(grade.pct)}</span>`; btn=`<button class="btn primary" data-rev="${e.id}">Sonucu gör</button>`; }
-    else if(att && isFinished(e,att)){ st=`<span class="badge info">Teslim edildi</span>`; btn=`<span class="small muted">Sonuçlar yayınlanınca burada görünecek</span>`; }
-    else if(att){ st=`<span class="badge acc">Devam ediyor</span>`; btn=`<button class="btn primary" data-take="${e.id}">Devam et</button>`; }
-    else if(now<tsMs(e.startAt)){ st=`<span class="badge">Henüz açılmadı</span>`; btn=`<span class="small muted">${fmtDT(e.startAt)} itibarıyla</span>`; }
-    else if(now>tsMs(e.endAt)){ st=`<span class="badge">Kapandı</span>`; }
+    if(st0==="graded"){ st=`<span class="badge ok">Sonuç: %${r1(grade.pct)}</span>${grade.pass!=null?" "+passBadge(grade.pass):""}`; btn=`<button class="btn primary" data-rev="${e.id}">Sonucu gör</button>`; }
+    else if(st0==="submitted"){ st=`<span class="badge info">Teslim edildi</span>`; btn=`<span class="small muted">Sonuçlar yayınlanınca burada görünecek</span>`; }
+    else if(st0==="running"){ st=`<span class="badge acc">Devam ediyor</span>`; btn=`<button class="btn primary" data-take="${e.id}">Devam et</button>`; }
+    else if(st0==="soon"){ st=`<span class="badge">Henüz açılmadı</span>`; btn=`<span class="small muted">${fmtDT(e.startAt)} itibarıyla</span>`; }
+    else if(st0==="closed"){ st=`<span class="badge">Kapandı</span>`; }
     else { st=`<span class="badge acc">Açık</span>`; btn=`<button class="btn primary" data-start="${e.id}">Sınava başla</button>`; }
-    return `<div class="card pad"><div class="row" style="align-items:flex-start"><div class="grow">
+    return `<div class="card pad" id="ex-${e.id}"><div class="row" style="align-items:flex-start"><div class="grow">
       <div class="row" style="gap:8px;margin-bottom:4px"><h3 style="margin:0">${esc(e.title)}</h3>${st}</div>
       ${e.description&&!(att||grade)?`<div class="small clamp3" style="margin-bottom:4px">${esc(fillTpl(e.description,e))}</div>`:""}
-      <div class="small muted">${e.items.length} soru · ${fmtNum(pts)} puan · ${e.durationMin} dakika · Son başlama ${fmtDT(e.endAt)}</div></div>
+      <div class="small muted">${qCount(e)} soru · ${fmtNum(qPoints(e))} puan · ${e.durationMin} dakika · Son başlama ${fmtDT(personalEnd(e,S.email))}${late&&late>tsMs(e.endAt)?" (size özel)":""}${e.sequential?" · sıralı":""}</div></div>
       <div class="row">${btn}</div></div></div>`;
   };
   paint(`<div class="page-head"><div><h1>Sınavlarım</h1><div class="sub">Merhaba ${esc(S.resident?.name||S.user.displayName||"")}</div></div></div>
-    <div class="list">${info.length?info.map(card).join(""):`<div class="card empty">Şu an size açık bir sınav yok.</div>`}</div>`, "");
-  $app.querySelectorAll("[data-take]").forEach(b=>b.onclick=()=>go("take",{id:b.dataset.take}));
-  $app.querySelectorAll("[data-rev]").forEach(b=>b.onclick=()=>go("review",{id:b.dataset.rev}));
-  $app.querySelectorAll("[data-start]").forEach(b=>b.onclick=async()=>{
-    const e=exams.find(x=>x.id===b.dataset.start);
+    <div class="list">${info.length?info.map(card).join(""):`<div class="card empty">Şu an size açık bir sınav yok.</div>`}</div>`, residentTabs());
+  const startFlow=async e=>{
     const ok=await confirmDlg("Sınava başla",`<p><b>${esc(e.title)}</b></p>${e.description?`<div class="descprev" style="margin:0 0 12px"><div class="txt">${esc(fillTpl(e.description,e))}</div></div>`:""}<ul style="padding-left:18px;margin:0">
-      <li>${e.items.length} soru, <b>${e.durationMin} dakika</b>.</li><li>Süre başladığında durmaz; sayfayı kapatsanız da işlemeye devam eder.</li>
+      <li>${qCount(e)} soru, <b>${e.durationMin} dakika</b>.</li><li>Süre başladığında durmaz; sayfayı kapatsanız da işlemeye devam eder.</li>
       <li>Cevaplarınız otomatik kaydedilir; bağlantı koparsa kaldığınız yerden devam edebilirsiniz.</li><li>Süre bitince sınav otomatik teslim edilir.</li><li>Sınav sayfasından ayrılmalarınız (başka sekme, uygulama, ekran kilidi) kaydedilir ve sorumlu öğretim üyesine gösterilir.</li>
+      ${e.sequential?`<li><b>Sıralı sınav:</b> bir sonraki soruya geçtikten sonra önceki sorulara geri dönemezsiniz.</li>`:""}
+      ${e.fullscreen?`<li>Sınav <b>tam ekranda</b> yapılır; tam ekrandan çıkışlar kaydedilir.</li>`:""}
+      ${e.deviceLock?`<li>Sınava yalnız <b>bu cihazdan</b> devam edebilirsiniz.</li>`:""}
       ${e.penalty?`<li>Yanlış cevaplar doğruları götürür (${e.penalty===0.25?"4 yanlış 1 doğru":"5 yanlış 1 doğru"}).</li>`:""}</ul>`,"Başla");
     if(!ok) return;
     try{ await startAttempt(e); go("take",{id:e.id}); }catch(err){ fail(err,"Sınav başlatılamadı"); }
-  });
+  };
+  $app.querySelectorAll("[data-take]").forEach(b=>b.onclick=()=>go("take",{id:b.dataset.take}));
+  $app.querySelectorAll("[data-rev]").forEach(b=>b.onclick=()=>go("review",{id:b.dataset.rev}));
+  $app.querySelectorAll("[data-start]").forEach(b=>b.onclick=()=>startFlow(exams.find(x=>x.id===b.dataset.start)));
+  // paylaşılan bağlantı / QR ile gelindiyse
+  if(S.deep){ const id=S.deep; S.deep=null; const x=info.find(i=>i.e.id===id);
+    if(!x){ toast("Bu sınav size atanmamış veya yayında değil",true); return; }
+    const st0=stateOf(x); document.getElementById("ex-"+id)?.classList.add("hl");
+    if(st0==="graded") return go("review",{id}); if(st0==="running") return go("take",{id}); if(st0==="open") return startFlow(x.e);
+    toast(st0==="soon"?`Sınav ${fmtDT(x.e.startAt)} tarihinde açılacak`:st0==="closed"?"Bu sınav kapandı":"Sınavı teslim ettiniz; sonuçlar yayınlanınca görünecek"); }
 }
 async function startAttempt(e){
+  let pool=e.items;
+  if(e.plan?.perResident){ const ok=new Set(e.items.map(i=>i.qid)), drawn=new Set();
+    for(const r of e.plan.rows||[]) shuffle((r.qids||[]).filter(q=>ok.has(q)&&!drawn.has(q))).slice(0,r.n).forEach(q=>drawn.add(q));
+    pool=e.items.filter(it=>drawn.has(it.qid)); }
   // grupları oluştur (vaka soruları bitişik kalır)
   const groups=[]; let cur=null;
-  for(const it of e.items){ if(it.caseId && cur && cur.caseId===it.caseId) cur.q.push(it.qid); else { cur={caseId:it.caseId||null,q:[it.qid]}; groups.push(cur); } }
+  for(const it of pool){ if(it.caseId && cur && cur.caseId===it.caseId) cur.q.push(it.qid); else { cur={caseId:it.caseId||null,q:[it.qid]}; groups.push(cur); } }
   const order=(e.shuffleQ?shuffle(groups):groups).flatMap(g=>g.q);
-  const optOrder={}; e.items.forEach(it=>{ if(it.type==="mcq"){ const idx=it.options.map((_,j)=>j); optOrder[it.qid]=e.shuffleO?shuffle(idx):idx; } });
+  const optOrder={}; pool.forEach(it=>{ if(it.type==="mcq"){ const idx=it.options.map((_,j)=>j); optOrder[it.qid]=e.shuffleO?shuffle(idx):idx; } });
   await setDoc(doc(db,"attempts",e.id+"_"+S.user.uid),{examId:e.id,uid:S.user.uid,email:S.email,name:S.resident?.name||S.user.displayName||"",
-    status:"started",startedAt:serverTimestamp(),order,optOrder,answers:{},flags:{}});
+    status:"started",startedAt:serverTimestamp(),order,optOrder,answers:{},flags:{},qtime:{},pos:0,device:e.deviceLock?myDevice():null});
 }
 
 /* =====================================================================
    ASİSTAN — SINAV EKRANI
    ===================================================================== */
+const EV_EXTRA={fsexit:"Tam ekrandan çıktı",device:"Başka cihazdan açma denemesi"};
 function stopTake(){ if(T){ clearInterval(T.tick); clearTimeout(T.saveT); window.removeEventListener("beforeunload",T.unload); document.removeEventListener("keydown",T.keys);
-  document.removeEventListener("visibilitychange",T.vis); window.removeEventListener("blur",T.vis); window.removeEventListener("focus",T.vis); } T=null; }
+  document.removeEventListener("visibilitychange",T.vis); window.removeEventListener("blur",T.vis); window.removeEventListener("focus",T.vis);
+  document.removeEventListener("fullscreenchange",T.fsch); if(document.fullscreenElement) document.exitFullscreen?.().catch(()=>{}); } T=null; }
+function flushQ(){ if(!T||T.qStart==null) return; const q=T.order[T.idx]; const s=Math.round((Date.now()-T.qStart)/1000); if(s>0) T.qtime[q]=(T.qtime[q]||0)+s; T.qStart=Date.now(); }
 async function viewTake(id){
   stopTake();
   $app.innerHTML=`<div class="spinner"></div>`;
@@ -1525,39 +1976,58 @@ async function viewTake(id){
   if(!es.exists()||!as.exists()){ toast("Sınav bulunamadı",true); return go("home"); }
   const exam={id,...es.data()}, att=as.data();
   if(isFinished(exam,att)){ toast("Bu sınav tamamlanmış"); return go("home"); }
-  const byId={}; exam.items.forEach(it=>byId[it.qid]=it);
+  // tek cihaz kilidi
+  if(exam.deviceLock){
+    if(att.device && att.device!==myDevice()){
+      try{ await updateDoc(doc(db,"attempts",id+"_"+S.user.uid),{events:[...(att.events||[]),{type:"device",t:Date.now()}].slice(-300)}); }catch(e){}
+      $app.innerHTML=`<div class="center"><div class="card login"><div class="mark">!</div><h1>Başka cihazda açık</h1><p class="muted">Bu sınav başka bir cihazda başlatıldı ve yalnız o cihazdan devam edilebilir. Bu deneme kaydedildi. Cihaz değiştirmeniz gerekiyorsa sorumlu öğretim üyesinden cihaz kilidini kaldırmasını isteyin.</p><button class="btn gbtn" id="bk">Sınavlarıma dön</button></div></div>`;
+      document.getElementById("bk").onclick=()=>go("home"); return; }
+    if(!att.device){ try{ await updateDoc(doc(db,"attempts",id+"_"+S.user.uid),{device:myDevice()}); att.device=myDevice(); }catch(e){ console.error(e); } }
+  }
+  const byId={}; itemsFor(exam,att).forEach(it=>byId[it.qid]=it);
   const order=att.order.filter(q=>byId[q]);
-  T={exam,att,order,byId,idx:0,answers:{...(att.answers||{})},flags:{...(att.flags||{})},events:[...(att.events||[])],away:null,deadline:deadlineOf(exam,att),dirty:false,saving:false,done:false};
+  T={exam,att,order,byId,idx:0,seq:!!exam.sequential,answers:{...(att.answers||{})},flags:{...(att.flags||{})},qtime:{...(att.qtime||{})},pos:att.pos||0,qStart:Date.now(),
+    events:[...(att.events||[])],away:null,deadline:deadlineOf(exam,att),dirty:false,saving:false,done:false};
   // açık kalmış (sayfa kapanırken bitmemiş) ayrılma kaydını kapat; açılışı kaydet
   const lastEv=T.events[T.events.length-1]; if(lastEv&&lastEv.type==="away"&&lastEv.d==null) lastEv.d=Math.max(0,Math.round((Date.now()-lastEv.t)/1000));
   T.events.push({type:T.events.length?"reopen":"open",t:Date.now()}); if(T.events.length>300) T.events=T.events.slice(-300);
-  // ilk boş soruya git
-  const firstEmpty=order.findIndex(q=>T.answers[q]==null||T.answers[q]===""); if(firstEmpty>0) T.idx=firstEmpty;
+  if(T.seq) T.idx=Math.min(T.pos,order.length-1);
+  else { const firstEmpty=order.findIndex(q=>T.answers[q]==null||T.answers[q]===""); if(firstEmpty>0) T.idx=firstEmpty; }
 
   $app.innerHTML=`<header class="top"><div class="top-in">
-      <div class="brand"><div class="mark">AT</div><div>${esc(exam.title)}<small>${order.length} soru</small></div></div>
+      <div class="brand"><div class="mark">AT</div><div>${esc(exam.title)}<small>${order.length} soru${T.seq?" · sıralı":""}</small></div></div>
       <div class="top-right"><span class="savestate" id="sv">Kaydedildi</span><span class="timer" id="tm">--:--</span><button class="btn primary" id="finish">Sınavı bitir</button></div>
     </div></header>
     <main><div class="take">
       <aside class="card pad" style="position:sticky;top:76px">
         <div class="row" style="justify-content:space-between;margin-bottom:10px"><b>Sorular</b><span class="small muted" id="cnt"></span></div>
         <div class="navgrid" id="nav"></div>
-        <div class="legend"><span><i style="background:var(--ink)"></i>Cevaplandı</span><span><i style="background:var(--warn);border-radius:50%"></i>İşaretli</span></div>
+        <div class="legend"><span><i style="background:var(--ink)"></i>Cevaplandı</span>${T.seq?"":`<span><i style="background:var(--warn);border-radius:50%"></i>İşaretli</span>`}</div>
+        ${T.seq?`<div class="small" style="margin-top:12px;color:var(--warn)">Sıralı sınav: önceki sorulara geri dönülemez.</div>`:""}
         <div class="small muted" style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line-2)">Sınav sırasında başka sekmeye/uygulamaya geçişler saat ve süreyle kaydedilir.</div>
       </aside>
       <section class="card pad" id="qv" style="min-height:360px"></section>
-    </div></main>`;
+    </div></main><div id="fsGate" class="fs-gate hidden"><div class="card pad" style="max-width:420px;text-align:center"><h2>Tam ekran gerekli</h2><p class="muted">Bu sınav tam ekranda yapılır. Tam ekrandan çıkışlar kaydedilir.</p><button class="btn primary" id="fsGo">Tam ekrana geç</button></div></div>`;
   T.unload=e=>{ if(T&&(T.dirty||T.saving)){ e.preventDefault(); e.returnValue=""; } };
   // sekme/uygulama değişimi: ayrılınca hemen kaydet (geri dönmese de iz kalsın), dönünce süreyi yaz
   T.vis=()=>{ if(!T||T.done) return; const gone=document.hidden||!document.hasFocus();
-    if(gone && !T.away){ T.away={type:"away",t:Date.now(),d:null}; T.events.push(T.away); saveNow().catch(()=>{}); }
-    else if(!gone && T.away){ T.away.d=Math.max(1,Math.round((Date.now()-T.away.t)/1000)); const d=T.away.d; T.away=null; queueSave();
+    if(gone && !T.away){ flushQ(); T.qStart=null; T.away={type:"away",t:Date.now(),d:null}; T.events.push(T.away); saveNow().catch(()=>{}); }
+    else if(!gone && T.away){ T.away.d=Math.max(1,Math.round((Date.now()-T.away.t)/1000)); const d=T.away.d; T.away=null; T.qStart=Date.now(); queueSave();
       toast(`Sayfadan ayrılmanız kaydedildi (${fmtSec(d)})`,true); } };
   document.addEventListener("visibilitychange",T.vis); window.addEventListener("blur",T.vis); window.addEventListener("focus",T.vis);
   window.addEventListener("beforeunload",T.unload);
+  // tam ekran
+  const fsOn=exam.fullscreen&&document.fullscreenEnabled;
+  const gate=on=>document.getElementById("fsGate")?.classList.toggle("hidden",!on);
+  if(fsOn){
+    T.fsch=()=>{ if(!T||T.done) return; if(!document.fullscreenElement){ T.events.push({type:"fsexit",t:Date.now()}); queueSave(); gate(true); } else gate(false); };
+    document.addEventListener("fullscreenchange",T.fsch);
+    document.getElementById("fsGo").onclick=()=>document.documentElement.requestFullscreen().catch(()=>toast("Tarayıcı tam ekrana izin vermedi",true));
+    if(!document.fullscreenElement) gate(true);
+  }
   T.keys=e=>{ if(!T||e.target.closest("textarea,input")) return;
     const it=byId[order[T.idx]];
-    if(e.key==="ArrowRight") move(1); else if(e.key==="ArrowLeft") move(-1);
+    if(e.key==="ArrowRight") nextQ(); else if(e.key==="ArrowLeft"&&!T.seq) move(-1);
     else if(it.type==="mcq"){ const k=e.key.toUpperCase(); const p=LET.indexOf(k); if(p>=0&&p<it.options.length){ choose(T.att.optOrder[it.qid][p]); } } };
   document.addEventListener("keydown",T.keys);
   document.getElementById("finish").onclick=()=>finish(false);
@@ -1565,8 +2035,8 @@ async function viewTake(id){
 }
 function answered(q){ const a=T.answers[q]; return a!=null && a!==""; }
 function drawNav(){
-  document.getElementById("nav").innerHTML=T.order.map((q,i)=>`<button class="nb ${answered(q)?"ans":""} ${T.flags[q]?"flag":""} ${i===T.idx?"cur":""}" data-i="${i}">${i+1}</button>`).join("");
-  document.querySelectorAll("#nav .nb").forEach(b=>b.onclick=()=>{ T.idx=Number(b.dataset.i); drawNav(); drawQ(); });
+  document.getElementById("nav").innerHTML=T.order.map((q,i)=>`<button class="nb ${answered(q)?"ans":""} ${T.flags[q]?"flag":""} ${i===T.idx?"cur":""}" data-i="${i}" ${T.seq&&i!==T.idx?"disabled":""}>${i+1}</button>`).join("");
+  if(!T.seq) document.querySelectorAll("#nav .nb").forEach(b=>b.onclick=()=>{ flushQ(); T.idx=Number(b.dataset.i); drawNav(); drawQ(); });
   document.getElementById("cnt").textContent=`${T.order.filter(answered).length}/${T.order.length}`;
 }
 function drawQ(){
@@ -1582,30 +2052,39 @@ function drawQ(){
   } else {
     body=`<textarea id="oa" style="min-height:180px;margin-top:14px" placeholder="Cevabınızı yazın…">${esc(T.answers[q]||"")}</textarea>`;
   }
+  const last=T.idx>=T.order.length-1;
   const el=document.getElementById("qv");
   el.innerHTML=`${caseHtml}<div class="row" style="justify-content:space-between;margin-bottom:8px"><div class="qmeta" style="margin:0"><span class="badge acc">Soru ${T.idx+1} / ${T.order.length}</span><span class="badge">${it.points} puan</span>${it.type==="open"?`<span class="badge warn">Açık uçlu</span>`:""}</div>
-      <button class="btn sm ${T.flags[q]?"":"ghost"}" id="flg">${T.flags[q]?"★ İşaretli":"☆ Sonra bak"}</button></div>
+      ${T.seq?"":`<button class="btn sm ${T.flags[q]?"":"ghost"}" id="flg">${T.flags[q]?"★ İşaretli":"☆ Sonra bak"}</button>`}</div>
     <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${body}
-    <div class="row" style="justify-content:space-between;margin-top:20px"><button class="btn" id="pv" ${T.idx===0?"disabled":""}>← Önceki</button>
-      <span class="small muted">${it.type==="mcq"?"Klavye: A–E ile seç, ← → ile gez":""}</span>
-      ${T.idx<T.order.length-1?`<button class="btn primary" id="nx">Sonraki →</button>`:`<button class="btn primary" id="nx">Bitir</button>`}</div>`;
+    <div class="row" style="justify-content:space-between;margin-top:20px">${T.seq?"<span></span>":`<button class="btn" id="pv" ${T.idx===0?"disabled":""}>← Önceki</button>`}
+      <span class="small muted">${it.type==="mcq"?`Klavye: A–E ile seç${T.seq?", → ile ilerle":", ← → ile gez"}`:""}</span>
+      ${!last?`<button class="btn primary" id="nx">Sonraki →</button>`:`<button class="btn primary" id="nx">Bitir</button>`}</div>`;
   hydrateImages(el);
   el.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>choose(Number(b.dataset.o)));
   el.querySelector("#clr")?.addEventListener("click",()=>{ delete T.answers[q]; queueSave(); drawNav(); drawQ(); });
   const ta=el.querySelector("#oa"); if(ta) ta.oninput=()=>{ T.answers[q]=ta.value; queueSave(); drawNavLight(); };
-  el.querySelector("#flg").onclick=()=>{ T.flags[q]=!T.flags[q]; if(!T.flags[q]) delete T.flags[q]; queueSave(); drawNav(); drawQ(); };
-  el.querySelector("#pv").onclick=()=>move(-1);
-  el.querySelector("#nx").onclick=()=> T.idx<T.order.length-1?move(1):finish(false);
+  el.querySelector("#flg")?.addEventListener("click",()=>{ T.flags[q]=!T.flags[q]; if(!T.flags[q]) delete T.flags[q]; queueSave(); drawNav(); drawQ(); });
+  el.querySelector("#pv")?.addEventListener("click",()=>move(-1));
+  el.querySelector("#nx").onclick=()=> last?finish(false):nextQ();
+}
+async function nextQ(){
+  if(!T||T.idx>=T.order.length-1) return;
+  if(T.seq){
+    if(!answered(T.order[T.idx]) && !await confirmDlg("Boş geçiyorsunuz","<p>Bu soruyu boş bırakıyorsunuz. Sıralı sınavda bu soruya geri dönemezsiniz.</p>","Devam et")) return;
+    if(!T) return; flushQ(); T.idx++; T.pos=Math.max(T.pos,T.idx); drawNav(); drawQ(); window.scrollTo({top:0,behavior:"smooth"}); saveNow().catch(()=>{}); return;
+  }
+  move(1);
 }
 function drawNavLight(){ const b=document.querySelector(`#nav .nb[data-i="${T.idx}"]`); if(b) b.classList.toggle("ans",answered(T.order[T.idx])); document.getElementById("cnt").textContent=`${T.order.filter(answered).length}/${T.order.length}`; }
-function move(d){ const n=T.idx+d; if(n<0||n>=T.order.length) return; T.idx=n; drawNav(); drawQ(); window.scrollTo({top:0,behavior:"smooth"}); }
+function move(d){ if(T.seq&&d<0) return; const n=T.idx+d; if(n<0||n>=T.order.length) return; flushQ(); T.idx=n; drawNav(); drawQ(); window.scrollTo({top:0,behavior:"smooth"}); }
 function choose(orig){ const q=T.order[T.idx]; T.answers[q]=orig; queueSave(); drawNav(); drawQ(); }
 function setSave(txt){ const s=document.getElementById("sv"); if(s) s.textContent=txt; }
 function queueSave(){ T.dirty=true; setSave("Kaydediliyor…"); clearTimeout(T.saveT); T.saveT=setTimeout(saveNow,700); }
 async function saveNow(extra={}){
   if(!T) return; clearTimeout(T.saveT);
-  const t=T; t.saving=true; t.dirty=false;
-  try{ await updateDoc(doc(db,"attempts",t.exam.id+"_"+S.user.uid),{answers:t.answers,flags:t.flags,events:t.events,updatedAt:serverTimestamp(),...extra}); if(T===t) setSave("Kaydedildi"); }
+  const t=T; t.saving=true; t.dirty=false; if(t.qStart!=null) flushQ();
+  try{ await updateDoc(doc(db,"attempts",t.exam.id+"_"+S.user.uid),{answers:t.answers,flags:t.flags,events:t.events,qtime:t.qtime,pos:t.pos,updatedAt:serverTimestamp(),...extra}); if(T===t) setSave("Kaydedildi"); }
   catch(e){ t.dirty=true; if(T===t) setSave("Kaydedilemedi — tekrar denenecek"); console.error(e); if(!extra.status) t.saveT=setTimeout(saveNow,4000); throw e; }
   finally{ t.saving=false; }
 }
@@ -1638,41 +2117,156 @@ async function finish(auto){
    ASİSTAN — SONUÇ İNCELEME
    ===================================================================== */
 async function viewReview(id){
-  paint(`<div class="spinner"></div>`,"");
-  const [es,gs,as]=await Promise.all([getDoc(doc(db,"exams",id)),getDoc(doc(db,"grades",id+"_"+S.user.uid)),getDoc(doc(db,"attempts",id+"_"+S.user.uid))]);
+  paint(`<div class="spinner"></div>`,residentTabs());
+  const uid=S.user.uid;
+  const [es,gs,as,aps]=await Promise.all([getDoc(doc(db,"exams",id)),getDoc(doc(db,"grades",id+"_"+uid)),getDoc(doc(db,"attempts",id+"_"+uid)),
+    getDocs(query(collection(db,"appeals"),where("examId","==",id),where("uid","==",uid))).catch(()=>({docs:[]}))]);
   if(!es.exists()||!gs.exists()){ toast("Sonuç bulunamadı",true); return go("home"); }
-  const exam=es.data(), g=gs.data(), att=as.exists()?as.data():null;
+  const exam={id,...es.data()}, g=gs.data(), att=as.exists()?as.data():null;
+  const myAp={}; aps.docs.forEach(d=>{ const a=d.data(); myAp[a.qid]={id:d.id,...a}; });
+  const apOpen=exam.appealsOpen!==false;
   const gi={}; g.items.forEach(i=>gi[i.qid]=i);
-  const order=(att?.order||exam.items.map(i=>i.qid)).filter(q=>exam.items.find(i=>i.qid===q));
   const byId={}; exam.items.forEach(i=>byId[i.qid]=i);
+  const order=(att?.order||exam.items.map(i=>i.qid)).filter(q=>byId[q]&&gi[q]);
   let prevCase=null;
   const qs=order.map((q,n)=>{
     const it=byId[q], r=gi[q]||{}; let caseHtml="";
     if(it.caseId&&it.caseId!==prevCase){ const c=exam.cases[it.caseId]; caseHtml=`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}</div>`; }
     prevCase=it.caseId||null;
+    const acc=Array.isArray(r.correct)?r.correct:(r.correct==null?[]:[r.correct]);
     let body, badge;
     if(it.type==="mcq"){
       const perm=att?.optOrder?.[q]||it.options.map((_,j)=>j);
-      body=`<div class="opts">${perm.map((orig,p)=>`<div class="opt static ${orig===r.correct?"right":(orig===r.given?"wrong":"")}"><span class="L">${LET[p]}</span><span class="T">${esc(it.options[orig])}</span></div>`).join("")}</div>`;
-      badge=r.res==="c"?`<span class="badge ok">Doğru</span>`:r.res==="w"?`<span class="badge bad">Yanlış</span>`:`<span class="badge">Boş</span>`;
+      body=`<div class="opts">${perm.map((orig,p)=>`<div class="opt static ${acc.includes(orig)?"right":(orig===r.given?"wrong":"")}"><span class="L">${LET[p]}</span><span class="T">${esc(it.options[orig])}</span></div>`).join("")}</div>`;
+      badge=r.dropped?"":r.res==="c"?`<span class="badge ok">Doğru</span>`:r.res==="w"?`<span class="badge bad">Yanlış</span>`:`<span class="badge">Boş</span>`;
     } else {
       body=`<div class="small muted" style="margin:10px 0 4px">Cevabınız</div><div class="openans">${esc(r.given||"")||`<span class="muted">Boş</span>`}</div>${r.comment?`<div class="expl"><b>Geri bildirim:</b> ${esc(r.comment)}</div>`:""}`;
-      badge=`<span class="badge info">${fmtNum(r.earned||0)} / ${it.points}</span>`;
+      badge=r.dropped?"":`<span class="badge info">${fmtNum(r.earned||0)} / ${it.points}</span>`;
     }
-    return `<div class="qrev">${caseHtml}<div class="qmeta"><span class="badge">Soru ${n+1}</span>${badge}${it.topic?`<span class="badge">${esc(it.topic)}</span>`:""}</div>
-      <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${body}${r.explanation?`<div class="expl"><b>${it.type==="mcq"?"Açıklama":"Model cevap"}:</b> ${esc(r.explanation)}</div>`:""}</div>`;
+    const vb=r.dropped?`<span class="badge warn">İptal edildi · puanlamaya katılmadı</span>`:r.voided?`<span class="badge warn">İptal edildi · herkese doğru sayıldı</span>`:"";
+    const ap=myAp[q];
+    const apHtml=ap?`<div class="apbox"><div class="row" style="gap:6px"><b class="small">İtirazınız</b>${appealBadge(ap.status)}</div><div class="small" style="white-space:pre-wrap;margin-top:4px">${esc(ap.text)}</div>${ap.reply?`<div class="small" style="margin-top:6px"><b>Yanıt:</b> ${esc(ap.reply)}</div>`:""}</div>`
+      :(apOpen&&!r.dropped&&!r.voided?`<button class="btn sm ghost no-print" data-ap="${q}" data-n="${n+1}" style="margin-top:10px">İtiraz et</button>`:"");
+    return `<div class="qrev">${caseHtml}<div class="qmeta"><span class="badge">Soru ${n+1}</span>${badge}${vb}${it.topic?`<span class="badge">${esc(it.topic)}</span>`:""}</div>
+      <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${body}${r.explanation?`<div class="expl"><b>${it.type==="mcq"?"Açıklama":"Model cevap"}:</b> ${esc(r.explanation)}</div>`:""}${apHtml}</div>`;
   }).join("");
   // konu bazlı başarı
-  const byTopic={}; exam.items.forEach(it=>{ const t=it.topic||"Diğer"; const r=gi[it.qid]; byTopic[t]=byTopic[t]||{e:0,m:0}; byTopic[t].e+=Math.max(0,r?.earned||0); byTopic[t].m+=it.points; });
+  const byTopic={}; order.forEach(q=>{ const it=byId[q], r=gi[q]; if(r.dropped) return; const t=it.topic||"Diğer"; byTopic[t]=byTopic[t]||{e:0,m:0}; byTopic[t].e+=Math.max(0,r?.earned||0); byTopic[t].m+=it.points; });
   const tps=Object.entries(byTopic);
-  paint(`<div class="page-head"><div><button class="btn sm ghost" id="back" style="margin-left:-8px">← Sınavlarım</button><h1>${esc(exam.title)}</h1></div></div>
-    <div class="card pad" style="margin-bottom:16px"><div class="scorebox"><div><div class="bigscore">%${r1(g.pct)}</div><div class="muted">${fmtNum(g.total)} / ${fmtNum(g.max)} puan</div></div>
+  paint(`${printHead("Sınav Sonuç Belgesi",`${exam.title} · ${S.resident?.name||S.user.displayName||S.email}`)}
+    <div class="page-head"><div><button class="btn sm ghost no-print" id="back" style="margin-left:-8px">← Sınavlarım</button><h1>${esc(exam.title)}</h1></div><button class="btn no-print" id="prt">Yazdır / PDF</button></div>
+    <div class="card pad" style="margin-bottom:16px"><div class="scorebox"><div><div class="bigscore">%${r1(g.pct)}</div><div class="muted">${fmtNum(g.total)} / ${fmtNum(g.max)} puan</div>${g.pass!=null?`<div style="margin-top:6px">${passBadge(g.pass)} <span class="small muted">geçme notu %${g.passPct}</span></div>`:""}</div>
       <div class="stats" style="margin:0;flex:1;min-width:240px"><div class="stat"><div class="k">Doğru</div><div class="v" style="color:var(--ok)">${g.c}</div></div><div class="stat"><div class="k">Yanlış</div><div class="v" style="color:var(--bad)">${g.w}</div></div><div class="stat"><div class="k">Boş</div><div class="v">${g.e}</div></div></div></div>
       ${tps.length>1?`<div style="margin-top:14px"><b class="small">Konu bazında</b>${tps.map(([t,v])=>`<div class="row" style="margin-top:6px;flex-wrap:nowrap"><span class="small" style="width:160px;flex:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(t)}</span><div class="bar grow"><span style="width:${v.m?v.e/v.m*100:0}%"></span></div><span class="small muted" style="width:44px;text-align:right">%${v.m?Math.round(v.e/v.m*100):0}</span></div>`).join("")}</div>`:""}
     </div>
-    <div class="card">${qs}</div>`,"");
+    ${apOpen?`<div class="note no-print">Bir sorunun cevabına katılmıyorsanız sorunun altındaki “İtiraz et” ile gerekçenizi yazabilirsiniz.</div>`:""}
+    <div class="card">${qs}</div>`,residentTabs());
   document.getElementById("back").onclick=()=>go("home");
+  document.getElementById("prt").onclick=()=>window.print();
+  $app.querySelectorAll("[data-ap]").forEach(b=>b.onclick=()=>{
+    const qid=b.dataset.ap;
+    const m=modal(`<div class="modal-h"><h2>Soru ${b.dataset.n} için itiraz</h2><button class="btn sm ghost" data-close>✕</button></div>
+      <div class="modal-b"><label class="f">Gerekçeniz</label><textarea id="apT" style="min-height:130px" placeholder="Hangi cevabın neden doğru olduğunu düşündüğünüzü, varsa kaynağıyla yazın."></textarea>
+      <div class="small muted" style="margin-top:6px">İtiraz gönderildikten sonra değiştirilemez; sorumlu öğretim üyesi değerlendirip yanıtlar.</div></div>
+      <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="apS">Gönder</button></div>`);
+    m.el.querySelector("#apS").onclick=async()=>{ const text=m.el.querySelector("#apT").value.trim(); if(text.length<10) return toast("Lütfen gerekçenizi biraz daha açık yazın",true);
+      try{ await setDoc(doc(db,"appeals",`${id}_${uid}_${qid}`),{examId:id,uid,email:S.email,name:S.resident?.name||S.user.displayName||"",qid,text,status:"pending",createdAt:serverTimestamp()});
+        m.close(); toast("İtirazınız iletildi"); viewReview(id); }catch(e){ fail(e,"İtiraz gönderilemedi"); } };
+  });
 }
+
+/* =====================================================================
+   ASİSTAN — ALIŞTIRMA MODU
+   ===================================================================== */
+let PR=null; // aktif alıştırma
+async function viewPractice(){
+  paint(`<div class="spinner"></div>`,residentTabs());
+  const uid=S.user.uid;
+  const [qs,cs,ps]=await Promise.all([
+    getDocs(query(collection(db,"questions"),where("practice","==",true))).catch(e=>{ console.error(e); return {docs:[]}; }),
+    getDocs(query(collection(db,"cases"),where("practice","==",true))).catch(()=>({docs:[]})),
+    getDoc(doc(db,"practice",uid)).catch(()=>null)]);
+  const Q=qs.docs.map(d=>({id:d.id,...d.data()})).filter(q=>!q.status||q.status==="approved");
+  const C={}; cs.docs.forEach(d=>C[d.id]={id:d.id,...d.data()});
+  const P=ps?.exists?.()?{...(ps.data().q||{})}:{};
+  PR={Q,C,P,uid};
+  if(!Q.length){ paint(`<div class="page-head"><div><h1>Alıştırma</h1></div></div><div class="card empty">Şu an alıştırmaya açık soru yok. Sorumlu öğretim üyesi bir soru havuzunu alıştırmaya açtığında burada görünecek.</div>`,residentTabs()); return; }
+  const tps={}; Q.forEach(q=>{ const t=q.topic||"Diğer"; const o=tps[t]=tps[t]||{t,n:0,seen:0,c:0,w:0}; o.n++; const p=P[q.id]; if(p){ o.seen++; o.c+=p.c||0; o.w+=p.w||0; } });
+  const T2=Object.values(tps).sort((a,b)=>a.t.localeCompare(b.t,"tr"));
+  const tot=Object.values(P).reduce((s,p)=>({c:s.c+(p.c||0),w:s.w+(p.w||0)}),{c:0,w:0});
+  const sel=new Set(T2.map(t=>t.t));
+  paint(`<div class="page-head"><div><h1>Alıştırma</h1><div class="sub">Konu seçin, soruları çözün; her sorudan hemen sonra doğru cevabı ve açıklamayı görün. Sonuçlarınız resmi sınav notlarına karışmaz.</div></div></div>
+    <div class="stats"><div class="stat"><div class="k">Alıştırmadaki soru</div><div class="v">${Q.length}</div></div>
+      <div class="stat"><div class="k">Çözdüğünüz farklı soru</div><div class="v">${Object.keys(P).filter(k=>Q.some(q=>q.id===k)).length}</div></div>
+      <div class="stat"><div class="k">Toplam doğru oranı</div><div class="v">${tot.c+tot.w?"%"+r1(tot.c/(tot.c+tot.w)*100):"—"}</div></div></div>
+    <div class="card pad">
+      <div class="row" style="justify-content:space-between;margin-bottom:8px"><h2 style="margin:0">Konular</h2><button class="btn sm ghost" id="tAll">Tümünü seç / kaldır</button></div>
+      <div class="ptopics" id="pt"></div>
+      <div class="grid2" style="margin-top:16px">
+        <div class="field"><label class="f">Soru sayısı</label><select id="pn"><option>10</option><option selected>20</option><option>40</option><option value="0">Tümü</option></select></div>
+        <div class="field"><label class="f">Hangi sorular?</label><select id="pf"><option value="all">Tümü</option><option value="new">Hiç çözmediklerim</option><option value="wrong">Son denemede yanlış yaptıklarım</option></select></div>
+      </div>
+      <div class="row" style="justify-content:space-between"><span class="small muted" id="pc"></span><button class="btn primary" id="pGo">Başla</button></div>
+    </div>`,residentTabs());
+  const pool=()=>{ const f=document.getElementById("pf").value;
+    return Q.filter(q=>sel.has(q.topic||"Diğer")).filter(q=>f==="all"||(f==="new"&&!P[q.id])||(f==="wrong"&&P[q.id]&&P[q.id].last===0)); };
+  const draw=()=>{
+    document.getElementById("pt").innerHTML=T2.map(t=>{ const r=t.c+t.w?Math.round(t.c/(t.c+t.w)*100):null;
+      return `<button class="ptopic ${sel.has(t.t)?"on":""}" data-t="${esc(t.t)}"><b>${esc(t.t)}</b><span class="small">${t.n} soru · ${t.seen} çözüldü${r!=null?` · %${r}`:""}</span>${r!=null?`<span class="track"><span style="width:${r}%"></span></span>`:""}</button>`; }).join("");
+    document.querySelectorAll("#pt [data-t]").forEach(b=>b.onclick=()=>{ sel.has(b.dataset.t)?sel.delete(b.dataset.t):sel.add(b.dataset.t); draw(); });
+    const n=pool().length; document.getElementById("pc").textContent=`${n} uygun soru`; document.getElementById("pGo").disabled=!n;
+  };
+  document.getElementById("pf").onchange=draw;
+  document.getElementById("tAll").onclick=()=>{ if(sel.size===T2.length) sel.clear(); else T2.forEach(t=>sel.add(t.t)); draw(); };
+  document.getElementById("pGo").onclick=()=>{ const n=Number(document.getElementById("pn").value); const list=shuffle(pool()); startPractice(n?list.slice(0,n):list); };
+  draw();
+}
+let _prSave;
+function savePractice(){ clearTimeout(_prSave); _prSave=setTimeout(()=>{ if(!PR) return;
+  setDoc(doc(db,"practice",PR.uid),{email:S.email,name:S.resident?.name||S.user.displayName||"",q:PR.P,updatedAt:serverTimestamp()}).catch(e=>console.error(e)); },800); }
+function recordPractice(qid,ok){ const p=PR.P[qid]||{c:0,w:0}; if(ok) p.c=(p.c||0)+1; else p.w=(p.w||0)+1; p.last=ok?1:0; p.t=Date.now(); PR.P[qid]=p; savePractice(); }
+function startPractice(list){
+  const ses={list,i:0,res:[]};
+  const drawQ2=()=>{
+    const q=ses.list[ses.i]; if(!q) return endPractice(ses);
+    const c=q.caseId&&PR.C[q.caseId];
+    const perm=q.type==="open"?[]:shuffle(q.options.map((_,j)=>j));
+    paint(`<div class="page-head"><div><h1>Alıştırma</h1><div class="sub">Soru ${ses.i+1} / ${ses.list.length} · ${ses.res.filter(r=>r.ok).length} doğru</div></div><button class="btn" id="pEnd">Bitir</button></div>
+      <div class="card pad" id="pq">${c?`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}</div>`:""}
+        <div class="qmeta">${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.type==="open"?`<span class="badge warn">Açık uçlu</span>`:""}</div>
+        <div class="q-stem">${esc(q.stem)}</div>${imgTag(q.imageId)}
+        ${q.type==="open"?`<textarea id="pa" style="min-height:140px;margin-top:14px" placeholder="Cevabınızı yazın, sonra model cevabı görün."></textarea><div class="row" style="margin-top:10px"><button class="btn primary" id="pShow">Model cevabı göster</button></div>`
+          :`<div class="opts">${perm.map((orig,p)=>`<button class="opt" data-o="${orig}"><span class="L">${LET[p]}</span><span class="T">${esc(q.options[orig])}</span></button>`).join("")}</div>`}
+        <div id="pfb"></div></div>`,residentTabs());
+    document.getElementById("pEnd").onclick=()=>endPractice(ses);
+    const next=()=>{ ses.i++; drawQ2(); window.scrollTo({top:0,behavior:"smooth"}); };
+    const fb=(ok,html)=>{ document.getElementById("pfb").innerHTML=`<div class="pfb ${ok==null?"":ok?"ok":"bad"}">${ok==null?"":ok?"<b>Doğru!</b>":"<b>Yanlış.</b>"} ${html}</div>
+      <div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn primary" id="pNx">${ses.i<ses.list.length-1?"Sonraki →":"Sonuçları gör"}</button></div>`; document.getElementById("pNx").onclick=next; document.getElementById("pNx").focus(); };
+    $app.querySelectorAll("#pq [data-o]").forEach(b=>b.onclick=()=>{
+      if(ses.res[ses.i]) return; const a=Number(b.dataset.o), ok=a===q.correct;
+      $app.querySelectorAll("#pq [data-o]").forEach(x=>{ const o=Number(x.dataset.o); x.classList.add("static"); if(o===q.correct) x.classList.add("right"); else if(o===a) x.classList.add("wrong"); });
+      ses.res[ses.i]={q,ok}; recordPractice(q.id,ok);
+      fb(ok,q.explanation?`<div class="expl" style="margin-top:8px">${esc(q.explanation)}</div>`:""); });
+    document.getElementById("pShow")?.addEventListener("click",()=>{
+      document.getElementById("pShow").remove();
+      document.getElementById("pfb").innerHTML=`<div class="expl"><b>Model cevap:</b> ${esc(q.explanation||"(model cevap girilmemiş)")}</div>
+        <div class="row" style="margin-top:12px;justify-content:flex-end"><span class="small muted">Kendinizi değerlendirin:</span><button class="btn" id="pNo">Bilemedim</button><button class="btn primary" id="pYes">Doğru biliyordum</button></div>`;
+      const self=ok=>{ ses.res[ses.i]={q,ok}; recordPractice(q.id,ok); next(); };
+      document.getElementById("pYes").onclick=()=>self(true); document.getElementById("pNo").onclick=()=>self(false); });
+  };
+  drawQ2();
+}
+function endPractice(ses){
+  const done=ses.res.filter(Boolean), ok=done.filter(r=>r.ok).length, wrong=done.filter(r=>!r.ok).map(r=>r.q);
+  const bt={}; done.forEach(r=>{ const t=r.q.topic||"Diğer"; bt[t]=bt[t]||{t,c:0,n:0}; bt[t].n++; if(r.ok) bt[t].c++; });
+  paint(`<div class="page-head"><div><h1>Alıştırma sonucu</h1></div></div>
+    <div class="card pad" style="margin-bottom:16px"><div class="scorebox"><div><div class="bigscore">${done.length?"%"+r1(ok/done.length*100):"—"}</div><div class="muted">${ok} / ${done.length} doğru</div></div>
+      <div style="flex:1;min-width:240px">${hbars(Object.values(bt).map(o=>({label:o.t,p:o.c/o.n*100,sub:`${o.c}/${o.n}`})))}</div></div></div>
+    <div class="row">${wrong.length?`<button class="btn primary" id="pRe">Yanlışları tekrar çöz (${wrong.length})</button>`:""}<button class="btn" id="pNew">Yeni alıştırma</button></div>`,residentTabs());
+  document.getElementById("pRe")?.addEventListener("click",()=>startPractice(shuffle(wrong)));
+  document.getElementById("pNew").onclick=()=>viewPractice();
+}
+
 </script>
 </body>
 </html>
