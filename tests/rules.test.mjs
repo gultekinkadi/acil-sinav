@@ -42,7 +42,7 @@ await env.withSecurityRulesDisabled(async c => {
   await setDoc(doc(d, "games/222222"), { title: "H", state: "question", qIndex: 1, qDuration: 20, qStartAt: ts(now - 3000), audience: "all", questions: [] });
   await setDoc(doc(d, "games/333333"), { title: "K", state: "question", qIndex: 0, qDuration: 10, qStartAt: ts(now - 60000), audience: "res", questions: [] });
   await setDoc(doc(d, "games/333333/players/u1"), { uid: "u1", name: "A", score: 0 });
-  await setDoc(doc(d, "gameKeys/111111"), { key: [[0]] });
+  await setDoc(doc(d, "gameKeys/111111"), { key: [0] });
   await setDoc(doc(d, "jeopardy/j1"), { title: "J" });
 });
 
