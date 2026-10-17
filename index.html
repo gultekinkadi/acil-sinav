@@ -556,6 +556,17 @@ async function viewExamEdit(id){
   };
 }
 
+/* ---------------- sayfadan ayrılma kaydı ---------------- */
+const EV_LBL={away:"Sayfadan ayrıldı",open:"Sınavı açtı",reopen:"Sayfayı yeniden açtı"};
+function awaySummary(att){
+  const ev=(att?.events||[]).filter(e=>e.type==="away");
+  const secs=ev.reduce((s,e)=>s+(e.d||0),0);
+  return {n:ev.length, secs, reopen:(att?.events||[]).filter(e=>e.type==="reopen").length};
+}
+const fmtSec=s=>s<60?`${s} sn`:`${Math.floor(s/60)} dk ${s%60?(s%60)+" sn":""}`.trim();
+function awayBadge(att){ const a=awaySummary(att); if(!a.n&&!a.reopen) return `<span class="badge ok">Yok</span>`;
+  return `<span class="badge ${a.n>=3||a.secs>=60?"bad":"warn"}">${a.n}× · ${fmtSec(a.secs)}</span>${a.reopen?` <span class="badge">${a.reopen} yeniden açma</span>`:""}`; }
+
 /* ---------------- puanlama ---------------- */
 function deadlineOf(exam, att){
   const s=tsMs(att.startedAt); if(!s) return null;
@@ -616,7 +627,7 @@ async function viewResults(id){
     <td class="num">${x.sc?x.sc.c:"—"}</td><td class="num">${x.sc?x.sc.w:"—"}</td><td class="num">${x.sc?x.sc.e:"—"}</td>
     <td class="num">${x.sc?(x.sc.pending?`<span class="badge warn">${x.sc.pending} bekliyor</span>`:fmtNum(x.sc.openPts)):"—"}</td>
     <td class="num"><b>${x.sc?fmtNum(x.sc.total):"—"}</b></td><td class="num">${x.sc?"%"+r1(x.sc.pct):"—"}</td>
-    <td class="small muted">${x.att?fmtDT(x.att.submittedAt||x.att.startedAt):""}</td></tr>`).join("");
+    <td>${x.att?awayBadge(x.att):""}</td><td class="small muted">${x.att?fmtDT(x.att.submittedAt||x.att.startedAt):""}</td></tr>`).join("");
 
   // madde analizi
   const ia=exam.items.map((it,i)=>{
@@ -646,7 +657,7 @@ async function viewResults(id){
       <div class="stat"><div class="k">Puanlanacak açık uçlu</div><div class="v" style="${pending?"color:var(--warn)":""}">${pending}</div></div>
     </div>
     <h2>Asistanlar</h2><div class="small muted" style="margin:-6px 0 8px">Satıra tıklayarak cevapları görün ve açık uçlu soruları puanlayın.</div>
-    <div class="tbl-wrap" style="margin-bottom:22px"><table><thead><tr><th>Asistan</th><th>Kıdem</th><th>Durum</th><th class="num">D</th><th class="num">Y</th><th class="num">B</th><th class="num">Açık uçlu</th><th class="num">Toplam</th><th class="num">%</th><th>Zaman</th></tr></thead><tbody>${tbody||`<tr><td colspan="10" class="empty">Asistan listesi boş.</td></tr>`}</tbody></table></div>
+    <div class="tbl-wrap" style="margin-bottom:22px"><table><thead><tr><th>Asistan</th><th>Kıdem</th><th>Durum</th><th class="num">D</th><th class="num">Y</th><th class="num">B</th><th class="num">Açık uçlu</th><th class="num">Toplam</th><th class="num">%</th><th>Sayfadan ayrılma</th><th>Zaman</th></tr></thead><tbody>${tbody||`<tr><td colspan="11" class="empty">Asistan listesi boş.</td></tr>`}</tbody></table></div>
     <h2>Madde analizi</h2><div class="small muted" style="margin:-6px 0 8px">Doğru şık yeşil. Güçlük: %30 altı çok zor, %85 üstü çok kolay.</div>
     <div class="tbl-wrap"><table><thead><tr><th class="num">#</th><th>Soru</th><th>Şık dağılımı</th><th class="num">Doğru oranı</th></tr></thead><tbody>${iaRows}</tbody></table></div>`);
 
@@ -668,7 +679,9 @@ async function viewResults(id){
       "Durum":!x.att?"Girmedi":x.att.status==="submitted"?"Teslim":x.fin?"Süre doldu":"Sınavda",
       "Başlama":x.att?fmtDT(x.att.startedAt):"","Teslim":x.att?.submittedAt?fmtDT(x.att.submittedAt):"",
       "Doğru":x.sc?.c??"","Yanlış":x.sc?.w??"","Boş":x.sc?.e??"","ÇS puanı":x.sc?r1(x.sc.mcqPts):"","Açık uçlu puanı":x.sc?r1(x.sc.openPts):"",
-      "Puanlanmamış":x.sc?.pending??"","Toplam":x.sc?r1(x.sc.total):"","Maksimum":max,"Yüzde":x.sc?r1(x.sc.pct):""}));
+      "Puanlanmamış":x.sc?.pending??"","Toplam":x.sc?r1(x.sc.total):"","Maksimum":max,"Yüzde":x.sc?r1(x.sc.pct):"",
+      "Sayfadan ayrılma (adet)":x.att?awaySummary(x.att).n:"","Ayrı kalınan süre (sn)":x.att?awaySummary(x.att).secs:"","Yeniden açma":x.att?awaySummary(x.att).reopen:""}));
+    const s4=rows.filter(x=>x.att).flatMap(x=>(x.att.events||[]).map(e=>({"Ad Soyad":x.res.name||"","E-posta":x.res.email||"","Olay":EV_LBL[e.type]||e.type,"Saat":new Date(e.t).toLocaleString("tr-TR"),"Süre (sn)":e.type==="away"?(e.d??"kapanana kadar"):""})));
     const s2=ia.map(r=>({"No":r.i+1,"Konu":r.it.topic||"","Tür":r.it.type==="mcq"?"ÇS":"Açık uçlu","Soru":r.it.stem,
       "Doğru şık":r.it.type==="mcq"?LET[r.cor]:"", ...Object.fromEntries(LET.map((l,j)=>[l, r.it.type==="mcq"&&j<r.it.options.length?r.dist[j]:""])),
       "Boş":r.it.type==="mcq"?r.empty:"","Doğru oranı %":r.it.type==="mcq"&&r.p!=null?r1(r.p):"","Ort. puan (AU)":r.avg!=null?r1(r.avg):""}));
@@ -678,6 +691,7 @@ async function viewResults(id){
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s1),"Sonuçlar");
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s2),"Madde Analizi");
     XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s3),"Cevaplar");
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s4.length?s4:[{"Olay":"Kayıt yok"}]),"Ayrılma Kaydı");
     XLSX.writeFile(wb,`${exam.title.replace(/[\\/:*?"<>|]/g,"_")} - sonuçlar.xlsx`);
   };
 }
@@ -715,7 +729,12 @@ async function viewAttempt(examId, uid){
     <div class="stats"><div class="stat"><div class="k">Doğru / Yanlış / Boş</div><div class="v">${sc.c} / ${sc.w} / ${sc.e}</div></div>
       <div class="stat"><div class="k">Toplam</div><div class="v">${fmtNum(sc.total)} <span class="muted" style="font-size:14px">/ ${fmtNum(sc.max)}</span></div></div>
       <div class="stat"><div class="k">Yüzde</div><div class="v">%${r1(sc.pct)}</div></div></div>
-    <div class="card">${qs}</div>`);
+    <h2>Sayfa hareketleri</h2><div class="small muted" style="margin:-6px 0 8px">Başka sekmeye/uygulamaya geçiş, ekran kilidi ve sayfanın yeniden açılması. ${awayBadge(att)}</div>
+    <div class="tbl-wrap" style="margin-bottom:22px"><table><thead><tr><th>Saat</th><th>Olay</th><th class="num">Süre</th><th>Sınav başından itibaren</th></tr></thead><tbody>
+      ${(att.events||[]).length?(att.events||[]).map(e=>`<tr><td>${new Date(e.t).toLocaleTimeString("tr-TR")}</td><td>${e.type==="away"?`<span class="badge warn">${EV_LBL.away}</span>`:esc(EV_LBL[e.type]||e.type)}</td>
+        <td class="num">${e.type==="away"?(e.d==null?"kapanana kadar":fmtSec(e.d)):""}</td><td>${tsMs(att.startedAt)?(x=>String(Math.floor(x/60)).padStart(2,"0")+":"+String(x%60).padStart(2,"0"))(Math.max(0,Math.round((e.t-tsMs(att.startedAt))/1000))):""}</td></tr>`).join(""):`<tr><td colspan="4" class="empty">Kayıt yok</td></tr>`}
+    </tbody></table></div>
+    <h2>Cevaplar</h2><div class="card">${qs}</div>`);
   document.getElementById("back").onclick=()=>go("results",{id:examId});
   document.getElementById("reset").onclick=async()=>{
     if(!await confirmDlg("Oturumu sıfırla","<p>Bu asistanın cevapları ve varsa yayınlanmış sonucu silinir; sınava yeniden girebilir (sınav penceresi açıksa).</p>","Sıfırla",true)) return;
@@ -975,7 +994,7 @@ async function viewHome(){
     const e=exams.find(x=>x.id===b.dataset.start);
     const ok=await confirmDlg("Sınava başla",`<p><b>${esc(e.title)}</b></p><ul style="padding-left:18px;margin:0">
       <li>${e.items.length} soru, <b>${e.durationMin} dakika</b>.</li><li>Süre başladığında durmaz; sayfayı kapatsanız da işlemeye devam eder.</li>
-      <li>Cevaplarınız otomatik kaydedilir; bağlantı koparsa kaldığınız yerden devam edebilirsiniz.</li><li>Süre bitince sınav otomatik teslim edilir.</li>
+      <li>Cevaplarınız otomatik kaydedilir; bağlantı koparsa kaldığınız yerden devam edebilirsiniz.</li><li>Süre bitince sınav otomatik teslim edilir.</li><li>Sınav sayfasından ayrılmalarınız (başka sekme, uygulama, ekran kilidi) kaydedilir ve sorumlu öğretim üyesine gösterilir.</li>
       ${e.penalty?`<li>Yanlış cevaplar doğruları götürür (${e.penalty===0.25?"4 yanlış 1 doğru":"5 yanlış 1 doğru"}).</li>`:""}</ul>`,"Başla");
     if(!ok) return;
     try{ await startAttempt(e); go("take",{id:e.id}); }catch(err){ fail(err,"Sınav başlatılamadı"); }
@@ -994,7 +1013,8 @@ async function startAttempt(e){
 /* =====================================================================
    ASİSTAN — SINAV EKRANI
    ===================================================================== */
-function stopTake(){ if(T){ clearInterval(T.tick); clearTimeout(T.saveT); window.removeEventListener("beforeunload",T.unload); document.removeEventListener("keydown",T.keys); } T=null; }
+function stopTake(){ if(T){ clearInterval(T.tick); clearTimeout(T.saveT); window.removeEventListener("beforeunload",T.unload); document.removeEventListener("keydown",T.keys);
+  document.removeEventListener("visibilitychange",T.vis); window.removeEventListener("blur",T.vis); window.removeEventListener("focus",T.vis); } T=null; }
 async function viewTake(id){
   stopTake();
   $app.innerHTML=`<div class="spinner"></div>`;
@@ -1004,7 +1024,10 @@ async function viewTake(id){
   if(isFinished(exam,att)){ toast("Bu sınav tamamlanmış"); return go("home"); }
   const byId={}; exam.items.forEach(it=>byId[it.qid]=it);
   const order=att.order.filter(q=>byId[q]);
-  T={exam,att,order,byId,idx:0,answers:{...(att.answers||{})},flags:{...(att.flags||{})},deadline:deadlineOf(exam,att),dirty:false,saving:false,done:false};
+  T={exam,att,order,byId,idx:0,answers:{...(att.answers||{})},flags:{...(att.flags||{})},events:[...(att.events||[])],away:null,deadline:deadlineOf(exam,att),dirty:false,saving:false,done:false};
+  // açık kalmış (sayfa kapanırken bitmemiş) ayrılma kaydını kapat; açılışı kaydet
+  const lastEv=T.events[T.events.length-1]; if(lastEv&&lastEv.type==="away"&&lastEv.d==null) lastEv.d=Math.max(0,Math.round((Date.now()-lastEv.t)/1000));
+  T.events.push({type:T.events.length?"reopen":"open",t:Date.now()}); if(T.events.length>300) T.events=T.events.slice(-300);
   // ilk boş soruya git
   const firstEmpty=order.findIndex(q=>T.answers[q]==null||T.answers[q]===""); if(firstEmpty>0) T.idx=firstEmpty;
 
@@ -1017,10 +1040,17 @@ async function viewTake(id){
         <div class="row" style="justify-content:space-between;margin-bottom:10px"><b>Sorular</b><span class="small muted" id="cnt"></span></div>
         <div class="navgrid" id="nav"></div>
         <div class="legend"><span><i style="background:var(--ink)"></i>Cevaplandı</span><span><i style="background:var(--warn);border-radius:50%"></i>İşaretli</span></div>
+        <div class="small muted" style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line-2)">Sınav sırasında başka sekmeye/uygulamaya geçişler saat ve süreyle kaydedilir.</div>
       </aside>
       <section class="card pad" id="qv" style="min-height:360px"></section>
     </div></main>`;
   T.unload=e=>{ if(T&&(T.dirty||T.saving)){ e.preventDefault(); e.returnValue=""; } };
+  // sekme/uygulama değişimi: ayrılınca hemen kaydet (geri dönmese de iz kalsın), dönünce süreyi yaz
+  T.vis=()=>{ if(!T||T.done) return; const gone=document.hidden||!document.hasFocus();
+    if(gone && !T.away){ T.away={type:"away",t:Date.now(),d:null}; T.events.push(T.away); saveNow().catch(()=>{}); }
+    else if(!gone && T.away){ T.away.d=Math.max(1,Math.round((Date.now()-T.away.t)/1000)); const d=T.away.d; T.away=null; queueSave();
+      toast(`Sayfadan ayrılmanız kaydedildi (${fmtSec(d)})`,true); } };
+  document.addEventListener("visibilitychange",T.vis); window.addEventListener("blur",T.vis); window.addEventListener("focus",T.vis);
   window.addEventListener("beforeunload",T.unload);
   T.keys=e=>{ if(!T||e.target.closest("textarea,input")) return;
     const it=byId[order[T.idx]];
@@ -1072,7 +1102,7 @@ function queueSave(){ T.dirty=true; setSave("Kaydediliyor…"); clearTimeout(T.s
 async function saveNow(extra={}){
   if(!T) return; clearTimeout(T.saveT);
   const t=T; t.saving=true; t.dirty=false;
-  try{ await updateDoc(doc(db,"attempts",t.exam.id+"_"+S.user.uid),{answers:t.answers,flags:t.flags,updatedAt:serverTimestamp(),...extra}); if(T===t) setSave("Kaydedildi"); }
+  try{ await updateDoc(doc(db,"attempts",t.exam.id+"_"+S.user.uid),{answers:t.answers,flags:t.flags,events:t.events,updatedAt:serverTimestamp(),...extra}); if(T===t) setSave("Kaydedildi"); }
   catch(e){ t.dirty=true; if(T===t) setSave("Kaydedilemedi — tekrar denenecek"); console.error(e); if(!extra.status) t.saveT=setTimeout(saveNow,4000); throw e; }
   finally{ t.saving=false; }
 }

@@ -1,0 +1,88 @@
+rules_version = '2';
+
+// Gazi Acil Tıp — Online Sınav güvenlik kuralları
+// YÖNETİCİ e-postalarını aşağıdaki listede ve index.html içindeki ADMIN_EMAILS listesinde aynı tutun.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+    function myEmail() {
+      return request.auth.token.email.lower();
+    }
+    function isAdmin() {
+      return signedIn() && myEmail() in ['gultekinkadi@gmail.com', 'gaziaciles@gmail.com'];
+    }
+    function isResident() {
+      return signedIn() && exists(/databases/$(database)/documents/residents/$(myEmail()));
+    }
+    function examOf(eid) {
+      return get(/databases/$(database)/documents/exams/$(eid)).data;
+    }
+    // Belge kimliği "<sınavId>_<kullanıcıUid>" biçiminde
+    function ownsId(aid) {
+      return signedIn() && aid == aid.split('_')[0] + '_' + request.auth.uid;
+    }
+
+    // Asistan listesi: yalnız yönetici yönetir, herkes kendi kaydını görebilir
+    match /residents/{em} {
+      allow read: if isAdmin() || (signedIn() && em == myEmail());
+      allow write: if isAdmin();
+    }
+
+    // Soru bankası ve vakalar: yalnız yönetici
+    match /questions/{id} { allow read, write: if isAdmin(); }
+    match /cases/{id}     { allow read, write: if isAdmin(); }
+
+    // Görseller: asistan yalnız kimliğini bildiği görseli açabilir, listeleyemez
+    match /images/{id} {
+      allow get: if isAdmin() || isResident();
+      allow list, write: if isAdmin();
+    }
+
+    // Sınavlar (cevap anahtarı İÇERMEZ)
+    match /exams/{id} {
+      allow read: if isAdmin() || (isResident() && resource.data.published == true);
+      allow write: if isAdmin();
+    }
+
+    // Cevap anahtarları: yalnız yönetici
+    match /examKeys/{id} { allow read, write: if isAdmin(); }
+
+    // Asistan sınav oturumları
+    match /attempts/{aid} {
+      allow read: if isAdmin() || ownsId(aid);
+
+      allow create: if isResident()
+        && ownsId(aid)
+        && aid == request.resource.data.examId + '_' + request.auth.uid
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'started'
+        && request.resource.data.startedAt == request.time
+        && examOf(request.resource.data.examId).published == true
+        && request.time >= examOf(request.resource.data.examId).startAt
+        && request.time <= examOf(request.resource.data.examId).endAt;
+
+      // Asistan: yalnız süre içinde, teslim etmeden önce, yalnız cevap alanlarını değiştirebilir
+      allow update: if isAdmin() || (
+        ownsId(aid)
+        && resource.data.status == 'started'
+        && request.resource.data.status in ['started', 'submitted']
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['answers', 'flags', 'events', 'status', 'submittedAt', 'updatedAt'])
+        && request.time <= resource.data.startedAt
+             + duration.value(int(examOf(resource.data.examId).durationMin) * 60 + 120, 's')
+      );
+
+      allow delete: if isAdmin();
+    }
+
+    // Yayınlanan sonuçlar: asistan yalnız kendi sonucunu görür
+    match /grades/{aid} {
+      allow read: if isAdmin() || ownsId(aid);
+      allow write: if isAdmin();
+    }
+  }
+}
