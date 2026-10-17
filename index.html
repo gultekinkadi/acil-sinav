@@ -169,6 +169,8 @@ tr.click:hover td{background:var(--surface-2)}
 .selbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 12px;margin-bottom:10px;background:var(--accent-soft);border-radius:var(--r)}
 .qcheck{margin-top:3px;accent-color:var(--accent);width:16px;height:16px;flex:none;cursor:pointer}
 .case-head .qcheck{margin-top:2px}
+.selall{align-items:center;white-space:nowrap;padding:0 6px;font-weight:500}
+.selall input{margin-top:0;width:16px;height:16px}
 @media (max-width:600px){.qitem,.case-head{flex-wrap:wrap}.qitem .body,.case-head>.grow{flex:1 1 calc(100% - 40px)}.qitem>.row,.case-head>.row{margin-left:28px}}
 
 /* Picker */
@@ -832,10 +834,10 @@ async function viewBank(){
   paint(`<div class="page-head"><div><h1>Soru Bankası</h1><div class="sub" id="bcount"></div></div>
     <div class="row"><button class="btn" id="imp">Excel'den içe aktar</button><button class="btn" id="newCase">+ Vaka</button><button class="btn primary" id="newQ">+ Soru</button></div></div>
     <div class="pools" id="pools"></div>
-    <div class="toolbar"><input type="search" id="bf" placeholder="Soru, vaka veya konu ara…">
+    <div class="toolbar"><label class="check selall"><input type="checkbox" id="selAllCb"> <span id="selAllLbl">Tümünü seç</span></label><input type="search" id="bf" placeholder="Soru, vaka veya konu ara…">
       <select id="bt"><option value="">Tüm konular</option>${topics().map(t=>`<option>${esc(t)}</option>`).join("")}</select>
       <select id="by"><option value="">Tüm türler</option><option value="mcq">Çoktan seçmeli</option><option value="open">Açık uçlu</option></select>
-      <button class="btn sm ghost" id="selVis">Görünenleri seç</button></div>
+</div>
     <div class="selbar hidden" id="selbar"></div>
     <div class="list" id="blist"></div>`);
   const vis=q=>(!poolF||poolOf(q)===poolF)&&(!topicF||q.topic===topicF)&&(!typeF||(q.type||"mcq")===typeF)&&(!filt||trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
@@ -872,8 +874,13 @@ async function viewBank(){
     };
   }
   function drawSel(){
+    // "Tümünü seç" kutusu: görünenlerin hepsi seçiliyse işaretli, bir kısmıysa yarım
+    const vq=S.questions.filter(vis), nSel=vq.filter(q=>sel.has(q.id)).length, cb=document.getElementById("selAllCb");
+    cb.checked=vq.length>0&&nSel===vq.length; cb.indeterminate=nSel>0&&nSel<vq.length; cb.disabled=!vq.length;
+    document.getElementById("selAllLbl").textContent=vq.length?`Tümünü seç (${vq.length})`:"Tümünü seç";
     const bar=document.getElementById("selbar"); bar.classList.toggle("hidden",!sel.size); if(!sel.size){ bar.innerHTML=""; return; }
-    bar.innerHTML=`<b>${sel.size} soru seçili</b><span class="grow"></span>
+    const visN=S.questions.filter(vis).length;
+    bar.innerHTML=`<b>${sel.size} soru seçili</b>${sel.size<visN?`<button class="btn sm ghost" id="selAllBar">Tümünü seç (${visN})</button>`:""}<span class="grow"></span>
       <select id="mvp" style="width:auto">${poolOptions("",{none:"Havuzsuz",withNew:true}).replace('<option value="">','<option value="" disabled selected hidden>Havuza taşı…</option><option value="">')}</select>
       <button class="btn sm primary" id="mvGo">Taşı</button><button class="btn sm danger" id="delSel">Sil</button><button class="btn sm ghost" id="clrSel">Seçimi kaldır</button>`;
     const s=document.getElementById("mvp"); s.selectedIndex=0; bindPoolSelect(s);
@@ -882,6 +889,7 @@ async function viewBank(){
     document.getElementById("delSel").onclick=async()=>{ if(!await confirmDlg("Seçilenleri sil",`<p>${sel.size} soru bankadan silinir. Kaydedilmiş sınavlar etkilenmez.</p>`,"Sil",true)) return;
       try{ await batchOps([...sel].map(id=>b=>b.delete(doc(db,"questions",id)))); toast("Silindi"); sel.clear(); viewBank(); }catch(e){ fail(e); } };
     document.getElementById("clrSel").onclick=()=>{ sel.clear(); draw(); };
+    document.getElementById("selAllBar")?.addEventListener("click",()=>{ S.questions.filter(vis).forEach(q=>sel.add(q.id)); draw(); });
   }
   function draw(){
     const list=S.questions.filter(vis);
@@ -916,7 +924,7 @@ async function viewBank(){
   document.getElementById("bf").oninput=e=>{ filt=trLower(e.target.value); draw(); };
   document.getElementById("bt").onchange=e=>{ topicF=e.target.value; draw(); };
   document.getElementById("by").onchange=e=>{ typeF=e.target.value; draw(); };
-  document.getElementById("selVis").onclick=()=>{ S.questions.filter(vis).forEach(q=>sel.add(q.id)); draw(); };
+  document.getElementById("selAllCb").onchange=e=>{ const vq=S.questions.filter(vis); if(e.target.checked) vq.forEach(q=>sel.add(q.id)); else vq.forEach(q=>sel.delete(q.id)); draw(); };
   document.getElementById("newQ").onclick=()=>editQuestion({poolId:curPool()});
   document.getElementById("newCase").onclick=()=>editCase({poolId:curPool()});
   document.getElementById("imp").onclick=()=>importDialog(curPool());
