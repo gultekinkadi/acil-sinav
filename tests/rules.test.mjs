@@ -1,6 +1,6 @@
 // Firestore güvenlik kuralı testleri — emülatörde çalışır: firebase emulators:exec --only firestore "node tests/rules.test.mjs"
 import { initializeTestEnvironment, assertSucceeds, assertFails } from "@firebase/rules-unit-testing";
-import { doc, getDoc, setDoc, updateDoc, getDocs, collection, query, where, serverTimestamp, Timestamp } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, getDocs, collection, query, where, serverTimestamp, Timestamp, Bytes } from "firebase/firestore";
 import { readFileSync } from "node:fs";
 
 const env = await initializeTestEnvironment({
@@ -119,6 +119,19 @@ await t("katılımcı kendi puanını yazamaz", () => assertFails(updateDoc(doc(
 await t("katılımcı cevap anahtarını okuyamaz", () => assertFails(getDoc(doc(ayse, "gameKeys/111111"))));
 await t("yönetici puanı yazar", () => assertSucceeds(updateDoc(doc(admin, "games/111111/players/u1"), { score: 900 })));
 await t("asistan bilgi tahtasını okuyamaz", () => assertFails(getDoc(doc(ayse, "jeopardy/j1"))));
+
+console.log("BT/MR serileri");
+const bx = Bytes.fromUint8Array(new Uint8Array([1, 2, 3]));
+await t("yönetici seri parçası yükler", () => assertSucceeds(setDoc(doc(admin, "dicoms/d1/c/0"), { d: bx, sizes: [3] })));
+await t("yönetici seri bilgisini yazar", () => assertSucceeds(setDoc(doc(admin, "dicoms/d1"), { title: "BT", n: 1, chunks: 1 })));
+await t("yazar seri yükler", () => assertSucceeds(setDoc(doc(yazar, "dicoms/d2/c/0"), { d: bx, sizes: [3] })));
+await t("parça bayt olmalı", () => assertFails(setDoc(doc(yazar, "dicoms/d3/c/0"), { d: "metin", sizes: [3] })));
+await t("asistan seri yükleyemez", () => assertFails(setDoc(doc(ayse, "dicoms/d4/c/0"), { d: bx, sizes: [3] })));
+await t("asistan kimliğini bildiği seriyi açar", () => assertSucceeds(getDoc(doc(ayse, "dicoms/d1/c/0"))));
+await t("asistan serileri listeleyemez", () => assertFails(getDocs(collection(ayse, "dicoms"))));
+await t("yazar başka seriyi değiştiremez", () => assertFails(setDoc(doc(yazar, "dicoms/d1/c/0"), { d: bx, sizes: [3] })));
+await t("listede olmayan seriyi göremez", () => assertFails(getDoc(doc(yabanci, "dicoms/d1"))));
+await t("yönetici arşivi listeler", () => assertSucceeds(getDocs(collection(admin, "dicoms"))));
 
 await env.cleanup();
 console.log(`\n${pass} geçti, ${failN} başarısız`);

@@ -78,6 +78,19 @@ service cloud.firestore {
       allow list, update, delete: if isAdmin();
     }
 
+    // BT/MR serileri (DICOM'dan ayıklanmış, hasta bilgisi içermeyen piksel verisi)
+    // asistan yalnız kimliğini bildiği seriyi açabilir, listeleyemez
+    match /dicoms/{id} {
+      allow get: if isAdmin() || isAuthor() || isResident();
+      allow create: if isAdmin() || isAuthor();
+      allow list, update, delete: if isAdmin();
+      match /c/{k} {
+        allow get: if isAdmin() || isAuthor() || isResident();
+        allow create: if (isAdmin() || isAuthor()) && request.resource.data.d is bytes;
+        allow list, update, delete: if isAdmin();
+      }
+    }
+
     // Sınavlar (cevap anahtarı İÇERMEZ)
     match /exams/{id} {
       allow get: if isAdmin() || (isResident() && resource.data.published == true && assignedTo(resource.data));
