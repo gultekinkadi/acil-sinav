@@ -402,6 +402,32 @@ footer.credit svg{width:16px;height:16px}
 .qrev:last-child{border-bottom:0}
 .expl{margin-top:10px;padding:10px 12px;background:var(--surface-2);border-radius:8px;font-size:14px;white-space:pre-wrap}
 .openans{white-space:pre-wrap;padding:10px 12px;border:1px dashed var(--line);border-radius:8px;background:var(--surface-2);min-height:44px}
+/* DICOM görüntüleyici */
+.modal.wide{width:min(1000px,100%)}
+.pbar{height:8px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line-2);overflow:hidden;margin-top:6px}
+.pbar span{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+.serrow{padding:8px 10px;border:1px solid var(--line-2);border-radius:8px}
+.dz-prev{width:100%;aspect-ratio:1;background:#000;border-radius:8px;display:block;object-fit:contain}
+.dcm-slot{margin:10px 0}
+.dcmv{background:#000;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;outline:none;color:#e8e8e8;user-select:none;-webkit-user-select:none}
+.dcmv:focus-visible{box-shadow:0 0 0 3px var(--accent-soft)}
+.dcm-bar{display:flex;flex-wrap:wrap;gap:4px;padding:6px;background:#15171a;border-bottom:1px solid #2a2d31;align-items:center}
+.dcm-t{background:#22262b;border:1px solid #33383e;color:#dfe2e6;border-radius:6px;padding:4px 8px;font-size:13px;cursor:pointer;display:inline-flex;gap:5px;align-items:center;line-height:1.2}
+.dcm-t:hover{background:#2c3137}.dcm-t.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.dcm-t .ic{font-size:14px}
+.dcm-pre{width:auto!important;background:#22262b!important;border-color:#33383e!important;color:#dfe2e6!important;padding:4px 6px!important;font-size:13px}
+.dcm-stage{position:relative;height:min(62vh,520px);touch-action:none}
+.dcm-stage canvas{position:absolute;inset:0;cursor:ns-resize}
+.dcm-ov{position:absolute;font:12px/1.35 "IBM Plex Mono",monospace;color:#ffe9a8;text-shadow:0 0 3px #000,0 0 2px #000;pointer-events:none}
+.dcm-ov.tl{top:6px;left:8px}.dcm-ov.tr{top:6px;right:8px}.dcm-ov.bl{bottom:6px;left:8px;color:#cfd3d8}
+.dcm-load{position:absolute;inset:0;display:grid;place-items:center;color:#cfd3d8;font-size:14px}.dcm-load.err{color:#ef6a61}
+.dcm-slider{width:100%;margin:0;accent-color:var(--accent);background:#15171a;padding:6px 8px;box-sizing:border-box}
+.dcm-full{position:fixed;inset:0;z-index:300;background:#000;display:flex}
+.dcm-full>.dcmv{flex:1;border-radius:0}
+.dcm-full .dcm-stage{height:auto;flex:1}
+.dcm-chip{cursor:pointer;margin:6px 0}
+@media (max-width:640px){ .dcm-t .lb{display:none} .dcm-stage{height:min(50vh,400px)} }
+@media print{ .dcm-bar,.dcm-slider{display:none!important} .dcmv{break-inside:avoid} }
 </style>
 </head>
 <body>
@@ -430,7 +456,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, query, where,
-  serverTimestamp, Timestamp, writeBatch, onSnapshot }
+  serverTimestamp, Timestamp, writeBatch, onSnapshot, Bytes }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const $app = document.getElementById("app");
@@ -479,6 +505,7 @@ async function getImg(id){
 }
 function imgTag(id, thumb){ return id ? `<img class="q-img${thumb?" thumb":""}" data-img="${esc(id)}" alt="">` : ""; }
 async function hydrateImages(root=document){
+  hydrateDicom(root);
   for(const im of root.querySelectorAll("img[data-img]")){ if(im.src) continue; const d=await getImg(im.dataset.img); if(d) im.src=d; }
 }
 function compressImage(file, maxDim=1500){
@@ -495,6 +522,268 @@ function compressImage(file, maxDim=1500){
     }; im.onerror=rej; im.src=fr.result; };
     fr.onerror=rej; fr.readAsDataURL(file);
   });
+}
+
+/* =====================================================================
+   DICOM (BT/MR) SERİLERİ — yükleme (anonim), saklama, görüntüleyici
+   Hasta kimlik bilgileri tarayıcıda ayıklanır; yalnız piksel verisi ve ölçü bilgisi kaydedilir.
+   Saklama: dicoms/{id} (meta) + dicoms/{id}/c/{k} (sıkıştırılmış kesit parçaları, en çok ~900 KB)
+   ===================================================================== */
+const DAIKON_URL="https://cdn.jsdelivr.net/npm/daikon@1.2.45/release/current/daikon-min.js";
+function loadScript(src){ return new Promise((res,rej)=>{ if(window.daikon) return res(); const s=document.createElement("script"); s.src=src; s.onload=()=>res(); s.onerror=()=>rej(new Error("DICOM kütüphanesi yüklenemedi")); document.head.appendChild(s); }); }
+async function gz(u8){ return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(new CompressionStream("gzip"))).arrayBuffer()); }
+async function gunz(u8){ return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer()); }
+function encDelta(a){ const o=new Int16Array(a.length); let p=0; for(let i=0;i<a.length;i++){ o[i]=a[i]-p; p=a[i]; } return new Uint8Array(o.buffer); }
+function decDelta(u8){ const d=new Int16Array(u8.buffer.slice(u8.byteOffset,u8.byteOffset+u8.byteLength)); let p=0; for(let i=0;i<d.length;i++){ p=(p+d[i])<<16>>16; d[i]=p; } return d; }
+async function poolMap(arr,n,fn){ const out=new Array(arr.length); let i=0; await Promise.all(Array.from({length:Math.min(n,arr.length)},async()=>{ while(i<arr.length){ const k=i++; out[k]=await fn(arr[k],k); } })); return out; }
+const fmtMB=b=>b>=1e6?(b/1e6).toLocaleString("tr-TR",{maximumFractionDigits:1})+" MB":Math.max(1,Math.round(b/1e3))+" KB";
+
+/* ---- okuma (daikon) ---- */
+function dcmVal(im,fn,def=null){ try{ const v=im[fn]?.(); return v==null?def:v; }catch(e){ return def; } }
+async function scanDicomFiles(files,onProg){
+  await loadScript(DAIKON_URL);
+  const series={}; let i=0, skipped=0, rgb=0;
+  for(const f of files){ i++; if(i%5===0) onProg&&onProg(i,files.length);
+    if(f.size<132||/\.(txt|xml|html?|jpe?g|png|pdf|exe|inf|ini|zip)$/i.test(f.name)) { skipped++; continue; }
+    try{
+      const im=daikon.Series.parseImage(new DataView(await f.arrayBuffer()));
+      if(!im||!im.hasPixelData()){ skipped++; continue; }
+      if((dcmVal(im,"getNumberOfSamplesPerPixel",1))>1){ rgb++; continue; }
+      const uid=dcmVal(im,"getSeriesInstanceUID")||dcmVal(im,"getSeriesId","?");
+      const s=series[uid]=series[uid]||{uid,mod:dcmVal(im,"getModality",""),desc:String(dcmVal(im,"getSeriesDescription","")||"").trim(),items:[],rows:im.getRows(),cols:im.getCols()};
+      const pos=dcmVal(im,"getImagePosition"), frames=dcmVal(im,"getNumberOfFrames",1)||1;
+      for(let fr=0;fr<frames;fr++) s.items.push({file:f,frame:fr,frames,z:pos?Number(pos[2]):null,inst:Number(dcmVal(im,"getImageNumber",0))||0,
+        sp:dcmVal(im,"getPixelSpacing"),thick:dcmVal(im,"getSliceThickness"),wc:dcmVal(im,"getWindowCenter"),ww:dcmVal(im,"getWindowWidth"),
+        inv:/MONOCHROME1/.test(String(dcmVal(im,"getPhotometricInterpretation",""))),rows:im.getRows(),cols:im.getCols()});
+    }catch(e){ skipped++; }
+  }
+  onProg&&onProg(files.length,files.length);
+  const list=Object.values(series).map(s=>{ s.items=s.items.filter(x=>x.rows===s.rows&&x.cols===s.cols);
+    const hasZ=s.items.every(x=>x.z!=null&&!isNaN(x.z)) && new Set(s.items.map(x=>x.z)).size===s.items.length;
+    s.items.sort((a,b)=>hasZ?b.z-a.z:(a.inst-b.inst)||(a.frame-b.frame)); return s; }).filter(s=>s.items.length).sort((a,b)=>b.items.length-a.items.length);
+  return {list,skipped,rgb};
+}
+// Bir kesiti (HU / ham değer) Int16 olarak çözer; isteğe bağlı 2×2 küçültme
+const _fileCache=new Map();
+async function readSlice(it,half){
+  let im=_fileCache.get(it.file);
+  if(!im){ im=daikon.Series.parseImage(new DataView(await it.file.arrayBuffer())); _fileCache.clear(); _fileCache.set(it.file,im); }
+  const d=(it.frames>1?im.getInterpretedData(false,true,it.frame):im.getInterpretedData(false,true)).data, R=it.rows, C=it.cols, off=0;
+  if(!half){ const o=new Int16Array(R*C); for(let i=0;i<R*C;i++){ const v=Math.round(d[off+i]); o[i]=v<-32768?-32768:v>32767?32767:v; } return {a:o,rows:R,cols:C}; }
+  const r=R>>1, c=C>>1, o=new Int16Array(r*c);
+  for(let y=0;y<r;y++) for(let x=0;x<c;x++){ const j=off+(2*y)*C+2*x; const v=Math.round((d[j]+d[j+1]+d[j+C]+d[j+C+1])/4); o[y*c+x]=v<-32768?-32768:v>32767?32767:v; }
+  return {a:o,rows:r,cols:c};
+}
+
+/* ---- yükleme penceresi ---- */
+function dicomUploadDlg(onDone){
+  const m=modal(`<div class="modal-h"><h2>DICOM seri yükle (BT / MR)</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b" id="dz">
+    <p style="margin-top:0">PACS'tan dışa aktardığınız veya CD'deki klasörü seçin. Sıkıştırmasız, JPEG Lossless, JPEG-LS, JPEG 2000 ve RLE desteklenir.</p>
+    <div class="note"><b>Hasta gizliliği:</b> Dosyalar bilgisayarınızdan dışarı gönderilmez. Hasta adı, kimlik numarası, doğum tarihi, kurum ve tarih gibi tüm DICOM bilgileri tarayıcınızda ayıklanır; yalnız görüntü pikselleri ve ölçü bilgileri (piksel aralığı, kesit kalınlığı) kaydedilir. Görüntünün üzerine yazılmış metin varsa (bazı topogram/ekran görüntüleri) temizlenemez; bu tür kesitleri seçmeyin.</div>
+    <div class="row" style="gap:8px"><label class="btn primary">Klasör seç<input type="file" id="dzDir" webkitdirectory directory multiple hidden></label><label class="btn">Dosyaları seç<input type="file" id="dzFiles" multiple hidden></label></div>
+    <div id="dzOut" style="margin-top:14px"></div></div>`,"wide");
+  const out=m.el.querySelector("#dzOut");
+  const onFiles=async files=>{
+    if(!files.length) return;
+    if(typeof CompressionStream==="undefined") return out.innerHTML=`<div class="note" style="background:var(--bad-soft)">Bu tarayıcı desteklemiyor; Chrome, Edge veya güncel Safari/Firefox kullanın.</div>`;
+    out.innerHTML=`<div class="small muted" id="dzP">Dosyalar okunuyor…</div><div class="pbar"><span id="dzB"></span></div>`;
+    let res; try{ res=await scanDicomFiles([...files],(i,n)=>{ const p=m.el.querySelector("#dzP"), b=m.el.querySelector("#dzB"); if(p) p.textContent=`${i} / ${n} dosya okunuyor…`; if(b) b.style.width=(i/n*100)+"%"; }); }
+    catch(e){ out.innerHTML=`<div class="note" style="background:var(--bad-soft)">${esc(e.message)}</div>`; return; }
+    if(!res.list.length){ out.innerHTML=`<div class="note" style="background:var(--bad-soft)">Görüntü içeren DICOM dosyası bulunamadı${res.rgb?` (${res.rgb} renkli/ekran görüntüsü atlandı)`:""}.</div>`; return; }
+    out.innerHTML=`<label class="f">Seri seçin</label><div class="list" style="gap:6px">${res.list.map((s,i)=>`<label class="check serrow"><input type="radio" name="ser" value="${i}" ${i===0?"checked":""}> <span><b>${esc(s.mod||"?")}</b> · ${esc(s.desc||"(açıklamasız seri)")} · <b>${s.items.length}</b> kesit · ${s.cols}×${s.rows}</span></label>`).join("")}</div>
+      <div class="small muted" style="margin-top:6px">${res.skipped?`${res.skipped} dosya DICOM görüntüsü olmadığı için atlandı. `:""}${res.rgb?`${res.rgb} renkli görüntü atlandı.`:""}</div>
+      <button class="btn primary" id="dzNext" style="margin-top:12px">Devam →</button>`;
+    m.el.querySelector("#dzNext").onclick=()=>step2(res.list[Number(m.el.querySelector("[name=ser]:checked").value)]);
+  };
+  m.el.querySelector("#dzDir").onchange=e=>onFiles(e.target.files);
+  m.el.querySelector("#dzFiles").onchange=e=>onFiles(e.target.files);
+
+  async function step2(s){
+    const n=s.items.length, big=s.cols>=400;
+    const P={from:1,to:n,step:1,half:big&&n>100,cur:Math.ceil(n/2)};
+    const it0=s.items[0], ct=/CT/i.test(s.mod);
+    const W0=Number(Array.isArray(it0.ww)?it0.ww[0]:it0.ww)||(ct?80:0), L0=Number(Array.isArray(it0.wc)?it0.wc[0]:it0.wc)||(ct?40:0);
+    out.innerHTML=`<div class="grid2" style="align-items:start">
+      <div><canvas id="dzC" class="dz-prev"></canvas><input type="range" id="dzS" min="1" max="${n}" value="${P.cur}" style="width:100%"><div class="small muted" id="dzSL"></div></div>
+      <div><div class="field"><label class="f">Başlık</label><input type="text" id="dzT" value="${esc((s.mod?s.mod+" · ":"")+(s.desc||"Seri"))}"><div class="small muted">Hasta adı veya kimlik bilgisi yazmayın.</div></div>
+        <div class="grid2"><div class="field"><label class="f">İlk kesit</label><input type="number" id="dzF" min="1" max="${n}" value="1"></div><div class="field"><label class="f">Son kesit</label><input type="number" id="dzL" min="1" max="${n}" value="${n}"></div></div>
+        <div class="grid2"><div class="field"><label class="f">Kesit seçimi</label><select id="dzK">${[1,2,3,4,5].map(k=>`<option value="${k}">${k===1?"Tüm kesitler":`Her ${k} kesitten 1`}</option>`).join("")}</select></div>
+          <div class="field"><label class="f">Çözünürlük</label><select id="dzR"><option value="0">Tam (${s.cols}×${s.rows})</option><option value="1" ${P.half?"selected":""}>Yarı (${s.cols>>1}×${s.rows>>1}) · 4 kat küçük</option></select></div></div>
+        <div class="card pad" style="box-shadow:none;background:var(--surface-2)" id="dzE">Boyut hesaplanıyor…</div>
+        <div class="small muted" style="margin-top:6px">Önizlemedeki kaydırıcıyla ilk ve son kesiti bulun; “Bu kesit ilk / son” düğmeleriyle aralığı seçin.</div>
+        <div class="row" style="margin-top:8px"><button class="btn sm" id="dzSF">Bu kesit ilk</button><button class="btn sm" id="dzSLs">Bu kesit son</button></div></div></div>
+      <div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn primary" id="dzGo">Anonimleştir ve yükle</button></div>`;
+    const cv=m.el.querySelector("#dzC"), $=id=>m.el.querySelector("#"+id);
+    let est=null, tok=0, etok=0;
+    const draw=async()=>{ const t=++tok; const r=await readSlice(s.items[P.cur-1],false); if(t!==tok) return;
+      cv.width=r.cols; cv.height=r.rows; const x=cv.getContext("2d"), img=x.createImageData(r.cols,r.rows);
+      let W=W0, L=L0; if(!W){ let mn=1e9,mx=-1e9; for(const v of r.a){ if(v<mn)mn=v; if(v>mx)mx=v; } W=Math.max(1,mx-mn); L=(mx+mn)/2; }
+      const lo=L-W/2, k=255/W; for(let i=0;i<r.a.length;i++){ let g=(r.a[i]-lo)*k; g=g<0?0:g>255?255:g; if(it0.inv) g=255-g; img.data[i*4]=img.data[i*4+1]=img.data[i*4+2]=g; img.data[i*4+3]=255; }
+      x.putImageData(img,0,0); $("dzSL").textContent=`Kesit ${P.cur} / ${n}${P.cur<P.from||P.cur>P.to?" · seçim dışında":""}`; };
+    const sel=()=>{ const a=[]; for(let i=P.from;i<=P.to;i+=P.step) a.push(i-1); return a; };
+    const estimate=async()=>{ const t=++etok; const idx=sel(); if(!idx.length){ $("dzE").textContent="Seçim boş"; return; }
+      const sample=[...new Set([0,1,2,3,4,5].map(k=>idx[Math.round(k*(idx.length-1)/5)]))]; let tot=0; $("dzE").textContent="Boyut hesaplanıyor…"; for(const i of sample){ const r=await readSlice(s.items[i],P.half); tot+=(await gz(encDelta(r.a))).length; }
+      if(t!==etok) return; est=tot/sample.length*idx.length;
+      $("dzE").innerHTML=`<b>${idx.length} kesit</b> · tahmini <b>${fmtMB(est)}</b>${est>60e6?`<div style="color:var(--bad)">Çok büyük (en fazla 60 MB). Aralığı daraltın, kesit atlayın veya yarı çözünürlük seçin.</div>`:est>25e6?`<div style="color:var(--warn)">Büyük bir seri; ücretsiz veritabanı kotası 1 GB'tır. Mümkünse daraltın.</div>`:""}`;
+      $("dzGo").disabled=est>60e6; draw(); };
+    const upd=()=>{ P.from=Math.max(1,Math.min(n,parseInt($("dzF").value,10)||1)); P.to=Math.max(P.from,Math.min(n,parseInt($("dzL").value,10)||n)); P.step=Number($("dzK").value); P.half=$("dzR").value==="1"; estimate(); };
+    ["dzF","dzL","dzK","dzR"].forEach(i=>$(i).onchange=upd);
+    $("dzS").oninput=()=>{ P.cur=Number($("dzS").value); draw(); };
+    $("dzSF").onclick=()=>{ $("dzF").value=P.cur; if(P.cur>P.to) $("dzL").value=n; upd(); };
+    $("dzSLs").onclick=()=>{ $("dzL").value=P.cur; if(P.cur<P.from) $("dzF").value=1; upd(); };
+    $("dzGo").onclick=async()=>{
+      const idx=sel(); if(!idx.length) return; const title=$("dzT").value.trim()||"Seri";
+      out.innerHTML=`<div class="small muted" id="dzP">Kesitler anonimleştiriliyor ve sıkıştırılıyor…</div><div class="pbar"><span id="dzB"></span></div>`;
+      const prog=(t,p)=>{ const a=m.el.querySelector("#dzP"), b=m.el.querySelector("#dzB"); if(a) a.textContent=t; if(b) b.style.width=(p*100)+"%"; };
+      try{
+        const comp=[]; let rows,cols;
+        for(let j=0;j<idx.length;j++){ const r=await readSlice(s.items[idx[j]],P.half); rows=r.rows; cols=r.cols; comp.push(await gz(encDelta(r.a))); prog(`Kesit ${j+1} / ${idx.length} hazırlanıyor…`,(j+1)/idx.length*0.5); }
+        _fileCache.clear();
+        // ~900 KB'lık parçalara paketle
+        const chunks=[]; let cur=[], sz=0; comp.forEach(c=>{ if(sz+c.length>900000&&cur.length){ chunks.push(cur); cur=[]; sz=0; } cur.push(c); sz+=c.length; }); if(cur.length) chunks.push(cur);
+        const id=newId(); let done=0;
+        await poolMap(chunks,3,async(ch,k)=>{ const tot=ch.reduce((a,c)=>a+c.length,0), u=new Uint8Array(tot); let o=0; ch.forEach(c=>{ u.set(c,o); o+=c.length; });
+          await setDoc(doc(db,"dicoms",id,"c",String(k)),{d:Bytes.fromUint8Array(u),sizes:ch.map(c=>c.length)}); done++; prog(`Yükleniyor: ${done} / ${chunks.length} parça`,0.5+done/chunks.length*0.5); });
+        const it=s.items[idx[0]], f=P.half?2:1, sp=(it.sp||[1,1]).map(Number), z0=s.items[idx[0]].z, z1=s.items[idx[idx.length-1]].z;
+        const gap=idx.length>1&&z0!=null&&z1!=null?Math.abs(z1-z0)/(idx.length-1):Number(it.thick)||null;
+        const meta={title,mod:s.mod||"",rows,cols,n:idx.length,chunks:chunks.length,sp:[sp[0]*f,sp[1]*f],thick:Number(it.thick)||null,gap:gap?Math.round(gap*100)/100:null,
+          wc:L0||null,ww:W0||null,inv:!!it.inv,bytes:comp.reduce((a,c)=>a+c.length,0),enc:"i16-delta-gzip",createdAt:serverTimestamp(),by:S.email};
+        await setDoc(doc(db,"dicoms",id),meta);
+        m.close(); toast(`${idx.length} kesit yüklendi (${fmtMB(meta.bytes)})`); onDone&&onDone(id,meta);
+      }catch(e){ console.error(e); out.innerHTML=`<div class="note" style="background:var(--bad-soft)">Yükleme başarısız: ${esc(e.message||String(e))}</div>`; }
+    };
+    draw(); estimate();
+  }
+}
+
+/* ---- yükleme ve kesit çözme ---- */
+const DCM=new Map();
+function loadDicom(id,onProg){
+  if(DCM.has(id)){ const p=DCM.get(id); if(onProg) p.then(()=>onProg(1,1)).catch(()=>{}); return p; }
+  const p=(async()=>{ const m=await getDoc(doc(db,"dicoms",id)); if(!m.exists()) throw new Error("Görüntü serisi bulunamadı"); const meta=m.data(); let done=0;
+    const parts=await poolMap([...Array(meta.chunks).keys()],4,async k=>{ const c=await getDoc(doc(db,"dicoms",id,"c",String(k))); done++; onProg&&onProg(done,meta.chunks); if(!c.exists()) throw new Error("Görüntü parçası eksik"); return c.data(); });
+    const comp=[]; parts.forEach(c=>{ const u=c.d.toUint8Array(); let o=0; c.sizes.forEach(z=>{ comp.push(u.subarray(o,o+z)); o+=z; }); });
+    return {id,meta,comp,dec:new Map()}; })();
+  DCM.set(id,p); p.catch(()=>DCM.delete(id)); return p;
+}
+async function sliceArr(Sr,i){ let a=Sr.dec.get(i); if(a) return a; a=decDelta(await gunz(Sr.comp[i])); Sr.dec.set(i,a); if(Sr.dec.size>90){ Sr.dec.delete(Sr.dec.keys().next().value); } return a; }
+
+/* ---- görüntüleyici ---- */
+const DCM_IC={wl:`<svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg>`,inv:`<svg viewBox="0 0 16 16" width="14" height="14"><rect x="1.5" y="1.5" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 14.5L14.5 1.5V14.5z" fill="currentColor"/></svg>`};
+const DCM_PRESETS_CT=[["Beyin",80,40],["Subdural",200,75],["İnme",40,40],["Kemik",2000,500],["Akciğer",1500,-600],["Mediasten",350,50],["Abdomen",400,50],["Karaciğer",150,60]];
+class DcmViewer{
+  constructor(host,id,opt={}){ this.host=host; this.id=id; this.full=!!opt.full; this.i=opt.i??null; this.W=opt.W??null; this.L=opt.L??null; this.tool="slice"; this.zoom=1; this.px=0; this.py=0; this.invert=false; this.meas=null; this.ptrs=new Map(); this.raf=0;
+    host.innerHTML=`<div class="dcmv ${this.full?"full":""}" tabindex="0">
+      <div class="dcm-bar">${[["slice","Kesit","↕"],["wl","P/S",DCM_IC.wl],["zoom","Büyüt","🔍"],["pan","Taşı","✥"],["meas","Ölç","📏"]].map(([k,l,ic])=>`<button type="button" class="dcm-t ${k==="slice"?"on":""}" data-tool="${k}" title="${l}"><span class="ic">${ic}</span><span class="lb">${l}</span></button>`).join("")}
+        <select class="dcm-pre" title="Pencere ayarı"></select><button type="button" class="dcm-t" data-act="inv" title="Ters çevir">${DCM_IC.inv}<span class="lb">Ters</span></button><button type="button" class="dcm-t" data-act="reset" title="Sıfırla"><span class="ic">↺</span></button>
+        <button type="button" class="dcm-t" data-act="${this.full?"close":"full"}" title="${this.full?"Kapat":"Tam ekran"}"><span class="ic">${this.full?"✕":"⤢"}</span><span class="lb">${this.full?"Kapat":"Tam ekran"}</span></button></div>
+      <div class="dcm-stage"><canvas></canvas><div class="dcm-ov tl"></div><div class="dcm-ov tr"></div><div class="dcm-ov bl"></div><div class="dcm-load">Görüntü yükleniyor…</div></div>
+      <input type="range" class="dcm-slider" min="0" max="0" value="0" aria-label="Kesit"></div>`;
+    this.el=host.firstElementChild; this.cv=this.el.querySelector("canvas"); this.stage=this.el.querySelector(".dcm-stage");
+    this.off=document.createElement("canvas");
+    this.bind();
+    loadDicom(id,(d,n)=>{ const l=this.el.querySelector(".dcm-load"); if(l) l.textContent=`Görüntü yükleniyor… %${Math.round(d/n*100)}`; })
+      .then(Sr=>{ this.S=Sr; const m=Sr.meta; this.ct=/CT/i.test(m.mod);
+        if(this.i==null) this.i=Math.floor(m.n/2); if(this.W==null){ this.W=m.ww||(this.ct?80:null); this.L=m.wc||(this.ct?40:null); }
+        this.invert=!!m.inv; this.el.querySelector(".dcm-load").remove();
+        const sl=this.el.querySelector(".dcm-slider"); sl.max=m.n-1; sl.value=this.i;
+        this.el.querySelector(".dcm-pre").innerHTML=`<option value="orig">Orijinal</option>${this.ct?DCM_PRESETS_CT.map(([n,w,l])=>`<option value="${w},${l}">${n} (${w}/${l})</option>`).join(""):`<option value="auto">Otomatik</option>`}<option value="" disabled hidden selected>Pencere</option>`;
+        this.draw(); })
+      .catch(e=>{ const l=this.el.querySelector(".dcm-load"); if(l){ l.textContent=e.message||"Görüntü yüklenemedi"; l.classList.add("err"); } });
+    this.ro=new ResizeObserver(()=>{ if(!this.el.isConnected){ this.ro.disconnect(); return; } this.draw(); }); this.ro.observe(this.stage);
+  }
+  bind(){
+    const el=this.el, cv=this.cv;
+    el.querySelectorAll("[data-tool]").forEach(b=>b.onclick=()=>{ this.tool=b.dataset.tool; el.querySelectorAll("[data-tool]").forEach(x=>x.classList.toggle("on",x===b)); });
+    el.querySelector("[data-act=inv]").onclick=()=>{ this.invert=!this.invert; this.draw(); };
+    el.querySelector("[data-act=reset]").onclick=()=>{ const m=this.S?.meta; this.zoom=1; this.px=this.py=0; this.meas=null; this.invert=!!m?.inv; this.W=m?.ww||(this.ct?80:null); this.L=m?.wc||(this.ct?40:null); this.draw(); };
+    const fa=el.querySelector("[data-act=full]"); if(fa) fa.onclick=()=>openDicomFull(this.id,{i:this.i,W:this.W,L:this.L});
+    const ca=el.querySelector("[data-act=close]"); if(ca) ca.onclick=()=>this.host.closest(".dcm-full")?.remove();
+    el.querySelector(".dcm-pre").onchange=e=>{ const v=e.target.value; if(v==="orig"){ this.W=this.S.meta.ww||(this.ct?80:null); this.L=this.S.meta.wc||(this.ct?40:null); } else if(v==="auto"){ this.W=null; this.L=null; } else { const [w,l]=v.split(",").map(Number); this.W=w; this.L=l; } this.draw(); };
+    el.querySelector(".dcm-slider").oninput=e=>{ this.setSlice(Number(e.target.value)); };
+    el.addEventListener("keydown",e=>{ if(["ArrowUp","ArrowDown","PageUp","PageDown","ArrowLeft","ArrowRight"].includes(e.key)){ e.preventDefault(); e.stopPropagation(); this.setSlice(this.i+(["ArrowUp","PageUp","ArrowLeft"].includes(e.key)?-1:1)); } });
+    cv.addEventListener("wheel",e=>{ if(!this.S) return; e.preventDefault(); if(e.ctrlKey){ this.zoomAt(e,Math.exp(-e.deltaY*0.002)); } else this.setSlice(this.i+(e.deltaY>0?1:-1)); },{passive:false});
+    cv.addEventListener("pointerdown",e=>{ if(!this.S) return; cv.setPointerCapture(e.pointerId); this.ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY}); this.el.focus({preventScroll:true});
+      this.drag={x:e.clientX,y:e.clientY,W:this.W,L:this.L,i:this.i,px:this.px,py:this.py,zoom:this.zoom,acc:0};
+      if(this.tool==="meas"&&this.ptrs.size===1){ const p=this.toImg(e); this.meas={a:p,b:p}; }
+      if(this.ptrs.size===2){ const [a,b]=[...this.ptrs.values()]; this.pinch={d:Math.hypot(a.x-b.x,a.y-b.y),zoom:this.zoom}; } });
+    cv.addEventListener("pointermove",e=>{ if(!this.S) return; this.readout(e);
+      if(!this.ptrs.has(e.pointerId)) return; this.ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+      if(this.ptrs.size===2&&this.pinch){ const [a,b]=[...this.ptrs.values()]; this.zoom=Math.max(0.5,Math.min(10,this.pinch.zoom*Math.hypot(a.x-b.x,a.y-b.y)/this.pinch.d)); this.draw(); return; }
+      const d=this.drag, dx=e.clientX-d.x, dy=e.clientY-d.y;
+      if(this.tool==="slice"){ const n=Math.trunc(dy/8); if(this.i!==d.i+n) this.setSlice(d.i+n); }
+      else if(this.tool==="wl"){ const base=d.W||this.autoW||400, s=Math.max(1,base/300); this.W=Math.max(1,base+dx*s); this.L=(d.L??this.autoL??0)+dy*s; this.draw(); }
+      else if(this.tool==="zoom"){ this.zoom=Math.max(0.5,Math.min(10,d.zoom*Math.exp(-dy*0.01))); this.draw(); }
+      else if(this.tool==="pan"){ this.px=d.px+dx; this.py=d.py+dy; this.draw(); }
+      else if(this.tool==="meas"&&this.meas){ this.meas.b=this.toImg(e); this.draw(); } });
+    const up=e=>{ this.ptrs.delete(e.pointerId); if(this.ptrs.size<2) this.pinch=null; };
+    cv.addEventListener("pointerup",up); cv.addEventListener("pointercancel",up);
+    cv.addEventListener("pointerleave",()=>{ const tr=this.el.querySelector(".dcm-ov.tr"); if(tr) tr.textContent=""; });
+  }
+  zoomAt(e,f){ this.zoom=Math.max(0.5,Math.min(10,this.zoom*f)); this.draw(); }
+  setSlice(i){ if(!this.S) return; i=Math.max(0,Math.min(this.S.meta.n-1,i)); if(i===this.i) return; this.i=i; this.el.querySelector(".dcm-slider").value=i; this.draw(); }
+  geom(){ const m=this.S.meta, r=this.stage.getBoundingClientRect(), asp=(m.sp?.[0]||1)/(m.sp?.[1]||1);
+    const base=Math.min(r.width/m.cols, r.height/(m.rows*asp)), sc=base*this.zoom, w=m.cols*sc, h=m.rows*asp*sc;
+    return {r,sc,asp,ox:(r.width-w)/2+this.px,oy:(r.height-h)/2+this.py,w,h}; }
+  toImg(e){ const g=this.geom(); return {x:(e.clientX-g.r.left-g.ox)/g.sc, y:(e.clientY-g.r.top-g.oy)/(g.sc*g.asp)}; }
+  readout(e){ const tr=this.el.querySelector(".dcm-ov.tr"); if(!tr||!this.S) return; const p=this.toImg(e), m=this.S.meta, x=Math.floor(p.x), y=Math.floor(p.y);
+    const a=this.S.dec.get(this.i); if(!a||x<0||y<0||x>=m.cols||y>=m.rows){ tr.textContent=""; return; } tr.textContent=`${this.ct?"HU":"Değer"} ${a[y*m.cols+x]}`; }
+  draw(){ if(!this.S) return; cancelAnimationFrame(this.raf); this.raf=requestAnimationFrame(()=>this._draw()); }
+  async _draw(){
+    const m=this.S.meta, i=this.i, a=await sliceArr(this.S,i); if(i!==this.i) return;
+    let W=this.W, L=this.L;
+    if(W==null){ let mn=1e9,mx=-1e9; for(let k=0;k<a.length;k+=7){ const v=a[k]; if(v<mn)mn=v; if(v>mx)mx=v; } W=Math.max(1,mx-mn); L=(mx+mn)/2; this.autoW=W; this.autoL=L; }
+    if(this.off.width!==m.cols||this.off.height!==m.rows){ this.off.width=m.cols; this.off.height=m.rows; this.img=null; }
+    const ox=this.off.getContext("2d"); this.img=this.img||ox.createImageData(m.cols,m.rows); const d=this.img.data, lo=L-W/2, k=255/W, inv=this.invert;
+    for(let p=0,q=0;p<a.length;p++,q+=4){ let g=(a[p]-lo)*k; g=g<0?0:g>255?255:g; if(inv) g=255-g; d[q]=d[q+1]=d[q+2]=g; d[q+3]=255; }
+    ox.putImageData(this.img,0,0);
+    const g=this.geom(), dpr=window.devicePixelRatio||1, cv=this.cv;
+    cv.width=Math.round(g.r.width*dpr); cv.height=Math.round(g.r.height*dpr); cv.style.width=g.r.width+"px"; cv.style.height=g.r.height+"px";
+    const c=cv.getContext("2d"); c.setTransform(dpr,0,0,dpr,0,0); c.fillStyle="#000"; c.fillRect(0,0,g.r.width,g.r.height);
+    c.imageSmoothingEnabled=this.zoom<3; c.drawImage(this.off,g.ox,g.oy,g.w,g.h);
+    if(this.meas){ const A={x:g.ox+this.meas.a.x*g.sc,y:g.oy+this.meas.a.y*g.sc*g.asp}, B={x:g.ox+this.meas.b.x*g.sc,y:g.oy+this.meas.b.y*g.sc*g.asp};
+      const mm=Math.hypot((this.meas.b.x-this.meas.a.x)*(m.sp?.[1]||1),(this.meas.b.y-this.meas.a.y)*(m.sp?.[0]||1));
+      c.strokeStyle="#ffd34d"; c.lineWidth=2; c.beginPath(); c.moveTo(A.x,A.y); c.lineTo(B.x,B.y); c.stroke();
+      [A,B].forEach(P=>{ c.beginPath(); c.arc(P.x,P.y,3,0,7); c.fillStyle="#ffd34d"; c.fill(); });
+      if(mm>0.5){ c.font="600 13px IBM Plex Sans, sans-serif"; const t=(mm>=10?mm.toFixed(1):mm.toFixed(2))+" mm"; c.fillStyle="#000a"; c.fillRect(B.x+6,B.y-9,c.measureText(t).width+8,18); c.fillStyle="#ffd34d"; c.fillText(t,B.x+10,B.y+5); } }
+    this.el.querySelector(".dcm-ov.tl").innerHTML=`Kesit ${i+1} / ${m.n}<br>P ${Math.round(W)} · S ${Math.round(L)}${this.zoom!==1?`<br>×${this.zoom.toFixed(1)}`:""}`;
+    this.el.querySelector(".dcm-ov.bl").textContent=`${esc(m.title||"")}${m.gap?` · ${m.gap} mm aralık`:""}`;
+  }
+}
+function openDicomFull(id,st={}){ const d=document.createElement("div"); d.className="dcm-full"; document.body.appendChild(d); new DcmViewer(d,id,{...st,full:true}); d.querySelector(".dcmv").focus();
+  const esc_=e=>{ if(e.key==="Escape"){ d.remove(); document.removeEventListener("keydown",esc_,true); } }; document.addEventListener("keydown",esc_,true); }
+const dcmTag=(id,thumb)=>id?(thumb?`<button type="button" class="badge info dcm-chip" data-dcmfull="${esc(id)}">🩻 BT/MR serisi · görüntüle</button>`:`<div class="dcm-slot" data-dcm="${esc(id)}"></div>`):"";
+function hydrateDicom(root=document){
+  root.querySelectorAll("[data-dcm]:not([data-mounted])").forEach(el=>{ el.dataset.mounted="1"; new DcmViewer(el,el.dataset.dcm); });
+  root.querySelectorAll("[data-dcmfull]:not([data-bound])").forEach(b=>{ b.dataset.bound="1"; b.onclick=e=>{ e.stopPropagation(); openDicomFull(b.dataset.dcmfull); }; });
+}
+
+/* ---- Görüntü arşivi (yönetici) ---- */
+async function dicomList(){
+  const [ds,qs,cs]=await Promise.all([getDocs(collection(db,"dicoms")),getDocs(collection(db,"questions")),getDocs(collection(db,"cases"))]);
+  const used={}; [...qs.docs,...cs.docs].forEach(d=>{ const x=d.data().dicomId; if(x) used[x]=(used[x]||0)+1; });
+  const list=ds.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0));
+  return {list,used,tot:list.reduce((a,x)=>a+(x.bytes||0),0)};
+}
+const dcmRow=(x,used,act)=>`<div class="tplrow dcmrow"><span class="grow"><b>${esc(x.title||"Seri")}</b> <span class="small muted">· ${x.n} kesit · ${x.cols}×${x.rows} · ${fmtMB(x.bytes||0)} · ${fmtDT(x.createdAt)}${used[x.id]?` · ${used[x.id]} soru/vakada`:" · kullanılmıyor"}</span></span>
+  <button class="btn sm ghost" type="button" data-dcmfull="${esc(x.id)}">Görüntüle</button>${act}</div>`;
+function dicomPickDlg(onPick){
+  if(S.mode!=="admin") return toast("Arşiv yalnız yöneticiye açık; yeni seri yükleyin",true);
+  const m=modal(`<div class="modal-h"><h2>Arşivden BT/MR serisi seç</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b" id="dpB"><div class="spinner"></div></div>`);
+  dicomList().then(({list,used})=>{ const b=m.el.querySelector("#dpB");
+    b.innerHTML=list.length?list.map(x=>dcmRow(x,used,`<button class="btn sm primary" type="button" data-pick="${esc(x.id)}">Seç</button>`)).join(""):`<div class="small muted">Arşivde seri yok. “DICOM yükle” ile ekleyin.</div>`;
+    hydrateDicom(b); b.querySelectorAll("[data-pick]").forEach(x=>x.onclick=()=>{ m.close(); onPick(x.dataset.pick); });
+  }).catch(e=>{ fail(e); m.close(); });
+}
+async function dicomArchiveCard(host){
+  let L; try{ L=await dicomList(); }catch(e){ host.innerHTML=`<div class="small muted">Arşiv okunamadı.</div>`; return; }
+  const {list,used,tot}=L;
+  host.innerHTML=`<div class="small muted" style="margin-bottom:10px">${list.length} seri · toplam ${fmtMB(tot)} (ücretsiz Firebase kotası 1 GB; sorular ve sonuçlarla paylaşılır). Seriler soru/vaka düzenleme penceresinden yüklenir.</div>
+    ${list.map(x=>dcmRow(x,used,`<button class="btn sm ghost danger" type="button" data-dcmdel="${esc(x.id)}">Sil</button>`)).join("")||`<div class="small muted">Henüz seri yok.</div>`}`;
+  hydrateDicom(host);
+  host.querySelectorAll("[data-dcmdel]").forEach(b=>b.onclick=async()=>{ const id=b.dataset.dcmdel, u=used[id]||0;
+    if(!await confirmDlg("Seriyi sil",`<p>Bu görüntü serisi kalıcı olarak silinecek.${u?` <b>${u} soru/vaka bu seriyi kullanıyor</b>; bu sorularda ve onları içeren sınavlarda görüntü açılmaz.`:""}</p>`,"Sil",true)) return;
+    try{ const cs=await getDocs(collection(db,"dicoms",id,"c")); await batchOps([...cs.docs.map(d=>bt=>bt.delete(d.ref)),bt=>bt.delete(doc(db,"dicoms",id))]); DCM.delete(id); toast("Seri silindi"); dicomArchiveCard(host); }catch(e){ fail(e,"Silinemedi"); } });
 }
 
 const FOX=`<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2l3.2 3.4h5.6L14 2l-.6 6.2L8 14 2.6 8.2z" fill="#e8762b"/><path d="M4.4 8.6L8 12.4l3.6-3.8L8 10.2z" fill="#fff"/><circle cx="5.9" cy="7.4" r=".75" fill="#2a1a10"/><circle cx="10.1" cy="7.4" r=".75" fill="#2a1a10"/><circle cx="8" cy="11.3" r=".6" fill="#2a1a10"/></svg>`;
@@ -882,7 +1171,7 @@ async function viewExamEdit(id,copyFrom){
   function drawPick(){
     const blocks=bankBlocks(S.questions.filter(visible));
     const row=(q,sub)=>`<label class="pr ${sub?"sub":""}"><input type="checkbox" data-q="${q.id}" ${D.sel.has(q.id)?"checked":""}>
-      <span class="t">${esc(q.stem)}</span>${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}<span class="badge">${q.type==="open"?"Açık uçlu":"ÇS"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.imageId?`<span class="badge info">Görsel</span>`:""}${q.practice?`<span class="badge warn" title="Alıştırmaya açık: asistanlar cevabını görebilir">Alıştırma</span>`:""}${qhistBadge(q.id,true)}</label>`;
+      <span class="t">${esc(q.stem)}</span>${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}<span class="badge">${q.type==="open"?"Açık uçlu":"ÇS"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.imageId?`<span class="badge info">Görsel</span>`:""}${q.dicomId?`<span class="badge info">BT/MR</span>`:""}${q.practice?`<span class="badge warn" title="Alıştırmaya açık: asistanlar cevabını görebilir">Alıştırma</span>`:""}${qhistBadge(q.id,true)}</label>`;
     document.getElementById("pick").innerHTML = blocks.length ? blocks.map(b=> b.kind==="q" ? row(b.q) :
       `<label class="pr case"><input type="checkbox" data-case="${b.c.id}" ${b.qs.every(q=>D.sel.has(q.id))?"checked":""}><span class="t">Vaka: ${esc(b.c.title||"(başlıksız)")}</span><span class="badge info">${b.qs.length} soru</span></label>${b.qs.map(q=>row(q,true)).join("")}`
     ).join("") : `<div class="empty">Soru bulunamadı.</div>`;
@@ -1005,7 +1294,8 @@ async function viewExamEdit(id,copyFrom){
     for(const q of ordered){
       const it={qid:q.id,type:q.type==="open"?"open":"mcq",stem:q.stem,points:Number(q.points)||1,topic:q.topic||""};
       if(q.imageId) it.imageId=q.imageId;
-      if(q.caseId && S.cases[q.caseId]){ it.caseId=q.caseId; const c=S.cases[q.caseId]; cases[q.caseId]={title:c.title||"",text:c.text||"",...(c.imageId?{imageId:c.imageId}:{})}; }
+      if(q.dicomId) it.dicomId=q.dicomId;
+      if(q.caseId && S.cases[q.caseId]){ it.caseId=q.caseId; const c=S.cases[q.caseId]; cases[q.caseId]={title:c.title||"",text:c.text||"",...(c.imageId?{imageId:c.imageId}:{}),...(c.dicomId?{dicomId:c.dicomId}:{})}; }
       if(it.type==="mcq"){ it.options=q.options; const pk=key?.key?.[q.id]; k[q.id]=Array.isArray(pk)?pk:q.correct; }
       expl[q.id]=q.explanation||"";
       items.push(it);
@@ -1500,7 +1790,7 @@ async function viewAttempt(examId, uid){
   let prevCase=null;
   const qs=seq.map((q,i)=>{ const it=byId[q];
     const a=att.answers?.[it.qid], v=voidOf(key,it.qid); let caseHtml="";
-    if(it.caseId && it.caseId!==prevCase){ const c=exam.cases[it.caseId]; caseHtml=`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}</div>`; }
+    if(it.caseId && it.caseId!==prevCase){ const c=exam.cases[it.caseId]; caseHtml=`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}${dcmTag(c.dicomId)}</div>`; }
     prevCase=it.caseId||null;
     let body;
     if(it.type==="mcq"){
@@ -1516,7 +1806,7 @@ async function viewAttempt(examId, uid){
     }
     const t=att.qtime?.[it.qid];
     return `<div class="qrev">${caseHtml}<div class="qmeta"><span class="badge">Soru ${i+1}</span><span class="badge">${it.points} puan</span>${it.topic?`<span class="badge">${esc(it.topic)}</span>`:""}${t?`<span class="badge" title="Bu soruda geçirilen süre">⏱ ${fmtSec(t)}</span>`:""}${voidBadge(v)}</div>
-      <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${body}</div>`;
+      <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${dcmTag(it.dicomId)}${body}</div>`;
   }).join("");
   const hasOpen=its.some(i=>i.type==="open");
   const tot=Object.values(att.qtime||{}).reduce((s,v)=>s+v,0);
@@ -1685,7 +1975,7 @@ async function viewBank(){
   const vis=q=>(!poolF||poolOf(q)===poolF)&&(!topicF||q.topic===topicF)&&(!typeF||(q.type||"mcq")===typeF)&&stOk(q)&&hsOk(q)&&(!filt||trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
   const canEdit=q=>isA||(isAu&&q.author===S.email&&q.status!=="approved");
   const qRow=q=>`<div class="qitem">${isA?`<input type="checkbox" class="qcheck" data-sel="${q.id}" ${sel.has(q.id)?"checked":""} aria-label="Seç">`:""}<div class="body"><div class="qmeta">${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}${STATUS_B(q)}<span class="badge ${q.type==="open"?"warn":""}">${q.type==="open"?"Açık uçlu":"Çoktan seçmeli"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge">${q.points||1} puan</span>${q.type!=="open"?`<span class="badge ok">Doğru: ${LET[q.correct]}</span>`:""}${q.practice?`<span class="badge info">Alıştırmada</span>`:""}${isA?qhistBadge(q.id):""}</div>
-    <div class="stem">${esc(q.stem)}</div>${imgTag(q.imageId,true)}${q.status==="rejected"&&q.rejectReason?`<div class="small" style="color:var(--bad);margin-top:4px">Ret gerekçesi: ${esc(q.rejectReason)}</div>`:""}</div>
+    <div class="stem">${esc(q.stem)}</div>${imgTag(q.imageId,true)}${dcmTag(q.dicomId,true)}${q.status==="rejected"&&q.rejectReason?`<div class="small" style="color:var(--bad);margin-top:4px">Ret gerekçesi: ${esc(q.rejectReason)}</div>`:""}</div>
     <div class="row" style="flex-wrap:nowrap">${isA&&q.status==="pending"?`<button class="btn sm primary" data-apq="${q.id}">Onayla</button><button class="btn sm" data-rjq="${q.id}">Reddet</button>`:""}${canEdit(q)?`<button class="btn sm" data-eq="${q.id}">Düzenle</button>`:""}${isA?`<button class="btn sm ghost" data-dup="${q.id}" title="Kopyala">⧉</button>`:""}${canEdit(q)?`<button class="btn sm ghost danger" data-dq="${q.id}" title="Sil">✕</button>`:""}</div></div>`;
 
   function drawPools(){
@@ -1751,7 +2041,7 @@ async function viewBank(){
     const caseEdit=c=>isA||(isAu&&c.author===S.email&&c.status!=="approved");
     document.getElementById("blist").innerHTML=all.length?all.map(b=>b.kind==="q"?`<div class="card">${qRow(b.q)}</div>`:
       `<div class="case-card"><div class="case-head">${isA&&b.qs.length?`<input type="checkbox" class="qcheck" data-selcase="${b.c.id}" ${b.qs.every(q=>sel.has(q.id))?"checked":""} aria-label="Vakayı seç">`:""}<div class="grow" style="min-width:0"><div class="qmeta">${!poolF&&b.c.poolId&&S.pools[b.c.poolId]?`<span class="badge acc">${esc(poolName(b.c.poolId))}</span>`:""}${STATUS_B(b.c)}<span class="badge info">Vaka</span><span class="badge">${b.qs.length} soru</span></div>
-        <b>${esc(b.c.title||"(başlıksız vaka)")}</b><div class="txt">${esc(b.c.text)}</div>${imgTag(b.c.imageId,true)}</div>
+        <b>${esc(b.c.title||"(başlıksız vaka)")}</b><div class="txt">${esc(b.c.text)}</div>${imgTag(b.c.imageId,true)}${dcmTag(b.c.dicomId,true)}</div>
         <div class="row" style="flex-wrap:nowrap">${isA&&b.c.status==="pending"?`<button class="btn sm primary" data-apc="${b.c.id}">Onayla</button>`:""}${caseEdit(b.c)?`<button class="btn sm" data-addq="${b.c.id}">+ Soru</button><button class="btn sm" data-ec="${b.c.id}">Düzenle</button>`:""}${isA?`<button class="btn sm ghost danger" data-dc="${b.c.id}">✕</button>`:""}</div></div>
         <div class="case-sub">${b.qs.map(qRow).join("")}</div></div>`).join("")
       :`<div class="card empty">${!S.questions.length?"Soru bankası boş. “+ Soru” ile başlayın veya Excel'den toplu aktarın.":poolF&&!scope?"Bu havuz boş. “+ Soru” veya “Excel'den içe aktar” ile bu havuza soru ekleyin.":"Eşleşen soru yok."}</div>`;
@@ -1790,16 +2080,23 @@ async function viewBank(){
   document.getElementById("imp").onclick=()=>importDialog(curPool());
 }
 
-function imageField(cur){
-  return `<div class="field"><label class="f">Görsel (EKG, grafi, BT vb. — isteğe bağlı)</label>
+function imageField(cur,dcm){
+  return `<div class="field"><label class="f">Görsel (EKG, grafi vb. — isteğe bağlı)</label>
     <div id="imgPrev">${cur?imgTag(cur,true):""}</div>
-    <div class="row"><label class="btn sm">Görsel seç<input type="file" accept="image/*" id="imgIn" hidden></label><button class="btn sm ghost danger ${cur?"":"hidden"}" id="imgDel" type="button">Görseli kaldır</button></div></div>`;
+    <div class="row"><label class="btn sm">Görsel seç<input type="file" accept="image/*" id="imgIn" hidden></label><button class="btn sm ghost danger ${cur?"":"hidden"}" id="imgDel" type="button">Görseli kaldır</button></div></div>
+    <div class="field"><label class="f">BT / MR serisi (DICOM — isteğe bağlı)</label>
+    <div id="dcmPrev">${dcm?dcmTag(dcm,true):""}</div>
+    <div class="row"><button class="btn sm" id="dcmUp" type="button">DICOM yükle</button><button class="btn sm ${S.mode==="admin"?"":"hidden"}" id="dcmPick" type="button">Arşivden seç</button><button class="btn sm ghost danger ${dcm?"":"hidden"}" id="dcmDel" type="button">Seriyi kaldır</button></div></div>`;
 }
 function bindImageField(root, state){
   root.querySelector("#imgIn").onchange=async e=>{ const f=e.target.files[0]; if(!f) return;
     try{ state.newImg=await compressImage(f); state.imageId=null; root.querySelector("#imgPrev").innerHTML=`<img class="q-img thumb" src="${state.newImg}">`; root.querySelector("#imgDel").classList.remove("hidden"); }
     catch(err){ fail(err,"Görsel işlenemedi"); } };
   root.querySelector("#imgDel").onclick=()=>{ state.newImg=null; state.imageId=null; root.querySelector("#imgPrev").innerHTML=""; root.querySelector("#imgDel").classList.add("hidden"); };
+  const setD=id=>{ state.dicomId=id||null; root.querySelector("#dcmPrev").innerHTML=id?dcmTag(id,true):""; root.querySelector("#dcmDel").classList.toggle("hidden",!id); hydrateDicom(root); };
+  root.querySelector("#dcmUp").onclick=()=>dicomUploadDlg(id=>setD(id));
+  root.querySelector("#dcmPick").onclick=()=>dicomPickDlg(id=>setD(id));
+  root.querySelector("#dcmDel").onclick=()=>setD(null);
 }
 async function persistImage(state){
   if(state.newImg){ const id=newId(); await setDoc(doc(db,"images",id),{data:state.newImg,createdAt:serverTimestamp()}); imgCache.set(id,Promise.resolve(state.newImg)); return id; }
@@ -1807,7 +2104,7 @@ async function persistImage(state){
 }
 
 function editQuestion(q){
-  const isNew=!q.id; const st={imageId:q.imageId||null,newImg:null};
+  const isNew=!q.id; const st={imageId:q.imageId||null,newImg:null,dicomId:q.dicomId||null};
   let type=q.type||"mcq";
   const opts=[...(q.options||[]),"","","","",""].slice(0,5);
   const caseOpts=Object.values(S.cases).map(c=>`<option value="${c.id}" ${q.caseId===c.id?"selected":""}>${esc(c.title||c.text.slice(0,50))}${c.poolId&&S.pools[c.poolId]?` (${esc(poolName(c.poolId))})`:""}</option>`).join("");
@@ -1823,7 +2120,7 @@ function editQuestion(q){
         <div class="field"><label class="f">Puan</label><input type="number" id="q_pts" min="0.5" step="0.5" value="${q.points||1}"></div>
       </div>
       <div class="field"><label class="f">Soru kökü</label><textarea id="q_stem" style="min-height:110px">${esc(q.stem||"")}</textarea></div>
-      ${imageField(q.imageId)}
+      ${imageField(q.imageId,q.dicomId)}
       <div id="mcqBox" class="${type==="open"?"hidden":""}"><label class="f">Şıklar <span class="muted" style="font-weight:400">(doğru şıkkı işaretleyin; boş şıklar atlanır)</span></label>
         ${opts.map((o,j)=>`<div class="optedit"><input type="radio" name="cor" value="${j}" ${(q.correct??0)===j?"checked":""} title="Doğru cevap"><span class="L">${LET[j]}</span><input type="text" data-opt="${j}" value="${esc(o)}"></div>`).join("")}</div>
       <div class="field" style="margin-top:12px"><label class="f" id="explLbl">${type==="open"?"Model cevap / değerlendirme notu":"Açıklama (sonuçta asistana gösterilir)"}</label><textarea id="q_expl">${esc(q.explanation||"")}</textarea></div>
@@ -1850,7 +2147,7 @@ function editQuestion(q){
     } else { data.options=null; data.correct=null; }
     try{
       const btn=m.el.querySelector("#qsave"); btn.disabled=true;
-      data.imageId=await persistImage(st);
+      data.imageId=await persistImage(st); data.dicomId=st.dicomId||null;
       const id=q.id||newId(); if(!q.id) data.createdAt=serverTimestamp(); data.updatedAt=serverTimestamp();
       if(S.mode==="author"){ data.status="pending"; data.author=S.email; data.practice=false; data.rejectReason=null; }
       else data.practice=!!S.pools[data.poolId]?.practice&&approvedQ({...q,...data});
@@ -1859,7 +2156,7 @@ function editQuestion(q){
   };
 }
 function editCase(c){
-  const st={imageId:c.imageId||null,newImg:null};
+  const st={imageId:c.imageId||null,newImg:null,dicomId:c.dicomId||null};
   const qs=c.id?S.questions.filter(q=>q.caseId===c.id):[];
   const m=modal(`<div class="modal-h"><h2>${c.id?"Vakayı düzenle":"Yeni vaka"}</h2><button class="btn sm ghost" data-close>✕</button></div>
     <div class="modal-b"><p class="small muted" style="margin-top:0">Vaka metni, bağlı her sorunun üstünde gösterilir. Sınavda vakanın soruları birlikte kalır.</p>
@@ -1867,7 +2164,7 @@ function editCase(c){
         ${qs.length?`<div class="small muted" style="margin-top:4px">Havuzu değiştirirseniz bağlı ${qs.length} soru da taşınır.</div>`:""}</div>
       <div class="field"><label class="f">Başlık</label><input type="text" id="c_title" value="${esc(c.title||"")}" placeholder="örn. 68 yaşında göğüs ağrısı"></div>
       <div class="field"><label class="f">Vaka metni</label><textarea id="c_text" style="min-height:160px">${esc(c.text||"")}</textarea></div>
-      ${imageField(c.imageId)}</div>
+      ${imageField(c.imageId,c.dicomId)}</div>
     <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="csave">Kaydet</button></div>`);
   hydrateImages(m.el); bindImageField(m.el, st); bindPoolSelect(m.el.querySelector("#c_pool"));
   m.el.querySelector("#csave").onclick=async()=>{
@@ -1875,7 +2172,7 @@ function editCase(c){
     const pv=m.el.querySelector("#c_pool").value; const poolId=pv&&pv!=="__new"?pv:null;
     try{ const imageId=await persistImage(st); const id=c.id||newId();
       const au=S.mode==="author", prc=!au&&!!S.pools[poolId]?.practice;
-      await setDoc(doc(db,"cases",id),{title:m.el.querySelector("#c_title").value.trim(),text,imageId,poolId,practice:prc,...(au?{status:"pending",author:S.email}:{}),...(c.id?{}:{createdAt:serverTimestamp()})},{merge:true});
+      await setDoc(doc(db,"cases",id),{title:m.el.querySelector("#c_title").value.trim(),text,imageId,dicomId:st.dicomId||null,poolId,practice:prc,...(au?{status:"pending",author:S.email}:{}),...(c.id?{}:{createdAt:serverTimestamp()})},{merge:true});
       const moved=qs.filter(q=>(q.poolId||null)!==poolId);
       if(moved.length&&!au) await batchOps(moved.map(q=>b=>b.update(doc(db,"questions",q.id),{poolId,practice:prc&&approvedQ(q)})));
       m.close(); toast("Vaka kaydedildi"); viewBank(); }catch(e){ fail(e); }
@@ -1942,6 +2239,7 @@ async function viewSettings(){
       <div class="small muted" style="margin-bottom:10px">Soru yazarları (ör. diğer öğretim üyeleri) Google hesaplarıyla girip Soru Bankası'na soru ve vaka ekleyebilir. Sınavları, sonuçları ve asistan listesini göremezler. Ekledikleri sorular siz onaylayana kadar sınavlarda ve alıştırmada kullanılmaz.</div>
       <div class="row" style="margin-bottom:12px"><input type="email" id="au" placeholder="ornek@gmail.com" style="max-width:320px"><button class="btn primary" id="auAdd">Ekle</button></div>
       <div id="auList"></div></div>
+    <div class="card pad" style="margin-bottom:16px"><h2>Görüntü arşivi (BT/MR)</h2><div id="dcmArch"><div class="spinner"></div></div></div>
     <div class="card pad"><h2>Yöneticiler</h2><div class="small muted" style="margin-bottom:8px">Güvenlik nedeniyle yönetici e-postaları site kodunda ve Firebase kurallarında tanımlıdır.</div>
       ${ADMIN_EMAILS.map(e=>`<div class="tplrow"><b>${esc(e)}</b></div>`).join("")}</div>`);
   const save=async list=>{ try{ await setDoc(doc(db,"meta","roles"),{authors:list,updatedAt:serverTimestamp()},{merge:true}); roles.authors=list; draw(); toast("Kaydedildi"); }catch(e){ fail(e); } };
@@ -1949,7 +2247,7 @@ async function viewSettings(){
     document.querySelectorAll("[data-rm]").forEach(b=>b.onclick=async()=>{ if(await confirmDlg("Soru yazarını kaldır",`<p>${esc(b.dataset.rm)} artık soru ekleyemeyecek. Eklediği sorular bankada kalır.</p>`,"Kaldır",true)) save(roles.authors.filter(x=>x!==b.dataset.rm)); }); };
   document.getElementById("auAdd").onclick=()=>{ const e=document.getElementById("au").value.trim().toLowerCase(); if(!/^\S+@\S+\.\S+$/.test(e)) return toast("Geçerli bir e-posta girin",true);
     if(ADMIN_EMAILS.includes(e)) return toast("Bu hesap zaten yönetici",true); if(roles.authors.includes(e)) return toast("Zaten listede",true); save([...roles.authors,e]); };
-  draw();
+  draw(); dicomArchiveCard(document.getElementById("dcmArch"));
 }
 
 /* =====================================================================
@@ -2126,7 +2424,7 @@ async function viewTake(id){
     document.getElementById("fsGo").onclick=()=>document.documentElement.requestFullscreen().catch(()=>toast("Tarayıcı tam ekrana izin vermedi",true));
     if(!document.fullscreenElement) gate(true);
   }
-  T.keys=e=>{ if(!T||e.target.closest("textarea,input")) return;
+  T.keys=e=>{ if(!T||e.target.closest("textarea,input,.dcmv,.dcm-full")) return;
     const it=byId[order[T.idx]];
     if(e.key==="ArrowRight") nextQ(); else if(e.key==="ArrowLeft"&&!T.seq) move(-1);
     else if(it.type==="mcq"){ const k=e.key.toUpperCase(); const p=LET.indexOf(k); if(p>=0&&p<it.options.length){ choose(T.att.optOrder[it.qid][p]); } } };
@@ -2144,7 +2442,7 @@ function drawQ(){
   const q=T.order[T.idx], it=T.byId[q], prev=T.idx>0?T.byId[T.order[T.idx-1]]:null;
   let caseHtml="";
   if(it.caseId){ const c=T.exam.cases[it.caseId]; const cont=prev&&prev.caseId===it.caseId;
-    caseHtml=`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}${cont?" (devam)":""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}</div>`; }
+    caseHtml=`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}${cont?" (devam)":""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}${dcmTag(c.dicomId)}</div>`; }
   let body;
   if(it.type==="mcq"){
     const perm=T.att.optOrder[q]; const a=T.answers[q];
@@ -2157,7 +2455,7 @@ function drawQ(){
   const el=document.getElementById("qv");
   el.innerHTML=`${caseHtml}<div class="row" style="justify-content:space-between;margin-bottom:8px"><div class="qmeta" style="margin:0"><span class="badge acc">Soru ${T.idx+1} / ${T.order.length}</span><span class="badge">${it.points} puan</span>${it.type==="open"?`<span class="badge warn">Açık uçlu</span>`:""}</div>
       ${T.seq?"":`<button class="btn sm ${T.flags[q]?"":"ghost"}" id="flg">${T.flags[q]?"★ İşaretli":"☆ Sonra bak"}</button>`}</div>
-    <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${body}
+    <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${dcmTag(it.dicomId)}${body}
     <div class="row" style="justify-content:space-between;margin-top:20px">${T.seq?"<span></span>":`<button class="btn" id="pv" ${T.idx===0?"disabled":""}>← Önceki</button>`}
       <span class="small muted">${it.type==="mcq"?`Klavye: A–E ile seç${T.seq?", → ile ilerle":", ← → ile gez"}`:""}</span>
       ${!last?`<button class="btn primary" id="nx">Sonraki →</button>`:`<button class="btn primary" id="nx">Bitir</button>`}</div>`;
@@ -2232,7 +2530,7 @@ async function viewReview(id){
   let prevCase=null;
   const qs=order.map((q,n)=>{
     const it=byId[q], r=gi[q]||{}; let caseHtml="";
-    if(it.caseId&&it.caseId!==prevCase){ const c=exam.cases[it.caseId]; caseHtml=`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}</div>`; }
+    if(it.caseId&&it.caseId!==prevCase){ const c=exam.cases[it.caseId]; caseHtml=`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}${dcmTag(c.dicomId)}</div>`; }
     prevCase=it.caseId||null;
     const acc=Array.isArray(r.correct)?r.correct:(r.correct==null?[]:[r.correct]);
     let body, badge;
@@ -2249,7 +2547,7 @@ async function viewReview(id){
     const apHtml=ap?`<div class="apbox"><div class="row" style="gap:6px"><b class="small">İtirazınız</b>${appealBadge(ap.status)}</div><div class="small" style="white-space:pre-wrap;margin-top:4px">${esc(ap.text)}</div>${ap.reply?`<div class="small" style="margin-top:6px"><b>Yanıt:</b> ${esc(ap.reply)}</div>`:""}</div>`
       :(apOpen&&!r.dropped&&!r.voided?`<button class="btn sm ghost no-print" data-ap="${q}" data-n="${n+1}" style="margin-top:10px">İtiraz et</button>`:"");
     return `<div class="qrev">${caseHtml}<div class="qmeta"><span class="badge">Soru ${n+1}</span>${badge}${vb}${it.topic?`<span class="badge">${esc(it.topic)}</span>`:""}</div>
-      <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${body}${r.explanation?`<div class="expl"><b>${it.type==="mcq"?"Açıklama":"Model cevap"}:</b> ${esc(r.explanation)}</div>`:""}${apHtml}</div>`;
+      <div class="q-stem">${esc(it.stem)}</div>${imgTag(it.imageId)}${dcmTag(it.dicomId)}${body}${r.explanation?`<div class="expl"><b>${it.type==="mcq"?"Açıklama":"Model cevap"}:</b> ${esc(r.explanation)}</div>`:""}${apHtml}</div>`;
   }).join("");
   // konu bazlı başarı
   const byTopic={}; order.forEach(q=>{ const it=byId[q], r=gi[q]; if(r.dropped) return; const t=it.topic||"Diğer"; byTopic[t]=byTopic[t]||{e:0,m:0}; byTopic[t].e+=Math.max(0,r?.earned||0); byTopic[t].m+=it.points; });
@@ -2333,9 +2631,9 @@ function startPractice(list){
     const c=q.caseId&&PR.C[q.caseId];
     const perm=q.type==="open"?[]:shuffle(q.options.map((_,j)=>j));
     paint(`<div class="page-head"><div><h1>Alıştırma</h1><div class="sub">Soru ${ses.i+1} / ${ses.list.length} · ${ses.res.filter(r=>r.ok).length} doğru</div></div><button class="btn" id="pEnd">Bitir</button></div>
-      <div class="card pad" id="pq">${c?`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}</div>`:""}
+      <div class="card pad" id="pq">${c?`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}${dcmTag(c.dicomId)}</div>`:""}
         <div class="qmeta">${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.type==="open"?`<span class="badge warn">Açık uçlu</span>`:""}</div>
-        <div class="q-stem">${esc(q.stem)}</div>${imgTag(q.imageId)}
+        <div class="q-stem">${esc(q.stem)}</div>${imgTag(q.imageId)}${dcmTag(q.dicomId)}
         ${q.type==="open"?`<textarea id="pa" style="min-height:140px;margin-top:14px" placeholder="Cevabınızı yazın, sonra model cevabı görün."></textarea><div class="row" style="margin-top:10px"><button class="btn primary" id="pShow">Model cevabı göster</button></div>`
           :`<div class="opts">${perm.map((orig,p)=>`<button class="opt" data-o="${orig}"><span class="L">${LET[p]}</span><span class="T">${esc(q.options[orig])}</span></button>`).join("")}</div>`}
         <div id="pfb"></div></div>`,residentTabs());
@@ -2466,7 +2764,7 @@ async function viewLiveHost(gid){
     } else if(g.state==="question"){
       const ans=G.answers.filter(a=>a.qIndex===g.qIndex).length;
       body=`<div class="g-qh"><span>Soru ${g.qIndex+1} / ${Q.length}</span><span class="g-timer" id="gT">${g.qDuration}</span><span>${ans} / ${P.length} cevap</span></div>
-        <div class="g-stem">${esc(q.stem)}</div>${q.imageId?`<div class="g-img">${imgTag(q.imageId)}</div>`:""}${gameOpts(q)}
+        <div class="g-stem">${esc(q.stem)}</div>${q.imageId?`<div class="g-img">${imgTag(q.imageId)}${dcmTag(q.dicomId)}</div>`:""}${gameOpts(q)}
         <div class="g-act"><button class="g-btn ghost" id="gReveal">Süreyi bitir</button></div>`;
     } else if(g.state==="reveal"){
       const rv=g.reveal||{};
@@ -2653,7 +2951,7 @@ async function viewJPlay(id){
     const ov=document.createElement("div"); ov.className="jq-ov"; document.body.appendChild(ov);
     const close=used=>{ ov.remove(); if(used){ x.used=true; persist(); } draw(); };
     const render=()=>{ ov.innerHTML=`<div class="jq"><div class="jq-h"><span>${esc(c.title)}</span><b class="mono">${x.value}</b></div>
-      <div class="jq-stem">${esc(x.stem)}</div>${x.imageId?`<div class="g-img">${imgTag(x.imageId)}</div>`:""}
+      <div class="jq-stem">${esc(x.stem)}</div>${x.imageId?`<div class="g-img">${imgTag(x.imageId)}${dcmTag(x.dicomId)}</div>`:""}
       ${opts?`<div class="jq-opts">${x.options.map((o,j)=>`<div class="jq-o ${shown?(j===x.correct?"ok":"dim"):""}"><b>${LET[j]}</b> ${esc(o)}</div>`).join("")}</div>`:shown?`<div class="jq-o ok"><b>Cevap:</b> ${esc(x.options[x.correct])}</div>`:""}
       ${shown&&x.explanation?`<div class="g-expl">${esc(x.explanation)}</div>`:""}
       <div class="jq-act">${shown?"":`<button class="g-btn" id="qShow">Cevabı göster</button>`}<button class="g-btn ghost" id="qOpt">${opts?"Şıkları gizle":"Şıkları göster"}</button></div>

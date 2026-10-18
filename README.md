@@ -60,3 +60,10 @@ Başka yönetici eklemek isterseniz e-postasını hem `ADMIN_EMAILS` listesine h
 ## Güvenlik kuralı testleri
 
 `tests/rules.test.mjs` her kural değişikliğinde GitHub Actions’ta Firestore emülatöründe çalışır; testler geçmezse kurallar Firebase’e yüklenmez.
+
+## BT / MR görüntüleri (DICOM)
+
+- Soru veya vaka düzenlerken **DICOM yükle** → PACS/CD klasörünü seçin → seriyi seçin → kesit aralığını ve çözünürlüğü ayarlayın → **Anonimleştir ve yükle**.
+- Hasta adı, kimlik no, doğum tarihi, kurum, tarih gibi DICOM etiketleri tarayıcıda ayıklanır; Firebase'e yalnız piksel değerleri (HU) ve ölçü bilgisi gider. Görüntünün üzerine yazılmış metin (bazı topogram/ekran görüntüleri) temizlenemez.
+- Görüntüleyici: fare tekerleği / kaydırıcı / ok tuşları ile kesit, hazır pencereler (beyin, subdural, inme, kemik, akciğer, mediasten, abdomen, karaciğer), sürükleyerek P/S, yakınlaştırma, taşıma, mm ölçüm, HU okuma, tam ekran. Telefonda parmakla kaydırma ve iki parmakla yakınlaştırma.
+- Boyut: 512×512 kafa BT'de kesit başına ≈70 KB; yarı çözünürlükte ≈15–20 KB. Ücretsiz kota 1 GB'tır; Ayarlar → Görüntü arşivi'nden toplam boyutu görüp kullanılmayan serileri silebilirsiniz.
