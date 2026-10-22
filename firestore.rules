@@ -91,6 +91,58 @@ service cloud.firestore {
       }
     }
 
+    // ---------------- EĞİTİM (Öğren) ----------------
+    // Atlas ve sanal hasta: yönetici tam yetki; soru yazarı kendi onay bekleyen taslaklarını yazar; asistan yalnız yayındakileri okur
+    function eduDraft(d) {
+      return d.status == 'pending' && d.author == myEmail() && d.get('published', false) == false;
+    }
+    function ownDraft() {
+      return resource.data.get('author', '') == myEmail() && resource.data.get('status', '') in ['pending', 'rejected'];
+    }
+    match /atlas/{id} {
+      allow read: if isAdmin() || isAuthor() || (isResident() && resource.data.published == true);
+      allow create: if isAdmin() || (isAuthor() && eduDraft(request.resource.data));
+      allow update: if isAdmin() || (isAuthor() && ownDraft() && eduDraft(request.resource.data));
+      allow delete: if isAdmin() || (isAuthor() && ownDraft());
+    }
+    match /sims/{id} {
+      allow read: if isAdmin() || isAuthor() || (isResident() && resource.data.published == true);
+      allow create: if isAdmin() || (isAuthor() && eduDraft(request.resource.data));
+      allow update: if isAdmin() || (isAuthor() && ownDraft() && eduDraft(request.resource.data));
+      allow delete: if isAdmin() || (isAuthor() && ownDraft());
+    }
+    match /modules/{id} {
+      allow read: if isAdmin() || (isResident() && resource.data.published == true);
+      allow write: if isAdmin();
+    }
+    // Haftanın görüntüsü: yorum yalnız açık dönemde; yorumlar ve cevap, açıklama zamanından sonra herkese açılır
+    function weekOf(wid) { return get(/databases/$(database)/documents/weekly/$(wid)).data; }
+    match /weekly/{wid} {
+      allow read: if isAdmin() || (isResident() && resource.data.published == true);
+      allow write: if isAdmin();
+      match /resp/{uid} {
+        allow read: if isAdmin() || (signedIn() && uid == request.auth.uid)
+          || (isResident() && weekOf(wid).published == true && request.time >= weekOf(wid).revealAt);
+        allow create, update: if isResident() && uid == request.auth.uid
+          && weekOf(wid).published == true
+          && request.time >= weekOf(wid).openAt && request.time < weekOf(wid).revealAt
+          && request.resource.data.keys().hasOnly(['uid', 'email', 'name', 'text', 'at'])
+          && request.resource.data.uid == uid && request.resource.data.email == myEmail()
+          && request.resource.data.text is string && request.resource.data.text.size() <= 3000
+          && request.resource.data.at == request.time;
+        allow delete: if isAdmin();
+      }
+    }
+    match /weeklyKeys/{wid} {
+      allow read: if isAdmin() || (isResident() && weekOf(wid).published == true && request.time >= weekOf(wid).revealAt);
+      allow write: if isAdmin();
+    }
+    // Öğrenme kaydı (atlas, sanal hasta, modül, aralıklı tekrar): asistan kendi belgesini yazar; yönetici okur
+    match /learn/{uid} {
+      allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);
+      allow write: if signedIn() && request.auth.uid == uid && isResident();
+    }
+
     // Sınavlar (cevap anahtarı İÇERMEZ)
     match /exams/{id} {
       allow get: if isAdmin() || (isResident() && resource.data.published == true && assignedTo(resource.data));

@@ -44,6 +44,18 @@ await env.withSecurityRulesDisabled(async c => {
   await setDoc(doc(d, "games/333333/players/u1"), { uid: "u1", name: "A", score: 0 });
   await setDoc(doc(d, "gameKeys/111111"), { key: [0] });
   await setDoc(doc(d, "jeopardy/j1"), { title: "J" });
+  await setDoc(doc(d, "atlas/apub"), { title: "EKG", published: true, findings: [], tasks: [] });
+  await setDoc(doc(d, "atlas/adraft"), { title: "Taslak", published: false });
+  await setDoc(doc(d, "atlas/ay"), { title: "Yazar", status: "pending", author: "yazar@gmail.com", published: false });
+  await setDoc(doc(d, "sims/spub"), { title: "Vaka", published: true, nodes: {} });
+  await setDoc(doc(d, "modules/mpub"), { title: "M", published: true, items: [] });
+  await setDoc(doc(d, "modules/mdraft"), { title: "M2", published: false, items: [] });
+  await setDoc(doc(d, "weekly/wopen"), { title: "W", published: true, openAt: ts(now - H), revealAt: ts(now + H) });
+  await setDoc(doc(d, "weekly/wdone"), { title: "W2", published: true, openAt: ts(now - 3 * H), revealAt: ts(now - H) });
+  await setDoc(doc(d, "weeklyKeys/wopen"), { answer: "gizli" });
+  await setDoc(doc(d, "weeklyKeys/wdone"), { answer: "açık" });
+  await setDoc(doc(d, "weekly/wopen/resp/u2"), { uid: "u2", text: "ali" });
+  await setDoc(doc(d, "weekly/wdone/resp/u2"), { uid: "u2", text: "ali" });
 });
 
 console.log("Sınav erişimi");
@@ -132,6 +144,36 @@ await t("asistan serileri listeleyemez", () => assertFails(getDocs(collection(ay
 await t("yazar başka seriyi değiştiremez", () => assertFails(setDoc(doc(yazar, "dicoms/d1/c/0"), { d: bx, sizes: [3] })));
 await t("listede olmayan seriyi göremez", () => assertFails(getDoc(doc(yabanci, "dicoms/d1"))));
 await t("yönetici arşivi listeler", () => assertSucceeds(getDocs(collection(admin, "dicoms"))));
+
+console.log("Eğitim içeriği");
+const rsp = (uid, email, extra = {}) => ({ uid, email, name: "A", text: "Atriyal fibrilasyon", at: serverTimestamp(), ...extra });
+await t("asistan yayındaki atlas görüntüsünü okur", () => assertSucceeds(getDoc(doc(ayse, "atlas/apub"))));
+await t("asistan taslak atlas görüntüsünü okuyamaz", () => assertFails(getDoc(doc(ayse, "atlas/adraft"))));
+await t("asistan yayındakileri sorgular", () => assertSucceeds(getDocs(query(collection(ayse, "atlas"), where("published", "==", true)))));
+await t("asistan tüm atlası listeleyemez", () => assertFails(getDocs(collection(ayse, "atlas"))));
+await t("asistan atlasa yazamaz", () => assertFails(setDoc(doc(ayse, "atlas/x"), { title: "x", published: true })));
+await t("yazar onay bekleyen atlas taslağı ekler", () => assertSucceeds(setDoc(doc(yazar, "atlas/y2"), { title: "x", status: "pending", author: "yazar@gmail.com", published: false })));
+await t("yazar yayında atlas ekleyemez", () => assertFails(setDoc(doc(yazar, "atlas/y3"), { title: "x", status: "pending", author: "yazar@gmail.com", published: true })));
+await t("yazar kendi taslağını düzenler", () => assertSucceeds(setDoc(doc(yazar, "atlas/ay"), { title: "y2" }, { merge: true })));
+await t("yazar yayındaki görüntüyü değiştiremez", () => assertFails(setDoc(doc(yazar, "atlas/apub"), { title: "z" }, { merge: true })));
+await t("yazar sanal hasta taslağı ekler", () => assertSucceeds(setDoc(doc(yazar, "sims/s2"), { title: "x", status: "pending", author: "yazar@gmail.com", published: false, nodes: {} })));
+await t("asistan yayındaki sanal hastayı okur", () => assertSucceeds(getDoc(doc(ayse, "sims/spub"))));
+await t("asistan yayındaki modülü okur", () => assertSucceeds(getDoc(doc(ayse, "modules/mpub"))));
+await t("asistan taslak modülü okuyamaz", () => assertFails(getDoc(doc(ayse, "modules/mdraft"))));
+await t("yazar modül yazamaz", () => assertFails(setDoc(doc(yazar, "modules/m3"), { title: "x", published: false })));
+await t("yönetici modül yazar", () => assertSucceeds(setDoc(doc(admin, "modules/m3"), { title: "x", published: false })));
+await t("asistan açık haftalık görüntüye yorum yazar", () => assertSucceeds(setDoc(doc(ayse, "weekly/wopen/resp/u1"), rsp("u1", "ayse@gmail.com"))));
+await t("asistan yorumunu günceller", () => assertSucceeds(setDoc(doc(ayse, "weekly/wopen/resp/u1"), rsp("u1", "ayse@gmail.com", { text: "AF, hız kontrolü" }))));
+await t("başkası adına yorum yazamaz", () => assertFails(setDoc(doc(ayse, "weekly/wopen/resp/u2"), rsp("u2", "ayse@gmail.com"))));
+await t("cevap açıklandıktan sonra yorum yazamaz", () => assertFails(setDoc(doc(ayse, "weekly/wdone/resp/u1"), rsp("u1", "ayse@gmail.com"))));
+await t("açıklanmadan başkalarının yorumunu okuyamaz", () => assertFails(getDoc(doc(ayse, "weekly/wopen/resp/u2"))));
+await t("açıklanmadan cevabı okuyamaz", () => assertFails(getDoc(doc(ayse, "weeklyKeys/wopen"))));
+await t("açıklandıktan sonra yorumları okur", () => assertSucceeds(getDocs(collection(ayse, "weekly/wdone/resp"))));
+await t("açıklandıktan sonra cevabı okur", () => assertSucceeds(getDoc(doc(ayse, "weeklyKeys/wdone"))));
+await t("asistan kendi öğrenme kaydını yazar", () => assertSucceeds(setDoc(doc(ayse, "learn/u1"), { email: "ayse@gmail.com", srs: {} })));
+await t("asistan başkasının öğrenme kaydını okuyamaz", () => assertFails(getDoc(doc(ali, "learn/u1"))));
+await t("listede olmayan öğrenme kaydı yazamaz", () => assertFails(setDoc(doc(yabanci, "learn/x1"), { srs: {} })));
+await t("yönetici öğrenme kayıtlarını listeler", () => assertSucceeds(getDocs(collection(admin, "learn"))));
 
 await env.cleanup();
 console.log(`\n${pass} geçti, ${failN} başarısız`);
