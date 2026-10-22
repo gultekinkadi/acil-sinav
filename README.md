@@ -67,3 +67,15 @@ Başka yönetici eklemek isterseniz e-postasını hem `ADMIN_EMAILS` listesine h
 - Hasta adı, kimlik no, doğum tarihi, kurum, tarih gibi DICOM etiketleri tarayıcıda ayıklanır; Firebase'e yalnız piksel değerleri (HU) ve ölçü bilgisi gider. Görüntünün üzerine yazılmış metin (bazı topogram/ekran görüntüleri) temizlenemez.
 - Görüntüleyici: fare tekerleği / kaydırıcı / ok tuşları ile kesit, hazır pencereler (beyin, subdural, inme, kemik, akciğer, mediasten, abdomen, karaciğer), sürükleyerek P/S, yakınlaştırma, taşıma, mm ölçüm, HU okuma, tam ekran. Telefonda parmakla kaydırma ve iki parmakla yakınlaştırma.
 - Boyut: 512×512 kafa BT'de kesit başına ≈70 KB; yarı çözünürlükte ≈15–20 KB. Ücretsiz kota 1 GB'tır; Ayarlar → Görüntü arşivi'nden toplam boyutu görüp kullanılmayan serileri silebilirsiniz.
+
+## Eğitim (Öğren) bölümü
+
+Asistanlar siteye girdiğinde **Öğren** sekmesi açılır (açık bir sınavları varsa **Sınavlarım**). Yönetici içeriği **Eğitim** sekmesinden yönetir.
+
+- **Görüntü atlası:** Görsel veya DICOM yükleyin, bulguları elips / dikdörtgen / serbest çizimle işaretleyip açıklayın, “Her bulgu için” ile bul-tıkla görevleri oluşturun. Asistan *Keşfet*'te bulguları tek tek açar, *Kendini sına*'da bulguyu görüntü üzerinde bulur (3 hak, 2. yanlışta konum ipucu; DICOM'da doğru kesit ±2).
+- **Sanal hasta:** Düğümlerden oluşan dallanan vaka. *Tetkik* seçenekleri aynı ekranda sonuç (metin/görsel/DICOM) gösterir; *Karar* seçenekleri başka düğüme götürür. Her seçeneğin puanı (eksi olabilir), süresi ve geri bildirimi vardır. Bitiş düğümü iyi/kısmen/kötü sonuç ve özet gösterir. Düzenleyici ulaşılamayan düğümleri ve kopuk bağlantıları uyarır.
+- **Modüller:** Okuma, video (YouTube gömülü), atlas görüntüsü, sanal hasta ve alıştırma öğelerinden sıralı içerik. Kıdeme göre zorunlu yapılabilir; atlas ve vaka öğeleri kendiliğinden tamamlanır.
+- **Aralıklı tekrar (Tekrar sekmesi):** Alıştırmada yanlış yapılan sorular ve atlasta ilk denemede bulunamayan bulgular otomatik eklenir; doğru bildikçe 1-3-7-21-60 gün sonra tekrar sorulur.
+- **Haftanın görüntüsü:** Açılış ve cevap zamanı belirlenir; asistanlar yorumunu yazar, cevap zamanında cevap ve tüm yorumlar açılır.
+- **İlerleme paneli:** Asistan bazında zorunlu modül, atlas, sanal hasta, alıştırma, tekrar kartı ve haftalık katılım; konulara göre en zayıf alanlar; Excel'e aktarma.
+- Soru yazarları atlas görüntüsü ve sanal hasta da ekleyebilir; yönetici onayıyla yayınlanır.

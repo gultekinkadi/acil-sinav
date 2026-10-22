@@ -428,6 +428,65 @@ footer.credit svg{width:16px;height:16px}
 .dcm-chip{cursor:pointer;margin:6px 0}
 @media (max-width:640px){ .dcm-t .lb{display:none} .dcm-stage{height:min(50vh,400px)} }
 @media print{ .dcm-bar,.dcm-slider{display:none!important} .dcmv{break-inside:avoid} }
+/* Öğren / eğitim */
+.md p{margin:0 0 8px}.md ul,.md ol{margin:0 0 8px;padding-left:20px}.md h3,.md h4,.md h5{margin:10px 0 6px}.md>:last-child{margin-bottom:0}
+.atl{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:16px;align-items:start}
+.atl-media{min-width:0}.atl-media .dcm-stage{height:min(70vh,640px)}
+.atl-side{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto}
+.anno-wrap{position:relative;display:inline-block;max-width:100%;background:#000;border-radius:10px;overflow:hidden;line-height:0}
+.anno-wrap img{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;user-select:none;-webkit-user-drag:none}
+.anno-wrap canvas{position:absolute;left:0;top:0}
+.anno-load{position:absolute;inset:0;display:grid;place-items:center;color:#ccc;line-height:1.4;min-height:120px}
+.ann-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.acard{display:flex;flex-direction:column;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;overflow:hidden;cursor:pointer;padding:0;color:var(--ink)}
+.acard:hover{border-color:var(--muted)}.acard .ab{padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.ath{width:100%;aspect-ratio:4/3;object-fit:cover;background:#111;display:grid;place-items:center;color:#cfd3d8;font-size:28px}
+.ath span{font-size:12px;display:block}.ath.none{color:var(--muted);background:var(--surface-2)}
+.acard.inline{flex-direction:row;max-width:440px}.acard.inline .ath{width:120px;aspect-ratio:4/3;flex:none}
+.flist{display:flex;flex-direction:column;gap:6px}
+.fnd{border:1px solid var(--line-2);border-radius:9px;padding:8px 10px;cursor:pointer;background:var(--surface)}
+.fnd.on{border-color:#e0b100;background:var(--warn-soft)}.fh{display:flex;gap:8px;align-items:center}.ft{margin-top:6px;font-size:14px}
+.fn{flex:none;width:22px;height:22px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:700}
+.fn.ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}.fn.bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.frow{border:1px solid var(--line-2);border-radius:9px;padding:8px 10px;margin-bottom:8px;background:var(--surface)}.frow.sel{border-color:#38bdf8;box-shadow:0 0 0 2px #38bdf833}
+.pearl{margin-top:12px;padding:10px 12px;border-radius:8px;background:var(--ok-soft);border-left:3px solid var(--ok)}
+.pearl .lbl,.lbl2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:4px}.pearl .lbl{color:var(--ok)}
+.qprompt{font-size:17px;font-weight:600;margin:6px 0}
+.lhub{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.lcard{display:flex;flex-direction:column;gap:2px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:14px;cursor:pointer;color:var(--ink)}
+.lcard:hover{border-color:var(--muted)}.lcard .ic{font-size:20px}.lcard .big{font-size:28px;font-weight:700;letter-spacing:-.02em}.lcard .small{color:var(--muted)}
+.lcard.hot{border-color:var(--accent);background:var(--accent-soft)}.lcard.hot .big{color:var(--accent)}
+.mlist{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.mrow{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--line-2);border-radius:9px;padding:10px 12px;background:var(--surface);cursor:pointer;color:var(--ink)}
+.mrow:hover{border-color:var(--muted)}.mprog{display:flex;align-items:center;gap:8px;min-width:150px}
+.track.wide{flex:1;min-width:90px}
+.mitems{display:flex;flex-direction:column;gap:12px}.mitem.done{opacity:.85}.mitem.done .mnum{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.mnum{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-weight:700;background:var(--surface-2)}
+.mitem-prev{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line-2)}
+.yt{position:relative;aspect-ratio:16/9;max-width:720px;border-radius:10px;overflow:hidden;background:#000}.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.wkcard{border-left:4px solid var(--accent)}
+.wkresp{display:flex;flex-direction:column;gap:8px;margin-top:8px}.wkresp>div{padding:8px 10px;border-radius:8px;background:var(--surface-2)}.wkresp>div.me{border:1px solid var(--accent)}.wkresp .txt{white-space:pre-wrap;margin-top:2px}
+.simgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.simcard{display:flex;flex-direction:column;gap:4px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:14px;cursor:pointer;color:var(--ink);min-height:150px}
+.simcard:hover{border-color:var(--muted)}
+.sim{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:16px;align-items:start}.sim-side{position:sticky;top:76px}
+.vitals{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}.vitals span{font:600 13px "IBM Plex Mono",monospace;padding:3px 8px;border-radius:6px;background:var(--surface-2);border:1px solid var(--line-2)}
+.simopts{display:flex;flex-direction:column;gap:6px}
+.simopt{display:flex;justify-content:space-between;gap:8px;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:9px;padding:9px 12px;cursor:pointer;color:var(--ink);font-weight:500}
+.simopt:hover:not([disabled]){border-color:var(--accent)}.simopt.act{border-color:var(--line)}.simopt.act:hover{background:var(--accent-soft)}
+.simopt.done{opacity:.55;cursor:default}.simopt.test::before{content:"🔎";margin-right:2px}.simopt.act::before{content:"➜";margin-right:2px;color:var(--accent)}
+.simres{border-left:3px solid var(--info);background:var(--info-soft);padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:8px}.simres .lbl{font-weight:700;margin-bottom:4px}
+.simnode{margin-bottom:12px;border-left:4px solid var(--info)}.simnode.end{border-left-color:var(--ok)}
+.nid{flex:none;min-width:28px;height:28px;border-radius:8px;background:var(--info-soft);color:var(--info);display:grid;place-items:center;font-weight:700}
+.simoptedit{border:1px solid var(--line-2);border-radius:9px;padding:8px;margin-bottom:6px;background:var(--surface-2)}.simoptedit.act{border-left:3px solid var(--accent)}.simoptedit.test{border-left:3px solid var(--info)}
+.mm{display:inline-flex;gap:6px;flex-wrap:wrap;align-items:center}.mm a{color:inherit;text-decoration:none;margin-left:4px}
+.ok-t{color:var(--ok);font-weight:600}
+.simopt>span:first-child{flex:1;text-align:left}.wkcard .q-img{max-height:340px}
+.srsdays{display:flex;gap:8px;align-items:flex-end;height:150px}.srsdays>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%}
+.srsdays .bar{flex:1;width:100%;max-width:38px;background:var(--surface-2);border-radius:6px;display:flex;align-items:flex-end;overflow:hidden}.srsdays .bar span{display:block;width:100%;background:var(--accent);border-radius:6px 6px 0 0}
+.srslvl{display:inline-flex;gap:3px}.srslvl i{width:10px;height:10px;border-radius:3px;background:var(--line)}.srslvl i.on{background:var(--ok)}
+@media (max-width:860px){ .atl,.sim{grid-template-columns:1fr} .atl-side,.sim-side{position:static;max-height:none} }
 </style>
 </head>
 <body>
@@ -672,29 +731,30 @@ async function sliceArr(Sr,i){ let a=Sr.dec.get(i); if(a) return a; a=decDelta(a
 const DCM_IC={wl:`<svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg>`,inv:`<svg viewBox="0 0 16 16" width="14" height="14"><rect x="1.5" y="1.5" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 14.5L14.5 1.5V14.5z" fill="currentColor"/></svg>`};
 const DCM_PRESETS_CT=[["Beyin",80,40],["Subdural",200,75],["İnme",40,40],["Kemik",2000,500],["Akciğer",1500,-600],["Mediasten",350,50],["Abdomen",400,50],["Karaciğer",150,60]];
 class DcmViewer{
-  constructor(host,id,opt={}){ this.host=host; this.id=id; this.full=!!opt.full; this.i=opt.i??null; this.W=opt.W??null; this.L=opt.L??null; this.tool="slice"; this.zoom=1; this.px=0; this.py=0; this.invert=false; this.meas=null; this.ptrs=new Map(); this.raf=0;
+  constructor(host,id,opt={}){ this.host=host; this.id=id; this.full=!!opt.full; this.anno=opt.anno||null; this.onSlice=opt.onSlice||null; this.onLoad=opt.onLoad||null; this.i=opt.i??null; this.W=opt.W??null; this.L=opt.L??null; this.tool="slice"; this.zoom=1; this.px=0; this.py=0; this.invert=false; this.meas=null; this.ptrs=new Map(); this.raf=0;
     host.innerHTML=`<div class="dcmv ${this.full?"full":""}" tabindex="0">
-      <div class="dcm-bar">${[["slice","Kesit","↕"],["wl","P/S",DCM_IC.wl],["zoom","Büyüt","🔍"],["pan","Taşı","✥"],["meas","Ölç","📏"]].map(([k,l,ic])=>`<button type="button" class="dcm-t ${k==="slice"?"on":""}" data-tool="${k}" title="${l}"><span class="ic">${ic}</span><span class="lb">${l}</span></button>`).join("")}
+      <div class="dcm-bar">${[...(this.anno?[["ann",opt.annoLabel||"İşaretle","✚"]]:[]),["slice","Kesit","↕"],["wl","P/S",DCM_IC.wl],["zoom","Büyüt","🔍"],["pan","Taşı","✥"],["meas","Ölç","📏"]].map(([k,l,ic])=>`<button type="button" class="dcm-t ${k==="slice"?"on":""}" data-tool="${k}" title="${l}"><span class="ic">${ic}</span><span class="lb">${l}</span></button>`).join("")}
         <select class="dcm-pre" title="Pencere ayarı"></select><button type="button" class="dcm-t" data-act="inv" title="Ters çevir">${DCM_IC.inv}<span class="lb">Ters</span></button><button type="button" class="dcm-t" data-act="reset" title="Sıfırla"><span class="ic">↺</span></button>
-        <button type="button" class="dcm-t" data-act="${this.full?"close":"full"}" title="${this.full?"Kapat":"Tam ekran"}"><span class="ic">${this.full?"✕":"⤢"}</span><span class="lb">${this.full?"Kapat":"Tam ekran"}</span></button></div>
+        <button type="button" class="dcm-t ${this.anno?"hidden":""}" data-act="${this.full?"close":"full"}" title="${this.full?"Kapat":"Tam ekran"}"><span class="ic">${this.full?"✕":"⤢"}</span><span class="lb">${this.full?"Kapat":"Tam ekran"}</span></button></div>
       <div class="dcm-stage"><canvas></canvas><div class="dcm-ov tl"></div><div class="dcm-ov tr"></div><div class="dcm-ov bl"></div><div class="dcm-load">Görüntü yükleniyor…</div></div>
       <input type="range" class="dcm-slider" min="0" max="0" value="0" aria-label="Kesit"></div>`;
     this.el=host.firstElementChild; this.cv=this.el.querySelector("canvas"); this.stage=this.el.querySelector(".dcm-stage");
     this.off=document.createElement("canvas");
-    this.bind();
+    if(this.anno) this.anno.redraw=()=>this.draw();
+    this.bind(); if(opt.tool) this.setTool(opt.tool);
     loadDicom(id,(d,n)=>{ const l=this.el.querySelector(".dcm-load"); if(l) l.textContent=`Görüntü yükleniyor… %${Math.round(d/n*100)}`; })
       .then(Sr=>{ this.S=Sr; const m=Sr.meta; this.ct=/CT/i.test(m.mod);
         if(this.i==null) this.i=Math.floor(m.n/2); if(this.W==null){ this.W=m.ww||(this.ct?80:null); this.L=m.wc||(this.ct?40:null); }
         this.invert=!!m.inv; this.el.querySelector(".dcm-load").remove();
         const sl=this.el.querySelector(".dcm-slider"); sl.max=m.n-1; sl.value=this.i;
         this.el.querySelector(".dcm-pre").innerHTML=`<option value="orig">Orijinal</option>${this.ct?DCM_PRESETS_CT.map(([n,w,l])=>`<option value="${w},${l}">${n} (${w}/${l})</option>`).join(""):`<option value="auto">Otomatik</option>`}<option value="" disabled hidden selected>Pencere</option>`;
-        this.draw(); })
+        this.draw(); this.onLoad&&this.onLoad(this); })
       .catch(e=>{ const l=this.el.querySelector(".dcm-load"); if(l){ l.textContent=e.message||"Görüntü yüklenemedi"; l.classList.add("err"); } });
     this.ro=new ResizeObserver(()=>{ if(!this.el.isConnected){ this.ro.disconnect(); return; } this.draw(); }); this.ro.observe(this.stage);
   }
   bind(){
     const el=this.el, cv=this.cv;
-    el.querySelectorAll("[data-tool]").forEach(b=>b.onclick=()=>{ this.tool=b.dataset.tool; el.querySelectorAll("[data-tool]").forEach(x=>x.classList.toggle("on",x===b)); });
+    el.querySelectorAll("[data-tool]").forEach(b=>b.onclick=()=>this.setTool(b.dataset.tool));
     el.querySelector("[data-act=inv]").onclick=()=>{ this.invert=!this.invert; this.draw(); };
     el.querySelector("[data-act=reset]").onclick=()=>{ const m=this.S?.meta; this.zoom=1; this.px=this.py=0; this.meas=null; this.invert=!!m?.inv; this.W=m?.ww||(this.ct?80:null); this.L=m?.wc||(this.ct?40:null); this.draw(); };
     const fa=el.querySelector("[data-act=full]"); if(fa) fa.onclick=()=>openDicomFull(this.id,{i:this.i,W:this.W,L:this.L});
@@ -706,6 +766,7 @@ class DcmViewer{
     cv.addEventListener("pointerdown",e=>{ if(!this.S) return; cv.setPointerCapture(e.pointerId); this.ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY}); this.el.focus({preventScroll:true});
       this.drag={x:e.clientX,y:e.clientY,W:this.W,L:this.L,i:this.i,px:this.px,py:this.py,zoom:this.zoom,acc:0};
       if(this.tool==="meas"&&this.ptrs.size===1){ const p=this.toImg(e); this.meas={a:p,b:p}; }
+      if(this.tool==="ann"&&this.anno&&this.ptrs.size===1){ this.anno.down(this.toNorm(e),this.i); this.draw(); }
       if(this.ptrs.size===2){ const [a,b]=[...this.ptrs.values()]; this.pinch={d:Math.hypot(a.x-b.x,a.y-b.y),zoom:this.zoom}; } });
     cv.addEventListener("pointermove",e=>{ if(!this.S) return; this.readout(e);
       if(!this.ptrs.has(e.pointerId)) return; this.ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
@@ -715,13 +776,16 @@ class DcmViewer{
       else if(this.tool==="wl"){ const base=d.W||this.autoW||400, s=Math.max(1,base/300); this.W=Math.max(1,base+dx*s); this.L=(d.L??this.autoL??0)+dy*s; this.draw(); }
       else if(this.tool==="zoom"){ this.zoom=Math.max(0.5,Math.min(10,d.zoom*Math.exp(-dy*0.01))); this.draw(); }
       else if(this.tool==="pan"){ this.px=d.px+dx; this.py=d.py+dy; this.draw(); }
-      else if(this.tool==="meas"&&this.meas){ this.meas.b=this.toImg(e); this.draw(); } });
-    const up=e=>{ this.ptrs.delete(e.pointerId); if(this.ptrs.size<2) this.pinch=null; };
+      else if(this.tool==="meas"&&this.meas){ this.meas.b=this.toImg(e); this.draw(); }
+      else if(this.tool==="ann"&&this.anno?.draft){ this.anno.move(this.toNorm(e)); this.draw(); } });
+    const up=e=>{ this.ptrs.delete(e.pointerId); if(this.ptrs.size<2) this.pinch=null; if(this.tool==="ann"&&this.anno?.draft){ this.anno.up(this.i); this.draw(); } };
     cv.addEventListener("pointerup",up); cv.addEventListener("pointercancel",up);
     cv.addEventListener("pointerleave",()=>{ const tr=this.el.querySelector(".dcm-ov.tr"); if(tr) tr.textContent=""; });
   }
+  setTool(k){ this.tool=k; this.el.querySelectorAll("[data-tool]").forEach(x=>x.classList.toggle("on",x.dataset.tool===k)); this.cv.style.cursor=k==="ann"?"crosshair":""; }
+  toNorm(e){ const p=this.toImg(e), m=this.S.meta; return {x:p.x/m.cols,y:p.y/m.rows}; }
   zoomAt(e,f){ this.zoom=Math.max(0.5,Math.min(10,this.zoom*f)); this.draw(); }
-  setSlice(i){ if(!this.S) return; i=Math.max(0,Math.min(this.S.meta.n-1,i)); if(i===this.i) return; this.i=i; this.el.querySelector(".dcm-slider").value=i; this.draw(); }
+  setSlice(i){ if(!this.S) return; i=Math.max(0,Math.min(this.S.meta.n-1,i)); if(i===this.i) return; this.i=i; this.el.querySelector(".dcm-slider").value=i; this.draw(); this.onSlice&&this.onSlice(i); }
   geom(){ const m=this.S.meta, r=this.stage.getBoundingClientRect(), asp=(m.sp?.[0]||1)/(m.sp?.[1]||1);
     const base=Math.min(r.width/m.cols, r.height/(m.rows*asp)), sc=base*this.zoom, w=m.cols*sc, h=m.rows*asp*sc;
     return {r,sc,asp,ox:(r.width-w)/2+this.px,oy:(r.height-h)/2+this.py,w,h}; }
@@ -746,6 +810,7 @@ class DcmViewer{
       c.strokeStyle="#ffd34d"; c.lineWidth=2; c.beginPath(); c.moveTo(A.x,A.y); c.lineTo(B.x,B.y); c.stroke();
       [A,B].forEach(P=>{ c.beginPath(); c.arc(P.x,P.y,3,0,7); c.fillStyle="#ffd34d"; c.fill(); });
       if(mm>0.5){ c.font="600 13px IBM Plex Sans, sans-serif"; const t=(mm>=10?mm.toFixed(1):mm.toFixed(2))+" mm"; c.fillStyle="#000a"; c.fillRect(B.x+6,B.y-9,c.measureText(t).width+8,18); c.fillStyle="#ffd34d"; c.fillText(t,B.x+10,B.y+5); } }
+    if(this.anno) this.anno.draw(c,{x:v=>g.ox+v*m.cols*g.sc,y:v=>g.oy+v*m.rows*g.sc*g.asp},i);
     this.el.querySelector(".dcm-ov.tl").innerHTML=`Kesit ${i+1} / ${m.n}<br>P ${Math.round(W)} · S ${Math.round(L)}${this.zoom!==1?`<br>×${this.zoom.toFixed(1)}`:""}`;
     this.el.querySelector(".dcm-ov.bl").textContent=`${esc(m.title||"")}${m.gap?` · ${m.gap} mm aralık`:""}`;
   }
@@ -825,11 +890,19 @@ onAuthStateChanged(auth, async u=>{
   if(!S.isAdmin){ try{ const r=await getDoc(doc(db,"meta","roles")); S.isAuthor=r.exists()&&(r.data().authors||[]).map(x=>String(x).toLowerCase()).includes(S.email); }catch(e){} }
   if(S.deepGame){ const id=S.deepGame; S.deepGame=null; S.mode=S.isAdmin?"admin":S.resident?"resident":S.isAuthor?"author":"player"; return go(S.isAdmin?"liveHost":"livePlay",{id}); }
   if(S.isAdmin){ S.mode="admin"; if(S.deep){ const id=S.deep; S.deep=null; go("results",{id}); } else go("exams"); }
-  else if(S.resident){ S.mode="resident"; go("home"); }
+  else if(S.resident){ S.mode="resident"; go(S.deep||await hasOpenExam()?"home":"learn"); }
   else if(S.isAuthor){ S.mode="author"; go("bank"); }
   else renderNoAccess();
 });
 
+// Asistanın şu an girebileceği / devam eden bir sınavı var mı? (varsa Sınavlarım ile açılır)
+async function hasOpenExam(){
+  try{ const ix=await getDoc(doc(db,"meta","examIndex")); const ids=ix.exists()?(ix.data().ids||[]):[]; const now=Date.now();
+    const r=await Promise.all(ids.slice(-30).map(async id=>{ try{ const e=await getDoc(doc(db,"exams",id)); if(!e.exists()) return false; const x={id,...e.data()};
+      if(!x.published||!isAssigned(x,S.email)||now<(tsMs(x.startAt)||0)) return false;
+      const a=await getDoc(doc(db,"attempts",id+"_"+S.user.uid)); if(!a.exists()) return now<=personalEnd(x,S.email);
+      const at=a.data(); return at.status==="started"&&!isFinished(x,at); }catch(e){ return false; } }));
+    return r.some(Boolean); }catch(e){ return false; } }
 function renderLogin(){
   $app.innerHTML=`<div class="center"><div class="card login">
     <div class="mark">AT</div><h1>${esc(SITE_TITLE)}</h1><div class="sub">${esc(SITE_SUB)}</div>
@@ -865,13 +938,13 @@ function shell(content, tabs){
   </div></header><main>${content}</main>${credit()}`;
 }
 function adminTabs(){
-  const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["games","Oyunlar"],["residents","Asistanlar"],["settings","Ayarlar"]];
-  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents",liveHost:"games",jEdit:"games",jPlay:"games"}[S.view]||S.view;
+  const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["edu","Eğitim"],["games","Oyunlar"],["residents","Asistanlar"],["settings","Ayarlar"]];
+  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents",liveHost:"games",jEdit:"games",jPlay:"games",atlasEdit:"edu",atlasView:"edu",simEdit:"edu",simPlay:"edu"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join("");
 }
 function bindShell(){
   document.getElementById("logout")?.addEventListener("click",()=>signOut(auth));
-  document.getElementById("sw")?.addEventListener("click",e=>{ S.mode=e.currentTarget.dataset.to; go({admin:"exams",author:"bank",resident:"home"}[S.mode]); });
+  document.getElementById("sw")?.addEventListener("click",e=>{ S.mode=e.currentTarget.dataset.to; go({admin:"exams",author:"bank",resident:"learn"}[S.mode]); });
   document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>go(b.dataset.tab));
 }
 async function render(){
@@ -880,6 +953,11 @@ async function render(){
     if(v==="livePlay") return await viewLivePlay(S.params.id);
     if(S.mode==="player") return viewLiveJoin();
     if(S.mode==="admin"){
+      if(v==="edu") return await viewEdu(S.params.sec);
+      if(v==="atlasEdit") return await viewAtlasEdit(S.params.id);
+      if(v==="atlasView") return await viewAtlasItem(S.params.id,S.params.back);
+      if(v==="simEdit") return await viewSimEdit(S.params.id);
+      if(v==="simPlay") return await viewSimPlay(S.params.id,S.params.back);
       if(v==="games") return await viewGames();
       if(v==="liveHost") return await viewLiveHost(S.params.id);
       if(v==="jEdit") return await viewJEdit(S.params.id);
@@ -893,8 +971,21 @@ async function render(){
       if(v==="residents") return await viewResidents();
       if(v==="settings") return await viewSettings();
     } else if(S.mode==="author"){
+      if(v==="edu") return await viewEdu(S.params.sec);
+      if(v==="atlasEdit") return await viewAtlasEdit(S.params.id);
+      if(v==="atlasView") return await viewAtlasItem(S.params.id,S.params.back);
+      if(v==="simEdit") return await viewSimEdit(S.params.id);
+      if(v==="simPlay") return await viewSimPlay(S.params.id,S.params.back);
       return await viewBank();
     } else {
+      if(v==="learn") return await viewLearn();
+      if(v==="srs") return await viewSrs();
+      if(v==="atlas") return await viewAtlasList();
+      if(v==="atlasView") return await viewAtlasItem(S.params.id,S.params.back);
+      if(v==="sims") return await viewSimList();
+      if(v==="simPlay") return await viewSimPlay(S.params.id,S.params.back);
+      if(v==="module") return await viewModule(S.params.id);
+      if(v==="weekly") return await viewWeekly(S.params.id);
       if(v==="practice") return await viewPractice();
       if(v==="live") return viewLiveJoin();
       if(v==="home") return await viewHome();
@@ -903,7 +994,7 @@ async function render(){
     }
   }catch(e){ fail(e,"Sayfa yüklenemedi"); }
 }
-function tabsFor(){ return S.mode==="admin"?adminTabs():S.mode==="author"?`<button data-tab="bank" class="on">Soru Bankası</button>`:S.mode==="player"?`<button data-tab="join" class="on">Yarışmaya katıl</button>`:residentTabs(); }
+function tabsFor(){ return S.mode==="admin"?adminTabs():S.mode==="author"?`<button data-tab="bank" class="${S.view==="bank"?"on":""}">Soru Bankası</button><button data-tab="edu" class="${S.view!=="bank"?"on":""}">Eğitim</button>`:S.mode==="player"?`<button data-tab="join" class="on">Yarışmaya katıl</button>`:residentTabs(); }
 function paint(content, tabs){ $app.innerHTML=shell(content, tabs || tabsFor()); bindShell(); hydrateImages($app); mountCharts(); }
 
 /* ---------------- veri yükleme (yönetici) ---------------- */
@@ -2090,10 +2181,10 @@ function imageField(cur,dcm){
 }
 function bindImageField(root, state){
   root.querySelector("#imgIn").onchange=async e=>{ const f=e.target.files[0]; if(!f) return;
-    try{ state.newImg=await compressImage(f); state.imageId=null; root.querySelector("#imgPrev").innerHTML=`<img class="q-img thumb" src="${state.newImg}">`; root.querySelector("#imgDel").classList.remove("hidden"); }
+    try{ state.newImg=await compressImage(f); state.imageId=null; root.querySelector("#imgPrev").innerHTML=`<img class="q-img thumb" src="${state.newImg}">`; root.querySelector("#imgDel").classList.remove("hidden"); state.onChange&&state.onChange(); }
     catch(err){ fail(err,"Görsel işlenemedi"); } };
-  root.querySelector("#imgDel").onclick=()=>{ state.newImg=null; state.imageId=null; root.querySelector("#imgPrev").innerHTML=""; root.querySelector("#imgDel").classList.add("hidden"); };
-  const setD=id=>{ state.dicomId=id||null; root.querySelector("#dcmPrev").innerHTML=id?dcmTag(id,true):""; root.querySelector("#dcmDel").classList.toggle("hidden",!id); hydrateDicom(root); };
+  root.querySelector("#imgDel").onclick=()=>{ state.newImg=null; state.imageId=null; root.querySelector("#imgPrev").innerHTML=""; root.querySelector("#imgDel").classList.add("hidden"); state.onChange&&state.onChange(); };
+  const setD=id=>{ state.dicomId=id||null; root.querySelector("#dcmPrev").innerHTML=id?dcmTag(id,true):""; root.querySelector("#dcmDel").classList.toggle("hidden",!id); hydrateDicom(root); state.onChange&&state.onChange(); };
   root.querySelector("#dcmUp").onclick=()=>dicomUploadDlg(id=>setD(id));
   root.querySelector("#dcmPick").onclick=()=>dicomPickDlg(id=>setD(id));
   root.querySelector("#dcmDel").onclick=()=>setD(null);
@@ -2293,7 +2384,7 @@ async function viewResidents(){
    ASİSTAN — ANA SAYFA
    ===================================================================== */
 const myDevice=()=>{ let d=lsGet("acilDevice"); if(!d){ d="d"+newId(); lsSet("acilDevice",d); } return d; };
-function residentTabs(){ const t=[["home","Sınavlarım"],["practice","Alıştırma"],["live","Yarışma"]]; const cur={take:"home",review:"home",livePlay:"live"}[S.view]||S.view;
+function residentTabs(){ const t=[["learn","Öğren"],["srs","Tekrar"],["practice","Alıştırma"],["home","Sınavlarım"],["live","Yarışma"]]; const cur={take:"home",review:"home",livePlay:"live",atlas:"learn",atlasView:"learn",sims:"learn",simPlay:"learn",module:"learn",weekly:"learn"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join(""); }
 async function viewHome(){
   paint(`<div class="spinner"></div>`,residentTabs());
@@ -2584,7 +2675,7 @@ async function viewPractice(){
   const [qs,cs,ps]=await Promise.all([
     getDocs(query(collection(db,"questions"),where("practice","==",true))).catch(e=>{ console.error(e); return {docs:[]}; }),
     getDocs(query(collection(db,"cases"),where("practice","==",true))).catch(()=>({docs:[]})),
-    getDoc(doc(db,"practice",uid)).catch(()=>null)]);
+    getDoc(doc(db,"practice",uid)).catch(()=>null),loadLearn()]);
   const Q=qs.docs.map(d=>({id:d.id,...d.data()})).filter(q=>!q.status||q.status==="approved");
   const C={}; cs.docs.forEach(d=>C[d.id]={id:d.id,...d.data()});
   const P=ps?.exists?.()?{...(ps.data().q||{})}:{};
@@ -2623,7 +2714,8 @@ async function viewPractice(){
 let _prSave;
 function savePractice(){ clearTimeout(_prSave); _prSave=setTimeout(()=>{ if(!PR) return;
   setDoc(doc(db,"practice",PR.uid),{email:S.email,name:S.resident?.name||S.user.displayName||"",q:PR.P,updatedAt:serverTimestamp()}).catch(e=>console.error(e)); },800); }
-function recordPractice(qid,ok){ const p=PR.P[qid]||{c:0,w:0}; if(ok) p.c=(p.c||0)+1; else p.w=(p.w||0)+1; p.last=ok?1:0; p.t=Date.now(); PR.P[qid]=p; savePractice(); }
+function recordPractice(qid,ok){ const p=PR.P[qid]||{c:0,w:0}; if(ok) p.c=(p.c||0)+1; else p.w=(p.w||0)+1; p.last=ok?1:0; p.t=Date.now(); PR.P[qid]=p; savePractice();
+  if(!ok) srsAdd("q:"+qid,{topic:(PR.Q.find(x=>x.id===qid)||{}).topic||""}); }
 function startPractice(list){
   const ses={list,i:0,res:[]};
   const drawQ2=()=>{
@@ -2640,7 +2732,8 @@ function startPractice(list){
     document.getElementById("pEnd").onclick=()=>endPractice(ses);
     const next=()=>{ ses.i++; drawQ2(); window.scrollTo({top:0,behavior:"smooth"}); };
     const fb=(ok,html)=>{ document.getElementById("pfb").innerHTML=`<div class="pfb ${ok==null?"":ok?"ok":"bad"}">${ok==null?"":ok?"<b>Doğru!</b>":"<b>Yanlış.</b>"} ${html}</div>
-      <div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn primary" id="pNx">${ses.i<ses.list.length-1?"Sonraki →":"Sonuçları gör"}</button></div>`; document.getElementById("pNx").onclick=next; document.getElementById("pNx").focus(); };
+      <div class="row" style="justify-content:flex-end;margin-top:12px">${canLearn()?(ok?`<button class="btn sm ghost" id="pSrs" style="margin-right:auto">↻ Tekrar listeme ekle</button>`:`<span class="small muted" style="margin-right:auto">↻ Tekrar listenize eklendi</span>`):""}<button class="btn primary" id="pNx">${ses.i<ses.list.length-1?"Sonraki →":"Sonuçları gör"}</button></div>`; document.getElementById("pNx").onclick=next; document.getElementById("pNx").focus();
+      document.getElementById("pSrs")?.addEventListener("click",e=>{ srsAdd("q:"+q.id,{topic:q.topic||""}); e.target.outerHTML=`<span class="small muted" style="margin-right:auto">↻ Eklendi</span>`; }); };
     $app.querySelectorAll("#pq [data-o]").forEach(b=>b.onclick=()=>{
       if(ses.res[ses.i]) return; const a=Number(b.dataset.o), ok=a===q.correct;
       $app.querySelectorAll("#pq [data-o]").forEach(x=>{ const o=Number(x.dataset.o); x.classList.add("static"); if(o===q.correct) x.classList.add("right"); else if(o===a) x.classList.add("wrong"); });
@@ -2664,6 +2757,863 @@ function endPractice(ses){
     <div class="row">${wrong.length?`<button class="btn primary" id="pRe">Yanlışları tekrar çöz (${wrong.length})</button>`:""}<button class="btn" id="pNew">Yeni alıştırma</button></div>`,residentTabs());
   document.getElementById("pRe")?.addEventListener("click",()=>startPractice(shuffle(wrong)));
   document.getElementById("pNew").onclick=()=>viewPractice();
+}
+
+/* =====================================================================
+   EĞİTİM (ÖĞREN) — ortak altyapı
+   atlas/{id}, sims/{id}, modules/{id}, weekly/{id} (+ resp/{uid}), weeklyKeys/{id}, learn/{uid}
+   ===================================================================== */
+const $id=id=>document.getElementById(id);
+const DAY_MS=864e5;
+const ATLAS_CATS=["EKG","Akciğer grafisi","Direkt grafi","BT","MR","USG","Klinik fotoğraf","Diğer"];
+// Basit ve güvenli biçimlendirme: **kalın**, *italik*, # başlık, - liste, [metin](https://...)
+function md(src){
+  const inl=t=>t.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(^|[^*\w])\*(?!\s)([^*]+?)\*(?!\w)/g,"$1<i>$2</i>")
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+  const out=[]; let list=null, para=[];
+  const flush=()=>{ if(para.length){ out.push(`<p>${inl(para.join("<br>"))}</p>`); para=[]; } if(list){ out.push(`<${list.t}>${list.items.map(i=>`<li>${inl(i)}</li>`).join("")}</${list.t}>`); list=null; } };
+  for(const raw of esc(src||"").split(/\r?\n/)){ const l=raw.trimEnd();
+    let m;
+    if(!l.trim()){ flush(); continue; }
+    if((m=l.match(/^(#{1,3})\s+(.*)$/))){ flush(); out.push(`<h${m[1].length+2}>${inl(m[2])}</h${m[1].length+2}>`); continue; }
+    if((m=l.match(/^\s*[-•]\s+(.*)$/))){ if(para.length||(list&&list.t!=="ul")) flush(); if(!list) list={t:"ul",items:[]}; list.items.push(m[1]); continue; }
+    if((m=l.match(/^\s*\d+[.)]\s+(.*)$/))){ if(para.length||(list&&list.t!=="ol")) flush(); if(!list) list={t:"ol",items:[]}; list.items.push(m[1]); continue; }
+    if(list) flush(); para.push(l); }
+  flush(); return `<div class="md">${out.join("")}</div>`;
+}
+function ytId(u){ const m=String(u||"").match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/); return m?m[1]:null; }
+
+/* ---- görüntü üzerinde işaretleme katmanı (koordinatlar 0–1 arası) ---- */
+const r4=v=>Math.round(v*1e4)/1e4;
+function shapeHit(f,p){
+  if(f.shape==="rect") return p.x>=f.x&&p.x<=f.x+f.w&&p.y>=f.y&&p.y<=f.y+f.h;
+  if(f.shape==="ellipse"){ const rx=f.w/2, ry=f.h/2; if(rx<=0||ry<=0) return false; return ((p.x-f.x-rx)/rx)**2+((p.y-f.y-ry)/ry)**2<=1; }
+  if(f.shape==="poly"){ const P=f.pts||[]; let ins=false; for(let i=0,j=P.length-1;i<P.length;j=i++){ const a=P[i], b=P[j]; if(((a.y>p.y)!==(b.y>p.y))&&(p.x<(b.x-a.x)*(p.y-a.y)/((b.y-a.y)||1e-9)+a.x)) ins=!ins; } return ins; }
+  return false;
+}
+const sliceOk=(f,z)=>z==null||f.z==null||Math.abs(z-f.z)<=(f.zr??2);
+function shapePath(c,f,T){ c.beginPath();
+  if(f.shape==="rect") c.rect(T.x(f.x),T.y(f.y),T.x(f.x+f.w)-T.x(f.x),T.y(f.y+f.h)-T.y(f.y));
+  else if(f.shape==="ellipse") c.ellipse(T.x(f.x+f.w/2),T.y(f.y+f.h/2),Math.max(1,Math.abs(T.x(f.x+f.w)-T.x(f.x))/2),Math.max(1,Math.abs(T.y(f.y+f.h)-T.y(f.y))/2),0,0,Math.PI*2);
+  else if(f.pts?.length){ f.pts.forEach((q,i)=>i?c.lineTo(T.x(q.x),T.y(q.y)):c.moveTo(T.x(q.x),T.y(q.y))); c.closePath(); } }
+class Anno{
+  constructor(o={}){ Object.assign(this,{shapes:[],mode:"view",tool:"ellipse",show:null,labels:true,marks:[],sel:null,onCreate:null,onPick:null,redraw:()=>{}},o); this.draft=null; }
+  visible(z){ return this.shapes.filter(f=>(!this.show||this.show(f))&&sliceOk(f,z)); }
+  draw(c,T,z){
+    c.save(); c.lineJoin="round";
+    this.visible(z).forEach(f=>{ const n=this.shapes.indexOf(f)+1, col=f.id===this.sel?"#38bdf8":(f.color||"#ffd34d");
+      shapePath(c,f,T); c.fillStyle=col+"26"; c.fill(); c.lineWidth=2.5; c.strokeStyle="#000a"; c.stroke(); c.lineWidth=1.8; c.strokeStyle=col; c.stroke();
+      const bx=T.x(f.x), by=T.y(f.y); c.font="600 12px IBM Plex Sans, sans-serif";
+      const t=this.labels&&f.label?`${n}. ${f.label}`:String(n), w=c.measureText(t).width+10, ty=Math.max(0,by-20);
+      c.fillStyle="#000c"; c.fillRect(bx,ty,w,18); c.fillStyle=col; c.fillText(t,bx+5,ty+13); });
+    if(this.draft){ shapePath(c,this.draft,T); c.setLineDash([5,4]); c.lineWidth=2; c.strokeStyle="#38bdf8"; c.stroke(); c.setLineDash([]); }
+    this.marks.filter(m=>m.z==null||z==null||m.z===z).forEach(m=>{ const x=T.x(m.x), y=T.y(m.y), col=m.ok?"#22c55e":"#ef4444";
+      c.lineWidth=3; c.strokeStyle="#000b"; c.beginPath(); c.arc(x,y,9,0,7); c.stroke(); c.lineWidth=2; c.strokeStyle=col; c.beginPath(); c.arc(x,y,9,0,7); c.moveTo(x-14,y); c.lineTo(x+14,y); c.moveTo(x,y-14); c.lineTo(x,y+14); c.stroke(); });
+    c.restore();
+  }
+  down(p,z){
+    if(this.mode==="pick"){ this.onPick&&this.onPick(p,z); return; }
+    if(this.mode!=="edit") return;
+    this.draft=this.tool==="poly"?{shape:"poly",pts:[p]}:{shape:this.tool,x0:p.x,y0:p.y,x:p.x,y:p.y,w:0,h:0};
+  }
+  move(p){ const d=this.draft; if(!d) return;
+    if(d.shape==="poly"){ const l=d.pts[d.pts.length-1]; if(Math.hypot(p.x-l.x,p.y-l.y)>0.006) d.pts.push(p); }
+    else { d.x=Math.min(d.x0,p.x); d.y=Math.min(d.y0,p.y); d.w=Math.abs(p.x-d.x0); d.h=Math.abs(p.y-d.y0); } }
+  up(z){ const d=this.draft; this.draft=null; if(!d) return;
+    let f;
+    if(d.shape==="poly"){ if(d.pts.length<3) return; const xs=d.pts.map(q=>q.x), ys=d.pts.map(q=>q.y);
+      f={shape:"poly",pts:d.pts.map(q=>({x:r4(q.x),y:r4(q.y)})),x:r4(Math.min(...xs)),y:r4(Math.min(...ys)),w:r4(Math.max(...xs)-Math.min(...xs)),h:r4(Math.max(...ys)-Math.min(...ys))}; }
+    else f={shape:d.shape,x:r4(d.x),y:r4(d.y),w:r4(d.w),h:r4(d.h)};
+    if(f.w<0.012&&f.h<0.012) return;
+    this.onCreate&&this.onCreate(f,z); this.redraw(); }
+}
+// Görsel + işaret katmanı
+class ImgAnno{
+  constructor(host,{imageId,src,anno}){ this.anno=anno; anno.redraw=()=>this.draw();
+    host.innerHTML=`<div class="anno-wrap"><img alt=""><canvas></canvas><div class="anno-load">Görsel yükleniyor…</div></div>`;
+    this.wrap=host.firstElementChild; this.img=this.wrap.querySelector("img"); this.cv=this.wrap.querySelector("canvas");
+    const set=u=>{ const l=this.wrap.querySelector(".anno-load"); if(!u){ if(l) l.textContent="Görsel bulunamadı"; return; } this.img.onload=()=>{ l?.remove(); this.draw(); }; this.img.src=u; };
+    if(src) set(src); else getImg(imageId).then(set);
+    const P=e=>{ const r=this.cv.getBoundingClientRect(); return {x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height}; };
+    this.cv.addEventListener("pointerdown",e=>{ if(this.anno.mode==="view") return; e.preventDefault(); this.cv.setPointerCapture(e.pointerId); this.anno.down(P(e),null); this.draw(); });
+    this.cv.addEventListener("pointermove",e=>{ if(this.anno.draft){ this.anno.move(P(e)); this.draw(); } });
+    const up=()=>{ if(this.anno.draft){ this.anno.up(null); this.draw(); } };
+    this.cv.addEventListener("pointerup",up); this.cv.addEventListener("pointercancel",up);
+    this.ro=new ResizeObserver(()=>{ if(!this.wrap.isConnected){ this.ro.disconnect(); return; } this.draw(); }); this.ro.observe(this.img);
+  }
+  draw(){ const w=this.img.clientWidth, h=this.img.clientHeight; if(!w||!h) return; const dpr=window.devicePixelRatio||1, cv=this.cv;
+    cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr); cv.style.width=w+"px"; cv.style.height=h+"px";
+    const v=this.anno.mode==="view"; cv.style.cursor=v?"":"crosshair"; cv.style.touchAction=v?"auto":"none"; cv.style.pointerEvents=v?"none":"auto";
+    const c=cv.getContext("2d"); c.setTransform(dpr,0,0,dpr,0,0); c.clearRect(0,0,w,h); this.anno.draw(c,{x:t=>t*w,y:t=>t*h},null); }
+  setSlice(){}
+}
+// Görsel veya DICOM'u işaret katmanıyla yerleştirir; {viewer, isDcm} döndürür
+function mountMedia(host,{imageId,src,dicomId},anno,opt={}){
+  if(dicomId){ const v=new DcmViewer(host,dicomId,{anno,annoLabel:opt.annoLabel,tool:opt.tool,onSlice:opt.onSlice,onLoad:opt.onLoad}); return {viewer:v,isDcm:true}; }
+  if(imageId||src){ const v=new ImgAnno(host,{imageId,src,anno}); return {viewer:v,isDcm:false}; }
+  host.innerHTML=`<div class="empty small">Görsel eklenmemiş</div>`; return {viewer:null,isDcm:false};
+}
+const mediaThumb=o=>o.imageId?`<img class="ath" data-img="${esc(o.imageId)}" alt="">`:o.dicomId?`<div class="ath dcm">🩻<span>BT/MR</span></div>`:`<div class="ath none">—</div>`;
+
+/* ---- öğrenme kaydı (asistanın kendi belgesi) ---- */
+let L=null;
+async function loadLearn(){
+  if(!S.user) return null; const uid=S.user.uid; if(L&&L.uid===uid) return L;
+  let d={}; try{ const s=await getDoc(doc(db,"learn",uid)); if(s.exists()) d=s.data(); }catch(e){ console.error(e); }
+  L={uid,d:{atlas:{},sim:{},mod:{},srs:{},wk:{},...d}}; return L;
+}
+let _lSave;
+function saveLearn(now){ if(!L||S.mode!=="resident") return; clearTimeout(_lSave);
+  const f=()=>setDoc(doc(db,"learn",L.uid),{...L.d,email:S.email,name:S.resident?.name||S.user.displayName||"",kidem:S.resident?.kidem||null,updatedAt:serverTimestamp()}).catch(e=>console.error(e));
+  if(now) return f(); _lSave=setTimeout(f,700); }
+const canLearn=()=>S.mode==="resident"&&L;
+
+/* ---- aralıklı tekrar (Leitner: 1-3-7-21-60 gün) ---- */
+const SRS_INT=[1,3,7,21,60];
+function srsAdd(key,meta={}){ if(!canLearn()) return false; const c=L.d.srs[key];
+  if(c){ c.b=0; c.due=Date.now(); } else L.d.srs[key]={b:0,due:Date.now(),add:Date.now(),n:0,...meta}; saveLearn(); return true; }
+function srsGrade(key,ok){ const c=L?.d.srs[key]; if(!c) return;
+  c.n=(c.n||0)+1; c.last=ok?1:0; c.t=Date.now();
+  if(ok){ c.b=Math.min(5,(c.b||0)+1); c.due=Date.now()+SRS_INT[c.b-1]*DAY_MS; } else { c.b=0; c.due=Date.now()+DAY_MS; }
+  saveLearn(); }
+const srsDue=()=>L?Object.entries(L.d.srs).filter(([k,c])=>(c.due||0)<=Date.now()).sort((a,b)=>a[1].due-b[1].due):[];
+
+/* ---- içerik yükleme ---- */
+async function loadEdu(col){
+  const q=S.mode==="resident"?query(collection(db,col),where("published","==",true)):collection(db,col);
+  const s=await getDocs(q); return s.docs.map(d=>({id:d.id,...d.data()}));
+}
+const pubBadge=x=>x.status==="pending"?`<span class="badge warn">Onay bekliyor</span>`:x.status==="rejected"?`<span class="badge bad">Reddedildi</span>`:x.published?`<span class="badge ok">Yayında</span>`:`<span class="badge">Taslak</span>`;
+const canEdit=x=>S.mode==="admin"||(S.mode==="author"&&x.author===S.email&&["pending","rejected"].includes(x.status));
+
+/* =====================================================================
+   GÖRÜNTÜ ATLASI — keşfet / kendini sına (bul ve tıkla)
+   ===================================================================== */
+const goBack=(b,def)=>{ const x=b||def; go(x.view,x.params||{}); };
+const atlasDefBack=()=>S.mode==="resident"?{view:"atlas"}:{view:"edu",params:{sec:"atlas"}};
+function atlasStatus(a){ if(!canLearn()) return pubBadge(a); const r=L.d.atlas[a.id];
+  if(r?.done) return `<span class="badge ok">✓ ${r.n?`${r.ok}/${r.n}`:"tamamlandı"}</span>`; if(r?.seen) return `<span class="badge">Görüldü</span>`; return `<span class="badge acc">Yeni</span>`; }
+const atlasCard=a=>`<button class="acard" data-atlas="${esc(a.id)}">${mediaThumb(a)}<div class="ab"><b>${esc(a.title||"(başlıksız)")}</b>
+  <span class="small muted">${esc(a.cat||"")}${a.topic?" · "+esc(a.topic):""}</span>
+  <span class="row" style="gap:4px;margin-top:4px">${(a.tasks||[]).length?`<span class="badge">${a.tasks.length} görev</span>`:""}${atlasStatus(a)}</span></div></button>`;
+// Kategori + arama + durum filtresi ile ızgara
+function atlasBrowser(host,list,onOpen){
+  const F={cat:"",q:"",st:""};
+  const draw=()=>{
+    const cats=ATLAS_CATS.filter(c=>list.some(a=>a.cat===c));
+    const vis=list.filter(a=>(!F.cat||a.cat===F.cat)&&(!F.q||trLower(`${a.title} ${a.topic} ${a.cat}`).includes(trLower(F.q)))
+      &&(!F.st||(F.st==="new"?!(L?.d.atlas[a.id]?.seen):F.st==="todo"?!(L?.d.atlas[a.id]?.done)&&(a.tasks||[]).length:true)))
+      .sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0));
+    host.innerHTML=`<div class="toolbar" style="flex-wrap:wrap;gap:8px;margin-bottom:12px"><div class="pools" style="margin:0">
+        <button class="chip ${!F.cat?"on":""}" data-c="">Tümü<span class="n">${list.length}</span></button>${cats.map(c=>`<button class="chip ${F.cat===c?"on":""}" data-c="${esc(c)}">${esc(c)}<span class="n">${list.filter(a=>a.cat===c).length}</span></button>`).join("")}</div>
+      <div class="row" style="gap:8px;margin-left:auto">${canLearn()?`<select id="abSt" style="width:auto"><option value="">Hepsi</option><option value="new" ${F.st==="new"?"selected":""}>Görmediklerim</option><option value="todo" ${F.st==="todo"?"selected":""}>Sınanmadıklarım</option></select>`:""}<input type="search" id="abQ" placeholder="Ara…" value="${esc(F.q)}" style="width:200px"></div></div>
+      ${vis.length?`<div class="agrid">${vis.map(atlasCard).join("")}</div>`:`<div class="card empty">${list.length?"Filtreye uyan görüntü yok.":"Henüz görüntü eklenmemiş."}</div>`}`;
+    host.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{ F.cat=b.dataset.c; draw(); });
+    const q=host.querySelector("#abQ"); q.oninput=()=>{ F.q=q.value; const p=q.selectionStart; draw(); const n=host.querySelector("#abQ"); n.focus(); n.setSelectionRange(p,p); };
+    host.querySelector("#abSt")?.addEventListener("change",e=>{ F.st=e.target.value; draw(); });
+    host.querySelectorAll("[data-atlas]").forEach(b=>b.onclick=()=>onOpen(list.find(a=>a.id===b.dataset.atlas)));
+    hydrateImages(host);
+  };
+  draw();
+}
+async function viewAtlasList(){
+  paint(`<div class="spinner"></div>`);
+  const [list]=await Promise.all([loadEdu("atlas"),loadLearn()]);
+  const done=list.filter(a=>L.d.atlas[a.id]?.done).length;
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Öğren</button><h1>Görüntü atlası</h1><div class="sub">EKG, grafi, BT ve USG örnekleri. <b>Keşfet</b> ile bulguları adım adım açın, <b>Kendini sına</b> ile bulguyu görüntü üzerinde kendiniz bulun.</div></div></div>
+    <div class="stats"><div class="stat"><div class="k">Görüntü</div><div class="v">${list.length}</div></div><div class="stat"><div class="k">Gördüğünüz</div><div class="v">${list.filter(a=>L.d.atlas[a.id]?.seen).length}</div></div><div class="stat"><div class="k">Sınandığınız</div><div class="v">${done}</div></div></div>
+    <div id="ab"></div>`);
+  $id("bk").onclick=()=>go("learn");
+  atlasBrowser($id("ab"),list,a=>go("atlasView",{id:a.id}));
+}
+
+async function viewAtlasItem(id,back){
+  paint(`<div class="spinner"></div>`);
+  const [s]=await Promise.all([getDoc(doc(db,"atlas",id)),S.mode==="resident"?loadLearn():null]);
+  if(!s.exists()){ toast("Görüntü bulunamadı",true); return goBack(back,atlasDefBack()); }
+  const A={id,...s.data()}, F=A.findings||[], TK=(A.tasks||[]).filter(t=>F.some(f=>f.id===t.fid));
+  if(canLearn()){ const r=L.d.atlas[id]=L.d.atlas[id]||{}; r.seen=Date.now(); r.topic=A.topic||""; saveLearn(); }
+  const shown=new Set();
+  const anno=new Anno({shapes:F,mode:"view",show:f=>shown.has(f.id),labels:true});
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Geri</button><h1>${esc(A.title||"Görüntü")}</h1><div class="sub">${esc(A.cat||"")}${A.topic?" · "+esc(A.topic):""}</div></div>
+      ${S.mode!=="resident"&&canEdit(A)?`<button class="btn" id="aEdit">Düzenle</button>`:""}</div>
+    <div class="atl"><div class="atl-media" id="aM"></div>
+      <div class="card pad atl-side"><div class="seg" id="aTabs"><button data-t="x" class="on">Keşfet</button>${TK.length?`<button data-t="q">Kendini sına (${TK.length})</button>`:""}</div><div id="aP"></div></div></div>`);
+  $id("bk").onclick=()=>goBack(back,atlasDefBack());
+  $id("aEdit")?.addEventListener("click",()=>go("atlasEdit",{id}));
+  const M=mountMedia($id("aM"),A,anno,{annoLabel:"Tıkla"}), V=M.viewer;
+  const jump=f=>{ if(M.isDcm&&f.z!=null) V.setSlice(f.z); };
+
+  const explore=()=>{
+    anno.mode="view"; anno.marks=[]; anno.show=f=>shown.has(f.id); if(M.isDcm) V.setTool("slice"); anno.redraw();
+    $id("aP").innerHTML=`${A.desc?md(A.desc):""}
+      ${F.length?`<div class="row" style="justify-content:space-between;margin:12px 0 6px"><b>Bulgular (${F.length})</b><span class="row" style="gap:4px">${shown.size<F.length?`<button class="btn sm primary" id="fNext">Sıradakini göster</button>`:""}<button class="btn sm ghost" id="fAll">${shown.size===F.length?"Gizle":"Tümünü göster"}</button></span></div>
+        <div class="flist">${F.map((f,i)=>`<div class="fnd ${shown.has(f.id)?"on":""}" data-f="${esc(f.id)}"><div class="fh"><span class="fn">${i+1}</span><b>${shown.has(f.id)?esc(f.label||"Bulgu"):"Gizli bulgu"}</b>${f.z!=null?`<span class="small muted" style="margin-left:auto">kesit ${f.z+1}</span>`:""}</div>${shown.has(f.id)&&f.text?`<div class="ft">${md(f.text)}</div>`:""}</div>`).join("")}</div>
+        <div class="small muted" style="margin-top:6px">Önce görüntüyü kendiniz yorumlayın, sonra bulguları tek tek açın.</div>`:`<div class="small muted" style="margin-top:8px">Bu görüntüde işaretli bulgu yok.</div>`}
+      ${A.pearls?`<div class="pearl"><div class="lbl">Klinik inciler</div>${md(A.pearls)}</div>`:""}
+      ${canLearn()&&TK.length?`<button class="btn sm ghost" id="aSrs" style="margin-top:10px">↻ Tekrar listeme ekle</button>`:""}`;
+    $id("aP").querySelectorAll("[data-f]").forEach(el=>el.onclick=()=>{ const f=F.find(x=>x.id===el.dataset.f); if(shown.has(f.id)) shown.delete(f.id); else { shown.add(f.id); jump(f); } explore(); });
+    $id("fNext")?.addEventListener("click",()=>{ const f=F.find(x=>!shown.has(x.id)); if(f){ shown.add(f.id); jump(f); } explore(); });
+    $id("fAll")?.addEventListener("click",()=>{ if(shown.size===F.length) shown.clear(); else F.forEach(f=>shown.add(f.id)); explore(); });
+    $id("aSrs")?.addEventListener("click",()=>{ TK.forEach(t=>srsAdd(`a:${id}:${t.id}`,{topic:A.topic||"",cat:A.cat||""})); toast(`${TK.length} görev tekrar listenize eklendi`); });
+  };
+
+  const quiz=()=>{
+    const st={i:0,tries:0,res:[],rev:new Set(),wait:false};
+    anno.mode="pick"; anno.marks=[]; anno.show=f=>st.rev.has(f.id); if(M.isDcm) V.setTool("ann"); anno.redraw();
+    const where=f=>{ const cx=f.x+f.w/2, cy=f.y+f.h/2, h=cx<0.38?"sol":cx>0.62?"sağ":"", v=cy<0.38?"üst":cy>0.62?"alt":"";
+      return (h||v)?`görüntünün ${[h,v].filter(Boolean).join(" ")} bölümünde`:"görüntünün orta bölümünde"; };
+    const draw=()=>{ const t=TK[st.i]; if(!t) return fin();
+      $id("aP").innerHTML=`<div class="small muted">Görev ${st.i+1} / ${TK.length}</div><div class="qprompt">${esc(t.prompt)}</div>
+        <div class="small muted">${M.isDcm?"Doğru kesite gidin (tekerlek, kaydırıcı veya ok tuşları) ve bulgunun üzerine tıklayın.":"Görüntüde bulgunun üzerine tıklayın."}</div><div id="qFb"></div>`; };
+    anno.onPick=(p,z)=>{ const t=TK[st.i]; if(!t||st.wait) return; const f=F.find(x=>x.id===t.fid);
+      const hit=shapeHit(f,p), zok=sliceOk(f,z), ok=hit&&zok; st.tries++;
+      anno.marks.push({x:p.x,y:p.y,z:M.isDcm?z:null,ok}); anno.redraw();
+      const fb=$id("qFb");
+      if(ok||st.tries>=3){ st.wait=true; st.rev.add(f.id); st.res[st.i]={ok:ok&&st.tries===1,solved:ok,tries:st.tries,tid:t.id};
+        if(!ok) jump(f); anno.redraw();
+        fb.innerHTML=`<div class="pfb ${ok?"ok":"bad"}"><b>${ok?(st.tries===1?"Doğru!":`Doğru (${st.tries}. denemede).`):"Bulgu burada işaretli."}</b> ${esc(f.label||"")}${f.text?`<div style="margin-top:6px">${md(f.text)}</div>`:""}</div>
+          <div class="row" style="justify-content:flex-end;margin-top:10px"><button class="btn primary" id="qNx">${st.i<TK.length-1?"Sonraki görev →":"Sonucu gör"}</button></div>`;
+        $id("qNx").onclick=()=>{ st.i++; st.tries=0; st.wait=false; anno.marks=[]; anno.redraw(); draw(); }; return; }
+      let hint=M.isDcm&&!zok?`Bu kesitte değil; bulgu <b>${Math.max(1,f.z+1-(f.zr??2))}–${Math.min(V?.S?.meta?.n||f.z+1,f.z+1+(f.zr??2))}</b>. kesitler arasında.`:"Tam orası değil.";
+      if(st.tries===2) hint+=` İpucu: bulgu ${where(f)}.`;
+      fb.innerHTML=`<div class="pfb bad">${hint} <span class="small muted">(${3-st.tries} hak kaldı)</span></div>`;
+    };
+    const fin=()=>{ anno.mode="view"; anno.onPick=null; if(M.isDcm) V.setTool("slice"); F.forEach(f=>st.rev.add(f.id)); anno.marks=[]; anno.redraw();
+      const ok=st.res.filter(r=>r?.ok).length, miss=st.res.filter(r=>r&&!r.ok);
+      if(canLearn()){ const r=L.d.atlas[id]=L.d.atlas[id]||{}; r.done=Date.now(); r.ok=ok; r.n=TK.length; r.best=Math.max(r.best||0,ok); r.tries=(r.tries||0)+1; r.topic=A.topic||"";
+        miss.forEach(m=>srsAdd(`a:${id}:${m.tid}`,{topic:A.topic||"",cat:A.cat||""})); saveLearn(); }
+      $id("aP").innerHTML=`<div class="scorebox" style="margin-bottom:10px"><div><div class="bigscore">${ok}/${TK.length}</div><div class="muted">ilk denemede doğru</div></div></div>
+        <div class="flist">${TK.map((t,i)=>{ const r=st.res[i]; return `<div class="fnd on"><div class="fh"><span class="fn ${r?.ok?"ok":"bad"}">${r?.ok?"✓":"✗"}</span><span>${esc(t.prompt)}</span></div></div>`; }).join("")}</div>
+        ${canLearn()&&miss.length?`<div class="note" style="margin-top:10px">${miss.length} görev tekrar listenize eklendi; birkaç gün içinde yeniden karşınıza çıkacak.</div>`:""}
+        <div class="row" style="margin-top:12px"><button class="btn primary" id="qAg">Yeniden dene</button><button class="btn" id="qEx">Keşfet'e dön</button></div>`;
+      $id("qAg").onclick=()=>quiz(); $id("qEx").onclick=()=>setTab("x"); };
+    draw();
+  };
+  const setTab=t=>{ $id("aTabs").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); if(t==="q") quiz(); else explore(); };
+  $id("aTabs").querySelectorAll("button").forEach(b=>b.onclick=()=>setTab(b.dataset.t));
+  explore();
+}
+
+/* ---- atlas düzenleyici (yönetici / soru yazarı) ---- */
+const cleanShape=f=>{ const o={id:f.id,shape:f.shape,x:f.x,y:f.y,w:f.w,h:f.h,label:String(f.label||"").trim(),text:String(f.text||"").trim()};
+  if(f.shape==="poly") o.pts=(f.pts||[]).map(p=>({x:p.x,y:p.y})); if(f.z!=null){ o.z=Number(f.z); o.zr=Number(f.zr??2); } return o; };
+async function viewAtlasEdit(id){
+  paint(`<div class="spinner"></div>`);
+  let A={title:"",cat:"EKG",topic:"",desc:"",pearls:"",findings:[],tasks:[],published:false};
+  if(id){ const s=await getDoc(doc(db,"atlas",id)); if(s.exists()) A={...A,...s.data()}; }
+  if(!S.questions.length) await loadBank().catch(()=>{});
+  const tops=[...new Set([...topics()])];
+  const st={imageId:A.imageId||null,newImg:null,dicomId:A.dicomId||null};
+  const anno=new Anno({shapes:A.findings,mode:"edit",tool:"ellipse",labels:true});
+  const isAdm=S.mode==="admin";
+  let M=null;
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Atlas</button><h1>${id?"Görüntüyü düzenle":"Yeni atlas görüntüsü"}</h1>
+      <div class="sub">Bulguları görüntü üzerinde çizin, açıklamalarını yazın; sonra her bulgu için “bul ve tıkla” görevi oluşturun.</div></div>
+      <div class="row">${id?`<button class="btn" id="ePrev">Önizle</button>`:""}${isAdm&&id?`<button class="btn ghost danger" id="eDel">Sil</button>`:""}${isAdm&&A.status==="pending"?`<button class="btn ghost danger" id="eRej">Reddet</button>`:""}<button class="btn primary" id="eSave">${isAdm&&A.status==="pending"?"Onayla ve kaydet":"Kaydet"}</button></div></div>
+    <div class="atl"><div><div class="ann-tools" id="eT">
+        <span class="small muted">Çizim:</span>${[["ellipse","◯ Elips"],["rect","▭ Dikdörtgen"],["poly","✎ Serbest"]].map(([k,l])=>`<button type="button" class="chip sm ${k==="ellipse"?"on":""}" data-tool="${k}">${l}</button>`).join("")}</div>
+        <div class="atl-media" id="eM"></div><div class="small muted" id="eHelp" style="margin-top:6px"></div></div>
+      <div class="card pad atl-side">
+        <div class="field"><label class="f">Başlık</label><input type="text" id="eTi" value="${esc(A.title)}" placeholder="örn. İnferior STEMI"></div>
+        <div class="grid2"><div class="field"><label class="f">Kategori</label><select id="eCa">${ATLAS_CATS.map(c=>`<option ${A.cat===c?"selected":""}>${c}</option>`).join("")}</select></div>
+          <div class="field"><label class="f">Konu</label><input type="text" id="eTo" list="eTl" value="${esc(A.topic||"")}" placeholder="örn. Kardiyoloji"><datalist id="eTl">${tops.map(t=>`<option value="${esc(t)}">`).join("")}</datalist></div></div>
+        <div id="eMed">${imageField(st.imageId,st.dicomId)}</div>
+        <div class="field"><label class="f">Açıklama / öykü <span class="muted" style="font-weight:400">(Keşfet'te görüntünün yanında)</span></label><textarea id="eDe" style="min-height:90px" placeholder="58 yaşında erkek, 1 saattir göğüs ağrısı…">${esc(A.desc||"")}</textarea></div>
+        <div class="field"><label class="f">Klinik inciler <span class="muted" style="font-weight:400">(isteğe bağlı)</span></label><textarea id="ePe" style="min-height:70px" placeholder="- Ayna görüntüsü: aVL'de ST çökmesi">${esc(A.pearls||"")}</textarea>
+          <div class="small muted">Biçim: **kalın**, *italik*, satır başında “- ” ile liste.</div></div>
+        ${isAdm?`<label class="check"><input type="checkbox" id="ePu" ${A.published?"checked":""}> Asistanlara yayında</label>`:`<div class="note small">Kaydettiğinizde yönetici onayına gönderilir.</div>`}
+      </div></div>
+    <div class="grid2" style="margin-top:16px;align-items:start"><div class="card pad"><h2>Bulgular</h2><div id="eF"></div></div>
+      <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Bul ve tıkla görevleri</h2><span class="row" style="gap:4px"><button class="btn sm" id="eKa">Her bulgu için</button><button class="btn sm" id="eK1">+ Görev</button></span></div>
+        <div class="small muted" style="margin:4px 0 10px">Asistan görevi okur, görüntüde ilgili bulgunun üzerine tıklar. 3 hakkı vardır; ikinci yanlışta konum ipucu verilir.</div><div id="eK"></div></div></div>`);
+  $id("bk").onclick=()=>go("edu",{sec:"atlas"});
+  const help=()=>{ $id("eHelp").innerHTML=M?.isDcm?`DICOM: önce bulgunun en iyi göründüğü kesite gidin (tekerlek/kaydırıcı), sonra araç çubuğunda <b>Çiz</b> seçiliyken sürükleyerek işaretleyin. Bulgu ±2 kesit içinde gösterilir; aralığı listeden değiştirebilirsiniz.`:`Görüntü üzerinde sürükleyerek bulguyu işaretleyin. Serbest çizimde bulgunun çevresini çizin.`; };
+  const remount=()=>{ M=mountMedia($id("eM"),{imageId:st.dicomId?null:st.imageId,src:st.dicomId?null:st.newImg,dicomId:st.dicomId},anno,{annoLabel:"Çiz",tool:"ann",onSlice:()=>drawF()}); help(); drawF(); };
+  st.onChange=()=>{ if(A.findings.length) toast("Görsel değişti: bulgu konumlarını kontrol edin"); remount(); };
+  bindImageField($id("eMed"),st); hydrateImages($id("eMed"));
+  $id("eT").querySelectorAll("[data-tool]").forEach(b=>b.onclick=()=>{ anno.tool=b.dataset.tool; anno.mode="edit"; if(M?.isDcm) M.viewer.setTool("ann"); $id("eT").querySelectorAll("[data-tool]").forEach(x=>x.classList.toggle("on",x===b)); });
+  anno.onCreate=(f,z)=>{ f.id=newId().slice(0,8); f.label=`Bulgu ${A.findings.length+1}`; f.text=""; if(z!=null){ f.z=z; f.zr=2; } A.findings.push(f); anno.sel=f.id; drawF(); drawK();
+    setTimeout(()=>{ const i=$id("eF").querySelector(`[data-f="${f.id}"] [data-fl]`); i?.focus(); i?.select(); },30); };
+  const drawF=()=>{ const curZ=M?.isDcm?M.viewer.i:null;
+    $id("eF").innerHTML=A.findings.length?A.findings.map((f,i)=>`<div class="frow ${anno.sel===f.id?"sel":""}" data-f="${esc(f.id)}">
+      <div class="row" style="flex-wrap:nowrap;gap:6px"><span class="fn">${i+1}</span><input type="text" data-fl value="${esc(f.label||"")}" placeholder="Bulgu adı"><button type="button" class="btn sm ghost danger" data-fdel title="Sil">✕</button></div>
+      <textarea data-ft placeholder="Açıklama (Keşfet'te ve görev sonrasında gösterilir)" style="min-height:54px;margin-top:6px">${esc(f.text||"")}</textarea>
+      ${f.z!=null?`<div class="row small" style="gap:6px;margin-top:4px">Kesit <b>${f.z+1}</b> ± <input type="number" data-fzr min="0" max="60" value="${f.zr??2}" style="width:64px"> <button type="button" class="btn sm ghost" data-fz ${curZ===f.z?"disabled":""}>Şu anki kesite (${(curZ??0)+1}) taşı</button></div>`:""}</div>`).join("")
+      :`<div class="small muted">Henüz bulgu yok. Görüntü üzerinde çizerek ekleyin.</div>`;
+    $id("eF").querySelectorAll("[data-f]").forEach(el=>{ const f=A.findings.find(x=>x.id===el.dataset.f);
+      el.onclick=e=>{ if(e.target.closest("input,textarea,button")) return; anno.sel=f.id; if(M?.isDcm&&f.z!=null) M.viewer.setSlice(f.z); anno.redraw(); $id("eF").querySelectorAll(".frow").forEach(x=>x.classList.toggle("sel",x===el)); };
+      el.querySelector("[data-fl]").oninput=e=>{ f.label=e.target.value; anno.redraw(); drawKsel(); };
+      el.querySelector("[data-ft]").oninput=e=>{ f.text=e.target.value; };
+      el.querySelector("[data-fzr]")?.addEventListener("input",e=>{ f.zr=Math.max(0,parseInt(e.target.value,10)||0); anno.redraw(); });
+      el.querySelector("[data-fz]")?.addEventListener("click",()=>{ f.z=M.viewer.i; drawF(); anno.redraw(); });
+      el.querySelector("[data-fdel]").onclick=()=>{ A.findings.splice(A.findings.indexOf(f),1); A.tasks=A.tasks.filter(t=>t.fid!==f.id); if(anno.sel===f.id) anno.sel=null; drawF(); drawK(); anno.redraw(); }; });
+  };
+  const fOpts=sel=>A.findings.map((f,i)=>`<option value="${esc(f.id)}" ${sel===f.id?"selected":""}>${i+1}. ${esc(f.label||"Bulgu")}</option>`).join("");
+  const drawKsel=()=>$id("eK").querySelectorAll("[data-kf]").forEach(s=>{ const v=s.value; s.innerHTML=fOpts(v); });
+  const drawK=()=>{
+    $id("eK").innerHTML=A.tasks.length?A.tasks.map((t,i)=>`<div class="frow" data-k="${i}"><div class="row" style="flex-wrap:nowrap;gap:6px"><span class="fn">${i+1}</span><input type="text" data-kp value="${esc(t.prompt||"")}" placeholder="örn. ST elevasyonu olan derivasyonlardan birini işaretleyin"><button type="button" class="btn sm ghost danger" data-kdel>✕</button></div>
+      <div class="row small" style="gap:6px;margin-top:6px;flex-wrap:nowrap"><span style="white-space:nowrap">Doğru bölge:</span> <select data-kf>${fOpts(t.fid)}</select></div></div>`).join("")
+      :`<div class="small muted">${A.findings.length?"Görev yok. “Her bulgu için” ile hızlıca oluşturun.":"Önce bulgu ekleyin."}</div>`;
+    $id("eK").querySelectorAll("[data-k]").forEach(el=>{ const t=A.tasks[Number(el.dataset.k)];
+      el.querySelector("[data-kp]").oninput=e=>t.prompt=e.target.value;
+      el.querySelector("[data-kf]").onchange=e=>t.fid=e.target.value;
+      el.querySelector("[data-kdel]").onclick=()=>{ A.tasks.splice(A.tasks.indexOf(t),1); drawK(); }; });
+  };
+  $id("eK1").onclick=()=>{ if(!A.findings.length) return toast("Önce bir bulgu çizin",true); A.tasks.push({id:newId().slice(0,8),prompt:"",fid:A.findings[0].id}); drawK(); };
+  $id("eKa").onclick=()=>{ const have=new Set(A.tasks.map(t=>t.fid)); const add=A.findings.filter(f=>!have.has(f.id));
+    if(!add.length) return toast(A.findings.length?"Her bulgunun görevi var":"Önce bulgu çizin",!A.findings.length);
+    add.forEach(f=>A.tasks.push({id:newId().slice(0,8),prompt:`${f.label||"Bulgu"} — görüntüde işaretleyin.`,fid:f.id})); drawK(); };
+  const save=async(extra={})=>{
+    const title=$id("eTi").value.trim(); if(!title) return toast("Başlık girin",true);
+    if(!st.dicomId&&!st.imageId&&!st.newImg) return toast("Görsel veya DICOM serisi ekleyin",true);
+    const tasks=A.tasks.filter(t=>t.fid&&A.findings.some(f=>f.id===t.fid)).map(t=>({id:t.id,fid:t.fid,prompt:String(t.prompt||"").trim()||"Bulguyu işaretleyin"}));
+    try{ $id("eSave").disabled=true;
+      const imageId=st.dicomId?null:await persistImage(st); st.imageId=imageId; st.newImg=null;
+      const did=id||newId();
+      const data={title,cat:$id("eCa").value,topic:$id("eTo").value.trim(),desc:$id("eDe").value.trim(),pearls:$id("ePe").value.trim(),
+        imageId:imageId||null,dicomId:st.dicomId||null,findings:A.findings.map(cleanShape),tasks,updatedAt:serverTimestamp(),...(id?{}:{createdAt:serverTimestamp()})};
+      if(isAdm){ data.published=$id("ePu").checked; if(A.status&&A.status!=="approved") data.status="approved"; }
+      else { data.status="pending"; data.author=S.email; data.published=false; }
+      Object.assign(data,extra);
+      await setDoc(doc(db,"atlas",did),data,{merge:true});
+      toast(isAdm?"Kaydedildi":"Kaydedildi; yönetici onayına gönderildi");
+      if(!id){ S.params={id:did}; return viewAtlasEdit(did); } A.status=data.status||A.status; $id("eSave").disabled=false;
+    }catch(e){ fail(e,"Kaydedilemedi"); $id("eSave").disabled=false; } };
+  $id("eSave").onclick=()=>save();
+  $id("eRej")?.addEventListener("click",async()=>{ const r=await promptDlg("Reddet","Gerekçe (yazara görünür)","",""); if(r==null) return; await save({status:"rejected",published:false,rejectReason:r}); go("edu",{sec:"atlas"}); });
+  $id("ePrev")?.addEventListener("click",()=>go("atlasView",{id,back:{view:"atlasEdit",params:{id}}}));
+  $id("eDel")?.addEventListener("click",async()=>{ if(!await confirmDlg("Görüntüyü sil","<p>Atlas görüntüsü ve görevleri silinecek. Modüllerdeki bağlantılar çalışmaz hale gelir.</p>","Sil",true)) return;
+    try{ await deleteDoc(doc(db,"atlas",id)); toast("Silindi"); go("edu",{sec:"atlas"}); }catch(e){ fail(e); } });
+  remount(); drawK();
+}
+
+/* =====================================================================
+   SANAL HASTA — dallanan vaka senaryoları
+   nodes: { nid: {title,text,vitals,imageId,dicomId,end,outcome,opts:[{id,kind:"test"|"act",label,pts,min,res,resImg,resDcm,fb,to}]} }
+   ===================================================================== */
+const simDefBack=()=>S.mode==="resident"?{view:"sims"}:{view:"edu",params:{sec:"sims"}};
+const OUTCOME={good:["İyi sonuç","ok"],mid:["Kısmen iyi","warn"],bad:["Kötü sonuç","bad"]};
+function simMax(D){ const memo={};
+  const best=(nid,seen)=>{ const n=D.nodes?.[nid]; if(!n||seen.has(nid)) return 0; if(memo[nid]!=null) return memo[nid];
+    const s2=new Set(seen).add(nid); const tests=(n.opts||[]).filter(o=>o.kind==="test").reduce((a,o)=>a+Math.max(0,Number(o.pts)||0),0);
+    const acts=n.end?[0]:(n.opts||[]).filter(o=>o.kind==="act").map(o=>(Number(o.pts)||0)+best(o.to,s2));
+    return memo[nid]=tests+Math.max(0,...(acts.length?acts:[0])); };
+  return Math.max(1,best(D.start,new Set())); }
+function simIssues(D){ const out=[], ids=Object.keys(D.nodes||{});
+  if(!D.nodes?.[D.start]) out.push("Başlangıç düğümü seçilmemiş.");
+  const reach=new Set(), st=[D.start]; while(st.length){ const x=st.pop(); if(!x||reach.has(x)||!D.nodes[x]) continue; reach.add(x); (D.nodes[x].opts||[]).forEach(o=>o.kind==="act"&&st.push(o.to)); }
+  ids.forEach(k=>{ const n=D.nodes[k], nm=`“${n.title||k}”`;
+    if(!reach.has(k)) out.push(`${nm} düğümüne hiçbir yoldan ulaşılmıyor.`);
+    if(!n.end&&!(n.opts||[]).some(o=>o.kind==="act")) out.push(`${nm}: bitiş düğümü değil ama karar seçeneği yok (vaka burada takılır).`);
+    (n.opts||[]).forEach(o=>{ if(o.kind==="act"&&!D.nodes[o.to]) out.push(`${nm}: “${o.label||"karar"}” bir düğüme bağlı değil.`); }); });
+  if(!ids.some(k=>D.nodes[k].end)) out.push("Hiç bitiş düğümü yok.");
+  return out; }
+const vitalsHtml=v=>v?`<div class="vitals">${String(v).split(/\s*[·|;\n]\s*/).filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:"";
+const mediaHtml=(img,dcm)=>`${imgTag(img)}${dcmTag(dcm)}`;
+
+async function viewSimList(){
+  paint(`<div class="spinner"></div>`);
+  const [list]=await Promise.all([loadEdu("sims"),loadLearn()]);
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Öğren</button><h1>Sanal hasta</h1><div class="sub">Hasta gelir; tetkik ister, karar verirsiniz. Her karar vakanın gidişini değiştirir. Sonunda puanınızı ve her adımın geri bildirimini görürsünüz.</div></div></div>
+    ${list.length?`<div class="simgrid">${list.sort((a,b)=>(a.title||"").localeCompare(b.title||"","tr")).map(x=>{ const r=L.d.sim[x.id];
+      return `<button class="simcard" data-sim="${esc(x.id)}"><b>${esc(x.title||"Vaka")}</b><span class="small muted">${esc(x.topic||"")}</span><span class="clamp3 small">${esc(x.intro||"")}</span>
+        <span class="row" style="gap:4px;margin-top:auto">${r?`<span class="badge ok">En iyi %${r.best}</span><span class="badge">${r.n} kez</span>`:`<span class="badge acc">Yeni</span>`}</span></button>`; }).join("")}</div>`
+      :`<div class="card empty">Henüz yayınlanmış sanal hasta vakası yok.</div>`}`);
+  $id("bk").onclick=()=>go("learn");
+  document.querySelectorAll("[data-sim]").forEach(b=>b.onclick=()=>go("simPlay",{id:b.dataset.sim}));
+}
+
+async function viewSimPlay(id,back){
+  paint(`<div class="spinner"></div>`);
+  const [s]=await Promise.all([getDoc(doc(db,"sims",id)),S.mode==="resident"?loadLearn():null]);
+  if(!s.exists()){ toast("Vaka bulunamadı",true); return goBack(back,simDefBack()); }
+  const D={id,...s.data()}, MAX=simMax(D);
+  const G2={nid:D.start,score:0,min:0,log:[],open:{},fb:null,step:0};
+  const draw=()=>{
+    const n=D.nodes[G2.nid]; if(!n){ toast("Vaka yapısında hata",true); return goBack(back,simDefBack()); }
+    if(n.end) return end(n);
+    const tests=(n.opts||[]).filter(o=>o.kind==="test"), acts=(n.opts||[]).filter(o=>o.kind==="act"), op=G2.open[G2.nid]||(G2.open[G2.nid]=[]);
+    paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Çık</button><h1>${esc(D.title||"Sanal hasta")}</h1><div class="sub">${esc(D.topic||"")}</div></div>
+        <div class="row"><span class="badge">Adım ${G2.step+1}</span><span class="badge info">⏱ ${G2.min} dk</span>${S.mode!=="resident"&&canEdit(D)?`<button class="btn sm" id="sEd">Düzenle</button>`:""}</div></div>
+      ${G2.step===0&&D.intro?`<div class="case-box"><div class="lbl">Başvuru</div><div class="txt">${esc(D.intro)}</div></div>`:""}
+      ${G2.fb?`<div class="pfb ${G2.fb.cls}" style="margin-bottom:12px">${md(G2.fb.text)}</div>`:""}
+      <div class="sim">
+        <div class="card pad"><h2 style="margin-top:0">${esc(n.title||"")}</h2>${vitalsHtml(n.vitals)}${n.text?md(n.text):""}${mediaHtml(n.imageId,n.dicomId)}
+          ${op.length?`<h3 style="margin:16px 0 6px">Sonuçlar</h3>${op.map(oid=>{ const o=tests.find(t=>t.id===oid); return o?`<div class="simres"><div class="lbl">${esc(o.label)}</div>${o.res?md(o.res):""}${mediaHtml(o.resImg,o.resDcm)}${o.fb?`<div class="small muted" style="margin-top:6px">💬 ${esc(o.fb)}</div>`:""}</div>`:""; }).join("")}`:""}</div>
+        <div class="card pad sim-side">
+          ${tests.length?`<div class="lbl2">Tetkik / değerlendirme iste</div><div class="simopts">${tests.map(o=>`<button class="simopt test ${op.includes(o.id)?"done":""}" data-o="${esc(o.id)}" ${op.includes(o.id)?"disabled":""}><span>${esc(o.label)}</span>${o.min?`<span class="small muted">${o.min} dk</span>`:""}</button>`).join("")}</div>`:""}
+          <div class="lbl2" style="margin-top:${tests.length?14:0}px">Karar / tedavi</div><div class="simopts">${acts.map(o=>`<button class="simopt act" data-o="${esc(o.id)}"><span>${esc(o.label)}</span>${o.min?`<span class="small muted">${o.min} dk</span>`:""}</button>`).join("")}</div>
+        </div></div>`);
+    $id("bk").onclick=async()=>{ if(G2.step===0||await confirmDlg("Vakadan çık","<p>İlerlemeniz kaydedilmeyecek.</p>","Çık")) goBack(back,simDefBack()); };
+    $id("sEd")?.addEventListener("click",()=>go("simEdit",{id}));
+    document.querySelectorAll(".simopt.test[data-o]:not([disabled])").forEach(b=>b.onclick=()=>{ const o=tests.find(t=>t.id===b.dataset.o);
+      op.push(o.id); G2.score+=Number(o.pts)||0; G2.min+=Number(o.min)||0; G2.log.push({node:n.title||"",kind:"test",label:o.label,pts:Number(o.pts)||0,fb:o.fb||""}); G2.fb=null; draw(); });
+    document.querySelectorAll(".simopt.act[data-o]").forEach(b=>b.onclick=()=>{ const o=acts.find(t=>t.id===b.dataset.o);
+      G2.score+=Number(o.pts)||0; G2.min+=Number(o.min)||0; G2.log.push({node:n.title||"",kind:"act",label:o.label,pts:Number(o.pts)||0,fb:o.fb||""});
+      G2.fb=o.fb?{text:o.fb,cls:(Number(o.pts)||0)>0?"ok":(Number(o.pts)||0)<0?"bad":""}:null; G2.nid=o.to; G2.step++; window.scrollTo({top:0,behavior:"smooth"}); draw(); });
+  };
+  const end=n=>{
+    const pct=Math.max(0,Math.min(100,Math.round(G2.score/MAX*100))), oc=OUTCOME[n.outcome]||OUTCOME.mid;
+    if(canLearn()){ const r=L.d.sim[id]=L.d.sim[id]||{n:0,best:0}; r.n++; r.last=pct; r.best=Math.max(r.best||0,pct); r.t=Date.now(); r.topic=D.topic||""; r.oc=n.outcome||"mid"; saveLearn(); }
+    paint(`<div class="page-head"><div><h1>${esc(D.title||"Sanal hasta")}</h1><div class="sub">Vaka sonu</div></div></div>
+      ${G2.fb?`<div class="pfb ${G2.fb.cls}" style="margin-bottom:12px">${md(G2.fb.text)}</div>`:""}
+      <div class="card pad" style="margin-bottom:16px"><div class="scorebox"><div><div class="bigscore">%${pct}</div><div class="muted">${G2.score} / ${MAX} puan · ${G2.min} dk · ${G2.step} karar</div></div>
+        <div style="flex:1;min-width:240px"><span class="badge ${oc[1]}" style="font-size:14px">${oc[0]}</span><h2 style="margin:8px 0 4px">${esc(n.title||"")}</h2>${n.text?md(n.text):""}${mediaHtml(n.imageId,n.dicomId)}</div></div></div>
+      <div class="card pad"><h2 style="margin-top:0">Adım adım geri bildirim</h2><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Aşama</th><th>Seçiminiz</th><th>Puan</th><th>Geri bildirim</th></tr></thead><tbody>
+        ${G2.log.map((x,i)=>`<tr><td>${i+1}</td><td class="small">${esc(x.node)}</td><td>${x.kind==="test"?"🔎 ":"➜ "}${esc(x.label)}</td><td class="${x.pts>0?"ok-t":x.pts<0?"bad-t":""}">${x.pts>0?"+":""}${x.pts}</td><td class="small">${esc(x.fb)}</td></tr>`).join("")}</tbody></table></div></div>
+      <div class="row" style="margin-top:16px"><button class="btn primary" id="sAg">Yeniden oyna</button><button class="btn" id="sBk">Listeye dön</button></div>`);
+    $id("sAg").onclick=()=>viewSimPlay(id,back); $id("sBk").onclick=()=>goBack(back,simDefBack());
+  };
+  draw();
+}
+
+/* ---- sanal hasta düzenleyici ---- */
+async function uploadImageNow(file){ const data=await compressImage(file); const id=newId(); await setDoc(doc(db,"images",id),{data,createdAt:serverTimestamp()}); imgCache.set(id,Promise.resolve(data)); return id; }
+function miniMedia(o,ki,kd){ // küçük görsel/DICOM seçici
+  return `<span class="mm" data-ki="${ki}" data-kd="${kd}">${o[ki]?`<span class="badge info">🖼 görsel <a href="#" data-mrm="${ki}">✕</a></span>`:`<label class="btn sm ghost">🖼 Görsel<input type="file" accept="image/*" hidden data-mimg="${ki}"></label>`}
+    ${o[kd]?`<span class="badge info">🩻 DICOM <a href="#" data-mrm="${kd}">✕</a></span>`:`<button type="button" class="btn sm ghost" data-mdcm="${kd}">🩻 DICOM</button>`}</span>`;
+}
+function bindMiniMedia(root,o,redraw){
+  root.querySelectorAll("[data-mimg]").forEach(i=>i.onchange=async e=>{ const f=e.target.files[0]; if(!f) return; try{ toast("Görsel yükleniyor…"); o[i.dataset.mimg]=await uploadImageNow(f); redraw(); }catch(err){ fail(err,"Görsel yüklenemedi"); } });
+  root.querySelectorAll("[data-mdcm]").forEach(b=>b.onclick=async()=>{ const k=b.dataset.mdcm;
+    const ch=S.mode==="admin"?await choiceDlg("BT/MR serisi","<p>Yeni seri mi yükleyeceksiniz, arşivden mi seçeceksiniz?</p>",[["x","Vazgeç"],["pick","Arşivden seç"],["up","Yeni yükle","primary"]]):"up";
+    if(ch==="up") dicomUploadDlg(id=>{ o[k]=id; redraw(); }); else if(ch==="pick") dicomPickDlg(id=>{ o[k]=id; redraw(); }); });
+  root.querySelectorAll("[data-mrm]").forEach(a=>a.onclick=e=>{ e.preventDefault(); o[a.dataset.mrm]=null; redraw(); });
+}
+async function viewSimEdit(id){
+  paint(`<div class="spinner"></div>`);
+  let D={title:"",topic:"",intro:"",start:"n1",order:["n1"],nodes:{n1:{title:"Başvuru",text:"",vitals:"",opts:[]}},published:false};
+  if(id){ const s=await getDoc(doc(db,"sims",id)); if(s.exists()) D={...D,...s.data()}; }
+  D.order=(D.order||[]).filter(k=>D.nodes[k]); Object.keys(D.nodes).forEach(k=>{ if(!D.order.includes(k)) D.order.push(k); });
+  if(!S.questions.length) await loadBank().catch(()=>{});
+  const isAdm=S.mode==="admin";
+  const nextNid=()=>{ let i=1; while(D.nodes["n"+i]) i++; return "n"+i; };
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Sanal hasta</button><h1>${id?"Vakayı düzenle":"Yeni sanal hasta"}</h1>
+      <div class="sub">Her düğüm vakanın bir anıdır. <b>Tetkik</b> seçenekleri aynı düğümde sonuç gösterir; <b>Karar</b> seçenekleri vakayı başka bir düğüme taşır. Bitiş düğümleri sonucu ve özeti gösterir.</div></div>
+      <div class="row">${id?`<button class="btn" id="sPrev">Önizle</button>`:""}${isAdm&&id?`<button class="btn ghost danger" id="sDel">Sil</button>`:""}<button class="btn primary" id="sSave">${isAdm&&D.status==="pending"?"Onayla ve kaydet":"Kaydet"}</button></div></div>
+    <div class="card pad" style="margin-bottom:16px"><div class="grid2"><div class="field"><label class="f">Başlık</label><input type="text" id="sTi" value="${esc(D.title)}" placeholder="örn. Göğüs ağrısı ile gelen 62 yaşında erkek"></div>
+      <div class="field"><label class="f">Konu</label><input type="text" id="sTo" list="sTl" value="${esc(D.topic||"")}"><datalist id="sTl">${topics().map(t=>`<option value="${esc(t)}">`).join("")}</datalist></div></div>
+      <div class="field"><label class="f">Başvuru metni (ilk ekranda gösterilir)</label><textarea id="sIn" style="min-height:70px">${esc(D.intro||"")}</textarea></div>
+      <div class="row" style="justify-content:space-between">${isAdm?`<label class="check"><input type="checkbox" id="sPu" ${D.published?"checked":""}> Asistanlara yayında</label>`:`<span class="small muted">Kaydettiğinizde yönetici onayına gönderilir.</span>`}<span class="small muted" id="sMax"></span></div></div>
+    <div id="sIss"></div><div id="sN"></div>
+    <button class="btn" id="sAddN" style="margin-top:12px">+ Düğüm ekle</button>`);
+  $id("bk").onclick=()=>go("edu",{sec:"sims"});
+  const nodeOpts=sel=>D.order.map(k=>`<option value="${k}" ${sel===k?"selected":""}>${esc(D.nodes[k].title||k)}${D.nodes[k].end?" (bitiş)":""}</option>`).join("")+`<option value="__new">+ Yeni düğüm…</option>`;
+  const status=()=>{ const iss=simIssues(D); $id("sIss").innerHTML=iss.length?`<div class="note" style="margin-bottom:12px;background:var(--warn-soft)"><b>Kontrol edin:</b><ul style="margin:4px 0 0;padding-left:18px">${iss.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:"";
+    $id("sMax").textContent=`En yüksek alınabilecek puan: ${simMax(D)}`; };
+  const drawN=()=>{
+    $id("sN").innerHTML=D.order.map((k,ix)=>{ const n=D.nodes[k];
+      return `<div class="card pad simnode ${n.end?"end":""}" data-n="${k}">
+        <div class="row" style="flex-wrap:nowrap;gap:8px"><span class="nid">${ix+1}</span><input type="text" data-nt value="${esc(n.title||"")}" placeholder="Düğüm başlığı (örn. İlk değerlendirme)">
+          <label class="check small" style="white-space:nowrap"><input type="radio" name="start" ${D.start===k?"checked":""} data-ns> Başlangıç</label>
+          <label class="check small" style="white-space:nowrap"><input type="checkbox" data-ne ${n.end?"checked":""}> Bitiş</label>
+          ${D.order.length>1?`<button type="button" class="btn sm ghost danger" data-nd>✕</button>`:""}</div>
+        <div class="grid2" style="margin-top:8px"><div class="field"><label class="f">${n.end?"Sonuç / özet (öğretici açıklama)":"Durum metni"}</label><textarea data-nx style="min-height:70px">${esc(n.text||"")}</textarea></div>
+          <div>${n.end?`<div class="field"><label class="f">Sonuç türü</label><select data-no>${Object.entries(OUTCOME).map(([v,[l]])=>`<option value="${v}" ${(n.outcome||"mid")===v?"selected":""}>${l}</option>`).join("")}</select></div>`
+            :`<div class="field"><label class="f">Vital bulgular <span class="muted" style="font-weight:400">(“·” ile ayırın)</span></label><input type="text" data-nv value="${esc(n.vitals||"")}" placeholder="KB 85/50 · Nb 124 · SpO₂ %91 · Ateş 38.6"></div>`}
+            <div class="field"><label class="f">Görüntü</label><div class="mm-own">${miniMedia(n,"imageId","dicomId")}</div></div></div></div>
+        ${n.end?"":`<div class="lbl2" style="margin-top:6px">Seçenekler</div>
+          ${(n.opts||[]).map((o,j)=>`<div class="simoptedit ${o.kind}" data-o="${j}">
+            <div class="row" style="flex-wrap:nowrap;gap:6px"><select data-okind style="width:auto"><option value="test" ${o.kind==="test"?"selected":""}>🔎 Tetkik</option><option value="act" ${o.kind==="act"?"selected":""}>➜ Karar</option></select>
+              <input type="text" data-ol value="${esc(o.label||"")}" placeholder="${o.kind==="test"?"örn. 12 derivasyonlu EKG":"örn. Kateter laboratuvarına gönder"}">
+              <input type="number" data-op value="${o.pts??0}" title="Puan (gereksiz/yanlış için eksi)" style="width:72px"><span class="small muted">puan</span>
+              <input type="number" data-om value="${o.min??0}" min="0" title="Süre (dk)" style="width:64px"><span class="small muted">dk</span>
+              <button type="button" class="btn sm ghost danger" data-odel>✕</button></div>
+            ${o.kind==="test"?`<div class="grid2" style="margin-top:6px"><textarea data-or placeholder="Sonuç (örn. II, III, aVF'de 3 mm ST elevasyonu)" style="min-height:50px">${esc(o.res||"")}</textarea><div><div class="mm-own">${miniMedia(o,"resImg","resDcm")}</div></div></div>`
+              :`<div class="row small" style="margin-top:6px;gap:6px;flex-wrap:nowrap">Gider: <select data-oto>${nodeOpts(o.to)}</select></div>`}
+            <input type="text" data-ofb value="${esc(o.fb||"")}" placeholder="Geri bildirim (seçildiğinde/sonda gösterilir; neden doğru/yanlış)" style="margin-top:6px"></div>`).join("")}
+          <div class="row" style="gap:6px;margin-top:6px"><button type="button" class="btn sm" data-addt>+ Tetkik</button><button type="button" class="btn sm" data-adda>+ Karar</button></div>`}
+      </div>`; }).join("");
+    $id("sN").querySelectorAll("[data-n]").forEach(el=>{ const k=el.dataset.n, n=D.nodes[k];
+      el.querySelector("[data-nt]").oninput=e=>{ n.title=e.target.value; };
+      el.querySelector("[data-nt]").onchange=()=>{ $id("sN").querySelectorAll(`[data-oto] option[value="${k}"]`).forEach(op=>op.textContent=(n.title||k)+(n.end?" (bitiş)":"")); };
+      el.querySelector("[data-ns]").onchange=()=>{ D.start=k; status(); };
+      el.querySelector("[data-ne]").onchange=e=>{ n.end=e.target.checked; if(n.end&&!n.outcome) n.outcome="mid"; drawN(); };
+      el.querySelector("[data-nx]").oninput=e=>{ n.text=e.target.value; };
+      el.querySelector("[data-nv]")?.addEventListener("input",e=>{ n.vitals=e.target.value; });
+      el.querySelector("[data-no]")?.addEventListener("change",e=>{ n.outcome=e.target.value; });
+      el.querySelector("[data-nd]")?.addEventListener("click",async()=>{ if(!await confirmDlg("Düğümü sil",`<p>“${esc(n.title||k)}” ve ona giden bağlantılar silinecek.</p>`,"Sil",true)) return;
+        delete D.nodes[k]; D.order=D.order.filter(x=>x!==k); if(D.start===k) D.start=D.order[0]; Object.values(D.nodes).forEach(m=>(m.opts||[]).forEach(o=>{ if(o.to===k) o.to=null; })); drawN(); });
+      bindMiniMedia(el.querySelector(":scope > .grid2 .mm-own"),n,drawN);
+      el.querySelectorAll("[data-o]").forEach(oe=>{ const o=n.opts[Number(oe.dataset.o)];
+        oe.querySelector("[data-okind]").onchange=e=>{ o.kind=e.target.value; drawN(); };
+        oe.querySelector("[data-ol]").oninput=e=>{ o.label=e.target.value; };
+        oe.querySelector("[data-op]").oninput=e=>{ o.pts=Number(e.target.value)||0; status(); };
+        oe.querySelector("[data-om]").oninput=e=>{ o.min=Math.max(0,Number(e.target.value)||0); };
+        oe.querySelector("[data-ofb]").oninput=e=>{ o.fb=e.target.value; };
+        oe.querySelector("[data-or]")?.addEventListener("input",e=>{ o.res=e.target.value; });
+        oe.querySelector("[data-oto]")?.addEventListener("change",e=>{ if(e.target.value==="__new"){ const nk=nextNid(); D.nodes[nk]={title:`Düğüm ${D.order.length+1}`,text:"",vitals:"",opts:[]}; D.order.push(nk); o.to=nk; drawN(); setTimeout(()=>$id("sN").querySelector(`[data-n="${nk}"]`)?.scrollIntoView({behavior:"smooth",block:"center"}),50); } else { o.to=e.target.value; status(); } });
+        oe.querySelector("[data-odel]").onclick=()=>{ n.opts.splice(n.opts.indexOf(o),1); drawN(); };
+        const mo=oe.querySelector(".mm-own"); if(mo) bindMiniMedia(mo,o,drawN); });
+      el.querySelector("[data-addt]")?.addEventListener("click",()=>{ (n.opts=n.opts||[]).push({id:newId().slice(0,8),kind:"test",label:"",pts:1,min:10,res:"",fb:""}); drawN(); });
+      el.querySelector("[data-adda]")?.addEventListener("click",()=>{ (n.opts=n.opts||[]).push({id:newId().slice(0,8),kind:"act",label:"",pts:0,min:0,to:null,fb:""}); drawN(); });
+    });
+    hydrateDicom($id("sN")); status();
+  };
+  $id("sAddN").onclick=()=>{ const nk=nextNid(); D.nodes[nk]={title:`Düğüm ${D.order.length+1}`,text:"",vitals:"",opts:[]}; D.order.push(nk); drawN(); $id("sN").lastElementChild?.scrollIntoView({behavior:"smooth"}); };
+  const clean=()=>{ const nodes={}; D.order.forEach(k=>{ const n=D.nodes[k];
+    nodes[k]={title:String(n.title||"").trim(),text:String(n.text||"").trim(),vitals:String(n.vitals||"").trim(),imageId:n.imageId||null,dicomId:n.dicomId||null,end:!!n.end,outcome:n.end?(n.outcome||"mid"):null,
+      opts:n.end?[]:(n.opts||[]).filter(o=>String(o.label||"").trim()).map(o=>({id:o.id,kind:o.kind==="act"?"act":"test",label:String(o.label).trim(),pts:Number(o.pts)||0,min:Number(o.min)||0,fb:String(o.fb||"").trim(),
+        ...(o.kind==="act"?{to:o.to||null}:{res:String(o.res||"").trim(),resImg:o.resImg||null,resDcm:o.resDcm||null})}))}; });
+    return nodes; };
+  $id("sSave").onclick=async()=>{
+    const title=$id("sTi").value.trim(); if(!title) return toast("Başlık girin",true);
+    const nodes=clean(); const tmp={...D,nodes}; const iss=simIssues(tmp);
+    if(isAdm&&$id("sPu").checked&&iss.length&&!await confirmDlg("Uyarılar var",`<p>Vaka yapısında ${iss.length} sorun var; asistan bir yerde takılabilir. Yine de yayınlansın mı?</p>`,"Yayınla")) return;
+    const sid=id||newId();
+    const data={title,topic:$id("sTo").value.trim(),intro:$id("sIn").value.trim(),start:D.start,order:D.order,nodes,maxScore:simMax(tmp),updatedAt:serverTimestamp(),...(id?{}:{createdAt:serverTimestamp()})};
+    if(isAdm){ data.published=$id("sPu").checked; if(D.status&&D.status!=="approved") data.status="approved"; } else { data.status="pending"; data.author=S.email; data.published=false; }
+    try{ $id("sSave").disabled=true; await setDoc(doc(db,"sims",sid),data,{merge:true}); toast(isAdm?"Kaydedildi":"Kaydedildi; yönetici onayına gönderildi");
+      if(!id){ S.params={id:sid}; return viewSimEdit(sid); } $id("sSave").disabled=false; }catch(e){ fail(e,"Kaydedilemedi"); $id("sSave").disabled=false; } };
+  $id("sPrev")?.addEventListener("click",()=>go("simPlay",{id,back:{view:"simEdit",params:{id}}}));
+  $id("sDel")?.addEventListener("click",async()=>{ if(!await confirmDlg("Vakayı sil","<p>Sanal hasta vakası kalıcı olarak silinecek.</p>","Sil",true)) return; try{ await deleteDoc(doc(db,"sims",id)); go("edu",{sec:"sims"}); }catch(e){ fail(e); } });
+  drawN();
+}
+
+/* =====================================================================
+   ÖĞREN (asistan ana sayfası), MODÜLLER, HAFTANIN GÖRÜNTÜSÜ, TEKRAR
+   ===================================================================== */
+const MOD_KINDS={text:"📖 Okuma",video:"▶ Video / bağlantı",atlas:"🖼 Atlas görüntüsü",sim:"🩺 Sanal hasta",practice:"✎ Alıştırma"};
+function modItemDone(m,it,AM){
+  if(it.k==="atlas"){ const r=L?.d.atlas[it.ref]; const a=AM?.[it.ref]; return !!(r?.done||(r?.seen&&!(a?.tasks||[]).length)); }
+  if(it.k==="sim") return !!(L?.d.sim[it.ref]?.n);
+  return !!L?.d.mod[m.id]?.[it.id];
+}
+function modProg(m,AM){ const its=m.items||[]; const d=its.filter(it=>modItemDone(m,it,AM)).length; return {d,n:its.length,p:its.length?d/its.length*100:0}; }
+const isReq=(m,k)=>Array.isArray(m.req)&&k!=null&&m.req.map(Number).includes(Number(k));
+const progBar=p=>`<span class="track wide"><span style="width:${Math.max(0,Math.min(100,p))}%"></span></span>`;
+const wkState=w=>{ const now=Date.now(), o=tsMs(w.openAt)||0, r=tsMs(w.revealAt)||0; return now<o?"soon":now<r?"open":"revealed"; };
+
+async function viewLearn(){
+  paint(`<div class="spinner"></div>`);
+  const [mods,atlas,sims,weeks]=await Promise.all([loadEdu("modules"),loadEdu("atlas"),loadEdu("sims"),loadEdu("weekly"),loadLearn()].map(p=>Promise.resolve(p).catch(e=>{ console.error(e); return []; })));
+  const AM={}; atlas.forEach(a=>AM[a.id]=a);
+  const kid=S.resident?.kidem, due=srsDue().length, nCards=Object.keys(L.d.srs).length;
+  const curW=weeks.filter(w=>wkState(w)!=="soon").sort((a,b)=>(tsMs(b.openAt)||0)-(tsMs(a.openAt)||0));
+  const W=curW[0];
+  const msort=mods.sort((a,b)=>(isReq(b,kid)-isReq(a,kid))||((a.order??99)-(b.order??99))||(a.title||"").localeCompare(b.title||"","tr"));
+  const req=msort.filter(m=>isReq(m,kid)), reqDone=req.filter(m=>{ const p=modProg(m,AM); return p.n&&p.d===p.n; }).length;
+  paint(`<div class="page-head"><div><h1>Öğren</h1><div class="sub">Merhaba ${esc((S.resident?.name||S.user.displayName||"").split(" ")[0])}. Görüntüleri inceleyin, sanal hastaları yönetin, modülleri tamamlayın; yanlışlarınız aralıklı tekrar listenize eklenir.</div></div></div>
+    <div class="lhub">
+      <button class="lcard srs ${due?"hot":""}" data-go="srs"><span class="ic">↻</span><b>Tekrar</b><span class="big">${due}</span><span class="small">${due?"kart bugün tekrar bekliyor":nCards?"bugün tekrar yok":"henüz kart yok"}</span></button>
+      <button class="lcard" data-go="atlas"><span class="ic">🖼</span><b>Görüntü atlası</b><span class="big">${atlas.length}</span><span class="small">${atlas.filter(a=>L.d.atlas[a.id]?.done).length} sınandı · ${atlas.filter(a=>L.d.atlas[a.id]?.seen).length} görüldü</span></button>
+      <button class="lcard" data-go="sims"><span class="ic">🩺</span><b>Sanal hasta</b><span class="big">${sims.length}</span><span class="small">${sims.filter(x=>L.d.sim[x.id]).length} vaka tamamlandı</span></button>
+      <button class="lcard" data-go="practice"><span class="ic">✎</span><b>Alıştırma</b><span class="big">→</span><span class="small">konu konu soru çöz</span></button>
+    </div>
+    ${W?`<div class="card pad wkcard" style="margin-bottom:16px" id="wkHost"></div>`:""}
+    <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Modüller</h2>${req.length?`<span class="badge ${reqDone===req.length?"ok":"warn"}">Zorunlu: ${reqDone}/${req.length} tamamlandı</span>`:""}</div>
+      ${msort.length?`<div class="mlist">${msort.map(m=>{ const p=modProg(m,AM); return `<button class="mrow" data-mod="${esc(m.id)}"><div class="grow"><b>${esc(m.title||"Modül")}</b> ${isReq(m,kid)?`<span class="badge warn">Zorunlu</span>`:""}${p.n&&p.d===p.n?`<span class="badge ok">✓ Tamamlandı</span>`:""}
+          <div class="small muted">${esc(m.topic||"")}${m.topic?" · ":""}${p.n} öğe</div></div><div class="mprog">${progBar(p.p)}<span class="small">${p.d}/${p.n}</span></div></button>`; }).join("")}</div>`
+        :`<div class="small muted" style="margin-top:8px">Henüz yayınlanmış modül yok.</div>`}</div>
+    ${curW.length>1?`<div class="card pad" style="margin-top:16px"><h2 style="margin-top:0">Geçmiş haftanın görüntüleri</h2><div class="mlist">${curW.slice(1).map(w=>`<button class="mrow" data-wk="${esc(w.id)}"><div class="grow"><b>${esc(w.title||"Görüntü")}</b><div class="small muted">${fmtDT(w.openAt)}</div></div>${L.d.wk[w.id]?`<span class="badge ok">Yanıtladınız</span>`:""}</button>`).join("")}</div></div>`:""}`);
+  document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  document.querySelectorAll("[data-mod]").forEach(b=>b.onclick=()=>go("module",{id:b.dataset.mod}));
+  document.querySelectorAll("[data-wk]").forEach(b=>b.onclick=()=>go("weekly",{id:b.dataset.wk}));
+  if(W) weeklyBlock($id("wkHost"),W,true);
+}
+
+/* ---- haftanın görüntüsü ---- */
+async function weeklyBlock(host,w,compact){
+  const stt=wkState(w), uid=S.user.uid;
+  let mine=null, all=[], ans=null;
+  try{ if(stt==="revealed"){ const [rs,k]=await Promise.all([getDocs(collection(db,"weekly",w.id,"resp")),getDoc(doc(db,"weeklyKeys",w.id))]); all=rs.docs.map(d=>d.data()).sort((a,b)=>(tsMs(a.at)||0)-(tsMs(b.at)||0)); mine=all.find(r=>r.uid===uid)||null; ans=k.exists()?k.data().answer:""; }
+       else { const r=await getDoc(doc(db,"weekly",w.id,"resp",uid)); mine=r.exists()?r.data():null; } }catch(e){ console.error(e); }
+  host.innerHTML=`<div class="row" style="justify-content:space-between;align-items:flex-start"><div><div class="lbl2">Haftanın görüntüsü</div><h2 style="margin:2px 0 4px">${esc(w.title||"")}</h2></div>
+      <span class="badge ${stt==="open"?"warn":"ok"}">${stt==="open"?`Cevap ${fmtDT(w.revealAt)} açıklanacak`:"Cevap açıklandı"}</span></div>
+    ${w.prompt?md(w.prompt):""}${mediaHtml(w.imageId,w.dicomId)}
+    ${stt==="open"?`<div class="field" style="margin-top:12px"><label class="f">Yorumunuz</label><textarea id="wkT" style="min-height:90px" placeholder="Bulgularınızı ve ön tanınızı yazın. Cevap açıklanınca herkesin yorumu görünür.">${esc(mine?.text||"")}</textarea></div>
+        <div class="row" style="justify-content:space-between"><span class="small muted" id="wkS">${mine?`Gönderildi · ${fmtDT(mine.at)}`:""}</span><button class="btn primary" id="wkGo">${mine?"Güncelle":"Gönder"}</button></div>`
+      :`<div class="pearl" style="margin-top:12px"><div class="lbl">Cevap</div>${ans?md(ans):"<span class='muted'>—</span>"}</div>
+        <details ${compact?"":"open"} style="margin-top:12px"><summary><b>Yorumlar (${all.length})</b>${mine?"":" · siz yorum yazmadınız"}</summary>
+          <div class="wkresp">${all.map(r=>`<div class="${r.uid===uid?"me":""}"><b>${esc(r.name||"")}</b><span class="small muted"> · ${fmtDT(r.at)}</span><div class="txt">${esc(r.text||"")}</div></div>`).join("")||`<div class="small muted">Yorum yok.</div>`}</div></details>`}`;
+  hydrateImages(host); hydrateDicom(host);
+  $id("wkGo")?.addEventListener("click",async()=>{ const t=$id("wkT").value.trim(); if(!t) return toast("Yorum boş",true);
+    try{ await setDoc(doc(db,"weekly",w.id,"resp",uid),{uid,email:S.email,name:S.resident?.name||S.user.displayName||"",text:t.slice(0,3000),at:serverTimestamp()});
+      if(L){ L.d.wk[w.id]=Date.now(); saveLearn(); } $id("wkS").textContent="Gönderildi · az önce"; $id("wkGo").textContent="Güncelle"; toast("Yorumunuz kaydedildi"); }catch(e){ fail(e,"Gönderilemedi (süre dolmuş olabilir)"); } });
+}
+async function viewWeekly(id){
+  paint(`<div class="spinner"></div>`); await loadLearn();
+  const s=await getDoc(doc(db,"weekly",id)); if(!s.exists()){ toast("Bulunamadı",true); return go("learn"); }
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Öğren</button><h1>Haftanın görüntüsü</h1></div></div><div class="card pad" id="wkHost"></div>`);
+  $id("bk").onclick=()=>go("learn"); weeklyBlock($id("wkHost"),{id,...s.data()},false);
+}
+
+/* ---- modül (asistan) ---- */
+async function viewModule(id){
+  paint(`<div class="spinner"></div>`);
+  const [s,atlas,sims]=await Promise.all([getDoc(doc(db,"modules",id)),loadEdu("atlas").catch(()=>[]),loadEdu("sims").catch(()=>[]),loadLearn()]);
+  if(!s.exists()){ toast("Modül bulunamadı",true); return go("learn"); }
+  const m={id,...s.data()}, AM={}, SM={}; atlas.forEach(a=>AM[a.id]=a); sims.forEach(x=>SM[x.id]=x);
+  const back={view:"module",params:{id}};
+  const toggle=it=>{ const r=L.d.mod[id]=L.d.mod[id]||{}; if(r[it.id]) delete r[it.id]; else r[it.id]=Date.now(); saveLearn(); draw(); };
+  const draw=()=>{ const p=modProg(m,AM), its=m.items||[];
+    paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Öğren</button><h1>${esc(m.title||"Modül")}</h1><div class="sub">${[esc(m.topic||""),isReq(m,S.resident?.kidem)?`<b>${S.resident.kidem}. yıl için zorunlu</b>`:""].filter(Boolean).join(" · ")}</div></div>
+        <div class="mprog" style="min-width:200px">${progBar(p.p)}<span class="small">${p.d}/${p.n}</span></div></div>
+      ${m.desc?`<div class="card pad" style="margin-bottom:16px">${md(m.desc)}</div>`:""}
+      <div class="mitems">${its.map((it,i)=>{ const done=modItemDone(m,it,AM); let body="", act="";
+        if(it.k==="text"){ body=it.body?md(it.body):""; act=`<button class="btn sm ${done?"":"primary"}" data-tg="${i}">${done?"✓ Okundu":"Okudum"}</button>`; }
+        else if(it.k==="video"){ const y=ytId(it.url); body=`${it.body?md(it.body):""}${y?`<div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/${esc(y)}" allowfullscreen loading="lazy" title="${esc(it.title||"Video")}"></iframe></div>`:it.url?`<a class="btn sm" href="${esc(it.url)}" target="_blank" rel="noopener">Bağlantıyı aç ↗</a>`:""}`;
+          act=`<button class="btn sm ${done?"":"primary"}" data-tg="${i}">${done?"✓ Tamamlandı":"Tamamladım"}</button>`; }
+        else if(it.k==="atlas"){ const a=AM[it.ref]; body=a?`<button class="acard inline" data-oa="${esc(a.id)}">${mediaThumb(a)}<div class="ab"><b>${esc(a.title)}</b><span class="small muted">${esc(a.cat||"")}${(a.tasks||[]).length?` · ${a.tasks.length} görev`:""}</span></div></button>`:`<div class="small muted">Bu görüntü yayında değil.</div>`;
+          act=a?`<span class="small muted">${(a.tasks||[]).length?"Kendini sına'yı bitirince tamamlanır":"Açınca tamamlanır"}</span>`:""; }
+        else if(it.k==="sim"){ const x=SM[it.ref]; body=x?`<div>${esc(x.intro||"").slice(0,220)}</div>`:`<div class="small muted">Bu vaka yayında değil.</div>`;
+          act=x?`<button class="btn sm primary" data-os="${esc(x.id)}">${L.d.sim[x.id]?`Yeniden oyna (en iyi %${L.d.sim[x.id].best})`:"Vakayı başlat"}</button>`:""; }
+        else if(it.k==="practice"){ body=it.body?md(it.body):""; act=`<button class="btn sm" data-gp>Alıştırmaya git</button><button class="btn sm ${done?"":"primary"}" data-tg="${i}">${done?"✓ Tamamlandı":"Tamamladım"}</button>`; }
+        return `<div class="card pad mitem ${done?"done":""}"><div class="row" style="flex-wrap:nowrap;align-items:flex-start;gap:10px"><span class="mnum">${done?"✓":i+1}</span><div class="grow"><div class="small muted">${MOD_KINDS[it.k]||""}</div><h3 style="margin:2px 0 8px">${esc(it.title||(it.k==="atlas"?AM[it.ref]?.title:it.k==="sim"?SM[it.ref]?.title:"")||"")}</h3>${body}<div class="row" style="margin-top:10px;gap:6px">${act}</div></div></div></div>`; }).join("")||`<div class="card empty">Bu modülde henüz içerik yok.</div>`}</div>`);
+    $id("bk").onclick=()=>go("learn");
+    document.querySelectorAll("[data-tg]").forEach(b=>b.onclick=()=>toggle(its[Number(b.dataset.tg)]));
+    document.querySelectorAll("[data-oa]").forEach(b=>b.onclick=()=>go("atlasView",{id:b.dataset.oa,back}));
+    document.querySelectorAll("[data-os]").forEach(b=>b.onclick=()=>go("simPlay",{id:b.dataset.os,back}));
+    document.querySelectorAll("[data-gp]").forEach(b=>b.onclick=()=>go("practice"));
+    hydrateImages($app);
+  };
+  draw();
+}
+
+/* ---- aralıklı tekrar ---- */
+async function viewSrs(){
+  paint(`<div class="spinner"></div>`); await loadLearn();
+  const all=Object.entries(L.d.srs), due=srsDue(), now=Date.now();
+  const days=[...Array(7)].map((_,i)=>{ const a=now+i*DAY_MS, b=a+DAY_MS; return {i,n:all.filter(([k,c])=>i===0?(c.due||0)<b:(c.due||0)>=a&&(c.due||0)<b).length}; });
+  const mx=Math.max(1,...days.map(d=>d.n)); const DN=["Bugün","Yarın"];
+  const bt={}; all.forEach(([k,c])=>{ const t=c.topic||"Diğer"; (bt[t]=bt[t]||{t,n:0,m:0}).n++; if((c.b||0)>=4) bt[t].m++; });
+  paint(`<div class="page-head"><div><h1>Tekrar</h1><div class="sub">Alıştırmada yanlış yaptığınız sorular ve atlas görevleri aralıklı tekrar listenize eklenir: doğru bildikçe 1, 3, 7, 21 ve 60 gün sonra yeniden sorulur; yanlışta başa döner.</div></div></div>
+    <div class="stats"><div class="stat"><div class="k">Bugün tekrar</div><div class="v">${due.length}</div></div><div class="stat"><div class="k">Toplam kart</div><div class="v">${all.length}</div></div>
+      <div class="stat"><div class="k">Öğrenilmiş (≥21 gün)</div><div class="v">${all.filter(([k,c])=>(c.b||0)>=4).length}</div></div></div>
+    <div class="card pad" style="margin-bottom:16px;text-align:center">${due.length?`<button class="btn primary" id="sGo" style="font-size:16px;padding:12px 22px">Tekrara başla (${Math.min(due.length,30)} kart)</button>${due.length>30?`<div class="small muted" style="margin-top:6px">Bir oturumda en fazla 30 kart; kalanlar sonraki oturumda.</div>`:""}`
+      :`<div class="muted">${all.length?"Bugün tekrar edilecek kart yok. Yarın tekrar bakın.":"Henüz kart yok. Alıştırmada yanlış yaptığınız sorular, atlasta ilk denemede bulamadığınız bulgular ve “Tekrar listeme ekle” dedikleriniz buraya gelir."}</div>`}</div>
+    ${all.length?`<div class="grid2" style="align-items:start"><div class="card pad"><h2 style="margin-top:0">Önümüzdeki 7 gün</h2><div class="srsdays">${days.map(d=>`<div><span class="bar"><span style="height:${d.n/mx*100}%"></span></span><b>${d.n}</b><span class="small muted">${DN[d.i]||new Date(now+d.i*DAY_MS).toLocaleDateString("tr-TR",{weekday:"short"})}</span></div>`).join("")}</div></div>
+      <div class="card pad"><h2 style="margin-top:0">Konulara göre</h2>${hbars(Object.values(bt).sort((a,b)=>b.n-a.n).map(o=>({label:o.t,p:o.m/o.n*100,sub:`${o.m}/${o.n} öğrenildi`})))}</div></div>`:""}`);
+  $id("sGo")?.addEventListener("click",()=>srsSession(due.slice(0,30).map(([k])=>k)));
+}
+async function srsSession(keys){
+  paint(`<div class="spinner"></div>`);
+  const qC={}, aC={};
+  const items=(await Promise.all(keys.map(async k=>{ const [t,a,b]=k.split(":");
+    try{ if(t==="q"){ const s=await getDoc(doc(db,"questions",a)); if(!s.exists()) return null; return {k,t,q:{id:a,...s.data()}}; }
+      if(t==="a"){ aC[a]=aC[a]||getDoc(doc(db,"atlas",a)); const s=await aC[a]; if(!s.exists()) return null; const A={id:a,...s.data()}, tk=(A.tasks||[]).find(x=>x.id===b), f=tk&&(A.findings||[]).find(x=>x.id===tk.fid); if(!f) return null; return {k,t,A,tk,f}; } }
+    catch(e){ return null; } return null; }))).map((x,i)=>x||{k:keys[i],gone:true});
+  items.filter(x=>x.gone).forEach(x=>delete L.d.srs[x.k]); if(items.some(x=>x.gone)) saveLearn();
+  const Q=items.filter(x=>!x.gone); if(!Q.length){ toast("Bu kartların içeriği artık erişilebilir değil; listeden çıkarıldı"); return viewSrs(); }
+  const ses={i:0,res:[],again:[]};
+  const card=()=>{
+    const it=Q[ses.i]; if(!it) return fin();
+    const c=L.d.srs[it.k]||{}, lvl=c.b||0;
+    const head=`<div class="page-head"><div><h1>Tekrar</h1><div class="sub">Kart ${ses.i+1} / ${Q.length} · ${ses.res.filter(r=>r).length} doğru</div></div><div class="row"><span class="srslvl" title="Kutu ${lvl}/5">${[1,2,3,4,5].map(i=>`<i class="${i<=lvl?"on":""}"></i>`).join("")}</span><button class="btn" id="sEnd">Bitir</button></div></div>`;
+    const grade=ok=>{ ses.res[ses.i]=ok; srsGrade(it.k,ok); };
+    const nextBtn=()=>`<div class="row" style="justify-content:space-between;margin-top:12px"><button class="btn sm ghost" id="sRm">Kartı listemden çıkar</button><button class="btn primary" id="sNx">${ses.i<Q.length-1?"Sonraki →":"Bitir"}</button></div>`;
+    const bindNext=()=>{ $id("sNx").onclick=()=>{ ses.i++; card(); window.scrollTo({top:0}); }; $id("sNx").focus(); $id("sRm").onclick=()=>{ delete L.d.srs[it.k]; saveLearn(); toast("Kart çıkarıldı"); ses.i++; card(); }; };
+    if(it.t==="q"){ const q=it.q, perm=q.type==="open"?[]:shuffle(q.options.map((_,j)=>j));
+      paint(`${head}<div class="card pad" id="pq"><div class="qmeta">${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge info">Soru</span></div><div class="q-stem">${esc(q.stem)}</div>${imgTag(q.imageId)}${dcmTag(q.dicomId)}
+        ${q.type==="open"?`<div class="row" style="margin-top:12px"><button class="btn primary" id="sSh">Cevabı göster</button></div>`:`<div class="opts">${perm.map((o,p)=>`<button class="opt" data-o="${o}"><span class="L">${LET[p]}</span><span class="T">${esc(q.options[o])}</span></button>`).join("")}</div>`}<div id="sFb"></div></div>`);
+      $id("sEnd").onclick=()=>fin();
+      document.querySelectorAll("#pq [data-o]").forEach(b=>b.onclick=()=>{ if(ses.res[ses.i]!=null) return; const a=Number(b.dataset.o), ok=a===q.correct;
+        document.querySelectorAll("#pq [data-o]").forEach(x=>{ const o=Number(x.dataset.o); x.classList.add("static"); if(o===q.correct) x.classList.add("right"); else if(o===a) x.classList.add("wrong"); });
+        grade(ok); $id("sFb").innerHTML=`<div class="pfb ${ok?"ok":"bad"}"><b>${ok?"Doğru!":"Yanlış."}</b> ${ok?`Sonraki tekrar ${SRS_INT[(L.d.srs[it.k]?.b||1)-1]} gün sonra.`:"Kart başa döndü; yarın yeniden sorulacak."}${q.explanation?`<div class="expl" style="margin-top:8px">${esc(q.explanation)}</div>`:""}</div>${nextBtn()}`; bindNext(); });
+      $id("sSh")?.addEventListener("click",()=>{ $id("sSh").remove(); $id("sFb").innerHTML=`<div class="expl"><b>Model cevap:</b> ${esc(q.explanation||"—")}</div>
+        <div class="row" style="margin-top:12px;justify-content:flex-end"><button class="btn" id="sNo">Bilemedim</button><button class="btn primary" id="sYes">Biliyordum</button></div>`;
+        const self=ok=>{ grade(ok); $id("sFb").insertAdjacentHTML("beforeend",nextBtn()); $id("sNo").remove(); $id("sYes").remove(); bindNext(); };
+        $id("sYes").onclick=()=>self(true); $id("sNo").onclick=()=>self(false); });
+    } else {
+      const {A,tk,f}=it, shown=new Set();
+      paint(`${head}<div class="atl"><div class="atl-media" id="sM"></div><div class="card pad atl-side"><div class="qmeta">${A.topic?`<span class="badge">${esc(A.topic)}</span>`:""}<span class="badge info">Atlas · ${esc(A.cat||"")}</span></div>
+        <div class="qprompt">${esc(tk.prompt)}</div><div class="small muted">${A.dicomId?"Doğru kesite gidip bulgunun üzerine tıklayın.":"Görüntüde bulgunun üzerine tıklayın."} Tek hakkınız var.</div><div id="sFb"></div></div></div>`);
+      $id("sEnd").onclick=()=>fin();
+      const anno=new Anno({shapes:A.findings||[],mode:"pick",show:x=>shown.has(x.id),labels:true});
+      const M=mountMedia($id("sM"),A,anno,{annoLabel:"Tıkla",tool:"ann"});
+      anno.onPick=(p,z)=>{ if(ses.res[ses.i]!=null) return; const ok=shapeHit(f,p)&&sliceOk(f,z); anno.marks.push({x:p.x,y:p.y,z:M.isDcm?z:null,ok}); shown.add(f.id); anno.mode="view"; if(M.isDcm){ M.viewer.setTool("slice"); if(!ok) M.viewer.setSlice(f.z); } anno.redraw();
+        grade(ok); $id("sFb").innerHTML=`<div class="pfb ${ok?"ok":"bad"}"><b>${ok?"Doğru!":"Bulgu burada."}</b> ${esc(f.label||"")}${f.text?`<div style="margin-top:6px">${md(f.text)}</div>`:""}</div>${nextBtn()}`; bindNext(); };
+    }
+  };
+  const fin=()=>{ const n=ses.res.filter(r=>r!=null).length, ok=ses.res.filter(r=>r).length;
+    paint(`<div class="page-head"><div><h1>Tekrar tamamlandı</h1></div></div><div class="card pad"><div class="scorebox"><div><div class="bigscore">${ok}/${n}</div><div class="muted">doğru</div></div>
+      <div class="muted" style="flex:1;min-width:220px">Doğru bildiğiniz kartlar daha uzun aralıkla, yanlışlar yarın yeniden karşınıza çıkacak.</div></div>
+      <div class="row" style="margin-top:12px"><button class="btn primary" id="sB">Tekrar sayfasına dön</button><button class="btn" id="sL">Öğren</button></div></div>`);
+    saveLearn(true); $id("sB").onclick=()=>viewSrs(); $id("sL").onclick=()=>go("learn"); };
+  card();
+}
+
+/* =====================================================================
+   YÖNETİCİ — EĞİTİM İÇERİĞİ ve İLERLEME PANELİ
+   ===================================================================== */
+const EDU_SECS=()=>S.mode==="admin"?[["atlas","Görüntü atlası"],["sims","Sanal hasta"],["modules","Modüller"],["weekly","Haftanın görüntüsü"],["progress","İlerleme"]]:[["atlas","Görüntü atlası"],["sims","Sanal hasta"]];
+async function viewEdu(sec){
+  const secs=EDU_SECS(); if(!secs.some(x=>x[0]===sec)) sec=secs[0][0];
+  const head=`<div class="page-head"><div><h1>Eğitim</h1><div class="sub">Asistanların “Öğren” sekmesinde gördüğü içerik${S.mode==="admin"?" ve ilerlemeleri":""}.</div></div></div>
+    <div class="seg" id="eduSeg">${secs.map(([k,l])=>`<button data-s="${k}" class="${k===sec?"on":""}">${l}</button>`).join("")}</div><div id="eduB"><div class="spinner"></div></div>`;
+  paint(head);
+  $id("eduSeg").querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>go("edu",{sec:b.dataset.s}));
+  const B=$id("eduB");
+  if(sec==="atlas"){ const list=await loadEdu("atlas"); const pend=list.filter(a=>a.status==="pending").length;
+    B.innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="small muted">${list.length} görüntü${pend?` · <b>${pend} onay bekliyor</b>`:""}${S.mode==="admin"?` · ${list.filter(a=>a.published).length} yayında`:""}</span><button class="btn primary" id="nA">+ Yeni görüntü</button></div><div id="ab"></div>`;
+    $id("nA").onclick=()=>go("atlasEdit",{});
+    atlasBrowser($id("ab"),S.mode==="author"?list.filter(a=>a.author===S.email||a.published):list,a=>canEdit(a)?go("atlasEdit",{id:a.id}):go("atlasView",{id:a.id}));
+  }
+  else if(sec==="sims"){ const list=(await loadEdu("sims")).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0));
+    B.innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="small muted">${list.length} vaka</span><button class="btn primary" id="nS">+ Yeni sanal hasta</button></div>
+      ${list.length?`<div class="simgrid">${list.map(x=>`<button class="simcard" data-sim="${esc(x.id)}"><b>${esc(x.title||"Vaka")}</b><span class="small muted">${esc(x.topic||"")} · ${Object.keys(x.nodes||{}).length} düğüm · en çok ${x.maxScore||"?"} puan</span><span class="clamp3 small">${esc(x.intro||"")}</span><span class="row" style="gap:4px;margin-top:auto">${pubBadge(x)}${x.author?`<span class="badge">${esc(x.author)}</span>`:""}</span></button>`).join("")}</div>`
+        :`<div class="card empty">Henüz vaka yok. “Yeni sanal hasta” ile başlayın: bir başvuru düğümü, birkaç tetkik ve karar, en az bir bitiş düğümü yeterli.</div>`}`;
+    $id("nS").onclick=()=>go("simEdit",{});
+    B.querySelectorAll("[data-sim]").forEach(b=>b.onclick=()=>{ const x=list.find(y=>y.id===b.dataset.sim); canEdit(x)?go("simEdit",{id:x.id}):go("simPlay",{id:x.id}); });
+  }
+  else if(sec==="modules") await eduModules(B);
+  else if(sec==="weekly") await eduWeekly(B);
+  else if(sec==="progress") await eduProgress(B);
+}
+
+/* ---- modüller ---- */
+async function eduModules(B){
+  const [mods,atlas,sims]=await Promise.all([loadEdu("modules"),loadEdu("atlas"),loadEdu("sims")]);
+  const draw=()=>{ const ms=mods.sort((a,b)=>((a.order??99)-(b.order??99))||(a.title||"").localeCompare(b.title||"","tr"));
+    B.innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="small muted">Modül = sıralı içerik listesi (okuma, video, atlas görüntüsü, sanal hasta, alıştırma). Kıdeme göre zorunlu yapılabilir.</span><button class="btn primary" id="nM">+ Yeni modül</button></div>
+      ${ms.length?`<div class="card"><div class="tbl-wrap"><table><thead><tr><th>Sıra</th><th>Modül</th><th>İçerik</th><th>Zorunlu</th><th>Durum</th><th></th></tr></thead><tbody>${ms.map(m=>`<tr class="click" data-m="${esc(m.id)}"><td>${m.order??""}</td><td><b>${esc(m.title||"")}</b><div class="small muted">${esc(m.topic||"")}</div></td>
+        <td class="small">${(m.items||[]).length} öğe</td><td class="small">${(m.req||[]).length?(m.req||[]).map(k=>k+". yıl").join(", "):"—"}</td><td>${pubBadge(m)}</td><td><button class="btn sm ghost" data-mprev="${esc(m.id)}">Önizle</button></td></tr>`).join("")}</tbody></table></div></div>`
+        :`<div class="card empty">Henüz modül yok.</div>`}`;
+    $id("nM").onclick=()=>editModule({},atlas,sims,saved=>{ mods.push(saved); draw(); });
+    B.querySelectorAll("[data-m]").forEach(r=>r.onclick=e=>{ if(e.target.closest("[data-mprev]")) return; const m=mods.find(x=>x.id===r.dataset.m); editModule(m,atlas,sims,saved=>{ Object.assign(m,saved); draw(); },()=>{ mods.splice(mods.indexOf(m),1); draw(); }); });
+    B.querySelectorAll("[data-mprev]").forEach(b=>b.onclick=()=>modulePreview(mods.find(x=>x.id===b.dataset.mprev),atlas,sims));
+  };
+  draw();
+}
+function modulePreview(m,atlas,sims){ const AM={}, SM={}; atlas.forEach(a=>AM[a.id]=a); sims.forEach(x=>SM[x.id]=x);
+  modal(`<div class="modal-h"><h2>${esc(m.title||"Modül")}</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">${m.desc?md(m.desc):""}
+    ${(m.items||[]).map((it,i)=>`<div class="mitem-prev"><span class="mnum">${i+1}</span><div><div class="small muted">${MOD_KINDS[it.k]}</div><b>${esc(it.title||AM[it.ref]?.title||SM[it.ref]?.title||"")}</b>${it.body?md(it.body):""}${it.url?`<div class="small"><a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.url)}</a></div>`:""}</div></div>`).join("")}</div>`,"wide"); }
+function editModule(m0,atlas,sims,onSaved,onDel){
+  const m=JSON.parse(JSON.stringify({title:"",topic:"",desc:"",order:null,req:[],items:[],published:false,...m0,createdAt:null,updatedAt:null}));
+  const mm=modal(`<div class="modal-h"><h2>${m0.id?"Modülü düzenle":"Yeni modül"}</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="grid3"><div class="field" style="grid-column:span 2"><label class="f">Başlık</label><input type="text" id="mTi" value="${esc(m.title)}" placeholder="örn. EKG temelleri"></div><div class="field"><label class="f">Sıra</label><input type="number" id="mOr" value="${m.order??""}" placeholder="1"></div></div>
+    <div class="grid2"><div class="field"><label class="f">Konu</label><input type="text" id="mTo" value="${esc(m.topic||"")}"></div>
+      <div class="field"><label class="f">Zorunlu olduğu kıdemler</label><div class="row" style="gap:10px">${[1,2,3,4,5].map(k=>`<label class="check"><input type="checkbox" data-rq="${k}" ${(m.req||[]).map(Number).includes(k)?"checked":""}> ${k}. yıl</label>`).join("")}</div></div></div>
+    <div class="field"><label class="f">Açıklama</label><textarea id="mDe" style="min-height:70px" placeholder="Modülün amacı, öğrenme hedefleri">${esc(m.desc||"")}</textarea></div>
+    <label class="f">İçerik</label><div id="mIt"></div>
+    <div class="row" style="gap:6px;margin-top:8px">${Object.entries(MOD_KINDS).map(([k,l])=>`<button type="button" class="btn sm" data-add="${k}">+ ${l}</button>`).join("")}</div>
+    <label class="check" style="margin-top:14px"><input type="checkbox" id="mPu" ${m.published?"checked":""}> Asistanlara yayında</label></div>
+    <div class="modal-f">${m0.id?`<button class="btn ghost danger" id="mDel" style="margin-right:auto">Sil</button>`:""}<button class="btn" data-close>Vazgeç</button><button class="btn primary" id="mSv">Kaydet</button></div>`,"wide");
+  const E=mm.el;
+  const drawI=()=>{ E.querySelector("#mIt").innerHTML=m.items.map((it,i)=>`<div class="frow" data-i="${i}">
+      <div class="row" style="flex-wrap:nowrap;gap:6px"><span class="fn">${i+1}</span><span class="small" style="white-space:nowrap">${MOD_KINDS[it.k]}</span>
+        ${it.k==="atlas"?`<select data-ref><option value="">— görüntü seçin —</option>${atlas.map(a=>`<option value="${esc(a.id)}" ${it.ref===a.id?"selected":""}>${esc(a.title)}${a.published?"":" (taslak)"}</option>`).join("")}</select>`
+          :it.k==="sim"?`<select data-ref><option value="">— vaka seçin —</option>${sims.map(a=>`<option value="${esc(a.id)}" ${it.ref===a.id?"selected":""}>${esc(a.title)}${a.published?"":" (taslak)"}</option>`).join("")}</select>`
+          :`<input type="text" data-ti value="${esc(it.title||"")}" placeholder="Başlık">`}
+        <button type="button" class="btn sm ghost" data-up ${i?"":"disabled"} title="Yukarı">↑</button><button type="button" class="btn sm ghost" data-dn ${i<m.items.length-1?"":"disabled"} title="Aşağı">↓</button><button type="button" class="btn sm ghost danger" data-del>✕</button></div>
+      ${it.k==="video"?`<input type="url" data-url value="${esc(it.url||"")}" placeholder="YouTube veya Drive bağlantısı" style="margin-top:6px">`:""}
+      ${["text","video","practice"].includes(it.k)?`<textarea data-bd style="min-height:${it.k==="text"?110:50}px;margin-top:6px" placeholder="${it.k==="text"?"Metin (**kalın**, - liste, [bağlantı](https://…))":it.k==="practice"?"Hangi konuyu çözsünler? (örn. Toksikoloji konusundan 20 soru)":"Kısa açıklama (isteğe bağlı)"}">${esc(it.body||"")}</textarea>`:""}</div>`).join("")||`<div class="small muted">Henüz içerik yok.</div>`;
+    E.querySelectorAll("#mIt [data-i]").forEach(el=>{ const i=Number(el.dataset.i), it=m.items[i];
+      el.querySelector("[data-ref]")?.addEventListener("change",e=>{ it.ref=e.target.value; });
+      el.querySelector("[data-ti]")?.addEventListener("input",e=>{ it.title=e.target.value; });
+      el.querySelector("[data-url]")?.addEventListener("input",e=>{ it.url=e.target.value.trim(); });
+      el.querySelector("[data-bd]")?.addEventListener("input",e=>{ it.body=e.target.value; });
+      el.querySelector("[data-up]").onclick=()=>{ [m.items[i-1],m.items[i]]=[m.items[i],m.items[i-1]]; drawI(); };
+      el.querySelector("[data-dn]").onclick=()=>{ [m.items[i+1],m.items[i]]=[m.items[i],m.items[i+1]]; drawI(); };
+      el.querySelector("[data-del]").onclick=()=>{ m.items.splice(i,1); drawI(); }; }); };
+  E.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{ m.items.push({id:newId().slice(0,8),k:b.dataset.add,title:"",body:"",url:"",ref:""}); drawI(); });
+  E.querySelector("#mDel")?.addEventListener("click",async()=>{ if(!await confirmDlg("Modülü sil","<p>Modül silinecek; asistanların bu modüldeki ilerleme işaretleri de anlamını yitirir.</p>","Sil",true)) return; try{ await deleteDoc(doc(db,"modules",m0.id)); mm.close(); onDel&&onDel(); toast("Silindi"); }catch(e){ fail(e); } });
+  E.querySelector("#mSv").onclick=async()=>{ const title=E.querySelector("#mTi").value.trim(); if(!title) return toast("Başlık girin",true);
+    const items=m.items.filter(it=>["atlas","sim"].includes(it.k)?it.ref:true).map(it=>({id:it.id,k:it.k,title:String(it.title||"").trim(),body:String(it.body||"").trim(),url:String(it.url||"").trim(),ref:it.ref||""}));
+    const ord=E.querySelector("#mOr").value;
+    const data={title,topic:E.querySelector("#mTo").value.trim(),desc:E.querySelector("#mDe").value.trim(),order:ord===""?null:Number(ord),req:[...E.querySelectorAll("[data-rq]:checked")].map(x=>Number(x.dataset.rq)),items,published:E.querySelector("#mPu").checked,updatedAt:serverTimestamp(),...(m0.id?{}:{createdAt:serverTimestamp()})};
+    try{ const id=m0.id||newId(); await setDoc(doc(db,"modules",id),data,{merge:true}); mm.close(); toast("Modül kaydedildi"); onSaved({id,...data,createdAt:m0.createdAt||Timestamp.now()}); }catch(e){ fail(e,"Kaydedilemedi"); } };
+  drawI();
+}
+
+/* ---- haftanın görüntüsü (yönetici) ---- */
+async function eduWeekly(B){
+  const list=(await loadEdu("weekly")).sort((a,b)=>(tsMs(b.openAt)||0)-(tsMs(a.openAt)||0));
+  const cnt={}; await Promise.all(list.map(async w=>{ try{ cnt[w.id]=(await getDocs(collection(db,"weekly",w.id,"resp"))).size; }catch(e){ cnt[w.id]="?"; } }));
+  const SL={soon:"Planlandı",open:"Açık",revealed:"Cevap açıklandı"};
+  B.innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="small muted">Her hafta bir görüntü yayınlayın; asistanlar yorumunu yazar, belirlediğiniz tarihte cevap ve tüm yorumlar açılır.</span><button class="btn primary" id="nW">+ Yeni</button></div>
+    ${list.length?`<div class="card"><div class="tbl-wrap"><table><thead><tr><th>Görüntü</th><th>Açılış</th><th>Cevap</th><th>Durum</th><th>Yorum</th><th></th></tr></thead><tbody>${list.map(w=>`<tr><td><b>${esc(w.title||"")}</b></td><td class="small">${fmtDT(w.openAt)}</td><td class="small">${fmtDT(w.revealAt)}</td>
+      <td>${w.published?`<span class="badge ${wkState(w)==="open"?"warn":"ok"}">${SL[wkState(w)]}</span>`:`<span class="badge">Taslak</span>`}</td><td>${cnt[w.id]}</td>
+      <td class="row" style="gap:4px;flex-wrap:nowrap"><button class="btn sm ghost" data-wr="${esc(w.id)}">Yorumlar</button><button class="btn sm" data-we="${esc(w.id)}">Düzenle</button></td></tr>`).join("")}</tbody></table></div></div>`
+      :`<div class="card empty">Henüz yok.</div>`}`;
+  $id("nW").onclick=()=>editWeekly({});
+  B.querySelectorAll("[data-we]").forEach(b=>b.onclick=()=>editWeekly(list.find(w=>w.id===b.dataset.we)));
+  B.querySelectorAll("[data-wr]").forEach(b=>b.onclick=async()=>{ const w=list.find(x=>x.id===b.dataset.wr); const rs=await getDocs(collection(db,"weekly",w.id,"resp"));
+    const all=rs.docs.map(d=>d.data()).sort((a,b)=>(tsMs(a.at)||0)-(tsMs(b.at)||0));
+    modal(`<div class="modal-h"><h2>${esc(w.title||"")} — yorumlar (${all.length})</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b"><div class="wkresp">${all.map(r=>`<div><b>${esc(r.name||r.email)}</b><span class="small muted"> · ${fmtDT(r.at)}</span><div class="txt">${esc(r.text)}</div></div>`).join("")||`<div class="small muted">Henüz yorum yok.</div>`}</div></div>`); });
+}
+async function editWeekly(w0){
+  let ans=""; if(w0.id){ try{ const k=await getDoc(doc(db,"weeklyKeys",w0.id)); if(k.exists()) ans=k.data().answer||""; }catch(e){} }
+  const now=Date.now(), st={imageId:w0.imageId||null,newImg:null,dicomId:w0.dicomId||null};
+  const m=modal(`<div class="modal-h"><h2>${w0.id?"Haftanın görüntüsü — düzenle":"Yeni haftanın görüntüsü"}</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="field"><label class="f">Başlık</label><input type="text" id="wTi" value="${esc(w0.title||"")}" placeholder="örn. Haftanın EKG'si — 42. hafta"></div>
+    <div class="field"><label class="f">Soru / öykü</label><textarea id="wPr" style="min-height:80px" placeholder="45 yaşında kadın, çarpıntı. Ritmi yorumlayın, tedavinizi yazın.">${esc(w0.prompt||"")}</textarea></div>
+    ${imageField(st.imageId,st.dicomId)}
+    <div class="grid2"><div class="field"><label class="f">Açılış</label><input type="datetime-local" id="wOp" value="${toLocalInput(tsMs(w0.openAt)||now)}"></div><div class="field"><label class="f">Cevabın açıklanacağı zaman</label><input type="datetime-local" id="wRv" value="${toLocalInput(tsMs(w0.revealAt)||now+7*DAY_MS)}"></div></div>
+    <div class="field"><label class="f">Cevap ve tartışma (açıklanana kadar asistanlar göremez)</label><textarea id="wAn" style="min-height:100px">${esc(ans)}</textarea></div>
+    <label class="check"><input type="checkbox" id="wPu" ${w0.published?"checked":""}> Yayında</label></div>
+    <div class="modal-f">${w0.id?`<button class="btn ghost danger" id="wDel" style="margin-right:auto">Sil</button>`:""}<button class="btn" data-close>Vazgeç</button><button class="btn primary" id="wSv">Kaydet</button></div>`);
+  hydrateImages(m.el); bindImageField(m.el,st);
+  m.el.querySelector("#wDel")?.addEventListener("click",async()=>{ if(!await confirmDlg("Sil","<p>Görüntü ve yorumları silinecek.</p>","Sil",true)) return;
+    try{ const rs=await getDocs(collection(db,"weekly",w0.id,"resp")); await batchOps([...rs.docs.map(d=>b=>b.delete(d.ref)),b=>b.delete(doc(db,"weeklyKeys",w0.id)),b=>b.delete(doc(db,"weekly",w0.id))]); m.close(); go("edu",{sec:"weekly"}); }catch(e){ fail(e); } });
+  m.el.querySelector("#wSv").onclick=async()=>{ const title=m.el.querySelector("#wTi").value.trim(); if(!title) return toast("Başlık girin",true);
+    const o=new Date(m.el.querySelector("#wOp").value).getTime(), r=new Date(m.el.querySelector("#wRv").value).getTime();
+    if(!o||!r||r<=o) return toast("Cevap zamanı açılıştan sonra olmalı",true);
+    try{ const imageId=await persistImage(st), id=w0.id||newId();
+      await setDoc(doc(db,"weekly",id),{title,prompt:m.el.querySelector("#wPr").value.trim(),imageId:imageId||null,dicomId:st.dicomId||null,openAt:Timestamp.fromMillis(o),revealAt:Timestamp.fromMillis(r),published:m.el.querySelector("#wPu").checked,updatedAt:serverTimestamp(),...(w0.id?{}:{createdAt:serverTimestamp()})},{merge:true});
+      await setDoc(doc(db,"weeklyKeys",id),{answer:m.el.querySelector("#wAn").value.trim()});
+      m.close(); toast("Kaydedildi"); go("edu",{sec:"weekly"}); }catch(e){ fail(e,"Kaydedilemedi"); } };
+}
+
+/* ---- ilerleme paneli ---- */
+async function eduProgress(B){
+  const [ls,ps,atlas,sims,mods,weeks]=await Promise.all([getDocs(collection(db,"learn")),getDocs(collection(db,"practice")),loadEdu("atlas"),loadEdu("sims"),loadEdu("modules"),loadEdu("weekly"),loadResidents(),S.questions.length?null:loadBank()]);
+  const LD={}; ls.docs.forEach(d=>{ const x=d.data(); if(x.email) LD[x.email.toLowerCase()]={uid:d.id,...x}; });
+  const PD={}; ps.docs.forEach(d=>{ const x=d.data(); if(x.email) PD[x.email.toLowerCase()]=x; });
+  const AM={}; atlas.forEach(a=>AM[a.id]=a); const QT={}; S.questions.forEach(q=>QT[q.id]=q.topic||"Diğer");
+  const pubA=atlas.filter(a=>a.published), pubS=sims.filter(x=>x.published), pubM=mods.filter(m=>m.published), pubW=weeks.filter(w=>w.published&&wkState(w)!=="soon");
+  const rows=S.residents.map(r=>{ const d=LD[r.email]||{atlas:{},sim:{},mod:{},srs:{},wk:{}}, p=PD[r.email]?.q||{};
+    const saveL=L; L={d:{atlas:d.atlas||{},sim:d.sim||{},mod:d.mod||{},srs:d.srs||{},wk:d.wk||{}}};
+    const req=pubM.filter(m=>isReq(m,r.kidem)), reqDone=req.filter(m=>{ const g=modProg(m,AM); return g.n&&g.d===g.n; }).length;
+    const modDone=pubM.filter(m=>{ const g=modProg(m,AM); return g.n&&g.d===g.n; }).length;
+    L=saveL;
+    const A=Object.values(d.atlas||{}), At=A.filter(x=>x.done), aok=At.reduce((s,x)=>s+(x.ok||0),0), an=At.reduce((s,x)=>s+(x.n||0),0);
+    const Sm=Object.values(d.sim||{}), sAvg=Sm.length?Sm.reduce((s,x)=>s+(x.best||0),0)/Sm.length:null;
+    const C=Object.values(d.srs||{}), now=Date.now();
+    const pq=Object.entries(p), pc=pq.reduce((s,[k,x])=>s+(x.c||0),0), pw=pq.reduce((s,[k,x])=>s+(x.w||0),0);
+    const last=Math.max(tsMs(d.updatedAt)||0,tsMs(PD[r.email]?.updatedAt)||0);
+    return {r,d,p,req:req.length,reqDone,modDone,aSeen:A.filter(x=>x.seen).length,aDone:At.length,aPct:an?aok/an*100:null,sDone:Sm.length,sAvg,cards:C.length,mast:C.filter(c=>(c.b||0)>=4).length,over:C.filter(c=>(c.due||0)<now-DAY_MS).length,
+      wk:Object.keys(d.wk||{}).filter(k=>pubW.some(w=>w.id===k)).length,pSolved:pq.length,pPct:pc+pw?pc/(pc+pw)*100:null,last}; });
+  // konu bazında zayıflık (tüm asistanlar)
+  const TP={}; const tp=t=>TP[t]=TP[t]||{t,pc:0,pn:0,ac:0,an:0,ss:0,sn:0};
+  rows.forEach(x=>{ Object.entries(x.p).forEach(([qid,v])=>{ const o=tp(QT[qid]||"Diğer"); o.pc+=v.c||0; o.pn+=(v.c||0)+(v.w||0); });
+    Object.entries(x.d.atlas||{}).forEach(([id,v])=>{ if(!v.done) return; const o=tp(v.topic||AM[id]?.topic||"Diğer"); o.ac+=v.ok||0; o.an+=v.n||0; });
+    Object.values(x.d.sim||{}).forEach(v=>{ const o=tp(v.topic||"Diğer"); o.ss+=v.best||0; o.sn++; }); });
+  const TL=Object.values(TP).map(o=>{ const parts=[o.pn?o.pc/o.pn*100:null,o.an?o.ac/o.an*100:null,o.sn?o.ss/o.sn:null].filter(v=>v!=null); return {...o,avg:parts.length?parts.reduce((a,b)=>a+b,0)/parts.length:null}; }).filter(o=>o.avg!=null).sort((a,b)=>a.avg-b.avg);
+  const pct=v=>v==null?"—":"%"+Math.round(v);
+  const act=rows.filter(x=>x.last>Date.now()-7*DAY_MS).length;
+  B.innerHTML=`<div class="stats"><div class="stat"><div class="k">Son 7 günde aktif</div><div class="v">${act}/${rows.length}</div></div>
+      <div class="stat"><div class="k">Yayındaki içerik</div><div class="v" style="font-size:16px">${pubA.length} görüntü · ${pubS.length} vaka · ${pubM.length} modül</div></div>
+      <div class="stat"><div class="k">Zorunlu modülleri bitiren</div><div class="v">${rows.filter(x=>x.req&&x.reqDone===x.req).length}/${rows.filter(x=>x.req).length}</div></div></div>
+    <div class="card" style="margin-bottom:16px"><div class="row" style="justify-content:space-between;padding:12px 14px 0"><h2 style="margin:0">Asistanlar</h2><button class="btn sm" id="pX">Excel'e aktar</button></div>
+      <div class="tbl-wrap"><table><thead><tr><th>Asistan</th><th>Zorunlu modül</th><th>Atlas (görüldü / sınandı / başarı)</th><th>Sanal hasta</th><th>Alıştırma</th><th>Tekrar kartı</th><th>Haftalık</th><th>Son etkinlik</th></tr></thead><tbody>
+      ${rows.sort((a,b)=>(a.r.kidem||0)-(b.r.kidem||0)||(a.r.name||"").localeCompare(b.r.name||"","tr")).map(x=>`<tr class="click" data-pr="${esc(x.r.email)}"><td><b>${esc(x.r.name||x.r.email)}</b><div class="small muted">${x.r.kidem?x.r.kidem+". yıl":""}</div></td>
+        <td>${x.req?`<span class="badge ${x.reqDone===x.req?"ok":x.reqDone?"warn":"bad"}">${x.reqDone}/${x.req}</span>`:"—"}</td>
+        <td class="small">${x.aSeen} / ${x.aDone} / ${pct(x.aPct)}</td><td class="small">${x.sDone}${x.sAvg!=null?` · ort. ${pct(x.sAvg)}`:""}</td>
+        <td class="small">${x.pSolved} soru · ${pct(x.pPct)}</td><td class="small">${x.cards}${x.cards?` · ${x.mast} öğrenildi${x.over?` · <span class="bad-t">${x.over} gecikmiş</span>`:""}`:""}</td>
+        <td class="small">${x.wk}/${pubW.length}</td><td class="small">${x.last?fmtDT(x.last):"—"}</td></tr>`).join("")}</tbody></table></div></div>
+    <div class="card pad"><h2 style="margin-top:0">Konulara göre klinik başarı (en zayıftan)</h2><div class="small muted" style="margin-bottom:8px">Alıştırma doğru oranı, atlas görevlerinde ilk denemede bulma oranı ve sanal hasta puanlarının ortalaması.</div>
+      ${TL.length?hbars(TL.slice(0,15).map(o=>({label:o.t,p:o.avg,sub:[o.pn?`alıştırma ${pct(o.pc/o.pn*100)}`:"",o.an?`atlas ${pct(o.ac/o.an*100)}`:"",o.sn?`vaka ${pct(o.ss/o.sn)}`:""].filter(Boolean).join(" · ")}))):`<div class="small muted">Henüz yeterli veri yok.</div>`}</div>`;
+  B.querySelectorAll("[data-pr]").forEach(t=>t.onclick=()=>progDetail(rows.find(x=>x.r.email===t.dataset.pr),{pubM,AM,QT,sims}));
+  $id("pX").onclick=()=>{ if(!window.XLSX) return toast("Excel kütüphanesi yüklenemedi",true);
+    const s=rows.map(x=>({"Ad Soyad":x.r.name||"","E-posta":x.r.email,"Kıdem":x.r.kidem||"","Zorunlu modül":x.req?`${x.reqDone}/${x.req}`:"","Tamamlanan modül":x.modDone,"Atlas görülen":x.aSeen,"Atlas sınanan":x.aDone,"Atlas başarı %":x.aPct==null?"":Math.round(x.aPct),
+      "Sanal hasta":x.sDone,"Sanal hasta ort. %":x.sAvg==null?"":Math.round(x.sAvg),"Alıştırma soru":x.pSolved,"Alıştırma doğru %":x.pPct==null?"":Math.round(x.pPct),"Tekrar kartı":x.cards,"Öğrenilmiş kart":x.mast,"Gecikmiş kart":x.over,"Haftalık yorum":x.wk,"Son etkinlik":x.last?fmtDT(x.last):""}));
+    const t=TL.map(o=>({"Konu":o.t,"Ortalama %":Math.round(o.avg),"Alıştırma %":o.pn?Math.round(o.pc/o.pn*100):"","Alıştırma cevap":o.pn,"Atlas %":o.an?Math.round(o.ac/o.an*100):"","Atlas görev":o.an,"Sanal hasta %":o.sn?Math.round(o.ss/o.sn):"","Sanal hasta":o.sn}));
+    const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(s),"Asistanlar"); XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(t.length?t:[{"Konu":""}]),"Konular");
+    XLSX.writeFile(wb,`egitim-ilerleme-${new Date().toISOString().slice(0,10)}.xlsx`); };
+}
+function progDetail(x,{pubM,AM,QT,sims}){
+  const saveL=L; L={d:{atlas:x.d.atlas||{},sim:x.d.sim||{},mod:x.d.mod||{},srs:x.d.srs||{},wk:x.d.wk||{}}};
+  const mods=pubM.map(m=>({m,g:modProg(m,AM),req:isReq(m,x.r.kidem)})).sort((a,b)=>b.req-a.req);
+  L=saveL;
+  const SM={}; sims.forEach(s=>SM[s.id]=s);
+  const bt={}; Object.entries(x.p).forEach(([q,v])=>{ const t=QT[q]||"Diğer"; const o=bt[t]=bt[t]||{t,c:0,n:0}; o.c+=v.c||0; o.n+=(v.c||0)+(v.w||0); });
+  modal(`<div class="modal-h"><h2>${esc(x.r.name||x.r.email)} — eğitim</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <h3 style="margin-top:0">Modüller</h3>${mods.length?hbars(mods.map(o=>({label:(o.req?"★ ":"")+o.m.title,p:o.g.p,sub:`${o.g.d}/${o.g.n}`}))):`<div class="small muted">Yayında modül yok.</div>`}
+    <h3>Atlas</h3>${Object.entries(x.d.atlas||{}).filter(([k,v])=>v.done).map(([k,v])=>`<div class="small">${esc(AM[k]?.title||k)} — ${v.ok}/${v.n} ilk denemede · ${v.tries||1} deneme</div>`).join("")||`<div class="small muted">Sınandığı görüntü yok.</div>`}
+    <h3>Sanal hasta</h3>${Object.entries(x.d.sim||{}).map(([k,v])=>`<div class="small">${esc(SM[k]?.title||k)} — en iyi %${v.best} · son %${v.last} · ${v.n} kez</div>`).join("")||`<div class="small muted">Tamamladığı vaka yok.</div>`}
+    <h3>Alıştırma (konulara göre)</h3>${Object.keys(bt).length?hbars(Object.values(bt).sort((a,b)=>a.c/a.n-b.c/b.n).map(o=>({label:o.t,p:o.c/o.n*100,sub:`${o.c}/${o.n}`}))):`<div class="small muted">Alıştırma yok.</div>`}</div>`,"wide");
 }
 
 /* =====================================================================
