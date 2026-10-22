@@ -434,7 +434,7 @@ footer.credit svg{width:16px;height:16px}
 .atl-media{min-width:0}.atl-media .dcm-stage{height:min(70vh,640px)}
 .atl-side{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto}
 .anno-wrap{position:relative;display:inline-block;max-width:100%;background:#000;border-radius:10px;overflow:hidden;line-height:0}
-.anno-wrap img{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;user-select:none;-webkit-user-drag:none}
+.anno-wrap img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
 .anno-wrap canvas{position:absolute;left:0;top:0}
 .anno-load{position:absolute;inset:0;display:grid;place-items:center;color:#ccc;line-height:1.4;min-height:120px}
 .ann-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
@@ -445,6 +445,11 @@ footer.credit svg{width:16px;height:16px}
 .ath span{font-size:12px;display:block}.ath.none{color:var(--muted);background:var(--surface-2)}
 .acard.inline{flex-direction:row;max-width:440px}.acard.inline .ath{width:120px;aspect-ratio:4/3;flex:none}
 .flist{display:flex;flex-direction:column;gap:6px}
+.mstrip,.medit{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px}
+.mth{flex:none;width:118px;display:flex;flex-direction:column;gap:3px;text-align:left;border:2px solid var(--line);border-radius:9px;background:var(--surface);padding:0;overflow:hidden;cursor:pointer;color:var(--ink)}
+.mth .ath{aspect-ratio:4/3;font-size:20px}.mth>span{padding:2px 6px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mth.on{border-color:var(--accent)}
+.medit .mth{width:190px;cursor:default}.medit .mth.on{box-shadow:0 0 0 3px var(--accent-soft)}.medit .mth .ath{cursor:pointer}.mth-b{padding:4px 6px 6px}.mth-b input{padding:4px 6px;font-size:13px;margin-top:3px}.mth-b .btn.sm{padding:1px 6px}
+.frow.other{opacity:.7}
 .fnd{border:1px solid var(--line-2);border-radius:9px;padding:8px 10px;cursor:pointer;background:var(--surface)}
 .fnd.on{border-color:#e0b100;background:var(--warn-soft)}.fh{display:flex;gap:8px;align-items:center}.ft{margin-top:6px;font-size:14px}
 .fn{flex:none;width:22px;height:22px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:700}
@@ -2798,7 +2803,7 @@ function shapePath(c,f,T){ c.beginPath();
   else if(f.pts?.length){ f.pts.forEach((q,i)=>i?c.lineTo(T.x(q.x),T.y(q.y)):c.moveTo(T.x(q.x),T.y(q.y))); c.closePath(); } }
 class Anno{
   constructor(o={}){ Object.assign(this,{shapes:[],mode:"view",tool:"ellipse",show:null,labels:true,marks:[],sel:null,onCreate:null,onPick:null,redraw:()=>{}},o); this.draft=null; }
-  visible(z){ return this.shapes.filter(f=>(!this.show||this.show(f))&&sliceOk(f,z)); }
+  visible(z){ return this.shapes.filter(f=>(!this.filter||this.filter(f))&&(!this.show||this.show(f))&&sliceOk(f,z)); }
   draw(c,T,z){
     c.save(); c.lineJoin="round";
     this.visible(z).forEach(f=>{ const n=this.shapes.indexOf(f)+1, col=f.id===this.sel?"#38bdf8":(f.color||"#ffd34d");
@@ -2832,7 +2837,7 @@ class ImgAnno{
   constructor(host,{imageId,src,anno}){ this.anno=anno; anno.redraw=()=>this.draw();
     host.innerHTML=`<div class="anno-wrap"><img alt=""><canvas></canvas><div class="anno-load">Görsel yükleniyor…</div></div>`;
     this.wrap=host.firstElementChild; this.img=this.wrap.querySelector("img"); this.cv=this.wrap.querySelector("canvas");
-    const set=u=>{ const l=this.wrap.querySelector(".anno-load"); if(!u){ if(l) l.textContent="Görsel bulunamadı"; return; } this.img.onload=()=>{ l?.remove(); this.draw(); }; this.img.src=u; };
+    const set=u=>{ const l=this.wrap.querySelector(".anno-load"); if(!u){ if(l) l.textContent="Görsel bulunamadı"; return; } this.img.onload=()=>{ l?.remove(); const r=this.img.naturalWidth/(this.img.naturalHeight||1); this.wrap.style.width=`min(100%, calc(72vh * ${r.toFixed(4)}))`; this.draw(); }; this.img.src=u; };
     if(src) set(src); else getImg(imageId).then(set);
     const P=e=>{ const r=this.cv.getBoundingClientRect(); return {x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height}; };
     this.cv.addEventListener("pointerdown",e=>{ if(this.anno.mode==="view") return; e.preventDefault(); this.cv.setPointerCapture(e.pointerId); this.anno.down(P(e),null); this.draw(); });
@@ -2849,10 +2854,14 @@ class ImgAnno{
 }
 // Görsel veya DICOM'u işaret katmanıyla yerleştirir; {viewer, isDcm} döndürür
 function mountMedia(host,{imageId,src,dicomId},anno,opt={}){
-  if(dicomId){ const v=new DcmViewer(host,dicomId,{anno,annoLabel:opt.annoLabel,tool:opt.tool,onSlice:opt.onSlice,onLoad:opt.onLoad}); return {viewer:v,isDcm:true}; }
+  if(dicomId){ const v=new DcmViewer(host,dicomId,{anno,annoLabel:opt.annoLabel,tool:opt.tool,onSlice:opt.onSlice,onLoad:opt.onLoad,i:opt.i}); return {viewer:v,isDcm:true}; }
   if(imageId||src){ const v=new ImgAnno(host,{imageId,src,anno}); return {viewer:v,isDcm:false}; }
   host.innerHTML=`<div class="empty small">Görsel eklenmemiş</div>`; return {viewer:null,isDcm:false};
 }
+// Atlas kaydının görüntüleri (eski kayıtlar: tek imageId/dicomId)
+const atlasMedia=A=>Array.isArray(A.media)&&A.media.length?A.media:((A.imageId||A.dicomId)?[{imageId:A.imageId||null,dicomId:A.dicomId||null,cap:""}]:[]);
+const fM=f=>Number(f.m)||0;
+const mediaStrip=(MD,cur,F=[])=>`<div class="mstrip">${MD.map((m,i)=>`<button type="button" class="mth ${i===cur?"on":""}" data-mi="${i}">${mediaThumb(m)}<span class="small">${i+1}${m.cap?". "+esc(m.cap):""}</span></button>`).join("")}</div>`;
 const mediaThumb=o=>o.imageId?`<img class="ath" data-img="${esc(o.imageId)}" alt="">`:o.dicomId?`<div class="ath dcm">🩻<span>BT/MR</span></div>`:`<div class="ath none">—</div>`;
 
 /* ---- öğrenme kaydı (asistanın kendi belgesi) ---- */
@@ -2865,8 +2874,9 @@ async function loadLearn(){
 let _lSave;
 function saveLearn(now){ if(!L||S.mode!=="resident") return; clearTimeout(_lSave);
   const f=()=>setDoc(doc(db,"learn",L.uid),{...L.d,email:S.email,name:S.resident?.name||S.user.displayName||"",kidem:S.resident?.kidem||null,updatedAt:serverTimestamp()}).catch(e=>console.error(e));
-  if(now) return f(); _lSave=setTimeout(f,700); }
+  if(now){ _lSave=null; return f(); } _lSave=setTimeout(()=>{ _lSave=null; f(); },700); }
 const canLearn=()=>S.mode==="resident"&&L;
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden"&&_lSave){ clearTimeout(_lSave); _lSave=null; saveLearn(true); } });
 
 /* ---- aralıklı tekrar (Leitner: 1-3-7-21-60 gün) ---- */
 const SRS_INT=[1,3,7,21,60];
@@ -2895,7 +2905,7 @@ function atlasStatus(a){ if(!canLearn()) return pubBadge(a); const r=L.d.atlas[a
   if(r?.done) return `<span class="badge ok">✓ ${r.n?`${r.ok}/${r.n}`:"tamamlandı"}</span>`; if(r?.seen) return `<span class="badge">Görüldü</span>`; return `<span class="badge acc">Yeni</span>`; }
 const atlasCard=a=>`<button class="acard" data-atlas="${esc(a.id)}">${mediaThumb(a)}<div class="ab"><b>${esc(a.title||"(başlıksız)")}</b>
   <span class="small muted">${esc(a.cat||"")}${a.topic?" · "+esc(a.topic):""}</span>
-  <span class="row" style="gap:4px;margin-top:4px">${(a.tasks||[]).length?`<span class="badge">${a.tasks.length} görev</span>`:""}${atlasStatus(a)}</span></div></button>`;
+  <span class="row" style="gap:4px;margin-top:4px">${atlasMedia(a).length>1?`<span class="badge info">${atlasMedia(a).length} görüntü</span>`:""}${(a.tasks||[]).length?`<span class="badge">${a.tasks.length} görev</span>`:""}${atlasStatus(a)}</span></div></button>`;
 // Kategori + arama + durum filtresi ile ızgara
 function atlasBrowser(host,list,onOpen){
   const F={cat:"",q:"",st:""};
@@ -2931,24 +2941,27 @@ async function viewAtlasItem(id,back){
   paint(`<div class="spinner"></div>`);
   const [s]=await Promise.all([getDoc(doc(db,"atlas",id)),S.mode==="resident"?loadLearn():null]);
   if(!s.exists()){ toast("Görüntü bulunamadı",true); return goBack(back,atlasDefBack()); }
-  const A={id,...s.data()}, F=A.findings||[], TK=(A.tasks||[]).filter(t=>F.some(f=>f.id===t.fid));
+  const A={id,...s.data()}, F=A.findings||[], TK=(A.tasks||[]).filter(t=>F.some(f=>f.id===t.fid)), MD=atlasMedia(A);
   if(canLearn()){ const r=L.d.atlas[id]=L.d.atlas[id]||{}; r.seen=Date.now(); r.topic=A.topic||""; saveLearn(); }
-  const shown=new Set();
-  const anno=new Anno({shapes:F,mode:"view",show:f=>shown.has(f.id),labels:true});
-  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Geri</button><h1>${esc(A.title||"Görüntü")}</h1><div class="sub">${esc(A.cat||"")}${A.topic?" · "+esc(A.topic):""}</div></div>
+  const shown=new Set(); let cur=0, M={viewer:null,isDcm:false}, toolNow=null;
+  const anno=new Anno({shapes:F,mode:"view",show:f=>shown.has(f.id),labels:true,filter:f=>fM(f)===cur});
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Geri</button><h1>${esc(A.title||"Görüntü")}</h1><div class="sub">${esc(A.cat||"")}${A.topic?" · "+esc(A.topic):""}${MD.length>1?` · ${MD.length} görüntü`:""}</div></div>
       ${S.mode!=="resident"&&canEdit(A)?`<button class="btn" id="aEdit">Düzenle</button>`:""}</div>
-    <div class="atl"><div class="atl-media" id="aM"></div>
+    <div class="atl"><div class="atl-media"><div id="aStrip"></div><div id="aM"></div><div class="small muted" id="aCap" style="margin-top:6px"></div></div>
       <div class="card pad atl-side"><div class="seg" id="aTabs"><button data-t="x" class="on">Keşfet</button>${TK.length?`<button data-t="q">Kendini sına (${TK.length})</button>`:""}</div><div id="aP"></div></div></div>`);
   $id("bk").onclick=()=>goBack(back,atlasDefBack());
   $id("aEdit")?.addEventListener("click",()=>go("atlasEdit",{id}));
-  const M=mountMedia($id("aM"),A,anno,{annoLabel:"Tıkla"}), V=M.viewer;
-  const jump=f=>{ if(M.isDcm&&f.z!=null) V.setSlice(f.z); };
+  const strip=()=>{ $id("aStrip").innerHTML=MD.length>1?mediaStrip(MD,cur,F):""; $id("aStrip").querySelectorAll("[data-mi]").forEach(b=>b.onclick=()=>show(Number(b.dataset.mi))); hydrateImages($id("aStrip"));
+    $id("aCap").textContent=MD[cur]?.cap?`${MD.length>1?`Görüntü ${cur+1}: `:""}${MD[cur].cap}`:""; };
+  const show=(i,z)=>{ cur=i; anno.marks=[]; M=mountMedia($id("aM"),MD[i]||{},anno,{annoLabel:"Tıkla",tool:toolNow||undefined,i:z}); strip(); };
+  const jump=f=>{ if(fM(f)!==cur) show(fM(f),f.z??undefined); else if(M.isDcm&&f.z!=null) M.viewer.setSlice(f.z); };
+  const setTool=t=>{ toolNow=t; if(M.isDcm) M.viewer.setTool(t); };
 
   const explore=()=>{
-    anno.mode="view"; anno.marks=[]; anno.show=f=>shown.has(f.id); if(M.isDcm) V.setTool("slice"); anno.redraw();
+    anno.mode="view"; anno.marks=[]; anno.show=f=>shown.has(f.id); setTool("slice"); anno.redraw();
     $id("aP").innerHTML=`${A.desc?md(A.desc):""}
       ${F.length?`<div class="row" style="justify-content:space-between;margin:12px 0 6px"><b>Bulgular (${F.length})</b><span class="row" style="gap:4px">${shown.size<F.length?`<button class="btn sm primary" id="fNext">Sıradakini göster</button>`:""}<button class="btn sm ghost" id="fAll">${shown.size===F.length?"Gizle":"Tümünü göster"}</button></span></div>
-        <div class="flist">${F.map((f,i)=>`<div class="fnd ${shown.has(f.id)?"on":""}" data-f="${esc(f.id)}"><div class="fh"><span class="fn">${i+1}</span><b>${shown.has(f.id)?esc(f.label||"Bulgu"):"Gizli bulgu"}</b>${f.z!=null?`<span class="small muted" style="margin-left:auto">kesit ${f.z+1}</span>`:""}</div>${shown.has(f.id)&&f.text?`<div class="ft">${md(f.text)}</div>`:""}</div>`).join("")}</div>
+        <div class="flist">${F.map((f,i)=>`<div class="fnd ${shown.has(f.id)?"on":""}" data-f="${esc(f.id)}"><div class="fh"><span class="fn">${i+1}</span><b>${shown.has(f.id)?esc(f.label||"Bulgu"):"Gizli bulgu"}</b><span class="small muted" style="margin-left:auto">${MD.length>1?`görüntü ${fM(f)+1}`:""}${MD.length>1&&f.z!=null?" · ":""}${f.z!=null?`kesit ${f.z+1}`:""}</span></div>${shown.has(f.id)&&f.text?`<div class="ft">${md(f.text)}</div>`:""}</div>`).join("")}</div>
         <div class="small muted" style="margin-top:6px">Önce görüntüyü kendiniz yorumlayın, sonra bulguları tek tek açın.</div>`:`<div class="small muted" style="margin-top:8px">Bu görüntüde işaretli bulgu yok.</div>`}
       ${A.pearls?`<div class="pearl"><div class="lbl">Klinik inciler</div>${md(A.pearls)}</div>`:""}
       ${canLearn()&&TK.length?`<button class="btn sm ghost" id="aSrs" style="margin-top:10px">↻ Tekrar listeme ekle</button>`:""}`;
@@ -2960,14 +2973,14 @@ async function viewAtlasItem(id,back){
 
   const quiz=()=>{
     const st={i:0,tries:0,res:[],rev:new Set(),wait:false};
-    anno.mode="pick"; anno.marks=[]; anno.show=f=>st.rev.has(f.id); if(M.isDcm) V.setTool("ann"); anno.redraw();
+    anno.mode="pick"; anno.marks=[]; anno.show=f=>st.rev.has(f.id); setTool("ann"); anno.redraw();
     const where=f=>{ const cx=f.x+f.w/2, cy=f.y+f.h/2, h=cx<0.38?"sol":cx>0.62?"sağ":"", v=cy<0.38?"üst":cy>0.62?"alt":"";
       return (h||v)?`görüntünün ${[h,v].filter(Boolean).join(" ")} bölümünde`:"görüntünün orta bölümünde"; };
     const draw=()=>{ const t=TK[st.i]; if(!t) return fin();
       $id("aP").innerHTML=`<div class="small muted">Görev ${st.i+1} / ${TK.length}</div><div class="qprompt">${esc(t.prompt)}</div>
-        <div class="small muted">${M.isDcm?"Doğru kesite gidin (tekerlek, kaydırıcı veya ok tuşları) ve bulgunun üzerine tıklayın.":"Görüntüde bulgunun üzerine tıklayın."}</div><div id="qFb"></div>`; };
+        <div class="small muted">${MD.length>1?"Önce doğru görüntüyü seçin (üstteki küçük resimler), sonra ":""}${MD.some(m=>m.dicomId)?"BT/MR'de doğru kesite gidin (tekerlek, kaydırıcı veya ok tuşları) ve ":""}bulgunun üzerine tıklayın.</div><div id="qFb"></div>`; };
     anno.onPick=(p,z)=>{ const t=TK[st.i]; if(!t||st.wait) return; const f=F.find(x=>x.id===t.fid);
-      const hit=shapeHit(f,p), zok=sliceOk(f,z), ok=hit&&zok; st.tries++;
+      const mok=fM(f)===cur, hit=mok&&shapeHit(f,p), zok=sliceOk(f,M.isDcm?z:null), ok=hit&&zok; st.tries++;
       anno.marks.push({x:p.x,y:p.y,z:M.isDcm?z:null,ok}); anno.redraw();
       const fb=$id("qFb");
       if(ok||st.tries>=3){ st.wait=true; st.rev.add(f.id); st.res[st.i]={ok:ok&&st.tries===1,solved:ok,tries:st.tries,tid:t.id};
@@ -2975,14 +2988,15 @@ async function viewAtlasItem(id,back){
         fb.innerHTML=`<div class="pfb ${ok?"ok":"bad"}"><b>${ok?(st.tries===1?"Doğru!":`Doğru (${st.tries}. denemede).`):"Bulgu burada işaretli."}</b> ${esc(f.label||"")}${f.text?`<div style="margin-top:6px">${md(f.text)}</div>`:""}</div>
           <div class="row" style="justify-content:flex-end;margin-top:10px"><button class="btn primary" id="qNx">${st.i<TK.length-1?"Sonraki görev →":"Sonucu gör"}</button></div>`;
         $id("qNx").onclick=()=>{ st.i++; st.tries=0; st.wait=false; anno.marks=[]; anno.redraw(); draw(); }; return; }
-      let hint=M.isDcm&&!zok?`Bu kesitte değil; bulgu <b>${Math.max(1,f.z+1-(f.zr??2))}–${Math.min(V?.S?.meta?.n||f.z+1,f.z+1+(f.zr??2))}</b>. kesitler arasında.`:"Tam orası değil.";
-      if(st.tries===2) hint+=` İpucu: bulgu ${where(f)}.`;
+      let hint=!mok?`Bu bulgu bu görüntüde değil.${st.tries===2?` İpucu: <b>${fM(f)+1}. görüntüye</b> bakın.`:""}`
+        :M.isDcm&&!zok?`Bu kesitte değil; bulgu <b>${Math.max(1,f.z+1-(f.zr??2))}–${Math.min(M.viewer?.S?.meta?.n||f.z+1,f.z+1+(f.zr??2))}</b>. kesitler arasında.`:"Tam orası değil.";
+      if(st.tries===2&&mok) hint+=` İpucu: bulgu ${where(f)}.`;
       fb.innerHTML=`<div class="pfb bad">${hint} <span class="small muted">(${3-st.tries} hak kaldı)</span></div>`;
     };
-    const fin=()=>{ anno.mode="view"; anno.onPick=null; if(M.isDcm) V.setTool("slice"); F.forEach(f=>st.rev.add(f.id)); anno.marks=[]; anno.redraw();
+    const fin=()=>{ anno.mode="view"; anno.onPick=null; setTool("slice"); F.forEach(f=>st.rev.add(f.id)); anno.marks=[]; anno.redraw();
       const ok=st.res.filter(r=>r?.ok).length, miss=st.res.filter(r=>r&&!r.ok);
       if(canLearn()){ const r=L.d.atlas[id]=L.d.atlas[id]||{}; r.done=Date.now(); r.ok=ok; r.n=TK.length; r.best=Math.max(r.best||0,ok); r.tries=(r.tries||0)+1; r.topic=A.topic||"";
-        miss.forEach(m=>srsAdd(`a:${id}:${m.tid}`,{topic:A.topic||"",cat:A.cat||""})); saveLearn(); }
+        miss.forEach(m=>srsAdd(`a:${id}:${m.tid}`,{topic:A.topic||"",cat:A.cat||""})); saveLearn(true); }
       $id("aP").innerHTML=`<div class="scorebox" style="margin-bottom:10px"><div><div class="bigscore">${ok}/${TK.length}</div><div class="muted">ilk denemede doğru</div></div></div>
         <div class="flist">${TK.map((t,i)=>{ const r=st.res[i]; return `<div class="fnd on"><div class="fh"><span class="fn ${r?.ok?"ok":"bad"}">${r?.ok?"✓":"✗"}</span><span>${esc(t.prompt)}</span></div></div>`; }).join("")}</div>
         ${canLearn()&&miss.length?`<div class="note" style="margin-top:10px">${miss.length} görev tekrar listenize eklendi; birkaç gün içinde yeniden karşınıza çıkacak.</div>`:""}
@@ -2992,33 +3006,36 @@ async function viewAtlasItem(id,back){
   };
   const setTab=t=>{ $id("aTabs").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); if(t==="q") quiz(); else explore(); };
   $id("aTabs").querySelectorAll("button").forEach(b=>b.onclick=()=>setTab(b.dataset.t));
-  explore();
+  show(0); explore();
 }
 
-/* ---- atlas düzenleyici (yönetici / soru yazarı) ---- */
+/* ---- atlas düzenleyici (yönetici / soru yazarı) — birden çok görüntü ---- */
 const cleanShape=f=>{ const o={id:f.id,shape:f.shape,x:f.x,y:f.y,w:f.w,h:f.h,label:String(f.label||"").trim(),text:String(f.text||"").trim()};
-  if(f.shape==="poly") o.pts=(f.pts||[]).map(p=>({x:p.x,y:p.y})); if(f.z!=null){ o.z=Number(f.z); o.zr=Number(f.zr??2); } return o; };
+  if(f.shape==="poly") o.pts=(f.pts||[]).map(p=>({x:p.x,y:p.y})); if(f.z!=null){ o.z=Number(f.z); o.zr=Number(f.zr??2); } if(fM(f)) o.m=fM(f); return o; };
 async function viewAtlasEdit(id){
   paint(`<div class="spinner"></div>`);
   let A={title:"",cat:"EKG",topic:"",desc:"",pearls:"",findings:[],tasks:[],published:false};
   if(id){ const s=await getDoc(doc(db,"atlas",id)); if(s.exists()) A={...A,...s.data()}; }
+  A.media=atlasMedia(A).map(m=>({imageId:m.imageId||null,dicomId:m.dicomId||null,cap:m.cap||""}));
   if(!S.questions.length) await loadBank().catch(()=>{});
   const tops=[...new Set([...topics()])];
-  const st={imageId:A.imageId||null,newImg:null,dicomId:A.dicomId||null};
-  const anno=new Anno({shapes:A.findings,mode:"edit",tool:"ellipse",labels:true});
+  let cur=0;
+  const anno=new Anno({shapes:A.findings,mode:"edit",tool:"ellipse",labels:true,filter:f=>fM(f)===cur});
   const isAdm=S.mode==="admin";
   let M=null;
   paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Atlas</button><h1>${id?"Görüntüyü düzenle":"Yeni atlas görüntüsü"}</h1>
-      <div class="sub">Bulguları görüntü üzerinde çizin, açıklamalarını yazın; sonra her bulgu için “bul ve tıkla” görevi oluşturun.</div></div>
+      <div class="sub">Bir kayda birden çok görüntü ekleyebilirsiniz (ör. PA + lateral grafi, seri EKG, BT + grafi). Bulguları her görüntünün üzerinde çizin; sonra “bul ve tıkla” görevleri oluşturun.</div></div>
       <div class="row">${id?`<button class="btn" id="ePrev">Önizle</button>`:""}${isAdm&&id?`<button class="btn ghost danger" id="eDel">Sil</button>`:""}${isAdm&&A.status==="pending"?`<button class="btn ghost danger" id="eRej">Reddet</button>`:""}<button class="btn primary" id="eSave">${isAdm&&A.status==="pending"?"Onayla ve kaydet":"Kaydet"}</button></div></div>
-    <div class="atl"><div><div class="ann-tools" id="eT">
-        <span class="small muted">Çizim:</span>${[["ellipse","◯ Elips"],["rect","▭ Dikdörtgen"],["poly","✎ Serbest"]].map(([k,l])=>`<button type="button" class="chip sm ${k==="ellipse"?"on":""}" data-tool="${k}">${l}</button>`).join("")}</div>
+    <div class="atl"><div>
+        <div class="card pad" style="margin-bottom:10px;padding:10px 12px"><div class="row" style="justify-content:space-between;margin-bottom:6px"><b>Görüntüler</b>
+          <span class="row" style="gap:6px"><label class="btn sm">+ Görsel(ler)<input type="file" accept="image/*" multiple hidden id="eAddI"></label><button type="button" class="btn sm" id="eAddD">+ BT/MR serisi</button></span></div>
+          <div id="eMs"></div></div>
+        <div class="ann-tools" id="eT"><span class="small muted">Çizim:</span>${[["ellipse","◯ Elips"],["rect","▭ Dikdörtgen"],["poly","✎ Serbest"]].map(([k,l])=>`<button type="button" class="chip sm ${k==="ellipse"?"on":""}" data-tool="${k}">${l}</button>`).join("")}</div>
         <div class="atl-media" id="eM"></div><div class="small muted" id="eHelp" style="margin-top:6px"></div></div>
       <div class="card pad atl-side">
         <div class="field"><label class="f">Başlık</label><input type="text" id="eTi" value="${esc(A.title)}" placeholder="örn. İnferior STEMI"></div>
         <div class="grid2"><div class="field"><label class="f">Kategori</label><select id="eCa">${ATLAS_CATS.map(c=>`<option ${A.cat===c?"selected":""}>${c}</option>`).join("")}</select></div>
           <div class="field"><label class="f">Konu</label><input type="text" id="eTo" list="eTl" value="${esc(A.topic||"")}" placeholder="örn. Kardiyoloji"><datalist id="eTl">${tops.map(t=>`<option value="${esc(t)}">`).join("")}</datalist></div></div>
-        <div id="eMed">${imageField(st.imageId,st.dicomId)}</div>
         <div class="field"><label class="f">Açıklama / öykü <span class="muted" style="font-weight:400">(Keşfet'te görüntünün yanında)</span></label><textarea id="eDe" style="min-height:90px" placeholder="58 yaşında erkek, 1 saattir göğüs ağrısı…">${esc(A.desc||"")}</textarea></div>
         <div class="field"><label class="f">Klinik inciler <span class="muted" style="font-weight:400">(isteğe bağlı)</span></label><textarea id="ePe" style="min-height:70px" placeholder="- Ayna görüntüsü: aVL'de ST çökmesi">${esc(A.pearls||"")}</textarea>
           <div class="small muted">Biçim: **kalın**, *italik*, satır başında “- ” ile liste.</div></div>
@@ -3026,30 +3043,54 @@ async function viewAtlasEdit(id){
       </div></div>
     <div class="grid2" style="margin-top:16px;align-items:start"><div class="card pad"><h2>Bulgular</h2><div id="eF"></div></div>
       <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Bul ve tıkla görevleri</h2><span class="row" style="gap:4px"><button class="btn sm" id="eKa">Her bulgu için</button><button class="btn sm" id="eK1">+ Görev</button></span></div>
-        <div class="small muted" style="margin:4px 0 10px">Asistan görevi okur, görüntüde ilgili bulgunun üzerine tıklar. 3 hakkı vardır; ikinci yanlışta konum ipucu verilir.</div><div id="eK"></div></div></div>`);
+        <div class="small muted" style="margin:4px 0 10px">Asistan görevi okur, ilgili görüntüyü seçip bulgunun üzerine tıklar. 3 hakkı vardır; ikinci yanlışta konum ipucu verilir.</div><div id="eK"></div></div></div>`);
   $id("bk").onclick=()=>go("edu",{sec:"atlas"});
-  const help=()=>{ $id("eHelp").innerHTML=M?.isDcm?`DICOM: önce bulgunun en iyi göründüğü kesite gidin (tekerlek/kaydırıcı), sonra araç çubuğunda <b>Çiz</b> seçiliyken sürükleyerek işaretleyin. Bulgu ±2 kesit içinde gösterilir; aralığı listeden değiştirebilirsiniz.`:`Görüntü üzerinde sürükleyerek bulguyu işaretleyin. Serbest çizimde bulgunun çevresini çizin.`; };
-  const remount=()=>{ M=mountMedia($id("eM"),{imageId:st.dicomId?null:st.imageId,src:st.dicomId?null:st.newImg,dicomId:st.dicomId},anno,{annoLabel:"Çiz",tool:"ann",onSlice:()=>drawF()}); help(); drawF(); };
-  st.onChange=()=>{ if(A.findings.length) toast("Görsel değişti: bulgu konumlarını kontrol edin"); remount(); };
-  bindImageField($id("eMed"),st); hydrateImages($id("eMed"));
+  const help=()=>{ $id("eHelp").innerHTML=!A.media.length?"Önce bir görsel veya BT/MR serisi ekleyin.":M?.isDcm?`DICOM: önce bulgunun en iyi göründüğü kesite gidin (tekerlek/kaydırıcı), sonra araç çubuğunda <b>Çiz</b> seçiliyken sürükleyerek işaretleyin. Bulgu ±2 kesit içinde gösterilir; aralığı listeden değiştirebilirsiniz.`:`Görüntü üzerinde sürükleyerek bulguyu işaretleyin. Serbest çizimde bulgunun çevresini çizin.`; };
+  const remount=(z)=>{ if(!A.media.length){ $id("eM").innerHTML=`<div class="card empty">Görüntü yok</div>`; M=null; help(); return; }
+    M=mountMedia($id("eM"),A.media[cur],anno,{annoLabel:"Çiz",tool:"ann",i:z,onSlice:()=>drawF()}); help(); drawF(); };
+  const drawMs=()=>{ const ms=$id("eMs");
+    ms.innerHTML=A.media.length?`<div class="medit">${A.media.map((m,i)=>`<div class="mth ${i===cur?"on":""}" data-mi="${i}">${mediaThumb(m)}
+        <div class="mth-b"><div class="row" style="gap:4px;flex-wrap:nowrap"><b class="small">${i+1}</b><span class="small muted grow">${A.findings.filter(f=>fM(f)===i).length} bulgu</span>
+          <button type="button" class="btn sm ghost" data-ml="${i}" ${i?"":"disabled"} title="Sola">←</button><button type="button" class="btn sm ghost" data-mr="${i}" ${i<A.media.length-1?"":"disabled"} title="Sağa">→</button><button type="button" class="btn sm ghost danger" data-mx="${i}" title="Kaldır">✕</button></div>
+        <input type="text" data-mc="${i}" value="${esc(m.cap||"")}" placeholder="Alt yazı (ör. PA grafi)"></div></div>`).join("")}</div>`:`<div class="small muted">Henüz görüntü yok.</div>`;
+    ms.querySelectorAll("[data-mi]").forEach(el=>el.onclick=e=>{ if(e.target.closest("button,input")) return; const i=Number(el.dataset.mi); if(i===cur) return; cur=i; drawMs(); remount(); });
+    ms.querySelectorAll("[data-mc]").forEach(inp=>inp.oninput=()=>{ A.media[Number(inp.dataset.mc)].cap=inp.value; });
+    const remap=fn=>{ A.findings.forEach(f=>{ const n=fn(fM(f)); if(n) f.m=n; else delete f.m; }); };
+    const swap=(i,j)=>{ [A.media[i],A.media[j]]=[A.media[j],A.media[i]]; remap(m=>m===i?j:m===j?i:m); cur=cur===i?j:cur===j?i:cur; drawMs(); remount(); drawF(); };
+    ms.querySelectorAll("[data-ml]").forEach(b=>b.onclick=()=>{ const i=Number(b.dataset.ml); swap(i,i-1); });
+    ms.querySelectorAll("[data-mr]").forEach(b=>b.onclick=()=>{ const i=Number(b.dataset.mr); swap(i,i+1); });
+    ms.querySelectorAll("[data-mx]").forEach(b=>b.onclick=async()=>{ const i=Number(b.dataset.mx), nf=A.findings.filter(f=>fM(f)===i);
+      if(nf.length&&!await confirmDlg("Görüntüyü kaldır",`<p>Bu görüntüdeki ${nf.length} bulgu ve görevleri de silinecek.</p>`,"Kaldır",true)) return;
+      const ids=new Set(nf.map(f=>f.id)); for(let k=A.findings.length-1;k>=0;k--) if(ids.has(A.findings[k].id)) A.findings.splice(k,1);
+      A.tasks=A.tasks.filter(t=>!ids.has(t.fid)); A.media.splice(i,1); remap(m=>m>i?m-1:m); if(cur>=A.media.length) cur=Math.max(0,A.media.length-1); else if(cur>i) cur--;
+      drawMs(); remount(); drawF(); drawK(); });
+    hydrateImages(ms); };
+  $id("eAddI").onchange=async e=>{ const files=[...e.target.files]; e.target.value=""; if(!files.length) return;
+    let n=0; for(const f of files){ try{ toast(`Görsel yükleniyor (${++n}/${files.length})…`); A.media.push({imageId:await uploadImageNow(f),dicomId:null,cap:""}); }catch(err){ fail(err,`${f.name} yüklenemedi`); } }
+    cur=A.media.length-1; drawMs(); remount(); };
+  $id("eAddD").onclick=async()=>{ const ch=isAdm?await choiceDlg("BT/MR serisi","<p>Yeni seri mi yükleyeceksiniz, arşivden mi seçeceksiniz?</p>",[["x","Vazgeç"],["pick","Arşivden seç"],["up","Yeni yükle","primary"]]):"up";
+    const add=did=>{ A.media.push({imageId:null,dicomId:did,cap:""}); cur=A.media.length-1; drawMs(); remount(); };
+    if(ch==="up") dicomUploadDlg(add); else if(ch==="pick") dicomPickDlg(add); };
   $id("eT").querySelectorAll("[data-tool]").forEach(b=>b.onclick=()=>{ anno.tool=b.dataset.tool; anno.mode="edit"; if(M?.isDcm) M.viewer.setTool("ann"); $id("eT").querySelectorAll("[data-tool]").forEach(x=>x.classList.toggle("on",x===b)); });
-  anno.onCreate=(f,z)=>{ f.id=newId().slice(0,8); f.label=`Bulgu ${A.findings.length+1}`; f.text=""; if(z!=null){ f.z=z; f.zr=2; } A.findings.push(f); anno.sel=f.id; drawF(); drawK();
+  anno.onCreate=(f,z)=>{ f.id=newId().slice(0,8); f.label=`Bulgu ${A.findings.length+1}`; f.text=""; if(cur) f.m=cur; if(z!=null){ f.z=z; f.zr=2; } A.findings.push(f); anno.sel=f.id; drawF(); drawK(); drawMs();
     setTimeout(()=>{ const i=$id("eF").querySelector(`[data-f="${f.id}"] [data-fl]`); i?.focus(); i?.select(); },30); };
-  const drawF=()=>{ const curZ=M?.isDcm?M.viewer.i:null;
-    $id("eF").innerHTML=A.findings.length?A.findings.map((f,i)=>`<div class="frow ${anno.sel===f.id?"sel":""}" data-f="${esc(f.id)}">
-      <div class="row" style="flex-wrap:nowrap;gap:6px"><span class="fn">${i+1}</span><input type="text" data-fl value="${esc(f.label||"")}" placeholder="Bulgu adı"><button type="button" class="btn sm ghost danger" data-fdel title="Sil">✕</button></div>
+  const drawF=()=>{ const curZ=M?.isDcm?M.viewer.i:null, multi=A.media.length>1;
+    $id("eF").innerHTML=A.findings.length?A.findings.map((f,i)=>`<div class="frow ${anno.sel===f.id?"sel":""} ${fM(f)!==cur?"other":""}" data-f="${esc(f.id)}">
+      <div class="row" style="flex-wrap:nowrap;gap:6px"><span class="fn">${i+1}</span>${multi?`<span class="badge" title="Görüntü">G${fM(f)+1}</span>`:""}<input type="text" data-fl value="${esc(f.label||"")}" placeholder="Bulgu adı"><button type="button" class="btn sm ghost danger" data-fdel title="Sil">✕</button></div>
       <textarea data-ft placeholder="Açıklama (Keşfet'te ve görev sonrasında gösterilir)" style="min-height:54px;margin-top:6px">${esc(f.text||"")}</textarea>
-      ${f.z!=null?`<div class="row small" style="gap:6px;margin-top:4px">Kesit <b>${f.z+1}</b> ± <input type="number" data-fzr min="0" max="60" value="${f.zr??2}" style="width:64px"> <button type="button" class="btn sm ghost" data-fz ${curZ===f.z?"disabled":""}>Şu anki kesite (${(curZ??0)+1}) taşı</button></div>`:""}</div>`).join("")
+      ${f.z!=null&&fM(f)===cur?`<div class="row small" style="gap:6px;margin-top:4px">Kesit <b>${f.z+1}</b> ± <input type="number" data-fzr min="0" max="60" value="${f.zr??2}" style="width:64px"> <button type="button" class="btn sm ghost" data-fz ${curZ===f.z?"disabled":""}>Şu anki kesite (${(curZ??0)+1}) taşı</button></div>`:f.z!=null?`<div class="small muted" style="margin-top:4px">Kesit ${f.z+1} ± ${f.zr??2}</div>`:""}</div>`).join("")
       :`<div class="small muted">Henüz bulgu yok. Görüntü üzerinde çizerek ekleyin.</div>`;
     $id("eF").querySelectorAll("[data-f]").forEach(el=>{ const f=A.findings.find(x=>x.id===el.dataset.f);
-      el.onclick=e=>{ if(e.target.closest("input,textarea,button")) return; anno.sel=f.id; if(M?.isDcm&&f.z!=null) M.viewer.setSlice(f.z); anno.redraw(); $id("eF").querySelectorAll(".frow").forEach(x=>x.classList.toggle("sel",x===el)); };
+      el.onclick=e=>{ if(e.target.closest("input,textarea,button")) return; anno.sel=f.id;
+        if(fM(f)!==cur){ cur=fM(f); drawMs(); remount(f.z??undefined); return; }
+        if(M?.isDcm&&f.z!=null) M.viewer.setSlice(f.z); anno.redraw(); $id("eF").querySelectorAll(".frow").forEach(x=>x.classList.toggle("sel",x===el)); };
       el.querySelector("[data-fl]").oninput=e=>{ f.label=e.target.value; anno.redraw(); drawKsel(); };
       el.querySelector("[data-ft]").oninput=e=>{ f.text=e.target.value; };
       el.querySelector("[data-fzr]")?.addEventListener("input",e=>{ f.zr=Math.max(0,parseInt(e.target.value,10)||0); anno.redraw(); });
       el.querySelector("[data-fz]")?.addEventListener("click",()=>{ f.z=M.viewer.i; drawF(); anno.redraw(); });
-      el.querySelector("[data-fdel]").onclick=()=>{ A.findings.splice(A.findings.indexOf(f),1); A.tasks=A.tasks.filter(t=>t.fid!==f.id); if(anno.sel===f.id) anno.sel=null; drawF(); drawK(); anno.redraw(); }; });
+      el.querySelector("[data-fdel]").onclick=()=>{ A.findings.splice(A.findings.indexOf(f),1); A.tasks=A.tasks.filter(t=>t.fid!==f.id); if(anno.sel===f.id) anno.sel=null; drawF(); drawK(); drawMs(); anno.redraw(); }; });
   };
-  const fOpts=sel=>A.findings.map((f,i)=>`<option value="${esc(f.id)}" ${sel===f.id?"selected":""}>${i+1}. ${esc(f.label||"Bulgu")}</option>`).join("");
+  const fOpts=sel=>A.findings.map((f,i)=>`<option value="${esc(f.id)}" ${sel===f.id?"selected":""}>${i+1}. ${esc(f.label||"Bulgu")}${A.media.length>1?` (G${fM(f)+1})`:""}</option>`).join("");
   const drawKsel=()=>$id("eK").querySelectorAll("[data-kf]").forEach(s=>{ const v=s.value; s.innerHTML=fOpts(v); });
   const drawK=()=>{
     $id("eK").innerHTML=A.tasks.length?A.tasks.map((t,i)=>`<div class="frow" data-k="${i}"><div class="row" style="flex-wrap:nowrap;gap:6px"><span class="fn">${i+1}</span><input type="text" data-kp value="${esc(t.prompt||"")}" placeholder="örn. ST elevasyonu olan derivasyonlardan birini işaretleyin"><button type="button" class="btn sm ghost danger" data-kdel>✕</button></div>
@@ -3066,13 +3107,12 @@ async function viewAtlasEdit(id){
     add.forEach(f=>A.tasks.push({id:newId().slice(0,8),prompt:`${f.label||"Bulgu"} — görüntüde işaretleyin.`,fid:f.id})); drawK(); };
   const save=async(extra={})=>{
     const title=$id("eTi").value.trim(); if(!title) return toast("Başlık girin",true);
-    if(!st.dicomId&&!st.imageId&&!st.newImg) return toast("Görsel veya DICOM serisi ekleyin",true);
+    if(!A.media.length) return toast("En az bir görsel veya BT/MR serisi ekleyin",true);
     const tasks=A.tasks.filter(t=>t.fid&&A.findings.some(f=>f.id===t.fid)).map(t=>({id:t.id,fid:t.fid,prompt:String(t.prompt||"").trim()||"Bulguyu işaretleyin"}));
     try{ $id("eSave").disabled=true;
-      const imageId=st.dicomId?null:await persistImage(st); st.imageId=imageId; st.newImg=null;
-      const did=id||newId();
+      const did=id||newId(), media=A.media.map(m=>({imageId:m.imageId||null,dicomId:m.dicomId||null,cap:String(m.cap||"").trim()}));
       const data={title,cat:$id("eCa").value,topic:$id("eTo").value.trim(),desc:$id("eDe").value.trim(),pearls:$id("ePe").value.trim(),
-        imageId:imageId||null,dicomId:st.dicomId||null,findings:A.findings.map(cleanShape),tasks,updatedAt:serverTimestamp(),...(id?{}:{createdAt:serverTimestamp()})};
+        media,imageId:media[0].imageId,dicomId:media[0].dicomId,findings:A.findings.map(cleanShape),tasks,updatedAt:serverTimestamp(),...(id?{}:{createdAt:serverTimestamp()})};
       if(isAdm){ data.published=$id("ePu").checked; if(A.status&&A.status!=="approved") data.status="approved"; }
       else { data.status="pending"; data.author=S.email; data.published=false; }
       Object.assign(data,extra);
@@ -3083,9 +3123,38 @@ async function viewAtlasEdit(id){
   $id("eSave").onclick=()=>save();
   $id("eRej")?.addEventListener("click",async()=>{ const r=await promptDlg("Reddet","Gerekçe (yazara görünür)","",""); if(r==null) return; await save({status:"rejected",published:false,rejectReason:r}); go("edu",{sec:"atlas"}); });
   $id("ePrev")?.addEventListener("click",()=>go("atlasView",{id,back:{view:"atlasEdit",params:{id}}}));
-  $id("eDel")?.addEventListener("click",async()=>{ if(!await confirmDlg("Görüntüyü sil","<p>Atlas görüntüsü ve görevleri silinecek. Modüllerdeki bağlantılar çalışmaz hale gelir.</p>","Sil",true)) return;
+  $id("eDel")?.addEventListener("click",async()=>{ if(!await confirmDlg("Görüntüyü sil","<p>Atlas kaydı, tüm görüntüleri ve görevleri silinecek. Modüllerdeki bağlantılar çalışmaz hale gelir.</p>","Sil",true)) return;
     try{ await deleteDoc(doc(db,"atlas",id)); toast("Silindi"); go("edu",{sec:"atlas"}); }catch(e){ fail(e); } });
-  remount(); drawK();
+  drawMs(); remount(); drawK();
+}
+
+/* ---- toplu görsel yükleme ---- */
+function atlasBulkDlg(){
+  const isAdm=S.mode==="admin";
+  const m=modal(`<div class="modal-h"><h2>Toplu görsel yükle</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <p style="margin-top:0">Birden çok görsel seçin. Bulguları ve görevleri sonra her kaydı açıp ekleyebilirsiniz.</p>
+    <div class="field"><label class="f">Görseller</label><input type="file" id="bkF" accept="image/*" multiple></div>
+    <div class="field"><label class="f">Nasıl kaydedilsin?</label>
+      <label class="check"><input type="radio" name="bkM" value="each" checked> Her görsel ayrı atlas kaydı (başlık = dosya adı)</label>
+      <label class="check"><input type="radio" name="bkM" value="one"> Hepsi tek kayıtta, çoklu görüntü olarak (ör. aynı hastanın grafileri)</label></div>
+    <div class="grid2"><div class="field"><label class="f">Kategori</label><select id="bkC">${ATLAS_CATS.map(c=>`<option>${c}</option>`).join("")}</select></div>
+      <div class="field"><label class="f">Konu</label><input type="text" id="bkT" list="bkTl"><datalist id="bkTl">${topics().map(t=>`<option value="${esc(t)}">`).join("")}</datalist></div></div>
+    <div class="field hidden" id="bkOne"><label class="f">Kayıt başlığı</label><input type="text" id="bkTi" placeholder="örn. Pnömoni — PA ve lateral"></div>
+    <div class="small muted">${isAdm?"Kayıtlar taslak olarak oluşturulur; düzenleyip yayına alırsınız.":"Kayıtlar yönetici onayına gönderilir."}</div><div id="bkP"></div></div>
+    <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="bkGo">Yükle</button></div>`);
+  const E=m.el, mode=()=>E.querySelector("[name=bkM]:checked").value;
+  E.querySelectorAll("[name=bkM]").forEach(r=>r.onchange=()=>E.querySelector("#bkOne").classList.toggle("hidden",mode()!=="one"));
+  E.querySelector("#bkGo").onclick=async()=>{ const files=[...E.querySelector("#bkF").files]; if(!files.length) return toast("Görsel seçin",true);
+    const one=mode()==="one", ttl=E.querySelector("#bkTi").value.trim(); if(one&&!ttl) return toast("Kayıt başlığı girin",true);
+    E.querySelector("#bkGo").disabled=true; const P=E.querySelector("#bkP"); const ids=[];
+    const base={cat:E.querySelector("#bkC").value,topic:E.querySelector("#bkT").value.trim(),desc:"",pearls:"",findings:[],tasks:[],createdAt:serverTimestamp(),updatedAt:serverTimestamp(),
+      ...(isAdm?{published:false}:{status:"pending",author:S.email,published:false})};
+    try{ for(let i=0;i<files.length;i++){ P.innerHTML=`<div class="small muted" style="margin-top:8px">${i+1} / ${files.length} yükleniyor…</div><div class="pbar"><span style="width:${(i+1)/files.length*100}%"></span></div>`;
+        ids.push({imageId:await uploadImageNow(files[i]),dicomId:null,cap:one?files[i].name.replace(/\.[^.]+$/,""):""}); }
+      if(one) await setDoc(doc(db,"atlas",newId()),{...base,title:ttl,media:ids,imageId:ids[0].imageId,dicomId:null});
+      else await batchOps(ids.map((x,i)=>b=>b.set(doc(db,"atlas",newId()),{...base,title:files[i].name.replace(/\.[^.]+$/,"").replace(/[_-]+/g," "),media:[x],imageId:x.imageId,dicomId:null})));
+      m.close(); toast(one?`${ids.length} görüntülü kayıt oluşturuldu`:`${ids.length} atlas kaydı oluşturuldu`); go("edu",{sec:"atlas"});
+    }catch(e){ fail(e,"Yükleme tamamlanamadı"); E.querySelector("#bkGo").disabled=false; } };
 }
 
 /* =====================================================================
@@ -3155,7 +3224,7 @@ async function viewSimPlay(id,back){
   };
   const end=n=>{
     const pct=Math.max(0,Math.min(100,Math.round(G2.score/MAX*100))), oc=OUTCOME[n.outcome]||OUTCOME.mid;
-    if(canLearn()){ const r=L.d.sim[id]=L.d.sim[id]||{n:0,best:0}; r.n++; r.last=pct; r.best=Math.max(r.best||0,pct); r.t=Date.now(); r.topic=D.topic||""; r.oc=n.outcome||"mid"; saveLearn(); }
+    if(canLearn()){ const r=L.d.sim[id]=L.d.sim[id]||{n:0,best:0}; r.n++; r.last=pct; r.best=Math.max(r.best||0,pct); r.t=Date.now(); r.topic=D.topic||""; r.oc=n.outcome||"mid"; saveLearn(true); }
     paint(`<div class="page-head"><div><h1>${esc(D.title||"Sanal hasta")}</h1><div class="sub">Vaka sonu</div></div></div>
       ${G2.fb?`<div class="pfb ${G2.fb.cls}" style="margin-bottom:12px">${md(G2.fb.text)}</div>`:""}
       <div class="card pad" style="margin-bottom:16px"><div class="scorebox"><div><div class="bigscore">%${pct}</div><div class="muted">${G2.score} / ${MAX} puan · ${G2.min} dk · ${G2.step} karar</div></div>
@@ -3346,7 +3415,7 @@ async function viewModule(id){
   if(!s.exists()){ toast("Modül bulunamadı",true); return go("learn"); }
   const m={id,...s.data()}, AM={}, SM={}; atlas.forEach(a=>AM[a.id]=a); sims.forEach(x=>SM[x.id]=x);
   const back={view:"module",params:{id}};
-  const toggle=it=>{ const r=L.d.mod[id]=L.d.mod[id]||{}; if(r[it.id]) delete r[it.id]; else r[it.id]=Date.now(); saveLearn(); draw(); };
+  const toggle=it=>{ const r=L.d.mod[id]=L.d.mod[id]||{}; if(r[it.id]) delete r[it.id]; else r[it.id]=Date.now(); saveLearn(true); draw(); };
   const draw=()=>{ const p=modProg(m,AM), its=m.items||[];
     paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Öğren</button><h1>${esc(m.title||"Modül")}</h1><div class="sub">${[esc(m.topic||""),isReq(m,S.resident?.kidem)?`<b>${S.resident.kidem}. yıl için zorunlu</b>`:""].filter(Boolean).join(" · ")}</div></div>
         <div class="mprog" style="min-width:200px">${progBar(p.p)}<span class="small">${p.d}/${p.n}</span></div></div>
@@ -3418,10 +3487,11 @@ async function srsSession(keys){
     } else {
       const {A,tk,f}=it, shown=new Set();
       paint(`${head}<div class="atl"><div class="atl-media" id="sM"></div><div class="card pad atl-side"><div class="qmeta">${A.topic?`<span class="badge">${esc(A.topic)}</span>`:""}<span class="badge info">Atlas · ${esc(A.cat||"")}</span></div>
-        <div class="qprompt">${esc(tk.prompt)}</div><div class="small muted">${A.dicomId?"Doğru kesite gidip bulgunun üzerine tıklayın.":"Görüntüde bulgunun üzerine tıklayın."} Tek hakkınız var.</div><div id="sFb"></div></div></div>`);
+        <div class="qprompt">${esc(tk.prompt)}</div>${atlasMedia(A)[fM(f)]?.cap?`<div class="small"><b>Görüntü:</b> ${esc(atlasMedia(A)[fM(f)].cap)}</div>`:""}<div class="small muted">${atlasMedia(A)[fM(f)]?.dicomId?"Doğru kesite gidip bulgunun üzerine tıklayın.":"Görüntüde bulgunun üzerine tıklayın."} Tek hakkınız var.</div><div id="sFb"></div></div></div>`);
       $id("sEnd").onclick=()=>fin();
-      const anno=new Anno({shapes:A.findings||[],mode:"pick",show:x=>shown.has(x.id),labels:true});
-      const M=mountMedia($id("sM"),A,anno,{annoLabel:"Tıkla",tool:"ann"});
+      const anno=new Anno({shapes:A.findings||[],mode:"pick",show:x=>shown.has(x.id),labels:true,filter:x=>fM(x)===fM(f)});
+      const md0=atlasMedia(A)[fM(f)]||{};
+      const M=mountMedia($id("sM"),md0,anno,{annoLabel:"Tıkla",tool:"ann"});
       anno.onPick=(p,z)=>{ if(ses.res[ses.i]!=null) return; const ok=shapeHit(f,p)&&sliceOk(f,z); anno.marks.push({x:p.x,y:p.y,z:M.isDcm?z:null,ok}); shown.add(f.id); anno.mode="view"; if(M.isDcm){ M.viewer.setTool("slice"); if(!ok) M.viewer.setSlice(f.z); } anno.redraw();
         grade(ok); $id("sFb").innerHTML=`<div class="pfb ${ok?"ok":"bad"}"><b>${ok?"Doğru!":"Bulgu burada."}</b> ${esc(f.label||"")}${f.text?`<div style="margin-top:6px">${md(f.text)}</div>`:""}</div>${nextBtn()}`; bindNext(); };
     }
@@ -3446,8 +3516,8 @@ async function viewEdu(sec){
   $id("eduSeg").querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>go("edu",{sec:b.dataset.s}));
   const B=$id("eduB");
   if(sec==="atlas"){ const list=await loadEdu("atlas"); const pend=list.filter(a=>a.status==="pending").length;
-    B.innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="small muted">${list.length} görüntü${pend?` · <b>${pend} onay bekliyor</b>`:""}${S.mode==="admin"?` · ${list.filter(a=>a.published).length} yayında`:""}</span><button class="btn primary" id="nA">+ Yeni görüntü</button></div><div id="ab"></div>`;
-    $id("nA").onclick=()=>go("atlasEdit",{});
+    B.innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:12px"><span class="small muted">${list.length} görüntü${pend?` · <b>${pend} onay bekliyor</b>`:""}${S.mode==="admin"?` · ${list.filter(a=>a.published).length} yayında`:""}</span><span class="row" style="gap:6px"><button class="btn" id="nAb">Toplu görsel yükle</button><button class="btn primary" id="nA">+ Yeni görüntü</button></span></div><div id="ab"></div>`;
+    $id("nA").onclick=()=>go("atlasEdit",{}); $id("nAb").onclick=()=>atlasBulkDlg();
     atlasBrowser($id("ab"),S.mode==="author"?list.filter(a=>a.author===S.email||a.published):list,a=>canEdit(a)?go("atlasEdit",{id:a.id}):go("atlasView",{id:a.id}));
   }
   else if(sec==="sims"){ const list=(await loadEdu("sims")).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0));
