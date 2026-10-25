@@ -487,6 +487,8 @@ footer.credit svg{width:16px;height:16px}
 .simoptedit{border:1px solid var(--line-2);border-radius:9px;padding:8px;margin-bottom:6px;background:var(--surface-2)}.simoptedit.act{border-left:3px solid var(--accent)}.simoptedit.test{border-left:3px solid var(--info)}
 .mm{display:inline-flex;gap:6px;flex-wrap:wrap;align-items:center}.mm a{color:inherit;text-decoration:none;margin-left:4px}
 .ok-t{color:var(--ok);font-weight:600}
+.simhint{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px;padding:8px 10px;border:1px dashed var(--warn);border-radius:8px;background:var(--warn-soft)}
+.simsrc{margin-top:-4px;font-size:11px}.f.fsm{font-size:12px;margin-bottom:3px}.f.fsm .muted{font-weight:400}
 .pvbar{position:sticky;top:0;z-index:60;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;padding:7px 14px;background:#4c1d95;color:#fff;font-size:14px}
 .pvbar select{width:auto;padding:2px 6px;background:#fff;color:#111}.pvbar .btn{border-color:#ffffff66}.pvbar .btn:not(.primary){background:transparent;color:#fff}
 .pvbar~header.top{top:38px}
@@ -3204,6 +3206,9 @@ function simIssues(D){ const out=[], ids=Object.keys(D.nodes||{});
   return out; }
 const vitalsHtml=v=>v?`<div class="vitals">${String(v).split(/\s*[·|;\n]\s*/).filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:"";
 const mediaHtml=(img,dcm)=>`${imgTag(img)}${dcmTag(dcm)}`;
+// Tetkik sonucunda yorum gizli mi? (açıkça ayarlanmadıysa: görsel/DICOM varsa gizli)
+const hideOf=o=>o.kind==="test"&&(o.hide??!!(o.resImg||o.resDcm))&&!!(o.res||o.fb);
+const hpenOf=o=>Math.max(0,Number(o.hpen??1)||0);
 
 async function viewSimList(){
   paint(`<div class="spinner"></div>`);
@@ -3222,7 +3227,7 @@ async function viewSimPlay(id,back){
   const [s]=await Promise.all([getDoc(doc(db,"sims",id)),S.mode==="resident"?loadLearn():null]);
   if(!s.exists()){ toast("Vaka bulunamadı",true); return goBack(back,simDefBack()); }
   const D={id,...s.data()}, MAX=simMax(D);
-  const G2={nid:D.start,score:0,min:0,log:[],open:{},fb:null,step:0};
+  const G2={nid:D.start,score:0,min:0,log:[],open:{},fb:null,step:0,rev:{}};
   const draw=()=>{
     const n=D.nodes[G2.nid]; if(!n){ toast("Vaka yapısında hata",true); return goBack(back,simDefBack()); }
     if(n.end) return end(n);
@@ -3233,7 +3238,10 @@ async function viewSimPlay(id,back){
       ${G2.fb?`<div class="pfb ${G2.fb.cls}" style="margin-bottom:12px">${md(G2.fb.text)}</div>`:""}
       <div class="sim">
         <div class="card pad"><h2 style="margin-top:0">${esc(n.title||"")}</h2>${vitalsHtml(n.vitals)}${n.text?md(n.text):""}${mediaHtml(n.imageId,n.dicomId)}
-          ${op.length?`<h3 style="margin:16px 0 6px">Sonuçlar</h3>${op.map(oid=>{ const o=tests.find(t=>t.id===oid); return o?`<div class="simres"><div class="lbl">${esc(o.label)}</div>${o.res?md(o.res):""}${mediaHtml(o.resImg,o.resDcm)}${o.fb?`<div class="small muted" style="margin-top:6px">💬 ${esc(o.fb)}</div>`:""}</div>`:""; }).join("")}`:""}</div>
+          ${op.length?`<h3 style="margin:16px 0 6px">Sonuçlar</h3>${op.map(oid=>{ const o=tests.find(t=>t.id===oid); if(!o) return ""; const hid=hideOf(o)&&!G2.rev[G2.nid+":"+o.id];
+            return `<div class="simres"><div class="lbl">${esc(o.label)}</div>${mediaHtml(o.resImg,o.resDcm)}${o.src?`<div class="small muted simsrc">Kaynak: ${esc(o.src)}</div>`:""}
+              ${hid?`<div class="simhint"><span class="small">Önce görüntüyü kendiniz yorumlayın.</span><button class="btn sm" data-rv="${esc(o.id)}">💡 Yorumu göster${hpenOf(o)?` (−${hpenOf(o)} puan)`:""}</button></div>`
+                :`${o.res?md(o.res):""}${o.fb?`<div class="small muted" style="margin-top:6px">💬 ${esc(o.fb)}</div>`:""}`}</div>`; }).join("")}`:""}</div>
         <div class="card pad sim-side">
           ${tests.length?`<div class="lbl2">Tetkik / değerlendirme iste</div><div class="simopts">${tests.map(o=>`<button class="simopt test ${op.includes(o.id)?"done":""}" data-o="${esc(o.id)}" ${op.includes(o.id)?"disabled":""}><span>${esc(o.label)}</span>${o.min?`<span class="small muted">${o.min} dk</span>`:""}</button>`).join("")}</div>`:""}
           <div class="lbl2" style="margin-top:${tests.length?14:0}px">Karar / tedavi</div><div class="simopts">${acts.map(o=>`<button class="simopt act" data-o="${esc(o.id)}"><span>${esc(o.label)}</span>${o.min?`<span class="small muted">${o.min} dk</span>`:""}</button>`).join("")}</div>
@@ -3241,7 +3249,10 @@ async function viewSimPlay(id,back){
     $id("bk").onclick=async()=>{ if(G2.step===0||await confirmDlg("Vakadan çık","<p>İlerlemeniz kaydedilmeyecek.</p>","Çık")) goBack(back,simDefBack()); };
     $id("sEd")?.addEventListener("click",()=>go("simEdit",{id}));
     document.querySelectorAll(".simopt.test[data-o]:not([disabled])").forEach(b=>b.onclick=()=>{ const o=tests.find(t=>t.id===b.dataset.o);
-      op.push(o.id); G2.score+=Number(o.pts)||0; G2.min+=Number(o.min)||0; G2.log.push({node:n.title||"",kind:"test",label:o.label,pts:Number(o.pts)||0,fb:o.fb||""}); G2.fb=null; draw(); });
+      op.push(o.id); G2.score+=Number(o.pts)||0; G2.min+=Number(o.min)||0; G2.log.push({node:n.title||"",kind:"test",oid:G2.nid+":"+o.id,label:o.label,pts:Number(o.pts)||0,fb:o.fb||"",res:hideOf(o)?o.res||"":"",hid:hideOf(o)}); G2.fb=null; draw(); });
+    document.querySelectorAll("[data-rv]").forEach(b=>b.onclick=()=>{ const o=tests.find(t=>t.id===b.dataset.rv), k=G2.nid+":"+o.id; if(G2.rev[k]) return;
+      G2.rev[k]=1; const pen=hpenOf(o); G2.score-=pen; const le=G2.log.find(x=>x.oid===k); if(le) le.hid=false;
+      G2.log.push({node:n.title||"",kind:"hint",label:`Yorum açıldı: ${o.label}`,pts:-pen,fb:""}); draw(); });
     document.querySelectorAll(".simopt.act[data-o]").forEach(b=>b.onclick=()=>{ const o=acts.find(t=>t.id===b.dataset.o);
       G2.score+=Number(o.pts)||0; G2.min+=Number(o.min)||0; G2.log.push({node:n.title||"",kind:"act",label:o.label,pts:Number(o.pts)||0,fb:o.fb||""});
       G2.fb=o.fb?{text:o.fb,cls:(Number(o.pts)||0)>0?"ok":(Number(o.pts)||0)<0?"bad":""}:null; G2.nid=o.to; G2.step++; window.scrollTo({top:0,behavior:"smooth"}); draw(); });
@@ -3254,7 +3265,7 @@ async function viewSimPlay(id,back){
       <div class="card pad" style="margin-bottom:16px"><div class="scorebox"><div><div class="bigscore">%${pct}</div><div class="muted">${G2.score} / ${MAX} puan · ${G2.min} dk · ${G2.step} karar</div></div>
         <div style="flex:1;min-width:240px"><span class="badge ${oc[1]}" style="font-size:14px">${oc[0]}</span><h2 style="margin:8px 0 4px">${esc(n.title||"")}</h2>${n.text?md(n.text):""}${mediaHtml(n.imageId,n.dicomId)}</div></div></div>
       <div class="card pad"><h2 style="margin-top:0">Adım adım geri bildirim</h2><div class="tbl-wrap"><table class="simlog"><thead><tr><th>#</th><th>Aşama</th><th>Seçiminiz</th><th>Puan</th><th>Geri bildirim</th></tr></thead><tbody>
-        ${G2.log.map((x,i)=>`<tr><td>${i+1}</td><td class="small">${esc(x.node)}</td><td>${x.kind==="test"?"🔎 ":"➜ "}${esc(x.label)}</td><td class="${x.pts>0?"ok-t":x.pts<0?"bad-t":""}">${x.pts>0?"+":""}${x.pts}</td><td class="small">${esc(x.fb)}</td></tr>`).join("")}</tbody></table></div></div>
+        ${G2.log.map((x,i)=>`<tr><td>${i+1}</td><td class="small">${esc(x.node)}</td><td>${x.kind==="test"?"🔎 ":x.kind==="hint"?"💡 ":"➜ "}${esc(x.label)}</td><td class="${x.pts>0?"ok-t":x.pts<0?"bad-t":""}">${x.pts>0?"+":""}${x.pts}</td><td class="small">${x.hid&&x.res?`<b>Yorum:</b> ${esc(x.res.replace(/\*\*/g,""))}${x.fb?"<br>":""}`:""}${esc(x.fb)}</td></tr>`).join("")}</tbody></table></div></div>
       <div class="row" style="margin-top:16px"><button class="btn primary" id="sAg">Yeniden oyna</button><button class="btn" id="sBk">Listeye dön</button></div>`);
     $id("sAg").onclick=()=>viewSimPlay(id,back); $id("sBk").onclick=()=>goBack(back,simDefBack());
   };
@@ -3277,7 +3288,7 @@ async function importPackage(P,onProg){
     const id=newId(); simId[x.key]=id; const order=x.order||Object.keys(x.nodes||{});
     const D={title:x.title,topic:x.topic||"",intro:x.intro||"",start:x.start||order[0],order,nodes:{}};
     order.forEach(k=>{ const n=x.nodes[k]; D.nodes[k]={title:n.title||"",text:n.text||"",vitals:n.vitals||"",imageId:null,dicomId:null,end:!!n.end,outcome:n.end?(n.outcome||"mid"):null,
-      opts:(n.opts||[]).map((o,j)=>({id:o.id||`${k}o${j}`,kind:o.kind==="act"?"act":"test",label:o.label,pts:Number(o.pts)||0,min:Number(o.min)||0,fb:o.fb||"",...(o.kind==="act"?{to:o.to}:{res:o.res||"",resImg:null,resDcm:null})}))}; });
+      opts:(n.opts||[]).map((o,j)=>({id:o.id||`${k}o${j}`,kind:o.kind==="act"?"act":"test",label:o.label,pts:Number(o.pts)||0,min:Number(o.min)||0,fb:o.fb||"",...(o.kind==="act"?{to:o.to}:{res:o.res||"",resImg:null,resDcm:null,src:o.src||"",...(o.hide!=null?{hide:!!o.hide}:{}),hpen:Number(o.hpen??1)})}))}; });
     ops.push(b=>b.set(doc(db,"sims",id),{...D,maxScore:simMax(D),published:false,pkg:key,source:P.source||"",createdAt:serverTimestamp(),updatedAt:serverTimestamp()})); res.sims++; }
   let poolId=null;
   if((P.questions||[]).length){ const pn=P.pool||P.title; const ex=ps.docs.find(d=>d.data().name===pn);
@@ -3368,9 +3379,14 @@ async function viewSimEdit(id){
               <input type="number" data-op value="${o.pts??0}" title="Puan (gereksiz/yanlış için eksi)" style="width:72px"><span class="small muted">puan</span>
               <input type="number" data-om value="${o.min??0}" min="0" title="Süre (dk)" style="width:64px"><span class="small muted">dk</span>
               <button type="button" class="btn sm ghost danger" data-odel>✕</button></div>
-            ${o.kind==="test"?`<div class="grid2" style="margin-top:6px"><textarea data-or placeholder="Sonuç (örn. II, III, aVF'de 3 mm ST elevasyonu)" style="min-height:50px">${esc(o.res||"")}</textarea><div><div class="mm-own">${miniMedia(o,"resImg","resDcm")}</div></div></div>`
+            ${o.kind==="test"?`<div class="grid2" style="margin-top:6px"><div><label class="f fsm">Sonuç / yorum <span class="muted">— asistan tetkiki isteyince görür</span></label><textarea data-or placeholder="örn. II, III, aVF'de 3 mm ST elevasyonu" style="min-height:58px">${esc(o.res||"")}</textarea></div>
+                <div><label class="f fsm">Sonuç görüntüsü</label><div class="mm-own">${miniMedia(o,"resImg","resDcm")}</div>
+                  <input type="text" data-osrc value="${esc(o.src||"")}" placeholder="Görsel kaynağı (ör. LITFL ECG Library, CC BY-NC-SA 4.0)" style="margin-top:6px">
+                  <label class="check small" style="margin-top:6px"><input type="checkbox" data-ohide ${hideOf({...o,res:o.res||"x"})?"checked":""}> Yorumu gizle — asistan önce görüntüyü yorumlasın</label>
+                  <div class="row small ${hideOf({...o,res:o.res||"x"})?"":"hidden"}" data-ohpw style="gap:6px;margin-top:4px">Yorumu açarsa <input type="number" data-ohpen min="0" value="${hpenOf(o)}" style="width:60px"> puan düşülsün</div></div></div>`
               :`<div class="row small" style="margin-top:6px;gap:6px;flex-wrap:nowrap">Gider: <select data-oto>${nodeOpts(o.to)}</select></div>`}
-            <input type="text" data-ofb value="${esc(o.fb||"")}" placeholder="Geri bildirim (seçildiğinde/sonda gösterilir; neden doğru/yanlış)" style="margin-top:6px"></div>`).join("")}
+            <label class="f fsm" style="margin-top:8px">Geri bildirim <span class="muted">— ${o.kind==="test"?"sonuçla birlikte 💬 olarak":"seçimden sonra"} ve vaka sonu tablosunda görünür</span></label>
+            <input type="text" data-ofb value="${esc(o.fb||"")}" placeholder="Neden doğru/yanlış? (ör. Göğüs ağrısında ilk 10 dakikada EKG)"></div>`).join("")}
           <div class="row" style="gap:6px;margin-top:6px"><button type="button" class="btn sm" data-addt>+ Tetkik</button><button type="button" class="btn sm" data-adda>+ Karar</button></div>`}
       </div>`; }).join("");
     $id("sN").querySelectorAll("[data-n]").forEach(el=>{ const k=el.dataset.n, n=D.nodes[k];
@@ -3391,6 +3407,9 @@ async function viewSimEdit(id){
         oe.querySelector("[data-om]").oninput=e=>{ o.min=Math.max(0,Number(e.target.value)||0); };
         oe.querySelector("[data-ofb]").oninput=e=>{ o.fb=e.target.value; };
         oe.querySelector("[data-or]")?.addEventListener("input",e=>{ o.res=e.target.value; });
+        oe.querySelector("[data-osrc]")?.addEventListener("input",e=>{ o.src=e.target.value; });
+        oe.querySelector("[data-ohide]")?.addEventListener("change",e=>{ o.hide=e.target.checked; oe.querySelector("[data-ohpw]").classList.toggle("hidden",!o.hide); });
+        oe.querySelector("[data-ohpen]")?.addEventListener("input",e=>{ o.hpen=Math.max(0,Number(e.target.value)||0); });
         oe.querySelector("[data-oto]")?.addEventListener("change",e=>{ if(e.target.value==="__new"){ const nk=nextNid(); D.nodes[nk]={title:`Düğüm ${D.order.length+1}`,text:"",vitals:"",opts:[]}; D.order.push(nk); o.to=nk; drawN(); setTimeout(()=>$id("sN").querySelector(`[data-n="${nk}"]`)?.scrollIntoView({behavior:"smooth",block:"center"}),50); } else { o.to=e.target.value; status(); } });
         oe.querySelector("[data-odel]").onclick=()=>{ n.opts.splice(n.opts.indexOf(o),1); drawN(); };
         const mo=oe.querySelector(".mm-own"); if(mo) bindMiniMedia(mo,o,drawN); });
@@ -3403,7 +3422,7 @@ async function viewSimEdit(id){
   const clean=()=>{ const nodes={}; D.order.forEach(k=>{ const n=D.nodes[k];
     nodes[k]={title:String(n.title||"").trim(),text:String(n.text||"").trim(),vitals:String(n.vitals||"").trim(),imageId:n.imageId||null,dicomId:n.dicomId||null,end:!!n.end,outcome:n.end?(n.outcome||"mid"):null,
       opts:n.end?[]:(n.opts||[]).filter(o=>String(o.label||"").trim()).map(o=>({id:o.id,kind:o.kind==="act"?"act":"test",label:String(o.label).trim(),pts:Number(o.pts)||0,min:Number(o.min)||0,fb:String(o.fb||"").trim(),
-        ...(o.kind==="act"?{to:o.to||null}:{res:String(o.res||"").trim(),resImg:o.resImg||null,resDcm:o.resDcm||null})}))}; });
+        ...(o.kind==="act"?{to:o.to||null}:{res:String(o.res||"").trim(),resImg:o.resImg||null,resDcm:o.resDcm||null,src:String(o.src||"").trim(),hide:!!(o.hide??!!(o.resImg||o.resDcm)),hpen:hpenOf(o)})}))}; });
     return nodes; };
   $id("sSave").onclick=async()=>{
     const title=$id("sTi").value.trim(); if(!title) return toast("Başlık girin",true);
