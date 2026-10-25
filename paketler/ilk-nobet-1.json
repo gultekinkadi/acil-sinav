@@ -1,0 +1,2163 @@
+{
+ "id": "ilk-nobet-1",
+ "title": "İlk Nöbet Vakaları — 1. Paket",
+ "desc": "Sık ve hayatı tehdit eden 10 acil: göğüs ağrısı (STEMI), hipoglisemi, anafilaksi, inme, astım, AF, sepsis, pulmoner emboli, hiperkalemi, DKA. Her biri dallanan sanal hasta + 4 alıştırma sorusu.",
+ "source": "Gazi Acil Tıp — özgün senaryolar (güncel kılavuzlara dayanır; klinik kontrol sonrası yayınlayın)",
+ "pool": "İlk Nöbet Vakaları — 1. Paket",
+ "sims": [
+  {
+   "key": "c01",
+   "title": "Akut göğüs ağrısı — 58 yaşında erkek",
+   "topic": "Kardiyoloji",
+   "intro": "58 yaşında erkek. 40 dakikadır göğsün ortasında baskı tarzı ağrı, terleme ve bulantı. Sigara içiyor, hipertansiyon için ilaç kullanıyor. Triajda solgun ve terli.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n4",
+    "n8",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Triaj — ilk dakikalar",
+     "text": "Hasta monitöre alındı, damar yolu açıldı. Ağrı 8/10, yayılım yok.",
+     "vitals": "KB 98/62 · Nb 54 · SS 20 · SpO₂ %96 (oda havası) · Ateş 36,6",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "12 derivasyonlu EKG",
+       "pts": 3,
+       "min": 5,
+       "res": "Sinüs bradikardisi 54/dk. **II, III ve aVF'de 3 mm ST elevasyonu**; III'teki elevasyon II'den belirgin. **I ve aVL'de ST çökmesi** (ayna görüntüsü).",
+       "fb": "İlk temastan sonra 10 dakika içinde EKG — en önemli ilk adım."
+      },
+      {
+       "kind": "test",
+       "label": "Sağ prekordiyal derivasyonlar (V4R)",
+       "pts": 2,
+       "min": 3,
+       "res": "**V4R'de 1 mm ST elevasyonu** → sağ ventrikül tutulumu.",
+       "fb": "İnferior MI'da V4R çekmek sağ ventrikül tutulumunu gösterir; nitrat ve sıvı kararını değiştirir."
+      },
+      {
+       "kind": "test",
+       "label": "Yüksek duyarlıklı troponin",
+       "pts": 0,
+       "min": 60,
+       "res": "İlk değer hafif yüksek. (Sonuç 1 saatte geldi.)",
+       "fb": "STEMI tanısı EKG ile konur; reperfüzyon kararı için troponin beklenmez."
+      },
+      {
+       "kind": "test",
+       "label": "Toraks BT anjiyografi (diseksiyon için)",
+       "pts": -2,
+       "min": 45,
+       "res": "Aort diseksiyonu yok. Reperfüzyon 45 dakika gecikti.",
+       "fb": "Tipik inferior STEMI'de, diseksiyonu düşündüren bulgu (sırta yayılan yırtılır tarzda ağrı, nabız/KB farkı, mediasten genişliği, yeni AY üfürümü) yoksa rutin BTA gerekmez."
+      },
+      {
+       "kind": "act",
+       "label": "STEMI kodu: girişimsel kardiyolojiyi ara; ASA 150–300 mg çiğnet, P2Y12 yüklemesi (ör. tikagrelor 180 mg), anfraksiyone heparin 70–100 Ü/kg IV",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. EKG STEMI ile uyumlu: hedef, tanıdan tel geçişine en kısa sürede (PKG merkezinde ≤60 dk) primer PKG."
+      },
+      {
+       "kind": "act",
+       "label": "Ağrı için dil altı nitrogliserin ver, ağrı geçerse yeniden değerlendir",
+       "pts": -3,
+       "min": 5,
+       "to": "n3",
+       "fb": "Sağ ventrikül tutulumu olan inferior MI'da nitratlar önyükü düşürüp derin hipotansiyona yol açar. Ayrıca reperfüzyon kararı gecikiyor."
+      },
+      {
+       "kind": "act",
+       "label": "İlk troponin sonucunu bekle, ona göre karar ver",
+       "pts": -4,
+       "min": 60,
+       "to": "n9",
+       "fb": "STEMI'de troponin beklemek reperfüzyonu geciktirir; her dakika miyokard kaybıdır."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Nitrogliserinden 4 dakika sonra",
+     "text": "Hasta sersemlediğini söylüyor, bilinci bulanıklaşıyor. Akciğerler temiz, juguler venöz dolgunluk var.",
+     "vitals": "KB 72/44 · Nb 50 · SpO₂ %95",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Nitratı bırak; 250–500 mL kristaloid bolus, bacakları kaldır; STEMI kodunu başlat (ASA, P2Y12, heparin)",
+       "pts": 2,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. Sağ ventrikül infarktında ventrikül önyüke bağımlıdır: dikkatli sıvı ve hızlı reperfüzyon."
+      },
+      {
+       "kind": "act",
+       "label": "Akciğer ödemi olabilir — furosemid 40 mg IV",
+       "pts": -4,
+       "min": 5,
+       "to": "n8",
+       "fb": "Akciğerler temiz, JVD sağ ventrikül yetmezliğinden. Diüretik önyükü daha da azaltır → kardiyojenik şok."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Kateter laboratuvarı hazırlanırken",
+     "text": "Yükleme ilaçları verildi, laboratuvar 15 dakika içinde hazır olacak. Monitörde ritim değişiyor; hasta baş dönmesi tarifliyor.",
+     "vitals": "KB 84/50 · Nb 38 · SpO₂ %95",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Ritim şeridi / EKG",
+       "pts": 1,
+       "min": 2,
+       "res": "**Tam (3. derece) AV blok**, dar QRS'li kaçış ritmi 38/dk. P dalgaları QRS'lerden bağımsız.",
+       "fb": "İnferior MI'da AV nodal blok sıktır ve çoğu reperfüzyonla düzelir."
+      },
+      {
+       "kind": "act",
+       "label": "Atropin 0,5–1 mg IV (3–5 dakikada bir tekrarlanabilir, toplam 3 mg); transkutan pace pedlerini tak; PKG'yi geciktirme",
+       "pts": 3,
+       "min": 5,
+       "to": "n4",
+       "fb": "Doğru. Dar QRS'li nodal blokta atropin çoğunlukla etkilidir; yanıt yoksa transkutan pace. Asıl tedavi reperfüzyon."
+      },
+      {
+       "kind": "act",
+       "label": "Hız düşük ama ağrı sürüyor — metoprolol IV ver",
+       "pts": -4,
+       "min": 5,
+       "to": "n8",
+       "fb": "Bradikardi, AV blok ve hipotansiyonda beta bloker kontrendikedir."
+      },
+      {
+       "kind": "act",
+       "label": "Bradikardi düzelene kadar kateter laboratuvarını ertele",
+       "pts": -3,
+       "min": 30,
+       "to": "n9",
+       "fb": "Blok büyük olasılıkla iskemiye bağlı; en etkili tedavi reperfüzyon. Pace desteği ile PKG'ye gidilir."
+      }
+     ]
+    },
+    "n4": {
+     "title": "Primer PKG — sağ koroner açıldı",
+     "text": "Atropin sonrası hız 58/dk. Sağ koroner proksimal tıkanıklığa stent takıldı; kapıdan balona 68 dakika. AV blok işlem sonrası düzeldi, hasta koroner yoğun bakımda stabil.\n\n**Akılda kalsın**\n- İlk temastan sonra **10 dk içinde EKG**.\n- İnferior MI'da **V4R** çek; sağ ventrikül tutulumunda **nitrat ve diüretikten kaçın**, hipotansiyonda dikkatli sıvı ver.\n- STEMI'de **troponin beklenmez**.\n- Tanıdan tel geçişine 120 dk içinde PKG yapılamayacaksa fibrinolitik düşünülür.\n\n*Kaynak: ESC 2023 Akut Koroner Sendromlar Kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n8": {
+     "title": "Kardiyojenik şok",
+     "text": "Hipotansiyon derinleşti; hasta entübe edilip inotrop desteğiyle kateter laboratuvarına alınabildi. Reperfüzyon gecikti, sağ ventrikül fonksiyonu ciddi bozuldu.\n\nSağ ventrikül infarktında önyükü azaltan ilaçlar (nitrat, diüretik, morfin) ve negatif kronotroplar şoku derinleştirir.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    },
+    "n9": {
+     "title": "Gecikmiş reperfüzyon",
+     "text": "Kateter laboratuvarına 2 saat sonra gidildi. Geniş inferior-posterior infarkt; ejeksiyon fraksiyonu %35'e düştü.\n\nSTEMI tanısı EKG ile konur; troponin, ek görüntüleme ya da bradikardi reperfüzyonu geciktirmemeli.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c02",
+   "title": "Konuşma bozukluğu — 74 yaşında kadın",
+   "topic": "Endokrin",
+   "intro": "74 yaşında kadın. Kızı, sabah kahvaltıdan sonra konuşmasının bozulduğunu ve sağ elini kullanamadığını fark etmiş. Tip 2 diyabet (gliklazid), hipertansiyon ve kronik böbrek hastalığı var. Son normal görülme 45 dakika önce. Ambulans “kod inme” ön bildirimi yaptı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n4",
+    "n5",
+    "n6",
+    "n7"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Acil kapısı",
+     "text": "Hasta terli, huzursuz. Sağ kolda kuvvet 3/5, konuşması peltek ve anlamsız kelimeler var.",
+     "vitals": "KB 168/90 · Nb 104 · SS 18 · SpO₂ %97 · Ateş 36,4",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kapiller kan glukozu",
+       "pts": 3,
+       "min": 1,
+       "res": "**38 mg/dL**",
+       "fb": "İnme kodunda trombolizden önce zorunlu tek laboratuvar testi glukozdur; hipoglisemi en sık inme taklitçilerindendir."
+      },
+      {
+       "kind": "test",
+       "label": "Kontrastsız beyin BT",
+       "pts": -2,
+       "min": 25,
+       "res": "Akut kanama veya erken iskemi bulgusu yok. 25 dakika geçti.",
+       "fb": "Glukoz bakılmadan BT'ye gitmek, en kolay düzeltilebilir nedeni atlamaktır."
+      },
+      {
+       "kind": "test",
+       "label": "Böbrek fonksiyon testleri",
+       "pts": 1,
+       "min": 40,
+       "res": "Kreatinin 2,3 mg/dL (eGFR ≈ 21 mL/dk/1,73 m²). Son ayda yükselmiş.",
+       "fb": "Böbrek yetmezliğinde sülfonilüre birikir → uzamış ve tekrarlayan hipoglisemi."
+      },
+      {
+       "kind": "act",
+       "label": "IV %20 dekstroz 75–100 mL (≈15–20 g) ver; 10–15 dakika sonra glukozu tekrar ölç",
+       "pts": 4,
+       "min": 5,
+       "to": "n2",
+       "fb": "Doğru. Bilinç değişikliği olan hastada IV glukoz; ağızdan verilmez."
+      },
+      {
+       "kind": "act",
+       "label": "Kod inme protokolü: doğrudan BT'ye götür, trombolize hazırlan",
+       "pts": -3,
+       "min": 25,
+       "to": "n3",
+       "fb": "Glukoz bakılmadan inme protokolünde ilerlemek hem zaman kaybı hem de gereksiz tromboliz riskidir."
+      },
+      {
+       "kind": "act",
+       "label": "Ağızdan şekerli su içir",
+       "pts": -3,
+       "min": 5,
+       "to": "n7",
+       "fb": "Bilinç ve yutma etkilenmişken ağızdan verilen sıvı aspirasyona yol açar."
+      }
+     ]
+    },
+    "n3": {
+     "title": "BT normal",
+     "text": "BT'den döndünüz; tromboliz için ekip hazır. Hemşire “glukoz bakılmadı” diyor.",
+     "vitals": "KB 170/92 · Nb 108",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kapiller kan glukozu",
+       "pts": 2,
+       "min": 1,
+       "res": "**34 mg/dL**",
+       "fb": "Hipoglisemi saptandı — neyse ki tromboliz başlamadan."
+      },
+      {
+       "kind": "act",
+       "label": "IV %20 dekstroz 75–100 mL, 10–15 dakika sonra kontrol",
+       "pts": 1,
+       "min": 5,
+       "to": "n2",
+       "fb": "Doğru tedavi ama yaklaşık 30 dakika gecikmeyle."
+      },
+      {
+       "kind": "act",
+       "label": "Glukoza bakmadan alteplaz başla",
+       "pts": -5,
+       "min": 5,
+       "to": "n6",
+       "fb": "Hipoglisemi dışlanmadan tromboliz yapılmaz."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Dekstrozdan 15 dakika sonra",
+     "text": "Konuşma ve sağ kol tamamen düzeldi. Hasta “kahvaltıyı az yaptım, ilacımı içtim” diyor.",
+     "vitals": "KB 150/84 · Nb 92 · Glukoz 146 mg/dL",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "1 saat sonra glukoz kontrolü",
+       "pts": 2,
+       "min": 60,
+       "res": "**58 mg/dL** — yeniden düşmüş.",
+       "fb": "Sülfonilüre hipoglisemisi saatlerce sürebilir; tek doz dekstroz yetmez."
+      },
+      {
+       "kind": "act",
+       "label": "Gözlem/yatış: %10 dekstroz infüzyonu, saatlik glukoz, en az 24 saat izlem; gliklazidi kes; tekrarlarsa oktreotid (ör. 50 mcg SC, 6–8 saatte bir) düşün",
+       "pts": 4,
+       "min": 20,
+       "to": "n4",
+       "fb": "Doğru. Böbrek yetmezliği + sülfonilüre: uzamış hipoglisemi beklenir. Oktreotid insülin salınımını baskılar."
+      },
+      {
+       "kind": "act",
+       "label": "Düzeldi — bol şekerli besinle taburcu et",
+       "pts": -4,
+       "min": 10,
+       "to": "n5",
+       "fb": "Sülfonilüre etkisi sürerken taburculuk evde tekrarlayan ve daha ağır hipoglisemiye yol açar."
+      },
+      {
+       "kind": "act",
+       "label": "Glukagon 1 mg IM ile taburcu et",
+       "pts": -3,
+       "min": 10,
+       "to": "n5",
+       "fb": "Glukagon kısa etkilidir ve sülfonilüre hipoglisemisinde insülin salınımını artırarak tabloyu kötüleştirebilir; gözlem şarttır."
+      }
+     ]
+    },
+    "n4": {
+     "title": "İyi sonuç — dirençli hipoglisemi kontrol altında",
+     "text": "Gece iki kez glukoz 60'ların altına indi; oktreotid sonrası stabil seyretti. 30. saatte taburcu edildi; gliklazid kesildi, böbrek fonksiyonuna uygun tedavi için endokrin kontrolü planlandı.\n\n**Akılda kalsın**\n- Her bilinç değişikliği ve **her kod inmede ilk iş glukoz**.\n- Hipoglisemi: <70 mg/dL (düzey 1), <54 mg/dL (düzey 2).\n- Bilinci değişik hastaya ağızdan verme; **IV dekstroz**, damar yolu yoksa glukagon 1 mg IM.\n- **Sülfonilüre + böbrek yetmezliği** → uzamış/tekrarlayan hipoglisemi: yatırarak izle, gerekirse oktreotid.\n\n*Kaynak: ADA Standards of Care 2025; JBDS hipoglisemi kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n5": {
+     "title": "Evde tekrarlayan hipoglisemi",
+     "text": "Hasta gece evde bilinçsiz bulundu; ambulansta glukoz 22 mg/dL, nöbet geçirdi. Yoğun bakıma yatırıldı.\n\nSülfonilüre hipoglisemisinde ilk düzelme yanıltıcıdır; ilaç etkisi böbrek yetmezliğinde 24 saati aşabilir.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    },
+    "n6": {
+     "title": "Gereksiz tromboliz",
+     "text": "Alteplaz infüzyonu sürerken ölçülen glukoz 30 mg/dL çıktı. Tablo bir inme taklitçisiydi; hasta trombolitiğin kanama riskine gereksiz yere maruz kaldı.\n\nHer kod inmede trombolizden önce glukoz ölçülür.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    },
+    "n7": {
+     "title": "Aspirasyon",
+     "text": "Hasta içerken öksürmeye başladı, SpO₂ %86'ya düştü; aspirasyon pnömonisi gelişti. Sonradan ölçülen glukoz 30 mg/dL çıktı.\n\nBilinç veya yutma bozukken ağızdan bir şey verilmez; tedavi IV dekstrozdur.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c03",
+   "title": "IV antibiyotik sonrası kaşıntı — 24 yaşında kadın",
+   "topic": "Alerji / Resüsitasyon",
+   "intro": "24 yaşında kadın, idrar yolu enfeksiyonu nedeniyle gözlem alanında IV seftriakson infüzyonu başlandı. 5 dakika sonra tüm vücutta kaşıntı, ses kısıklığı ve nefes darlığı başladı. Dudaklarında şişme var. Hemşire sizi çağırıyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n4",
+    "n5",
+    "n8",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Gözlem alanı — dakika 0",
+     "text": "Yaygın ürtiker, dudak ve dil ödemi. Ses kısık, konuşurken nefesi yetmiyor.",
+     "vitals": "KB 82/50 · Nb 128 · SS 28 · SpO₂ %91",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Akciğer oskültasyonu",
+       "pts": 1,
+       "min": 1,
+       "res": "Yaygın ekspiratuvar wheezing; hava girişi azalmamış.",
+       "fb": "Solunum ve dolaşım bulguları birlikte → anafilaksi."
+      },
+      {
+       "kind": "test",
+       "label": "Serum triptaz",
+       "pts": 0,
+       "min": 5,
+       "res": "Örnek alındı (sonuç günler içinde).",
+       "fb": "Tanıyı sonradan desteklemek için yararlı; tedaviyi beklemez."
+      },
+      {
+       "kind": "test",
+       "label": "Akciğer grafisi",
+       "pts": -1,
+       "min": 20,
+       "res": "Normal.",
+       "fb": "Anafilakside tanı kliniktir; görüntüleme tedaviyi geciktirmemeli."
+      },
+      {
+       "kind": "act",
+       "label": "İnfüzyonu durdur; adrenalin 0,5 mg IM (1 mg/mL'den 0,5 mL) uyluk anterolateraline; yüksek akım O₂, yatırarak bacakları kaldır, IV kristaloid",
+       "pts": 4,
+       "min": 2,
+       "to": "n2",
+       "fb": "Doğru. Anafilaksinin ilk ve en önemli ilacı IM adrenalindir; gecikmesi ölüm riskini artırır."
+      },
+      {
+       "kind": "act",
+       "label": "Feniramin + metilprednizolon IV ver; adrenalini düzelmezse düşün",
+       "pts": -4,
+       "min": 5,
+       "to": "n3",
+       "fb": "Antihistaminik ve steroid ne hava yolu ödemini ne de şoku hızla düzeltir; adrenalin gecikiyor."
+      },
+      {
+       "kind": "act",
+       "label": "Adrenalin 1 mg IV bolus (1 mg/mL'den)",
+       "pts": -5,
+       "min": 1,
+       "to": "n9",
+       "fb": "Dolaşımı olan hastaya 1 mg IV bolus adrenalin ciddi hipertansiyon, aritmi ve miyokard iskemisine yol açabilir. Arrest dozu arrest dışında verilmez."
+      }
+     ]
+    },
+    "n3": {
+     "title": "5 dakika sonra — kötüleşme",
+     "text": "Stridor başladı, hasta oturmak istiyor, ajite.",
+     "vitals": "KB 70/40 · Nb 140 · SS 32 · SpO₂ %87",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Hemen adrenalin 0,5 mg IM; hava yolu ekibini çağır, zor hava yolu hazırlığı; hızlı kristaloid",
+       "pts": 2,
+       "min": 2,
+       "to": "n2",
+       "fb": "Geç ama doğru. Stridorda erken hava yolu hazırlığı hayat kurtarır."
+      },
+      {
+       "kind": "act",
+       "label": "İkinci doz antihistaminik ver",
+       "pts": -4,
+       "min": 5,
+       "to": "n9",
+       "fb": "Tablo antihistaminikle geri dönmez; adrenalin verilmediği sürece kardiyak arrest riski hızla artar."
+      }
+     ]
+    },
+    "n2": {
+     "title": "İlk adrenalinden 5 dakika sonra",
+     "text": "Ürtiker azaldı, ses biraz açıldı ama wheezing sürüyor.",
+     "vitals": "KB 88/54 · Nb 118 · SS 24 · SpO₂ %93",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Yanıt yetersiz: 5 dakika sonra ikinci IM adrenalin dozu; 500–1000 mL kristaloid bolus; wheezing için salbutamol nebül",
+       "pts": 3,
+       "min": 5,
+       "to": "n4",
+       "fb": "Doğru. Yetersiz yanıtta IM adrenalin 5 dakikada bir tekrarlanır. İki doza yanıt yoksa (dirençli anafilaksi) IV adrenalin infüzyonu ve uzman desteği gerekir."
+      },
+      {
+       "kind": "act",
+       "label": "Kısmi düzelme yeterli — antihistaminik ekle ve bekle",
+       "pts": -2,
+       "min": 15,
+       "to": "n4",
+       "fb": "Hipotansiyon ve bronkospazm sürerken yeni doz adrenalin geciktirilmemeli; düzelme daha yavaş oldu."
+      }
+     ]
+    },
+    "n4": {
+     "title": "30 dakika sonra",
+     "text": "Semptomlar tamamen geçti, hasta “eve gidebilir miyim?” diye soruyor. Toplam 2 doz adrenalin gerekti. Düzenli metoprolol kullanmıyor.",
+     "vitals": "KB 112/70 · Nb 96 · SpO₂ %98",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Kendini iyi hissediyor — 1 saat sonra taburcu et",
+       "pts": -3,
+       "min": 60,
+       "to": "n8",
+       "fb": "Bifazik reaksiyon riski. Erken (2 saat) taburculuk yalnızca tek doza hızlı yanıt veren hastalar içindir; iki doz gerekmişse en az 6 saat gözlem."
+      },
+      {
+       "kind": "act",
+       "label": "Belirtiler geçtikten sonra en az 6 saat gözlem (2 doz adrenalin gerekti); taburculukta adrenalin oto-enjektörü reçetesi ve kullanım eğitimi, seftriakson alerjisini kayda geçir, alerji polikliniğine yönlendir",
+       "pts": 3,
+       "min": 15,
+       "to": "n5",
+       "fb": "Doğru. Gözlem süresi reaksiyonun ağırlığına göre: tek doza hızlı yanıtta 2 saat sonra taburculuk düşünülebilir; 2 doz gerekmişse ≥6 saat; ikiden fazla doz, ağır astım ya da gece/ulaşım sorunu varsa ≥12 saat."
+      }
+     ]
+    },
+    "n5": {
+     "title": "İyi sonuç",
+     "text": "Gözlemde bifazik reaksiyon olmadı. Hasta oto-enjektör, yazılı eylem planı ve alerji kartıyla taburcu edildi.\n\n**Akılda kalsın**\n- Anafilakside ilk ilaç **IM adrenalin**: erişkin 0,5 mg, çocuk 0,01 mg/kg (en çok 0,5 mg), uyluk anterolateral; yanıt yoksa **5 dakikada bir** tekrar.\n- Antihistaminik ve steroid **yardımcıdır**, adrenalinin yerine geçmez.\n- **1 mg IV bolus** yalnızca kardiyak arrestte.\n- Beta bloker kullanan dirençli hastada **glukagon** IV düşün.\n- Gözlem: tek doza hızlı yanıt → 2 saat; **2 doz → ≥6 saat**; >2 doz ya da ağır tablo → ≥12 saat.\n- Taburculukta **oto-enjektör + eğitim + alerji yönlendirmesi**.\n\n*Kaynak: Resuscitation Council UK 2021; NICE NG258; EAACI 2021.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n8": {
+     "title": "Bifazik reaksiyon — evde",
+     "text": "Taburculuktan 4 saat sonra hasta yeniden nefes darlığı ve ürtikerle ambulansla getirildi. Evde adrenalin yoktu.\n\nİki doz adrenalin gereken anafilakside en az 6 saat gözlem ve oto-enjektörle taburculuk gerekir.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kardiyak arrest / ciddi aritmi",
+     "text": "Hasta ventriküler taşikardiye girdi / dolaşım çöktü; resüsitasyon gerekti.\n\nAnafilakside doğru ilaç ve doğru yol: **adrenalin 0,5 mg IM**, gecikmeden ve gerekirse tekrar.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c04",
+   "title": "Sol tarafında güçsüzlük — 66 yaşında erkek",
+   "topic": "Nöroloji",
+   "intro": "66 yaşında erkek. Eşi saat 07:40'ta normal olduğunu, 08:10'da kahvaltıda sol kolunu kaldıramadığını ve ağzının kaydığını fark etmiş. Hipertansiyon ve hiperlipidemi var; antikoagülan kullanmıyor. Acile varış 08:35.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n4",
+    "n8",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Acil kapısı — 08:35",
+     "text": "Sol yüz-kol-bacakta belirgin güçsüzlük, sağa bakış deviasyonu, sol tarafı ihmal ediyor. Bilinç açık.",
+     "vitals": "KB 196/104 · Nb 88 (düzenli) · SpO₂ %96 · Glukoz (ambulans) 118 mg/dL",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "NIHSS",
+       "pts": 1,
+       "min": 3,
+       "res": "**NIHSS 15**: bakış deviasyonu, sol hemiparezi, sol hemihipoestezi, ihmal, dizartri.",
+       "fb": "Kortikal bulgular (bakış, ihmal) büyük damar tıkanıklığını düşündürür."
+      },
+      {
+       "kind": "test",
+       "label": "Kanama paneli (INR, aPTT, trombosit) — sonucu bekle",
+       "pts": -2,
+       "min": 40,
+       "res": "Normal. 40 dakika geçti.",
+       "fb": "Antikoagülan kullanmayan, kanama şüphesi olmayan hastada tromboliz için koagülasyon sonucu beklenmez."
+      },
+      {
+       "kind": "act",
+       "label": "Kod inme: doğrudan BT'ye — kontrastsız BT + BT anjiyografi; nöroloji ve girişimsel ekibi bilgilendir",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Kapıdan BT'ye ≤20–25 dk, kapıdan iğneye ≤60 dk (ideal ≤45) hedeflenir."
+      },
+      {
+       "kind": "act",
+       "label": "Nöroloji konsültasyonu iste, servise yatışını planla",
+       "pts": -4,
+       "min": 60,
+       "to": "n9",
+       "fb": "Zamana bağımlı tedavi penceresi kaçırılıyor. İnme şüphesi = acil görüntüleme."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Görüntüleme — 08:52",
+     "text": "**Kontrastsız BT:** kanama yok, ASPECTS 9.\n**BT anjiyografi:** sağ MCA M1 segmentinde tıkanıklık.\nSemptom başlangıcından (son normal 07:40) bu yana 1 saat 12 dakika.",
+     "vitals": "KB 194/106 · Nb 86",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "KB'yi ≤185/110'a indir (ör. labetalol 10–20 mg IV veya nikardipin infüzyonu — kurumunuzun protokolündeki ajan), ardından IV tromboliz başlat (alteplaz 0,9 mg/kg, en çok 90 mg; %10'u 1 dakikada bolus, kalanı 60 dakikada — ya da tenekteplaz 0,25 mg/kg tek bolus) ve trombektomi için girişimsel merkezi aktive et",
+       "pts": 4,
+       "min": 15,
+       "to": "n3",
+       "fb": "Doğru. Uygun hastada IV tromboliz trombektomiyi beklemeden verilir; büyük damar tıkanıklığında ikisi birlikte planlanır."
+      },
+      {
+       "kind": "act",
+       "label": "KB 220/120'nin altında — antihipertansif vermeden tromboliz başla",
+       "pts": -3,
+       "min": 5,
+       "to": "n8",
+       "fb": "Tromboliz öncesi KB <185/110 olmalıdır; daha yüksek değerlerde intrakraniyal kanama riski artar."
+      },
+      {
+       "kind": "act",
+       "label": "BT normal, büyük olasılıkla TİA — MR için yatır",
+       "pts": -4,
+       "min": 90,
+       "to": "n9",
+       "fb": "Erken saatlerde BT çoğu iskemik inmede normaldir; BTA'da M1 tıkanıklığı var."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Tromboliz sırasında — 09:15",
+     "text": "Alteplaz infüzyonu sürüyor. Hasta trombektomi için anjiyografi ünitesine alınacak. Hemşire, infüzyonun 40. dakikasında KB'nin yükseldiğini bildiriyor.",
+     "vitals": "KB 188/102 · Nb 84",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Tromboliz sırasında ve sonraki 24 saatte KB <180/105 hedefle; IV antihipertansifi titre et, 15 dakikada bir nörolojik muayene ve KB",
+       "pts": 3,
+       "min": 5,
+       "to": "n4",
+       "fb": "Doğru. Tromboliz sonrası KB hedefi <180/105; yeni baş ağrısı, kusma veya nörolojik kötüleşmede infüzyonu durdur ve acil BT."
+      },
+      {
+       "kind": "act",
+       "label": "Hemen aspirin 300 mg ve DMAH başla",
+       "pts": -3,
+       "min": 5,
+       "to": "n8",
+       "fb": "Tromboliz sonrası ilk 24 saatte antitrombotik başlanmaz (kanama riski); 24. saat görüntülemesinden sonra karar verilir."
+      }
+     ]
+    },
+    "n4": {
+     "title": "İyi sonuç — rekanalizasyon",
+     "text": "Trombektomi ile sağ M1 tam açıldı (TICI 3). 24. saat NIHSS 3; kontrol BT'de kanama yok.\n\n**Akılda kalsın**\n- Son normal görülme zamanını net öğren.\n- Kod inmede **glukoz** dışında laboratuvar beklenmez (antikoagülan/kanama şüphesi yoksa).\n- Tromboliz öncesi **KB <185/110**, sonraki 24 saat **<180/105**.\n- Alteplaz 0,9 mg/kg (en çok 90 mg, %10 bolus) ya da tenekteplaz 0,25 mg/kg.\n- **Büyük damar tıkanıklığında trombektomi** (seçilmiş hastalarda 24 saate kadar); tromboliz trombektomiyi geciktirmez.\n\n*Kaynak: AHA/ASA 2019 akut iskemik inme kılavuzu; ESO 2023 tromboliz kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n8": {
+     "title": "İntrakraniyal kanama",
+     "text": "Tromboliz sonrası 3. saatte bilinç bozuldu; BT'de sağ hemisferde parankimal hematom.\n\nTromboliz öncesi ve sonrası KB hedeflerine uymak ve ilk 24 saatte antitrombotik vermemek kanama riskini azaltır.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    },
+    "n9": {
+     "title": "Tedavi penceresi kaçtı",
+     "text": "Hasta serviste ertesi gün değerlendirildi; geniş sağ MCA infarktı, kalıcı sol hemipleji.\n\nİnme bir acil durumdur: görüntüleme ve reperfüzyon kararı dakikalar içinde verilmelidir.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c05",
+   "title": "Nefes darlığı — 28 yaşında kadın",
+   "topic": "Solunum",
+   "intro": "28 yaşında kadın, astımlı. İki gündür nezle, dün geceden beri artan nefes darlığı. Evde salbutamol inhaleri saatte bir kullanmış, rahatlamamış. Düzenli kontrol ilacı yok.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n4",
+    "n5",
+    "n8",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Resüsitasyon alanı",
+     "text": "Öne eğilerek oturuyor, ancak kelime kelime konuşabiliyor. Yardımcı solunum kasları kullanılıyor; yaygın wheezing.",
+     "vitals": "KB 132/80 · Nb 126 · SS 32 · SpO₂ %89 · Ateş 37,4",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "PEF (zirve akım)",
+       "pts": 1,
+       "min": 2,
+       "res": "Beklenenin **%35'i**.",
+       "fb": "PEF ≤%50 ağır atak; <%33 hayatı tehdit eden atak ölçütüdür."
+      },
+      {
+       "kind": "test",
+       "label": "Venöz/arteriyel kan gazı",
+       "pts": 2,
+       "min": 10,
+       "res": "pH 7,37 · **pCO₂ 43 mmHg** · HCO₃ 24.",
+       "fb": "Ağır atakta hasta hiperventilasyon nedeniyle hipokapnik olmalıdır; **normal ya da yükselen pCO₂ yorulmanın ve yaklaşan solunum yetmezliğinin işaretidir**."
+      },
+      {
+       "kind": "test",
+       "label": "Akciğer grafisi",
+       "pts": 0,
+       "min": 20,
+       "res": "Hiperinflasyon. Pnömotoraks veya konsolidasyon yok.",
+       "fb": "Rutin değildir; pnömotoraks, pnömoni şüphesi veya tedaviye yanıtsızlıkta istenir."
+      },
+      {
+       "kind": "act",
+       "label": "O₂ (hedef SpO₂ %93–95); salbutamol 5 mg + ipratropium 0,5 mg nebül (ilk saatte 20 dakikada bir ×3); sistemik kortikosteroid (prednizolon 40–50 mg PO ya da eşdeğeri IV)",
+       "pts": 4,
+       "min": 5,
+       "to": "n2",
+       "fb": "Doğru. Ağır atakta kısa etkili beta agonist + ipratropium + erken sistemik steroid."
+      },
+      {
+       "kind": "act",
+       "label": "Çok anksiyöz — midazolam 2 mg IV ile sakinleştir",
+       "pts": -5,
+       "min": 5,
+       "to": "n9",
+       "fb": "Ağır astımda sedasyon solunum dürtüsünü baskılayıp arreste yol açabilir; entübasyon kararı dışında sedatif verilmez."
+      },
+      {
+       "kind": "act",
+       "label": "Yalnız O₂ ver, evde zaten salbutamol aldı; gözlemle",
+       "pts": -3,
+       "min": 30,
+       "to": "n3",
+       "fb": "Bronkodilatör ve steroid gecikirse tablo ilerler."
+      }
+     ]
+    },
+    "n3": {
+     "title": "30 dakika sonra — kötüleşme",
+     "text": "Konuşamıyor, wheezing azaldı (sessiz göğüse doğru), uykuya meyilli.",
+     "vitals": "Nb 138 · SS 34 · SpO₂ %86",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Hayatı tehdit eden atak: sürekli nebül salbutamol + ipratropium, sistemik steroid, MgSO₄ 2 g IV 20 dakikada; yoğun bakım ve hava yolu ekibini çağır",
+       "pts": 2,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru ama gecikmiş. Sessiz göğüs ve bilinç değişikliği hayatı tehdit eden atak bulgularıdır."
+      },
+      {
+       "kind": "act",
+       "label": "Sedatif ver, hasta yorgun",
+       "pts": -5,
+       "min": 5,
+       "to": "n9",
+       "fb": "Uykuya meyil hiperkapninin işaretidir; sedasyon arreste götürür."
+      }
+     ]
+    },
+    "n2": {
+     "title": "1 saat sonra",
+     "text": "Üç doz nebül ve steroid verildi. Hasta cümle kurabiliyor ama wheezing sürüyor.",
+     "vitals": "Nb 112 · SS 26 · SpO₂ %92 · PEF %45",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Yetersiz yanıt: MgSO₄ 2 g IV, 20 dakikada; nebülleri sürdür, yakın izlem",
+       "pts": 3,
+       "min": 20,
+       "to": "n4",
+       "fb": "Doğru. İlk tedaviye yanıt vermeyen ağır atakta tek doz IV magnezyum önerilir."
+      },
+      {
+       "kind": "act",
+       "label": "Aminofilin yükleme dozu başla",
+       "pts": -1,
+       "min": 20,
+       "to": "n4",
+       "fb": "Aminofilin yan etkisi fazla, ek yararı sınırlı; rutin önerilmez. Hasta yine de düzeldi."
+      },
+      {
+       "kind": "act",
+       "label": "Düzeliyor — taburcu et",
+       "pts": -3,
+       "min": 10,
+       "to": "n8",
+       "fb": "PEF %45 ve SpO₂ %92 taburculuk için yetersiz."
+      }
+     ]
+    },
+    "n4": {
+     "title": "3 saat sonra",
+     "text": "Hasta rahat, wheezing hafif.",
+     "vitals": "Nb 96 · SS 18 · SpO₂ %96 · PEF %75",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Taburculuk: 5–7 gün oral prednizolon; inhaler tekniğini göster; inhaler kortikosteroid içeren kontrol tedavisi başla; yazılı eylem planı; 2–7 gün içinde kontrol",
+       "pts": 3,
+       "min": 15,
+       "to": "n5",
+       "fb": "Doğru. Her atak, kontrol tedavisini başlatmak/artırmak için bir fırsattır."
+      },
+      {
+       "kind": "act",
+       "label": "Yalnız salbutamol inhaleri reçete edip taburcu et",
+       "pts": -2,
+       "min": 10,
+       "to": "n8",
+       "fb": "Yalnız kısa etkili beta agonist tedavisi atak ve ölüm riskini artırır; inhaler kortikosteroid şarttır."
+      }
+     ]
+    },
+    "n5": {
+     "title": "İyi sonuç",
+     "text": "Hasta kontrol tedavisi ve eylem planıyla taburcu edildi; 1 hafta sonraki kontrolde PEF %90.\n\n**Akılda kalsın**\n- Ağır atak: kelime kelime konuşma, SS >30, Nb >120, SpO₂ <%90, PEF ≤%50.\n- Hayatı tehdit eden: **sessiz göğüs**, siyanoz, bilinç değişikliği, PEF <%33, **normal/yüksek pCO₂**.\n- Tedavi: O₂ (%93–95) + SABA + ipratropium + **erken sistemik steroid**; yanıtsızlıkta **MgSO₄ 2 g IV**.\n- Sedasyon yok.\n- Taburculukta **inhaler kortikosteroid** içeren kontrol tedavisi ve 5–7 gün oral steroid.\n\n*Kaynak: GINA 2024.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n8": {
+     "title": "Erken dönüş",
+     "text": "Hasta 18 saat sonra yeniden ağır atakla getirildi.\n\nYetersiz yanıtla taburculuk ve yalnız SABA reçetesi en sık geri dönüş nedenleridir.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n9": {
+     "title": "Solunum arresti",
+     "text": "Hasta apneik oldu; zor koşullarda entübe edildi, yoğun bakıma alındı.\n\nAğır astımda yorgunluk ve normal pCO₂ alarmdır; sedatif vermek solunumu durdurabilir.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c06",
+   "title": "Çarpıntı — 70 yaşında erkek",
+   "topic": "Kardiyoloji",
+   "intro": "70 yaşında erkek. 6 saattir çarpıntı ve hafif nefes darlığı. Hipertansiyon için amlodipin kullanıyor; daha önce benzer yakınması olmamış. Göğüs ağrısı ve bayılma yok.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n4",
+    "n8"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene odası",
+     "text": "Hasta kooperatif, konuşabiliyor. Akciğerler temiz, periferik ödem yok.",
+     "vitals": "KB 132/80 · Nb 148 (düzensiz) · SS 20 · SpO₂ %96",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "12 derivasyonlu EKG",
+       "pts": 2,
+       "min": 5,
+       "res": "**Atriyal fibrilasyon**, ventrikül hızı ≈150/dk, dar QRS. Delta dalgası yok. Akut iskemi bulgusu yok.",
+       "fb": "Düzensiz dar QRS taşikardi; geniş/çok değişken QRS olsaydı WPW düşünülmeliydi."
+      },
+      {
+       "kind": "test",
+       "label": "Yatak başı eko (POCUS)",
+       "pts": 1,
+       "min": 5,
+       "res": "Sol ventrikül sistolik fonksiyonu korunmuş görünüyor; perikardiyal sıvı yok.",
+       "fb": "Hız kontrolü ilacını seçmek için ejeksiyon fraksiyonu önemli."
+      },
+      {
+       "kind": "test",
+       "label": "Elektrolitler, TSH, böbrek fonksiyonları",
+       "pts": 1,
+       "min": 45,
+       "res": "K 3,6 · Mg 1,9 · TSH normal · Kreatinin 1,0.",
+       "fb": "Tetikleyicileri ve antikoagülan dozunu belirlemek için gerekli."
+      },
+      {
+       "kind": "act",
+       "label": "Hemodinamik olarak stabil: hız kontrolü — diltiazem 0,25 mg/kg IV 2 dakikada (EF korunmuş) ya da IV beta bloker; hedef istirahat hızı <110",
+       "pts": 3,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. EF >%40'ta diltiazem/verapamil veya beta bloker; EF düşükse beta bloker ve/veya digoksin (diltiazem kaçınılır)."
+      },
+      {
+       "kind": "act",
+       "label": "Hemen senkronize elektriksel kardiyoversiyon",
+       "pts": -2,
+       "min": 30,
+       "to": "n3",
+       "fb": "Stabil hastada acil kardiyoversiyon gerekmez; sedasyon riskine girildi. Ayrıca antikoagülasyon kararı atlanmamalı."
+      },
+      {
+       "kind": "act",
+       "label": "Adenozin 6 mg hızlı IV",
+       "pts": -2,
+       "min": 5,
+       "to": "n3",
+       "fb": "Adenozin AF'yi sonlandırmaz; yalnızca birkaç saniyelik yavaşlama yapar. Düzensiz ritim AF'yi zaten düşündürüyor."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Yeniden değerlendirme",
+     "text": "Ritim hâlâ AF; hız 140'larda. Hasta stabil.",
+     "vitals": "KB 128/78 · Nb 142",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Diltiazem 0,25 mg/kg IV ile hız kontrolü",
+       "pts": 2,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru — stabil AF'de ilk adım hız kontrolü."
+      }
+     ]
+    },
+    "n2": {
+     "title": "1 saat sonra",
+     "text": "Hasta rahatladı.",
+     "vitals": "KB 124/76 · Nb 92 (düzensiz) · SpO₂ %97",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kanama riski değerlendirmesi",
+       "pts": 1,
+       "min": 5,
+       "res": "Aktif kanama, anemi ve böbrek/karaciğer yetmezliği yok; düşme öyküsü yok.",
+       "fb": "Kanama risk faktörlerini düzeltmek önemlidir; tek başına antikoagülanı engellemez."
+      },
+      {
+       "kind": "act",
+       "label": "CHA₂DS₂-VA = 2 (hipertansiyon + yaş 65–74): kontrendikasyon yoksa doğrudan oral antikoagülan (DOAK) başla; oral hız kontrolü; kardiyoloji polikliniği takibi",
+       "pts": 3,
+       "min": 15,
+       "to": "n4",
+       "fb": "Doğru. CHA₂DS₂-VA ≥2'de oral antikoagülan önerilir; DOAK'lar varfarine tercih edilir."
+      },
+      {
+       "kind": "act",
+       "label": "Antikoagülan gerekmez, aspirin 100 mg başla",
+       "pts": -3,
+       "min": 10,
+       "to": "n8",
+       "fb": "Aspirin AF'de inmeyi etkin önlemez, kanama riski yine vardır."
+      },
+      {
+       "kind": "act",
+       "label": "Hız düzeldi, ilaçsız taburcu et",
+       "pts": -3,
+       "min": 10,
+       "to": "n8",
+       "fb": "Hem hız kontrolü hem inme önlemi eksik kaldı."
+      }
+     ]
+    },
+    "n4": {
+     "title": "İyi sonuç",
+     "text": "Hasta oral beta bloker ve DOAK ile taburcu edildi; kardiyoloji kontrolünde ritim/hız stratejisi planlandı.\n\n**Akılda kalsın**\n- **Instabilite** (hipotansiyon, şok, iskemi, akut kalp yetmezliği) varsa → **senkronize kardiyoversiyon**.\n- Stabilse önce **hız kontrolü**: EF >%40 diltiazem/verapamil veya beta bloker; EF düşükse beta bloker/digoksin.\n- **WPW'li AF**'de (geniş, düzensiz, çok hızlı QRS) AV nod blokerleri **kontrendike**.\n- Her AF'de inme riski: **CHA₂DS₂-VA** ≥2 → oral antikoagülan; aspirin alternatif değildir.\n\n*Kaynak: ESC 2024 Atriyal Fibrilasyon Kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n8": {
+     "title": "3 ay sonra inme",
+     "text": "Hasta 3 ay sonra sol MCA embolik inmeyle getirildi.\n\nAF'de antikoagülan endikasyonunu acil serviste başlatmak ya da kesinleştirmek, inmeyi önlemenin en etkili yoludur.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c07",
+   "title": "Ateş ve konfüzyon — 78 yaşında kadın",
+   "topic": "Enfeksiyon",
+   "intro": "78 yaşında kadın, huzurevinde kalıyor. Bakıcısı, iki gündür idrarının koktuğunu, bugün ateşlendiğini ve “saçmalamaya” başladığını söylüyor. Diyabet ve hipertansiyon var. Yaklaşık 60 kg.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n4",
+    "n3",
+    "n5",
+    "n8",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Resüsitasyon alanı",
+     "text": "Konfüze, cildi sıcak; böğür hassasiyeti şüpheli.",
+     "vitals": "KB 82/46 (OAB 58) · Nb 118 · SS 26 · SpO₂ %93 · Ateş 38,9",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Laktat (kan gazı)",
+       "pts": 2,
+       "min": 5,
+       "res": "**Laktat 4,6 mmol/L**; pH 7,31.",
+       "fb": "Laktat ≥2 doku hipoperfüzyonunu, ≥4 yüksek mortaliteyi gösterir; tedaviye yanıtı izlemek için tekrarlanır."
+      },
+      {
+       "kind": "test",
+       "label": "Kan kültürü (2 set)",
+       "pts": 2,
+       "min": 5,
+       "res": "Alındı; sonuç 24–48 saatte.",
+       "fb": "Antibiyotikten önce alınır — ama antibiyotiği geciktirmeden."
+      },
+      {
+       "kind": "test",
+       "label": "Tam idrar tetkiki",
+       "pts": 1,
+       "min": 15,
+       "res": "Lökosit +++, nitrit +, bakteri bol.",
+       "fb": "Odak: üriner sistem."
+      },
+      {
+       "kind": "test",
+       "label": "Prokalsitonin sonucunu bekle",
+       "pts": -2,
+       "min": 60,
+       "res": "Yüksek. 1 saat geçti.",
+       "fb": "Septik şokta antibiyotik kararı için biyobelirteç beklenmez."
+      },
+      {
+       "kind": "act",
+       "label": "İlk saat paketi: 2 set kan kültürü; geniş spektrumlu antibiyotik (ör. piperasilin-tazobaktam; yerel direnç ve risk faktörlerine göre); 30 mL/kg (≈1800 mL) kristaloid (dengeli solüsyon tercih); laktatı tekrar ölç",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Şokta antibiyotik ilk 1 saat içinde; hipoperfüzyonda ilk 3 saatte en az 30 mL/kg kristaloid."
+      },
+      {
+       "kind": "act",
+       "label": "Kültür ve idrar sonucunu bekleyip hedefe yönelik antibiyotik başla",
+       "pts": -4,
+       "min": 120,
+       "to": "n9",
+       "fb": "Septik şokta antibiyotikte her saatlik gecikme mortaliteyi artırır."
+      },
+      {
+       "kind": "act",
+       "label": "Parasetamol ver, servise yatır",
+       "pts": -4,
+       "min": 60,
+       "to": "n9",
+       "fb": "Sepsis ve hipoperfüzyon bulguları atlanıyor."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Sıvıdan sonra (≈1 saat)",
+     "text": "1800 mL dengeli kristaloid ve antibiyotik verildi. Bilinç biraz düzeldi. Akciğerler temiz; POCUS'ta VCI dar değil, B çizgisi yok.",
+     "vitals": "KB 86/48 (OAB 60) · Nb 110 · SpO₂ %94",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Norepinefrin başla (OAB ≥65 hedefi); santral kateteri beklemeden periferik geniş damar yolundan başlanabilir; arteriyel kateter planla",
+       "pts": 3,
+       "min": 15,
+       "to": "n3",
+       "fb": "Doğru. Sıvıya rağmen hipotansiyon = septik şok; ilk vazopresör norepinefrin."
+      },
+      {
+       "kind": "act",
+       "label": "Bir 30 mL/kg sıvı daha ver",
+       "pts": -2,
+       "min": 60,
+       "to": "n4",
+       "fb": "Sıvıya yanıt ve tolerans değerlendirilmeden ek büyük hacim sıvı akciğer ödemine yol açabilir."
+      },
+      {
+       "kind": "act",
+       "label": "Dopamin infüzyonu başla",
+       "pts": -1,
+       "min": 15,
+       "to": "n3",
+       "fb": "Dopamin daha fazla aritmiyle ilişkili; norepinefrin önerilir."
+      }
+     ]
+    },
+    "n4": {
+     "title": "Ek sıvıdan sonra",
+     "text": "Hasta takipneik, bazallerde raller.",
+     "vitals": "KB 84/46 · SpO₂ %88 · SS 30",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Sıvıyı durdur, O₂ ver, norepinefrin başla",
+       "pts": 1,
+       "min": 15,
+       "to": "n3",
+       "fb": "Doğru — vazopresör geciktirilmemeli."
+      }
+     ]
+    },
+    "n3": {
+     "title": "2. saat",
+     "text": "Norepinefrin 0,1 mcg/kg/dk ile OAB 70.",
+     "vitals": "KB 108/56 · Nb 98 · Laktat 2,6 mmol/L",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Böbrek ultrasonografisi",
+       "pts": 2,
+       "min": 20,
+       "res": "**Sağ hidronefroz**, proksimal üreterde 9 mm taş.",
+       "fb": "Obstrüktif ürosepsis acil kaynak kontrolü gerektirir."
+      },
+      {
+       "kind": "act",
+       "label": "Kaynak kontrolü: acil üroloji/girişimsel radyoloji (nefrostomi/JJ stent); yoğun bakım yatışı; laktatı 2–4 saatte tekrar",
+       "pts": 3,
+       "min": 20,
+       "to": "n5",
+       "fb": "Doğru. Antibiyotik tek başına tıkalı, enfekte sistemi temizleyemez."
+      },
+      {
+       "kind": "act",
+       "label": "Laktat düşüyor — servise yatır, antibiyotiğe devam",
+       "pts": -2,
+       "min": 20,
+       "to": "n8",
+       "fb": "Tıkalı enfekte böbrek drene edilmeden şok tekrarlar."
+      }
+     ]
+    },
+    "n5": {
+     "title": "İyi sonuç",
+     "text": "Acil nefrostomi takıldı; 48 saatte vazopresör kesildi. Kan kültüründe E. coli üredi, antibiyotik daraltıldı.\n\n**Akılda kalsın**\n- Şok veya olası sepsiste **ilk 1 saatte antibiyotik**; önce kültür, ama gecikmeden.\n- Hipoperfüzyonda ilk 3 saatte **≥30 mL/kg kristaloid**, sonra yanıta göre.\n- Sıvıya rağmen hipotansiyon → **norepinefrin**, hedef **OAB ≥65**; periferik yoldan başlanabilir.\n- **Laktatı** tekrarla.\n- **Kaynak kontrolü** (tıkanıklık, apse, nekroz) unutulmaz.\n\n*Kaynak: Surviving Sepsis Campaign 2021.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n8": {
+     "title": "Kötüleşme",
+     "text": "Gece şok tekrarladı; hasta yoğun bakıma geç alındı, akut böbrek hasarı gelişti.\n\nObstrüktif enfeksiyonda drenaj, antibiyotik kadar acildir.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n9": {
+     "title": "Refrakter septik şok",
+     "text": "Antibiyotik 3 saat gecikti; hasta yüksek doz vazopresöre rağmen çoklu organ yetmezliğine girdi.\n\nSepsis zamana bağımlı bir acildir.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c08",
+   "title": "Nefes darlığı ve bayılma — 46 yaşında kadın",
+   "topic": "Solunum / Kardiyoloji",
+   "intro": "46 yaşında kadın. 3 hafta önce diz artroskopisi geçirmiş. Bugün merdiven çıkarken ani nefes darlığı ve kısa süreli bayılma. Oral kontraseptif kullanıyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n4",
+    "n6",
+    "n7",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Resüsitasyon alanı",
+     "text": "Taşipneik, anksiyöz. Sağ baldırda hafif şişlik.",
+     "vitals": "KB 104/68 · Nb 122 · SS 28 · SpO₂ %89 · Ateş 37,1",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "12 derivasyonlu EKG",
+       "pts": 1,
+       "min": 5,
+       "res": "Sinüs taşikardisi; S1Q3T3; **V1–V4'te T negatifliği**.",
+       "fb": "Sağ ventrikül yüklenme bulguları; tanı koydurmaz ama destekler."
+      },
+      {
+       "kind": "test",
+       "label": "Yatak başı eko (POCUS)",
+       "pts": 2,
+       "min": 5,
+       "res": "**Sağ ventrikül dilate** (RV/LV >1), septum düzleşmiş (D bulgusu); perikardiyal sıvı yok.",
+       "fb": "Sağ ventrikül disfonksiyonu risk sınıflaması için önemli."
+      },
+      {
+       "kind": "test",
+       "label": "D-dimer",
+       "pts": -1,
+       "min": 45,
+       "res": "Yüksek. 45 dakika geçti.",
+       "fb": "Klinik olasılık yüksekse D-dimer gereksizdir; doğrudan görüntüleme yapılır."
+      },
+      {
+       "kind": "test",
+       "label": "BT pulmoner anjiyografi",
+       "pts": 3,
+       "min": 30,
+       "res": "**Bilateral ana pulmoner arterlerde trombüs**, RV/LV oranı 1,3.",
+       "fb": "Tanı doğrulandı."
+      },
+      {
+       "kind": "test",
+       "label": "Troponin",
+       "pts": 1,
+       "min": 45,
+       "res": "Yüksek.",
+       "fb": "Sağ ventrikül disfonksiyonu + troponin yüksekliği → **orta-yüksek risk**."
+      },
+      {
+       "kind": "act",
+       "label": "Orta-yüksek risk PE: hemen antikoagülan — DMAH (ör. enoksaparin 1 mg/kg SC 12 saatte bir) ya da reperfüzyon gerekebileceği düşünülüyorsa anfraksiyone heparin infüzyonu; monitörlü izlem, dekompanzasyon planı",
+       "pts": 3,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Hemodinamik instabilite yoksa rutin tromboliz önerilmez; yakın izlem ve kurtarıcı reperfüzyon hazırlığı."
+      },
+      {
+       "kind": "act",
+       "label": "KB normal, ama RV dilate — hemen sistemik tromboliz",
+       "pts": -2,
+       "min": 15,
+       "to": "n7",
+       "fb": "Normotansif orta-yüksek riskte rutin tam doz tromboliz, kanama riskini artırırken mortaliteyi anlamlı azaltmaz."
+      },
+      {
+       "kind": "act",
+       "label": "Bacakta ödem var — furosemid 40 mg IV",
+       "pts": -4,
+       "min": 5,
+       "to": "n9",
+       "fb": "Sağ ventrikül yetmezliğinde diüretik önyükü düşürüp şoku başlatır."
+      }
+     ]
+    },
+    "n2": {
+     "title": "2 saat sonra — dekompanzasyon",
+     "text": "Hasta solgun, bilinci bulanık. Heparin infüzyonu sürüyor.",
+     "vitals": "KB 76/48 · Nb 138 · SpO₂ %84",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Yüksek riskli PE: kurtarıcı sistemik tromboliz — alteplaz 100 mg 2 saatte (arrest/periarrestte 0,6 mg/kg 15 dakikada); heparin infüzyonunu durdur, sonra yeniden başla; gerekirse norepinefrin; kontrendikasyon varsa cerrahi/kateter tedavisi",
+       "pts": 4,
+       "min": 10,
+       "to": "n4",
+       "fb": "Doğru. Hemodinamik instabilitede reperfüzyon tedavisi endikedir."
+      },
+      {
+       "kind": "act",
+       "label": "Hipotansiyon için hızla 2 L kristaloid",
+       "pts": -3,
+       "min": 30,
+       "to": "n9",
+       "fb": "Aşırı sıvı dilate sağ ventrikülü daha da genişletip septumu sola iterek debiyi düşürür; en çok küçük (≤500 mL) dikkatli bolus."
+      },
+      {
+       "kind": "act",
+       "label": "Yalnız norepinefrin başla, heparinle beklemeye devam et",
+       "pts": -1,
+       "min": 30,
+       "to": "n6",
+       "fb": "Vazopresör köprüdür; yüksek riskli PE'de reperfüzyon geciktirilmemeli."
+      }
+     ]
+    },
+    "n4": {
+     "title": "İyi sonuç",
+     "text": "Trombolizden 1 saat sonra KB 112/70, SpO₂ %94. Yoğun bakımda izlendi; 2. gün DMAH'a, ardından DOAK'a geçildi.\n\n**Akılda kalsın**\n- Klinik olasılık yüksekse **D-dimer yerine doğrudan BTPA**; stabil değilse yatak başı eko.\n- Risk: **yüksek** (hemodinamik instabilite) → reperfüzyon; **orta-yüksek** (RV disfonksiyonu + troponin) → antikoagülan + yakın izlem + kurtarıcı tromboliz hazırlığı.\n- Alteplaz **100 mg 2 saatte**.\n- Sağ ventrikül yetmezliğinde **büyük hacim sıvı ve diüretikten kaçın**; norepinefrin.\n\n*Kaynak: ESC 2019 Pulmoner Emboli Kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n6": {
+     "title": "Gecikmiş reperfüzyon",
+     "text": "Vazopresör dozu giderek arttı; tromboliz ancak 1,5 saat sonra yapılabildi. Hasta uzun süre yoğun bakımda kaldı.\n\nYüksek riskli PE'de vazopresör yalnızca köprüdür; reperfüzyon geciktirilmez.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n7": {
+     "title": "Majör kanama",
+     "text": "Normotansif hastaya verilen tam doz trombolitik sonrası retroperitoneal kanama gelişti; transfüzyon gerekti.\n\nOrta-yüksek riskte rutin tromboliz önerilmez; antikoagülan + yakın izlem, dekompanzasyonda kurtarıcı tromboliz.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n9": {
+     "title": "Obstrüktif şok — arrest",
+     "text": "Hasta nabızsız elektriksel aktiviteye girdi.\n\nSağ ventrikül yetmezliğinde önyükü bozan girişimler (diüretik, aşırı sıvı) tabloyu hızla kötüleştirir.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c09",
+   "title": "Halsizlik — 64 yaşında diyaliz hastası",
+   "topic": "Nefroloji / Metabolik",
+   "intro": "64 yaşında erkek, haftada 3 gün hemodiyalize giriyor; son seansı kaçırmış (4 gün önce). Bugün halsizlik ve bacaklarda uyuşma. Anürik.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n4",
+    "n5",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene odası",
+     "text": "Halsiz, uyanık. Akciğer bazallerinde hafif raller.",
+     "vitals": "KB 148/86 · Nb 46 · SS 20 · SpO₂ %95",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "12 derivasyonlu EKG",
+       "pts": 3,
+       "min": 5,
+       "res": "Bradikardi 46/dk, **sivri T dalgaları**, P dalgası basık, PR uzun, **QRS 148 ms**.",
+       "fb": "Hiperkalemide QRS genişlemesi ileri evre bulgusudur; sinüzoidal dalga ve arrest yakın olabilir."
+      },
+      {
+       "kind": "test",
+       "label": "Kan gazı (hızlı K)",
+       "pts": 2,
+       "min": 5,
+       "res": "**K 7,8 mmol/L**, pH 7,24, HCO₃ 15.",
+       "fb": "Kan gazı potasyumu dakikalar içinde verir; biyokimya beklenmez."
+      },
+      {
+       "kind": "test",
+       "label": "Biyokimya sonucunu bekle",
+       "pts": -3,
+       "min": 50,
+       "res": "K 7,6. 50 dakika geçti.",
+       "fb": "EKG değişikliği olan hastada tedavi laboratuvarı beklemez."
+      },
+      {
+       "kind": "act",
+       "label": "Miyokardı koru: %10 kalsiyum glukonat 30 mL IV, 5–10 dakikada (ya da %10 kalsiyum klorür 10 mL, santral/geniş ven); monitör",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. EKG değişikliğinde ilk adım kalsiyum; etkisi dakikalar içinde başlar ama potasyumu düşürmez."
+      },
+      {
+       "kind": "act",
+       "label": "Furosemid 80 mg IV",
+       "pts": -3,
+       "min": 10,
+       "to": "n3",
+       "fb": "Anürik diyaliz hastasında diüretik işe yaramaz; zaman kaybedildi."
+      },
+      {
+       "kind": "act",
+       "label": "Sodyum polistiren sülfonat (Kayexalate) oral ver, servise yatır",
+       "pts": -4,
+       "min": 30,
+       "to": "n9",
+       "fb": "Reçineler saatler içinde etki eder; EKG değişikliği olan hiperkalemide acil tedavi değildir."
+      }
+     ]
+    },
+    "n3": {
+     "title": "15 dakika sonra",
+     "text": "Monitörde QRS daha da genişledi.",
+     "vitals": "Nb 40 · KB 132/80",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Hemen %10 kalsiyum glukonat 30 mL IV",
+       "pts": 2,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru — gecikmeli."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Kalsiyumdan sonra",
+     "text": "QRS 112 ms'ye daraldı, hız 58/dk.",
+     "vitals": "KB 150/84 · Nb 58 · Kapiller glukoz 98 mg/dL",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Potasyumu hücre içine al: 10 Ü kısa etkili insülin + 25 g glukoz (ör. %50 dekstroz 50 mL ya da %20 dekstroz 125 mL) 15 dakikada; salbutamol 10–20 mg nebül; glukoz <126 mg/dL olduğu için ardından %10 dekstroz infüzyonu; acil diyaliz için nefroloji",
+       "pts": 4,
+       "min": 15,
+       "to": "n4",
+       "fb": "Doğru. İnsülin-glukoz 15–30 dakikada K'yı ≈0,6–1,2 mmol/L düşürür; kalıcı çözüm diyaliz."
+      },
+      {
+       "kind": "act",
+       "label": "Kalsiyum yeterli oldu — biyokimya tekrarını bekle",
+       "pts": -4,
+       "min": 60,
+       "to": "n9",
+       "fb": "Kalsiyum potasyumu düşürmez; etkisi 30–60 dakikada geçer."
+      }
+     ]
+    },
+    "n4": {
+     "title": "1 saat sonra",
+     "text": "Hasta diyaliz için hazırlanıyor. Terliyor, “içim titriyor” diyor.",
+     "vitals": "K 6,3 · Nb 70",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kapiller glukoz",
+       "pts": 2,
+       "min": 1,
+       "res": "**52 mg/dL**",
+       "fb": "İnsülin-glukoz tedavisinden sonraki saatlerde hipoglisemi sıktır (özellikle böbrek yetmezliğinde)."
+      },
+      {
+       "kind": "act",
+       "label": "Hipoglisemiyi düzelt (IV dekstroz), saatlik glukoz takibine (en az 6 saat) devam; acil hemodiyalize al",
+       "pts": 3,
+       "min": 10,
+       "to": "n5",
+       "fb": "Doğru."
+      },
+      {
+       "kind": "act",
+       "label": "K düştü, diyalizi ertesi güne planla, taburcu et",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Hücre içine kayan potasyum birkaç saatte geri çıkar; anürik hastada kalıcı tedavi diyalizdir."
+      }
+     ]
+    },
+    "n5": {
+     "title": "İyi sonuç",
+     "text": "Acil hemodiyaliz sonrası K 4,6; EKG normale döndü.\n\n**Akılda kalsın**\n- EKG değişikliği varsa **önce kalsiyum** (%10 kalsiyum glukonat 30 mL IV); EKG düzelmezse 5–10 dakikada tekrar.\n- Potasyumu hücre içine: **10 Ü insülin + 25 g glukoz** ve **salbutamol 10–20 mg** nebül.\n- **Hipoglisemi** riskine karşı en az 6 saat glukoz takibi.\n- Uzaklaştırma: **diyaliz** (anürikte tek etkili yol); potasyum bağlayıcılar yavaştır.\n- Kalsiyum potasyumu düşürmez.\n\n*Kaynak: UK Kidney Association 2023 hiperkalemi kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kardiyak arrest",
+     "text": "Hasta sinüzoidal ritimden asistoliye girdi; resüsitasyon sırasında kalsiyum ve acil diyaliz gerekti.\n\nHiperkalemide EKG değişikliği acil durumdur; laboratuvar sonucu veya yavaş etkili tedavi beklenmez.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c10",
+   "title": "Kusma ve karın ağrısı — 19 yaşında kadın",
+   "topic": "Endokrin",
+   "intro": "19 yaşında kadın, tip 1 diyabet. İki gündür kusma ve karın ağrısı; kusunca insülinini “yemek yemediği için” yapmamış. Yaklaşık 55 kg.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n4",
+    "n5",
+    "n8"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Resüsitasyon alanı",
+     "text": "Dehidrate, derin ve hızlı solunum (Kussmaul), nefeste aseton kokusu. Karında yaygın hassasiyet, defans yok.",
+     "vitals": "KB 96/58 · Nb 124 · SS 30 · SpO₂ %99 · Glukoz 486 mg/dL",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Venöz kan gazı",
+       "pts": 3,
+       "min": 5,
+       "res": "**pH 7,08** · HCO₃ 7 · pCO₂ 21 · Na 131 · Cl 98 · **K 5,6** · anyon açığı 26.",
+       "fb": "Ağır DKA. K yüksek görünse de vücut total potasyumu azalmıştır; insülinle hızla düşer."
+      },
+      {
+       "kind": "test",
+       "label": "Kapiller keton (β-hidroksibütirat)",
+       "pts": 2,
+       "min": 2,
+       "res": "**5,8 mmol/L**",
+       "fb": "Ketonemi ≥3 mmol/L DKA ile uyumlu; tedavi yanıtını izlemede en iyi gösterge."
+      },
+      {
+       "kind": "test",
+       "label": "Karın BT",
+       "pts": -2,
+       "min": 40,
+       "res": "Akut patoloji yok. 40 dakika geçti.",
+       "fb": "DKA'da karın ağrısı sıktır ve asidoz düzeldikçe geçer; tetikleyici şüphesi yoksa rutin görüntüleme gerekmez."
+      },
+      {
+       "kind": "test",
+       "label": "Hemogram, böbrek fonksiyonu, idrar tetkiki, gebelik testi",
+       "pts": 1,
+       "min": 30,
+       "res": "Lökositoz 14.000 (DKA'da beklenebilir); kreatinin 1,3; idrarda enfeksiyon yok; gebelik testi negatif.",
+       "fb": "Tetikleyici ara: enfeksiyon, gebelik, ilaç uyumsuzluğu."
+      },
+      {
+       "kind": "act",
+       "label": "Önce sıvı: ilk saatte 1000 mL %0,9 NaCl ya da dengeli kristaloid (sonra 500–1000 mL/saat, duruma göre); K sonucunu kontrol et; saatlik izlem planı",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. DKA tedavisinin ilk ve en önemli adımı sıvı; insülin öncesi potasyum mutlaka bilinmeli."
+      },
+      {
+       "kind": "act",
+       "label": "Hemen 10 Ü IV bolus insülin ve yüksek doz infüzyon; sıvıyı sonra ver",
+       "pts": -2,
+       "min": 10,
+       "to": "n2",
+       "fb": "Yeterli sıvı olmadan insülin, dolaşımdaki sıvıyı hücre içine kaydırıp hipotansiyonu derinleştirebilir; bolus zorunlu değildir."
+      },
+      {
+       "kind": "act",
+       "label": "pH 7,08 — 100 mEq sodyum bikarbonat IV",
+       "pts": -3,
+       "min": 10,
+       "to": "n2",
+       "fb": "Bikarbonat yalnızca pH <7,0'da düşünülür; hipokalemi ve paradoks BOS asidozu riski."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Sıvının ilk saati",
+     "text": "1 L kristaloid verildi.",
+     "vitals": "KB 104/64 · Nb 112 · K 5,6 mmol/L · Glukoz 430 mg/dL",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Sabit hızlı IV insülin infüzyonu 0,1 Ü/kg/saat (≈5,5 Ü/saat); K >5,0 olduğundan şimdilik KCl ekleme, 1–2 saatte bir K bak; K 3,5–5,0 olunca her litre sıvıya 20–40 mEq KCl",
+       "pts": 3,
+       "min": 10,
+       "to": "n3",
+       "fb": "Doğru. K <3,5 ise insülin ertelenir ve önce potasyum verilir."
+      },
+      {
+       "kind": "act",
+       "label": "K yüksek, insülin hiperkalemiyi düzeltir — potasyum takibine gerek yok",
+       "pts": -3,
+       "min": 10,
+       "to": "n8",
+       "fb": "İnsülin ve sıvıyla potasyum hızla düşer; takipsiz kalınca ölümcül hipokalemi gelişebilir."
+      }
+     ]
+    },
+    "n3": {
+     "title": "4. saat",
+     "text": "Kusma durdu, hasta daha iyi.",
+     "vitals": "Glukoz 238 mg/dL · pH 7,19 · HCO₃ 11 · Keton 3,1 mmol/L · K 3,9",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Glukoz <250 mg/dL: insülin infüzyonunu sürdür ve %5–10 dekstroz ekle; KCl'yi sürdür; ketoz düzelene kadar (keton <0,6 mmol/L ve pH ≥7,3 ya da HCO₃ ≥18) infüzyonu kesme",
+       "pts": 4,
+       "min": 10,
+       "to": "n4",
+       "fb": "Doğru. DKA'nın tedavi hedefi glukoz değil, ketoasidozun düzelmesidir."
+      },
+      {
+       "kind": "act",
+       "label": "Glukoz düştü — insülin infüzyonunu kes",
+       "pts": -4,
+       "min": 10,
+       "to": "n8",
+       "fb": "Asidoz sürerken insülini kesmek ketogenezi yeniden başlatır."
+      }
+     ]
+    },
+    "n4": {
+     "title": "12. saat",
+     "text": "Hasta yemek yemek istiyor.",
+     "vitals": "Glukoz 168 · pH 7,34 · HCO₃ 19 · Keton 0,4 · K 4,2",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Ketoasidoz düzeldi: yemekten önce subkutan bazal-bolus insülin yap, IV insülini SC dozdan 1–2 saat sonra kes; diyabet eğitimi (hasta gün kuralları)",
+       "pts": 3,
+       "min": 10,
+       "to": "n5",
+       "fb": "Doğru. IV insülin, SC insülin etkisi başlamadan kesilirse DKA tekrarlar."
+      },
+      {
+       "kind": "act",
+       "label": "IV insülini hemen kes, SC insülini akşam başla",
+       "pts": -3,
+       "min": 10,
+       "to": "n8",
+       "fb": "Arada kalan insülinsiz dönem ketoasidozu yeniden başlatır."
+      }
+     ]
+    },
+    "n5": {
+     "title": "İyi sonuç",
+     "text": "Hasta 2. gün taburcu edildi. “Hasta gün kuralları” anlatıldı: kusma/yemek yememe durumunda bazal insülin kesilmez, sık glukoz-keton takibi yapılır.\n\n**Akılda kalsın**\n- Önce **sıvı**; insülinden önce **K** bilinmeli (K <3,5 → önce K).\n- **0,1 Ü/kg/saat** sabit insülin infüzyonu.\n- Glukoz <250 mg/dL → **dekstroz ekle, insülini kesme**.\n- Bikarbonat yalnız **pH <7,0**.\n- Düzelme: **keton <0,6 mmol/L ve pH ≥7,3** (veya HCO₃ ≥18).\n- SC insülini yapıp **1–2 saat sonra** IV'yi kes.\n\n*Kaynak: ADA/EASD/JBDS 2024 hiperglisemik kriz uzlaşı raporu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n8": {
+     "title": "Komplikasyon",
+     "text": "Potasyum takibi yapılmadığında ciddi hipokalemi ve aritmi; insülin erken kesildiğinde DKA'nın yeniden alevlenmesi gelişti. Hasta yoğun bakıma yatırıldı.\n\nDKA tedavisinde potasyum, dekstroz ve insülin geçişi saat saat yönetilir.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  }
+ ],
+ "questions": [
+  {
+   "key": "c01q1",
+   "stem": "İnferior STEMI'de sağ ventrikül tutulumunu göstermek için en yararlı derivasyon hangisidir?",
+   "options": [
+    "aVR",
+    "V4R",
+    "V1",
+    "V6",
+    "aVL"
+   ],
+   "correct": 1,
+   "explanation": "V4R'de ≥1 mm ST elevasyonu sağ ventrikül infarktını gösterir. İnferior MI'larda rutin çekilmelidir.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c01q2",
+   "stem": "Sağ ventrikül tutulumlu inferior STEMI'de hipotansif hastada aşağıdakilerden hangisinden kaçınılmalıdır?",
+   "options": [
+    "Dikkatli kristaloid bolusu",
+    "Asetilsalisilik asit",
+    "Nitrogliserin",
+    "Anfraksiyone heparin",
+    "Primer PKG"
+   ],
+   "correct": 2,
+   "explanation": "Sağ ventrikül önyüke bağımlıdır; nitratlar ve diüretikler derin hipotansiyona yol açabilir.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c01q3",
+   "stem": "ST elevasyonlu MI tanısı ve primer PKG kararı için aşağıdakilerden hangisi doğrudur?",
+   "options": [
+    "İlk troponin pozitifleşmeden karar verilmez",
+    "İki troponin arasındaki artış beklenir",
+    "EKG kriterleri ve klinik yeterlidir; troponin beklenmez",
+    "Ekokardiyografi zorunludur",
+    "BT anjiyografi ile diseksiyon dışlanmalıdır"
+   ],
+   "correct": 2,
+   "explanation": "STEMI'de reperfüzyon kararı EKG ve klinikle verilir; biyobelirteç beklemek miyokard kaybını artırır.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c01q4",
+   "stem": "Göğüs ağrısıyla başvuran hastada ilk tıbbi temastan EKG'ye kadar hedef süre nedir?",
+   "options": [
+    "5 dakika",
+    "10 dakika",
+    "20 dakika",
+    "30 dakika",
+    "60 dakika"
+   ],
+   "correct": 1,
+   "explanation": "Kılavuzlar ilk temastan sonra en geç 10 dakika içinde 12 derivasyonlu EKG çekilmesini önerir.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c02q1",
+   "stem": "Kod inme ile gelen hastada trombolizden önce mutlaka bakılması gereken tek laboratuvar değeri hangisidir?",
+   "options": [
+    "INR",
+    "Trombosit",
+    "Kan glukozu",
+    "Kreatinin",
+    "Troponin"
+   ],
+   "correct": 2,
+   "explanation": "Hipoglisemi inmeyi taklit eder ve hızla düzeltilebilir. Antikoagülan kullanımı veya kanama şüphesi yoksa INR/trombosit beklenmez.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c02q2",
+   "stem": "Böbrek yetmezliği olan ve sülfonilüre kullanan hastada dekstroza rağmen tekrarlayan hipoglisemide eklenecek ilaç hangisidir?",
+   "options": [
+    "Glukagon",
+    "Oktreotid",
+    "Hidrokortizon",
+    "Diazoksit tek başına",
+    "Tiamin"
+   ],
+   "correct": 1,
+   "explanation": "Oktreotid pankreastan insülin salınımını baskılar; sülfonilüre hipoglisemisinde dekstroz ihtiyacını azaltır.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c02q3",
+   "stem": "Bilinci kapalı, damar yolu açılamayan hipoglisemik erişkinde ilk seçenek hangisidir?",
+   "options": [
+    "Ağızdan şekerli içecek",
+    "Glukagon 1 mg IM",
+    "Oktreotid IV",
+    "Hidrokortizon IM",
+    "Rektal dekstroz"
+   ],
+   "correct": 1,
+   "explanation": "Glukagon 1 mg IM/SC (veya 3 mg intranazal) damar yolu yokken uygundur; ardından ağızdan karbonhidrat ve IV erişim sağlanır.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c02q4",
+   "stem": "Düzey 2 (klinik olarak anlamlı) hipoglisemi eşiği hangisidir?",
+   "options": [
+    "<80 mg/dL",
+    "<70 mg/dL",
+    "<54 mg/dL",
+    "<40 mg/dL",
+    "<30 mg/dL"
+   ],
+   "correct": 2,
+   "explanation": "ADA: <70 mg/dL düzey 1, <54 mg/dL düzey 2; düzey 3 başkasının yardımını gerektiren ağır tablo.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c03q1",
+   "stem": "Erişkin anafilakside ilk tercih edilen tedavi hangisidir?",
+   "options": [
+    "Feniramin 45 mg IV",
+    "Metilprednizolon 1 mg/kg IV",
+    "Adrenalin 0,5 mg IM (1 mg/mL)",
+    "Adrenalin 1 mg IV bolus",
+    "Salbutamol nebül"
+   ],
+   "correct": 2,
+   "explanation": "IM adrenalin anafilaksinin ilk basamak ilacıdır; yanıt yoksa 5 dakikada bir tekrarlanır.",
+   "topic": "Alerji / Resüsitasyon"
+  },
+  {
+   "key": "c03q2",
+   "stem": "IM adrenalin için önerilen enjeksiyon yeri neresidir?",
+   "options": [
+    "Deltoid",
+    "Gluteal bölge",
+    "Uyluk anterolateral (vastus lateralis)",
+    "Karın derisi altı",
+    "Ön kol"
+   ],
+   "correct": 2,
+   "explanation": "Uyluk anterolaterali en hızlı ve güvenilir emilimi sağlar.",
+   "topic": "Alerji / Resüsitasyon"
+  },
+  {
+   "key": "c03q3",
+   "stem": "Beta bloker kullanan ve adrenaline yanıt vermeyen anafilakside eklenebilecek ilaç hangisidir?",
+   "options": [
+    "Glukagon",
+    "Atropin",
+    "Vazopressin tek başına",
+    "Aminofilin",
+    "Kalsiyum glukonat"
+   ],
+   "correct": 0,
+   "explanation": "Glukagon beta reseptörden bağımsız olarak cAMP'yi artırır; beta blokerli dirençli olgularda önerilir.",
+   "topic": "Alerji / Resüsitasyon"
+  },
+  {
+   "key": "c03q4",
+   "stem": "İki doz IM adrenalin gereken anafilaksi sonrası, belirtiler geçtikten sonra önerilen en kısa gözlem süresi hangisidir?",
+   "options": [
+    "1 saat",
+    "2 saat",
+    "4 saat",
+    "6 saat",
+    "24 saat"
+   ],
+   "correct": 3,
+   "explanation": "Resuscitation Council UK 2021: tek doza hızlı yanıtta 2 saat; iki doz gerekmişse en az 6 saat; ikiden fazla doz veya ağır tabloda en az 12 saat.",
+   "topic": "Alerji / Resüsitasyon"
+  },
+  {
+   "key": "c04q1",
+   "stem": "IV tromboliz öncesi kan basıncı hangi değerin altına indirilmelidir?",
+   "options": [
+    "220/120 mmHg",
+    "200/110 mmHg",
+    "185/110 mmHg",
+    "160/90 mmHg",
+    "140/90 mmHg"
+   ],
+   "correct": 2,
+   "explanation": "Tromboliz öncesi <185/110, tromboliz sırasında ve sonraki 24 saatte <180/105 mmHg hedeflenir.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c04q2",
+   "stem": "Alteplazın akut iskemik inmede doğru dozu hangisidir?",
+   "options": [
+    "0,6 mg/kg, tamamı bolus",
+    "0,9 mg/kg (en çok 90 mg), %10'u bolus, kalanı 60 dakikada",
+    "1 mg/kg tek bolus",
+    "100 mg 2 saatte",
+    "0,25 mg/kg tek bolus"
+   ],
+   "correct": 1,
+   "explanation": "Alteplaz 0,9 mg/kg (en çok 90 mg): %10'u 1 dakikada bolus, kalanı 60 dakikada. 0,25 mg/kg tek bolus tenekteplaz dozudur.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c04q3",
+   "stem": "Sağa bakış deviasyonu ve sol ihmal ile gelen hastada en olası tıkanıklık yeri hangisidir?",
+   "options": [
+    "Sol MCA",
+    "Sağ MCA (büyük damar)",
+    "Baziler arter",
+    "Sol PCA",
+    "Lakuner (küçük damar)"
+   ],
+   "correct": 1,
+   "explanation": "Kortikal bulgular (bakış deviasyonu, ihmal) büyük damar tıkanıklığını düşündürür; lezyon tarafına bakış (sağ hemisfer → sağa).",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c04q4",
+   "stem": "IV tromboliz yapılan hastada antitrombotik (aspirin vb.) ne zaman başlanır?",
+   "options": [
+    "Hemen, tromboliz ile birlikte",
+    "İnfüzyon biter bitmez",
+    "24. saat görüntülemesinde kanama yoksa",
+    "7. günde",
+    "Hiç başlanmaz"
+   ],
+   "correct": 2,
+   "explanation": "İlk 24 saatte antitrombotik verilmez; 24. saat kontrol görüntülemesinden sonra başlanır.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c05q1",
+   "stem": "Ağır astım atağında kan gazında aşağıdakilerden hangisi en endişe verici bulgudur?",
+   "options": [
+    "pCO₂ 30 mmHg",
+    "pH 7,46",
+    "pCO₂ 44 mmHg",
+    "HCO₃ 22",
+    "pO₂ 75 mmHg"
+   ],
+   "correct": 2,
+   "explanation": "Ağır atakta beklenen hipokapnidir; normal veya yüksek pCO₂ solunum kaslarının yorulduğunu gösterir.",
+   "topic": "Solunum"
+  },
+  {
+   "key": "c05q2",
+   "stem": "İlk tedaviye yanıt vermeyen ağır astım atağında önerilen magnezyum sülfat dozu hangisidir?",
+   "options": [
+    "1 g IV bolus",
+    "2 g IV, 20 dakikada",
+    "4 g IV, 5 dakikada",
+    "6 g IV infüzyon 24 saat",
+    "Magnezyum önerilmez"
+   ],
+   "correct": 1,
+   "explanation": "Tek doz 2 g IV MgSO₄ 20 dakikada; ağır, yanıtsız ataklarda hastaneye yatışı azaltır.",
+   "topic": "Solunum"
+  },
+  {
+   "key": "c05q3",
+   "stem": "Hangisi hayatı tehdit eden astım atağının bulgusu değildir?",
+   "options": [
+    "Sessiz göğüs",
+    "Siyanoz",
+    "PEF <%33",
+    "Bilinç değişikliği",
+    "Cümle kurarak konuşabilme"
+   ],
+   "correct": 4,
+   "explanation": "Cümle kurabilmek hafif-orta atağı gösterir; diğerleri hayatı tehdit eden atak bulgularıdır.",
+   "topic": "Solunum"
+  },
+  {
+   "key": "c05q4",
+   "stem": "Astım atağı sonrası taburculukta en önemli tedavi değişikliği hangisidir?",
+   "options": [
+    "Yalnız salbutamol reçetesi",
+    "İnhaler kortikosteroid içeren kontrol tedavisi başlamak",
+    "Uzun süreli oral steroid (3 ay)",
+    "Teofilin başlamak",
+    "Antibiyotik"
+   ],
+   "correct": 1,
+   "explanation": "GINA: yalnız SABA tedavisi önerilmez; her hastada inhaler kortikosteroid içeren tedavi olmalıdır.",
+   "topic": "Solunum"
+  },
+  {
+   "key": "c06q1",
+   "stem": "ESC 2024'e göre CHA₂DS₂-VA skoru kaç ve üzerinde oral antikoagülan önerilir (I sınıf)?",
+   "options": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "correct": 2,
+   "explanation": "CHA₂DS₂-VA ≥2 → oral antikoagülan önerilir; 1 → düşünülmelidir. Yeni skor cinsiyeti içermez.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c06q2",
+   "stem": "Hipotansif ve göğüs ağrılı hızlı AF'de ilk tedavi hangisidir?",
+   "options": [
+    "Diltiazem IV",
+    "Amiodaron oral",
+    "Senkronize elektriksel kardiyoversiyon",
+    "Digoksin IV",
+    "Adenozin"
+   ],
+   "correct": 2,
+   "explanation": "Hemodinamik instabilitede acil senkronize kardiyoversiyon yapılır.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c06q3",
+   "stem": "Geniş ve düzensiz QRS'li, hızı 250/dk'ya ulaşan AF'de (WPW şüphesi) hangisi kontrendikedir?",
+   "options": [
+    "Elektriksel kardiyoversiyon",
+    "Prokainamid",
+    "Verapamil",
+    "İbutilid",
+    "Uzman konsültasyonu"
+   ],
+   "correct": 2,
+   "explanation": "Preeksitasyonlu AF'de AV nod blokerleri (verapamil, diltiazem, beta bloker, digoksin, adenozin) aksesuar yoldan iletimi artırıp VF'ye yol açabilir.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c06q4",
+   "stem": "Ejeksiyon fraksiyonu %25 olan hızlı AF'li stabil hastada hangisinden kaçınılmalıdır?",
+   "options": [
+    "Beta bloker (dikkatli)",
+    "Digoksin",
+    "Diltiazem",
+    "Amiodaron",
+    "Antikoagülan"
+   ],
+   "correct": 2,
+   "explanation": "Diltiazem ve verapamil negatif inotroptur; düşük EF'de kaçınılır.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c07q1",
+   "stem": "Septik şokta ilk tercih edilen vazopresör hangisidir?",
+   "options": [
+    "Dopamin",
+    "Adrenalin",
+    "Norepinefrin",
+    "Fenilefrin",
+    "Dobutamin"
+   ],
+   "correct": 2,
+   "explanation": "Surviving Sepsis 2021: ilk seçenek norepinefrin; yetersizse vazopressin eklenir.",
+   "topic": "Enfeksiyon"
+  },
+  {
+   "key": "c07q2",
+   "stem": "Septik şokta önerilen başlangıç ortalama arter basıncı hedefi hangisidir?",
+   "options": [
+    "≥55 mmHg",
+    "≥65 mmHg",
+    "≥75 mmHg",
+    "≥85 mmHg",
+    "Sistolik ≥120 mmHg"
+   ],
+   "correct": 1,
+   "explanation": "Başlangıç hedefi OAB ≥65 mmHg.",
+   "topic": "Enfeksiyon"
+  },
+  {
+   "key": "c07q3",
+   "stem": "Septik şok olasılığı yüksek hastada antibiyotik ne zaman başlanmalıdır?",
+   "options": [
+    "Kültür sonucu geldiğinde",
+    "Prokalsitonin yüksekse",
+    "İlk 1 saat içinde",
+    "İlk 6 saat içinde",
+    "Yoğun bakıma yatınca"
+   ],
+   "correct": 2,
+   "explanation": "Şokta ve sepsis olasılığı yüksek hastada antibiyotik tanıdan sonra en geç 1 saat içinde verilir.",
+   "topic": "Enfeksiyon"
+  },
+  {
+   "key": "c07q4",
+   "stem": "Sepsise bağlı hipoperfüzyonda ilk 3 saatte önerilen kristaloid miktarı en az ne kadardır?",
+   "options": [
+    "10 mL/kg",
+    "20 mL/kg",
+    "30 mL/kg",
+    "50 mL/kg",
+    "Sabit 4 litre"
+   ],
+   "correct": 2,
+   "explanation": "SSC 2021: en az 30 mL/kg kristaloid, sonrasında dinamik değerlendirmeye göre.",
+   "topic": "Enfeksiyon"
+  },
+  {
+   "key": "c08q1",
+   "stem": "Yüksek riskli pulmoner embolinin tanımlayıcı özelliği hangisidir?",
+   "options": [
+    "D-dimer >5000",
+    "Troponin yüksekliği",
+    "Hemodinamik instabilite (şok, kalıcı hipotansiyon, arrest)",
+    "Bilateral trombüs",
+    "SpO₂ <%90"
+   ],
+   "correct": 2,
+   "explanation": "ESC 2019: yüksek risk = hemodinamik instabilite. RV disfonksiyonu + troponin orta-yüksek risktir.",
+   "topic": "Solunum / Kardiyoloji"
+  },
+  {
+   "key": "c08q2",
+   "stem": "Yüksek riskli PE'de standart alteplaz rejimi hangisidir?",
+   "options": [
+    "0,9 mg/kg, %10 bolus",
+    "100 mg, 2 saatte",
+    "50 mg bolus",
+    "0,25 mg/kg bolus",
+    "10 mg, 1 saatte"
+   ],
+   "correct": 1,
+   "explanation": "PE'de alteplaz 100 mg 2 saatte; arrestte 0,6 mg/kg (en çok 50 mg) 15 dakikada.",
+   "topic": "Solunum / Kardiyoloji"
+  },
+  {
+   "key": "c08q3",
+   "stem": "Klinik olasılığı yüksek PE şüphesinde doğru yaklaşım hangisidir?",
+   "options": [
+    "Önce D-dimer",
+    "Doğrudan BT pulmoner anjiyografi",
+    "Önce akciğer grafisi",
+    "Önce alt ekstremite doppler zorunlu",
+    "24 saat gözlem"
+   ],
+   "correct": 1,
+   "explanation": "Yüksek olasılıkta D-dimer tanıyı dışlayamaz; doğrudan görüntüleme yapılır.",
+   "topic": "Solunum / Kardiyoloji"
+  },
+  {
+   "key": "c08q4",
+   "stem": "PE'ye bağlı sağ ventrikül yetmezliği ve hipotansiyonda hangisi zararlıdır?",
+   "options": [
+    "Norepinefrin",
+    "Dikkatli ≤500 mL sıvı",
+    "Agresif çok litrelik sıvı yüklemesi",
+    "Reperfüzyon tedavisi",
+    "Oksijen"
+   ],
+   "correct": 2,
+   "explanation": "Aşırı volüm sağ ventrikülü genişletip sol ventrikül dolumunu bozar.",
+   "topic": "Solunum / Kardiyoloji"
+  },
+  {
+   "key": "c09q1",
+   "stem": "K 7,6 mmol/L ve QRS genişlemesi olan hastada ilk yapılacak tedavi hangisidir?",
+   "options": [
+    "İnsülin + glukoz",
+    "Salbutamol nebül",
+    "%10 kalsiyum glukonat IV",
+    "Sodyum bikarbonat",
+    "Furosemid"
+   ],
+   "correct": 2,
+   "explanation": "Kalsiyum membranı stabilize eder; EKG değişikliğinde ilk adımdır.",
+   "topic": "Nefroloji / Metabolik"
+  },
+  {
+   "key": "c09q2",
+   "stem": "Hiperkalemide insülin-glukoz tedavisinin standart dozu hangisidir?",
+   "options": [
+    "5 Ü insülin + 10 g glukoz",
+    "10 Ü kısa etkili insülin + 25 g glukoz",
+    "0,1 Ü/kg/saat infüzyon",
+    "20 Ü insülin + 50 g glukoz",
+    "Yalnız 25 g glukoz"
+   ],
+   "correct": 1,
+   "explanation": "10 Ü kısa etkili insülin + 25 g glukoz 15 dakikada; glukoz düşükse ek dekstroz infüzyonu.",
+   "topic": "Nefroloji / Metabolik"
+  },
+  {
+   "key": "c09q3",
+   "stem": "Kalsiyum glukonatın hiperkalemideki etkisi için doğru ifade hangisidir?",
+   "options": [
+    "Potasyumu hücre içine sokar",
+    "Böbrekten potasyum atılımını artırır",
+    "Serum potasyumunu düşürmez, kalbi korur",
+    "Bağırsaktan potasyumu bağlar",
+    "Etkisi 24 saat sürer"
+   ],
+   "correct": 2,
+   "explanation": "Kalsiyum yalnız miyokardı korur; etkisi 30–60 dakikadır. Potasyum düşürücü tedavi ayrıca verilmelidir.",
+   "topic": "Nefroloji / Metabolik"
+  },
+  {
+   "key": "c09q4",
+   "stem": "İnsülin-glukoz tedavisinden sonra en sık görülen komplikasyon hangisidir?",
+   "options": [
+    "Hipokalsemi",
+    "Hipoglisemi",
+    "Hipernatremi",
+    "Ventriküler fibrilasyon",
+    "Akciğer ödemi"
+   ],
+   "correct": 1,
+   "explanation": "Özellikle böbrek yetmezliğinde insülin etkisi uzar; en az 6 saat glukoz izlenir.",
+   "topic": "Nefroloji / Metabolik"
+  },
+  {
+   "key": "c10q1",
+   "stem": "DKA'da insülin infüzyonuna başlamadan önce serum potasyumu en az ne olmalıdır?",
+   "options": [
+    "2,5 mmol/L",
+    "3,0 mmol/L",
+    "3,5 mmol/L",
+    "4,5 mmol/L",
+    "5,5 mmol/L"
+   ],
+   "correct": 2,
+   "explanation": "K <3,5 ise insülin ertelenir ve önce potasyum verilir.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c10q2",
+   "stem": "DKA'da önerilen sabit hızlı insülin infüzyon dozu hangisidir?",
+   "options": [
+    "0,01 Ü/kg/saat",
+    "0,05 Ü/kg/saat",
+    "0,1 Ü/kg/saat",
+    "0,5 Ü/kg/saat",
+    "1 Ü/kg/saat"
+   ],
+   "correct": 2,
+   "explanation": "0,1 Ü/kg/saat; başlangıç bolusu zorunlu değildir.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c10q3",
+   "stem": "DKA'da sodyum bikarbonat hangi durumda düşünülür?",
+   "options": [
+    "pH <7,3",
+    "pH <7,2",
+    "pH <7,0",
+    "HCO₃ <15",
+    "Her hastada"
+   ],
+   "correct": 2,
+   "explanation": "Bikarbonat yalnız pH <7,0'da düşünülür.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c10q4",
+   "stem": "DKA tedavisinde glukoz 250 mg/dL'nin altına indiğinde ne yapılır?",
+   "options": [
+    "İnsülin kesilir",
+    "İnsülin yarıya indirilir ve sıvı kesilir",
+    "İnsülin sürdürülür, dekstroz eklenir",
+    "SC insüline geçilir",
+    "Bikarbonat başlanır"
+   ],
+   "correct": 2,
+   "explanation": "Hedef ketoasidozun düzelmesidir; hipoglisemiyi önlemek için dekstroz eklenip insülin sürdürülür.",
+   "topic": "Endokrin"
+  }
+ ],
+ "module": {
+  "title": "İlk Nöbet Vakaları — 1. Paket",
+  "topic": "Temel acil",
+  "order": 1,
+  "req": [
+   1
+  ],
+  "desc": "İlk nöbetlerinizde mutlaka karşılaşacağınız 10 hayatı tehdit eden tablo. Her vakada hasta gelir; siz tetkik ister, karar verirsiniz. Amaç tanı koymaktan önce **ölümcül nedeni kaçırmamak** ve **ilk 5 dakikayı** doğru yönetmektir.",
+  "intro": "- Her vakayı önce **kendi bildiğinizle** çözün, sonra yeniden oynayıp farklı kararların sonucunu görün.\n- Sonuç ekranındaki **“Akılda kalsın”** bölümü vakanın özüdür.\n- Vakaların sonunda **pekiştirme sorularını** çözün; yanlışlarınız tekrar listenize eklenir.\n- İlaç dozları kılavuzlardan alınmıştır; uygulamada kurumunuzun protokollerini esas alın."
+ }
+}

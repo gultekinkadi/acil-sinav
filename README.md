@@ -79,3 +79,9 @@ Asistanlar siteye girdiğinde **Öğren** sekmesi açılır (açık bir sınavla
 - **Haftanın görüntüsü:** Açılış ve cevap zamanı belirlenir; asistanlar yorumunu yazar, cevap zamanında cevap ve tüm yorumlar açılır.
 - **İlerleme paneli:** Asistan bazında zorunlu modül, atlas, sanal hasta, alıştırma, tekrar kartı ve haftalık katılım; konulara göre en zayıf alanlar; Excel'e aktarma.
 - Soru yazarları atlas görüntüsü ve sanal hasta da ekleyebilir; yönetici onayıyla yayınlanır.
+
+## Öğrenci önizleme ve vaka paketleri
+
+- **👁 Öğrenci önizleme** (yönetici üst çubuğu): çıkış yapmadan sitenin asistanlara nasıl göründüğünü dener. Yalnız yayınlanmış içerik görünür, kıdem seçilebilir, hiçbir kayıt yazılmaz; “Yönetici görünümüne dön” ile kaldığınız sayfaya dönersiniz.
+- **Vaka paketi içe aktar** (Eğitim → Sanal hasta): `paketler/` klasöründeki hazır paketler ya da bir `.json` dosyası; sanal hastaları, ayrı bir havuzda alıştırma sorularını ve modülü **taslak** olarak ekler. Aynı paket ikinci kez aktarılırsa var olanlar atlanır.
+- `paketler/ilk-nobet-1.json`: İlk Nöbet Vakaları 1. paket (10 vaka, 40 soru). Kaynak üretici betik: `paketler/kaynak-ilk-nobet-1.py`.
