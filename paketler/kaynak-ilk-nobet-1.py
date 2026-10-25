@@ -323,6 +323,8 @@ P={"id":"ilk-nobet-1","title":"İlk Nöbet Vakaları — 1. Paket","desc":"Sık 
      "desc":"İlk nöbetlerinizde mutlaka karşılaşacağınız 10 hayatı tehdit eden tablo. Her vakada hasta gelir; siz tetkik ister, karar verirsiniz. Amaç tanı koymaktan önce **ölümcül nedeni kaçırmamak** ve **ilk 5 dakikayı** doğru yönetmektir.",
      "intro":"- Her vakayı önce **kendi bildiğinizle** çözün, sonra yeniden oynayıp farklı kararların sonucunu görün.\n- Sonuç ekranındaki **“Akılda kalsın”** bölümü vakanın özüdür.\n- Vakaların sonunda **pekiştirme sorularını** çözün; yanlışlarınız tekrar listenize eklenir.\n- İlaç dozları kılavuzlardan alınmıştır; uygulamada kurumunuzun protokollerini esas alın."}}
 out=sys.argv[1]
+from ilk_degerlendirme import apply as _ilk
+for c in S: _ilk(c)
 json.dump(P,open(out,"w"),ensure_ascii=False,indent=1)
 # yapı denetimi
 for c in S:

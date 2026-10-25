@@ -19,9 +19,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "Postiktal, konfüzyon düzeliyor. Fundoskopide **bilateral papil ödemi**. Sağ kolda hafif güçsüzlük.",
-     "vitals": "KB 132/82 · Nb 92 · Ateş 37,1",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 132/82 · Nb 92 · Ateş 37,1 · SpO₂ %98",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Postiktal, konfüzyon düzeliyor. Fundoskopide **bilateral papil ödemi**. Sağ kolda hafif güçsüzlük.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %98 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
       {
        "kind": "test",
        "label": "Kontrastsız BT",
@@ -70,7 +103,8 @@
        "to": "n9",
        "fb": "Papil ödemi, nöbet ve fokal bulgulu baş ağrısı ikincil nedenlidir."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "Düzelme",
@@ -102,9 +136,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "Konuşabiliyor, rahat. Sağda solunum sesleri hafif azalmış.",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
      "vitals": "KB 126/78 · Nb 92 · SS 18 · SpO₂ %97",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Konuşabiliyor, rahat. Sağda solunum sesleri hafif azalmış.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": 0,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %97 — hipoksemi yok; rutin oksijen gerekmez (gözlem için yatırılan hastada bazı merkezler yüksek akım O₂ tercih eder)."
+      },
       {
        "kind": "test",
        "label": "Akciğer grafisi",
@@ -137,7 +204,8 @@
        "to": "n9",
        "fb": "Pnömotoraks tam düzelmeden uçuş kontrendikedir; takip ve uyarılar şart."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "Kendiliğinden düzelme",
@@ -169,9 +237,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "Hafif konfüze (yer-zaman oryantasyonu bozuk). Sağ alt zonda bronşiyal solunum ve raller.",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
      "vitals": "KB 98/58 · Nb 108 · SS 26 · SpO₂ %90 · Ateş 38,9",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Hafif konfüze (yer-zaman oryantasyonu bozuk). Sağ alt zonda bronşiyal solunum ve raller.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": 2,
+       "min": 1,
+       "res": "Yüksek akım O₂ (rezervuarlı maske) başlandı; SpO₂ hedefi %94–98'e göre titre ediliyor.",
+       "fb": "Hipoksemi var (SpO₂ %90): oksijen ilk müdahalelerdendir."
+      },
       {
        "kind": "test",
        "label": "Akciğer grafisi",
@@ -212,7 +313,8 @@
        "to": "n9",
        "fb": "CURB-65 = 4: ağır pnömoni; ayaktan tedavi ölümcül olabilir."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "İyileşme",
@@ -244,9 +346,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "**Trismus** (2 parmak). Sol peritonsiller bölgede belirgin şişlik, **uvula sağa itilmiş**. Salya biriktiriyor ama solunum sıkıntısı yok, stridor yok.",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
      "vitals": "Nb 108 · SpO₂ %98 · Ateş 38,7",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "**Trismus** (2 parmak). Sol peritonsiller bölgede belirgin şişlik, **uvula sağa itilmiş**. Salya biriktiriyor ama solunum sıkıntısı yok, stridor yok.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %98 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
       {
        "kind": "test",
        "label": "İntraoral USG",
@@ -279,7 +414,8 @@
        "to": "n9",
        "fb": "Trismus, tek taraflı şişlik ve uvula deviasyonu apseyi gösterir."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "Drenaj sonrası rahatlama",
@@ -311,9 +447,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "Sol periorbital ödem ve eritem, **proptozis**, göz hareketleri ağrılı ve kısıtlı, kemozis. Görme sağda 1,0, solda 0,7. RAPD yok.",
-     "vitals": "Ateş 38,9 · Nb 104",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "Ateş 38,9 · Nb 104 · SpO₂ %98",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Sol periorbital ödem ve eritem, **proptozis**, göz hareketleri ağrılı ve kısıtlı, kemozis. Görme sağda 1,0, solda 0,7. RAPD yok.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %98 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
       {
        "kind": "test",
        "label": "Kontrastlı orbita + sinüs BT",
@@ -338,7 +507,8 @@
        "to": "n9",
        "fb": "Proptozis, oftalmopleji ve görme azalması orbital (postseptal) tutulumdur."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "Drenaj ve IV tedavi",
@@ -370,9 +540,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "Sağ **retroaurikuler şişlik, kızarıklık ve hassasiyet**, kulak kepçesi öne-aşağı itilmiş. Otoskopide kızarık, bombeli zar. Ense sertliği yok, fasiyal sinir normal.",
-     "vitals": "Ateş 39,2 · Nb 132",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "Ateş 39,2 · Nb 132 · SpO₂ %98",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Sağ **retroaurikuler şişlik, kızarıklık ve hassasiyet**, kulak kepçesi öne-aşağı itilmiş. Otoskopide kızarık, bombeli zar. Ense sertliği yok, fasiyal sinir normal.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %98 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
       {
        "kind": "test",
        "label": "Kontrastlı temporal kemik BT",
@@ -397,7 +600,8 @@
        "to": "n9",
        "fb": "Retroaurikuler şişlik ve kulak kepçesinin öne itilmesi mastoidittir."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "Drenaj ve iyileşme",
@@ -429,9 +633,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "Sağ dış kulak yolunda ödem, akıntı ve kemik-kıkırdak bileşkesinde **granülasyon dokusu**. **Sağ periferik fasiyal paralizi**.",
-     "vitals": "Ateş 37,4 · Glukoz 312",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "Ateş 37,4 · Glukoz 312 · SpO₂ %97",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Sağ dış kulak yolunda ödem, akıntı ve kemik-kıkırdak bileşkesinde **granülasyon dokusu**. **Sağ periferik fasiyal paralizi**.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %97 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
       {
        "kind": "test",
        "label": "ESH/CRP",
@@ -472,7 +709,8 @@
        "to": "n9",
        "fb": "Diyabetik yaşlıda inatçı ağrı + granülasyon + kraniyal sinir tutulumu nekrotizan otitis eksternadır."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "Uzun süreli tedavi",
@@ -504,9 +742,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "Genel durumu iyi. Kostovertebral açı hassasiyeti yok.",
-     "vitals": "Ateş 36,8 · Nb 82",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "Ateş 36,8 · Nb 82 · SpO₂ %99",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Genel durumu iyi. Kostovertebral açı hassasiyeti yok.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 0,
+       "min": 3,
+       "res": "Damar yolu açıldı.",
+       "fb": "Genel durumu iyi, komplike olmayan sistitte damar yolu gerekmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %99 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
       {
        "kind": "test",
        "label": "Gebelik testi",
@@ -555,7 +826,8 @@
        "to": "n9",
        "fb": "Belirti varken tedavisiz bırakmak ve uyarı vermemek piyelonefrite ilerlemeye yol açabilir."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "İyileşme",
@@ -587,9 +859,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "Sağ kostovertebral açı hassasiyeti belirgin. Uterus gebelik haftasıyla uyumlu, hassasiyet yok.",
-     "vitals": "KB 102/60 · Nb 118 · SS 22 · Ateş 39,4",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 102/60 · Nb 118 · SS 22 · Ateş 39,4 · SpO₂ %96",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Sağ kostovertebral açı hassasiyeti belirgin. Uterus gebelik haftasıyla uyumlu, hassasiyet yok.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %96 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
       {
        "kind": "test",
        "label": "İdrar strip + kültür, kan kültürü",
@@ -646,7 +951,8 @@
        "to": "n9",
        "fb": "Nitrofurantoin böbrek dokusunda yeterli düzeye ulaşmaz; piyelonefritte kullanılmaz."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "İyileşme",
@@ -678,9 +984,42 @@
    "nodes": {
     "n1": {
      "title": "Muayene",
-     "text": "Uyanık. **Yön değiştiren nistagmus**, ayakta duramıyor (gövde ataksisi), hafif dizartri. Kafa itme (head impulse) testi **normal**, alternan örtme testinde **vertikal kayma (skew)**.",
-     "vitals": "KB 182/98 · Nb 84 · Glukoz 138",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 182/98 · Nb 84 · Glukoz 138 · SpO₂ %96",
      "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Uyanık. **Yön değiştiren nistagmus**, ayakta duramıyor (gövde ataksisi), hafif dizartri. Kafa itme (head impulse) testi **normal**, alternan örtme testinde **vertikal kayma (skew)**.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %96 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
       {
        "kind": "test",
        "label": "HINTS",
@@ -721,7 +1060,8 @@
        "to": "n9",
        "fb": "Gövde ataksisi, dizartri ve santral HINTS bulguları arka dolaşım inmesidir."
       }
-     ]
+     ],
+     "vh": true
     },
     "n2": {
      "title": "Rekanalizasyon",

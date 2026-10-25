@@ -11,14 +11,16 @@ def best(c):
     def b(k,seen):
         n=ns[k]
         if n.get("end"): return (0,[k],n["outcome"])
-        t=sum(max(0,o["pts"]) for o in n["opts"] if o["kind"]=="test"); r=[]
+        t=sum(max(0,o["pts"]) for o in n["opts"] if o["kind"] in ("test","do")); r=[]
         for o in n["opts"]:
             if o["kind"]=="act" and o["to"] not in seen:
                 s,p,oc=b(o["to"],seen|{k}); r.append((t+o["pts"]+s,[k]+p,oc))
         return max(r)
     return b("n1",set())
 def build(P,out):
+    from ilk_degerlendirme import apply as _ilk
     S,Qs=P["sims"],P["questions"]
+    for c in S: _ilk(c)
     keys=set()
     for c in S:
         assert c["key"] not in keys; keys.add(c["key"])
