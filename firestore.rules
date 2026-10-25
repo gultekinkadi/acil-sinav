@@ -209,6 +209,24 @@ service cloud.firestore {
     }
 
     // İtirazlar: asistan, sonucu yayınlanmış sınavda soru başına bir itiraz yazar; yönetici karar verir
+    // Hata bildirimi: asistan/yazar kendi adına oluşturur; yalnız yönetici günceller/siler
+    match /reports/{rid} {
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create: if (isResident() || isAuthor())
+        && request.resource.data.keys().hasOnly(['kind','ref','sub','title','reason','note','uid','email','name','status','createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == myEmail()
+        && request.resource.data.status == 'open'
+        && request.resource.data.kind in ['q','sim','atlas']
+        && request.resource.data.ref is string && request.resource.data.ref.size() > 0 && request.resource.data.ref.size() <= 100
+        && request.resource.data.sub is string && request.resource.data.sub.size() <= 300
+        && request.resource.data.title is string && request.resource.data.title.size() <= 300
+        && request.resource.data.reason is string && request.resource.data.reason.size() <= 80
+        && request.resource.data.note is string && request.resource.data.note.size() <= 2000
+        && request.resource.data.name is string && request.resource.data.name.size() <= 200
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if isAdmin();
+    }
     match /appeals/{apid} {
       allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
       allow create: if isResident()

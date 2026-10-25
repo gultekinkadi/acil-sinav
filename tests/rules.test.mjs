@@ -175,6 +175,21 @@ await t("asistan başkasının öğrenme kaydını okuyamaz", () => assertFails(
 await t("listede olmayan öğrenme kaydı yazamaz", () => assertFails(setDoc(doc(yabanci, "learn/x1"), { srs: {} })));
 await t("yönetici öğrenme kayıtlarını listeler", () => assertSucceeds(getDocs(collection(admin, "learn"))));
 
+console.log("Hata bildirimi");
+const rp = (uid, email, extra = {}) => ({ kind: "q", ref: "qp", sub: "Alıştırma", title: "Soru metni", reason: "Cevap anahtarı yanlış", note: "C olmalı", uid, email, name: "Ayşe", status: "open", createdAt: serverTimestamp(), ...extra });
+await t("asistan hata bildirir", () => assertSucceeds(setDoc(doc(ayse, "reports/r1"), rp("u1", "ayse@gmail.com"))));
+await t("yazar hata bildirir", () => assertSucceeds(setDoc(doc(yazar, "reports/r2"), rp("au1", "yazar@gmail.com"))));
+await t("başkası adına bildiremez", () => assertFails(setDoc(doc(ayse, "reports/r3"), rp("u2", "ayse@gmail.com"))));
+await t("çözülmüş olarak bildiremez", () => assertFails(setDoc(doc(ayse, "reports/r4"), rp("u1", "ayse@gmail.com", { status: "resolved" }))));
+await t("fazladan alan yazamaz", () => assertFails(setDoc(doc(ayse, "reports/r5"), rp("u1", "ayse@gmail.com", { adminNote: "x" }))));
+await t("çok uzun not yazamaz", () => assertFails(setDoc(doc(ayse, "reports/r6"), rp("u1", "ayse@gmail.com", { note: "x".repeat(2001) }))));
+await t("listede olmayan kullanıcı bildiremez", () => assertFails(setDoc(doc(yabanci, "reports/r7"), rp("x1", "yabanci@gmail.com"))));
+await t("asistan kendi bildirimlerini okur", () => assertSucceeds(getDocs(query(collection(ayse, "reports"), where("uid", "==", "u1")))));
+await t("asistan tüm bildirimleri listeleyemez", () => assertFails(getDocs(collection(ayse, "reports"))));
+await t("asistan bildirimini çözülmüş yapamaz", () => assertFails(updateDoc(doc(ayse, "reports/r1"), { status: "resolved" })));
+await t("yönetici bildirimleri listeler", () => assertSucceeds(getDocs(collection(admin, "reports"))));
+await t("yönetici çözüldü işaretler", () => assertSucceeds(updateDoc(doc(admin, "reports/r1"), { status: "resolved", adminNote: "Düzeltildi", resolvedBy: "gultekinkadi@gmail.com", resolvedAt: serverTimestamp() })));
+
 await env.cleanup();
 console.log(`\n${pass} geçti, ${failN} başarısız`);
 process.exit(failN ? 1 : 0);

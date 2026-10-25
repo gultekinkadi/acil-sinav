@@ -482,6 +482,8 @@ footer.credit svg{width:16px;height:16px}
 .simopt:hover:not([disabled]){border-color:var(--accent)}.simopt.act{border-color:var(--line)}.simopt.act:hover{background:var(--accent-soft)}
 .simopt.done{opacity:.55;cursor:default}.simopt.test::before{content:"🔎";margin-right:2px}.simopt.act::before{content:"➜";margin-right:2px;color:var(--accent)}
 .simopt.do:not(.done)::before{content:"🩺";margin-right:2px}.simres.simdo{border-left-color:var(--ok,#2e7d4f);background:var(--surface-2)}.simdo .vitals{margin:4px 0 6px}tr.simmiss td{background:var(--warn-soft)}
+.rpbtn{color:var(--muted);margin-left:auto}.qmeta .rpbtn{padding:2px 8px}.rpq{background:var(--surface-2);border-radius:8px;padding:10px 12px;white-space:pre-wrap}.rpr{display:grid;gap:4px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.rpcard{margin-bottom:10px}.rprow{padding:8px 0;border-top:1px solid var(--line)}.rprow:first-of-type{border-top:0}.rpcard.resolved{opacity:.8}.rpnote{white-space:pre-wrap;margin:8px 0 4px;border-left:3px solid var(--warn);padding:4px 10px}.rpadm{margin-top:8px;background:var(--ok-soft);border-radius:8px;padding:6px 10px}
 .simres{border-left:3px solid var(--info);background:var(--info-soft);padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:8px}.simres .lbl{font-weight:700;margin-bottom:4px}
 .simnode{margin-bottom:12px;border-left:4px solid var(--info)}.simnode.end{border-left-color:var(--ok)}
 .nid{flex:none;min-width:28px;height:28px;border-radius:8px;background:var(--info-soft);color:var(--info);display:grid;place-items:center;font-weight:700}
@@ -1002,6 +1004,7 @@ async function render(){
       if(v==="attempt") return await viewAttempt(S.params.examId,S.params.uid);
       if(v==="profile") return await viewProfile(S.params.email);
       if(v==="bank") return await viewBank();
+      if(v==="reports") return await viewReports();
       if(v==="residents") return await viewResidents();
       if(v==="settings") return await viewSettings();
     } else if(S.mode==="author"){
@@ -2077,14 +2080,14 @@ function exportBank(list){
    ===================================================================== */
 async function viewBank(){
   paint(`<div class="spinner"></div>`);
-  await loadBank();
+  const [,RPO]=await Promise.all([loadBank(),S.mode==="admin"?openReports():{n:0,by:{}}]);
   const isA=S.mode==="admin", isAu=S.mode==="author";
   let filt="", topicF="", typeF="", stF=isAu?"mine":"", hsF="", poolF=lsGet("bankPool")||"";
   if(poolF && poolF!==NOPOOL && !S.pools[poolF]) poolF="";
   const sel=new Set();
   const nPend=S.questions.filter(q=>q.status==="pending").length;
   paint(`<div class="page-head"><div><h1>Soru Bankası</h1><div class="sub" id="bcount"></div></div>
-    <div class="row">${isA?`<button class="btn" id="exp">Excel'e aktar</button>`:""}<button class="btn" id="imp">Excel'den içe aktar</button><button class="btn" id="newCase">+ Vaka</button><button class="btn primary" id="newQ">+ Soru</button></div></div>
+    <div class="row">${isA?`<button class="btn" id="rpGo">⚑ Hata bildirimleri${RPO.n?` <span class="badge warn">${RPO.n}</span>`:""}</button><button class="btn" id="exp">Excel'e aktar</button>`:""}<button class="btn" id="imp">Excel'den içe aktar</button><button class="btn" id="newCase">+ Vaka</button><button class="btn primary" id="newQ">+ Soru</button></div></div>
     ${isAu?`<div class="note">Soru yazarı olarak eklediğiniz sorular yönetici onayından sonra sınavlarda kullanılabilir. Onay bekleyen veya reddedilen kendi sorularınızı düzenleyebilirsiniz.</div>`:""}
     ${isA&&nPend?`<div class="note" style="background:var(--warn-soft)"><b>${nPend} soru</b> onay bekliyor. <a href="#" id="goPend">Göster</a></div>`:""}
     <div class="pools" id="pools"></div>
@@ -2099,7 +2102,7 @@ async function viewBank(){
   const hsOk=q=>{ if(!hsF) return true; const l=lastHist(q.id); if(hsF==="unused") return !l; if(!l) return false; return hsF==="weak"?(l.d!=null&&l.d<0.2):hsF==="hard"?l.p<30:l.p>85; };
   const vis=q=>(!poolF||poolOf(q)===poolF)&&(!topicF||q.topic===topicF)&&(!typeF||(q.type||"mcq")===typeF)&&stOk(q)&&hsOk(q)&&(!filt||trLower(q.stem+" "+(q.topic||"")+" "+(S.cases[q.caseId]?.title||"")+" "+(S.cases[q.caseId]?.text||"")).includes(filt));
   const canEdit=q=>isA||(isAu&&q.author===S.email&&q.status!=="approved");
-  const qRow=q=>`<div class="qitem">${isA?`<input type="checkbox" class="qcheck" data-sel="${q.id}" ${sel.has(q.id)?"checked":""} aria-label="Seç">`:""}<div class="body"><div class="qmeta">${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}${STATUS_B(q)}<span class="badge ${q.type==="open"?"warn":""}">${q.type==="open"?"Açık uçlu":"Çoktan seçmeli"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge">${q.points||1} puan</span>${q.type!=="open"?`<span class="badge ok">Doğru: ${LET[q.correct]}</span>`:""}${q.practice?`<span class="badge info">Alıştırmada</span>`:""}${isA?qhistBadge(q.id):""}</div>
+  const qRow=q=>`<div class="qitem">${isA?`<input type="checkbox" class="qcheck" data-sel="${q.id}" ${sel.has(q.id)?"checked":""} aria-label="Seç">`:""}<div class="body"><div class="qmeta">${!poolF&&q.poolId&&S.pools[q.poolId]?`<span class="badge acc">${esc(poolName(q.poolId))}</span>`:""}${STATUS_B(q)}<span class="badge ${q.type==="open"?"warn":""}">${q.type==="open"?"Açık uçlu":"Çoktan seçmeli"}</span>${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge">${q.points||1} puan</span>${q.type!=="open"?`<span class="badge ok">Doğru: ${LET[q.correct]}</span>`:""}${q.practice?`<span class="badge info">Alıştırmada</span>`:""}${isA&&RPO.by[q.id]?`<span class="badge bad" title="Açık hata bildirimi">⚑ ${RPO.by[q.id]}</span>`:""}${isA?qhistBadge(q.id):""}</div>
     <div class="stem">${esc(q.stem)}</div>${imgTag(q.imageId,true)}${dcmTag(q.dicomId,true)}${q.status==="rejected"&&q.rejectReason?`<div class="small" style="color:var(--bad);margin-top:4px">Ret gerekçesi: ${esc(q.rejectReason)}</div>`:""}</div>
     <div class="row" style="flex-wrap:nowrap">${isA&&q.status==="pending"?`<button class="btn sm primary" data-apq="${q.id}">Onayla</button><button class="btn sm" data-rjq="${q.id}">Reddet</button>`:""}${canEdit(q)?`<button class="btn sm" data-eq="${q.id}">Düzenle</button>`:""}${isA?`<button class="btn sm ghost" data-dup="${q.id}" title="Kopyala">⧉</button>`:""}${canEdit(q)?`<button class="btn sm ghost danger" data-dq="${q.id}" title="Sil">✕</button>`:""}</div></div>`;
 
@@ -2201,6 +2204,7 @@ async function viewBank(){
   document.getElementById("selAllCb")?.addEventListener("change",e=>{ const vq=S.questions.filter(vis); if(e.target.checked) vq.forEach(q=>sel.add(q.id)); else vq.forEach(q=>sel.delete(q.id)); draw(); });
   document.getElementById("exp")?.addEventListener("click",()=>exportBank(S.questions.filter(vis)));
   document.getElementById("newQ").onclick=()=>editQuestion({poolId:curPool()});
+  document.getElementById("rpGo")?.addEventListener("click",()=>go("reports"));
   document.getElementById("newCase").onclick=()=>editCase({poolId:curPool()});
   document.getElementById("imp").onclick=()=>importDialog(curPool());
 }
@@ -2228,7 +2232,7 @@ async function persistImage(state){
   return state.imageId||null;
 }
 
-function editQuestion(q){
+function editQuestion(q,after){
   const isNew=!q.id; const st={imageId:q.imageId||null,newImg:null,dicomId:q.dicomId||null};
   let type=q.type||"mcq";
   const opts=[...(q.options||[]),"","","","",""].slice(0,5);
@@ -2276,7 +2280,7 @@ function editQuestion(q){
       const id=q.id||newId(); if(!q.id) data.createdAt=serverTimestamp(); data.updatedAt=serverTimestamp();
       if(S.mode==="author"){ data.status="pending"; data.author=S.email; data.practice=false; data.rejectReason=null; }
       else data.practice=!!S.pools[data.poolId]?.practice&&approvedQ({...q,...data});
-      await setDoc(doc(db,"questions",id),data,{merge:true}); m.close(); toast(S.mode==="author"?"Soru kaydedildi; yönetici onayına gönderildi":"Soru kaydedildi"); viewBank();
+      await setDoc(doc(db,"questions",id),data,{merge:true}); m.close(); toast(S.mode==="author"?"Soru kaydedildi; yönetici onayına gönderildi":"Soru kaydedildi"); (after||viewBank)();
     }catch(e){ fail(e,"Kaydedilemedi"); m.el.querySelector("#qsave").disabled=false; }
   };
 }
@@ -2758,7 +2762,7 @@ function startPractice(list){
     const perm=q.type==="open"?[]:shuffle(q.options.map((_,j)=>j));
     paint(`<div class="page-head"><div><h1>Alıştırma</h1><div class="sub">Soru ${ses.i+1} / ${ses.list.length} · ${ses.res.filter(r=>r.ok).length} doğru</div></div><button class="btn" id="pEnd">Bitir</button></div>
       <div class="card pad" id="pq">${c?`<div class="case-box"><div class="lbl">Vaka${c.title?": "+esc(c.title):""}</div><div class="txt">${esc(c.text)}</div>${imgTag(c.imageId)}${dcmTag(c.dicomId)}</div>`:""}
-        <div class="qmeta">${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.type==="open"?`<span class="badge warn">Açık uçlu</span>`:""}</div>
+        <div class="qmeta">${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}${q.type==="open"?`<span class="badge warn">Açık uçlu</span>`:""}${rpBtn("q",q.id,q.stem,"Alıştırma")}</div>
         <div class="q-stem">${esc(q.stem)}</div>${imgTag(q.imageId)}${dcmTag(q.dicomId)}
         ${q.type==="open"?`<textarea id="pa" style="min-height:140px;margin-top:14px" placeholder="Cevabınızı yazın, sonra model cevabı görün."></textarea><div class="row" style="margin-top:10px"><button class="btn primary" id="pShow">Model cevabı göster</button></div>`
           :`<div class="opts">${perm.map((orig,p)=>`<button class="opt" data-o="${orig}"><span class="L">${LET[p]}</span><span class="T">${esc(q.options[orig])}</span></button>`).join("")}</div>`}
@@ -2798,6 +2802,70 @@ function endPractice(ses){
    atlas/{id}, sims/{id}, modules/{id}, weekly/{id} (+ resp/{uid}), weeklyKeys/{id}, learn/{uid}
    ===================================================================== */
 const $id=id=>document.getElementById(id);
+
+/* ---- hata bildirimi: reports/{id} — asistan/yazar bildirir, yönetici çözer ---- */
+const RP_KIND={q:"Soru",sim:"Sanal hasta",atlas:"Atlas"};
+const RP_REASON=["Cevap anahtarı yanlış","Soru / metin hatalı veya belirsiz","Açıklama hatalı veya eksik","Güncel kılavuza uymuyor","Görsel / teknik sorun","Diğer"];
+const rpBtn=(kind,ref,title,sub="")=>`<button type="button" class="btn sm ghost rpbtn" data-rp="${kind}" data-rpref="${esc(ref)}" data-rpt="${esc(String(title||"").slice(0,200))}" data-rps="${esc(String(sub||"").slice(0,200))}" title="Bu içerikte hata mı var? Sorumlu öğretim üyesine bildirin">⚑ Hata bildir</button>`;
+document.addEventListener("click",e=>{ const b=e.target.closest?.("[data-rp]"); if(!b) return; e.preventDefault(); e.stopPropagation(); reportDlg({kind:b.dataset.rp,ref:b.dataset.rpref,title:b.dataset.rpt,sub:b.dataset.rps}); },true);
+function reportDlg(R){
+  const m=modal(`<div class="modal-h"><h2>⚑ Hata bildir</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="small muted" style="margin-bottom:8px">${RP_KIND[R.kind]||"İçerik"}${R.sub?` · ${esc(R.sub)}`:""}</div>
+    <div class="rpq">${esc(R.title||"")}</div>
+    <label class="f" style="margin-top:12px">Sorun nedir?</label><div class="rpr">${RP_REASON.map((r,i)=>`<label class="check"><input type="radio" name="rpr" value="${esc(r)}"> ${esc(r)}</label>`).join("")}</div>
+    <label class="f" style="margin-top:10px">Notunuz <span class="muted" style="font-weight:400">— neyin yanlış olduğunu, doğrusunu ve varsa kaynağını yazın</span></label>
+    <textarea id="rpN" maxlength="2000" style="min-height:110px" placeholder="örn. Doğru cevap C olmalı; ESC 2023 kılavuzunda …"></textarea>
+    <div class="small muted" style="margin-top:6px">Bildiriminiz adınızla birlikte sorumlu öğretim üyesine iletilir.</div></div>
+    <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="rpGo">Gönder</button></div>`);
+  const E=m.el; E.querySelector("#rpGo").onclick=async()=>{
+    const reason=E.querySelector("[name=rpr]:checked")?.value||"", note=E.querySelector("#rpN").value.trim();
+    if(!reason) return toast("Bir neden seçin",true); if(reason==="Diğer"&&!note) return toast("Lütfen sorunu kısaca yazın",true);
+    if(pvBlock()) return;
+    const b=E.querySelector("#rpGo"); b.disabled=true;
+    try{ await setDoc(doc(db,"reports",newId()),{kind:R.kind,ref:String(R.ref||""),sub:String(R.sub||""),title:String(R.title||""),reason,note,uid:S.user.uid,email:S.email,name:S.resident?.name||S.user.displayName||"",status:"open",createdAt:serverTimestamp()});
+      m.close(); toast("Bildiriminiz iletildi, teşekkürler"); }catch(e){ fail(e,"Gönderilemedi"); b.disabled=false; } };
+}
+async function openReports(){ try{ const s=await getDocs(query(collection(db,"reports"),where("status","==","open"))); const by={}; s.docs.forEach(d=>{ const r=d.data(); by[r.ref]=(by[r.ref]||0)+1; }); return {n:s.size,by}; }catch(e){ return {n:0,by:{}}; } }
+async function viewReports(){
+  paint(`<div class="spinner"></div>`);
+  const [s]=await Promise.all([getDocs(collection(db,"reports")),S.questions.length?null:loadBank().catch(()=>{})]);
+  const all=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0));
+  let F={st:lsGet("rpSt")||"open",k:""};
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Soru Bankası</button><h1>Hata bildirimleri</h1><div class="sub">Asistanların sorular, sanal hastalar ve atlas için bildirdiği hatalar. Düzeltip “Çözüldü” olarak işaretleyin; isterseniz not ekleyin.</div></div>
+      <div class="row"><button class="btn" id="rpX">Excel'e aktar</button></div></div>
+    <div class="toolbar"><div class="seg" id="rpS"><button data-s="open">Açık (${all.filter(r=>r.status==="open").length})</button><button data-s="resolved">Çözülen (${all.filter(r=>r.status==="resolved").length})</button><button data-s="">Tümü (${all.length})</button></div>
+      <select id="rpK"><option value="">Tüm içerikler</option>${Object.entries(RP_KIND).map(([k,l])=>`<option value="${k}">${l}</option>`).join("")}</select></div>
+    <div id="rpL"></div>`);
+  $id("bk").onclick=()=>go("bank");
+  const qOf=r=>r.kind==="q"&&S.questions.find(q=>q.id===r.ref);
+  const draw=()=>{ lsSet("rpSt",F.st); document.querySelectorAll("#rpS [data-s]").forEach(b=>b.classList.toggle("on",b.dataset.s===F.st));
+    const L2=all.filter(r=>(!F.st||r.status===F.st)&&(!F.k||r.kind===F.k));
+    $id("rpL").innerHTML=L2.length?L2.map(r=>{ const q=qOf(r), n=all.filter(x=>x.ref===r.ref&&x.status==="open").length;
+      return `<div class="card pad rpcard ${r.status}"><div class="row" style="gap:6px;flex-wrap:wrap"><span class="badge info">${RP_KIND[r.kind]||r.kind}</span><span class="badge warn">${esc(r.reason||"")}</span>${r.status==="resolved"?`<span class="badge ok">Çözüldü</span>`:`<span class="badge acc">Açık</span>`}${n>1&&r.status==="open"?`<span class="badge">Bu içerik için ${n} açık bildirim</span>`:""}<span class="small muted" style="margin-left:auto">${fmtDT(r.createdAt)}</span></div>
+        <div class="rpq" style="margin-top:8px">${esc(q?q.stem:r.title||"")}${r.sub?`<div class="small muted">${esc(r.sub)}</div>`:""}${q&&q.type!=="open"?`<div class="small" style="margin-top:4px">Kayıtlı doğru cevap: <b>${LET[q.correct]}</b> — ${esc(q.options?.[q.correct]||"")}</div>`:""}${r.kind==="q"&&!q?`<div class="small" style="color:var(--bad)">Soru silinmiş.</div>`:""}</div>
+        ${r.note?`<div class="rpnote">${esc(r.note)}</div>`:""}<div class="small muted">— ${esc(r.name||"")} (${esc(r.email||"")})</div>
+        ${r.adminNote||r.status==="resolved"?`<div class="rpadm small"><b>Yanıt / not:</b> ${esc(r.adminNote||"—")}${r.resolvedBy?` <span class="muted">· ${esc(r.resolvedBy)}${r.resolvedAt?" · "+fmtDT(r.resolvedAt):""}</span>`:""}</div>`:""}
+        <div class="row" style="justify-content:flex-end;gap:6px;margin-top:8px">${r.kind!=="q"||q?`<button class="btn sm" data-rpo="${r.id}">${r.kind==="q"?"Soruyu düzenle":"İçeriği aç"}</button>`:""}
+          ${r.status==="open"?`<button class="btn sm primary" data-rpd="${r.id}">Çözüldü</button>`:`<button class="btn sm ghost" data-rpr="${r.id}">Yeniden aç</button>`}<button class="btn sm ghost danger" data-rpdel="${r.id}">Sil</button></div></div>`; }).join("")
+      :`<div class="card empty">${F.st==="open"?"Açık bildirim yok.":"Bildirim yok."}</div>`;
+    const R0=id=>all.find(x=>x.id===id);
+    $app.querySelectorAll("[data-rpo]").forEach(b=>b.onclick=()=>{ const r=R0(b.dataset.rpo); if(r.kind==="q") editQuestion(qOf(r),()=>viewReports()); else go(r.kind==="sim"?"simEdit":"atlasEdit",{id:r.ref}); });
+    $app.querySelectorAll("[data-rpd]").forEach(b=>b.onclick=()=>{ const r=R0(b.dataset.rpd);
+      const m=modal(`<div class="modal-h"><h2>Çözüldü olarak işaretle</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b"><label class="f">Not <span class="muted" style="font-weight:400">— ne yapıldı? (isteğe bağlı; bildiren asistan görebilir)</span></label><textarea id="rpA" maxlength="2000" style="min-height:90px" placeholder="örn. Cevap anahtarı düzeltildi; açıklamaya kaynak eklendi.">${esc(r.adminNote||"")}</textarea></div>
+        <div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="rpOk">Kaydet</button></div>`);
+      m.el.querySelector("#rpOk").onclick=async()=>{ try{ const adminNote=m.el.querySelector("#rpA").value.trim();
+        await updateDoc(doc(db,"reports",r.id),{status:"resolved",adminNote,resolvedBy:S.email,resolvedAt:serverTimestamp()}); Object.assign(r,{status:"resolved",adminNote,resolvedBy:S.email,resolvedAt:Timestamp.now()}); m.close(); toast("Çözüldü"); draw(); }catch(e){ fail(e); } }; });
+    $app.querySelectorAll("[data-rpr]").forEach(b=>b.onclick=async()=>{ const r=R0(b.dataset.rpr); try{ await updateDoc(doc(db,"reports",r.id),{status:"open"}); r.status="open"; draw(); }catch(e){ fail(e); } });
+    $app.querySelectorAll("[data-rpdel]").forEach(b=>b.onclick=async()=>{ if(!await confirmDlg("Bildirimi sil","<p>Bildirim kalıcı olarak silinecek.</p>","Sil",true)) return; try{ await deleteDoc(doc(db,"reports",b.dataset.rpdel)); all.splice(all.findIndex(x=>x.id===b.dataset.rpdel),1); draw(); }catch(e){ fail(e); } });
+  };
+  document.querySelectorAll("#rpS [data-s]").forEach(b=>b.onclick=()=>{ F.st=b.dataset.s; draw(); });
+  $id("rpK").onchange=e=>{ F.k=e.target.value; draw(); };
+  $id("rpX").onclick=()=>{ const ws=XLSX.utils.json_to_sheet(all.map(r=>({"Tarih":fmtDT(r.createdAt),"İçerik türü":RP_KIND[r.kind]||r.kind,"İçerik":(qOf(r)?.stem||r.title||"")+(r.sub?" — "+r.sub:""),"Neden":r.reason,"Not":r.note||"","Bildiren":r.name||"","E-posta":r.email||"","Durum":r.status==="resolved"?"Çözüldü":"Açık","Yanıt":r.adminNote||""})));
+    const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"Bildirimler"); XLSX.writeFile(wb,"hata-bildirimleri.xlsx"); };
+  draw();
+}
+// Asistanın kendi bildirimleri ve verilen yanıtlar
+async function myReports(){ try{ const s=await getDocs(query(collection(db,"reports"),where("uid","==",S.user.uid))); return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0)); }catch(e){ return []; } }
 const DAY_MS=864e5;
 const ATLAS_CATS=["EKG","Akciğer grafisi","Direkt grafi","BT","MR","USG","Klinik fotoğraf","Diğer"];
 // Basit ve güvenli biçimlendirme: **kalın**, *italik*, # başlık, - liste, [metin](https://...)
@@ -2975,7 +3043,7 @@ async function viewAtlasItem(id,back){
   const shown=new Set(); let cur=0, M={viewer:null,isDcm:false}, toolNow=null;
   const anno=new Anno({shapes:F,mode:"view",show:f=>shown.has(f.id),labels:true,filter:f=>fM(f)===cur});
   paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Geri</button><h1>${esc(A.title||"Görüntü")}</h1><div class="sub">${esc(A.cat||"")}${A.topic?" · "+esc(A.topic):""}${MD.length>1?` · ${MD.length} görüntü`:""}</div></div>
-      ${S.mode!=="resident"&&canEdit(A)?`<button class="btn" id="aEdit">Düzenle</button>`:""}</div>
+      ${S.mode!=="resident"&&canEdit(A)?`<button class="btn" id="aEdit">Düzenle</button>`:rpBtn("atlas",id,A.title||"Atlas")}</div>
     <div class="atl"><div class="atl-media"><div id="aStrip"></div><div id="aM"></div><div class="small muted" id="aCap" style="margin-top:6px"></div></div>
       <div class="card pad atl-side"><div class="seg" id="aTabs"><button data-t="x" class="on">Keşfet</button>${TK.length?`<button data-t="q">Kendini sına (${TK.length})</button>`:""}</div><div id="aP"></div></div></div>`);
   $id("bk").onclick=()=>goBack(back,atlasDefBack());
@@ -3271,7 +3339,7 @@ async function viewSimPlay(id,back){
     const tests=(n.opts||[]).filter(o=>o.kind==="test"), acts=(n.opts||[]).filter(o=>o.kind==="act"), dos=(n.opts||[]).filter(o=>o.kind==="do"), op=G2.open[G2.nid]||(G2.open[G2.nid]=[]);
     const vitOn=!n.vh||dos.some(o=>o.vit&&op.includes(o.id)), dDone=dos.filter(o=>op.includes(o.id));
     paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Çık</button><h1>${esc(D.title||"Sanal hasta")}</h1><div class="sub">${esc(D.topic||"")}</div></div>
-        <div class="row"><span class="badge">Adım ${G2.step+1}</span><span class="badge info">⏱ ${G2.min} dk</span>${S.mode!=="resident"&&canEdit(D)?`<button class="btn sm" id="sEd">Düzenle</button>`:""}</div></div>
+        <div class="row"><span class="badge">Adım ${G2.step+1}</span><span class="badge info">⏱ ${G2.min} dk</span>${S.mode!=="resident"&&canEdit(D)?`<button class="btn sm" id="sEd">Düzenle</button>`:rpBtn("sim",id,D.title||"Sanal hasta",n.title||"")}</div></div>
       ${G2.step===0&&D.intro?`<div class="case-box"><div class="lbl">Başvuru</div><div class="txt">${esc(D.intro)}</div></div>`:""}
       ${G2.fb?`<div class="pfb ${G2.fb.cls}" style="margin-bottom:12px">${md(G2.fb.text)}</div>`:""}
       <div class="sim">
@@ -3309,7 +3377,7 @@ async function viewSimPlay(id,back){
         <div style="flex:1;min-width:240px"><span class="badge ${oc[1]}" style="font-size:14px">${oc[0]}</span><h2 style="margin:8px 0 4px">${esc(n.title||"")}</h2>${n.text?md(n.text):""}${mediaHtml(n.imageId,n.dicomId)}</div></div></div>
       <div class="card pad"><h2 style="margin-top:0">Adım adım geri bildirim</h2><div class="tbl-wrap"><table class="simlog"><thead><tr><th>#</th><th>Aşama</th><th>Seçiminiz</th><th>Puan</th><th>Geri bildirim</th></tr></thead><tbody>
         ${G2.log.map((x,i)=>`<tr class="${x.kind==="miss"?"simmiss":""}"><td>${i+1}</td><td class="small">${esc(x.node)}</td><td>${x.kind==="test"?"🔎 ":x.kind==="hint"?"💡 ":x.kind==="do"?"🩺 ":x.kind==="miss"?"⚠️ ":"➜ "}${esc(x.label)}</td><td class="${x.pts>0?"ok-t":x.pts<0?"bad-t":""}">${x.pts>0?"+":""}${x.pts}</td><td class="small">${x.hid&&x.res?`<b>Yorum:</b> ${esc(x.res.replace(/\*\*/g,""))}${x.fb?"<br>":""}`:""}${esc(x.fb)}</td></tr>`).join("")}</tbody></table></div></div>
-      <div class="row" style="margin-top:16px"><button class="btn primary" id="sAg">Yeniden oyna</button><button class="btn" id="sBk">Listeye dön</button></div>`);
+      <div class="row" style="margin-top:16px"><button class="btn primary" id="sAg">Yeniden oyna</button><button class="btn" id="sBk">Listeye dön</button>${S.mode==="resident"?`<span style="margin-left:auto">${rpBtn("sim",id,D.title||"Sanal hasta","Vaka sonu")}</span>`:""}</div>`);
     $id("sAg").onclick=()=>viewSimPlay(id,back); $id("sBk").onclick=()=>goBack(back,simDefBack());
   };
   draw();
@@ -3539,6 +3607,9 @@ async function viewLearn(){
   document.querySelectorAll("[data-mod]").forEach(b=>b.onclick=()=>go("module",{id:b.dataset.mod}));
   document.querySelectorAll("[data-wk]").forEach(b=>b.onclick=()=>go("weekly",{id:b.dataset.wk}));
   if(W) weeklyBlock($id("wkHost"),W,true);
+  if(!S.preview) myReports().then(R=>{ if(!R.length||S.view!=="learn"||$id("myRp")) return; try{
+    ($app.querySelector("main")||$app).insertAdjacentHTML("beforeend",`<div class="card pad" id="myRp" style="margin-top:16px"><h2 style="margin-top:0">⚑ Hata bildirimlerim</h2>${R.slice(0,10).map(r=>`<div class="rprow"><div class="row" style="gap:6px"><span class="badge info">${RP_KIND[r.kind]||""}</span>${r.status==="resolved"?`<span class="badge ok">Çözüldü</span>`:`<span class="badge">İnceleniyor</span>`}<span class="small muted" style="margin-left:auto">${fmtDT(r.createdAt)}</span></div>
+      <div class="small" style="margin-top:4px">${esc(String(r.title||"").slice(0,140))}${String(r.title||"").length>140?"…":""}</div><div class="small muted">${esc(r.reason||"")}${r.note?": "+esc(r.note):""}</div>${r.adminNote?`<div class="rpadm small"><b>Yanıt:</b> ${esc(r.adminNote)}</div>`:""}</div>`).join("")}</div>`); }catch(e){ console.error("RPERR",e); } });
 }
 
 /* ---- haftanın görüntüsü ---- */
@@ -3633,7 +3704,7 @@ async function srsSession(keys){
     const nextBtn=()=>`<div class="row" style="justify-content:space-between;margin-top:12px"><button class="btn sm ghost" id="sRm">Kartı listemden çıkar</button><button class="btn primary" id="sNx">${ses.i<Q.length-1?"Sonraki →":"Bitir"}</button></div>`;
     const bindNext=()=>{ $id("sNx").onclick=()=>{ ses.i++; card(); window.scrollTo({top:0}); }; $id("sNx").focus(); $id("sRm").onclick=()=>{ delete L.d.srs[it.k]; saveLearn(); toast("Kart çıkarıldı"); ses.i++; card(); }; };
     if(it.t==="q"){ const q=it.q, perm=q.type==="open"?[]:shuffle(q.options.map((_,j)=>j));
-      paint(`${head}<div class="card pad" id="pq"><div class="qmeta">${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge info">Soru</span></div><div class="q-stem">${esc(q.stem)}</div>${imgTag(q.imageId)}${dcmTag(q.dicomId)}
+      paint(`${head}<div class="card pad" id="pq"><div class="qmeta">${q.topic?`<span class="badge">${esc(q.topic)}</span>`:""}<span class="badge info">Soru</span>${rpBtn("q",q.id,q.stem,"Tekrar")}</div><div class="q-stem">${esc(q.stem)}</div>${imgTag(q.imageId)}${dcmTag(q.dicomId)}
         ${q.type==="open"?`<div class="row" style="margin-top:12px"><button class="btn primary" id="sSh">Cevabı göster</button></div>`:`<div class="opts">${perm.map((o,p)=>`<button class="opt" data-o="${o}"><span class="L">${LET[p]}</span><span class="T">${esc(q.options[o])}</span></button>`).join("")}</div>`}<div id="sFb"></div></div>`);
       $id("sEnd").onclick=()=>fin();
       document.querySelectorAll("#pq [data-o]").forEach(b=>b.onclick=()=>{ if(ses.res[ses.i]!=null) return; const a=Number(b.dataset.o), ok=a===q.correct;
@@ -3645,7 +3716,7 @@ async function srsSession(keys){
         $id("sYes").onclick=()=>self(true); $id("sNo").onclick=()=>self(false); });
     } else {
       const {A,tk,f}=it, shown=new Set();
-      paint(`${head}<div class="atl"><div class="atl-media" id="sM"></div><div class="card pad atl-side"><div class="qmeta">${A.topic?`<span class="badge">${esc(A.topic)}</span>`:""}<span class="badge info">Atlas · ${esc(A.cat||"")}</span></div>
+      paint(`${head}<div class="atl"><div class="atl-media" id="sM"></div><div class="card pad atl-side"><div class="qmeta">${A.topic?`<span class="badge">${esc(A.topic)}</span>`:""}<span class="badge info">Atlas · ${esc(A.cat||"")}</span>${rpBtn("atlas",A.id,A.title||"Atlas",tk.prompt)}</div>
         <div class="qprompt">${esc(tk.prompt)}</div>${atlasMedia(A)[fM(f)]?.cap?`<div class="small"><b>Görüntü:</b> ${esc(atlasMedia(A)[fM(f)].cap)}</div>`:""}<div class="small muted">${atlasMedia(A)[fM(f)]?.dicomId?"Doğru kesite gidip bulgunun üzerine tıklayın.":"Görüntüde bulgunun üzerine tıklayın."} Tek hakkınız var.</div><div id="sFb"></div></div></div>`);
       $id("sEnd").onclick=()=>fin();
       const anno=new Anno({shapes:A.findings||[],mode:"pick",show:x=>shown.has(x.id),labels:true,filter:x=>fM(x)===fM(f)});
@@ -3669,9 +3740,11 @@ async function srsSession(keys){
 const EDU_SECS=()=>S.mode==="admin"?[["atlas","Görüntü atlası"],["sims","Sanal hasta"],["modules","Modüller"],["weekly","Haftanın görüntüsü"],["progress","İlerleme"]]:[["atlas","Görüntü atlası"],["sims","Sanal hasta"]];
 async function viewEdu(sec){
   const secs=EDU_SECS(); if(!secs.some(x=>x[0]===sec)) sec=secs[0][0];
-  const head=`<div class="page-head"><div><h1>Eğitim</h1><div class="sub">Asistanların “Öğren” sekmesinde gördüğü içerik${S.mode==="admin"?" ve ilerlemeleri":""}.</div></div></div>
+  const head=`<div class="page-head"><div><h1>Eğitim</h1><div class="sub">Asistanların “Öğren” sekmesinde gördüğü içerik${S.mode==="admin"?" ve ilerlemeleri":""}.</div></div>${S.mode==="admin"?`<button class="btn" id="eduRp">⚑ Hata bildirimleri</button>`:""}</div>
     <div class="seg" id="eduSeg">${secs.map(([k,l])=>`<button data-s="${k}" class="${k===sec?"on":""}">${l}</button>`).join("")}</div><div id="eduB"><div class="spinner"></div></div>`;
   paint(head);
+  $id("eduRp")?.addEventListener("click",()=>go("reports"));
+  if(S.mode==="admin") openReports().then(r=>{ const b=$id("eduRp"); if(b&&r.n) b.insertAdjacentHTML("beforeend",` <span class="badge warn">${r.n}</span>`); });
   $id("eduSeg").querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>go("edu",{sec:b.dataset.s}));
   const B=$id("eduB");
   if(sec==="atlas"){ const list=await loadEdu("atlas"); const pend=list.filter(a=>a.status==="pending").length;
