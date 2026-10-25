@@ -3477,7 +3477,10 @@ async function viewSimEdit(id){
     hydrateDicom($id("sN")); status();
   };
   $id("sAddN").onclick=()=>{ const nk=nextNid(); D.nodes[nk]={title:`Düğüm ${D.order.length+1}`,text:"",vitals:"",opts:[]}; D.order.push(nk); drawN(); $id("sN").lastElementChild?.scrollIntoView({behavior:"smooth"}); };
-  const clean=()=>{ const nodes={}; D.order.forEach(k=>{ const n=D.nodes[k];
+  // kaydederken seçenekler sıralanır: ilk değerlendirme → tetkik → karar; her grupta süreye (dk) göre artan
+  const sortOpts=()=>D.order.forEach(k=>{ const n=D.nodes[k]; if(!n.opts) return; const g={do:0,test:1,act:2};
+    n.opts=n.opts.map((o,i)=>[o,i]).sort((a,b)=>(g[a[0].kind]??1)-(g[b[0].kind]??1)||(Number(a[0].min)||0)-(Number(b[0].min)||0)||a[1]-b[1]).map(x=>x[0]); });
+  const clean=()=>{ sortOpts(); const nodes={}; D.order.forEach(k=>{ const n=D.nodes[k];
     nodes[k]={title:String(n.title||"").trim(),text:String(n.text||"").trim(),vitals:String(n.vitals||"").trim(),...(n.vh&&!n.end?{vh:true}:{}),imageId:n.imageId||null,dicomId:n.dicomId||null,end:!!n.end,outcome:n.end?(n.outcome||"mid"):null,
       opts:n.end?[]:(n.opts||[]).filter(o=>String(o.label||"").trim()).map(o=>({id:o.id,kind:o.kind==="act"?"act":o.kind==="do"?"do":"test",label:String(o.label).trim(),pts:Number(o.pts)||0,min:Number(o.min)||0,fb:String(o.fb||"").trim(),
         ...(o.kind==="act"?{to:o.to||null}:o.kind==="do"?{res:String(o.res||"").trim(),...(o.vit?{vit:true}:{})}:{res:String(o.res||"").trim(),resImg:o.resImg||null,resDcm:o.resDcm||null,src:String(o.src||"").trim(),hide:!!(o.hide??!!(o.resImg||o.resDcm)),hpen:hpenOf(o)})}))}; });
@@ -3489,8 +3492,8 @@ async function viewSimEdit(id){
     const sid=id||newId();
     const data={title,topic:$id("sTo").value.trim(),intro:$id("sIn").value.trim(),start:D.start,order:D.order,nodes,maxScore:simMax(tmp),updatedAt:serverTimestamp(),...(id?{}:{createdAt:serverTimestamp()})};
     if(isAdm){ data.published=$id("sPu").checked; if(D.status&&D.status!=="approved") data.status="approved"; } else { data.status="pending"; data.author=S.email; data.published=false; }
-    try{ $id("sSave").disabled=true; await setDoc(doc(db,"sims",sid),data,{merge:true}); toast(isAdm?"Kaydedildi":"Kaydedildi; yönetici onayına gönderildi");
-      if(!id){ S.params={id:sid}; return viewSimEdit(sid); } $id("sSave").disabled=false; }catch(e){ fail(e,"Kaydedilemedi"); $id("sSave").disabled=false; } };
+    try{ $id("sSave").disabled=true; await setDoc(doc(db,"sims",sid),data,{merge:true}); toast(isAdm?"Kaydedildi — seçenekler süreye göre sıralandı":"Kaydedildi; yönetici onayına gönderildi");
+      if(!id){ S.params={id:sid}; return viewSimEdit(sid); } $id("sSave").disabled=false; const y=window.scrollY; drawN(); window.scrollTo(0,y); }catch(e){ fail(e,"Kaydedilemedi"); $id("sSave").disabled=false; } };
   $id("sPrev")?.addEventListener("click",()=>go("simPlay",{id,back:{view:"simEdit",params:{id}}}));
   $id("sDel")?.addEventListener("click",async()=>{ if(!await confirmDlg("Vakayı sil","<p>Sanal hasta vakası kalıcı olarak silinecek.</p>","Sil",true)) return; try{ await deleteDoc(doc(db,"sims",id)); go("edu",{sec:"sims"}); }catch(e){ fail(e); } });
   drawN();
