@@ -1,0 +1,430 @@
+{
+ "id": "soru-05",
+ "title": "Acil Tıp Soru Bankası — 05. Çevresel Aciller",
+ "desc": "Sıcak ve soğuk hastalıkları, irtifa, dalış, boğulma, yıldırım ve elektrik, yanıklar ve kimyasal yaralanmalar, ısırık ve sokmalar, mantar zehirlenmesi.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 05. Çevresel Aciller",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Sıcak bir günde maraton koşusunda yığılan, rektal ısısı 41,5 °C olan ve konfüze genç sporcuda en etkili tedavi hangisidir?",
+   "options": [
+    "Oral sıvı ve gözlem",
+    "Antipiretik (parasetamol)",
+    "Hemen soğuk/buzlu suya daldırma (hedef ≈38,5–39 °C'de durmak)",
+    "Dantrolen",
+    "Yalnız serin ortam ve fan"
+   ],
+   "correct": 2,
+   "explanation": "Egzersiz ilişkili sıcak çarpmasında 'önce soğut, sonra taşı'; antipiretikler etkisizdir.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q02",
+   "stem": "Sıcak çarpmasını sıcak yorgunluğundan ayıran temel özellik hangisidir?",
+   "options": [
+    "Santral sinir sistemi disfonksiyonu (konfüzyon, nöbet, koma)",
+    "Bulantı",
+    "Kas krampları",
+    "Terlemenin olması",
+    "Taşikardi"
+   ],
+   "correct": 0,
+   "explanation": "Sıcak çarpmasında terleme olabilir; ayırıcı bulgu SSS tutulumudur.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q03",
+   "stem": "Kor ısısı 29 °C olan hipotermik hastada monitörde VF var. Doğru yaklaşım hangisidir?",
+   "options": [
+    "Adrenalin her 3 dakikada standart doz",
+    "Yalnız pasif ısıtma",
+    "Isınana kadar KPR yapılmaz",
+    "KPR ve defibrilasyon (≥3 başarısızsa ısı 30 °C'yi geçene dek ek şok ertelenir), aktif internal ısıtma; ECLS düşünülür",
+    "Hemen ölüm kabul edilir"
+   ],
+   "correct": 3,
+   "explanation": "ERC: <30 °C'de en çok 3 şok, adrenalin verilmez; 30–35 °C'de adrenalin aralığı iki katına çıkarılır. 'Isınmadan ölü sayılmaz.'",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q04",
+   "stem": "Hipotermide EKG'de QRS'in hemen sonunda görülen pozitif çentik nedir?",
+   "options": [
+    "Sivri T",
+    "U dalgası",
+    "Epsilon dalgası",
+    "Osborn (J) dalgası",
+    "Delta dalgası"
+   ],
+   "correct": 3,
+   "explanation": "J dalgası hipotermiye özgü değildir ama derinliğiyle orantılıdır.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q05",
+   "stem": "Donma (frostbite) tedavisinde doğru uygulama hangisidir?",
+   "options": [
+    "37–39 °C suda hızlı ısıtma; yeniden donma riski varsa ısıtmayı ertelemek",
+    "Kuru ısıyla (soba) ısıtma",
+    "Karla ovma",
+    "Isıtmadan önce masaj",
+    "Hemen debridman"
+   ],
+   "correct": 0,
+   "explanation": "Isıtılıp yeniden donan doku daha ağır hasar görür; ağrı kontrolü ve tetanoz; ağırda iloprost/tromboliz düşünülür.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q06",
+   "stem": "Günlerce soğuk-ıslak botla nöbet tutan askerde ayakta solukluk, uyuşma, ardından hiperemi ve ağrı gelişiyor. Tanı hangisidir?",
+   "options": [
+    "Donma",
+    "Siper ayağı (donmayan soğuk hasarı)",
+    "Derin ven trombozu",
+    "Raynaud",
+    "Selülit"
+   ],
+   "correct": 1,
+   "explanation": "Siper ayağı donma olmadan uzun süreli soğuk-ıslak maruziyetle olur; ayak kuru ve sıcak tutulur.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q07",
+   "stem": "3500 metreye hızla çıkan dağcıda baş ağrısı, bulantı, halsizlik ve uykusuzluk var; nörolojik bulgu yok. Tanı ve tedavi hangisidir?",
+   "options": [
+    "HACE — deksametazon ve acil iniş",
+    "Pnömoni — antibiyotik",
+    "Migren — triptan",
+    "HAPE — nifedipin",
+    "Akut dağ hastalığı — dinlenme, daha fazla tırmanmama, gerekirse asetazolamid/analjezik"
+   ],
+   "correct": 4,
+   "explanation": "Hafif AMS'de tırmanış durdurulur; kötüleşirse iniş.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q08",
+   "stem": "Yüksek irtifada ataksi ve bilinç değişikliği gelişen dağcıda en önemli tedavi hangisidir?",
+   "options": [
+    "Sıvı kısıtlaması",
+    "Asetazolamid ve tırmanışa devam",
+    "Yalnız analjezik",
+    "Acil iniş, O₂ ve deksametazon (HACE)",
+    "Nifedipin tek başına"
+   ],
+   "correct": 3,
+   "explanation": "Ataksi HACE'nin erken bulgusudur; iniş en etkili tedavidir.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q09",
+   "stem": "Yüksek irtifa pulmoner ödeminde (HAPE) ilk tedavi hangisidir?",
+   "options": [
+    "Morfin",
+    "Antibiyotik",
+    "Deksametazon tek başına",
+    "Furosemid",
+    "İniş ve oksijen (gerekirse nifedipin, taşınabilir hiperbarik torba)"
+   ],
+   "correct": 4,
+   "explanation": "HAPE kardiyojenik olmayan ödemdir; diüretik önerilmez.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q10",
+   "stem": "Tüplü dalıştan çıktıktan hemen sonra (dakikalar içinde) bilinç kaybı ve hemiparezi gelişen dalgıçta en olası tanı ve tedavi hangisidir?",
+   "options": [
+    "Hipoglisemi",
+    "Dekompresyon hastalığı tip I — analjezi",
+    "İnme — tromboliz",
+    "Arteriyel gaz embolisi — %100 O₂, düz yatış ve acil hiperbarik oksijen",
+    "Nitrojen narkozu"
+   ],
+   "correct": 3,
+   "explanation": "Yüzeye çıkışta akciğer barotravması arteriyel gaz embolisi yapar; tedavi rekompresyon.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q11",
+   "stem": "Dalıştan saatler sonra eklemlerde derin ağrı ('bends') gelişen hastada tedavi hangisidir?",
+   "options": [
+    "Antibiyotik",
+    "NSAİİ ile taburcu",
+    "%100 O₂ ve hiperbarik oksijen (dekompresyon hastalığı)",
+    "Eklem aspirasyonu",
+    "Kortikosteroid"
+   ],
+   "correct": 2,
+   "explanation": "Tip I DCS bile rekompresyonla tedavi edilir; uçuş kısıtlanır.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q12",
+   "stem": "Boğulma (suda kalma) sonrası en önemli patofizyolojik sorun hangisidir?",
+   "options": [
+    "Elektrolit bozukluğu (tatlı-tuzlu su farkı)",
+    "Enfeksiyon",
+    "Hipotermi tek başına",
+    "Hipoksi",
+    "Aspire edilen suyun hacmi"
+   ],
+   "correct": 3,
+   "explanation": "Tedavi oksijenasyon ve ventilasyona odaklanır; tatlı/tuzlu su ayrımının klinik önemi azdır.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q13",
+   "stem": "Kitlesel yıldırım çarpmasında triyaj önceliği hangisidir?",
+   "options": [
+    "Ters triyaj: önce solunumu/nabzı olmayanlara KPR",
+    "Önce çocuklar",
+    "Önce yanıkları olanlar",
+    "Önce yürüyebilenler",
+    "Önce bilinci açık olanlar"
+   ],
+   "correct": 0,
+   "explanation": "Yıldırımda arrest çoğunlukla primer kardiyak/solunum durmasıdır ve erken KPR ile geri döndürülebilir.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q14",
+   "stem": "Yıldırım çarpmasından sonra geçici alt ekstremite felci, solukluk ve nabızsızlık (vazospazm) görülmesine ne ad verilir?",
+   "options": [
+    "Spinal şok",
+    "Lichtenberg figürleri",
+    "Keraunoparalizi",
+    "Kompartman sendromu",
+    "Guillain-Barré"
+   ],
+   "correct": 2,
+   "explanation": "Keraunoparalizi saatler içinde geçer; Lichtenberg figürleri deride eğrelti otu görünümüdür.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q15",
+   "stem": "Yüksek voltaj elektrik yaralanmasında giriş-çıkış yarası küçük olan hastada hangi komplikasyon yakından izlenmelidir?",
+   "options": [
+    "Pnömoni",
+    "Yalnız yüzeyel yanık",
+    "Derin doku nekrozu, rabdomiyoliz ve kompartman sendromu",
+    "Anemi",
+    "Hipoglisemi"
+   ],
+   "correct": 2,
+   "explanation": "Elektrik akımı derin dokuları yakar; yüzey yanığı hasarı küçümsetir. CK, idrar çıkışı ve kompartmanlar izlenir.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q16",
+   "stem": "Kapalı alanda yangından kurtarılan hastada yüzde yanık, kaş-burun kıllarında yanma, kurum ve ses kısıklığı var. Öncelik nedir?",
+   "options": [
+    "Parkland formülüyle sıvı",
+    "Erken entübasyon (hava yolu ödemi ilerlemeden)",
+    "Yanık pansumanı",
+    "Antibiyotik",
+    "Akciğer grafisi"
+   ],
+   "correct": 1,
+   "explanation": "İnhalasyon hasarında ödem saatler içinde artar; geç entübasyon çok zorlaşır.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q17",
+   "stem": "70 kg hastada vücut yüzeyinin %40'ı ikinci-üçüncü derece yanık. Parkland formülüne göre ilk 24 saatte hesaplanan Ringer laktat ne kadardır ve ilk yarısı ne zaman verilir?",
+   "options": [
+    "Sıvı gerekmez",
+    "4 mL × 70 × 40 ≈ 11.200 mL; yarısı yanıktan sonraki ilk 8 saatte",
+    "11.200 mL; eşit hızda 24 saatte",
+    "2 mL × 70 × 40 = 5.600 mL; tamamı ilk saatte",
+    "1.000 mL sabit"
+   ],
+   "correct": 1,
+   "explanation": "Parkland başlangıç tahminidir; idrar çıkışına (erişkin 0,5 mL/kg/saat) göre titre edilir. ABA güncel önerisi 2–4 mL/kg/% ile başlamaktır.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q18",
+   "stem": "Alkali (kireç, lavabo açıcı) kimyasal yanığında ilk tedavi hangisidir?",
+   "options": [
+    "Kuru pansuman",
+    "Asitle nötralizasyon",
+    "Steroid",
+    "Yağlı krem",
+    "Bol su ile uzun süreli irigasyon"
+   ],
+   "correct": 4,
+   "explanation": "Nötralizasyon ekzotermik reaksiyonla hasarı artırır; alkali yanıklar asitlerden daha derin hasar yapar.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q19",
+   "stem": "Hidroflorik asitle temas sonrası parmaklarda görünür hasarla orantısız şiddetli ağrı var. Spesifik tedavi hangisidir?",
+   "options": [
+    "Kalsiyum glukonat jel (gerekirse lokal/intraarteriyel kalsiyum) ve sistemik hipokalsemi izlemi",
+    "Su ile yıkamak yeterli",
+    "Sodyum bikarbonat",
+    "Atropin",
+    "Morfin tek başına"
+   ],
+   "correct": 0,
+   "explanation": "Florür kalsiyum ve magnezyumu bağlar; ağır maruziyette ölümcül hipokalsemi ve aritmi.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q20",
+   "stem": "Çatıda çalışırken sırtından bir örümcek ısıran hastada saatler içinde karında tahta gibi sertlik, terleme ve şiddetli kas krampları gelişiyor. Etken hangisidir?",
+   "options": [
+    "Kahverengi münzevi örümcek (Loxosceles)",
+    "Arı",
+    "Akrep",
+    "Tarantula",
+    "Karadul (Latrodectus)"
+   ],
+   "correct": 4,
+   "explanation": "Latrodektizm nöromusküler bulgular yapar, akut karını taklit eder; analjezi, benzodiazepin, ağırda antivenom.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q21",
+   "stem": "Kahverengi münzevi örümcek ısırığının tipik bulgusu hangisidir?",
+   "options": [
+    "Günler içinde nekrotik ülsere ilerleyen ağrılı lezyon (nadiren hemoliz)",
+    "Hemen gelişen kas krampları",
+    "Hipoglisemi",
+    "Anafilaksi her zaman",
+    "Flask paralizi"
+   ],
+   "correct": 0,
+   "explanation": "Loksoselizmde yara bakımı; nadir sistemik hemoliz/DİK izlenir.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q22",
+   "stem": "Türkiye'de engerek ısırığı sonrası ekstremitede ilerleyen şişlik ve trombositopeni/koagülopati gelişen hastada tedavi hangisidir?",
+   "options": [
+    "Yalnız antihistaminik",
+    "Ağızla zehir emme",
+    "Antivenom (UZEM 114 ile birlikte), ekstremite elevasyonu ve koagülasyon izlemi",
+    "Buz uygulaması",
+    "Turnike ve insizyon"
+   ],
+   "correct": 2,
+   "explanation": "Turnike, insizyon, emme ve buz önerilmez; sistemik/ilerleyen lokal bulguda antivenom.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q23",
+   "stem": "Arı sokmasından sonra yaygın ürtiker, wheezing ve hipotansiyon gelişen hastada ilk ilaç ve dozu hangisidir?",
+   "options": [
+    "Salbutamol nebül",
+    "Metilprednizolon IV",
+    "Adrenalin 0,5 mg IM (1 mg/mL'den 0,5 mL) uyluk anterolateraline",
+    "Antihistaminik IV",
+    "Adrenalin 1 mg IV bolus"
+   ],
+   "correct": 2,
+   "explanation": "Anafilakside ilk ilaç IM adrenalindir; 5 dakikada tekrarlanabilir.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q24",
+   "stem": "Yabani mantar yedikten 10–12 saat sonra başlayan şiddetli kusma-ishal, ardından günler içinde karaciğer yetmezliği. En olası toksin hangisidir?",
+   "options": [
+    "Koprin",
+    "Muskarin",
+    "İbotenik asit",
+    "Amatoksin (Amanita phalloides)",
+    "Psilosibin"
+   ],
+   "correct": 3,
+   "explanation": "Geç başlangıçlı (>6 saat) GİS bulgusu ölümcül hepatotoksik mantarı düşündürür; erken başlangıç genellikle selimdir.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q25",
+   "stem": "Denizanası sokmasında Türkiye kıyılarında sık görülen türlerde ilk uygulama için genel öneri hangisidir?",
+   "options": [
+    "Alkol dökmek",
+    "Bölgeyi deniz suyu ile yıkamak, dokunaçları dikkatle çıkarmak, ağrı için sıcak su (≈45 °C)",
+    "İdrar dökmek",
+    "Buz ve masaj",
+    "Tatlı suyla ovmak"
+   ],
+   "correct": 1,
+   "explanation": "Tatlı su ve ovma nematosistleri patlatabilir; sirke bazı türlerde önerilir, idrar önerilmez.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q26",
+   "stem": "Vatoz iğnesi batan ayakta şiddetli ağrı var. İlk tedavi hangisidir?",
+   "options": [
+    "Antihistaminik",
+    "Dayanabildiği en sıcak suya (≈45 °C) 30–90 dakika daldırma, yara temizliği ve yabancı cisim araştırması",
+    "Buz",
+    "Hemen sütür",
+    "Turnike"
+   ],
+   "correct": 1,
+   "explanation": "Isıya duyarlı toksin; yarada iğne parçası kalabilir (grafi/USG).",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q27",
+   "stem": "Klimasız evde bulunan, antikolinerjik ilaç kullanan yaşlı hastada 'klasik' sıcak çarpmasının en etkili soğutma yöntemi hangisidir?",
+   "options": [
+    "Dantrolen",
+    "Buharlaştırarak soğutma (ılık su spreyi + fan) ve buz paketleri",
+    "Antipiretik",
+    "Yalnız IV soğuk sıvı",
+    "Soğuk suya daldırma her yaşlıda kontrendike"
+   ],
+   "correct": 1,
+   "explanation": "Yaşlıda daldırma pratik olmayabilir; buharlaştırma etkilidir. Soğuk suya daldırma en hızlı yöntem olmaya devam eder.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q28",
+   "stem": "Ağır hipotermik (<30 °C) ama nabzı olan hastanın taşınmasında nelere dikkat edilmelidir?",
+   "options": [
+    "Hızlı ayağa kaldırma",
+    "Alkol vermek",
+    "Sıcak duş",
+    "Ekstremite masajı",
+    "Nazik taşıma ve yatay pozisyon (VF tetiklenebilir)"
+   ],
+   "correct": 4,
+   "explanation": "Soğuk miyokard irritabledir; kaba hareketler VF'yi tetikleyebilir.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q29",
+   "stem": "Yanık hastasında yanık yüzey alanı hesaplanırken hangi yanık derecesi hesaplamaya katılmaz?",
+   "options": [
+    "Birinci derece (yüzeyel, epidermal) yanık",
+    "Dördüncü derece",
+    "Derin ikinci derece",
+    "Yüzeyel ikinci derece",
+    "Üçüncü derece"
+   ],
+   "correct": 0,
+   "explanation": "Sıvı hesaplamasında yalnız ikinci ve daha derin yanıklar sayılır; hasta avuç içi ≈%1.",
+   "topic": "Çevresel Aciller"
+  },
+  {
+   "key": "q30",
+   "stem": "Yangından kurtarılan, laktatı 10 mmol/L ve hipotansif olan hastada CO dışında hangi zehirlenme düşünülmeli ve antidotu nedir?",
+   "options": [
+    "Demir — deferoksamin",
+    "Metanol — fomepizol",
+    "Organofosfat — atropin",
+    "Opioid — nalokson",
+    "Siyanür — hidroksokobalamin 5 g IV"
+   ],
+   "correct": 4,
+   "explanation": "Plastik ve sentetik materyallerin yanması siyanür açığa çıkarır; laktat >8 güçlü göstergedir.",
+   "topic": "Çevresel Aciller"
+  }
+ ]
+}

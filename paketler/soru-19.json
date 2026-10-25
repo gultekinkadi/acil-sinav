@@ -1,0 +1,430 @@
+{
+ "id": "soru-19",
+ "title": "Acil Tıp Soru Bankası — 19. Resüsitasyon",
+ "desc": "Erişkin, çocuk ve yenidoğan resüsitasyonu, ROSC sonrası bakım, şok ve vazopresörler, aritmilerin akut tedavisi, anafilaksi ve anjiyoödem, asit-baz değerlendirmesi.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 19. Resüsitasyon",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Erişkinde yüksek kaliteli göğüs basısı için önerilen hız ve derinlik hangisidir?",
+   "options": [
+    "Hız önemsiz, derinlik 4 cm",
+    "60–80/dk, 3–4 cm",
+    "140–160/dk, 7–8 cm",
+    "100–120/dk, 5–6 cm",
+    "80–100/dk, 2–3 cm"
+   ],
+   "correct": 3,
+   "explanation": "Tam göğüs geri dönüşüne izin vermek ve kesintileri <10 sn tutmak (ritim analizi ve şok).",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q02",
+   "stem": "Erişkinde ani kardiyak ölümün en sık altta yatan nedeni hangisidir?",
+   "options": [
+    "Uzun QT",
+    "Miyokardit",
+    "Koroner arter hastalığı",
+    "Brugada",
+    "Hipertrofik kardiyomiyopati"
+   ],
+   "correct": 2,
+   "explanation": "Gençlerde yapısal ve kanalopatiler daha önemlidir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q03",
+   "stem": "Nabızsız elektriksel aktivite (NEA) veya asistolide adrenalin ne zaman verilmelidir?",
+   "options": [
+    "Hiç verilmez",
+    "3. döngüden sonra",
+    "Yalnız ROSC sonrası",
+    "Damar yolu/İO sağlanır sağlanmaz, ardından 3–5 dakikada bir 1 mg",
+    "Yalnız 10 dakika sonra"
+   ],
+   "correct": 3,
+   "explanation": "Şoklanamayan ritimde erken adrenalin ROSC ve sağkalımla ilişkilidir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q04",
+   "stem": "NEA'da geri döndürülebilir nedenler (4H-4T) arasında hangisi yer almaz?",
+   "options": [
+    "Hiperglisemi",
+    "Tamponad",
+    "Hipoksi",
+    "Tansiyon pnömotoraks",
+    "Hipovolemi"
+   ],
+   "correct": 0,
+   "explanation": "4H: hipoksi, hipovolemi, hipo/hiperkalemi-metabolik, hipotermi; 4T: tromboz (koroner/pulmoner), tansiyon pnömotoraks, tamponad, toksinler.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q05",
+   "stem": "Entübe hastada KPR sırasında EtCO₂ ile ilgili doğru olan hangisidir?",
+   "options": [
+    "EtCO₂ ROSC'de düşer",
+    "Yüksek EtCO₂ tüpün yemek borusunda olduğunu gösterir",
+    "EtCO₂ KPR'de ölçülemez",
+    "EtCO₂'nin aniden >35–40 mmHg'ye yükselmesi ROSC'yi düşündürür; 20 dakikalık İYD sonrası sürekli <10 mmHg kötü prognoz göstergesidir",
+    "EtCO₂ tek başına sonlandırma kriteridir"
+   ],
+   "correct": 3,
+   "explanation": "EtCO₂ tüp yerini doğrular ve göğüs basısı kalitesini yansıtır.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q06",
+   "stem": "Kardiyak arrest sonrası ROSC sağlanan, komutlara yanıt vermeyen hastada öneri hangisidir?",
+   "options": [
+    "Hipertermi",
+    "Erken (24 saatte) prognoz kararı",
+    "Hiperventilasyon",
+    "Ateşten kaçınma (≤37,5 °C en az 72 saat), normoksi (SpO₂ %94–98), normokapni, OAB ≥65",
+    "Hiperoksi (SpO₂ %100)"
+   ],
+   "correct": 3,
+   "explanation": "TTM2 sonrası güncel kılavuzlar 33 °C yerine ateşten kaçınmayı önerir; nöroprognoz ≥72 saat sonra.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q07",
+   "stem": "ROSC sonrası EKG'de ST elevasyonu yoksa ama kardiyak neden şüphesi yüksekse koroner anjiyografi için öneri nedir?",
+   "options": [
+    "Tromboliz verilir",
+    "Yalnız 1 hafta sonra",
+    "Rutin acil anjiyografi gerekmez; bireysel değerlendirme (STEMI varsa acil)",
+    "Asla anjiyo yapılmaz",
+    "Her hastaya acil anjiyo"
+   ],
+   "correct": 2,
+   "explanation": "COACT ve TOMAHAWK çalışmaları.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q08",
+   "stem": "Pozitif basınçlı ventilasyonun hipovolemik hastada hipotansiyona yol açma mekanizması hangisidir?",
+   "options": [
+    "Afterload'ı artırması",
+    "Vazodilatasyon",
+    "Kontraktiliteyi artırması",
+    "Kalp hızını artırması",
+    "İntratorasik basıncı artırarak venöz dönüşü (önyükü) azaltması"
+   ],
+   "correct": 4,
+   "explanation": "Entübasyon öncesi sıvı/vazopresörle hazırlık yapılır; düşük PEEP ve solunum sayısı.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q09",
+   "stem": "2–10 yaş arası çocukta kafsız endotrakeal tüp iç çapı için klasik formül hangisidir?",
+   "options": [
+    "Yaş + 2",
+    "Yaş × 2",
+    "(Yaş/4) + 4 mm (kaflı tüpte (yaş/4) + 3,5)",
+    "(Yaş/2) + 8",
+    "Kilo/10"
+   ],
+   "correct": 2,
+   "explanation": "Güncel öneri çocuklarda da kaflı tüp kullanımıdır.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q10",
+   "stem": "Damar yolu açılamayan arrestteki çocukta önerilen ilk alternatif damar erişimi hangisidir?",
+   "options": [
+    "Endotrakeal ilaç",
+    "İntraosseöz (proksimal tibia)",
+    "Venöz kesi (cut-down)",
+    "İntramüsküler adrenalin",
+    "Santral ven"
+   ],
+   "correct": 1,
+   "explanation": "İO ile tüm resüsitasyon ilaçları ve sıvılar verilebilir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q11",
+   "stem": "Yenidoğan resüsitasyonunda ilk ve en önemli adım hangisidir?",
+   "options": [
+    "Göğüs basısı",
+    "Sıvı bolusu",
+    "Bikarbonat",
+    "Etkili ventilasyon (ısıtma, kurulama, uyarma sonrası apne/bradikardide PPV)",
+    "Adrenalin"
+   ],
+   "correct": 3,
+   "explanation": "Yenidoğanda bradikardinin en sık nedeni hipoksidir; HR <60 ise (etkili ventilasyona rağmen) göğüs basısı 3:1.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q12",
+   "stem": "Yenidoğan resüsitasyonunda damar yolu olarak tercih edilen erişim hangisidir?",
+   "options": [
+    "Umbilikal ven kateteri",
+    "Juguler ven",
+    "Skalp veni",
+    "Femoral arter",
+    "Subklavyen"
+   ],
+   "correct": 0,
+   "explanation": "İO da alternatiftir; adrenalin IV 0,01–0,03 mg/kg.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q13",
+   "stem": "Stabil, dar QRS'li düzenli SVT'de vagal manevraya yanıt yoksa ilk ilaç ve dozu hangisidir?",
+   "options": [
+    "Digoksin",
+    "Adenozin 6 mg hızlı IV puşe + SF yıkama; gerekirse 12 mg (ve 18 mg)",
+    "Verapamil 20 mg",
+    "Metoprolol 50 mg oral",
+    "Amiodaron 300 mg"
+   ],
+   "correct": 1,
+   "explanation": "Modifiye Valsalva (bacak kaldırmalı) başarıyı artırır; transplant kalp ve dipiridamolde düşük doz.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q14",
+   "stem": "Adenozin hangi durumda dikkatle kullanılmalı veya kaçınılmalıdır?",
+   "options": [
+    "Ağır astım/aktif bronkospazm ve preeksitasyonlu AF",
+    "Gebelik",
+    "Genç hasta",
+    "Dar QRS'li SVT",
+    "Hipertansiyon"
+   ],
+   "correct": 0,
+   "explanation": "Teofilin etkisini azaltır, dipiridamol ve karbamazepin artırır.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q15",
+   "stem": "Hiperkalemiye bağlı kardiyak arrestte resüsitasyona eklenmesi gereken ilaç hangisidir?",
+   "options": [
+    "Amiodaron",
+    "Kalsiyum (klorür ya da glukonat) IV ve insülin-dekstroz/bikarbonat",
+    "Lidokain",
+    "Atropin",
+    "Magnezyum"
+   ],
+   "correct": 1,
+   "explanation": "Hiperkalemik arrestte diyaliz ve uzamış resüsitasyon düşünülebilir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q16",
+   "stem": "Torsades de pointes'te ilk tedavi hangisidir?",
+   "options": [
+    "Amiodaron",
+    "Magnezyum sülfat 2 g IV",
+    "Sotalol",
+    "Prokainamid",
+    "Adenozin"
+   ],
+   "correct": 1,
+   "explanation": "Nabızsızsa defibrilasyon; QT uzatan ilaçları kes, K'yı düzelt; overdrive pacing/izoproterenol.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q17",
+   "stem": "Anafilaktik şokta IM adrenaline ve sıvıya yanıt vermeyen hastada sonraki adım hangisidir?",
+   "options": [
+    "Bekleme",
+    "Antihistaminik bolus",
+    "IV adrenalin infüzyonu (titre ederek) ve beta bloker kullanıyorsa glukagon",
+    "Steroid tek başına",
+    "Nalokson"
+   ],
+   "correct": 2,
+   "explanation": "Antihistaminik ve steroid adjuvandır; hayatı tehdit eden tabloyu düzeltmez.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q18",
+   "stem": "Kalıtsal anjiyoödem atağında larinks ödemi olan hastada etkili tedavi hangisidir?",
+   "options": [
+    "Antihistaminik",
+    "Antibiyotik",
+    "C1-esteraz inhibitörü konsantresi (ya da ikatibant/ekallantid; yoksa TDP)",
+    "Steroid",
+    "Adrenalin tek başına"
+   ],
+   "correct": 2,
+   "explanation": "Bradikinin aracılıdır; hava yolu güvenliği önceliklidir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q19",
+   "stem": "Metabolik asidozda beklenen solunum kompanzasyonunu hesaplayan Winter formülü hangisidir?",
+   "options": [
+    "pCO₂ = 40 − HCO₃",
+    "pCO₂ = HCO₃ + 15",
+    "Beklenen pCO₂ = 1,5 × HCO₃ + 8 (±2)",
+    "pCO₂ = 2 × HCO₃",
+    "pCO₂ = Na − Cl"
+   ],
+   "correct": 2,
+   "explanation": "Ölçülen pCO₂ beklenenden yüksekse eşlik eden respiratuvar asidoz vardır.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q20",
+   "stem": "Anyon açığı hesaplaması hangisidir ve normal değeri yaklaşık nedir?",
+   "options": [
+    "Na + K − Cl; 30",
+    "HCO₃ − Cl; 20",
+    "Cl − HCO₃; 2",
+    "Na − Cl; 4",
+    "Na − (Cl + HCO₃); ≈8–12 mmol/L (albümine göre düzeltilir)"
+   ],
+   "correct": 4,
+   "explanation": "Albümindeki her 1 g/dL düşüş açığı ≈2,5 azaltır.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q21",
+   "stem": "Hipovolemik şokta ilk sıvı tercihi hangisidir?",
+   "options": [
+    "İzotonik kristaloid (dengeli solüsyonlar tercih edilebilir); kanamada erken kan ürünleri",
+    "Dekstran",
+    "%5 dekstroz",
+    "Albümin rutin",
+    "Hidroksietil nişasta"
+   ],
+   "correct": 0,
+   "explanation": "HES böbrek hasarı ve mortalite artışıyla ilişkilidir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q22",
+   "stem": "Laktat yüksekliği için doğru olan hangisidir?",
+   "options": [
+    "Doku hipoperfüzyonu dışında metformin, adrenalin, nöbet ve karaciğer yetmezliği de yapabilir",
+    "Yalnız sepsiste yükselir",
+    "Normal laktat şoku dışlar",
+    "Tedavi hedefi değildir",
+    "Venöz örnek kullanılamaz"
+   ],
+   "correct": 0,
+   "explanation": "Laktat klirensi resüsitasyon yanıtının bir göstergesidir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q23",
+   "stem": "Septik şokta norepinefrine rağmen hipotansiyonu süren hastada eklenmesi önerilen ikinci vazopresör hangisidir?",
+   "options": [
+    "Dobutamin her hastaya",
+    "Fenilefrin rutin",
+    "İzoproterenol",
+    "Dopamin",
+    "Vazopresin"
+   ],
+   "correct": 4,
+   "explanation": "Kardiyak disfonksiyonda dobutamin; dirençli olguda adrenalin.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q24",
+   "stem": "Atropine yanıtsız semptomatik bradikardide transkutan pacing hazırlanırken verilebilecek ilaç hangisidir?",
+   "options": [
+    "Verapamil",
+    "Metoprolol",
+    "Adenozin",
+    "Adrenalin 2–10 mcg/dk veya dopamin 5–20 mcg/kg/dk infüzyonu",
+    "Amiodaron"
+   ],
+   "correct": 3,
+   "explanation": "Altta yatan nedenler (hiperkalemi, ilaç, iskemi) tedavi edilir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q25",
+   "stem": "Yatak başı USG'nin kardiyak arrestteki kullanımı için doğru olan hangisidir?",
+   "options": [
+    "Yalnız ROSC sonrası",
+    "Geri döndürülebilir nedenleri (tamponad, PE'de RV dilatasyonu, pnömotoraks) araştırmak için nabız kontrolü sırasında, basıyı uzatmadan",
+    "Göğüs basısını durdurarak 2 dakika",
+    "Her döngüde 30 saniye görüntüleme",
+    "Kontrendikedir"
+   ],
+   "correct": 1,
+   "explanation": "USG nedeniyle oluşan kesintiler sağkalımı olumsuz etkiler.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q26",
+   "stem": "Hangi durumda ekstrakorporeal KPR (ECPR) düşünülebilir?",
+   "options": [
+    "Travmatik arrest her zaman",
+    "İleri yaşta tüm hastalar",
+    "Terminal kanser",
+    "Uzun süre tanıksız asistoli",
+    "Tanıklı arrest, erken KPR, refrakter VF ve geri döndürülebilir neden (ör. koroner oklüzyon, hipotermi, PE) — deneyimli merkezde"
+   ],
+   "correct": 4,
+   "explanation": "Seçilmiş hastalarda nörolojik sağkalımı artırabilir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q27",
+   "stem": "Kardiyak arrestte ileri hava yolu takıldıktan sonra ventilasyon hızı ne olmalıdır?",
+   "options": [
+    "Dakikada 2 soluk",
+    "Dakikada 30 soluk",
+    "Her 30 basıda 2 soluk",
+    "Ventilasyon yapılmaz",
+    "Dakikada ≈10 soluk, göğüs basısına ara vermeden"
+   ],
+   "correct": 4,
+   "explanation": "Hiperventilasyon intratorasik basıncı artırıp koroner perfüzyonu azaltır.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q28",
+   "stem": "Travmatik kardiyak arrestte öncelikler arasında hangisi yer alır?",
+   "options": [
+    "Antiaritmik",
+    "Geri döndürülebilir nedenlerin (hipovolemi, tansiyon pnömotoraks, tamponad, hipoksi) eş zamanlı düzeltilmesi",
+    "Tromboliz",
+    "Yalnız göğüs basısı ve adrenalin",
+    "Bekleme"
+   ],
+   "correct": 1,
+   "explanation": "Kanama kontrolü, bilateral göğüs dekompresyonu, kan ürünleri; endikasyonda resüsitatif torakotomi.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q29",
+   "stem": "Çocuklarda kardiyak arrestin en sık nedeni hangisidir?",
+   "options": [
+    "Solunum yetmezliği/hipoksi",
+    "Ventrikül fibrilasyonu",
+    "Hiperkalemi",
+    "Aort diseksiyonu",
+    "Koroner hastalık"
+   ],
+   "correct": 0,
+   "explanation": "Bu nedenle çocukta ventilasyon resüsitasyonun merkezindedir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "q30",
+   "stem": "Hipotermik arrestte resüsitasyonun sonlandırılması için doğru olan hangisidir?",
+   "options": [
+    "Adrenalin dozu iki katına çıkarılır",
+    "15 dakika sonra sonlandırılır",
+    "Hipotermi kötü prognoz göstergesidir",
+    "Isıtma gerekmez",
+    "Hasta ısıtılmadan (≈32–35 °C) ölüm kabul edilmez; ECLS en uygun ısıtma yöntemidir"
+   ],
+   "correct": 4,
+   "explanation": "Serum K >12 mmol/L çığ kurbanlarında kötü prognoz göstergesidir.",
+   "topic": "Resüsitasyon"
+  }
+ ]
+}

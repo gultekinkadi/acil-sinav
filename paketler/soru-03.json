@@ -1,0 +1,430 @@
+{
+ "id": "soru-03",
+ "title": "Acil Tıp Soru Bankası — 03. Deri Hastalıkları",
+ "desc": "Fungal ve paraziter enfeksiyonlar, büllöz hastalıklar ve SJS/TEN, viral döküntüler, deri ve yumuşak doku enfeksiyonları, ilaç reaksiyonları.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 03. Deri Hastalıkları",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "7 yaşında çocukta saçlı deride pullanma, kırık kıllar ve yamalı saç dökülmesi var. Tedavisi hangisidir?",
+   "options": [
+    "Yalnız topikal klotrimazol",
+    "Oral antibiyotik",
+    "Oral antifungal (griseofulvin veya terbinafin) haftalarca",
+    "Topikal steroid",
+    "Permetrin şampuan"
+   ],
+   "correct": 2,
+   "explanation": "Tinea kapitis kıl folikülünü tuttuğu için topikal tedavi yetersizdir; oral antifungal gerekir, ketokonazol şampuan bulaşı azaltır.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q02",
+   "stem": "Tinea kapitiste saçlı deride gelişen, hassas, bataklık benzeri iltihabi kitle (kerion) nasıl yönetilir?",
+   "options": [
+    "Cerrahi eksizyon",
+    "Acil insizyon-drenaj",
+    "Yalnız antibiyotik",
+    "Oral antifungal; insizyon-drenaj yapılmaz",
+    "Topikal steroid"
+   ],
+   "correct": 3,
+   "explanation": "Kerion fungal enfeksiyona aşırı immün yanıttır, apse değildir; drenaj kalıcı skar yapar.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q03",
+   "stem": "Bebekte saçlı derede yağlı, sarımsı kabuklanma (konak) ve kaşıntısız lezyonlar görülüyor. En olası tanı hangisidir?",
+   "options": [
+    "İnfantil seboreik dermatit",
+    "Uyuz",
+    "Atopik dermatit",
+    "Tinea kapitis",
+    "Psoriazis"
+   ],
+   "correct": 0,
+   "explanation": "Konak genellikle kendiliğinden geçer; yumuşatıcı ve gerekirse ketokonazol şampuan.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q04",
+   "stem": "Dirsek ve diz ekstansör yüzlerde gümüş renkli pullu, keskin sınırlı plaklar hangi tanıyı düşündürür?",
+   "options": [
+    "Tinea korporis",
+    "Liken planus",
+    "Pitriyazis rozea",
+    "Kontakt dermatit",
+    "Psoriazis"
+   ],
+   "correct": 4,
+   "explanation": "Psoriazis plakları ekstansör yüzlerde; Auspitz bulgusu ve tırnak çukurlaşması eşlik edebilir.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q05",
+   "stem": "Gövdede hipo- ya da hiperpigmente, ince pullu, güneşte belirginleşen maküller ve KOH'ta 'spagetti ve köfte' görünümü hangi tanıyı gösterir?",
+   "options": [
+    "Tinea korporis",
+    "Sekonder sifiliz",
+    "Pitriyazis versikolor",
+    "Pitriyazis rozea",
+    "Vitiligo"
+   ],
+   "correct": 2,
+   "explanation": "Malassezia kaynaklıdır; topikal ketokonazol/selenyum sülfit ile tedavi edilir.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q06",
+   "stem": "Gece artan şiddetli kaşıntı, parmak araları ve bilekte tünel benzeri lezyonlar, ailede de benzer yakınma var. Tedavi hangisidir?",
+   "options": [
+    "Oral antibiyotik",
+    "Antifungal krem",
+    "Topikal steroid tek başına",
+    "Antihistaminik tek başına",
+    "Permetrin %5 krem (tüm vücuda, 1 hafta sonra tekrar) ve tüm yakın temaslıların eş zamanlı tedavisi"
+   ],
+   "correct": 4,
+   "explanation": "Uyuzda yakın temaslılar aynı anda tedavi edilir; çamaşırlar sıcak yıkanır. Kabuklu uyuzda oral ivermektin eklenir.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q07",
+   "stem": "Kabuklu (Norveç) uyuz hangi hastada daha sık görülür ve tedavisi nedir?",
+   "options": [
+    "Gebede; steroid",
+    "Bebeklerde; antibiyotik",
+    "Sağlıklı gençte; yalnız antihistaminik",
+    "İmmünsüprese/bakımevindeki yaşlı hastada; oral ivermektin + topikal permetrin",
+    "Sporcularda; antifungal"
+   ],
+   "correct": 3,
+   "explanation": "Kabuklu uyuzda akar yükü çok yüksektir ve çok bulaşıcıdır; kombinasyon tedavi ve izolasyon gerekir.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q08",
+   "stem": "Burun ucunda vezikül bulunan alın zonasında (Hutchinson bulgusu) neden acil göz konsültasyonu istenir?",
+   "options": [
+    "Bakteriyel süperenfeksiyon işaretidir",
+    "Nazosiliyer sinir tutulumu göz tutulumunu öngörür",
+    "İmmünsüpresyonu kanıtlar",
+    "Kulak tutulumunu gösterir",
+    "Menenjit riskini gösterir"
+   ],
+   "correct": 1,
+   "explanation": "Herpes zoster oftalmikusta keratit, üveit ve görme kaybı riski vardır.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q09",
+   "stem": "Kulakta vezikül, kulak ağrısı ve aynı tarafta periferik fasiyal paralizi hangi tablodur?",
+   "options": [
+    "Menière hastalığı",
+    "Bell paralizisi",
+    "Malign otitis eksterna",
+    "Ramsay Hunt sendromu",
+    "Akut otitis media"
+   ],
+   "correct": 3,
+   "explanation": "Genikulat ganglionda VZV reaktivasyonu; steroid + antiviral, işitme ve vertigo eşlik edebilir.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q10",
+   "stem": "İlaç başladıktan 2 hafta sonra ateş, mukozal erozyonlar ve deride hafif sürtünmeyle soyulma (Nikolsky pozitif) gelişen hastada vücut yüzeyinin %35'i etkilenmiş. Tanı ve ilk adım hangisidir?",
+   "options": [
+    "İmpetigo — mupirosin",
+    "Kontakt dermatit — topikal steroid",
+    "Toksik epidermal nekroliz — şüpheli ilacı kesmek ve yanık/yoğun bakım ünitesine sevk",
+    "Ürtiker — antihistaminik",
+    "Büllöz pemfigoid — oral steroid ve taburcu"
+   ],
+   "correct": 2,
+   "explanation": "SJS <%10, TEN >%30 epidermal ayrılma; en sık neden ilaçlar (allopürinol, antiepileptikler, sülfonamidler).",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q11",
+   "stem": "Stafilokokal haşlanmış deri sendromunu (SSSS) TEN'den ayıran özellik hangisidir?",
+   "options": [
+    "SSSS ilaçla tetiklenir",
+    "SSSS yalnız erişkinlerde görülür",
+    "TEN'de mukozalar korunur",
+    "SSSS'de mukozalar tutulmaz ve ayrılma epidermisin üst katındadır",
+    "SSSS'de Nikolsky negatiftir"
+   ],
+   "correct": 3,
+   "explanation": "SSSS genellikle küçük çocuklarda, eksfoliatif toksinle olur; mukoza korunur, tedavi antistafilokokal antibiyotiktir.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q12",
+   "stem": "Yaşlı hastada gergin büller, kaşıntı ve mukoza tutulumunun olmaması hangi tanıyı destekler?",
+   "options": [
+    "Pemfigus vulgaris",
+    "Eritema multiforme majör",
+    "Herpes zoster",
+    "TEN",
+    "Büllöz pemfigoid"
+   ],
+   "correct": 4,
+   "explanation": "Pemfigus vulgariste büller gevşek, Nikolsky pozitif ve mukoza tutulumu sıktır.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q13",
+   "stem": "Hedef (iris) şeklinde lezyonlar, el-ayak tutulumu ve öncesinde uçuk öyküsü hangi tanıyı düşündürür?",
+   "options": [
+    "Eritema multiforme",
+    "Eritema nodozum",
+    "Eritema migrans",
+    "Sekonder sifiliz",
+    "Ürtiker"
+   ],
+   "correct": 0,
+   "explanation": "Eritema multiformun en sık tetikleyicisi HSV enfeksiyonudur.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q14",
+   "stem": "Plajda yalınayak yürüyen hastada ayakta ilerleyen, kaşıntılı, kıvrımlı kırmızı çizgi şeklinde lezyon var. Tedavi hangisidir?",
+   "options": [
+    "Sefaleksin",
+    "Albendazol veya ivermektin",
+    "Topikal steroid",
+    "Asiklovir",
+    "Permetrin"
+   ],
+   "correct": 1,
+   "explanation": "Kutanöz larva migrans (köpek/kedi kancalı kurdu larvası); antiparaziter tedavi.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q15",
+   "stem": "Akvaryum temizledikten haftalar sonra elde ve ön kolda lenfatik yayılım gösteren nodüller gelişen hastada en olası etken hangisidir?",
+   "options": [
+    "Sporothrix schenckii",
+    "Vibrio vulnificus",
+    "Pasteurella multocida",
+    "Staphylococcus aureus",
+    "Mycobacterium marinum"
+   ],
+   "correct": 4,
+   "explanation": "'Balık tankı granülomu'; uzun süreli antibiyotik (klaritromisin ± etambutol).",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q16",
+   "stem": "Gövdede önce tek büyük pembe pullu plak (haberci yama), ardından Noel ağacı dağılımında küçük lezyonlar çıkıyor. Tanı ve yönetim nedir?",
+   "options": [
+    "Uyuz — permetrin",
+    "Ürtiker — adrenalin",
+    "Tinea korporis — oral antifungal",
+    "Pitriyazis rozea — kendiliğinden geçer; sekonder sifiliz dışlanmalı",
+    "Psoriazis — sistemik tedavi"
+   ],
+   "correct": 3,
+   "explanation": "Pitriyazis rozea 6–8 haftada geçer; avuç içi-taban tutulumu varsa sifiliz serolojisi.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q17",
+   "stem": "Avuç içi ve ayak tabanında bakır renkli makülopapüler döküntü ve yaygın lenfadenopati hangi tanıyı düşündürür?",
+   "options": [
+    "Kızamık",
+    "Pitriyazis rozea",
+    "El-ayak-ağız hastalığı",
+    "Eritema multiforme",
+    "Sekonder sifiliz"
+   ],
+   "correct": 4,
+   "explanation": "Sekonder sifiliz büyük taklitçidir; tedavi benzatin penisilin G 2,4 milyon IU IM.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q18",
+   "stem": "Kene ısırığından günler sonra ortası soluklaşan, genişleyen eritemli lezyon (≥5 cm) görülen hastada tedavi nedir?",
+   "options": [
+    "Serolojiyi beklemeden doksisiklin (ya da amoksisilin)",
+    "Kortikosteroid",
+    "Topikal antifungal",
+    "Önce seroloji, pozitifse tedavi",
+    "Tedavi gerekmez"
+   ],
+   "correct": 0,
+   "explanation": "Eritema migrans klinik tanıdır; erken dönemde seroloji negatif olabilir.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q19",
+   "stem": "Basmakla solmayan peteşi ve purpura, ateş ve hipotansiyonla gelen genç hastada ilk yapılması gereken nedir?",
+   "options": [
+    "Trombosit sayımı sonucunu beklemek",
+    "Hemen parenteral seftriakson ve sepsis resüsitasyonu",
+    "Antihistaminik",
+    "Deri biyopsisi",
+    "LP sonrası antibiyotik"
+   ],
+   "correct": 1,
+   "explanation": "Meningokoksemi saatler içinde ölümcül olabilir; antibiyotik geciktirilmez.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q20",
+   "stem": "Selülit ile erizipeli ayıran özellik hangisidir?",
+   "options": [
+    "Erizipelde ateş olmaz",
+    "Erizipelde keskin sınırlı, kabarık kenarlı yüzeyel tutulum (genellikle streptokok)",
+    "Selülit yalnız yüzde görülür",
+    "Selülitte sınırlar kabarıktır",
+    "Erizipel her zaman MRSA'dır"
+   ],
+   "correct": 1,
+   "explanation": "Erizipel dermisin üst katı ve lenfatikleri tutar; tedavi penisilin/sefaleksin.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q21",
+   "stem": "Pürülan olmayan, sistemik bulgusu olmayan bacak selülitinde ampirik oral tedavi seçeneği hangisidir?",
+   "options": [
+    "Sefaleksin (streptokokları kapsar)",
+    "Metronidazol",
+    "Siprofloksasin",
+    "Asiklovir",
+    "Flukonazol"
+   ],
+   "correct": 0,
+   "explanation": "Pürülan olmayan selülitte etken çoğunlukla streptokoktur; pürülan/apsede MRSA kapsamı düşünülür.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q22",
+   "stem": "Uylukta 4 cm fluktuasyon veren deri apsesi olan, sistemik bulgusu olmayan hastada temel tedavi hangisidir?",
+   "options": [
+    "Yalnız oral antibiyotik",
+    "İnsizyon ve drenaj (gerekirse MRSA'yı kapsayan oral antibiyotik)",
+    "Topikal mupirosin",
+    "IV vankomisin ve yatış",
+    "Sıcak uygulama ve bekleme"
+   ],
+   "correct": 1,
+   "explanation": "Apsede drenaj esastır; büyük apse, selülit eşlikliği, immünsüpresyonda antibiyotik eklenir.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q23",
+   "stem": "Çocukta burun-ağız çevresinde bal renkli kabuklu lezyonlar hangi tanıyı düşündürür?",
+   "options": [
+    "Kontakt dermatit",
+    "Herpes labialis",
+    "İmpetigo",
+    "Molluskum kontagiozum",
+    "Seboreik dermatit"
+   ],
+   "correct": 2,
+   "explanation": "Sınırlı impetigoda topikal mupirosin/fusidik asit, yaygında oral antibiyotik.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q24",
+   "stem": "Antikonvülzan başlandıktan 3–6 hafta sonra ateş, yaygın döküntü, yüz ödemi, lenfadenopati, eozinofili ve karaciğer enzim yüksekliği gelişen hastada tanı hangisidir?",
+   "options": [
+    "Ürtiker",
+    "Pitriyazis rozea",
+    "SSSS",
+    "Viral ekzantem",
+    "DRESS sendromu"
+   ],
+   "correct": 4,
+   "explanation": "DRESS'te ilaç kesilir, sistemik steroid ve organ tutulumu izlemi gerekir; mortalite ≈%10.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q25",
+   "stem": "Yeni kullanılan bir ojeden sonra göz kapaklarında kaşıntılı, eritemli, veziküllü dermatit gelişiyor. En olası tanı hangisidir?",
+   "options": [
+    "Alerjik kontakt dermatit",
+    "Herpes simpleks",
+    "Selülit",
+    "Atopik dermatit",
+    "Anjiyoödem"
+   ],
+   "correct": 0,
+   "explanation": "Tırnak ürünleri göz kapağında kontakt dermatitin sık nedenidir; alerjenden kaçınma ve topikal steroid.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q26",
+   "stem": "Gövdede ortası göbekli, inci gibi küçük papüller (çocukta) hangi tanıdır?",
+   "options": [
+    "Milia",
+    "Molluskum kontagiozum",
+    "Su çiçeği",
+    "Siğil",
+    "Akne"
+   ],
+   "correct": 1,
+   "explanation": "Poksvirüs; kendiliğinden geçer, erişkinde yaygınsa HIV düşünülmeli.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q27",
+   "stem": "Dudakta tekrarlayan, ağrılı, gruplaşmış veziküller hangi etkene bağlıdır ve sık başvuru durumunda ne önerilir?",
+   "options": [
+    "HSV-1; sık atakta oral antiviral (valasiklovir) epizodik/baskılayıcı tedavi",
+    "Candida; flukonazol",
+    "VZV; steroid",
+    "Coxsackie; destek",
+    "Stafilokok; antibiyotik"
+   ],
+   "correct": 0,
+   "explanation": "Herpes labialis HSV-1 ile olur; prodromda başlanan antiviral süreyi kısaltır.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q28",
+   "stem": "Çocukta ağız içinde aftlar, el ve ayaklarda veziküller ile hafif ateş hangi tanıyı gösterir?",
+   "options": [
+    "Herpetik gingivostomatit",
+    "Kawasaki",
+    "Kızıl",
+    "El-ayak-ağız hastalığı (Coxsackie)",
+    "Su çiçeği"
+   ],
+   "correct": 3,
+   "explanation": "Enteroviral, kendini sınırlayan hastalık; hidrasyon ve analjezi.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q29",
+   "stem": "Ağrılı, kırmızı, ön tibia yüzeyinde nodüller hangi tabloyla ilişkili olabilir?",
+   "options": [
+    "Erizipel",
+    "Derin ven trombozu",
+    "Eritema nodozum (streptokok enfeksiyonu, sarkoidoz, İBH, gebelik, ilaçlar)",
+    "Selülit",
+    "Böcek ısırığı"
+   ],
+   "correct": 2,
+   "explanation": "Eritema nodozum bir pannikülittir; altta yatan neden araştırılır.",
+   "topic": "Deri Hastalıkları"
+  },
+  {
+   "key": "q30",
+   "stem": "Kaşıntılı, kabarık, 24 saatten kısa sürede yer değiştiren lezyonlar ve dudak şişliği var; solunum sıkıntısı ve hipotansiyon yok. İlk tedavi hangisidir?",
+   "options": [
+    "Entübasyon",
+    "Adrenalin IM her durumda",
+    "İkinci kuşak oral antihistaminik (gerekirse kısa steroid) ve tetikleyiciden kaçınma",
+    "Topikal steroid",
+    "IV antibiyotik"
+   ],
+   "correct": 2,
+   "explanation": "Ürtiker ± hafif anjiyoödemde antihistaminik; solunum/dolaşım tutulumu varsa anafilaksi olarak adrenalin.",
+   "topic": "Deri Hastalıkları"
+  }
+ ]
+}

@@ -1,0 +1,430 @@
+{
+ "id": "soru-04",
+ "title": "Acil Tıp Soru Bankası — 04. Endokrin ve Elektrolit Acilleri",
+ "desc": "Tiroid fırtınası ve miksödem koması, adrenal kriz, DKA/HHS, hipoglisemi, asit-baz, sodyum-potasyum-kalsiyum-magnezyum-fosfor bozuklukları.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 04. Endokrin ve Elektrolit Acilleri",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Graves hastalığı olan kadında pnömoni sonrası ateş 40 °C, AF 160/dk, ajitasyon ve ishal gelişiyor. Tedavide sıralama açısından doğru olan hangisidir?",
+   "options": [
+    "Yalnız parasetamol ve antibiyotik",
+    "Beta bloker + tiyonamid (PTU/metimazol); iyot tiyonamidden en az 1 saat sonra; steroid ve tetikleyicinin tedavisi",
+    "Aspirin ile ateş düşürme",
+    "Önce iyot, sonra tiyonamid",
+    "Hemen tiroidektomi"
+   ],
+   "correct": 1,
+   "explanation": "Tiroid fırtınasında iyot, hormon sentezi tiyonamidle bloke edilmeden verilirse yeni hormon yapımına substrat olur. Aspirin serbest T4'ü artırır.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q02",
+   "stem": "Tiroid fırtınasında tercih edilen tiyonamid ve nedeni hangisidir?",
+   "options": [
+    "PTU — periferik T4→T3 dönüşümünü de azaltır (gebelikte ilk trimesterde de tercih)",
+    "Metimazol — hiç yan etkisi yoktur",
+    "Radyoaktif iyot",
+    "Levotiroksin",
+    "Lityum her zaman ilk seçenektir"
+   ],
+   "correct": 0,
+   "explanation": "PTU periferik dönüşümü engeller; metimazol de kullanılabilir. Lityum iyota alerjide alternatiftir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q03",
+   "stem": "Hipotiroidi öyküsü olan, kışın evde bulunan yaşlı kadında hipotermi, bradikardi, hiponatremi, hipoglisemi ve bilinç bulanıklığı var. İlk tedavi bileşeni hangisidir?",
+   "options": [
+    "Yalnız hızlı aktif ısıtma",
+    "Stres dozunda hidrokortizon ile birlikte IV levotiroksin ve destek tedavisi",
+    "Beta bloker",
+    "Hipertonik salin tek başına",
+    "Oral levotiroksin ve taburcu"
+   ],
+   "correct": 1,
+   "explanation": "Miksödem komasında eşlik eden adrenal yetmezlik dışlanana kadar hidrokortizon, ardından IV T4 (± T3).",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q04",
+   "stem": "Uzun süre steroid kullanıp aniden bırakan hastada hipotansiyon, kusma, hiponatremi ve hipoglisemi var. Tedavi hangisidir?",
+   "options": [
+    "Deksametazon 0,5 mg oral",
+    "Vazopresin",
+    "Norepinefrin tek başına",
+    "Hidrokortizon 100 mg IV bolus + izotonik sıvı",
+    "Fludrokortizon tek başına"
+   ],
+   "correct": 3,
+   "explanation": "Adrenal krizde yüksek doz hidrokortizon mineralokortikoid etkiyi de sağlar; tanı için örnek alınır ama tedavi geciktirilmez.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q05",
+   "stem": "Primer adrenal yetmezliği sekonderden ayıran bulgu hangisidir?",
+   "options": [
+    "Halsizlik",
+    "Hipotansiyon",
+    "Hiperpigmentasyon ve hiperkalemi",
+    "Hipoglisemi",
+    "Bulantı"
+   ],
+   "correct": 2,
+   "explanation": "Primerde ACTH yüksek (pigmentasyon) ve aldosteron eksik (hiperkalemi).",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q06",
+   "stem": "DKA tanılı hastada serum K 3,0 mmol/L. İnsülin tedavisi ile ilgili doğru yaklaşım hangisidir?",
+   "options": [
+    "K replasmanı gerekmez",
+    "İnsülin hemen 0,1 Ü/kg/saat başlanır",
+    "K ≥3,3 olana kadar insülin başlanmaz; önce sıvı ve K replasmanı",
+    "İnsülin bolus 0,5 Ü/kg",
+    "Bikarbonat verilir"
+   ],
+   "correct": 2,
+   "explanation": "İnsülin potasyumu hücre içine sokar; K <3,3 iken başlamak ölümcül hipokalemiye yol açabilir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q07",
+   "stem": "DKA tedavisinde glukoz 250 mg/dL'nin altına indiğinde ne yapılır?",
+   "options": [
+    "Sıvı kesilir",
+    "Dekstrozlu sıvı eklenir, insülin infüzyonu asidoz düzelene kadar sürdürülür",
+    "İnsülin kesilir",
+    "SC insüline hemen geçilir",
+    "Bikarbonat başlanır"
+   ],
+   "correct": 1,
+   "explanation": "Amaç ketoasidozun düzelmesidir; glukoz değil.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q08",
+   "stem": "Hiperozmolar hiperglisemik durumu DKA'dan ayıran özellik hangisidir?",
+   "options": [
+    "Çok yüksek glukoz (>600) ve ozmolalite, belirgin ketoasidoz yok, daha yaşlı hasta ve daha fazla sıvı açığı",
+    "Kussmaul solunumu",
+    "Genç tip 1 diyabetli",
+    "Belirgin ketonemi",
+    "Daha düşük mortalite"
+   ],
+   "correct": 0,
+   "explanation": "HHS'de mortalite DKA'dan yüksektir; sıvı açığı ≈100–200 mL/kg olabilir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q09",
+   "stem": "Sülfonilüre (glibenklamid) alımına bağlı tekrarlayan hipoglisemide dekstroza ek olarak verilen ilaç hangisidir?",
+   "options": [
+    "Glukagon infüzyonu",
+    "Hidrokortizon",
+    "Nalokson",
+    "Diazoksit ilk tercih",
+    "Oktreotid"
+   ],
+   "correct": 4,
+   "explanation": "Oktreotid pankreastan insülin salınımını baskılayarak dekstrozun yarattığı rebound hipoglisemiyi önler.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q10",
+   "stem": "Alkol kullanım bozukluğu olan, konfüze ve ataksik hastaya glukoz vermeden önce/aynı anda yapılması önerilen ilaç hangisidir?",
+   "options": [
+    "B12",
+    "Folat",
+    "Magnezyum tek başına",
+    "Nalokson",
+    "Tiamin"
+   ],
+   "correct": 4,
+   "explanation": "Wernicke ensefalopatisini önlemek için tiamin; glukoz verilmesi geciktirilmemelidir ama tiamin ihmal edilmemelidir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q11",
+   "stem": "Uzun süre alkol alıp kusma ve açlık sonrası gelen hastada anyon açıklı metabolik asidoz, glukoz normal-düşük ve β-hidroksibütirat yüksek. Tedavi hangisidir?",
+   "options": [
+    "Yüksek doz insülin",
+    "Fomepizol",
+    "Hemodiyaliz",
+    "Dekstrozlu sıvı, tiamin, elektrolit replasmanı (insülin genellikle gerekmez)",
+    "Bikarbonat"
+   ],
+   "correct": 3,
+   "explanation": "Alkolik ketoasidoz dekstroz ve sıvıyla düzelir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q12",
+   "stem": "Anyon açıklı metabolik asidoz nedenlerinden hangisi değildir?",
+   "options": [
+    "Metanol",
+    "İshal",
+    "Üremi",
+    "Laktik asidoz",
+    "Salisilat"
+   ],
+   "correct": 1,
+   "explanation": "İshal bikarbonat kaybıyla normal anyon açıklı (hiperkloremik) asidoz yapar.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q13",
+   "stem": "Hiperkalemide EKG değişikliklerinin tipik sırası hangisidir?",
+   "options": [
+    "Sivri T → PR uzaması/P kaybı → QRS genişlemesi → sinüs dalgası",
+    "U dalgası → ST çökmesi",
+    "QRS genişlemesi → sivri T → U dalgası",
+    "Sivri P → sağ dal bloğu",
+    "QT kısalması → delta dalgası"
+   ],
+   "correct": 0,
+   "explanation": "EKG duyarlılığı düşüktür; normal EKG ciddi hiperkalemiyi dışlamaz.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q14",
+   "stem": "Hiperkalemi tedavisinde potasyumu vücuttan uzaklaştıran yöntem hangisidir?",
+   "options": [
+    "Salbutamol",
+    "Hemodiyaliz (ya da potasyum bağlayıcılar, diürez)",
+    "İnsülin + dekstroz",
+    "Kalsiyum glukonat",
+    "Sodyum bikarbonat tek başına"
+   ],
+   "correct": 1,
+   "explanation": "Kalsiyum membranı stabilize eder, insülin/salbutamol K'yı hücre içine sokar; atılımı diyaliz, bağlayıcı ve diüretik sağlar.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q15",
+   "stem": "Dirençli hipokalemide düzeltilmesi gereken eşlik eden bozukluk hangisidir?",
+   "options": [
+    "Hipernatremi",
+    "Hiperglisemi",
+    "Hipomagnezemi",
+    "Hiperfosfatemi",
+    "Hiperkalsemi"
+   ],
+   "correct": 2,
+   "explanation": "Mg eksikliğinde böbrekten K kaybı sürer; önce/aynı anda Mg verilir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q16",
+   "stem": "Na 118 mmol/L olan ve nöbet geçiren hastada ilk tedavi hangisidir?",
+   "options": [
+    "%0,9 NaCl 2 L hızlı",
+    "Tolvaptan",
+    "Furosemid",
+    "%3 NaCl 100–150 mL bolus (gerekirse tekrar) — hedef 4–6 mmol/L artış",
+    "Sıvı kısıtlaması"
+   ],
+   "correct": 3,
+   "explanation": "Ağır semptomatik hiponatremide hipertonik salin; ilk 24 saatte toplam artış ≤8–10 mmol/L.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q17",
+   "stem": "Hiponatremide idrar ozmolalitesi <100 mOsm/kg ise en olası neden hangisidir?",
+   "options": [
+    "Aşırı su alımı (primer polidipsi, bira potomanisi)",
+    "Adrenal yetmezlik",
+    "Hipotiroidi",
+    "SIADH",
+    "Diüretik kullanımı"
+   ],
+   "correct": 0,
+   "explanation": "Dilüe idrar ADH'nin baskılandığını gösterir; SIADH'de idrar uygunsuz biçimde konsantredir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q18",
+   "stem": "Hiperglisemik hastada ölçülen Na 128, glukoz 700 mg/dL. Düzeltilmiş Na yaklaşık kaçtır?",
+   "options": [
+    "110",
+    "150",
+    "128",
+    "120",
+    "≈138–142 mmol/L (100 mg/dL üzerindeki her 100 mg/dL glukoz için ≈1,6–2,4 eklenir)"
+   ],
+   "correct": 4,
+   "explanation": "Hiperglisemi suyu hücre dışına çeker; düzeltilmiş Na tedavi planı için önemlidir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q19",
+   "stem": "Lityum kullanan hastada poliüri, polidipsi ve dilüe idrarla birlikte hipernatremi saptanıyor. En olası tanı hangisidir?",
+   "options": [
+    "SIADH",
+    "Hiperaldosteronizm",
+    "Nefrojenik diyabetes insipidus",
+    "Primer polidipsi",
+    "Santral DI (hipofiz tümörü)"
+   ],
+   "correct": 2,
+   "explanation": "Lityum toplayıcı kanalda ADH yanıtını bozar.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q20",
+   "stem": "Meme kanserli hastada Ca 14,8 mg/dL, konfüzyon ve dehidratasyon. İlk tedavi hangisidir?",
+   "options": [
+    "Kalsiyum glukonat",
+    "Yalnız oral sıvı",
+    "Tiazid",
+    "Agresif izotonik sıvı; ardından bisfosfonat (zoledronat) ± kalsitonin",
+    "Furosemid tek başına"
+   ],
+   "correct": 3,
+   "explanation": "Hiperkalsemide önce volüm; kalsitonin hızlı ama kısa, bisfosfonat geç ama kalıcı etkilidir. Loop diüretik yalnız volüm yüklenmesinde.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q21",
+   "stem": "Hiperkalseminin EKG bulgusu hangisidir?",
+   "options": [
+    "Kısa QT",
+    "U dalgası",
+    "Sivri P",
+    "Delta dalgası",
+    "Uzun QT"
+   ],
+   "correct": 0,
+   "explanation": "Hipokalsemi QT'yi uzatır, hiperkalsemi kısaltır.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q22",
+   "stem": "Uzun süre aç kalmış hastada beslenme başladıktan sonra solunum yetmezliği, kas güçsüzlüğü ve kalp yetmezliği gelişiyor. En olası elektrolit bozukluğu hangisidir?",
+   "options": [
+    "Hipofosfatemi (yeniden beslenme sendromu)",
+    "Hiperkalsemi",
+    "Hipermagnezemi",
+    "Hipernatremi",
+    "Hiperkalemi"
+   ],
+   "correct": 0,
+   "explanation": "İnsülin salınımı fosfat, K ve Mg'yi hücre içine çeker; beslenme yavaş artırılır, tiamin verilir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q23",
+   "stem": "Feokromositoma krizinde (paroksismal ağır hipertansiyon, terleme, taşikardi) ilk ilaç sınıfı hangisi olmalıdır?",
+   "options": [
+    "Önce beta bloker",
+    "Kalsiyum glukonat",
+    "Alfa bloker (fentolamin, ardından fenoksibenzamin); beta bloker alfa blokajdan sonra",
+    "Diüretik",
+    "ACE inhibitörü tek başına"
+   ],
+   "correct": 2,
+   "explanation": "Karşılanmamış alfa etkisi altında beta bloker ani KB artışı yapabilir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q24",
+   "stem": "Diyabetik ayakta kemiğe kadar inen, kötü kokulu, krepitasyonlu enfeksiyon ve sistemik bulgular var. Yaklaşım hangisidir?",
+   "options": [
+    "Yalnız pansuman",
+    "Hiperbarik oksijen tek başına",
+    "Oral sefaleksin ile taburcu",
+    "Geniş spektrumlu IV antibiyotik (anaerop ve gram negatifleri kapsayan) ve acil cerrahi değerlendirme",
+    "Topikal antibiyotik"
+   ],
+   "correct": 3,
+   "explanation": "Ekstremiteyi tehdit eden diyabetik ayak enfeksiyonu polimikrobiyaldir; debridman gerekebilir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q25",
+   "stem": "Metformin kullanan, akut böbrek hasarı gelişmiş hastada laktat 12 mmol/L ve pH 6,95. En etkili tedavi hangisidir?",
+   "options": [
+    "Glukagon",
+    "Bikarbonat infüzyonu tek başına",
+    "Aktif kömür",
+    "İnsülin",
+    "Hemodiyaliz"
+   ],
+   "correct": 4,
+   "explanation": "Metformin ilişkili laktik asidozda diyaliz hem metformini uzaklaştırır hem asidozu düzeltir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q26",
+   "stem": "Yaşlı hastada kilo kaybı, AF, kalp yetmezliği ve apati var; tipik hipertiroidi bulguları yok. Ne düşünülmelidir?",
+   "options": [
+    "Depresyon",
+    "Hipotiroidi",
+    "Demans",
+    "Adrenal yetmezlik",
+    "Apatik tirotoksikoz"
+   ],
+   "correct": 4,
+   "explanation": "Yaşlılarda hipertiroidi atipik başvurabilir; yeni AF'de TSH bakılmalıdır.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q27",
+   "stem": "Hipokalsemide Chvostek ve Trousseau bulgularının yanında hangi EKG bulgusu görülür?",
+   "options": [
+    "Sivri T",
+    "QT uzaması",
+    "U dalgası",
+    "Delta dalgası",
+    "QT kısalması"
+   ],
+   "correct": 1,
+   "explanation": "Hipokalsemi ST segmentini uzatarak QT'yi uzatır.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q28",
+   "stem": "Magnezyum sülfat infüzyonu alan preeklamptik hastada derin tendon refleksleri kayboluyor ve solunum yavaşlıyor. Ne yapılmalıdır?",
+   "options": [
+    "Fenitoin vermek",
+    "Flumazenil vermek",
+    "Magnezyum dozunu artırmak",
+    "Nalokson vermek",
+    "İnfüzyonu durdurup kalsiyum glukonat vermek"
+   ],
+   "correct": 4,
+   "explanation": "Hipermagnezemide önce refleks kaybı, sonra solunum depresyonu ve kalp bloğu gelir; antidot kalsiyumdur.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q29",
+   "stem": "Ciddi travma sonrası poliüri, idrar ozmolalitesi düşük ve serum Na 155 olan hastada desmopressin sonrası idrar konsantre oluyor. Tanı hangisidir?",
+   "options": [
+    "Nefrojenik DI",
+    "SIADH",
+    "Ozmotik diürez",
+    "Santral diyabetes insipidus",
+    "Primer polidipsi"
+   ],
+   "correct": 3,
+   "explanation": "Desmopressine yanıt santral DI'yı gösterir; kafa travması ve cerrahi sık nedendir.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  },
+  {
+   "key": "q30",
+   "stem": "Akut gelişmiş (<48 saat) ağır hipernatremide düzeltme hızı için doğru olan hangisidir?",
+   "options": [
+    "Kronik hipernatremi 1 saatte düzeltilmelidir",
+    "Hipernatremi düzeltilmemelidir",
+    "Akut gelişen hipernatremi daha hızlı düzeltilebilir; kronikte ≈10–12 mmol/L/gün sınırı vardır",
+    "Akut ve kronik hipernatremi aynı hızla, ilk 6 saatte normale getirilir",
+    "Yalnız %3 NaCl kullanılır"
+   ],
+   "correct": 2,
+   "explanation": "Kronik hipernatremide hızlı düzeltme serebral ödeme yol açar.",
+   "topic": "Endokrin ve Elektrolit Acilleri"
+  }
+ ]
+}

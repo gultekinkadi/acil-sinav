@@ -1,0 +1,430 @@
+{
+ "id": "soru-12",
+ "title": "Acil Tıp Soru Bankası — 12. Sinir Sistemi Hastalıkları",
+ "desc": "İskemik inme ve tromboliz/trombektomi, vertigo ve posterior dolaşım, menenjit-ensefalit, nöromusküler aciller, baş ağrısı sendromları, nöbet ve status, şant ve İİH.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 12. Sinir Sistemi Hastalıkları",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Akut iskemik inmede IV tromboliz için son normal görülme zamanından itibaren standart zaman penceresi nedir?",
+   "options": [
+    "4,5 saat",
+    "48 saat",
+    "1 saat",
+    "24 saat",
+    "12 saat"
+   ],
+   "correct": 0,
+   "explanation": "Bilinmeyen başlangıçta ileri görüntülemeyle (DWI-FLAIR uyumsuzluğu/perfüzyon) seçilmiş hastalarda daha geç de yapılabilir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q02",
+   "stem": "IV tromboliz öncesi kan basıncı hangi değerin altına indirilmelidir?",
+   "options": [
+    "Düşürülmez",
+    "185/110 mmHg",
+    "160/100 mmHg",
+    "140/90 mmHg",
+    "220/120 mmHg"
+   ],
+   "correct": 1,
+   "explanation": "Tromboliz sonrası 24 saat <180/105 tutulur; tromboliz almayan hastada >220/120 ise düşürülür.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q03",
+   "stem": "Büyük damar oklüzyonu (ICA/M1) olan inmede mekanik trombektomi hangi zaman aralığına kadar uygun seçilmiş hastalarda yapılabilir?",
+   "options": [
+    "48 saat",
+    "Yalnız 4,5 saat",
+    "Hiçbir zaman tromboliz alan hastaya yapılmaz",
+    "24 saate kadar (6–24 saatte görüntülemeyle seçim)",
+    "Yalnız 3 saat"
+   ],
+   "correct": 3,
+   "explanation": "DAWN ve DEFUSE-3; büyük çekirdek infarktlı hastalarda da yararı gösterilmiştir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q04",
+   "stem": "Akut inme belirtileri ile gelen hastada görüntülemeden önce mutlaka yapılması gereken yatak başı test hangisidir?",
+   "options": [
+    "D-dimer",
+    "Lomber ponksiyon",
+    "Kan kültürü",
+    "Troponin",
+    "Kapiller kan glukozu"
+   ],
+   "correct": 4,
+   "explanation": "Hipoglisemi inmeyi taklit eder; tromboliz kararından önce düzeltilmelidir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q05",
+   "stem": "Ani başlayan, sürekli baş dönmesi, bulantı-kusma ve yürüyememe ile gelen hastada santral (posterior dolaşım) nedeni düşündüren HINTS bulgusu hangisidir?",
+   "options": [
+    "İşitme kaybı olmadan kulak dolgunluğu",
+    "Normal kafa itme testi, yön değiştiren nistagmus veya skew deviasyonu",
+    "Tek yönlü yatay nistagmus",
+    "Anormal (düzeltici sakkadlı) kafa itme testi",
+    "Pozisyonla tetiklenen kısa atak"
+   ],
+   "correct": 1,
+   "explanation": "HINTS bu amaçla eğitimli uygulayıcıda erken MR'dan duyarlıdır; yalnız sürekli vestibüler sendromda kullanılır.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q06",
+   "stem": "Yatağa yatarken ya da dönerken başlayan, 1 dakikadan kısa süren vertigo atakları ve Dix-Hallpike'ta torsiyonel nistagmus. Tedavi hangisidir?",
+   "options": [
+    "Epley (partikül yerleştirme) manevrası",
+    "Antibiyotik",
+    "Steroid",
+    "Meklizin uzun süre",
+    "BT ve nöroloji"
+   ],
+   "correct": 0,
+   "explanation": "BPPV'de en sık posterior kanal tutulur; vestibüler baskılayıcılar uzun süre önerilmez.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q07",
+   "stem": "Boyun manipülasyonu sonrası boyun ağrısı, ipsilateral Horner sendromu ve kontralateral hemiparezi. En olası tanı hangisidir?",
+   "options": [
+    "Subaraknoid kanama",
+    "Multipl skleroz",
+    "Bell paralizisi",
+    "Servikal (karotis) arter diseksiyonu",
+    "Migren"
+   ],
+   "correct": 3,
+   "explanation": "Genç inmelerin önemli nedeni; BT/MR anjiyografi, antiagregan/antikoagülan.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q08",
+   "stem": "Erişkinde bakteriyel menenjit şüphesinde (50 yaş üstü) ampirik tedavi hangisidir?",
+   "options": [
+    "Meropenem tek başına",
+    "Penisilin G",
+    "Deksametazon + seftriakson + vankomisin + ampisilin",
+    "Yalnız seftriakson",
+    "Asiklovir tek başına"
+   ],
+   "correct": 2,
+   "explanation": "Listeria için ampisilin 50 yaş üstü ve immünsüpresede eklenir; deksametazon antibiyotikten önce/aynı anda.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q09",
+   "stem": "Menenjit şüpheli hastada LP öncesi BT gerektiren durum hangisidir?",
+   "options": [
+    "Ense sertliği",
+    "Fotofobi",
+    "Ateş",
+    "Fokal nörolojik bulgu, papil ödemi, yeni nöbet, immünsüpresyon ya da bilinç bozukluğu",
+    "Baş ağrısı"
+   ],
+   "correct": 3,
+   "explanation": "BT gerekiyorsa antibiyotik BT'den önce verilir; gecikme mortaliteyi artırır.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q10",
+   "stem": "Ateş, davranış değişikliği, afazi ve nöbet; MR'da temporal lob tutulumu. Hemen başlanması gereken tedavi hangisidir?",
+   "options": [
+    "Oseltamivir",
+    "Fenitoin tek başına",
+    "Steroid",
+    "IV asiklovir 10 mg/kg her 8 saatte",
+    "Seftriakson tek başına"
+   ],
+   "correct": 3,
+   "explanation": "HSV ensefalitinde PCR sonucu beklenmeden asiklovir; gecikme ölüm ve sekeli artırır.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q11",
+   "stem": "Myastenia gravisli hastada solunum sıkıntısı ve artan güçsüzlük. Krizi kolinerjik krizden ayıran bulgu hangisidir?",
+   "options": [
+    "Kolinerjik krizde pitoz olmaması",
+    "Hiçbir fark yoktur",
+    "Kolinerjik krizde sekresyon artışı, miyozis, bradikardi, fasikülasyon olması",
+    "Myastenik krizde miyozis olması",
+    "Myastenik krizde ishal olması"
+   ],
+   "correct": 2,
+   "explanation": "Her iki durumda solunum desteği ve kolinesteraz inhibitörünü geçici kesme; myastenik krizde IVIG/plazmaferez.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q12",
+   "stem": "Myastenia gravisli hastada kaçınılması gereken ilaç hangisidir?",
+   "options": [
+    "Parasetamol",
+    "PPI",
+    "Heparin",
+    "Seftriakson",
+    "Aminoglikozidler ve magnezyum (ayrıca florokinolon, beta bloker)"
+   ],
+   "correct": 4,
+   "explanation": "Nöromusküler iletimi bozan ilaçlar krizi tetikleyebilir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q13",
+   "stem": "Myasteni veya GBS hastasında entübasyon ihtiyacını öngören ölçüm hangisidir?",
+   "options": [
+    "Ateş",
+    "Kalp hızı 110",
+    "pCO₂ 35",
+    "Zorlu vital kapasite <20 mL/kg (ve NIF > −30 cmH₂O)",
+    "SpO₂ %95"
+   ],
+   "correct": 3,
+   "explanation": "Nöromusküler solunum yetmezliğinde SpO₂ geç bir göstergedir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q14",
+   "stem": "Alnı koruyan, ağız köşesinde düşme ile sınırlı yüz felci olan hastada en olası lezyon yeri nedir?",
+   "options": [
+    "Periferik fasiyal sinir",
+    "Parotis",
+    "Orta kulak",
+    "Santral (üst motor nöron) — inme dışlanmalı",
+    "Genikulat ganglion"
+   ],
+   "correct": 3,
+   "explanation": "Alın kaslarının iki taraflı kortikal innervasyonu vardır.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q15",
+   "stem": "Ventriküloperitoneal şantı olan çocukta baş ağrısı, kusma ve uykuya eğilim. Tanısal yaklaşım hangisidir?",
+   "options": [
+    "LP",
+    "Gözlem",
+    "Abdominal USG tek başına",
+    "EEG",
+    "Beyin BT (ventrikül boyutu) + şant serisi grafisi ve beyin cerrahisi"
+   ],
+   "correct": 4,
+   "explanation": "Şant disfonksiyonu (tıkanma, kopma) ve enfeksiyon başlıca nedenlerdir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q16",
+   "stem": "Obez genç kadında baş ağrısı, geçici görme kararmaları, bilateral papil ödemi ve 6. sinir felci; BT normal. Tanı nedir?",
+   "options": [
+    "Migren",
+    "İdiyopatik intrakraniyal hipertansiyon — LP (açılış basıncı) ve asetazolamid",
+    "Beyin tümörü kesin",
+    "Optik nörit",
+    "Menenjit"
+   ],
+   "correct": 1,
+   "explanation": "Serebral venöz sinüs trombozu MR/MR venografi ile dışlanmalıdır.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q17",
+   "stem": "Her gece aynı saatte başlayan, tek taraflı göz çevresinde şiddetli ağrı, gözyaşı ve burun akıntısıyla 45 dk süren ataklar. Akut tedavi hangisidir?",
+   "options": [
+    "Antibiyotik",
+    "Karbamazepin",
+    "%100 O₂ (12–15 L/dk maske) veya SC sumatriptan",
+    "Parasetamol",
+    "Morfin"
+   ],
+   "correct": 2,
+   "explanation": "Küme baş ağrısında yüksek akım O₂ etkili ve güvenlidir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q18",
+   "stem": "Yüzde dokunmakla tetiklenen, saniyeler süren elektrik çarpması tarzında ağrı ataklarında ilk tercih ilaç hangisidir?",
+   "options": [
+    "Morfin",
+    "Asiklovir",
+    "Sumatriptan",
+    "Prednizolon",
+    "Karbamazepin"
+   ],
+   "correct": 4,
+   "explanation": "Trigeminal nevralji; genç hastada MS düşünülmelidir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q19",
+   "stem": "Kronik alkol kullanıcısında konfüzyon, oftalmopleji ve ataksi. Tedavi hangisidir?",
+   "options": [
+    "Yüksek doz IV tiamin",
+    "Lorazepam tek başına",
+    "Glukoz tek başına",
+    "Nalokson",
+    "Flumazenil"
+   ],
+   "correct": 0,
+   "explanation": "Wernicke ensefalopatisinde tedavi edilmezse Korsakoff sendromu gelişir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q20",
+   "stem": "Ani başlayan, bilateral bacak güçsüzlüğü, duyu seviyesi ve idrar retansiyonu; sırt ağrısı yok. Görüntüleme ile bası dışlanınca en olası tanı hangisidir?",
+   "options": [
+    "Periferik nöropati",
+    "Transvers miyelit",
+    "Guillain-Barré",
+    "Hipokalemik periyodik paralizi",
+    "Myastenia gravis"
+   ],
+   "correct": 1,
+   "explanation": "Bası nedenleri (epidural apse, hematom, tümör) acil MR ile önce dışlanır.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q21",
+   "stem": "Genç kadında bir gözde ağrılı görme kaybı ve haftalar önce geçen bacak uyuşması öyküsü varsa hangi tanı düşünülmelidir?",
+   "options": [
+    "Multipl skleroz",
+    "Bell paralizisi",
+    "Diyabetik nöropati",
+    "Myastenia",
+    "Migren"
+   ],
+   "correct": 0,
+   "explanation": "Zamana ve yere yayılan nörolojik ataklar MS'i düşündürür; MR ile değerlendirilir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q22",
+   "stem": "İlk kez provoke olmayan nöbet geçiren, tamamen düzelen erişkinde acil serviste önerilen değerlendirme hangisidir?",
+   "options": [
+    "LP her hastaya",
+    "Glukoz, Na, gebelik testi ve nörogörüntüleme (acil ya da ayaktan); antiepileptik başlanması rutin değildir",
+    "Toksikoloji paneli zorunlu",
+    "EEG acilde zorunlu",
+    "Rutin antiepileptik yükleme"
+   ],
+   "correct": 1,
+   "explanation": "ACEP: ilk nöbet sonrası tamamen düzelen hastada antiepileptik başlanması gerekmez; araç kullanma uyarısı yapılır.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q23",
+   "stem": "Status epileptikusta ilk basamak tedavi hangisidir?",
+   "options": [
+    "Benzodiazepin (IV lorazepam, IV diazepam ya da IM midazolam)",
+    "Levetirasetam",
+    "Fenitoin",
+    "Propofol",
+    "Fenobarbital"
+   ],
+   "correct": 0,
+   "explanation": "5 dakikayı aşan nöbet statustur; ikinci basamak levetirasetam/valproat/fosfenitoin.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q24",
+   "stem": "Geçici iskemik atak geçiren hastada kısa dönem inme riskini değerlendirmek için kullanılan skor hangisidir?",
+   "options": [
+    "ABCD²",
+    "HAS-BLED",
+    "Glasgow",
+    "CHA₂DS₂-VASc",
+    "NIHSS"
+   ],
+   "correct": 0,
+   "explanation": "Yaş, KB, klinik özellikler, süre, diyabet; ancak tek başına taburculuk kararını belirlemez.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q25",
+   "stem": "Minör iskemik inme (NIHSS ≤3) veya yüksek riskli TİA sonrası kısa süreli önerilen antiagregan tedavi hangisidir?",
+   "options": [
+    "Yalnız aspirin ömür boyu",
+    "Varfarin",
+    "Antiagregan gerekmez",
+    "Tromboliz",
+    "Aspirin + klopidogrel (21 gün)"
+   ],
+   "correct": 4,
+   "explanation": "CHANCE ve POINT çalışmaları; 21–90 gün ikili tedavi.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q26",
+   "stem": "Ensede ani başlayan şiddetli baş ağrısı, kusma ve yürüyememe; nistagmus ve dismetri olan hastada en tehlikeli tanı hangisidir ve neden?",
+   "options": [
+    "Otit — menenjit",
+    "Serebellar kanama/infarkt — ödem ile beyin sapı basısı ve hidrosefali",
+    "BPPV — düşmeye yol açar",
+    "Labirentit — işitme kaybı",
+    "Migren — tekrarlar"
+   ],
+   "correct": 1,
+   "explanation": "Serebellar lezyonlar hızla kötüleşebilir; acil beyin cerrahisi değerlendirmesi.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q27",
+   "stem": "Akut spontan intraserebral kanamada erken sistolik KB hedefi nedir?",
+   "options": [
+    "<100",
+    "<180 yeterli",
+    "Düşürülmez",
+    "<220",
+    "≈140 mmHg (130–150)"
+   ],
+   "correct": 4,
+   "explanation": "Sistolik <130'a düşürmekten kaçınılır; antikoagülan geri çevirme eşzamanlı.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q28",
+   "stem": "Bilinç bulanıklığı olan yaşlı hastada fokal bulgu yokken akla gelmesi gereken geri döndürülebilir nedenlerden hangisi en hızlı test edilebilir?",
+   "options": [
+    "Nörosifiliz",
+    "Beyin tümörü",
+    "Hipoglisemi (parmak ucu glukoz)",
+    "Hipotiroidi",
+    "B12 eksikliği"
+   ],
+   "correct": 2,
+   "explanation": "Deliryumun sık nedenleri: enfeksiyon, ilaç, metabolik bozukluk, idrar retansiyonu.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q29",
+   "stem": "Akut otitis media ile birlikte baş ağrısı, ateş ve konfüzyon gelişen çocukta düşünülmesi gereken intrakraniyal komplikasyonlar hangileridir?",
+   "options": [
+    "Migren",
+    "Febril nöbet",
+    "Menenjit, beyin apsesi, lateral sinüs trombozu",
+    "Gastroenterit",
+    "Bell paralizisi tek başına"
+   ],
+   "correct": 2,
+   "explanation": "Kontrastlı görüntüleme ve LP (kontrendikasyon yoksa).",
+   "topic": "Sinir Sistemi Hastalıkları"
+  },
+  {
+   "key": "q30",
+   "stem": "Uzun süreli steroid kullanımı olmadan proksimal kas güçsüzlüğü, CK yüksekliği ve heliotrop döküntüsü olan hastada tanı nedir?",
+   "options": [
+    "Hipotiroidi",
+    "GBS",
+    "Dermatomiyozit",
+    "Myastenia gravis",
+    "Polimiyaljia romatika"
+   ],
+   "correct": 2,
+   "explanation": "Dermatomiyozit malignite ile ilişkili olabilir.",
+   "topic": "Sinir Sistemi Hastalıkları"
+  }
+ ]
+}

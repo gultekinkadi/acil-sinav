@@ -1,0 +1,430 @@
+{
+ "id": "soru-23",
+ "title": "Acil Tıp Soru Bankası — 23. Yara Bakımı",
+ "desc": "Yabancı cisim, irigasyon ve kapama zamanı, profilaktik antibiyotik, ısırık yaraları, doku yapıştırıcısı ve sütür seçimi, bölgesel bloklar, özel bölgeler (dudak, kulak, el), tetanoz.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 23. Yara Bakımı",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Elini cam masaya çarpan hastada yarada yabancı cisim şüphesi var. Cam parçasını göstermek için en uygun ilk görüntüleme hangisidir?",
+   "options": [
+    "Sintigrafi",
+    "Görüntüleme gerekmez",
+    "Termografi",
+    "Direkt grafi (camın büyük kısmı radyoopaktır)",
+    "MR"
+   ],
+   "correct": 3,
+   "explanation": "Ahşap ve plastik gibi radyolüsen cisimler için USG veya BT.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q02",
+   "stem": "Yara bakımında enfeksiyon riskini en çok azaltan uygulama hangisidir?",
+   "options": [
+    "Yaraya hidrojen peroksit dökmek",
+    "Bol miktarda irigasyon (musluk suyu da uygundur)",
+    "Yaranın çevresini tıraş etmek",
+    "Yarayı povidon iyotla doldurmak",
+    "Kapamadan önce antibiyotik pudrası"
+   ],
+   "correct": 1,
+   "explanation": "Basınçlı irigasyon bakteri yükünü azaltır; tıraş yerine kırpma tercih edilir, kaş tıraş edilmez.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q03",
+   "stem": "Yüzde 14 saat önce oluşmuş temiz laserasyon için doğru yaklaşım hangisidir?",
+   "options": [
+    "Primer kapama yapılabilir (yüz ve saçlı derinin kanlanması iyi olduğundan süre esnektir)",
+    "Antibiyotik verilip açık bırakılır",
+    "Asla kapatılmaz",
+    "Yalnız sekonder iyileşmeye bırakılır",
+    "Gecikmiş primer kapama zorunludur"
+   ],
+   "correct": 0,
+   "explanation": "Gövde ve ekstremitede kontamine geç yaralarda gecikmiş primer kapama düşünülebilir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q04",
+   "stem": "Temiz, basit laserasyonu olan sağlıklı hastada profilaktik antibiyotik için doğru olan hangisidir?",
+   "options": [
+    "Yalnız kapanmayan yaralara",
+    "Yalnız yüz yaralarına",
+    "Her yaraya verilir",
+    "Genellikle gerekmez; ısırıklar, el yaraları, açık kırıklar, belirgin kontaminasyon ve immünsüpresyonda düşünülür",
+    "Yalnız çocuklara"
+   ],
+   "correct": 3,
+   "explanation": "Profilaktik antibiyotik basit yaralarda enfeksiyon oranını azaltmaz.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q05",
+   "stem": "Doku yapıştırıcısı (siyanoakrilat) hangi yarada uygun değildir?",
+   "options": [
+    "Alında küçük düzgün kesi",
+    "Yüzde yüzeyel kesi",
+    "Eklem üzerinde yüksek gerilimli ya da kontamine/derin yara",
+    "Gövdede düşük gerilimli kesi",
+    "Çocukta kaş üstü temiz kesi"
+   ],
+   "correct": 2,
+   "explanation": "Yapıştırıcı üzerine pomad sürülmez; gerektiğinde derin dikiş üzerine uygulanabilir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q06",
+   "stem": "Dudak laserasyonunun onarımında en önemli ilk dikiş nereye konur?",
+   "options": [
+    "Mukozanın ortası",
+    "Vermilyon sınırının hizalanması",
+    "Deri yüzeyinin herhangi bir yeri",
+    "Dudak köşesi",
+    "Frenulum"
+   ],
+   "correct": 1,
+   "explanation": "1 mm'lik hizalama hatası bile belirgin kozmetik bozukluk yapar; bölgesel blok (mental/infraorbital) doku distorsiyonunu önler.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q07",
+   "stem": "Spor ayakkabısının tabanından çiviye basma sonrası günler içinde gelişen ayak enfeksiyonu/osteomiyelitte etken olarak özellikle düşünülmesi gereken bakteri hangisidir?",
+   "options": [
+    "Pasteurella multocida",
+    "Eikenella corrodens",
+    "Clostridium tetani tek başına",
+    "Streptococcus pyogenes",
+    "Pseudomonas aeruginosa"
+   ],
+   "correct": 4,
+   "explanation": "Ayakkabı tabanındaki köpük Pseudomonas barındırır; tedavide antipsödomonal ajan (ör. siprofloksasin).",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q08",
+   "stem": "Kedi ısırığı için doğru olan hangisidir?",
+   "options": [
+    "Derin delici yaralar yüksek enfeksiyon riski taşır; amoksisilin-klavulanat profilaksisi ve genellikle primer kapama yapılmaz",
+    "Enfeksiyon riski köpek ısırığından düşüktür",
+    "Her zaman primer kapama yapılır",
+    "Antibiyotik hiçbir zaman gerekmez",
+    "Etken genellikle MRSA'dır"
+   ],
+   "correct": 0,
+   "explanation": "Pasteurella multocida hızla (24 saat içinde) selülit yapar.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q09",
+   "stem": "Köpek ısırığında primer kapama için doğru olan hangisidir?",
+   "options": [
+    "Kapama için 72 saat beklenir",
+    "Yalnız antibiyotik başlandıktan 1 hafta sonra",
+    "Hiçbir köpek ısırığı kapatılmaz",
+    "Yüzdeki ısırıklar iyi irigasyon sonrası primer kapatılabilir; el ve ayak yaraları genellikle açık bırakılır",
+    "Tüm ısırıklar hemen kapatılır"
+   ],
+   "correct": 3,
+   "explanation": "Kozmetik önemli bölgelerde kapama; enfeksiyon riski yüksek yaralarda gecikmiş kapama.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q10",
+   "stem": "İnsan ısırığı yarasında ampirik antibiyotik hangisidir?",
+   "options": [
+    "Amoksisilin-klavulanat",
+    "Siprofloksasin tek başına",
+    "Nitrofurantoin",
+    "Sefaleksin tek başına",
+    "Klindamisin tek başına"
+   ],
+   "correct": 0,
+   "explanation": "Eikenella corrodens, streptokok, stafilokok ve anaerobları kapsamalıdır.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q11",
+   "stem": "Dizin hemen üzerindeki laserasyonda eklem kapsülünün açılıp açılmadığından emin olmak için yapılan test hangisidir?",
+   "options": [
+    "McMurray",
+    "Thompson",
+    "Lachman",
+    "Phalen",
+    "Salin yük testi (eklem içine SF verip yaradan sızıntı kontrolü) ya da BT'de eklem içi hava"
+   ],
+   "correct": 4,
+   "explanation": "Eklem içine açılan yara septik artrit riski nedeniyle ortopedi ve IV antibiyotik gerektirir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q12",
+   "stem": "El laserasyonunda tendon yaralanmasını değerlendirirken önemli nokta hangisidir?",
+   "options": [
+    "Yalnız aktif hareketi gözlemek",
+    "Yarayı hiç açmamak",
+    "Bir hafta sonra muayene etmek",
+    "Grafi tek başına yeterli",
+    "Yarayı yaralanma anındaki pozisyonda (yumruk vb.) incelemek ve dirençli kuvvet testine bakmak (kısmi kesi kuvveti korur)"
+   ],
+   "correct": 4,
+   "explanation": "Kısmi tendon kesileri hareketi korur ama dirence karşı ağrı ve güçsüzlük yapar.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q13",
+   "stem": "Yüzdeki dikişlerin genellikle alınma zamanı nedir?",
+   "options": [
+    "21 gün",
+    "3–5 gün",
+    "Dikişler alınmaz",
+    "1 gün",
+    "10–14 gün"
+   ],
+   "correct": 1,
+   "explanation": "Saçlı deri 7–10 gün, gövde-ekstremite 10–14 gün, eklem üstü 14 gün.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q14",
+   "stem": "Saçlı deri laserasyonunun hızlı ve uygun kapama yöntemlerinden biri hangisidir?",
+   "options": [
+    "Yalnız pansuman",
+    "Doku yapıştırıcısı her zaman",
+    "Açık bırakma",
+    "Zımba (stapler) ya da saç bağlama tekniği (galea yaralanması değerlendirilerek)",
+    "Steri-strip"
+   ],
+   "correct": 3,
+   "explanation": "Geniş galea açılması onarılmalıdır; zımba kozmetik sonucu dikiş kadar iyidir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q15",
+   "stem": "Yara iyileşmesini bozan steroid etkisini kısmen geri çevirdiği bilinen vitamin hangisidir?",
+   "options": [
+    "K vitamini",
+    "B12",
+    "A vitamini",
+    "E vitamini",
+    "D vitamini"
+   ],
+   "correct": 2,
+   "explanation": "C vitamini kollajen sentezi, çinko epitelizasyon için gereklidir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q16",
+   "stem": "Yara enfeksiyonu riskini artıran hasta faktörü hangisidir?",
+   "options": [
+    "Kısa sürede başvuru",
+    "Genç yaş",
+    "Diyabet, ileri yaş, immünsüpresyon, obezite ve sigara",
+    "Temiz kesici alet",
+    "Yüz yarası"
+   ],
+   "correct": 2,
+   "explanation": "Yara faktörleri: kontaminasyon, ezilme, yabancı cisim, alt ekstremite yerleşimi.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q17",
+   "stem": "Ezilme mekanizmalı, kenarları düzensiz ve devitalize dokulu yara için doğru yaklaşım hangisidir?",
+   "options": [
+    "Devitalize dokunun debridmanı ve gerilimsiz kapama ya da gecikmiş kapama",
+    "Yapıştırıcı",
+    "Kenarları sıkıca germek",
+    "Yalnız antibiyotik",
+    "Debridmansız primer kapama"
+   ],
+   "correct": 0,
+   "explanation": "Ölü doku enfeksiyon için ortam oluşturur.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q18",
+   "stem": "Ayak tabanına batan tahta kıymığı için doğru olan hangisidir?",
+   "options": [
+    "Radyolüsen olabileceğinden USG ile aranır; parçalanma riskine karşı tam çıkarma hedeflenir",
+    "Grafi her zaman gösterir",
+    "Asla çıkarılmaz",
+    "Antibiyotik yeterli",
+    "Bırakılması önerilir"
+   ],
+   "correct": 0,
+   "explanation": "Organik yabancı cisimler yoğun iltihabi reaksiyon ve enfeksiyon yapar.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q19",
+   "stem": "Yüz laserasyonunda alın ve üst göz kapağı anestezisi için yapılabilecek blok hangisidir?",
+   "options": [
+    "Dijital blok",
+    "İnfraorbital blok tek başına",
+    "Mental sinir bloğu",
+    "Femoral blok",
+    "Supraorbital ve supratroklear sinir bloğu"
+   ],
+   "correct": 4,
+   "explanation": "Bölgesel bloklar yara kenarında doku şişmesine yol açmaz.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q20",
+   "stem": "Hangi durumda yara kapatılmadan önce mutlaka eksplorasyon ve grafi/USG düşünülmelidir?",
+   "options": [
+    "Yüzeyel sıyrık",
+    "Temiz bıçak kesisi",
+    "Cam kırığıyla oluşan ve hastanın yabancı cisim hissi bildirdiği yara",
+    "Kağıt kesisi",
+    "Ameliyat yarası"
+   ],
+   "correct": 2,
+   "explanation": "Hastanın 'bir şey kaldı' hissi önemli bir uyarıcıdır.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q21",
+   "stem": "Keloid oluşumu için doğru ifade hangisidir?",
+   "options": [
+    "Enfeksiyondur",
+    "Yara sınırında kalır ve kendiliğinden geriler",
+    "Yalnız yaşlılarda olur",
+    "Tedavi edilemez",
+    "Yara sınırlarını aşan aşırı kollajen birikimidir; koyu tenlilerde ve kulak memesi/sternum gibi bölgelerde daha sıktır"
+   ],
+   "correct": 4,
+   "explanation": "Hipertrofik skar yara sınırları içinde kalır.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q22",
+   "stem": "Kulak kepçesi laserasyonunda önemli nokta hangisidir?",
+   "options": [
+    "Açıkta kıkırdak kalmamalı; onarım sonrası hematom önlemek için bası pansumanı",
+    "Doku yapıştırıcısı kıkırdağa uygulanır",
+    "Antibiyotik gerekmez her durumda",
+    "Kıkırdak her zaman dikilir ve sıkıca",
+    "Açık bırakılır"
+   ],
+   "correct": 0,
+   "explanation": "Perikondrit riski; derin yaralarda antipsödomonal kapsam düşünülür.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q23",
+   "stem": "Yaraların kapatılmasında kullanılan emilebilir sütür hangi amaçla tercih edilir?",
+   "options": [
+    "Damar ligasyonu",
+    "Tendon onarımı",
+    "Hiçbir zaman",
+    "Derin (dermal) katlar ve çocuklarda dikiş alma gereğini ortadan kaldırmak için yüzeyde (hızlı emilen)",
+    "Yüksek gerilimli deri yüzeyi her zaman"
+   ],
+   "correct": 3,
+   "explanation": "Hızlı emilen sütürler yüz ve çocuk yaralarında iyi kozmetik sonuç verir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q24",
+   "stem": "Tetanoz aşı öyküsü bilinmeyen hastada kirli yarada uygun profilaksi hangisidir?",
+   "options": [
+    "Yalnız immünglobulin",
+    "Yalnız antibiyotik",
+    "Yalnız aşı",
+    "Hiçbir şey",
+    "Td/Tdap aşısı + tetanoz immünglobulini (farklı bölgelere)"
+   ],
+   "correct": 4,
+   "explanation": "Temiz minör yarada aşı öyküsü bilinmiyorsa yalnız aşı yeterlidir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q25",
+   "stem": "Laserasyonda kanama kontrolü için ilk yöntem hangisidir?",
+   "options": [
+    "Buz",
+    "Koter her zaman",
+    "Kör klemp",
+    "Doğrudan bası (gerekirse adrenalinli lokal anestezik); körlemesine klemplemekten kaçınma",
+    "Turnike her yaraya"
+   ],
+   "correct": 3,
+   "explanation": "Kör klemp sinir ve tendon yaralanmasına yol açabilir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q26",
+   "stem": "Yara enfeksiyonunun ilk belirtisi en sık ne zaman ortaya çıkar?",
+   "options": [
+    "1 ay sonra",
+    "Genellikle 24–72 saat içinde (kırmızılık, artan ağrı, akıntı)",
+    "2 hafta sonra",
+    "Hiçbir zaman belirti vermez",
+    "İlk saatte"
+   ],
+   "correct": 1,
+   "explanation": "Hastaya yara bakımı ve uyarı bulguları anlatılmalıdır.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q27",
+   "stem": "Alt ekstremitede venöz staza bağlı kronik ülseri olan hastada acil serviste yaklaşım hangisidir?",
+   "options": [
+    "Rutin antibiyotik",
+    "Hemen cerrahi debridman",
+    "Selülit/osteomiyelit gibi komplikasyonları dışlayıp kompresyon ve yara bakımı planıyla yönlendirmek",
+    "Steroid",
+    "Kompresyon kontrendike"
+   ],
+   "correct": 2,
+   "explanation": "Arteriyel yetmezlik dışlanmadan (ABI) kompresyon uygulanmaz.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q28",
+   "stem": "Parmak ucu amputasyonunda kemik açıkta değilse ve defekt küçükse önerilen tedavi hangisidir?",
+   "options": [
+    "Deri grefti zorunlu",
+    "Sekonder iyileşmeye bırakma (pansuman) — iyi fonksiyonel ve kozmetik sonuç",
+    "Acil replantasyon her zaman",
+    "Kemiği kısaltıp kapama her zaman",
+    "Antibiyotik tek başına"
+   ],
+   "correct": 1,
+   "explanation": "Çocuklarda parmak ucu yaralanmaları çok iyi iyileşir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q29",
+   "stem": "Tırnak altı hematomu tırnağın büyük kısmını kaplayan, tırnak sağlam ve kenarları bozulmamış hastada uygun tedavi hangisidir?",
+   "options": [
+    "Hiçbir şey",
+    "Tırnağın rutin çıkarılması ve tırnak yatağı onarımı",
+    "Trefinasyon (tırnağın delinmesi) ile hematomun boşaltılması; tırnak çıkarılması gerekmez",
+    "Antibiyotik",
+    "Cerrahi"
+   ],
+   "correct": 2,
+   "explanation": "Tırnak ve kenarları sağlamsa trefinasyon yeterlidir.",
+   "topic": "Yara Bakımı"
+  },
+  {
+   "key": "q30",
+   "stem": "Yara iyileşmesinde 'yükseltme ve hareketsizlik' önerisinin amacı nedir?",
+   "options": [
+    "Enfeksiyonu tedavi etmek",
+    "Ödemi azaltmak ve yara kenarlarındaki gerilimi düşürmek",
+    "Kas gücünü artırmak",
+    "Dikiş sayısını azaltmak",
+    "Ağrıyı artırmak"
+   ],
+   "correct": 1,
+   "explanation": "Özellikle el ve alt ekstremite yaralarında önerilir.",
+   "topic": "Yara Bakımı"
+  }
+ ]
+}

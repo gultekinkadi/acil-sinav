@@ -1,0 +1,430 @@
+{
+ "id": "soru-15",
+ "title": "Acil Tıp Soru Bankası — 15. Hastane Öncesi Bakım ve Afet Hazırlığı",
+ "desc": "Kitlesel triyaj (START/JumpSTART), patlama ve ezilme yaralanmaları, radyasyon ve kimyasal olaylar, dekontaminasyon, biyolojik ajanlar, hava ambulansı, hastane öncesi uygulamalar ve afet yönetimi.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 15. Hastane Öncesi Bakım ve Afet Hazırlığı",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "START triyaj sisteminde yürüyebilen yaralılar hangi kategoriye alınır?",
+   "options": [
+    "Yeşil (gecikebilir/hafif)",
+    "Mavi",
+    "Sarı",
+    "Siyah",
+    "Kırmızı (acil)"
+   ],
+   "correct": 0,
+   "explanation": "Ardından solunum, perfüzyon (kapiller dolum/radial nabız) ve basit komutlara uyum değerlendirilir.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q02",
+   "stem": "START triyajında hava yolu açıldıktan sonra da solumayan erişkin yaralı hangi kategoriye girer?",
+   "options": [
+    "Kırmızı",
+    "Önce KPR yapılır",
+    "Sarı",
+    "Siyah (beklenen/ölü)",
+    "Yeşil"
+   ],
+   "correct": 3,
+   "explanation": "Kitlesel olayda kaynaklar en çok kişiyi kurtaracak şekilde kullanılır.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q03",
+   "stem": "START triyajında solunum sayısı 34/dk olan erişkin yaralı hangi kategoriye alınır?",
+   "options": [
+    "Gri",
+    "Yeşil",
+    "Kırmızı (acil)",
+    "Sarı",
+    "Siyah"
+   ],
+   "correct": 2,
+   "explanation": "Solunum >30, kapiller dolum >2 sn/radial nabız yok veya komutlara uymama → kırmızı.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q04",
+   "stem": "Çocuklar için kitlesel triyajda kullanılan, apneik çocukta 5 kurtarıcı soluk verilmesini öneren sistem hangisidir?",
+   "options": [
+    "JumpSTART",
+    "SALT",
+    "START",
+    "ESI",
+    "Manchester"
+   ],
+   "correct": 0,
+   "explanation": "Çocuklarda apne çoğunlukla solunumsal kökenlidir; soluklardan sonra soluma başlarsa kırmızı.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q05",
+   "stem": "Patlamada hava basınç dalgasına bağlı (primer) patlama yaralanmasında en sık etkilenen organ hangisidir?",
+   "options": [
+    "Karaciğer",
+    "Kemik",
+    "Kulak zarı",
+    "Böbrek",
+    "Deri"
+   ],
+   "correct": 2,
+   "explanation": "Hava içeren organlar (kulak, akciğer, barsak) etkilenir; zar sağlamsa ciddi blast yaralanma olasılığı azalır ama dışlanmaz.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q06",
+   "stem": "Patlama sonrası nefes darlığı, hemoptizi ve akciğer grafisinde kelebek tarzı infiltrat olan hastada tanı nedir ve dikkat edilecek nokta nedir?",
+   "options": [
+    "Astım — salbutamol",
+    "Blast akciğer — pozitif basınçlı ventilasyonda hava embolisi/pnömotoraks riski, dikkatli sıvı",
+    "Kosta kırığı",
+    "Pnömoni — antibiyotik",
+    "Anksiyete"
+   ],
+   "correct": 1,
+   "explanation": "Akciğer koruyucu ventilasyon ve dikkatli sıvı yönetimi.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q07",
+   "stem": "Deprem enkazından saatler sonra çıkarılan, bacakları uzun süre sıkışmış yaralıda kurtarma öncesi en önemli girişim hangisidir?",
+   "options": [
+    "Potasyumlu sıvı",
+    "Sıvı kısıtlaması",
+    "Turnike",
+    "Kurtarmadan önce IV izotonik sıvı başlamak (ezilme sendromu önlemi)",
+    "Hemen ayağa kaldırmak"
+   ],
+   "correct": 3,
+   "explanation": "Basının kalkmasıyla hiperkalemi, asidoz ve hipovolemi gelişir; idrar çıkışı ve EKG izlenir.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q08",
+   "stem": "Ezilme sendromunda gelişen akut böbrek hasarının temel mekanizması hangisidir?",
+   "options": [
+    "Hiperkalsemi",
+    "İlaç toksisitesi",
+    "Glomerülonefrit",
+    "Postrenal obstrüksiyon",
+    "Miyoglobinüri, hipovolemi ve asidoz"
+   ],
+   "correct": 4,
+   "explanation": "Afetlerde diyaliz ihtiyacı planlaması kritik önemdedir (1999 Marmara, 2023 Kahramanmaraş depremleri).",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q09",
+   "stem": "Radyasyon maruziyetinde akut radyasyon sendromunun şiddetini en iyi öngören erken klinik bulgu hangisidir?",
+   "options": [
+    "Baş ağrısı",
+    "Ateş",
+    "Saç dökülmesi",
+    "Deri yanığı",
+    "Kusmanın başlama zamanı ve lenfosit sayısındaki düşüş"
+   ],
+   "correct": 4,
+   "explanation": "Kusma ne kadar erken başlarsa doz o kadar yüksektir; 24–48 saatte mutlak lenfosit sayısı.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q10",
+   "stem": "Radyoaktif kontaminasyonlu ve hayatı tehdit eden yaralanması olan hastada öncelik nedir?",
+   "options": [
+    "Hastayı kabul etmemek",
+    "Hayatı tehdit eden yaralanmanın stabilizasyonu (dış giysilerin çıkarılması kontaminasyonun büyük kısmını giderir)",
+    "Önce tam dekontaminasyon",
+    "Önce dozimetri",
+    "Potasyum iyodür vermek ve beklemek"
+   ],
+   "correct": 1,
+   "explanation": "Kontamine hasta sağlık çalışanı için nadiren tehlikelidir; standart önlemler yeterlidir.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q11",
+   "stem": "Radyoaktif iyot salınımı olan nükleer kazada tiroidi korumak için verilen ilaç hangisidir?",
+   "options": [
+    "DTPA",
+    "Prusya mavisi",
+    "Metimazol",
+    "Levotiroksin",
+    "Potasyum iyodür (maruziyetten önce/hemen sonra)"
+   ],
+   "correct": 4,
+   "explanation": "Prusya mavisi sezyum ve talyum, DTPA plütonyum/amerikyum için kullanılır.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q12",
+   "stem": "Radyasyondan korunmanın üç temel ilkesi hangileridir?",
+   "options": [
+    "Su, sabun, fırça",
+    "Triyaj, tedavi, transport",
+    "Maske, eldiven, önlük",
+    "Hız, güç, dayanıklılık",
+    "Zaman, mesafe ve zırhlama"
+   ],
+   "correct": 4,
+   "explanation": "Maruziyet süresini kısaltmak, kaynaktan uzaklaşmak ve zırh kullanmak.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q13",
+   "stem": "Kimyasal saldırı sonrası miyozis, bol sekresyon, bronkospazm, bradikardi ve fasikülasyon olan yaralılarda tedavi hangisidir?",
+   "options": [
+    "Atropin (sekresyon kuruyana kadar titre) + pralidoksim + benzodiazepin; dekontaminasyon",
+    "Nalokson",
+    "Fizostigmin",
+    "Flumazenil",
+    "Hidroksokobalamin"
+   ],
+   "correct": 0,
+   "explanation": "Sinir ajanı (organofosfat) zehirlenmesi; atropin dozu sekresyonlara göre artırılır.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q14",
+   "stem": "Tehlikeli madde (HAZMAT) olayında hastanın dekontaminasyonu nerede yapılmalıdır?",
+   "options": [
+    "Yoğun bakımda",
+    "Hiç yapılmaz",
+    "Sıcak bölgede tedaviyle birlikte",
+    "Acil servis resüsitasyon odasında",
+    "Sıcak ve soğuk bölge arasındaki ılık bölgede, acil servise girmeden önce"
+   ],
+   "correct": 4,
+   "explanation": "Acil servisin kontaminasyonu hizmeti tamamen durdurabilir.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q15",
+   "stem": "Metalik sodyum veya potasyum parçacıkları deriye yapışmış hastada doğru yaklaşım hangisidir?",
+   "options": [
+    "Su uygulamadan önce parçacıkları mekanik olarak çıkarıp mineral yağ ile örtmek",
+    "Alkol dökmek",
+    "Hiçbir şey yapmamak",
+    "Hemen bol su ile yıkamak",
+    "Asitle nötralize etmek"
+   ],
+   "correct": 0,
+   "explanation": "Reaktif metaller suyla şiddetli ekzotermik reaksiyon verir.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q16",
+   "stem": "Biyolojik saldırıda çiçek hastalığını su çiçeğinden ayıran döküntü özelliği hangisidir?",
+   "options": [
+    "Su çiçeği ateşsizdir",
+    "Çiçekte lezyonların hepsi aynı evrede ve santrifugal (yüz ve ekstremitelerde yoğun, avuç içi dahil)",
+    "Su çiçeği avuç içini tutar",
+    "Çiçekte lezyonlar farklı evrelerde",
+    "Çiçek kaşıntılıdır"
+   ],
+   "correct": 1,
+   "explanation": "Su çiçeğinde lezyonlar farklı evrelerde ve santripetal dağılımlıdır.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q17",
+   "stem": "Mediastinal genişleme, ateş ve hızla gelişen şok ile seyreden, posta yoluyla gelen beyaz tozla ilişkili enfeksiyon hangisidir?",
+   "options": [
+    "Botulizm",
+    "Tularemi",
+    "İnhalasyon şarbonu",
+    "Veba",
+    "Q ateşi"
+   ],
+   "correct": 2,
+   "explanation": "Tedavi siprofloksasin veya doksisiklin + ek ajanlar; temaslılara profilaksi.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q18",
+   "stem": "Helikopterle hava transferinde irtifa artışının etkisiyle hangi durum kötüleşebilir?",
+   "options": [
+    "Hipoglisemi",
+    "Hiperkalemi",
+    "Anemi",
+    "Pnömotoraks ve endotrakeal tüp balonunun genişlemesi",
+    "Hipertermi"
+   ],
+   "correct": 3,
+   "explanation": "Boyle yasası: basınç azaldıkça gaz hacmi artar; tüp balonuna hava yerine SF konabilir, göğüs tüpü düşünülür.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q19",
+   "stem": "Helikopter iniş alanı için güvenlik açısından doğru olan hangisidir?",
+   "options": [
+    "Helikoptere pilotun işaretiyle ve önden/görüş alanından yaklaşmak; kuyruk rotorundan uzak durmak",
+    "Rotor dönerken koşarak yaklaşmak",
+    "Eğimli arazide yokuş yukarı taraftan yaklaşmak",
+    "İniş alanını hiç işaretlememek",
+    "Arka taraftan yaklaşmak"
+   ],
+   "correct": 0,
+   "explanation": "Kuyruk rotoru en tehlikeli bölümdür.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q20",
+   "stem": "Küçük çocukta hava yolu açıklığını korumak için sırtüstü yatırırken önerilen pozisyon hangisidir?",
+   "options": [
+    "Boyunu hiperekstansiyona getirmek",
+    "Başın altına yastık koymak",
+    "Oturtmak",
+    "Omuzların altına ince bir pad koymak (büyük oksiput nedeniyle boyun fleksiyonunu önlemek)",
+    "Yüzüstü yatırmak"
+   ],
+   "correct": 3,
+   "explanation": "Çocukların büyük oksipitali boynu fleksiyona iter ve hava yolunu daraltır.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q21",
+   "stem": "Hastane öncesinde spinal hareket kısıtlamasında güncel yaklaşım hangisidir?",
+   "options": [
+    "Sırt tahtasında saatlerce bekletme",
+    "Seçici uygulama; uzun sırt tahtası taşıma için kullanılıp mümkün olan en kısa sürede çıkarılır",
+    "Tüm travma hastalarına sırt tahtası ve boyunluk",
+    "Penetran boyun yaralanmasında rutin boyunluk",
+    "Hiçbir hastada uygulanmaz"
+   ],
+   "correct": 1,
+   "explanation": "Uzun süre tahta basınç yarası, ağrı ve solunum kısıtlaması yapar.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q22",
+   "stem": "Kitlesel yaralanma olayında hastanenin ilk yapması gereken hangisidir?",
+   "options": [
+    "Tüm elektif hastaları aynen sürdürmek",
+    "Yaralıları kayıtsız kabul etmek",
+    "Yalnız kendi personelini çağırmak",
+    "Afet planını etkinleştirmek, komuta yapısını (Hastane Afet ve Acil Durum Planı — HAP, olay komuta sistemi) kurmak ve kapasite açmak",
+    "Basına açıklama yapmak"
+   ],
+   "correct": 3,
+   "explanation": "Erken taburculuk, elektif işlemlerin ertelenmesi ve personel çağrısı kapasiteyi artırır.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q23",
+   "stem": "Kitlesel bir olayda kaynakların yetersiz kaldığı durumda bakım standardı nasıl değişir?",
+   "options": [
+    "Her hastaya tam bakım sürdürülür",
+    "Yalnız VIP hastalar tedavi edilir",
+    "Kriz standartlarına geçilir; amaç en fazla sayıda kişiye en fazla yararı sağlamaktır",
+    "Hiçbir hasta tedavi edilmez",
+    "İlk gelen ilk tedavi edilir"
+   ],
+   "correct": 2,
+   "explanation": "Kurtarılamayacak hastalara konfor bakımı sağlanır.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q24",
+   "stem": "Afet sonrası barınaklarda yaşanan salgınlarda en sık görülen hastalık grubu hangisidir?",
+   "options": [
+    "İnme",
+    "Otoimmün hastalıklar",
+    "İshal ve solunum yolu enfeksiyonları",
+    "Kanserler",
+    "Diyabet komplikasyonları"
+   ],
+   "correct": 2,
+   "explanation": "Temiz su, sanitasyon ve aşılama (kızamık, tetanoz) önceliklidir.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q25",
+   "stem": "Afet bölgesinde kolera benzeri ağır sulu ishalde ilk tedavi hangisidir?",
+   "options": [
+    "Antiemetik tek başına",
+    "Oral rehidratasyon solüsyonu (ağır dehidratasyonda IV)",
+    "Antibiyotik tek başına",
+    "Loperamid",
+    "Aç bırakmak"
+   ],
+   "correct": 1,
+   "explanation": "Antibiyotik süreyi kısaltır ama hayat kurtaran sıvıdır.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q26",
+   "stem": "Hastane öncesi ekipte STEMI saptanan hastada en etkili sistem uygulaması hangisidir?",
+   "options": [
+    "Hastanın tercihine göre beklemek",
+    "En yakın hastaneye götürmek",
+    "Sahadan EKG gönderip kateter laboratuvarını önceden aktive ederek doğrudan PKG merkezine götürmek",
+    "Troponin için acile götürmek",
+    "Sahada 1 saat izlemek"
+   ],
+   "correct": 2,
+   "explanation": "Önceden bildirme ve acili atlama 'ilk temastan cihaza' süreyi kısaltır.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q27",
+   "stem": "Ekstremiteden hayatı tehdit eden dış kanamada direkt basıya yanıt yoksa hastane öncesinde ne uygulanmalıdır?",
+   "options": [
+    "Turnike (yaranın 5–8 cm proksimaline, kanama durana kadar sıkıp saat kaydetme)",
+    "Basınç noktası tek başına",
+    "Elevasyon tek başına",
+    "Buz",
+    "Hiçbir şey"
+   ],
+   "correct": 0,
+   "explanation": "Turnike 2 saate kadar genellikle güvenlidir; bağlanma zamanı not edilir.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q28",
+   "stem": "Kitlesel yaralanma olayında olay yeri sağlık ekibinin ilk önceliği hangisidir?",
+   "options": [
+    "Basın açıklaması",
+    "Yaralıları kendi aracıyla taşımak",
+    "Hemen ilk yaralıya KPR",
+    "Olay yeri güvenliği (kendini, ekibini ve hastayı koruma)",
+    "Kayıt tutmak"
+   ],
+   "correct": 3,
+   "explanation": "Güvenli olmayan sahaya girmek kurtarıcıyı da yaralıya dönüştürür.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q29",
+   "stem": "Ambulans transferi sırasında entübe hastada ani desatürasyon olursa akla gelmesi gereken sistematik değerlendirme (DOPE) neyi içerir?",
+   "options": [
+    "Hiçbiri",
+    "Tüp yer değiştirmesi, tıkanma, pnömotoraks, cihaz (ventilatör/O₂) arızası",
+    "İlaç, oksijen, basınç, elektrolit",
+    "Dozaj, onay, protokol, etik",
+    "Diyabet, obezite, pnömoni, ödem"
+   ],
+   "correct": 1,
+   "explanation": "Hasta ventilatörden ayrılıp balonla solutularak sorun ayırt edilir.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  },
+  {
+   "key": "q30",
+   "stem": "Bir kimyasal ajanın inhalasyonu sonrası gecikmeli (saatler sonra) gelişen akciğer ödemine yol açması beklenen gaz hangisidir?",
+   "options": [
+    "Amonyak",
+    "Sülfür dioksit",
+    "Hidrojen klorür",
+    "Formaldehit",
+    "Fosgen"
+   ],
+   "correct": 4,
+   "explanation": "Düşük suda çözünürlüklü gazlar (fosgen, azot oksitler) alt hava yollarına ulaşır ve geç ödem yapar; maruz kalanlar gözlenmelidir.",
+   "topic": "Hastane Öncesi Bakım ve Afet Hazırlığı"
+  }
+ ]
+}

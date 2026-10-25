@@ -1,0 +1,430 @@
+{
+ "id": "soru-13",
+ "title": "Acil Tıp Soru Bankası — 13. Ortopedik Aciller",
+ "desc": "El ve el bileği yaralanmaları, omuz-dirsek-kalça çıkıkları, gizli kırıklar, Ottawa kuralları, ayak bileği ve ayak yaralanmaları, kompartman sendromu, açık kırık ve pelvis kırığı.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 13. Ortopedik Aciller",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Kayak sopasıyla düşen hastada başparmak MKF ekleminin ulnar tarafında hassasiyet ve valgus stresinde (30° fleksiyonda) belirgin açılma var. Tanı nedir?",
+   "options": [
+    "Bennett kırığı",
+    "Mallet parmak",
+    "De Quervain",
+    "Skafoid kırığı",
+    "Ulnar kollateral bağ yırtığı (gamekeeper/kayakçı başparmağı)"
+   ],
+   "correct": 4,
+   "explanation": "Tam yırtıkta Stener lezyonu cerrahi gerektirebilir; başparmak spika ateli ve el cerrahisi.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q02",
+   "stem": "Rugby'de rakibin formasını tutarken parmağı zorla ekstansiyona gelen hastada DİF eklemini aktif fleksiyona getiremiyor. Tanı nedir?",
+   "options": [
+    "Kollateral bağ burkulması",
+    "Tetik parmak",
+    "Boutonnière — PİF ateli",
+    "Fleksör digitorum profundus avulsiyonu (jersey finger) — erken cerrahi onarım",
+    "Mallet parmak — ekstansiyon ateli"
+   ],
+   "correct": 3,
+   "explanation": "En sık 4. parmak; tendon geri çekildiyse 7–10 gün içinde onarım gerekir.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q03",
+   "stem": "PİF ekleminde dorsal darbe sonrası haftalar içinde PİF fleksiyonu ve DİF hiperekstansiyonu gelişmesi hangi yaralanmanın kaçırıldığını gösterir?",
+   "options": [
+    "Mallet parmak",
+    "Kollateral bağ",
+    "Volar plak yaralanması — kuğu boynu",
+    "FDP avulsiyonu",
+    "Santral slip (ekstansör) yaralanması — boutonnière deformitesi"
+   ],
+   "correct": 4,
+   "explanation": "Akut dönemde PİF ekstansiyonda atellenir (DİF serbest).",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q04",
+   "stem": "Boya tabancasıyla parmak ucuna yüksek basınçlı enjeksiyon yaralanması olan hastada küçük giriş deliği var, ağrı hafif. Yaklaşım hangisidir?",
+   "options": [
+    "Acil el cerrahisi (debridman) — görünür yarayla orantısız ağır hasar",
+    "Ertesi gün kontrol",
+    "Yalnız oral antibiyotik",
+    "Dijital blok ve sütür",
+    "Pansuman ve taburcu"
+   ],
+   "correct": 0,
+   "explanation": "Gecikmiş debridman amputasyon riskini belirgin artırır; dijital blok kontrendike olabilir (basınç artışı).",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q05",
+   "stem": "Elin üzerine düşen hastada lateral grafide lunatın volar yöne dönmüş ('dökülmüş çay fincanı') görünümü. Tanı nedir?",
+   "options": [
+    "Distal radius kırığı",
+    "Lunat çıkığı — acil ortopedi/el cerrahisi",
+    "Triquetrum kırığı",
+    "Skafoid kırığı",
+    "Normal varyant"
+   ],
+   "correct": 1,
+   "explanation": "Perilunat/lunat çıkıkları sık gözden kaçar; median sinir basısı olabilir.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q06",
+   "stem": "PA el bileği grafisinde skafoid ile lunat arasında ≥3 mm açıklık (Terry Thomas bulgusu) neyi gösterir?",
+   "options": [
+    "Skafoid kırığı",
+    "Normal",
+    "Skapholunat bağ yırtığı (skapholunat disosiyasyon)",
+    "Kienböck hastalığı",
+    "TFCC yırtığı"
+   ],
+   "correct": 2,
+   "explanation": "Tedavi edilmezse ilerleyici artroz; el cerrahisine yönlendirme.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q07",
+   "stem": "Distal radius kırığında distal fragmanın dorsale açılanması hangi kırıktır ve tipik mekanizması nedir?",
+   "options": [
+    "Barton kırığı",
+    "Smith kırığı — el sırtına düşme",
+    "Colles kırığı — gergin el üzerine düşme",
+    "Galeazzi",
+    "Chauffeur kırığı"
+   ],
+   "correct": 2,
+   "explanation": "Smith'te volar açılanma; Barton eklem içi kenar kırığıdır.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q08",
+   "stem": "Radius cisim kırığına distal radioulnar eklem çıkığının eşlik etmesi hangi yaralanmadır?",
+   "options": [
+    "Galeazzi kırığı-çıkığı",
+    "Bennett",
+    "Colles",
+    "Essex-Lopresti",
+    "Monteggia"
+   ],
+   "correct": 0,
+   "explanation": "Monteggia'da ulna kırığı + radius başı çıkığı. Her ikisi de cerrahi gerektirir.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q09",
+   "stem": "Düşme sonrası dirsek ağrısı olan erişkinde grafide kırık hattı görülmüyor ama posterior yağ yastığı belirgin. En olası tanı ve yaklaşım nedir?",
+   "options": [
+    "Olekranon kırığı — cerrahi",
+    "Normal — taburcu",
+    "Bursit — aspirasyon",
+    "Gizli radius başı kırığı — askı/kısa süreli atel ve erken hareket",
+    "Dirsek çıkığı — redüksiyon"
+   ],
+   "correct": 3,
+   "explanation": "Posterior yağ yastığı her zaman patolojiktir; çocukta suprakondiler kırık düşündürür.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q10",
+   "stem": "Anterior omuz çıkığı redüksiyonundan önce ve sonra mutlaka değerlendirilmesi gereken sinir hangisidir?",
+   "options": [
+    "Aksiller sinir (deltoid üzerinde duyu)",
+    "Ulnar sinir",
+    "Median sinir",
+    "Radial sinir",
+    "Muskulokutanöz sinir tek başına"
+   ],
+   "correct": 0,
+   "explanation": "Ayrıca Hill-Sachs ve Bankart lezyonları sıktır; yaşlıda rotator manşet yırtığı.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q11",
+   "stem": "Elektrik çarpması veya nöbet sonrası kolunu iç rotasyonda tutan, dış rotasyon yapamayan hastada AP grafide humerus başı 'ampul' görünümünde. Tanı nedir?",
+   "options": [
+    "Klavikula kırığı",
+    "Posterior omuz çıkığı",
+    "Anterior omuz çıkığı",
+    "Normal",
+    "AC eklem ayrılması"
+   ],
+   "correct": 1,
+   "explanation": "Posterior çıkık sık kaçırılır; skapular Y veya aksiller grafi çekilmelidir.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q12",
+   "stem": "Araç kazasında dizini torpidoya çarpan hastanın kalçası fleksiyon, addüksiyon ve iç rotasyonda. Tanı ve acil yaklaşım nedir?",
+   "options": [
+    "Anterior çıkık — gözlem",
+    "Posterior kalça çıkığı — siyatik sinir muayenesi ve 6 saat içinde redüksiyon",
+    "Femur boyun kırığı — traksiyon",
+    "Asetabulum kırığı tek başına",
+    "Patella çıkığı"
+   ],
+   "correct": 1,
+   "explanation": "Gecikmiş redüksiyon femur başı avasküler nekroz riskini artırır.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q13",
+   "stem": "Yere düşen yaşlı kadın yük veremiyor, kalça grafileri normal. Sonraki adım hangisidir?",
+   "options": [
+    "Fizik tedavi",
+    "Bir hafta sonra tekrar grafi",
+    "Kemik dansitometrisi",
+    "MR (ya da MR yoksa BT) ile gizli kalça kırığının araştırılması",
+    "Analjezikle taburcu"
+   ],
+   "correct": 3,
+   "explanation": "Gizli femur boyun kırığı kaçırılırsa deplase olup avasküler nekroz gelişebilir.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q14",
+   "stem": "Ottawa diz kuralına göre grafi gerektiren durum hangisidir?",
+   "options": [
+    "Kadın cinsiyet",
+    "Spor yaralanması",
+    "Dizi 90° bükememe ya da 4 adım yük verememe (yaş ≥55, fibula başı veya izole patella hassasiyeti)",
+    "Dizde şişlik",
+    "Ağrı skoru 7"
+   ],
+   "correct": 2,
+   "explanation": "Kural, gereksiz grafileri güvenle azaltır.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q15",
+   "stem": "Ottawa ayak bileği kuralına göre hangi bulgu grafi gerektirir?",
+   "options": [
+    "Ekimoz",
+    "Ağrı",
+    "Yürürken topallama ama 4 adım atabilme",
+    "Lateral şişlik",
+    "Lateral/medial malleolün arka kenarında (distal 6 cm) ya da uç kısmında hassasiyet"
+   ],
+   "correct": 4,
+   "explanation": "Ayrıca yaralanma anında ve acilde 4 adım yük verememe; ayakta 5. metatars tabanı ve naviküler hassasiyeti.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q16",
+   "stem": "Ayak bileği burkulması sonrası medial malleol hassasiyeti ve proksimal fibulada ağrı. Hangi yaralanma kaçırılmamalıdır?",
+   "options": [
+    "Talus kırığı",
+    "Jones kırığı",
+    "Basit lateral burkulma",
+    "Aşil rüptürü",
+    "Maisonneuve kırığı (proksimal fibula kırığı + sindesmoz yaralanması)"
+   ],
+   "correct": 4,
+   "explanation": "Ayak bileği grafisi normal görünebilir; tüm bacak grafisi gerekir. Genellikle cerrahi.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q17",
+   "stem": "Ayak orta kısmında ağrı, plantar ekimoz ve 1–2. metatars arasında genişleme. Tanı nedir?",
+   "options": [
+    "Morton nöromu",
+    "Kalkaneus kırığı",
+    "Lisfranc (tarsometatarsal) yaralanması",
+    "Plantar fasiit",
+    "Jones kırığı"
+   ],
+   "correct": 2,
+   "explanation": "Yük vererek çekilen grafi veya BT; çoğu cerrahi.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q18",
+   "stem": "5. metatars proksimal diyafiz-metafiz bileşkesinde kırık (Jones) için doğru olan hangisidir?",
+   "options": [
+    "Kaynamama riski yüksektir; yük verdirmeden atel/alçı ve ortopedi",
+    "Yük vererek sert taban ayakkabı yeterli",
+    "Tedavi gerekmez",
+    "Elastik bandaj",
+    "Avulsiyon kırığıdır"
+   ],
+   "correct": 0,
+   "explanation": "Tuberozite avulsiyon kırığı ise genellikle iyi seyirlidir.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q19",
+   "stem": "Sportif aktivitede dizde 'pop' sesi, hızla gelişen hemartroz ve Lachman testinde son noktanın olmaması. Tanı nedir?",
+   "options": [
+    "Menisküs yırtığı",
+    "Medial kollateral bağ",
+    "Patella çıkığı",
+    "Arka çapraz bağ",
+    "Ön çapraz bağ yırtığı"
+   ],
+   "correct": 4,
+   "explanation": "Akut hemartrozun en sık nedeni ÖÇB yırtığıdır; ortopedi yönlendirmesi.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q20",
+   "stem": "Tibia plato kırığında özellikle hangi komplikasyon izlenmelidir?",
+   "options": [
+    "Gut",
+    "Yağ embolisi her zaman",
+    "Pnömotoraks",
+    "Kompartman sendromu ve popliteal damar/peroneal sinir yaralanması",
+    "Osteomiyelit"
+   ],
+   "correct": 3,
+   "explanation": "Grafide görülmeyebilir; BT yararlıdır.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q21",
+   "stem": "Akut kompartman sendromunda en erken ve en duyarlı klinik bulgu hangisidir?",
+   "options": [
+    "Muayeneyle orantısız ağrı ve pasif germeyle ağrı",
+    "Nabızsızlık",
+    "Paralizi",
+    "Solukluk",
+    "Soğukluk"
+   ],
+   "correct": 0,
+   "explanation": "Nabız kaybı geç bulgudur; delta basınç (diyastolik KB − kompartman basıncı) <30 mmHg fasyotomi endikasyonu.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q22",
+   "stem": "Açık tibia kırığında antibiyotik ne zaman başlanmalıdır?",
+   "options": [
+    "24 saat içinde herhangi bir zaman",
+    "Ameliyattan sonra",
+    "Gerekmez",
+    "Mümkün olan en kısa sürede, ideal olarak ilk 1 saat içinde (ör. sefazolin; kirli yarada genişletilmiş kapsam)",
+    "Kültür sonucuna göre"
+   ],
+   "correct": 3,
+   "explanation": "Gecikme enfeksiyon riskini artırır; tetanoz profilaksisi ve steril pansuman.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q23",
+   "stem": "Hemodinamisi bozuk, pelvis kırığı düşünülen travma hastasında ilk mekanik müdahale hangisidir?",
+   "options": [
+    "Pelvisi tekrar tekrar kompresyonla muayene etmek",
+    "Pelvik grafiyi beklemek",
+    "Traksiyon",
+    "Pelvik kuşak (binder) — büyük trokanterler hizasında",
+    "Foley sonda öncelikle"
+   ],
+   "correct": 3,
+   "explanation": "Binder pelvis hacmini azaltıp venöz kanamayı sınırlar; tekrar kompresyon muayenesi kanamayı artırır.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q24",
+   "stem": "Lateral patella çıkığı olan genç kadında redüksiyon nasıl yapılır?",
+   "options": [
+    "Redüksiyon yapılmaz",
+    "Dizi ekstansiyona getirirken patellayı mediale itmek",
+    "Genel anestezi zorunlu",
+    "Dizi bükerek laterale itmek",
+    "Açık redüksiyon"
+   ],
+   "correct": 1,
+   "explanation": "Redüksiyon sonrası osteokondral kırık için grafi.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q25",
+   "stem": "Sporcuda ani 'baldıra tekme' hissi, Thompson testi pozitif. Aşil rüptüründe acil servis yaklaşımı hangisidir?",
+   "options": [
+    "Fizik tedavi",
+    "Ekin (plantar fleksiyon) pozisyonunda atel ve ortopedi",
+    "Nötral pozisyonda alçı",
+    "Steroid enjeksiyonu",
+    "Elastik bandaj ve yürüme"
+   ],
+   "correct": 1,
+   "explanation": "Cerrahi veya fonksiyonel konservatif tedavi ortopediyle planlanır.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q26",
+   "stem": "Distal radius kırığının redüksiyonundan sonra hangi sinir fonksiyonu mutlaka kaydedilmelidir?",
+   "options": [
+    "Fasiyal sinir",
+    "Femoral sinir",
+    "Aksiller sinir",
+    "Peroneal sinir",
+    "Median sinir"
+   ],
+   "correct": 4,
+   "explanation": "Akut karpal tünel sendromu gelişebilir.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q27",
+   "stem": "Akromiyoklaviküler eklem ayrılmasında (tip I–II) uygun tedavi hangisidir?",
+   "options": [
+    "Uzun süre alçı",
+    "Acil cerrahi",
+    "Askı, buz, analjezi ve erken hareket",
+    "Steroid enjeksiyonu",
+    "Redüksiyon ve sekiz bandajı"
+   ],
+   "correct": 2,
+   "explanation": "Yüksek dereceli (IV–VI) ayrılmalar cerrahi değerlendirme gerektirir.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q28",
+   "stem": "Dirsek çıkığından sonra en sık zarar gören damar ve sinir hangileridir?",
+   "options": [
+    "Brakiyal arter ve ulnar/median sinir",
+    "Subklavyen ven",
+    "Karotis",
+    "Femoral arter ve siyatik",
+    "Radial arter ve aksiller sinir"
+   ],
+   "correct": 0,
+   "explanation": "Redüksiyon öncesi ve sonrası nörovasküler muayene.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q29",
+   "stem": "Gergin el üzerine düşen hastada anatomik enfiye çukurunda hassasiyet; grafiler normal. Yaklaşım nedir?",
+   "options": [
+    "Fizik tedavi",
+    "Taburcu",
+    "Başparmak dahil atel ve MR (ya da 10–14 günde yeniden değerlendirme)",
+    "Elastik bandaj",
+    "Steroid"
+   ],
+   "correct": 2,
+   "explanation": "Gizli skafoid kırığı avasküler nekroz ve kaynamama riskine sahiptir.",
+   "topic": "Ortopedik Aciller"
+  },
+  {
+   "key": "q30",
+   "stem": "Bir yetişkinde omuz ağrısı ve kolu yana kaldıramama; düşme sonrası 'drop arm' testi pozitif. Tanı nedir?",
+   "options": [
+    "AC artriti",
+    "Rotator manşet (supraspinatus) tam kat yırtığı",
+    "Adeziv kapsülit",
+    "Servikal radikülopati",
+    "Biseps tendiniti"
+   ],
+   "correct": 1,
+   "explanation": "Yaşlıda omuz çıkığı sonrası da sıktır; ortopedi yönlendirmesi.",
+   "topic": "Ortopedik Aciller"
+  }
+ ]
+}

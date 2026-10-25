@@ -1,0 +1,430 @@
+{
+ "id": "soru-01",
+ "title": "Acil Tıp Soru Bankası — 01. Analjezi, Anestezi ve Prosedürel Sedasyon",
+ "desc": "Opioid ve NSAİİ kullanımı, lokal anestezikler ve toksisite, sinir blokları, prosedürel sedasyon ajanları ve komplikasyonları.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 01. Analjezi, Anestezi ve Prosedürel Sedasyon",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Böbrek kolikli 34 yaşında erkeğe 10 mg IV morfin yapıldıktan 20 dakika sonra uykuya meyilli, solunum sayısı 6/dk ve SpO₂ %86 bulunuyor. İlk yapılması gereken nedir?",
+   "options": [
+    "Nalokson 2 mg IV bolus ve gözlem",
+    "Hava yolunu açıp ventilasyonu desteklerken nalokson 0,04–0,4 mg IV titre etmek",
+    "Flumazenil 0,2 mg IV",
+    "Fizostigmin 1 mg IV",
+    "Hemen entübasyon"
+   ],
+   "correct": 1,
+   "explanation": "Opioid solunum depresyonunda önce hava yolu/ventilasyon; nalokson solunumu düzeltecek en düşük dozda titre edilir (yüksek doz ani yoksunluk, ağrı ve ajitasyon yapar).",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q02",
+   "stem": "Uzun süredir yüksek doz oksikodon kullanan hastaya ağrı için IV butorfanol verildikten sonra terleme, esneme, midriyazis ve huzursuzluk gelişiyor. En olası açıklama nedir?",
+   "options": [
+    "Serotonin sendromu",
+    "Nöroleptik malign sendrom",
+    "Butorfanol alerjisi",
+    "Opioid aşırı dozu",
+    "Agonist-antagonist opioidin ani yoksunluk tetiklemesi"
+   ],
+   "correct": 4,
+   "explanation": "Butorfanol, nalbufin, buprenorfin gibi kısmi/agonist-antagonist ajanlar opioide bağımlı hastada yoksunluk başlatabilir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q03",
+   "stem": "Peptik ülser kanaması öyküsü olan 72 yaşında, kreatinin klirensi 28 mL/dk olan kadında akut gut ağrısı için hangisi en uygun analjezik seçimidir?",
+   "options": [
+    "İbuprofen 800 mg günde 3 kez",
+    "İndometazin 50 mg günde 3 kez",
+    "Eklem içi ya da sistemik kısa süreli kortikosteroid",
+    "Ketorolak 30 mg IV her 6 saatte",
+    "Naproksen 500 mg günde 2 kez"
+   ],
+   "correct": 2,
+   "explanation": "NSAİİ'ler GİS kanaması ve böbrek yetmezliği riskini artırır; yaşlı, ülser öykülü ve böbrek yetmezlikli hastada steroid daha güvenlidir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q04",
+   "stem": "Hafif karaciğer yetmezliği olan erişkinde parasetamol kullanımı için en doğru öneri hangisidir?",
+   "options": [
+    "NSAİİ ile birlikte asla verilmez",
+    "Yalnız IV verilebilir",
+    "Günlük 6 g'a kadar güvenlidir",
+    "Kesinlikle kontrendikedir",
+    "Kullanılabilir; günlük toplam doz yaklaşık 2–3 g ile sınırlanmalıdır"
+   ],
+   "correct": 4,
+   "explanation": "Kronik karaciğer hastalığında parasetamol düşük dozda (≈2 g/gün) çoğu zaman NSAİİ'lerden daha güvenli bir seçenektir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q05",
+   "stem": "Herpes zoster döküntüsü 3 ay önce iyileşen 70 yaşında kadın, aynı dermatomda yanıcı-batıcı ağrıdan yakınıyor. İlk basamak sistemik tedavi seçeneği hangisidir?",
+   "options": [
+    "Oral asiklovir",
+    "Oral prednizolon",
+    "Gabapentin veya pregabalin",
+    "Antibiyotik",
+    "Morfin"
+   ],
+   "correct": 2,
+   "explanation": "Postherpetik nevraljide birinci basamak gabapentinoidler, TCA ve topikal lidokain/kapsaisindir; antiviral akut dönemde verilir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q06",
+   "stem": "Kesi onarımı için lidokain kullanılacak 70 kg hastada adrenalinsiz lidokainin önerilen en yüksek dozu yaklaşık ne kadardır?",
+   "options": [
+    "1 mg/kg",
+    "7 mg/kg",
+    "10 mg/kg",
+    "2 mg/kg",
+    "4,5 mg/kg (≈300 mg)"
+   ],
+   "correct": 4,
+   "explanation": "Adrenalinsiz lidokain ≈4,5 mg/kg (en çok 300 mg), adrenalinli ≈7 mg/kg; %1 lidokain = 10 mg/mL.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q07",
+   "stem": "Geniş bir yarada bupivakain ile blok yapılırken hasta perioral uyuşma, ağızda metalik tat bildiriyor; ardından nöbet ve geniş QRS'li bradikardi gelişiyor. Spesifik tedavi hangisidir?",
+   "options": [
+    "Amiodaron 300 mg",
+    "Fenitoin yüklemesi",
+    "%20 lipid emülsiyonu 1,5 mL/kg IV bolus, ardından infüzyon",
+    "Flumazenil",
+    "Nalokson"
+   ],
+   "correct": 2,
+   "explanation": "Lokal anestezik sistemik toksisitesinde (LAST) havayolu, benzodiazepin ve %20 lipid emülsiyonu; resüsitasyonda düşük doz adrenalin, lidokain/fenitoin kaçınılır.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q08",
+   "stem": "Diş çekimi öncesi bol miktarda benzokain sprey kullanan hastada siyanoz, SpO₂ %85 (O₂'ye yanıtsız) ve çikolata renginde kan görülüyor. Tedavi hangisidir?",
+   "options": [
+    "Hidroksokobalamin",
+    "Metilen mavisi 1–2 mg/kg IV",
+    "Sodyum bikarbonat",
+    "Hiperbarik oksijen tek başına",
+    "Nalokson"
+   ],
+   "correct": 1,
+   "explanation": "Benzokain, prilokain ve dapson methemoglobinemi yapar; semptomatik hastada metilen mavisi (G6PD eksikliğinde dikkat).",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q09",
+   "stem": "Yaşlı hastada kalça (femur boynu) kırığı için acil serviste opioid ihtiyacını azaltan ve deliryum riskini düşüren bölgesel yöntem hangisidir?",
+   "options": [
+    "Fasya iliaka veya femoral sinir bloğu",
+    "Hematom bloğu",
+    "Bier bloğu",
+    "İnterkostal blok",
+    "Digital blok"
+   ],
+   "correct": 0,
+   "explanation": "Fasya iliaka/femoral sinir bloğu kalça kırığında ağrıyı azaltır ve opioid gereksinimini düşürür.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q10",
+   "stem": "Çoklu kosta kırığı olan hastaya interkostal sinir bloğu yapılmasının en önemli komplikasyonu hangisidir?",
+   "options": [
+    "Methemoglobinemi",
+    "Pnömotoraks",
+    "Kompartman sendromu",
+    "Hipoglisemi",
+    "Kalıcı paralizi"
+   ],
+   "correct": 1,
+   "explanation": "İğnenin plevraya ilerlemesi pnömotoraks yapabilir; blok sonrası solunum değerlendirilmeli.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q11",
+   "stem": "Distal radius kırığının kapalı redüksiyonu için kırık hattına lokal anestezik verilmesiyle yapılan yöntem hangisidir?",
+   "options": [
+    "Supraklaviküler blok",
+    "Spinal anestezi",
+    "Hematom bloğu",
+    "Paraservikal blok",
+    "Femoral blok"
+   ],
+   "correct": 2,
+   "explanation": "Hematom bloğu basit ve etkili bir yöntemdir; Bier bloğu ve prosedürel sedasyon alternatiflerdir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q12",
+   "stem": "Prosedürel sedasyon sırasında hipoventilasyonu en erken saptayan izlem yöntemi hangisidir?",
+   "options": [
+    "Dalga formlu kapnografi (EtCO₂)",
+    "Kan basıncı",
+    "Nabız oksimetresi",
+    "EKG",
+    "Bilinç düzeyi skoru"
+   ],
+   "correct": 0,
+   "explanation": "Kapnografi, SpO₂ düşmeden önce hipoventilasyon ve apneyi gösterir (özellikle O₂ verilen hastada).",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q13",
+   "stem": "Ketamin ile sedasyon yapılan 4 yaşında çocukta işlem sırasında stridor ve oksijenlenmede düşüş gelişiyor. En olası komplikasyon ve ilk müdahale nedir?",
+   "options": [
+    "Aspirasyon — antibiyotik",
+    "Bronkospazm — salbutamol",
+    "Laringospazm — çene itme ve pozitif basınçlı ventilasyon",
+    "Anafilaksi — adrenalin",
+    "Apne — nalokson"
+   ],
+   "correct": 2,
+   "explanation": "Ketaminin nadir ama önemli komplikasyonu laringospazmdır; çoğu çene itme, larengospazm noktasına bası ve PPV ile düzelir, gerekirse düşük doz süksinilkolin.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q14",
+   "stem": "Aşağıdakilerden hangisi ketamin için mutlak kontrendikasyon kabul edilir?",
+   "options": [
+    "3 aydan küçük bebek ya da bilinen şizofreni",
+    "Hipotansiyon",
+    "Kırık redüksiyonu",
+    "Astım",
+    "Kafa travması öyküsü"
+   ],
+   "correct": 0,
+   "explanation": "Güncel ACEP kılavuzuna göre mutlak kontrendikasyonlar <3 ay yaş ve bilinen şizofrenidir; kafa travması artık kontrendikasyon sayılmaz.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q15",
+   "stem": "Propofol ile prosedürel sedasyonun en sık önemli yan etkisi hangisidir?",
+   "options": [
+    "Adrenal baskılanma",
+    "Halüsinasyon",
+    "Malign hipertermi",
+    "Doza bağımlı hipotansiyon ve solunum depresyonu",
+    "Hipersalivasyon"
+   ],
+   "correct": 3,
+   "explanation": "Propofol hızlı etkili ve kısa sürelidir; hipotansiyon ve apne riski nedeniyle hipovolemik hastada dikkatli kullanılır.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q16",
+   "stem": "Etomidat ile sedasyon sırasında en sık görülen ve genellikle zararsız yan etki hangisidir?",
+   "options": [
+    "Hiperkalemi",
+    "Bronkospazm",
+    "Bradikardi",
+    "Miyoklonus",
+    "Laringospazm"
+   ],
+   "correct": 3,
+   "explanation": "Etomidat miyoklonus ve tek dozda geçici adrenal baskılanma yapar; hemodinamik olarak nötrdür.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q17",
+   "stem": "Hızlı IV fentanil verilmesinden sonra ventilasyonun zorlaşması ve göğüs duvarının sertleşmesi neyi düşündürür?",
+   "options": [
+    "Bronkospazm",
+    "Anafilaksi",
+    "Laringospazm",
+    "Göğüs duvarı rijiditesi (wooden chest)",
+    "Pnömotoraks"
+   ],
+   "correct": 3,
+   "explanation": "Yüksek doz/hızlı fentanil göğüs duvarı rijiditesi yapabilir; nalokson veya nöromusküler bloker ile tedavi edilir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q18",
+   "stem": "Uzun süredir benzodiazepin kullanan hastada midazolam sedasyonunu geri çevirmek için flumazenil kullanımının en önemli riski nedir?",
+   "options": [
+    "Hipertansif kriz",
+    "Serotonin sendromu",
+    "Bradikardi",
+    "Hipoglisemi",
+    "Nöbet"
+   ],
+   "correct": 4,
+   "explanation": "Kronik benzodiazepin kullanıcılarında ve prokonvülzan ilaç alımında flumazenil nöbet tetikleyebilir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q19",
+   "stem": "Prosedürel sedasyon öncesi açlık süresi için güncel acil tıp önerisi hangisidir?",
+   "options": [
+    "Yakın zamanda yemek yemiş olmak gerekli sedasyonu geciktirmek için tek başına neden değildir",
+    "Çocuklarda sedasyon yalnız ameliyathanede yapılır",
+    "Açlık süresi aspirasyonu kesin önler",
+    "Sıvılar için 6 saat beklenmelidir",
+    "Herkes 8 saat aç olmalıdır"
+   ],
+   "correct": 0,
+   "explanation": "ACEP: acil serviste preprosedürel açlık süresi aspirasyon riskini azaltmaz; karar risk-yarar ve aciliyete göre verilir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q20",
+   "stem": "Ağrı kesici olarak meperidin kullanımından neden kaçınılır?",
+   "options": [
+    "Yalnız IM verilebilir",
+    "Çok uzun etkilidir",
+    "Analjezik etkisi yoktur",
+    "Normeperidin birikimi nöbet yapar ve MAO inhibitörü/serotonerjik ilaçlarla serotonin sendromu riski vardır",
+    "Solunum depresyonu yapmaz"
+   ],
+   "correct": 3,
+   "explanation": "Meperidin metaboliti normeperidin özellikle böbrek yetmezliğinde nöbet yapar; serotonin sendromu riski de taşır.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q21",
+   "stem": "Kodein çocuklarda (özellikle tonsillektomi sonrası) neden önerilmez?",
+   "options": [
+    "Analjezik etkisi çok güçlüdür",
+    "CYP2D6 ultra-hızlı metabolize edicilerde morfine hızlı dönüşüp ölümcül solunum depresyonu yapabilir",
+    "Karaciğer yetmezliği yapar",
+    "Alerji riski yüksektir",
+    "Böbrekten atılmaz"
+   ],
+   "correct": 1,
+   "explanation": "Kodein ön ilaçtır; genetik farklılıklar öngörülemez etki yaratır — çocuklarda kullanılmaz.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q22",
+   "stem": "Tramadolün en önemli yan etkileri hangileridir?",
+   "options": [
+    "Nöbet eşiğini düşürmesi ve serotonin sendromu riski",
+    "Methemoglobinemi",
+    "Malign hipertermi",
+    "Hiperkalsemi",
+    "Agranülositoz"
+   ],
+   "correct": 0,
+   "explanation": "Tramadol serotonin/norepinefrin geri alımını inhibe eder; epilepsi ve serotonerjik ilaç kullanımında dikkat.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q23",
+   "stem": "Nitröz oksit (%50 N₂O/O₂) analjezisi hangi durumda kontrendikedir?",
+   "options": [
+    "Doğum ağrısı",
+    "Laserasyon onarımı",
+    "Kırık redüksiyonu",
+    "Pnömotoraks veya barsak obstrüksiyonu",
+    "Çocuk hasta"
+   ],
+   "correct": 3,
+   "explanation": "N₂O kapalı gaz boşluklarına difüze olup genişletir: pnömotoraks, ileus, hava embolisi, dalgıç hastalığı kontrendikasyondur.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q24",
+   "stem": "Çocukta yüz laserasyonu onarımından önce iğnesiz anestezi için uygun topikal karışım hangisidir?",
+   "options": [
+    "LET (lidokain-adrenalin-tetrakain) jel",
+    "Kokain %10",
+    "Benzokain sprey",
+    "Kapsaisin krem",
+    "Etil klorür"
+   ],
+   "correct": 0,
+   "explanation": "LET açık yaraya uygulanır; EMLA bütün deride kullanılır.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q25",
+   "stem": "Lidokain enjeksiyonunun ağrısını azaltmak için önerilen basit yöntemlerden biri hangisidir?",
+   "options": [
+    "Kalın iğne kullanmak",
+    "Deri içine hızla vermek",
+    "Soğutulmuş lidokain hızlı enjeksiyonu",
+    "Adrenalin oranını artırmak",
+    "Sodyum bikarbonatla tamponlama (10:1) ve yavaş, ince iğneyle enjeksiyon"
+   ],
+   "correct": 4,
+   "explanation": "Tamponlama, oda ısısı, ince iğne, yavaş ve yara kenarından enjeksiyon ağrıyı azaltır.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q26",
+   "stem": "Parmak bloğunda adrenalinli lidokain kullanımı hakkında güncel görüş nedir?",
+   "options": [
+    "Fentolamin rutin verilmelidir",
+    "Yalnız ayak parmaklarında kullanılabilir",
+    "Sağlıklı dolaşımı olan hastada güvenlidir; dijital nekroz riski kanıtlanmamıştır",
+    "Yalnız çocuklarda kullanılır",
+    "Mutlak kontrendikedir"
+   ],
+   "correct": 2,
+   "explanation": "Çalışmalar düşük konsantrasyonlu adrenalinin parmakta güvenli olduğunu gösterir; ciddi periferik damar hastalığında dikkat.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q27",
+   "stem": "Ağrı tedavisi için başvuran hastada uyuşturucu arayışı davranışını düşündüren özellik hangisidir?",
+   "options": [
+    "Reçetesini yanında getirmek",
+    "Belirli bir opioidi isim ve dozla istemek, başka ilaçlara 'alerjisi' olduğunu söylemek",
+    "Ağrısının 10/10 olduğunu söylemek",
+    "Taşikardi",
+    "Ağlamak"
+   ],
+   "correct": 1,
+   "explanation": "Belirli ilaç talebi, çok sayıda alerji, kayıp reçete, birden fazla hekimden ilaç alma şüphe uyandırır — ama gerçek ağrıyı dışlamaz.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q28",
+   "stem": "Opioid tedavisinin en sık ve tolerans gelişmeyen yan etkisi hangisidir?",
+   "options": [
+    "Kaşıntı",
+    "Kabızlık",
+    "Bulantı",
+    "Sedasyon",
+    "Solunum depresyonu"
+   ],
+   "correct": 1,
+   "explanation": "Bulantı ve sedasyona tolerans gelişir; kabızlığa gelişmez — laksatif önerilmelidir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q29",
+   "stem": "Hızlı ardışık entübasyonda süksinilkolin hangi hastada kontrendikedir?",
+   "options": [
+    "Gebelik",
+    "Hipovolemi",
+    "Kafa travması",
+    "10 gün önce geniş yanığı olan hasta",
+    "Akut astım"
+   ],
+   "correct": 3,
+   "explanation": "Yanık, ezilme, denervasyon ve uzun immobilizasyondan (>24–72 saat) sonra hiperkalemi riski; hiperkalemi, malign hipertermi öyküsü de kontrendikasyondur.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  },
+  {
+   "key": "q30",
+   "stem": "Roküronyumun nöromusküler blokajını hızla geri çeviren ilaç hangisidir?",
+   "options": [
+    "Atropin",
+    "Flumazenil",
+    "Neostigmin tek başına",
+    "Nalokson",
+    "Sugammadeks"
+   ],
+   "correct": 4,
+   "explanation": "Sugammadeks roküronyum/vekuronyumu kapsülleyerek dakikalar içinde blokajı geri çevirir.",
+   "topic": "Analjezi, Anestezi ve Prosedürel Sedasyon"
+  }
+ ]
+}

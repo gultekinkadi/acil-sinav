@@ -1,0 +1,430 @@
+{
+ "id": "soru-08",
+ "title": "Acil Tıp Soru Bankası — 08. Jinekolojik ve Obstetrik Aciller",
+ "desc": "Ektopik gebelik, over torsiyonu ve PID, gebelikte görüntüleme ve tromboemboli, preeklampsi-eklampsi, üçüncü trimester kanamaları, doğum ve doğum komplikasyonları, gebelik fizyolojisi.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 08. Jinekolojik ve Obstetrik Aciller",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Gebelik testi pozitif, vajinal kanaması ve karın ağrısı olan hemodinamik olarak stabil hastada ilk tetkik hangisidir?",
+   "options": [
+    "Laparoskopi",
+    "Transvajinal USG (intrauterin gebeliğin gösterilmesi)",
+    "Kantitatif β-hCG'yi 48 saat sonra tekrar",
+    "MR",
+    "BT"
+   ],
+   "correct": 1,
+   "explanation": "İntrauterin gebelik gösterilirse ektopik büyük ölçüde dışlanır (yardımcı üreme tekniğinde heterotopik gebelik hariç).",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q02",
+   "stem": "Tüp bebek (IVF) tedavisi sonrası USG'de intrauterin gebelik görülen hastada şiddetli karın ağrısı ve serbest sıvı var. Ne düşünülmelidir?",
+   "options": [
+    "Ovaryan hiperstimülasyon her zaman",
+    "Düşük tehdidi",
+    "İdrar yolu enfeksiyonu",
+    "Heterotopik gebelik",
+    "Normal gebelik"
+   ],
+   "correct": 3,
+   "explanation": "Yardımcı üreme tekniklerinde heterotopik gebelik riski belirgin artar.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q03",
+   "stem": "Ektopik gebelikte metotreksat tedavisi için uygun aday hangisidir?",
+   "options": [
+    "Fetal kalp atımı olan büyük kitle",
+    "Takibe gelemeyecek hasta",
+    "Hemodinamik stabil, rüptür bulgusu yok, β-hCG düşük (≈<5000), fetal kalp aktivitesi yok",
+    "Hipotansif ve serbest sıvılı",
+    "Emziren ve böbrek yetmezlikli"
+   ],
+   "correct": 2,
+   "explanation": "Metotreksat başarısızlık oranı β-hCG ve kitle boyutuyla artar; uyumlu takip şarttır.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q04",
+   "stem": "Rh(D) negatif gebede ilk trimester kanaması/ektopik gebelikte anti-D immünoglobulin hakkında doğru olan hangisidir?",
+   "options": [
+    "Asla gerekmez",
+    "Duyarlanmayı önlemek için verilmesi önerilir (12. haftadan önce düşük dozu yeterli olabilir)",
+    "Yalnız doğumda verilir",
+    "Rh pozitif gebeye verilir",
+    "Antikor oluştuktan sonra verilir"
+   ],
+   "correct": 1,
+   "explanation": "Ülkeler arası farklılık olsa da ektopik, düşük ve travmada Rh negatif hastaya anti-D önerilir.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q05",
+   "stem": "Ani başlayan tek taraflı pelvik ağrı, bulantı-kusma ve over kisti öyküsü olan kadında Doppler'de over kanlanmasının görülmesi torsiyonu dışlar mı?",
+   "options": [
+    "Hayır — kanlanma görülse de klinik şüphede jinekoloji/laparoskopi",
+    "Kanlanma varsa torsiyon olamaz ve taburcu edilir",
+    "Yalnız çocuklarda dışlar",
+    "Yalnız gebelerde dışlar",
+    "Evet, kesin dışlar"
+   ],
+   "correct": 0,
+   "explanation": "Over çift kanlanmalıdır; kısmi torsiyonda akım sürebilir.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q06",
+   "stem": "Ateş, pelvik ağrı, servikal hareket hassasiyeti ve USG'de adneksiyel kompleks kitle olan hastada tanı ve tedavi nedir?",
+   "options": [
+    "Tubo-ovaryan apse — yatış ve IV antibiyotik (gerekirse drenaj)",
+    "Basit PID — oral tedavi ve taburcu",
+    "Apandisit — USG kontrolü",
+    "Ektopik — metotreksat",
+    "Over kisti — izlem"
+   ],
+   "correct": 0,
+   "explanation": "TOA'da IV antibiyotik; büyük apse veya yanıtsızlıkta girişimsel drenaj.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q07",
+   "stem": "Gebelikte görüntüleme ile ilgili doğru ifade hangisidir?",
+   "options": [
+    "Hiçbir koşulda BT çekilmez",
+    "50 mGy'nin altındaki fetal dozlar anomali riskini artırmaz; endike tetkik ertelenmemelidir",
+    "Akciğer grafisi düşük nedenidir",
+    "USG fetal zarar verir",
+    "MR'da gadolinyum rutin kullanılır"
+   ],
+   "correct": 1,
+   "explanation": "Tanısal tetkiklerin çoğu bu eşiğin çok altındadır; anneye yarar önceliklidir.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q08",
+   "stem": "Gebelikte pulmoner emboli şüphesinde bacak semptomları varsa ilk tetkik hangisidir?",
+   "options": [
+    "BT pulmoner anjiyografi her zaman ilk",
+    "Bacak venöz kompresyon USG (pozitifse antikoagülan, akciğer görüntülemesi gerekmeyebilir)",
+    "Hemen V/Q",
+    "Ekokardiyografi",
+    "D-dimer normal ise dışlanır"
+   ],
+   "correct": 1,
+   "explanation": "Gebelikte YEARS/uyarlanmış algoritmalar kullanılır; DVT kanıtı tedavi kararını verdirir.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q09",
+   "stem": "Gebelikte antikoagülasyon için tercih edilen ilaç hangisidir?",
+   "options": [
+    "Rivaroksaban",
+    "Apiksaban",
+    "Düşük molekül ağırlıklı heparin",
+    "Dabigatran",
+    "Varfarin"
+   ],
+   "correct": 2,
+   "explanation": "Varfarin teratojeniktir; DOAK'lar gebelikte önerilmez.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q10",
+   "stem": "20. gebelik haftasından sonra KB 165/112, baş ağrısı ve proteinüri olan gebede nöbet profilaksisi hangisidir?",
+   "options": [
+    "Magnezyum sülfat 4–6 g IV yükleme, ardından 1–2 g/saat",
+    "Diazepam infüzyonu",
+    "Profilaksi gerekmez",
+    "Fenitoin",
+    "Levetirasetam"
+   ],
+   "correct": 0,
+   "explanation": "Ağır özellikli preeklampside magnezyum; KB için labetalol, hidralazin veya oral nifedipin.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q11",
+   "stem": "Doğumdan 10 gün sonra jeneralize nöbet geçiren, KB 160/100 olan kadında ilk düşünülmesi gereken tanı hangisidir?",
+   "options": [
+    "Epilepsi",
+    "Migren",
+    "Hipoglisemi",
+    "Postpartum eklampsi",
+    "Psikojenik nöbet"
+   ],
+   "correct": 3,
+   "explanation": "Eklampsi doğumdan 6 haftaya kadar görülebilir; magnezyum ve KB kontrolü.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q12",
+   "stem": "Hemoliz, karaciğer enzim yüksekliği ve trombositopeni ile sağ üst kadran ağrısı olan gebede tanı nedir?",
+   "options": [
+    "Gestasyonel diyabet",
+    "HELLP sendromu",
+    "Kolesistit",
+    "Gebelik kolestazı",
+    "Hepatit A"
+   ],
+   "correct": 1,
+   "explanation": "HELLP preeklampsinin ağır formudur; kesin tedavi doğumdur.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q13",
+   "stem": "Üçüncü trimesterde ağrısız, parlak kırmızı vajinal kanama ile gelen gebede hangisi yapılmamalıdır?",
+   "options": [
+    "Plasenta previa dışlanmadan parmakla vajinal muayene",
+    "Fetal monitorizasyon",
+    "Damar yolu",
+    "USG",
+    "Kan grubu"
+   ],
+   "correct": 0,
+   "explanation": "Previada vajinal muayene masif kanamaya yol açabilir.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q14",
+   "stem": "Araç kazası sonrası ağrılı vajinal kanama, sert-hassas uterus ve fetal distresi olan gebede en olası tanı hangisidir?",
+   "options": [
+    "Plasenta previa",
+    "Uterus rüptürü her zaman",
+    "Vasa previa",
+    "Normal doğum eylemi",
+    "Plasenta dekolmanı (ablasyo plasenta)"
+   ],
+   "correct": 4,
+   "explanation": "Dekolman travmadan saatler sonra bile gelişebilir; ≥20 haftada en az 4–6 saat fetal monitörizasyon.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q15",
+   "stem": "Doğum sonrası kanamanın en sık nedeni hangisidir ve ilk tedavisi nedir?",
+   "options": [
+    "Laserasyon — sütür",
+    "Koagülopati — TDP",
+    "Plasenta artıkları — küretaj",
+    "Uterus inversiyonu — cerrahi",
+    "Uterus atonisi — uterus masajı ve oksitosin (+ erken traneksamik asit)"
+   ],
+   "correct": 4,
+   "explanation": "4T: Tonus, Travma, Doku, Trombin; traneksamik asit ilk 3 saatte verilir.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q16",
+   "stem": "Gebelikteki normal fizyolojik değişikliklerden hangisi doğrudur?",
+   "options": [
+    "Mide boşalmasının hızlanması",
+    "pCO₂'nin 45 mmHg olması",
+    "Kan hacminde azalma",
+    "Kompanse respiratuvar alkaloz (pCO₂ ≈30 mmHg) ve fonksiyonel rezidüel kapasitede azalma",
+    "Kalp hızında azalma"
+   ],
+   "correct": 3,
+   "explanation": "Normal görünen pCO₂ (40) gebede solunum yorgunluğunu gösterebilir; FRK azalması desatürasyonu hızlandırır.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q17",
+   "stem": "20 haftadan büyük gebede travma sonrası hipotansiyon gelişti. İlk basit müdahale hangisidir?",
+   "options": [
+    "Vazopresör",
+    "Sıvı kısıtlaması",
+    "Hemen sezaryen",
+    "Trendelenburg",
+    "Uterusu manuel olarak sola itmek ya da sol lateral tilt (aortokaval bası)"
+   ],
+   "correct": 4,
+   "explanation": "Supin hipotansiyon sendromu venöz dönüşü azaltır.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q18",
+   "stem": "Gebe kadın kardiyak arrestte; fundus göbek seviyesinin üzerinde. Perimortem sezaryen için öneri nedir?",
+   "options": [
+    "Yalnız fetal kalp sesi varsa",
+    "30 dakika KPR sonrası",
+    "Hastaneye ulaşınca",
+    "Hiçbir zaman",
+    "ROSC sağlanamazsa arrestin ≈4. dakikasında başlayıp 5. dakikada doğurtmak (resüsitatif histerotomi)"
+   ],
+   "correct": 4,
+   "explanation": "Amaç annenin resüsitasyonudur; aortokaval bası kalkar.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q19",
+   "stem": "Doğum sırasında göbek kordonu vajinadan sarkıyor. İlk müdahale hangisidir?",
+   "options": [
+    "Bekleyip izlemek",
+    "Hızla doğurtmak için ıkındırmak",
+    "Kordonu geri itmek",
+    "Prezente kısmı elle yukarı itip kordon basısını azaltmak, diz-göğüs pozisyonu ve acil sezaryen",
+    "Kordonu klemplemek"
+   ],
+   "correct": 3,
+   "explanation": "Kordona dokunmak spazm yapabilir; elden çıkarılmadan ameliyathaneye.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q20",
+   "stem": "Baş doğduktan sonra omuzların takıldığı (omuz distosisi) durumda ilk manevra hangisidir?",
+   "options": [
+    "Sezaryene geçmek hemen",
+    "Fundal bası",
+    "McRoberts manevrası (bacakları karına doğru fleksiyon) + suprapubik bası",
+    "Başı çekmek",
+    "Episiotomi tek başına"
+   ],
+   "correct": 2,
+   "explanation": "Fundal bası distosisi ağırlaştırır; sonrasında Rubin/Woods, arka kolun çıkarılması.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q21",
+   "stem": "Doğum sonrası ilk aylarda nefes darlığı ve ödemle gelen, ekoda EF %30 olan kadında tanı nedir?",
+   "options": [
+    "Pulmoner emboli",
+    "Pnömoni",
+    "Peripartum kardiyomiyopati",
+    "Anemi",
+    "Astım"
+   ],
+   "correct": 2,
+   "explanation": "Son gebelik ayı ile doğumdan sonraki 5. ay arasında; KY tedavisi, bromokriptin araştırılmaktadır.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q22",
+   "stem": "Doğum sırasında ani hipoksi, hipotansiyon, nöbet ve ardından DİK gelişen kadında en olası tanı hangisidir?",
+   "options": [
+    "Amniyotik sıvı embolisi",
+    "Hipoglisemi",
+    "Vazovagal senkop",
+    "Plasenta previa",
+    "Eklampsi"
+   ],
+   "correct": 0,
+   "explanation": "Klinik tanıdır; destek tedavisi, kan ürünleri ve gerekirse perimortem doğum.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q23",
+   "stem": "Gebelikte asemptomatik bakteriüri neden tedavi edilir?",
+   "options": [
+    "Annenin isteğine göre",
+    "Piyelonefrit ve erken doğum riskini azaltmak için",
+    "Hiç tedavi edilmez",
+    "Yalnız 3. trimesterde",
+    "Yalnız ateş varsa"
+   ],
+   "correct": 1,
+   "explanation": "Gebede tarama ve tedavi önerilir; nitrofurantoin/sefaleksin seçenekleri.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q24",
+   "stem": "Gebelik sırasında güvenle kullanılabilecek antihipertansif hangisidir?",
+   "options": [
+    "Aliskiren",
+    "ARB",
+    "Labetalol (ya da nifedipin, metildopa)",
+    "ACE inhibitörü",
+    "Spironolakton"
+   ],
+   "correct": 2,
+   "explanation": "ACEi/ARB fetal böbrek gelişimini bozar; gebelikte kontrendikedir.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q25",
+   "stem": "Gebeliğin ilk trimesterinde şiddetli kusma, kilo kaybı ve ketonüri ile gelen kadında tanı ve dikkat edilmesi gereken vitamin hangisidir?",
+   "options": [
+    "Hepatit — B12",
+    "Gastroenterit — antibiyotik",
+    "Apandisit — folat",
+    "Hiperemezis gravidarum — dekstrozlu sıvıdan önce/birlikte tiamin",
+    "Normal bulantı — D vitamini"
+   ],
+   "correct": 3,
+   "explanation": "Tiaminsiz dekstroz Wernicke ensefalopatisine yol açabilir.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q26",
+   "stem": "Vajinal kanama ve servikal os açık, ama gebelik ürünü atılmamış 9 haftalık gebede tanı hangisidir?",
+   "options": [
+    "Ektopik gebelik",
+    "Missed abortus",
+    "Düşük tehdidi",
+    "Tam düşük",
+    "Kaçınılmaz (inevitable) düşük"
+   ],
+   "correct": 4,
+   "explanation": "Düşük tehdidinde os kapalıdır; tam düşükte uterus boştur.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q27",
+   "stem": "İlk trimesterde aşırı büyük uterus, çok yüksek β-hCG, şiddetli kusma ve erken preeklampsi bulguları hangi tanıyı düşündürür?",
+   "options": [
+    "Hiperemezis",
+    "İkiz gebelik her zaman",
+    "Molar gebelik",
+    "Over kisti",
+    "Ektopik gebelik"
+   ],
+   "correct": 2,
+   "explanation": "USG'de 'kar fırtınası' görünümü; tiroid fırtınası da eşlik edebilir.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q28",
+   "stem": "Labium majusta ağrılı, fluktuasyon veren kitle (Bartholin apsesi) için önerilen tedavi hangisidir?",
+   "options": [
+    "Eksizyon acilde",
+    "Yalnız antibiyotik",
+    "Sıcak kompres ve bekleme her zaman",
+    "İnsizyon-drenaj ve Word kateteri (ya da marsupializasyon)",
+    "Basit insizyon ve kapama"
+   ],
+   "correct": 3,
+   "explanation": "Basit insizyonda nüks sık; kateter epitelizasyon sağlar.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q29",
+   "stem": "Trichomonas vaginalis tanısı alan hastada tedavi için doğru olan hangisidir?",
+   "options": [
+    "Yalnız hastaya flukonazol",
+    "Topikal klotrimazol",
+    "Tedavi gerekmez",
+    "Azitromisin tek doz",
+    "Metronidazol ve eşin de tedavisi"
+   ],
+   "correct": 4,
+   "explanation": "Trikomoniyaz cinsel yolla bulaşır; eş tedavisi yeniden enfeksiyonu önler.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  },
+  {
+   "key": "q30",
+   "stem": "Korunmasız ilişkiden 4 gün sonra başvuran kadında en etkili acil kontrasepsiyon yöntemi hangisidir?",
+   "options": [
+    "Bakırlı rahim içi araç (5 gün içinde)",
+    "Kombine OK yüksek doz",
+    "Levonorgestrel 1,5 mg",
+    "Hiçbir yöntem etkili değildir",
+    "Spermisit"
+   ],
+   "correct": 0,
+   "explanation": "Ulipristal asetat da 120 saate kadar etkilidir; levonorgestrelin etkinliği 72 saatten sonra azalır.",
+   "topic": "Jinekolojik ve Obstetrik Aciller"
+  }
+ ]
+}

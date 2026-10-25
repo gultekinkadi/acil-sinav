@@ -1,0 +1,430 @@
+{
+ "id": "soru-11",
+ "title": "Acil Tıp Soru Bankası — 11. Kas-İskelet Hastalıkları (Travma Dışı)",
+ "desc": "Bel ve boyun ağrısında kırmızı bayraklar, kauda ekuina, vertebral enfeksiyonlar, monoartrit ve kristal artritler, el enfeksiyonları, tendon ve bursa hastalıkları, rabdomiyoliz.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 11. Kas-İskelet Hastalıkları (Travma Dışı)",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Bel ağrısıyla gelen hastada acil görüntüleme gerektiren 'kırmızı bayrak' hangisidir?",
+   "options": [
+    "Kas spazmı",
+    "Ağrının eğilmekle artması",
+    "Yaşın 35 olması",
+    "İdrar retansiyonu ve eyer anestezisi",
+    "Ağır kaldırma sonrası başlaması"
+   ],
+   "correct": 3,
+   "explanation": "Kauda ekuina bulguları, ateş/IV madde kullanımı, kanser öyküsü, ilerleyici nörolojik defisit acil MR gerektirir.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q02",
+   "stem": "Kauda ekuina sendromu şüphesinde en duyarlı objektif bulgu hangisidir?",
+   "options": [
+    "Lomber hassasiyet",
+    "Ateş",
+    "Aşil refleksi kaybı tek taraflı",
+    "İşeme sonrası rezidü idrarın artması (üriner retansiyon)",
+    "Pozitif düz bacak kaldırma"
+   ],
+   "correct": 3,
+   "explanation": "Retansiyon en duyarlı bulgudur; rezidü >200 mL anlamlı kabul edilir. Acil MR ve cerrahi dekompresyon.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q03",
+   "stem": "Kırmızı bayrak olmayan akut nonspesifik bel ağrısında önerilen yaklaşım hangisidir?",
+   "options": [
+    "Opioid uzun süre",
+    "Lomber MR",
+    "Aktif kalmak, kısa süreli NSAİİ/ısı; rutin görüntüleme yapmamak",
+    "Fizik tedavi zorunlu",
+    "Yatak istirahati 1 hafta"
+   ],
+   "correct": 2,
+   "explanation": "Çoğu 4–6 haftada düzelir; erken görüntüleme sonucu değiştirmez.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q04",
+   "stem": "Diyabetik, hemodiyaliz hastasında 3 haftadır artan sırt ağrısı, ESH ve CRP yüksek, ateş yok. En olası tanı hangisidir?",
+   "options": [
+    "Vertebral osteomiyelit/diskit",
+    "Fibromiyalji",
+    "Mekanik bel ağrısı",
+    "Osteoporotik kırık",
+    "Böbrek taşı"
+   ],
+   "correct": 0,
+   "explanation": "Ateş çoğu zaman yoktur; MR tanısal, kan kültürü ve gerekirse biyopsi.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q05",
+   "stem": "Bacağa yayılan ağrısı olan hastada düz bacak kaldırma testinde 30–70° arasında dizin altına yayılan ağrı neyi gösterir?",
+   "options": [
+    "Piriformis",
+    "Sakroileit",
+    "L5/S1 sinir kökü irritasyonu (disk hernisi)",
+    "AAA",
+    "Kalça artriti"
+   ],
+   "correct": 2,
+   "explanation": "Çapraz düz bacak testi daha özgüldür.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q06",
+   "stem": "Bel ağrısı ve yan ağrısıyla gelen 70 yaşında sigara içicisi erkekte, özellikle hipotansiyon varsa ilk dışlanması gereken tanı hangisidir?",
+   "options": [
+    "Kas gerilmesi",
+    "Böbrek taşı",
+    "Lomber disk hernisi",
+    "Spinal stenoz",
+    "Abdominal aort anevrizması (rüptür/sızıntı)"
+   ],
+   "correct": 4,
+   "explanation": "Yatak başı aort USG hızlı tarama sağlar.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q07",
+   "stem": "Boynu ağrılı tarafa yan eğip aksiyel yük verildiğinde kola yayılan ağrı (Spurling testi) neyi düşündürür?",
+   "options": [
+    "Torasik çıkış sendromu",
+    "Servikal radikülopati",
+    "Lateral epikondilit",
+    "Karpal tünel sendromu",
+    "Rotator manşet yırtığı"
+   ],
+   "correct": 1,
+   "explanation": "Çoğu konservatif tedaviyle düzelir; ilerleyici defisit/miyelopatide görüntüleme.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q08",
+   "stem": "Romatoid artritli hastada entübasyon veya boyun travmasında dikkat edilmesi gereken patoloji hangisidir?",
+   "options": [
+    "Skolyoz",
+    "Atlantoaksiyel (C1–C2) instabilite",
+    "Kostokondrit",
+    "Sakroileit",
+    "Lomber spinal stenoz"
+   ],
+   "correct": 1,
+   "explanation": "Transvers ligaman tutulumu kord basısı riski taşır.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q09",
+   "stem": "Akut monoartrit — dizde sıcaklık, efüzyon ve hareket kısıtlılığı olan hastada en önemli tetkik hangisidir?",
+   "options": [
+    "MR",
+    "Ürik asit düzeyi",
+    "Eklem aspirasyonu (hücre sayımı, Gram boyama, kültür, kristal)",
+    "Direkt grafi",
+    "ESH"
+   ],
+   "correct": 2,
+   "explanation": "Septik artrit dışlanmadan gut tanısı konmaz; kristal ve enfeksiyon birlikte olabilir.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q10",
+   "stem": "Sinoviyal sıvıda lökosit 85.000/mm³, %92 nötrofil. Tanı ve yaklaşım hangisidir?",
+   "options": [
+    "Travmatik efüzyon — buz",
+    "Gut — kolşisin",
+    "Romatoid artrit — steroid",
+    "Septik artrit — IV antibiyotik ve eklemin drenajı (ortopedi)",
+    "Osteoartrit — NSAİİ"
+   ],
+   "correct": 3,
+   "explanation": "Lökosit >50.000 septik artriti güçlü düşündürür; ama daha düşük değerler de dışlamaz.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q11",
+   "stem": "Gece aniden başlayan, ayak başparmağında (1. MTF) şiddetli ağrı, kızarıklık ve şişlik. Sinoviyal sıvıda iğne şeklinde, negatif çift kırıcı kristaller. Tanı nedir?",
+   "options": [
+    "Gut (monosodyum ürat)",
+    "Selülit",
+    "Psödogut (CPPD)",
+    "Romatoid artrit",
+    "Septik artrit"
+   ],
+   "correct": 0,
+   "explanation": "Psödogutta eşkenar dörtgen, zayıf pozitif çift kırıcı kristaller; en sık diz.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q12",
+   "stem": "Akut gut atağında hangi ilaç akut dönemde başlanmamalıdır?",
+   "options": [
+    "NSAİİ",
+    "Allopürinol (atak sırasında yeni başlanmaz; kullanan kesmez)",
+    "Kolşisin",
+    "Kortikosteroid",
+    "Parasetamol"
+   ],
+   "correct": 1,
+   "explanation": "Ürat düşürücü tedaviye ani başlama atağı uzatabilir; zaten kullanılıyorsa sürdürülür.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q13",
+   "stem": "Cinsel aktif genç kadında gezici poliartralji, tenosinovit ve el sırtında az sayıda vezikülopüstüler lezyon. Tanı nedir?",
+   "options": [
+    "Dissemine gonokok enfeksiyonu — seftriakson",
+    "Reaktif artrit",
+    "Romatoid artrit",
+    "Lupus",
+    "Psoriatik artrit"
+   ],
+   "correct": 0,
+   "explanation": "Eklem sıvısı kültürü sıklıkla negatiftir; servikal/üretral/faringeal örnek NAAT ile.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q14",
+   "stem": "Klamidya üretritinden haftalar sonra asimetrik artrit, konjonktivit ve üretrit gelişen genç erkekte tanı hangisidir?",
+   "options": [
+    "Gut",
+    "Lupus",
+    "Septik artrit",
+    "Ankilozan spondilit",
+    "Reaktif artrit"
+   ],
+   "correct": 4,
+   "explanation": "HLA-B27 ile ilişkili; tedavi NSAİİ ve tetikleyici enfeksiyonun tedavisi.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q15",
+   "stem": "Lupuslu genç kadında ani göğüs ağrısı ve nefes darlığı. Hangisi özellikle düşünülmelidir?",
+   "options": [
+    "Antifosfolipid sendromuna bağlı pulmoner emboli (ve perikardit/plörit)",
+    "Panik atak",
+    "Kostokondrit",
+    "Gastrit",
+    "Pnömotoraks"
+   ],
+   "correct": 0,
+   "explanation": "SLE'de serozit, tromboz ve enfeksiyon başlıca acil sorunlardır.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q16",
+   "stem": "70 yaşında kadında omuz ve kalça kuşağında sabah sertliği, ESH yüksek. Ayrıca baş ağrısı ve çene klodikasyonu var. Hangi komplikasyon için acil steroid başlanır?",
+   "options": [
+    "Septik artrit",
+    "Hiperkalsemi",
+    "Kas yırtığı",
+    "Kalp yetmezliği",
+    "Dev hücreli arterite bağlı görme kaybı"
+   ],
+   "correct": 4,
+   "explanation": "PMR'li hastaların bir kısmında GCA eşlik eder.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q17",
+   "stem": "Kolunu baş üzerine kaldırınca ağrısı olan, 60–120° arası 'ağrılı ark' tarifleyen hastada en olası tanı hangisidir?",
+   "options": [
+    "Adeziv kapsülit",
+    "Servikal radikülopati",
+    "Subakromiyal sıkışma (rotator manşet tendiniti)",
+    "Omuz çıkığı",
+    "Akromiyoklaviküler artrit"
+   ],
+   "correct": 2,
+   "explanation": "Adeziv kapsülitte aktif ve pasif hareketler birlikte kısıtlanır.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q18",
+   "stem": "Sol omuz ağrısıyla gelen diyabetik hastada kas-iskelet muayenesi normal ve ağrı eforla artıyor. Ne yapılmalıdır?",
+   "options": [
+    "Steroid enjeksiyonu",
+    "Yansıyan ağrı açısından EKG ve AKS değerlendirmesi",
+    "Fizik tedavi",
+    "Omuz grafisi tek başına",
+    "NSAİİ ile taburcu"
+   ],
+   "correct": 1,
+   "explanation": "Omuz ağrısı MI, pnömoni, safra kesesi veya dalak patolojisinden yansıyabilir.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q19",
+   "stem": "Parmak ucunda yanma ve ağrının ardından gruplanmış veziküller gelişen diş hekimi/hemşirede tanı ve kaçınılması gereken girişim nedir?",
+   "options": [
+    "Paronişi — drenaj",
+    "Selülit — debridman",
+    "Siğil — koterizasyon",
+    "Felon — insizyon",
+    "Herpetik dolama — insizyon yapılmaz"
+   ],
+   "correct": 4,
+   "explanation": "Herpetik dolama kendini sınırlar; oral antiviral süreyi kısaltabilir.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q20",
+   "stem": "Parmakta simetrik fusiform şişlik, hafif fleksiyon duruşu, fleksör kılıf boyunca hassasiyet ve pasif ekstansiyonda ağrı varsa tanı nedir?",
+   "options": [
+    "Paronişi",
+    "Gut",
+    "Pyojenik fleksör tenosinovit — IV antibiyotik ve acil el cerrahisi",
+    "Mallet parmak",
+    "Tetik parmak"
+   ],
+   "correct": 2,
+   "explanation": "Kanavel bulguları; tendon nekrozu ve derin el boşluklarına yayılım riski.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q21",
+   "stem": "Parmak pulpasında gergin, zonklayıcı ağrılı apse (felon) için doğru tedavi hangisidir?",
+   "options": [
+    "İnsizyon-drenaj (lateral, eklem ve sinirlerden uzak) ve antibiyotik",
+    "Tırnak çekimi",
+    "Antiviral",
+    "Yalnız sıcak uygulama",
+    "Steroid"
+   ],
+   "correct": 0,
+   "explanation": "Felonun yayılması osteomiyelit ve tenosinovite yol açabilir.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q22",
+   "stem": "Sabah ilk adımlarda topukta bıçak saplanır gibi ağrı, gün içinde azalan ağrı. En olası tanı ve tedavi nedir?",
+   "options": [
+    "Tarsal tünel — steroid",
+    "Kalkaneus kırığı — alçı",
+    "Aşil rüptürü — cerrahi",
+    "Plantar fasiit — germe egzersizleri, uygun ayakkabı, NSAİİ",
+    "Gut — kolşisin"
+   ],
+   "correct": 3,
+   "explanation": "Çoğu konservatif tedaviyle aylar içinde düzelir.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q23",
+   "stem": "Siprofloksasin kullanan yaşlı hastada ani topuk arkası ağrısı ve 'tekme yemiş gibi' hissi. Muayenede Thompson testi pozitif. Tanı nedir?",
+   "options": [
+    "Plantar fasiit",
+    "Aşil tendon rüptürü",
+    "Kalkaneus kırığı",
+    "Ayak bileği burkulması",
+    "Derin ven trombozu"
+   ],
+   "correct": 1,
+   "explanation": "Florokinolonlar ve steroid tendon rüptür riskini artırır.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q24",
+   "stem": "Başparmak abdüksiyonu ve el bileği ulnar deviasyonuyla (Finkelstein testi) ağrı artıyorsa tanı nedir?",
+   "options": [
+    "Gamekeeper başparmağı",
+    "Karpal tünel sendromu",
+    "Skafoid kırığı",
+    "De Quervain tenosinoviti",
+    "Ganglion"
+   ],
+   "correct": 3,
+   "explanation": "Abduktor pollicis longus ve ekstansör pollicis brevis tenosinoviti.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q25",
+   "stem": "Dizin önünde kızarık, sıcak, fluktuasyon veren şişlik; eklem hareketi ağrısız ve tam. Tanı ve yaklaşım nedir?",
+   "options": [
+    "Prepatellar bursit — septik bursit dışlamak için aspirasyon",
+    "Baker kisti",
+    "Gut artriti",
+    "Septik artrit — acil artrotomi",
+    "Menisküs yırtığı"
+   ],
+   "correct": 0,
+   "explanation": "Septik bursitte en sık etken S. aureus'tur; eklem hareketinin ağrısız olması artritten ayırır.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q26",
+   "stem": "Gece artan elde uyuşma; 1.–3. parmaklarda parestezi ve Phalen/Tinel pozitifliği hangi tanıyı düşündürür?",
+   "options": [
+    "Servikal radikülopati C8",
+    "Raynaud",
+    "Karpal tünel sendromu",
+    "Ulnar sinir sıkışması",
+    "De Quervain"
+   ],
+   "correct": 2,
+   "explanation": "Gebelik, hipotiroidi ve diyabet risk faktörleridir; gece ateli ilk tedavidir.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q27",
+   "stem": "Uzun süre yerde kalmış yaşlı hastada kas ağrısı, koyu renkli idrar, idrar stripte kan pozitif ama mikroskopide eritrosit yok. Tanı ve tedavi nedir?",
+   "options": [
+    "Glomerülonefrit — steroid",
+    "Pyelonefrit — antibiyotik",
+    "Hematüri — üroloji",
+    "Hepatit — destek",
+    "Rabdomiyoliz — agresif izotonik sıvı, idrar çıkışı hedefi ≈200–300 mL/saat, K izlemi"
+   ],
+   "correct": 4,
+   "explanation": "Miyoglobin strip pozitifliği yapar; hiperkalemi ve AKI başlıca tehlikelerdir.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q28",
+   "stem": "Uzun mesafe koşucusunda egzersizle başlayan, dinlenmekle geçen bacak ağrısı ve uyuşma; istirahatte muayene normal. En olası tanı hangisidir?",
+   "options": [
+    "Akut kompartman sendromu",
+    "Siyatik",
+    "Stres kırığı her zaman",
+    "Kronik (egzersiz ilişkili) kompartman sendromu",
+    "Derin ven trombozu"
+   ],
+   "correct": 3,
+   "explanation": "Tanı egzersiz sonrası kompartman basıncı ölçümüyle konur; akut olandan farklı olarak acil fasyotomi gerekmez.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q29",
+   "stem": "Diyabetik ayak ülserinde kemiğe prob ile dokunulabilmesi (probe-to-bone) neyi düşündürür?",
+   "options": [
+    "Venöz ülser",
+    "Osteomiyelit",
+    "Yüzeyel selülit",
+    "Nöropati",
+    "Gut tofüsü"
+   ],
+   "correct": 1,
+   "explanation": "Grafi erken dönemde normal olabilir; MR ve kemik biyopsisi.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  },
+  {
+   "key": "q30",
+   "stem": "Trokanter majör üzerinde hassasiyet, yan yatınca artan kalça ağrısı. En olası tanı hangisidir?",
+   "options": [
+    "Meraljia parestetika",
+    "Kalça kırığı",
+    "Avasküler nekroz",
+    "Septik kalça",
+    "Trokanterik bursit (büyük trokanter ağrı sendromu)"
+   ],
+   "correct": 4,
+   "explanation": "Yürüyemiyor veya yük veremiyorsa kırık dışlanmalıdır.",
+   "topic": "Kas-İskelet Hastalıkları (Travma Dışı)"
+  }
+ ]
+}

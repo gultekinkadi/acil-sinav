@@ -1,0 +1,430 @@
+{
+ "id": "soru-20",
+ "title": "Acil Tıp Soru Bankası — 20. Özel Durumlar",
+ "desc": "Cinsel saldırı ve partner şiddeti, çocuk ve yaşlı istismarı, aile katılımı ve ölüm haberi, onam ve kapasite, nakil hastası, yaşlı ve obez hasta, cihaz bağımlı hastalar, palyatif bakım ve hukuki konular.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 20. Özel Durumlar",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Cinsel saldırı sonrası başvuran hastada delil toplama (adli muayene) için genel kabul gören süre sınırı nedir?",
+   "options": [
+    "24 saat",
+    "Sınır yoktur, ama 6 saatten sonra anlamsızdır",
+    "Olaydan sonraki ≈72–120 saat (mümkün olan en erken zamanda)",
+    "Yalnız aynı gün",
+    "1 ay"
+   ],
+   "correct": 2,
+   "explanation": "Hastanın onayı alınır; yıkanma, idrar ve giysi değişimi öncesi başvuru önerilir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q02",
+   "stem": "Cinsel saldırı mağduruna acil serviste önerilen tıbbi bakım bileşeni hangisidir?",
+   "options": [
+    "Yalnız gebelik testi",
+    "Yalnız adli muayene",
+    "Antibiyotik verilmez",
+    "Yalnız psikiyatri",
+    "Acil kontrasepsiyon, CYBE profilaksisi (seftriakson, doksisiklin, metronidazol), HBV aşısı/HBIG ve risk varsa HIV PEP"
+   ],
+   "correct": 4,
+   "explanation": "HIV PEP ilk 72 saat içinde başlanmalıdır.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q03",
+   "stem": "Partner şiddeti şüphesinde acil serviste en uygun yaklaşım hangisidir?",
+   "options": [
+    "Yalnız fiziksel yaralanmayı tedavi etmek",
+    "Partnerin yanında sormak",
+    "Hastayı ikna etmek için baskı yapmak",
+    "Hiç sormamak",
+    "Hastayla partnerinden ayrı, mahremiyet içinde konuşmak, belgelemek, güvenlik planı ve destek kaynaklarına yönlendirmek"
+   ],
+   "correct": 4,
+   "explanation": "Yaralanmaların fotoğraf/şema ile belgelenmesi adli süreç için değerlidir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q04",
+   "stem": "Partner şiddetini düşündüren yaralanma paterni hangisidir?",
+   "options": [
+    "Ayak bileği burkulması",
+    "Tek düşme sonrası dizde sıyrık",
+    "Spor yaralanması",
+    "Farklı iyileşme evrelerinde çok sayıda yaralanma, merkezi (yüz, boyun, göğüs, karın) yaralanmalar ve gebelikte travma",
+    "Elde kesi"
+   ],
+   "correct": 3,
+   "explanation": "Öykü ile yaralanma arasındaki uyumsuzluk ve tedaviye başvuruda gecikme de uyarıcıdır.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q05",
+   "stem": "Çocuk istismarı şüphesinde hekimin yükümlülüğü nedir?",
+   "options": [
+    "Çocuğu aileyle taburcu etmek",
+    "Yalnız aileyi uyarmak",
+    "Şüpheyi yasal olarak ilgili mercilere bildirmek (kesin kanıt gerekmez) ve çocuğun güvenliğini sağlamak",
+    "Kesin kanıt olmadan bildirim yapmamak",
+    "Ailenin onayını beklemek"
+   ],
+   "correct": 2,
+   "explanation": "Türkiye'de adli olgu bildirimi zorunludur; çocuk izlem merkezleri ve sosyal hizmet devreye girer.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q06",
+   "stem": "Yaşlı istismarı için uyarıcı bulgu hangisidir?",
+   "options": [
+    "Diyabet",
+    "Hipertansiyon",
+    "Hastanın ilaç listesi getirmesi",
+    "Açıklanamayan yaralanmalar, ihmal (dehidratasyon, bası yaraları), bakım verenin sorulara yanıt vermesi ve başvuruda gecikme",
+    "Hastanın yalnız gelmesi"
+   ],
+   "correct": 3,
+   "explanation": "Finansal ve psikolojik istismar da sıktır.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q07",
+   "stem": "Kardiyak arrestteki hastanın yakınının resüsitasyon sırasında odada bulunması hakkında kanıtlar ne gösterir?",
+   "options": [
+    "Uygun destekle ailenin bulunması yas sürecini olumlu etkileyebilir ve resüsitasyon kalitesini bozmaz",
+    "Ekibi her zaman olumsuz etkiler",
+    "Hukuki risk nedeniyle önerilmez",
+    "Yalnız çocuklarda izin verilir",
+    "Her zaman yasaktır"
+   ],
+   "correct": 0,
+   "explanation": "Aileye eşlik eden bir personel bulunması önerilir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q08",
+   "stem": "Ölüm haberini verirken önerilen yaklaşım hangisidir?",
+   "options": [
+    "Koridorda ayakta hızlıca",
+    "'Kaybettik' gibi belirsiz ifadelerle",
+    "Tıbbi terimlerle ayrıntılı açıklama",
+    "Sessiz bir odada, oturarak, 'öldü' gibi açık ifadeler kullanarak; sonra soruları dinleyip destek sağlamak",
+    "Telefonla, kimliği sorgulamadan"
+   ],
+   "correct": 3,
+   "explanation": "Örtmeceli ifadeler yanlış anlaşılmaya yol açabilir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q09",
+   "stem": "Karar verme kapasitesi olan erişkin hasta önerilen tedaviyi reddediyor. Ne yapılmalıdır?",
+   "options": [
+    "Taburcu kağıdını imzalatmadan göndermek",
+    "Riskleri anladığını belgeleyip kararına saygı göstermek, alternatifleri ve geri dönebileceğini anlatmak",
+    "Ailesinin kararını almak",
+    "Psikiyatri olmadan kapasitesiz saymak",
+    "Zorla tedavi etmek"
+   ],
+   "correct": 1,
+   "explanation": "Tıbbi tavsiyeye karşı taburculukta ayrıntılı belgeleme önemlidir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q10",
+   "stem": "Bilinçsiz, yakını olmayan ve acil girişim gereken hastada onam için doğru olan hangisidir?",
+   "options": [
+    "Yakın bulunana kadar beklenir",
+    "Girişim yapılamaz",
+    "Örtük (varsayılan) onam ilkesiyle hayat kurtarıcı girişim yapılır",
+    "Hastane yönetimi onay vermelidir",
+    "Mahkeme kararı beklenir"
+   ],
+   "correct": 2,
+   "explanation": "Acil durumda makul bir kişinin onay vereceği varsayılır.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q11",
+   "stem": "Böbrek nakilli, takrolimus kullanan hastaya klaritromisin başlanırsa ne olabilir?",
+   "options": [
+    "Hiperkalsemi",
+    "Takrolimus düzeyi düşer — rejeksiyon",
+    "Hipoglisemi",
+    "Takrolimus düzeyi yükselir — nefrotoksisite ve nörotoksisite",
+    "Etkileşim yoktur"
+   ],
+   "correct": 3,
+   "explanation": "Makrolidler ve azol antifungaller CYP3A4'ü inhibe eder; rifampisin düzeyi düşürür.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q12",
+   "stem": "Nakil hastasında ateş değerlendirmesinde doğru olan hangisidir?",
+   "options": [
+    "İmmünsüpresyon nedeniyle bulgular silik olabilir; nakil zamanına göre fırsatçı enfeksiyonlar (CMV, PJP, fungal) düşünülür",
+    "Ayaktan izlem her zaman yeterli",
+    "Antibiyotik verilmez",
+    "Ateş her zaman rejeksiyondur",
+    "Steroid kesilir"
+   ],
+   "correct": 0,
+   "explanation": "Nakil merkeziyle iletişim kurulmalıdır.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q13",
+   "stem": "Yaşlı hastada akut hastalığın atipik başvuru biçimlerinden biri hangisidir?",
+   "options": [
+    "Her zaman tipik semptomlar",
+    "Göğüs ağrısı her MI'da",
+    "Ateşsiz enfeksiyon, ağrısız MI, yalnız deliryum ya da düşme",
+    "Yüksek ateş",
+    "Belirgin karın bulguları"
+   ],
+   "correct": 2,
+   "explanation": "Yaşlılarda akut karın ve sepsis bulguları silik olabilir; düşük eşikle tetkik.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q14",
+   "stem": "Yaşlıda deliryum ve düşme riskini artırdığı için kaçınılması önerilen (Beers listesi) ilaç grubu hangisidir?",
+   "options": [
+    "Levotiroksin",
+    "Parasetamol",
+    "Birinci kuşak antihistaminikler ve uzun etkili benzodiazepinler",
+    "Vitamin D",
+    "Statinler"
+   ],
+   "correct": 2,
+   "explanation": "Antikolinerjik yükü yüksek ilaçlar bilişsel bozulma ve düşme riskini artırır.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q15",
+   "stem": "Bariatrik cerrahiden (sleeve/gastrik bypass) 4 gün sonra taşikardi, ateş ve karın ağrısı olan hastada en önemli olasılık hangisidir?",
+   "options": [
+    "Anastomoz kaçağı — acil cerrahi değerlendirme ve kontrastlı BT",
+    "Normal postoperatif seyir",
+    "İdrar yolu enfeksiyonu",
+    "Gastroenterit",
+    "Anksiyete"
+   ],
+   "correct": 0,
+   "explanation": "Obez hastada peritonit bulguları silik olabilir; açıklanamayan taşikardi önemli bir ipucudur.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q16",
+   "stem": "Gastrik bypass öyküsü olan hastada aylar/yıllar sonra kramp tarzı karın ağrısı ve kusma. Ne düşünülmelidir?",
+   "options": [
+    "Gastrit",
+    "Böbrek taşı",
+    "Gebelik",
+    "İnternal herni ve barsak obstrüksiyonu",
+    "İBS"
+   ],
+   "correct": 3,
+   "explanation": "Petersen defekti; BT ve cerrahi konsültasyon.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q17",
+   "stem": "Sol ventrikül destek cihazı (LVAD) olan hastada kan basıncı nasıl ölçülür?",
+   "options": [
+    "SpO₂ ile",
+    "Doppler ile (ilk sesin duyulduğu basınç ≈OAB); nabız palpe edilemeyebilir",
+    "Ölçülemez",
+    "Nabız sayarak",
+    "Normal manşonla sistolik/diyastolik"
+   ],
+   "correct": 1,
+   "explanation": "Hedef OAB ≈70–90 mmHg; cihaz alarmları ve tromboz/kanama değerlendirilir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q18",
+   "stem": "LVAD'li bilinci kapalı hastada nabız yok ve perfüzyon bulgusu yoksa ne yapılmalıdır?",
+   "options": [
+    "Cihaz çalışmıyor ve perfüzyon yoksa göğüs basısı başlanır; LVAD koordinatörüne ulaşılır",
+    "Asla göğüs basısı yapılmaz",
+    "Defibrilasyon yasaktır",
+    "Önce kanül çıkarılır",
+    "Yalnız adrenalin"
+   ],
+   "correct": 0,
+   "explanation": "Göğüs basısının cihazı yerinden oynatma riski vardır ama yaşam tehdidinde önceliklidir; defibrilasyon güvenlidir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q19",
+   "stem": "Trakeostomili hastada kanül yerinden çıkmış ve solunum sıkıntısı var. Trakeostomi 3 gün önce açılmışsa en güvenli yaklaşım hangisidir?",
+   "options": [
+    "Bekleme",
+    "Yeniden kör kanül yerleştirmeye zorlamamak; ağızdan oksijenasyon/entübasyon ve KBB",
+    "Stomadan beslenme tüpü takmak",
+    "Stomayı sütürle kapatmak",
+    "Kanülü zorla geri itmek"
+   ],
+   "correct": 1,
+   "explanation": "Trakt olgunlaşmamışsa (<7 gün) yanlış pasaj riski yüksektir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q20",
+   "stem": "Perkütan gastrostomi (PEG) tüpü 5 gün önce takılan hastada tüp çıkmış. Doğru yaklaşım hangisidir?",
+   "options": [
+    "Hemen yeni tüpü kör yerleştirip beslemeye başlamak",
+    "Bekleme",
+    "Stomayı kapatmak",
+    "Foley ile besleme",
+    "Trakt olgunlaşmamış olabilir; kör yerleştirme yapmadan gastroenteroloji/cerrahi değerlendirmesi"
+   ],
+   "correct": 4,
+   "explanation": "Olgunlaşmış trakt (>4–6 hafta) varsa tüp ya da Foley ile trakt açık tutulur, yer kontrastla doğrulanır.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q21",
+   "stem": "Reşit olmayan bir hasta yalnız başına cinsel sağlık nedeniyle başvurdu. Hekim için doğru tutum hangisidir?",
+   "options": [
+    "Her durumda aileyi aramak",
+    "Hiçbir kayıt tutmamak",
+    "Yerel mevzuata uygun şekilde gizliliğe saygı göstermek ve istismar şüphesi varsa yasal bildirim yapmak",
+    "Polise haber vermek her zaman",
+    "Bakım vermeyi reddetmek"
+   ],
+   "correct": 2,
+   "explanation": "Çocuk istismarı şüphesi gizlilik kuralının üzerindedir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q22",
+   "stem": "Dil engeli olan hastada en uygun iletişim yöntemi hangisidir?",
+   "options": [
+    "Profesyonel tercüman (yüz yüze/telefon/video)",
+    "Yalnız işaret dili",
+    "Bekleme salonundaki bir yabancı",
+    "Hastanın çocuğu",
+    "Tercüme uygulaması tek başına her konuda"
+   ],
+   "correct": 0,
+   "explanation": "Aile üyeleri, özellikle çocuklar, yanlış veya eksik çeviri ve mahremiyet sorunlarına yol açar.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q23",
+   "stem": "Tıbbi kayıtlarda tıbbi-hukuki açıdan en önemli unsur hangisidir?",
+   "options": [
+    "Uzun ve süslü anlatım",
+    "Klinik karar verme sürecinin ve hastaya yapılan açıklamaların zamanlı ve nesnel kaydı",
+    "Sonradan düzeltilmiş notlar",
+    "Diğer hekimleri eleştiren ifadeler",
+    "Yalnız tanı"
+   ],
+   "correct": 1,
+   "explanation": "Kayıt sonradan değiştirilecekse tarih ve gerekçeyle eklenti yapılır.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q24",
+   "stem": "Bağışıklığı baskılanmış hastada (ör. yüksek doz steroid) akut karın bulgularıyla ilgili doğru ifade hangisidir?",
+   "options": [
+    "Peritonit bulguları silik olabilir; düşük eşikle görüntüleme yapılmalıdır",
+    "Daha belirgin bulgular verir",
+    "Karın ağrısı hep fonksiyoneldir",
+    "Steroid kesilmelidir",
+    "Görüntüleme gereksizdir"
+   ],
+   "correct": 0,
+   "explanation": "Ateş ve lökositoz da maskelenebilir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q25",
+   "stem": "Palyatif bakım alan, ileri evre kanserli hastada nefes darlığının semptomatik tedavisinde etkili ilaç hangisidir?",
+   "options": [
+    "Antibiyotik",
+    "Düşük doz opioid (ör. morfin)",
+    "Haloperidol",
+    "Furosemid her durumda",
+    "Steroid rutin"
+   ],
+   "correct": 1,
+   "explanation": "Opioidler dispne algısını azaltır; fan ile yüze hava akımı da yararlıdır.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q26",
+   "stem": "'Resüsitasyon yapılmasın' (DNR) kararı olan hastada hangi tedavi yapılabilir?",
+   "options": [
+    "Yalnız morfin",
+    "Hiçbir tedavi",
+    "Yalnız sıvı",
+    "Hastaneye kabul edilmez",
+    "Antibiyotik, sıvı, analjezi ve diğer uygun tedaviler (DNR yalnız KPR'yi kapsar)"
+   ],
+   "correct": 4,
+   "explanation": "DNR 'tedavi yapılmasın' anlamına gelmez; hasta tercihleri ayrıntılı konuşulur.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q27",
+   "stem": "Sık başvuran bir hastanın yine benzer yakınmayla gelmesinde en önemli risk hangisidir?",
+   "options": [
+    "Fazla tetkik",
+    "İlaç bağımlılığı",
+    "Hukuki sorun",
+    "Hastanın kendisine zarar vermesi her zaman",
+    "Yeni ve ciddi bir tanının önyargıyla kaçırılması"
+   ],
+   "correct": 4,
+   "explanation": "Her başvuru bağımsız ve dikkatle değerlendirilmelidir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q28",
+   "stem": "Evsiz hastada kışın acil serviste özellikle dikkat edilmesi gereken durumlar hangileridir?",
+   "options": [
+    "Hipertermi",
+    "Yalnız madde kullanımı",
+    "Obezite",
+    "Hipotermi, donma, enfeksiyonlar (TB dahil), madde kullanımı ve ayak sorunları",
+    "Yalnız psikiyatrik durum"
+   ],
+   "correct": 3,
+   "explanation": "Taburculukta güvenli barınma ve sosyal hizmet planlaması önemlidir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q29",
+   "stem": "Gebe travma hastasında Rh(D) negatifse ne yapılmalıdır?",
+   "options": [
+    "Kan transfüzyonu",
+    "Steroid",
+    "Yalnız 3. trimesterde",
+    "Hiçbir şey",
+    "Anti-D immünoglobulin verilmesi (fetomaternal kanama miktarına göre doz için Kleihauer-Betke)"
+   ],
+   "correct": 4,
+   "explanation": "Minör travmada bile fetomaternal kanama olabilir.",
+   "topic": "Özel Durumlar"
+  },
+  {
+   "key": "q30",
+   "stem": "Bebekte istismara bağlı kafa travması (sarsılmış bebek) şüphesini artıran bulgular hangileridir?",
+   "options": [
+    "Tek ekimoz alında, yürüyen çocukta",
+    "Subdural hematom, retinal kanamalar ve öykü ile uyumsuz yaralanmalar",
+    "Ateş",
+    "Pişik",
+    "Burun akıntısı"
+   ],
+   "correct": 1,
+   "explanation": "İskelet taraması ve göz muayenesi yapılır; bildirim zorunludur.",
+   "topic": "Özel Durumlar"
+  }
+ ]
+}

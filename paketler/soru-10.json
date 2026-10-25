@@ -1,0 +1,430 @@
+{
+ "id": "soru-10",
+ "title": "Acil Tıp Soru Bankası — 10. Sistemik Enfeksiyon Hastalıkları",
+ "desc": "Sepsis ve septik şok, zoonozlar (KKKA, bruselloz), vektörle bulaşan hastalıklar, sıtma, kuduz ve tetanoz, CYBE ve HIV, nekrotizan enfeksiyonlar, toksin aracılı hastalıklar.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 10. Sistemik Enfeksiyon Hastalıkları",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Septik şok düşünülen hipotansif hastada ilk saatte önerilen girişimlerden hangisi doğrudur?",
+   "options": [
+    "Steroid ilk tedavi",
+    "Önce BT, sonra antibiyotik",
+    "Antibiyotiği kültür sonucuna göre başlamak",
+    "Yalnız vazopresör",
+    "Kültürleri alıp geniş spektrumlu antibiyotik, laktat ölçümü ve hipoperfüzyonda 30 mL/kg kristaloid"
+   ],
+   "correct": 4,
+   "explanation": "Surviving Sepsis 2021: antibiyotik şokta 1 saat içinde; sıvıya rağmen OAB <65 ise norepinefrin.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q02",
+   "stem": "Septik şokta sıvıya yanıtsız hipotansiyonda ilk tercih vazopresör ve hedef nedir?",
+   "options": [
+    "Dopamin, sistolik 90",
+    "Norepinefrin, OAB ≥65 mmHg",
+    "Fenilefrin, OAB 55",
+    "Adrenalin, OAB 85",
+    "Vazopresin tek başına, OAB 75"
+   ],
+   "correct": 1,
+   "explanation": "Norepinefrin periferik damar yolundan da başlanabilir; ek olarak vazopresin, sonra adrenalin.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q03",
+   "stem": "Norepinefrin dozu artmasına rağmen şoku süren septik hastada hangi ek tedavi önerilir?",
+   "options": [
+    "Steroid önerilmez",
+    "Deksametazon 0,5 mg",
+    "Fludrokortizon tek başına",
+    "Yüksek doz metilprednizolon",
+    "IV hidrokortizon (≈200 mg/gün)"
+   ],
+   "correct": 4,
+   "explanation": "Sürekli vazopresör ihtiyacı olan septik şokta hidrokortizon şokun düzelmesini hızlandırır.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q04",
+   "stem": "Kene tutunmasından sonra ateş, baş ağrısı, kas ağrısı; laboratuvarda trombositopeni, lökopeni ve AST/CK yüksekliği olan, Türkiye'nin Orta-Kuzey Anadolu bölgesinden gelen hastada ilk düşünülmesi gereken tanı hangisidir?",
+   "options": [
+    "Lyme hastalığı",
+    "Bruselloz",
+    "Tifo",
+    "Sıtma",
+    "Kırım-Kongo kanamalı ateşi"
+   ],
+   "correct": 4,
+   "explanation": "KKKA'da kan ve vücut sıvılarıyla temas önlemleri (personel güvenliği) ve destek tedavisi; ribavirin tartışmalıdır.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q05",
+   "stem": "KKKA şüpheli hastada sağlık çalışanları için en önemli önlem hangisidir?",
+   "options": [
+    "Hastanın aşılanması",
+    "Yalnız el yıkama",
+    "Önlem gerekmez",
+    "Kan/vücut sıvılarıyla temasa karşı standart + temas (gerekirse damlacık) önlemleri ve kişisel koruyucu ekipman",
+    "Profilaktik antibiyotik"
+   ],
+   "correct": 3,
+   "explanation": "Nozokomiyal bulaş ve iğne batmasıyla ölümcül olgular bildirilmiştir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q06",
+   "stem": "Hayvancılıkla uğraşan, çiğ süt peyniri tüketen hastada dalgalı ateş, gece terlemesi, eklem ağrısı ve sakroileit var. Tanı ve tedavi hangisidir?",
+   "options": [
+    "Lyme — amoksisilin",
+    "Tüberküloz — dörtlü tedavi",
+    "Bruselloz — doksisiklin + rifampisin (ya da streptomisin/gentamisin) haftalarca",
+    "Tifo — seftriakson",
+    "Romatoid artrit — steroid"
+   ],
+   "correct": 2,
+   "explanation": "Türkiye'de endemik zoonozdur; tek ilaçla nüks yüksektir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q07",
+   "stem": "Döküntü, ateş ve kene ısırığı öyküsü olan hastada riketsiyal enfeksiyon düşünülüyor. Çocukta da ilk tercih ilaç hangisidir?",
+   "options": [
+    "Azitromisin",
+    "TMP-SMX",
+    "Doksisiklin",
+    "Amoksisilin",
+    "Seftriakson"
+   ],
+   "correct": 2,
+   "explanation": "Riketsiyal hastalıkta doksisiklin her yaşta ilk seçenektir; kısa süreli kullanımda diş boyanması riski önemsizdir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q08",
+   "stem": "Afrika'dan dönen yolcuda ateş, titreme ve bilinç bulanıklığı var. İlk tanısal tetkik hangisidir?",
+   "options": [
+    "Kan kültürü tek başına",
+    "Seroloji",
+    "Lomber ponksiyon",
+    "Kalın ve ince yayma (± hızlı antijen testi) — sıtma",
+    "Abdominal BT"
+   ],
+   "correct": 3,
+   "explanation": "Tropikal bölgeden dönen ateşli hastada sıtma dışlanana kadar sıtma; ağır P. falciparum'da IV artesunat.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q09",
+   "stem": "P. vivax ve P. ovale sıtmasında nükslerin önlenmesi için karaciğerdeki hipnozoitlere yönelik verilen ilaç hangisidir?",
+   "options": [
+    "Primakin (G6PD düzeyi kontrol edildikten sonra)",
+    "Kinin",
+    "Klorokin",
+    "Artesunat",
+    "Doksisiklin"
+   ],
+   "correct": 0,
+   "explanation": "Primakin G6PD eksikliğinde hemoliz yapar.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q10",
+   "stem": "Köpek ısırığı (sahibi bilinmeyen, gözlenemeyen) sonrası kuduz profilaksisinde doğru yaklaşım hangisidir?",
+   "options": [
+    "Aşı yalnız semptom çıkarsa",
+    "Yalnız tetanoz",
+    "Yarayı hemen primer kapatmak ve aşı gereksiz",
+    "Yarayı bol sabunlu suyla yıkamak, kuduz aşısı ve (aşısızsa) yara içine/çevresine insan kuduz immünglobulini",
+    "Yalnız antibiyotik"
+   ],
+   "correct": 3,
+   "explanation": "Kategori III temasta aşı + immünglobulin; daha önce aşılı kişide yalnız aşı (gün 0 ve 3).",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q11",
+   "stem": "Paslı çiviyle derin yaralanan, son tetanoz aşısından 12 yıl geçmiş hastada ne yapılmalıdır?",
+   "options": [
+    "Hiçbir şey",
+    "Td/Tdap aşısı (immünglobulin gerekmez)",
+    "Yalnız tetanoz immünglobulini",
+    "Antibiyotik profilaksisi tek başına",
+    "Td + TIG"
+   ],
+   "correct": 1,
+   "explanation": "Temiz olmayan yarada son dozdan >5 yıl geçtiyse aşı; aşı öyküsü bilinmiyor ya da <3 doz ise TIG de eklenir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q12",
+   "stem": "Tetanozda tedavi bileşenlerinden hangisi doğrudur?",
+   "options": [
+    "İnsan tetanoz immünglobulini, yara debridmanı, metronidazol, kas spazmı için benzodiazepin/magnezyum",
+    "Antikoagülan",
+    "Steroid",
+    "Yalnız aşı",
+    "Antihistaminik"
+   ],
+   "correct": 0,
+   "explanation": "Hastalığı geçirmek bağışıklık sağlamaz; aşılama başlatılır.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q13",
+   "stem": "Ceftriakson 500 mg IM tek doz hangi enfeksiyonun güncel ampirik tedavisidir?",
+   "options": [
+    "Komplike olmayan gonore",
+    "Klamidya",
+    "Trikomoniyaz",
+    "Sifiliz",
+    "Genital herpes"
+   ],
+   "correct": 0,
+   "explanation": "Klamidya dışlanmadıysa doksisiklin 7 gün eklenir (CDC 2021).",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q14",
+   "stem": "Ağrısız, temiz tabanlı tek genital ülser ve sert kenarlı görünüm hangi tanıyı düşündürür?",
+   "options": [
+    "Şankroid",
+    "Genital herpes",
+    "Primer sifiliz (şankr)",
+    "Behçet",
+    "Travma"
+   ],
+   "correct": 2,
+   "explanation": "Herpes ve şankroid ülserleri ağrılıdır.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q15",
+   "stem": "Mesleki iğne batmasıyla HIV pozitif kaynak kanına maruz kalan sağlık çalışanında PEP için doğru olan hangisidir?",
+   "options": [
+    "PEP gerekmez",
+    "Tedaviye 7. günde başlanır",
+    "Mümkünse 2 saat içinde, en geç 72 saatte üçlü antiretroviral başlanır ve 28 gün sürdürülür",
+    "Yalnız 1 hafta sonra test",
+    "Yalnız aşı"
+   ],
+   "correct": 2,
+   "explanation": "PEP öncesi temel testler alınır ama tedavi geciktirilmez.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q16",
+   "stem": "CD4 <200 olan HIV'li hastada kuru öksürük, eforla desatürasyon ve bilateral interstisyel infiltrat. Tedavi hangisidir?",
+   "options": [
+    "Oseltamivir",
+    "Flukonazol",
+    "Seftriakson",
+    "Asiklovir",
+    "TMP-SMX (pO₂ <70 ise kortikosteroid eklenir)"
+   ],
+   "correct": 4,
+   "explanation": "Pneumocystis pnömonisinde LDH yüksekliği tipiktir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q17",
+   "stem": "AIDS'li hastada baş ağrısı, ateş ve yüksek BOS açılış basıncı. India mürekkebi pozitif. Tanı nedir?",
+   "options": [
+    "Bakteriyel menenjit",
+    "Kriptokokal menenjit — amfoterisin B + flusitozin ve tekrarlayan LP ile basınç düşürme",
+    "Toksoplazmozis",
+    "Lenfoma",
+    "Tüberküloz menenjit"
+   ],
+   "correct": 1,
+   "explanation": "Kriptokokal antijen testi duyarlıdır.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q18",
+   "stem": "AIDS'li hastada nöbet; BT'de çok sayıda halka şeklinde kontrastlanan lezyon. En olası tanı hangisidir?",
+   "options": [
+    "Serebral toksoplazmoz",
+    "Menenjiom",
+    "Glioblastom",
+    "Bakteriyel menenjit",
+    "Multipl skleroz"
+   ],
+   "correct": 0,
+   "explanation": "Ampirik pirimetamin + sülfadiazin; 2 haftada yanıt yoksa lenfoma düşünülür.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q19",
+   "stem": "Hızla ilerleyen, muayeneyle orantısız ağrı, sert ödem ve hipotansiyonu olan yumuşak doku enfeksiyonunda en önemli tedavi hangisidir?",
+   "options": [
+    "Acil cerrahi debridman + geniş spektrumlu antibiyotik (klindamisin dahil)",
+    "MR bekle",
+    "Yalnız IV antibiyotik",
+    "Hiperbarik oksijen tek başına",
+    "Oral antibiyotik"
+   ],
+   "correct": 0,
+   "explanation": "Nekrotizan fasiitte görüntüleme cerrahiyi geciktirmemelidir; LRINEC duyarlılığı düşüktür.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q20",
+   "stem": "Tampon kullanan genç kadında ateş, hipotansiyon, yaygın eritrodermi ve çok organ tutulumu. Tanı ve antibiyotik seçimi nedir?",
+   "options": [
+    "Viral ekzantem — gözlem",
+    "Kızamık — destek",
+    "Kızıl — penisilin",
+    "Kawasaki — IVIG",
+    "Toksik şok sendromu — tamponu çıkar, antistafilokokal beta-laktam/vankomisin + klindamisin"
+   ],
+   "correct": 4,
+   "explanation": "Klindamisin toksin üretimini baskılar; 1–2 hafta sonra el-ayak soyulması.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q21",
+   "stem": "Enfeksiyöz mononükleozlu genç sporcuya önerilmesi gereken hangisidir?",
+   "options": [
+    "Hemen spora dönmek",
+    "Antiviral",
+    "Dalak rüptürü riski nedeniyle en az 3–4 hafta temas sporundan uzak durmak",
+    "Steroid rutin",
+    "Amoksisilin başlamak"
+   ],
+   "correct": 2,
+   "explanation": "Amoksisilin/ampisilin verilirse yaygın makülopapüler döküntü gelişir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q22",
+   "stem": "Grip mevsiminde 2 gündür ateş ve öksürükle gelen, KOAH'lı 72 yaşında hastada önerilen tedavi hangisidir?",
+   "options": [
+    "Asiklovir",
+    "Oseltamivir (yüksek riskli hastada semptom süresinden bağımsız)",
+    "Steroid",
+    "Tedavi gerekmez",
+    "Antibiyotik rutin"
+   ],
+   "correct": 1,
+   "explanation": "Yüksek risk grubunda (≥65 yaş, kronik hastalık, gebelik) antiviral önerilir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q23",
+   "stem": "Kızamık şüpheli hastada en önemli enfeksiyon kontrol önlemi hangisidir?",
+   "options": [
+    "Damlacık izolasyonu yeterli",
+    "Yalnız cerrahi maske hastaya",
+    "Havayolu izolasyonu (negatif basınçlı oda, N95)",
+    "Önlem gerekmez",
+    "Temas izolasyonu"
+   ],
+   "correct": 2,
+   "explanation": "Kızamık en bulaşıcı virüslerden biridir; maruz kalan duyarlılara 72 saat içinde aşı.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q24",
+   "stem": "Taşkın sonrası kanal suyunda çalışan işçide ateş, baldır ağrısı, konjunktival kızarıklık, sarılık ve böbrek yetmezliği. Tanı nedir?",
+   "options": [
+    "Bruselloz",
+    "Leptospiroz (Weil hastalığı)",
+    "Tifo",
+    "Sıtma",
+    "Hepatit A"
+   ],
+   "correct": 1,
+   "explanation": "Kemirgen idrarıyla kirlenmiş su; penisilin/seftriakson veya doksisiklin.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q25",
+   "stem": "Ev yapımı konserve yedikten sonra çift görme, pitoz, disfaji ve inen simetrik felç gelişen hastada tedavi hangisidir?",
+   "options": [
+    "Botulinum antitoksini (beklemeden) ve solunum desteği",
+    "IVIG",
+    "Steroid",
+    "Plazmaferez",
+    "Antibiyotik"
+   ],
+   "correct": 0,
+   "explanation": "Antitoksin dolaşımdaki toksini nötralize eder; bağlanmış toksine etkisizdir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q26",
+   "stem": "Meningokok menenjitli hastanın ev içi yakın temaslılarına verilecek profilaksi hangisidir?",
+   "options": [
+    "Aşı tek başına",
+    "Profilaksi gerekmez",
+    "Penisilin 10 gün",
+    "Tek doz siprofloksasin (ya da rifampisin/seftriakson)",
+    "Vankomisin"
+   ],
+   "correct": 3,
+   "explanation": "Sağlık çalışanlarında yalnız havayolu sekresyonlarına korunmasız maruziyette profilaksi gerekir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q27",
+   "stem": "Kedi tırmığından 2 hafta sonra koltuk altında ağrılı lenfadenopati gelişen çocukta en olası etken hangisidir?",
+   "options": [
+    "Francisella tularensis",
+    "Staphylococcus aureus",
+    "Pasteurella multocida",
+    "Toxoplasma gondii",
+    "Bartonella henselae"
+   ],
+   "correct": 4,
+   "explanation": "Kedi tırmığı hastalığı genellikle kendiliğinden geçer; yaygın tutulumda azitromisin.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q28",
+   "stem": "Tifo ateşi için klasik bulgu hangisidir?",
+   "options": [
+    "Eritema migrans",
+    "Ağrılı genital ülser",
+    "Kanlı ishal ve tenezm her zaman",
+    "Göreceli bradikardi, gül lekeleri ve hepatosplenomegali",
+    "Ense sertliği"
+   ],
+   "correct": 3,
+   "explanation": "Salmonella Typhi; tedavi seftriakson veya azitromisin (florokinolon direnci yaygın).",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q29",
+   "stem": "Damar içi madde kullanan hastada ateş, sırt ağrısı ve yeni bacak güçsüzlüğü. Öncelikle düşünülmesi gereken tanı hangisidir?",
+   "options": [
+    "Disk hernisi tek başına",
+    "Spinal epidural apse — acil MR ve cerrahi/antibiyotik",
+    "Mekanik bel ağrısı",
+    "Pyelonefrit",
+    "Miyozit"
+   ],
+   "correct": 1,
+   "explanation": "Klasik üçlü (ateş, sırt ağrısı, nörolojik defisit) çoğu zaman eksiktir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  },
+  {
+   "key": "q30",
+   "stem": "Su çiçeği geçiren erişkin sigara içicisinde 4. günde nefes darlığı ve hipoksi gelişiyor. Tedavi hangisidir?",
+   "options": [
+    "Ayaktan oral antibiyotik",
+    "Oral antihistaminik",
+    "Steroid tek başına",
+    "IV asiklovir ve yatış (varisella pnömonisi)",
+    "Aspirin"
+   ],
+   "correct": 3,
+   "explanation": "Erişkin, gebe ve immünsüprese hastalarda komplikasyon riski yüksektir.",
+   "topic": "Sistemik Enfeksiyon Hastalıkları"
+  }
+ ]
+}

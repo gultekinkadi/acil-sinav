@@ -1,0 +1,430 @@
+{
+ "id": "soru-14",
+ "title": "Acil Tıp Soru Bankası — 14. Pediatri",
+ "desc": "Pediatrik DKA, invajinasyon, Kawasaki, krup ve bronşiolit, febril nöbet ve febril bebek, kalça ağrıları, kusma nedenleri, konjenital kalp hastalığı, istismar ve diğer çocuk acilleri.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 14. Pediatri",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "DKA tedavisi alan 9 yaşında çocukta 6. saatte baş ağrısı, bradikardi ve bilinç bozulması gelişiyor. Tanı ve ilk tedavi nedir?",
+   "options": [
+    "Menenjit — antibiyotik",
+    "Hipokalemi — K",
+    "Serebral ödem — mannitol 0,5–1 g/kg veya %3 NaCl, sıvıyı azaltma",
+    "Hiperkalemi — kalsiyum",
+    "Hipoglisemi — dekstroz"
+   ],
+   "correct": 2,
+   "explanation": "Pediatrik DKA'da serebral ödem başlıca ölüm nedenidir; görüntüleme tedaviyi geciktirmemeli.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q02",
+   "stem": "8 aylık bebekte aralıklı şiddetli karın ağrısı atakları, ataklar arasında letarji, 'frenk üzümü jölesi' gaita. İlk görüntüleme ve tedavi nedir?",
+   "options": [
+    "BT ve laparotomi",
+    "USG (hedef görünümü) ve hava/hidrostatik lavmanla redüksiyon",
+    "Endoskopi",
+    "Direkt grafi tek başına ve izlem",
+    "Baryumlu yutma"
+   ],
+   "correct": 1,
+   "explanation": "İnvajinasyonda peritonit/perforasyon yoksa radyolojik redüksiyon; letarji tek bulgu olabilir.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q03",
+   "stem": "5 gündür süren ateş, bilateral non-pürülan konjonktivit, çilek dili, el-ayakta ödem, döküntü ve servikal lenfadenopati olan çocukta tedavi nedir?",
+   "options": [
+    "Destek — viral ekzantem",
+    "IVIG 2 g/kg ve aspirin — Kawasaki hastalığı",
+    "Steroid tek başına",
+    "Antiviral",
+    "Antibiyotik — kızıl"
+   ],
+   "correct": 1,
+   "explanation": "Koroner anevrizma riskini azaltmak için ilk 10 günde IVIG.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q04",
+   "stem": "Doğumdan sonraki ilk haftalarda inspiratuvar stridoru olan, sırtüstü yatınca ve ağlayınca artan, beslenmesi ve kilo alımı normal bebekte en olası tanı hangisidir?",
+   "options": [
+    "Epiglotit",
+    "Retrofaringeal apse",
+    "Yabancı cisim",
+    "Krup",
+    "Laringomalazi"
+   ],
+   "correct": 4,
+   "explanation": "Konjenital stridorun en sık nedeni; çoğu 12–18 ayda düzelir.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q05",
+   "stem": "3 yaşında çocukta havlar tarzda öksürük, istirahatte stridor ve hafif çekilmeler. Tedavi hangisidir?",
+   "options": [
+    "Antihistaminik",
+    "Antibiyotik",
+    "Deksametazon 0,15–0,6 mg/kg ve nebülize adrenalin",
+    "Salbutamol",
+    "Entübasyon"
+   ],
+   "correct": 2,
+   "explanation": "Adrenalin sonrası rebound için 2–4 saat gözlem; hafif krupta tek doz deksametazon yeterli.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q06",
+   "stem": "6 aylık bebekte burun akıntısı sonrası wheezing ve raller (bronşiolit). Önerilen tedavi hangisidir?",
+   "options": [
+    "Rutin salbutamol",
+    "Antibiyotik",
+    "Rutin steroid",
+    "Rutin akciğer grafisi",
+    "Destek tedavisi (burun aspirasyonu, hidrasyon, gerekirse O₂/yüksek akım)"
+   ],
+   "correct": 4,
+   "explanation": "AAP: salbutamol, steroid, antibiyotik ve rutin grafi önerilmez.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q07",
+   "stem": "18 aylık çocukta ateşli, 3 dakika süren, jeneralize, 24 saatte tekrarlamayan nöbet; muayene normal. Doğru yaklaşım hangisidir?",
+   "options": [
+    "Basit febril nöbet — ateş kaynağını değerlendirip aileyi bilgilendirerek taburcu",
+    "EEG acil",
+    "Antiepileptik başlamak",
+    "Yatış zorunlu",
+    "LP ve BT"
+   ],
+   "correct": 0,
+   "explanation": "Basit febril nöbette rutin LP, görüntüleme ve EEG gerekmez (aşısız/eksik aşılı ya da menenjit bulgusu varsa LP düşünülür).",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q08",
+   "stem": "Üst solunum yolu enfeksiyonundan sonra topallayan 5 yaşında çocukta ateş yok, kalçada hafif hareket kısıtlılığı var. Septik artriti ayırmada hangi ölçütler kullanılır?",
+   "options": [
+    "Wells",
+    "Centor",
+    "Ottawa kuralları",
+    "Kocher ölçütleri (ateş >38,5, yük verememe, ESH >40, lökosit >12.000; ± CRP >2)",
+    "PECARN"
+   ],
+   "correct": 3,
+   "explanation": "Ölçüt sayısı arttıkça septik artrit olasılığı artar; USG ile efüzyon ve aspirasyon.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q09",
+   "stem": "Obez 12 yaşında erkek çocukta haftalardır diz ağrısı ve topallama; kalçada iç rotasyon kısıtlı. Tanı için hangi grafi gerekir?",
+   "options": [
+    "Lomber grafi",
+    "Diz grafisi tek başına",
+    "Tedavi gerekmez",
+    "Bilateral kalça AP ve kurbağa bacağı grafisi — femur başı epifiz kayması",
+    "Kalça USG"
+   ],
+   "correct": 3,
+   "explanation": "Kalça patolojisi dize yansıyabilir; SCFE'de yük verdirilmez, acil ortopedi.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q10",
+   "stem": "Prematüre bebekte uykuda 5–10 saniyelik solunum duraklamaları, renk değişikliği veya bradikardi olmadan. Bu durum nedir?",
+   "options": [
+    "Periyodik solunum (normal)",
+    "Kardiyak arrest",
+    "Apne",
+    "BRUE",
+    "Nöbet"
+   ],
+   "correct": 0,
+   "explanation": "Apne ≥20 saniye ya da renk değişikliği/bradikardi eşlik eden daha kısa duraklamadır.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q11",
+   "stem": "Göz kapağında kızarıklık ve şişlik olan, göz hareketleri ağrısız ve tam, görmesi normal çocukta tanı ve tedavi nedir?",
+   "options": [
+    "Preseptal selülit — oral antibiyotik ve yakın kontrol",
+    "Orbital selülit — IV antibiyotik ve BT",
+    "Konjonktivit — damla",
+    "Alerji",
+    "Dakriyosistit — cerrahi"
+   ],
+   "correct": 0,
+   "explanation": "Proptozis, ağrılı/kısıtlı göz hareketi veya görme kaybı postseptal tutulumu düşündürür.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q12",
+   "stem": "Çocukta dehidratasyonun en güvenilir klinik bulgularından biri hangisidir?",
+   "options": [
+    "Burun akıntısı",
+    "Kaşıntı",
+    "Öksürük",
+    "Ateş",
+    "Uzamış kapiller dolum zamanı (>2 sn), anormal deri turgoru ve anormal solunum paterni"
+   ],
+   "correct": 4,
+   "explanation": "Kilo kaybı en iyi ölçüttür ama çoğu zaman bilinmez.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q13",
+   "stem": "Orta dehidratasyonu olan gastroenteritli çocukta ilk tercih rehidratasyon yöntemi hangisidir?",
+   "options": [
+    "Aç bırakmak",
+    "IV SF 20 mL/kg",
+    "Elma suyu",
+    "Gazlı içecek",
+    "Oral rehidratasyon solüsyonu (küçük ve sık; gerekirse ondansetron)"
+   ],
+   "correct": 4,
+   "explanation": "ORS çoğu çocukta IV kadar etkilidir; ondansetron ORS başarısını artırır.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q14",
+   "stem": "4 haftalık erkek bebekte her beslenmeden sonra fışkırır tarzda, safrasız kusma ve epigastrik 'zeytin' kitle. Beklenen kan gazı bulgusu ve tanı nedir?",
+   "options": [
+    "Hipokloremik hipokalemik metabolik alkaloz — pilor stenozu",
+    "Metabolik asidoz — sepsis",
+    "Hiperkalemi — adrenal yetmezlik",
+    "Normal — reflü",
+    "Respiratuvar asidoz — bronşiolit"
+   ],
+   "correct": 0,
+   "explanation": "Tanı USG; cerrahiden önce sıvı-elektrolit düzeltilir.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q15",
+   "stem": "Yenidoğanda yeşil (safralı) kusma ilk olarak hangi tanıyı düşündürür?",
+   "options": [
+    "Pilor stenozu",
+    "İnek sütü alerjisi",
+    "Gastroenterit",
+    "Reflü",
+    "Malrotasyon ve orta barsak volvulusu — acil üst GİS kontrastlı grafi/cerrahi"
+   ],
+   "correct": 4,
+   "explanation": "Safralı kusma yenidoğanda cerrahi acil kabul edilir.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q16",
+   "stem": "Prematüre bebekte beslenme intoleransı, karın distansiyonu, kanlı gaita ve grafide pnömatozis intestinalis. Tanı nedir?",
+   "options": [
+    "Pilor stenozu",
+    "İnvajinasyon",
+    "Meckel",
+    "Nekrotizan enterokolit",
+    "Hirschsprung"
+   ],
+   "correct": 3,
+   "explanation": "Aç bırakma, gastrik dekompresyon, geniş spektrumlu antibiyotik, cerrahi değerlendirme.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q17",
+   "stem": "21 günlük bebekte rektal ateş 38,3 °C, genel durumu iyi. Önerilen yaklaşım hangisidir?",
+   "options": [
+    "Kan, idrar ve BOS kültürleri, yatış ve parenteral ampirik antibiyotik",
+    "Oral amoksisilin",
+    "Parasetamol ve taburcu",
+    "24 saat sonra kontrol",
+    "Yalnız idrar tetkiki"
+   ],
+   "correct": 0,
+   "explanation": "≤21 günlük febril bebekte ciddi bakteriyel enfeksiyon riski yüksektir (AAP 2021).",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q18",
+   "stem": "2 yaşında çocuk düşmemek için kolundan çekildikten sonra kolunu kullanmıyor; kol hafif fleksiyon ve pronasyonda. Tedavi hangisidir?",
+   "options": [
+    "Alçı",
+    "Askı 3 hafta",
+    "Cerrahi",
+    "Radius başı subluksasyonu — hiperpronasyon ya da supinasyon-fleksiyon manevrasıyla redüksiyon",
+    "Acil grafi ve ortopedi"
+   ],
+   "correct": 3,
+   "explanation": "Tipik öyküde grafi gerekmez; redüksiyondan sonra dakikalar içinde kolu kullanır.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q19",
+   "stem": "Elin üzerine düşen 6 yaşındaki çocukta dirsekte şişlik; grafide anterior humeral çizgi kapitellumun önünden geçiyor. Hangi komplikasyon özellikle izlenmelidir?",
+   "options": [
+    "Osteomiyelit",
+    "Fasiyal paralizi",
+    "Brakiyal arter yaralanması ve kompartman sendromu (Volkmann)",
+    "Avasküler nekroz",
+    "Pnömotoraks"
+   ],
+   "correct": 2,
+   "explanation": "Suprakondiler humerus kırığı; ön interosseöz sinir de sık etkilenir.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q20",
+   "stem": "Çocuk istismarını düşündüren bulgu hangisidir?",
+   "options": [
+    "Alında tek ekimoz yürüyen çocukta",
+    "Kaval kemiğinde ekimoz okul çağında",
+    "Henüz yürümeyen bebekte ekimoz ve öykü ile uyumsuz kırıklar",
+    "Dizde sıyrık",
+    "Burun kanaması tek başına"
+   ],
+   "correct": 2,
+   "explanation": "TEN-4-FACESp: gövde, kulak, boyun ekimozu; <4 ayda herhangi bir ekimoz.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q21",
+   "stem": "Kalçada ve bacaklarda basmakla solmayan, palpabl purpura, karın ağrısı, artralji ve hematüri olan çocukta tanı nedir?",
+   "options": [
+    "IgA vasküliti (Henoch-Schönlein purpurası)",
+    "HÜS",
+    "İTP",
+    "Lösemi",
+    "Meningokoksemi"
+   ],
+   "correct": 0,
+   "explanation": "Trombosit sayısı normaldir; invajinasyon ve nefrit komplikasyonlardır.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q22",
+   "stem": "Kanlı ishalden 1 hafta sonra solukluk, trombositopeni ve akut böbrek hasarı gelişen çocukta tanı nedir?",
+   "options": [
+    "Kawasaki",
+    "Lösemi",
+    "TTP",
+    "Hemolitik üremik sendrom",
+    "İTP"
+   ],
+   "correct": 3,
+   "explanation": "STEC (O157:H7) ile ilişkilidir; destek tedavisi, gerekirse diyaliz.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q23",
+   "stem": "Konjenital siyanotik kalp hastalığı olan çocukta ağlama sonrası derin siyanoz ve hiperpne atağı (tet spell). İlk müdahale nedir?",
+   "options": [
+    "Diüretik",
+    "Ayağa kaldırmak",
+    "Diz-göğüs pozisyonu ve O₂ (sonra morfin, sıvı, fenilefrin)",
+    "İnotrop",
+    "Adrenalin"
+   ],
+   "correct": 2,
+   "explanation": "Sistemik vasküler direnci artırmak sağ-sol şantı azaltır.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q24",
+   "stem": "Yaşamın ilk haftalarında ani gelişen şok ve siyanoz, alt ekstremitelerde nabız zayıflığı. Duktusa bağımlı kalp hastalığı şüphesinde verilecek ilaç hangisidir?",
+   "options": [
+    "İndometazin",
+    "Furosemid tek başına",
+    "Prostaglandin E1 (alprostadil) infüzyonu",
+    "Digoksin",
+    "Adenozin"
+   ],
+   "correct": 2,
+   "explanation": "PGE1 duktusu açık tutar; apne yan etkisi nedeniyle hava yolu hazırlığı.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q25",
+   "stem": "Aşısız 2 aylık bebekte öksürük nöbetleri, apne ve siyanoz atakları. En olası tanı ve tedavi nedir?",
+   "options": [
+    "Reflü — PPI",
+    "Astım — salbutamol",
+    "Krup — deksametazon",
+    "Boğmaca — makrolid (azitromisin) ve yatış",
+    "Bronşiolit — destek"
+   ],
+   "correct": 3,
+   "explanation": "Küçük bebeklerde boğmaca apne ve ölümle sonuçlanabilir; temaslılara da profilaksi.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q26",
+   "stem": "Ateşli 3 yaşında çocukta boyun hareketlerinde kısıtlılık, salya ve ses değişikliği; lateral boyun grafisinde prevertebral yumuşak doku kalınlaşması. Tanı nedir?",
+   "options": [
+    "Krup",
+    "Retrofaringeal apse",
+    "Peritonsiller apse",
+    "Servikal lenfadenit",
+    "Laringomalazi"
+   ],
+   "correct": 1,
+   "explanation": "Kontrastlı BT, IV antibiyotik, hava yolu değerlendirmesi.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q27",
+   "stem": "Bebekte idrar yolu enfeksiyonu tanısı için tercih edilen idrar örneği hangisidir?",
+   "options": [
+    "İdrar torbası (kültür için)",
+    "Kateterizasyon veya suprapubik aspirasyon",
+    "Hiçbiri",
+    "Bez",
+    "Orta akım (bebekte)"
+   ],
+   "correct": 1,
+   "explanation": "Torba örneği yalnız negatifse anlamlıdır; pozitif kültür kontaminasyon olabilir.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q28",
+   "stem": "Yenidoğanda ilk 24 saatte görülen sarılık için doğru olan hangisidir?",
+   "options": [
+    "Tedavi gerekmez",
+    "Her zaman patolojiktir — hemoliz açısından değerlendirilmelidir",
+    "Anne sütü sarılığıdır",
+    "Fizyolojiktir",
+    "Yalnız prematürelerde önemlidir"
+   ],
+   "correct": 1,
+   "explanation": "Fizyolojik sarılık genellikle 2–3. günde başlar.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q29",
+   "stem": "4–8 yaşında erkek çocukta ağrısız ya da hafif ağrılı topallama, kalçada iç rotasyon ve abdüksiyon kısıtlılığı; grafide femur başında düzleşme. Tanı nedir?",
+   "options": [
+    "Gelişimsel kalça displazisi",
+    "Legg-Calvé-Perthes hastalığı",
+    "SCFE",
+    "Geçici sinovit",
+    "Septik kalça"
+   ],
+   "correct": 1,
+   "explanation": "Femur başı avasküler nekrozu; ortopedi takibi.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "q30",
+   "stem": "Bebekte kısa süreli, tamamen düzelen siyanoz/solukluk, tonus değişikliği ve yanıtsızlık epizodu (düşük riskli BRUE) için önerilen yaklaşım hangisidir?",
+   "options": [
+    "Rutin EEG ve MR",
+    "Kardiyak kateter",
+    "Yatış ve antibiyotik",
+    "Antireflü tedavi",
+    "Kısa gözlem ve aile eğitimi; rutin geniş tetkik gerekmez (düşük risk ölçütleri karşılanıyorsa)"
+   ],
+   "correct": 4,
+   "explanation": "Düşük risk: >60 gün, >32 hafta, ilk epizot, <1 dk, KPR gerekmemiş, öykü/muayene normal.",
+   "topic": "Pediatri"
+  }
+ ]
+}

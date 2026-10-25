@@ -1,0 +1,430 @@
+{
+ "id": "soru-22",
+ "title": "Acil Tıp Soru Bankası — 22. Travma",
+ "desc": "Birincil bakı ve şok sınıflaması, kanama kontrolü ve TXA, toraks travması, kafa travması ve herniasyon, spinal kord sendromları, karın ve pelvis travması, penetran yaralanmalar, gebe/yaşlı/çocuk travması.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 22. Travma",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Trafik kazası sonrası hipotansif hastada eFAST'ta Morison poşunda serbest sıvı var. En uygun sonraki adım hangisidir?",
+   "options": [
+    "Tanısal peritoneal lavaj",
+    "Anjiyografi her zaman",
+    "Kontrastlı BT",
+    "Kan ürünleriyle resüsitasyon ve acil laparotomi (BT'ye götürmeden)",
+    "Seri FAST ile izlem"
+   ],
+   "correct": 3,
+   "explanation": "Instabil hastada BT 'ölüm tüneli' olabilir; FAST pozitif + instabil = ameliyathane.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q02",
+   "stem": "Hemorajik şokta kalp hızı 130, sistolik KB 85, bilinç anksiyöz-konfüze, idrar azalmış hastada tahmini kan kaybı (ATLS sınıfı) nedir?",
+   "options": [
+    "Sınıf I (<%15)",
+    "Sınıf II (%15–30)",
+    "Sınıf IV (>%40)",
+    "Sınıf III (%30–40)",
+    "Kayıp yoktur"
+   ],
+   "correct": 3,
+   "explanation": "Sistolik KB düşüşü genellikle sınıf III'te başlar; çocuk, sporcu ve beta bloker kullananlarda bulgular yanıltıcıdır.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q03",
+   "stem": "Kanamalı travma hastasında traneksamik asit ne zaman verilmelidir?",
+   "options": [
+    "Kanama durduktan sonra",
+    "Yaralanmadan sonraki ilk 3 saat içinde (1 g IV 10 dk, ardından 1 g/8 saat)",
+    "Yalnız kafa travmasında",
+    "Yalnız 6 saatten sonra",
+    "Hiçbir zaman"
+   ],
+   "correct": 1,
+   "explanation": "CRASH-2: 3 saatten sonra verildiğinde zarar görülmüştür.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q04",
+   "stem": "Penetran gövde travmasında hemorajik şokta resüsitasyon hedefi hangisidir?",
+   "options": [
+    "Albümin",
+    "Sıvı hiç verilmez",
+    "Vazopresör ilk tercih",
+    "Sistolik >120 için büyük hacim kristaloid",
+    "Kanama kontrolüne kadar permisif hipotansiyon (sistolik ≈80–90, radial nabız/bilinç korunarak) ve erken kan ürünleri"
+   ],
+   "correct": 4,
+   "explanation": "Kafa travması varlığında permisif hipotansiyon uygulanmaz (OAB ≥80 / sistolik ≥110 hedeflenir).",
+   "topic": "Travma"
+  },
+  {
+   "key": "q05",
+   "stem": "Trakea karşı tarafa deviye, tek tarafta solunum sesi yok, hipotansiyon ve boyun venlerinde dolgunluk. İlk müdahale hangisidir?",
+   "options": [
+    "Entübasyon tek başına",
+    "Akciğer grafisi",
+    "Hemen iğne/parmak dekompresyonu (erişkinde 4–5. interkostal aralık orta aksiller hat), ardından göğüs tüpü",
+    "Perikardiyosentez",
+    "BT"
+   ],
+   "correct": 2,
+   "explanation": "Tansiyon pnömotoraks klinik tanıdır; ATLS 10 erişkinde 4–5. aralık lateral bölgeyi önerir.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q06",
+   "stem": "Göğüs tüpü takıldığında hemen 1500 mL kan geliyor. Ne yapılmalıdır?",
+   "options": [
+    "Tüpü klempleyip izlemek",
+    "Masif hemotoraks — torakotomi için göğüs cerrahisi",
+    "İkinci tüp ve gözlem",
+    "Yalnız kristaloid",
+    "Tüpü çekmek"
+   ],
+   "correct": 1,
+   "explanation": "Ayrıca 2–4 saat boyunca saatte >200 mL drenaj torakotomi endikasyonudur.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q07",
+   "stem": "Göğse bıçaklanan hastada hipotansiyon, boyun venlerinde dolgunluk ve eFAST'ta perikardiyal sıvı. Tanı ve tedavi nedir?",
+   "options": [
+    "Kontüzyon — gözlem",
+    "Masif hemotoraks — tüp",
+    "Perikardiyal tamponad — acil cerrahi (torakotomi/sternotomi); geçici olarak perikardiyosentez",
+    "Hipovolemi — sıvı",
+    "Tansiyon pnömotoraks — iğne"
+   ],
+   "correct": 2,
+   "explanation": "Travmatik tamponadda kesin tedavi cerrahidir.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q08",
+   "stem": "Birden fazla kostanın iki yerden kırılmasıyla göğüs duvarının paradoksal hareket etmesi hangi durumdur ve asıl sorun nedir?",
+   "options": [
+    "Sternum kırığı",
+    "Pnömotoraks",
+    "Yelken göğüs — altta yatan akciğer kontüzyonu ve solunum yetmezliği",
+    "Basit kosta kırığı",
+    "Diyafram yaralanması"
+   ],
+   "correct": 2,
+   "explanation": "Analjezi (bölgesel blok), pulmoner tuvalet, gerekirse NIV/entübasyon; cerrahi fiksasyon seçilmiş hastalarda.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q09",
+   "stem": "Ani deselerasyonlu kazada akciğer grafisinde mediasten genişliği, aort topuzunun silinmesi ve sol apikal kep. Tanı için tetkik hangisidir?",
+   "options": [
+    "Toraks BT anjiyografi (künt aort yaralanması)",
+    "Tekrar grafi",
+    "MR",
+    "Ekokardiyografi tek başına",
+    "Anjiyografi her zaman ilk"
+   ],
+   "correct": 0,
+   "explanation": "Tedavide KB ve kalp hızı kontrolü (beta bloker) ve çoğu olguda TEVAR.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q10",
+   "stem": "Göğse künt travma sonrası yeni dal bloğu ve aritmi; künt kardiyak yaralanma şüphesinde tarama için önerilen tetkik kombinasyonu nedir?",
+   "options": [
+    "EKG ve troponin (ikisi normalse önemli yaralanma olasılığı düşük)",
+    "Yalnız akciğer grafisi",
+    "Holter",
+    "Koroner anjiyografi",
+    "Efor testi"
+   ],
+   "correct": 0,
+   "explanation": "Anormallikte monitörizasyon ve eko.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q11",
+   "stem": "Sol alt göğse bıçaklanmış, stabil hastada BT normal. Hangi yaralanma gözden kaçabilir ve nasıl araştırılır?",
+   "options": [
+    "Böbrek yaralanması — USG",
+    "Dalak yaralanması — gözlem",
+    "Akciğer kontüzyonu — grafi",
+    "Kot kırığı — analjezi",
+    "Diyafram yaralanması — tanısal laparoskopi"
+   ],
+   "correct": 4,
+   "explanation": "Sol torakoabdominal penetran yaralanmalarda diyafram yaralanması BT'de kaçabilir; ileride herniasyon riski.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q12",
+   "stem": "Kafa travması sonrası kısa bilinç kaybı, ardından 'lusid aralık', sonra hızlı bilinç bozulması ve ipsilateral dilate pupil. Tanı nedir?",
+   "options": [
+    "Subdural hematom",
+    "Diffüz aksonal yaralanma",
+    "Kontüzyon",
+    "Subaraknoid kanama",
+    "Epidural hematom (orta meningeal arter)"
+   ],
+   "correct": 4,
+   "explanation": "BT'de bikonveks (lens şeklinde) hematom; acil beyin cerrahisi.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q13",
+   "stem": "Antikoagülan kullanan yaşlı hastada düşük enerjili kafa travması sonrası günler içinde gelişen konfüzyon. BT'de hilal şeklinde ekstra-aksiyel koleksiyon. Tanı nedir?",
+   "options": [
+    "Hidrosefali",
+    "Subdural hematom (köprü venler)",
+    "Tümör",
+    "Epidural hematom",
+    "İntraserebral kanama"
+   ],
+   "correct": 1,
+   "explanation": "Antikoagülan geri çevrilir; yaşlılarda serebral atrofi köprü venleri gerer.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q14",
+   "stem": "Ağır kafa travmasında ikincil beyin hasarını önlemek için en önemli iki hedef hangisidir?",
+   "options": [
+    "Hiperventilasyon rutin",
+    "Hipoglisemi",
+    "Steroid",
+    "Hipoksi (SpO₂ <%90) ve hipotansiyondan (sistolik <100–110) kaçınmak",
+    "Hipotermi"
+   ],
+   "correct": 3,
+   "explanation": "Tek bir hipotansiyon atağı mortaliteyi belirgin artırır.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q15",
+   "stem": "Kafa travmalı hastada pupil asimetrisi ve hemiparezi ile herniasyon bulguları gelişirse geçici tedavi hangisidir?",
+   "options": [
+    "Nimodipin",
+    "Steroid",
+    "Sıvı kısıtlaması",
+    "Hiperozmolar tedavi (%3 NaCl ya da mannitol), başı 30°, kısa süreli hafif hiperventilasyon ve acil beyin cerrahisi",
+    "Antikonvülzan tek başına"
+   ],
+   "correct": 3,
+   "explanation": "Profilaktik uzun süreli hiperventilasyon serebral iskemi yapar.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q16",
+   "stem": "Kanada BT baş kuralına göre GKS 15 olan minör kafa travmasında yüksek risk özelliği hangisidir?",
+   "options": [
+    "Alkol kokusu",
+    "Saçlı deride laserasyon",
+    "Baş ağrısı tek başına",
+    "Kısa süreli amnezi <30 dk tek başına",
+    "İki saatte GKS 15'e dönmeme, açık/çökme kırık şüphesi, kafa tabanı kırığı bulguları, ≥2 kusma, yaş ≥65"
+   ],
+   "correct": 4,
+   "explanation": "Antikoagülan kullananlar kuralın dışında tutulur ve görüntülenir.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q17",
+   "stem": "Hiperekstansiyon travması geçiren yaşlı hastada kollarda bacaklardan belirgin daha fazla güçsüzlük. Tanı nedir?",
+   "options": [
+    "Santral kord sendromu",
+    "Anterior kord sendromu",
+    "Brown-Séquard",
+    "Kauda ekuina",
+    "Konus medullaris"
+   ],
+   "correct": 0,
+   "explanation": "Servikal spondiloz zemininde; prognozu görece iyidir.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q18",
+   "stem": "Spinal kord yaralanmasında bir tarafta motor ve propriosepsiyon kaybı, karşı tarafta ağrı-ısı kaybı. Tanı nedir?",
+   "options": [
+    "Tam kesi",
+    "Santral kord",
+    "Posterior kord",
+    "Brown-Séquard sendromu (hemikord)",
+    "Anterior kord"
+   ],
+   "correct": 3,
+   "explanation": "Çoğunlukla penetran yaralanmalarda; prognozu en iyi olan kord sendromudur.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q19",
+   "stem": "Yüksek torakal kord yaralanmasında hipotansiyon ve bradikardi; ekstremiteler sıcak. Tanı ve tedavi nedir?",
+   "options": [
+    "Hemorajik şok — masif transfüzyon tek başına",
+    "Spinal şok — tedavi gerekmez",
+    "Nörojenik şok — dikkatli sıvı, vazopresör (norepinefrin), bradikardide atropin",
+    "Septik şok — antibiyotik",
+    "Kardiyojenik şok — inotrop"
+   ],
+   "correct": 2,
+   "explanation": "Önce hemorajik şok dışlanmalıdır; spinal şok refleks kaybını tanımlar, hemodinamik değil.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q20",
+   "stem": "Künt karın travmasında stabil hastada en uygun görüntüleme hangisidir?",
+   "options": [
+    "Kontrastlı abdomen-pelvis BT",
+    "Yalnız FAST ve taburcu",
+    "Tanısal peritoneal lavaj",
+    "MR",
+    "Direkt grafi"
+   ],
+   "correct": 0,
+   "explanation": "FAST negatif olsa da organ yaralanması dışlanmaz.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q21",
+   "stem": "Stabil hastada dalak yaralanmasının (BT'de aktif kontrast kaçağı) tedavisinde güncel yaklaşım hangisidir?",
+   "options": [
+    "Yalnız TDP",
+    "Gözlem kontrolsüz",
+    "Laparoskopi rutin",
+    "Anjiyoembolizasyon ile birlikte nonoperatif tedavi",
+    "Her olguda splenektomi"
+   ],
+   "correct": 3,
+   "explanation": "Hemodinamik instabilitede splenektomi.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q22",
+   "stem": "Pelvis kırığı ve hematürisi olan hastada mesane rüptüründen şüpheleniliyor. Tanı yöntemi hangisidir?",
+   "options": [
+    "Retrograd BT sistografi (yeterli mesane dolumu ile)",
+    "Sistoskopi",
+    "Yalnız kontrastlı BT geç faz",
+    "USG",
+    "İdrar tetkiki"
+   ],
+   "correct": 0,
+   "explanation": "İntraperitoneal rüptür cerrahi, ekstraperitoneal genellikle sondayla izlenir.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q23",
+   "stem": "Ön karın duvarına bıçaklanan, stabil ve peritonit bulgusu olmayan hastada fasyanın delinip delinmediğini anlamak için yöntem hangisidir?",
+   "options": [
+    "MR",
+    "Tanısal laparoskopi her zaman",
+    "Lokal yara eksplorasyonu (ve gerekirse seri muayene/BT)",
+    "Hemen laparotomi",
+    "Yalnız taburcu"
+   ],
+   "correct": 2,
+   "explanation": "Fasya sağlamsa taburcu edilebilir; ateşli silah yaralanmalarında genellikle laparotomi.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q24",
+   "stem": "Penetran boyun yaralanmasında 'kesin bulgulardan' biri hangisidir ve yaklaşım nedir?",
+   "options": [
+    "Platizmayı geçmeyen yara — BT",
+    "Aktif kanama/büyüyen hematom, hava yolundan hava kaçağı, stridor — doğrudan ameliyathane",
+    "Disfaji yok — taburcu",
+    "Ses değişikliği yok — gözlem",
+    "Hafif ağrı — taburcu"
+   ],
+   "correct": 1,
+   "explanation": "Kesin bulgu yoksa BT anjiyografi ile değerlendirme (bölge temelli yaklaşım yerini bulgu temelli yaklaşıma bıraktı).",
+   "topic": "Travma"
+  },
+  {
+   "key": "q25",
+   "stem": "20 haftadan büyük gebede minör travma sonrası en az ne kadar fetal monitörizasyon önerilir?",
+   "options": [
+    "Hiç",
+    "En az 4–6 saat kardiyotokografi",
+    "Yalnız USG",
+    "30 dakika",
+    "24 saat herkese"
+   ],
+   "correct": 1,
+   "explanation": "Dekolman saatler sonra gelişebilir; düzenli kasılma, kanama, hassasiyet olursa uzatılır.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q26",
+   "stem": "Travmalı çocukta kafa BT gerekliliğini değerlendirmek için kullanılan kural hangisidir?",
+   "options": [
+    "NEXUS",
+    "Kanada BT kuralı (erişkin)",
+    "Wells",
+    "Ottawa",
+    "PECARN"
+   ],
+   "correct": 4,
+   "explanation": "2 yaş altı ve üstü için ayrı ölçütler; gereksiz radyasyonu azaltır.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q27",
+   "stem": "Travma hastasında ciddi kanama düşündüren 'ölümcül üçlü' hangisidir?",
+   "options": [
+    "Hipotermi, asidoz ve koagülopati (+ hipokalsemi)",
+    "Hipoglisemi, hiperkalemi, hiponatremi",
+    "Ateş, taşikardi, lökositoz",
+    "Anemi, trombositoz, poliüri",
+    "Hipertansiyon, bradikardi, düzensiz solunum"
+   ],
+   "correct": 0,
+   "explanation": "Hasar kontrol resüsitasyonu bu üçlüyü önlemeyi hedefler.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q28",
+   "stem": "Çoklu travmalı hastada travma sonrası 24–72 saatte hipoksi, peteşi ve konfüzyon gelişirse ne düşünülür?",
+   "options": [
+    "Pnömoni",
+    "Yağ embolisi sendromu (uzun kemik kırığı)",
+    "Pulmoner emboli her zaman",
+    "Kafa travması",
+    "Sepsis"
+   ],
+   "correct": 1,
+   "explanation": "Erken kırık fiksasyonu riski azaltır; destek tedavisi.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q29",
+   "stem": "Yaşlı travma hastasında özellikle dikkat edilmesi gereken nokta hangisidir?",
+   "options": [
+    "Görüntüleme gerekmez",
+    "Hipotansiyon eşiği daha düşüktür",
+    "Kot kırıkları önemsizdir",
+    "Yaşlılar travmayı daha iyi tolere eder",
+    "Normal görünen vital bulgular şoku maskeleyebilir (beta bloker, hipertansiyon öyküsü); antikoagülan kullanımı sorgulanmalı"
+   ],
+   "correct": 4,
+   "explanation": "Yaşlıda sistolik <110 hipotansiyon kabul edilebilir; kot kırıkları pnömoni ve mortaliteyi artırır.",
+   "topic": "Travma"
+  },
+  {
+   "key": "q30",
+   "stem": "Travma hastasında nazogastrik tüp hangi durumda burundan yerleştirilmemelidir?",
+   "options": [
+    "Kusma",
+    "Karın travması",
+    "Kafa tabanı kırığı şüphesi (rakun gözü, Battle bulgusu, BOS rinoresi)",
+    "Entübe hasta",
+    "Mide distansiyonu"
+   ],
+   "correct": 2,
+   "explanation": "Tüp kafa içine girebilir; orogastrik tüp tercih edilir.",
+   "topic": "Travma"
+  }
+ ]
+}

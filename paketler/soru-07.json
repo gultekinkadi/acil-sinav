@@ -1,0 +1,430 @@
+{
+ "id": "soru-07",
+ "title": "Acil Tıp Soru Bankası — 07. Gastrointestinal Aciller",
+ "desc": "Barsak obstrüksiyonu ve mezenter iskemi, GİS kanamaları, safra yolu ve karaciğer acilleri, enfeksiyöz ishal, apandisit ve divertikülit, anorektal hastalıklar.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 07. Gastrointestinal Aciller",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "AF'li 76 yaşında hastada şiddetli karın ağrısı var; muayenede karın yumuşak ve hafif hassas. Ağrı muayeneyle orantısız. En uygun tanısal tetkik hangisidir?",
+   "options": [
+    "Abdominal USG",
+    "BT anjiyografi",
+    "Laktatın normal gelmesini beklemek",
+    "Kolonoskopi",
+    "Direkt karın grafisi"
+   ],
+   "correct": 1,
+   "explanation": "Akut mezenter iskemide laktat geç yükselir; bifazik BTA ilk seçenektir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q02",
+   "stem": "Akut mezenter iskeminin en sık nedeni hangisidir?",
+   "options": [
+    "Vaskülit",
+    "Aort diseksiyonu",
+    "Süperior mezenterik artere arteriyel emboli",
+    "Mezenterik ven trombozu",
+    "Nonoklüzif iskemi"
+   ],
+   "correct": 2,
+   "explanation": "Emboli (çoğu kardiyak kaynaklı) yaklaşık yarısını oluşturur.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q03",
+   "stem": "Geçirilmiş batın ameliyatı olan hastada kramp tarzı ağrı, safralı kusma ve distansiyon var. En sık neden hangisidir?",
+   "options": [
+    "Fıtık",
+    "Adezyonlar",
+    "Volvulus",
+    "Tümör",
+    "Safra taşı ileusu"
+   ],
+   "correct": 1,
+   "explanation": "İnce barsak obstrüksiyonunun en sık nedeni adezyon, ikinci sırada fıtıktır.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q04",
+   "stem": "İnce barsak obstrüksiyonu düşünülen hastada tanı için en yararlı görüntüleme hangisidir?",
+   "options": [
+    "Sintigrafi",
+    "MR",
+    "Ayakta direkt grafi",
+    "Kontrastlı abdominal BT",
+    "Baryumlu grafi"
+   ],
+   "correct": 3,
+   "explanation": "BT geçiş noktasını, kapalı ansı ve iskemiyi gösterir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q05",
+   "stem": "Bakımevindeki yaşlı hastada belirgin distansiyon; grafide 'kahve çekirdeği' görünümü var, peritonit yok. İlk tedavi hangisidir?",
+   "options": [
+    "Endoskopik (fleksibl sigmoidoskopi) detorsiyon ve ardından elektif cerrahi planı",
+    "Laksatif",
+    "Antibiyotik ve izlem",
+    "Hemen kolektomi",
+    "Lavman"
+   ],
+   "correct": 0,
+   "explanation": "Sigmoid volvulusta iskemi yoksa endoskopik detorsiyon; nüks yüksek olduğundan elektif rezeksiyon.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q06",
+   "stem": "Ülseratif koliti olan hastada ateş, taşikardi ve grafide transvers kolon çapı 8 cm. Tanı nedir ve hangi ilaç kaçınılmalıdır?",
+   "options": [
+    "Toksik megakolon — antimotilite ilaçları ve opioidlerden kaçın",
+    "Divertikülit — antibiyotik tek başına",
+    "Volvulus — lavman",
+    "İleus — prokinetik",
+    "Basit ishal — loperamid"
+   ],
+   "correct": 0,
+   "explanation": "Toksik megakolonda steroid, sıvı, antibiyotik ve cerrahi konsültasyon; perforasyon riski yüksektir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q07",
+   "stem": "Üst GİS kanamalı hastada hangi skor düşük riskli (ayaktan izlenebilir) hastayı belirlemek için kullanılır?",
+   "options": [
+    "Child-Pugh",
+    "Rockall (yalnız endoskopi sonrası)",
+    "Ranson",
+    "MELD",
+    "Glasgow-Blatchford skoru (0–1)"
+   ],
+   "correct": 4,
+   "explanation": "GBS 0–1 olan hastalar acil endoskopi olmadan ayaktan izlenebilir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q08",
+   "stem": "Siroz ve hematemezli hastada endoskopiden önce başlanması gerekenler hangileridir?",
+   "options": [
+    "Vitamin K tek başına",
+    "TDP rutin",
+    "Vazoaktif ilaç (terlipressin veya oktreotid) ve profilaktik antibiyotik (seftriakson)",
+    "Beta bloker IV",
+    "Yalnız PPI"
+   ],
+   "correct": 2,
+   "explanation": "Varis kanamasında vazoaktif ilaç + antibiyotik mortaliteyi azaltır; endoskopi 12 saat içinde.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q09",
+   "stem": "Üst GİS kanamalı stabil hastada eritrosit transfüzyonu için genel hemoglobin eşiği nedir?",
+   "options": [
+    "Hb <10 g/dL",
+    "Hb <12 g/dL",
+    "Hb <5 g/dL",
+    "Hb <7 g/dL (kardiyovasküler hastalıkta ≈8)",
+    "Her hastaya 2 ünite"
+   ],
+   "correct": 3,
+   "explanation": "Kısıtlayıcı transfüzyon stratejisi daha az yeniden kanama ve mortalite ile ilişkilidir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q10",
+   "stem": "Peptik ülser hastalığının en sık iki nedeni hangileridir?",
+   "options": [
+    "Helicobacter pylori ve NSAİİ kullanımı",
+    "Gastrinoma ve steroid",
+    "Alkol ve kahve",
+    "Zollinger-Ellison ve sigara",
+    "Stres ve baharat"
+   ],
+   "correct": 0,
+   "explanation": "H. pylori eradikasyonu ve NSAİİ'den kaçınma nüksü azaltır.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q11",
+   "stem": "Sağ üst kadran ağrısı, ateş ve Murphy bulgusu olan hastada ilk tetkik hangisidir?",
+   "options": [
+    "Direkt grafi",
+    "ERCP",
+    "Kontrastlı BT",
+    "HIDA her zaman ilk",
+    "Sağ üst kadran USG"
+   ],
+   "correct": 4,
+   "explanation": "USG'de taş, duvar kalınlaşması, perikolesistik sıvı ve sonografik Murphy akut kolesistiti destekler.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q12",
+   "stem": "Ateş, sarılık ve sağ üst kadran ağrısına konfüzyon ve hipotansiyon eklenmesi hangi tabloyu tanımlar?",
+   "options": [
+    "Kolelitiyazis",
+    "Charcot üçlüsü — basit kolesistit",
+    "Reynolds pentadı — ağır akut kolanjit; antibiyotik ve acil biliyer drenaj",
+    "Hepatit",
+    "Pankreatit"
+   ],
+   "correct": 2,
+   "explanation": "Ağır kolanjitte ERCP ile acil dekompresyon.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q13",
+   "stem": "Siroz ve asitli hastada ateş, karın ağrısı ve ensefalopati var. Parasentezde PMN 420/mm³. Tedavi hangisidir?",
+   "options": [
+    "Yalnız diüretik",
+    "Antifungal",
+    "Laktüloz tek başına",
+    "Cerrahi",
+    "Spontan bakteriyel peritonit — 3. kuşak sefalosporin + albümin"
+   ],
+   "correct": 4,
+   "explanation": "Asit PMN ≥250/mm³ SBP tanısı; albümin hepatorenal sendrom riskini azaltır.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q14",
+   "stem": "Hepatik ensefalopatide ilk basamak tedavi hangisidir?",
+   "options": [
+    "Flumazenil rutin",
+    "Furosemid",
+    "Laktüloz (± rifaksimin) ve tetikleyicinin (enfeksiyon, kanama, ilaç) tedavisi",
+    "Sedatif",
+    "Protein alımını tamamen kesmek"
+   ],
+   "correct": 2,
+   "explanation": "Amonyak düzeyi tanı ve izlemde sınırlı değerlidir; tedavi kliniğe göre yönlendirilir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q15",
+   "stem": "Yemek yerken göğsünde lokma takılan, salyasını yutamayan hastada en uygun yaklaşım hangisidir?",
+   "options": [
+    "Salyasını yutamayan (tam tıkanıklık) hastada acil endoskopi — ideal olarak ilk 6 saatte",
+    "Kusturma",
+    "Baryumlu grafi",
+    "Taburcu",
+    "Proteolitik enzim (papain)"
+   ],
+   "correct": 0,
+   "explanation": "Glukagonun etkinliği sınırlıdır; tam tıkanıklıkta ≤6 saatte, diğerlerinde ≤24 saatte endoskopi (ESGE).",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q16",
+   "stem": "Şiddetli kusma sonrası hematemez; hemodinami stabil, kanama durmuş. En olası tanı hangisidir?",
+   "options": [
+    "Mide kanseri",
+    "Aort-enterik fistül",
+    "Mallory-Weiss yırtığı",
+    "Varis kanaması",
+    "Boerhaave sendromu"
+   ],
+   "correct": 2,
+   "explanation": "Mukozal yırtıktır, çoğu kendiliğinden durur; Boerhaave tam kat perforasyondur.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q17",
+   "stem": "Mide ameliyatı geçirmiş hastada yemekten 15–30 dakika sonra çarpıntı, terleme, karın krampı ve ishal oluyor. Tanı nedir?",
+   "options": [
+    "Gastroparezi",
+    "Peptik ülser",
+    "Afferent ans sendromu",
+    "Geç dumping (reaktif hipoglisemi)",
+    "Erken dumping sendromu"
+   ],
+   "correct": 4,
+   "explanation": "Hiperozmolar içeriğin hızla ince barsağa geçmesi; geç dumping 1–3 saat sonra hipoglisemiyle olur.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q18",
+   "stem": "Hastanede antibiyotik alan hastada günde 8 kez sulu ishal, lökositoz ve ateş. İlk tercih tedavi hangisidir?",
+   "options": [
+    "Loperamid",
+    "Oral fidaksomisin veya oral vankomisin (C. difficile)",
+    "IV vankomisin",
+    "Siprofloksasin",
+    "Metronidazol IV her zaman"
+   ],
+   "correct": 1,
+   "explanation": "Güncel IDSA: ilk epizotta fidaksomisin veya oral vankomisin; IV vankomisin barsağa ulaşmaz.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q19",
+   "stem": "Kanlı ishal, ateş ve karın ağrısı olan çocukta, hemolitik üremik sendrom riski nedeniyle hangi ilaçtan kaçınılmalıdır?",
+   "options": [
+    "Çinko",
+    "Antibiyotik ve antimotilite ajanları (EHEC/STEC şüphesinde)",
+    "Parasetamol",
+    "Oral rehidratasyon",
+    "Probiyotik"
+   ],
+   "correct": 1,
+   "explanation": "STEC enfeksiyonunda antibiyotik toksin salınımını artırıp HÜS riskini yükseltebilir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q20",
+   "stem": "Akut apandisitte en duyarlı ve sık bulunan semptom/bulgu kombinasyonu hangisidir?",
+   "options": [
+    "İshal",
+    "Kusma ağrıdan önce",
+    "Ateş >39",
+    "Sağ alt kadrana göç eden ağrı ve sağ alt kadran hassasiyeti",
+    "Sarılık"
+   ],
+   "correct": 3,
+   "explanation": "Kusmanın ağrıdan önce başlaması apandisitten çok gastroenteriti düşündürür.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q21",
+   "stem": "Sol alt kadran ağrısı ve ateşi olan yaşlı hastada BT'de 5 cm perikolik apse saptanıyor. Uygun yaklaşım nedir?",
+   "options": [
+    "IV antibiyotik ve perkütan drenaj",
+    "Baryumlu lavman",
+    "Acil kolonoskopi",
+    "Yalnız gözlem",
+    "Ayaktan oral antibiyotik"
+   ],
+   "correct": 0,
+   "explanation": "Komplike divertikülitte (apse >3–4 cm) drenaj; komplike olmayan olgularda seçilmiş hastada antibiyotiksiz izlem bile mümkündür.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q22",
+   "stem": "Akut divertikülit tablosunda hangi tetkikten akut dönemde kaçınılır?",
+   "options": [
+    "Laktat",
+    "Kolonoskopi",
+    "BT",
+    "Hemogram",
+    "İdrar tetkiki"
+   ],
+   "correct": 1,
+   "explanation": "Perforasyon riski nedeniyle kolonoskopi iyileşmeden ≈6 hafta sonra yapılır.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q23",
+   "stem": "İnkarsere inguinal fıtıkta manuel redüksiyon denemesinin kontrendikasyonu hangisidir?",
+   "options": [
+    "Ağrı",
+    "Fıtığın büyük olması",
+    "Strangülasyon bulguları (ateş, eritem, şiddetli hassasiyet, peritonit)",
+    "Bulantı",
+    "Hastanın yaşlı olması"
+   ],
+   "correct": 2,
+   "explanation": "Strangüle barsağın karına itilmesi perforasyon ve peritonite yol açar.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q24",
+   "stem": "Perianal bölgede 2 gündür süren, çok ağrılı, mor renkli şişlik var. En uygun tedavi hangisidir?",
+   "options": [
+    "Bant ligasyonu",
+    "Kolonoskopi",
+    "Hemen insizyon-drenaj ve antibiyotik",
+    "Yalnız laksatif her durumda",
+    "Trombozlu dış hemoroid — <72 saatte eksizyon (sonra konservatif)"
+   ],
+   "correct": 4,
+   "explanation": "Erken başvuruda eksizyon ağrıyı hızla azaltır; geç başvuruda konservatif.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q25",
+   "stem": "Dışkılama sırasında yırtılır tarzda ağrı ve kâğıtta parlak kırmızı kan; muayenede posterior orta hatta yarık. Tedavi nedir?",
+   "options": [
+    "Apse drenajı",
+    "Hemoroidektomi",
+    "Kolonoskopi her hastaya",
+    "Antibiyotik",
+    "Anal fissür — lif, oturma banyosu, topikal nitrat/kalsiyum kanal blokeri"
+   ],
+   "correct": 4,
+   "explanation": "Orta hat dışı fissürlerde Crohn, HIV, sifiliz, malignite düşünülür.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q26",
+   "stem": "Kronik esrar kullanan genç erişkinde tekrarlayan kusma atakları, sıcak duşla rahatlama öyküsü var. Tanı ve tedavi nedir?",
+   "options": [
+    "Gastroparezi — metoklopramid",
+    "Kannabinoid hiperemezis sendromu — topikal kapsaisin veya haloperidol/droperidol; esrarı bırakma",
+    "Apandisit — cerrahi",
+    "Migren — triptan",
+    "Pankreatit — sıvı"
+   ],
+   "correct": 1,
+   "explanation": "Standart antiemetiklere yanıt sınırlıdır; kesin tedavi kesmektir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q27",
+   "stem": "Akut pankreatit tanısı için gerekli ölçütler hangileridir?",
+   "options": [
+    "BT her hastada zorunlu",
+    "Yalnız lipaz yüksekliği",
+    "Sarılık",
+    "Tipik ağrı, lipaz/amilazın üst sınırın ≥3 katı, görüntüleme bulgusu — 3'ten 2'si",
+    "Ateş ve lökositoz"
+   ],
+   "correct": 3,
+   "explanation": "Tanı kesinse erken BT gerekmez; ilk 72 saatte BT nekrozu küçümseyebilir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q28",
+   "stem": "Parasetamol aşırı dozuna bağlı akut karaciğer yetmezliğinde karaciğer naklini öngören King's College ölçütlerinden biri hangisidir?",
+   "options": [
+    "ALT >1000",
+    "Bilirubin >2",
+    "Trombosit <150.000",
+    "Sıvı resüsitasyonuna rağmen arteriyel pH <7,30",
+    "Albümin <3"
+   ],
+   "correct": 3,
+   "explanation": "Ya da INR >6,5 + kreatinin >3,4 + evre III–IV ensefalopati.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q29",
+   "stem": "Pilonidal sinüs apsesinde acil servisteki tedavi hangisidir?",
+   "options": [
+    "İnsizyon ve drenaj (orta hattın lateralinden), sonra elektif cerrahi",
+    "Primer kapama",
+    "Yalnız antibiyotik",
+    "Gözlem",
+    "Steroid"
+   ],
+   "correct": 0,
+   "explanation": "Lateral insizyon iyileşmeyi kolaylaştırır; selülit/immünsüpresyonda antibiyotik eklenir.",
+   "topic": "Gastrointestinal Aciller"
+  },
+  {
+   "key": "q30",
+   "stem": "Perianal apse için doğru olan hangisidir?",
+   "options": [
+    "Antibiyotik tek başına yeterlidir",
+    "Hemoroiddir",
+    "Asla acilde drene edilmez",
+    "Drenaj esastır; supralevator/iskiyorektal geniş apseler ameliyathanede drene edilir",
+    "Sıcak uygulama ile beklenir"
+   ],
+   "correct": 3,
+   "explanation": "Basit perianal apse acilde drene edilebilir; derin apselerde görüntüleme ve cerrahi.",
+   "topic": "Gastrointestinal Aciller"
+  }
+ ]
+}

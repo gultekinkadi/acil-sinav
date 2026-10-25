@@ -1,0 +1,430 @@
+{
+ "id": "soru-02",
+ "title": "Acil Tıp Soru Bankası — 02. Kardiyovasküler Hastalıklar",
+ "desc": "Akut koroner sendrom, kalp yetmezliği ve şok, kapak hastalıkları, perikardiyal hastalık, aort diseksiyonu, hipertansif aciller, aritmi, senkop, endokardit, periferik arter hastalığı.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 02. Kardiyovasküler Hastalıklar",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Göğüs ağrısıyla başvuran hastada STEMI tanısı için ilk temastan EKG çekilmesine kadar hedef süre nedir?",
+   "options": [
+    "Troponin sonucu gelince",
+    "10 dakika",
+    "60 dakika",
+    "2 saat",
+    "30 dakika"
+   ],
+   "correct": 1,
+   "explanation": "İlk tıbbi temastan sonra en geç 10 dakikada 12 derivasyonlu EKG çekilip yorumlanmalıdır (ESC 2023).",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q02",
+   "stem": "Primer PKG yapılamayan bir merkezde STEMI tanısı konan hastada, tanıdan tel geçişine beklenen süre 150 dakika ise en uygun strateji nedir?",
+   "options": [
+    "Yalnız antiagregan ve izlem",
+    "Sevk edip PKG'yi beklemek",
+    "Kontrendikasyon yoksa 10 dakika içinde fibrinolitik başlayıp PKG merkezine sevk",
+    "Troponin yükselirse fibrinoliz",
+    "Ertesi gün elektif anjiyografi"
+   ],
+   "correct": 2,
+   "explanation": "Tanıdan PKG'ye 120 dakikadan uzun gecikme bekleniyorsa fibrinoliz ve ardından 2–24 saatte anjiyografi (farmakoinvaziv strateji).",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q03",
+   "stem": "Akut inferior MI geçiren hastada 3. günde ani akciğer ödemi ve apekste yeni pansistolik üfürüm gelişiyor. En olası tanı hangisidir?",
+   "options": [
+    "Papiller kas rüptürüne bağlı akut mitral yetersizliği",
+    "Perikardit",
+    "Aort diseksiyonu",
+    "Ventrikül anevrizması",
+    "Pulmoner emboli"
+   ],
+   "correct": 0,
+   "explanation": "Akut MY'de sol atriyum küçük ve uyumsuzdur; ani pulmoner ödem ve şok gelişir — acil eko ve cerrahi.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q04",
+   "stem": "Eforla göğüs ağrısı ve senkop tarifleyen 78 yaşında erkekte sağ 2. interkostal aralıkta karotislere yayılan sistolik ejeksiyon üfürümü var. Bu hastada hangi ilaç dikkatle kullanılmalı ya da kaçınılmalıdır?",
+   "options": [
+    "Parasetamol",
+    "Oksijen",
+    "Aspirin",
+    "Heparin",
+    "Nitrogliserin (önyük azaltıcılar)"
+   ],
+   "correct": 4,
+   "explanation": "Ciddi aort darlığında kalp debisi önyüke bağımlıdır; nitrat ve vazodilatörler derin hipotansiyon yapabilir.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q05",
+   "stem": "Hipertrofik kardiyomiyopatide üfürüm hangi manevrayla artar?",
+   "options": [
+    "Bacakları kaldırma",
+    "Pasif bacak kaldırma",
+    "Çömelme",
+    "El sıkma",
+    "Valsalva veya ayağa kalkma"
+   ],
+   "correct": 4,
+   "explanation": "Önyükü azaltan manevralar (Valsalva, ayağa kalkma) çıkım yolu darlığını artırır; çömelme ve el sıkma azaltır.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q06",
+   "stem": "Akut perikarditte en karakteristik EKG bulgusu hangisidir?",
+   "options": [
+    "Delta dalgası",
+    "Yaygın konkav ST elevasyonu ve PR çökmesi (aVR'de PR elevasyonu)",
+    "Tek damar alanında konveks ST elevasyonu ve ayna değişiklik",
+    "S1Q3T3",
+    "Derin simetrik T negatifliği V1–V3"
+   ],
+   "correct": 1,
+   "explanation": "Perikardit: yaygın ST elevasyonu, PR çökmesi, ayna değişiklik yok (aVR/V1 hariç).",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q07",
+   "stem": "İdiyopatik akut perikarditte ilk basamak tedavi hangisidir?",
+   "options": [
+    "Antikoagülan",
+    "Antibiyotik",
+    "Kortikosteroid tek başına",
+    "Perikardiyosentez",
+    "Yüksek doz NSAİİ veya aspirin + kolşisin (3 ay)"
+   ],
+   "correct": 4,
+   "explanation": "ESC: NSAİİ/aspirin + kolşisin; kolşisin tekrarlama riskini azaltır. Steroid ikinci basamak.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q08",
+   "stem": "Hipotansiyon, juguler venöz dolgunluk ve derinden gelen kalp seslerinden oluşan üçlü hangi tanıyı düşündürür?",
+   "options": [
+    "Konstriktif perikardit",
+    "Aort diseksiyonu",
+    "Tansiyon pnömotoraks",
+    "Sağ ventrikül infarktı",
+    "Kardiyak tamponad (Beck üçlüsü)"
+   ],
+   "correct": 4,
+   "explanation": "Beck üçlüsüne pulsus paradoksus ve EKG'de elektriksel alternans eşlik edebilir; POCUS tanıyı hızlandırır.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q09",
+   "stem": "Yırtılır tarzda, sırta yayılan ani göğüs ağrısı olan hastada kollar arası sistolik KB farkı 30 mmHg. Tanı konana kadar yapılması gereken ilk farmakolojik adım hangisidir?",
+   "options": [
+    "Önce IV beta bloker ile kalp hızını <60, ardından sistolik KB'yi 100–120'ye düşürmek",
+    "Önce nitroprussid",
+    "Heparin",
+    "Yalnız analjezi",
+    "Trombolitik"
+   ],
+   "correct": 0,
+   "explanation": "Diseksiyonda önce kalp hızı (esmolol/labetalol), sonra vazodilatör; refleks taşikardi önlenir.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q10",
+   "stem": "Stanford tip A aort diseksiyonunun kesin tedavisi hangisidir?",
+   "options": [
+    "Acil cerrahi",
+    "Tromboliz",
+    "Endovasküler stent her olguda",
+    "Medikal tedavi ve izlem",
+    "Perikardiyosentez"
+   ],
+   "correct": 0,
+   "explanation": "Çıkan aortu tutan (tip A) diseksiyon acil cerrahidir; komplike olmayan tip B medikal/TEVAR.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q11",
+   "stem": "Hipertansif acil (hipertansif ensefalopati) tedavisinde ilk saatteki hedef nedir?",
+   "options": [
+    "Sistolik KB'yi <100'e indirmek",
+    "Oral ilaçla 24 saatte düşürmek",
+    "KB'ye dokunmamak",
+    "Ortalama arter basıncını en çok %20–25 düşürmek",
+    "KB'yi hemen normale indirmek"
+   ],
+   "correct": 3,
+   "explanation": "Aort diseksiyonu, eklampsi, feokromositoma krizi gibi istisnalar dışında ilk saatte OAB en çok %25 düşürülür.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q12",
+   "stem": "Organ hasarı bulgusu olmayan, asemptomatik KB 190/110 mmHg olan hastada acil serviste en uygun yaklaşım hangisidir?",
+   "options": [
+    "IV labetalol bolusları ile normale indirme",
+    "Dil altı nifedipin",
+    "Agresif IV tedavi gerekmez; oral tedavi düzenlenip yakın poliklinik takibi",
+    "Yoğun bakıma yatış",
+    "IV nikardipin infüzyonu"
+   ],
+   "correct": 2,
+   "explanation": "Asemptomatik ciddi hipertansiyonda hızlı düşürme zararlı olabilir; dil altı nifedipin kullanılmaz.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q13",
+   "stem": "Akut kardiyojenik pulmoner ödemi olan, KB 210/120 mmHg hastada en etkili ilk tedavi bileşimi hangisidir?",
+   "options": [
+    "Morfin + sıvı",
+    "Beta bloker bolusu",
+    "Yalnız furosemid",
+    "NIV (CPAP/BiPAP) + yüksek doz nitrat",
+    "Dobutamin"
+   ],
+   "correct": 3,
+   "explanation": "SCAPE'de NIV ve yüksek doz nitrat hızla düzelme sağlar; diüretik ikincil rol oynar.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q14",
+   "stem": "Kardiyojenik şokta (KB 78/50, soğuk ekstremite, akciğer ödemi) ilk tercih vazoaktif ajan hangisidir?",
+   "options": [
+    "Fenilefrin",
+    "Norepinefrin (± inotrop olarak dobutamin)",
+    "Dopamin",
+    "Nitrogliserin",
+    "Esmolol"
+   ],
+   "correct": 1,
+   "explanation": "Kılavuzlar kardiyojenik şokta norepinefrini birinci seçenek, dobutamini inotrop olarak önerir; neden (AKS) için acil revaskülarizasyon.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q15",
+   "stem": "Akciğer grafisinde kardiyomegali, sefalizasyon ve bazallerde kısa yatay çizgiler (Kerley B) görülmesi neyi gösterir?",
+   "options": [
+    "İnterstisyel ödem (artmış pulmoner venöz basınç)",
+    "Pnömoni",
+    "Sarkoidoz",
+    "Pulmoner emboli",
+    "Pnömotoraks"
+   ],
+   "correct": 0,
+   "explanation": "Kerley B çizgileri ödemli interlobüler septalardır.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q16",
+   "stem": "Hemodinamik olarak stabil, 2 gündür süren atriyal fibrilasyonu olan ve antikoagülan kullanmayan hastada uygun yaklaşım hangisidir?",
+   "options": [
+    "Yalnız aspirin",
+    "Hemen elektriksel kardiyoversiyon",
+    "Hız kontrolü ve antikoagülasyon; kardiyoversiyon için ≥3 hafta antikoagülasyon ya da TEE ile trombüs dışlanması",
+    "Hemen amiodaron ile ritim kontrolü",
+    "Hiçbir tedavi"
+   ],
+   "correct": 2,
+   "explanation": "Süre ≥48 saat ya da bilinmiyorsa kardiyoversiyon öncesi tromboembolizm riski nedeniyle antikoagülasyon/TEE gerekir.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q17",
+   "stem": "AF'de inme riskini değerlendirmek için kullanılan skor hangisidir?",
+   "options": [
+    "HAS-BLED",
+    "CURB-65",
+    "Wells",
+    "CHA₂DS₂-VASc",
+    "HEART"
+   ],
+   "correct": 3,
+   "explanation": "CHA₂DS₂-VASc inme riskini, HAS-BLED kanama riskini değerlendirir.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q18",
+   "stem": "Eforla nefes darlığı, sağ kalp yetmezliği bulguları ve P2'de belirginleşme olan genç kadında tanıyı en iyi destekleyen ilk tetkik hangisidir?",
+   "options": [
+    "Koroner anjiyografi",
+    "Transtorasik ekokardiyografi",
+    "Abdominal BT",
+    "Troponin",
+    "Lomber ponksiyon"
+   ],
+   "correct": 1,
+   "explanation": "Pulmoner hipertansiyondan şüphede ilk tetkik ekodur (sistolik pulmoner arter basıncı, sağ ventrikül).",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q19",
+   "stem": "Pulmoner arteriyel hipertansiyonu olan hasta hipotansif ve kötüleşiyor. Hangi girişim en dikkatli yapılmalıdır?",
+   "options": [
+    "Entübasyon (sağ ventrikül yetmezliği ve kollaps riski)",
+    "Oksijen",
+    "Norepinefrin",
+    "Ekokardiyografi",
+    "İdrar sondası"
+   ],
+   "correct": 0,
+   "explanation": "PAH'ta entübasyon ve pozitif basınç sağ ventrikül kollapsına yol açabilir; önce vazopresör ve O₂ ile stabilize et.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q20",
+   "stem": "Akut ekstremite iskemisinde motor ve duyu kaybı başlamışsa (Rutherford IIb) tedavi hangisidir?",
+   "options": [
+    "24 saat izlem",
+    "Yalnız aspirin",
+    "Heparin + acil revaskülarizasyon (cerrahi/endovasküler)",
+    "Elevasyon ve analjezi",
+    "Soğuk uygulama"
+   ],
+   "correct": 2,
+   "explanation": "IIb 'hemen tehdit altında' ekstremitedir; saatler içinde revaskülarizasyon gerekir.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q21",
+   "stem": "Bacakta ani başlayan soğukluk ve nabızsızlıkla gelen AF'li hastada en olası mekanizma hangisidir?",
+   "options": [
+    "Lenfödem",
+    "Vazospazm",
+    "Kompartman sendromu",
+    "Kardiyak kaynaklı arteriyel emboli",
+    "Derin ven trombozu"
+   ],
+   "correct": 3,
+   "explanation": "AF sol atriyum trombüsü ile periferik emboliye yol açar; aterosklerotik trombozda kollateraller daha belirgindir.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q22",
+   "stem": "Senkop sonrası EKG'de V1–V2'de 'çatılı' (coved) ST elevasyonu ve sağ dal bloğu benzeri görünüm saptanması hangi tanıyı düşündürür?",
+   "options": [
+    "Hipertrofik kardiyomiyopati",
+    "Akut perikardit",
+    "Uzun QT sendromu",
+    "Brugada sendromu",
+    "Erken repolarizasyon"
+   ],
+   "correct": 3,
+   "explanation": "Brugada tip 1 paterni ani ölüm riski taşır; ateş tetikleyebilir — kardiyoloji/ICD değerlendirmesi.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q23",
+   "stem": "Senkoplu hastada yüksek risk özelliği hangisidir?",
+   "options": [
+    "Kan görünce bayılma",
+    "Genç yaş ve normal EKG",
+    "Eforla senkop veya senkop öncesi çarpıntı",
+    "Uzun süre ayakta kalma sonrası prodromlu senkop",
+    "Öksürük sonrası senkop"
+   ],
+   "correct": 2,
+   "explanation": "Eforla senkop, çarpıntı, yapısal kalp hastalığı, anormal EKG, aile öyküsünde ani ölüm kardiyak nedeni düşündürür.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q24",
+   "stem": "Damar içi madde kullanan hastada ateş ve triküspit yetersizliği üfürümü var. Akciğer grafisinde çok sayıda periferik nodül (septik emboli) görülüyor. En olası etken hangisidir?",
+   "options": [
+    "HACEK",
+    "Streptococcus viridans",
+    "Candida",
+    "Enterococcus",
+    "Staphylococcus aureus"
+   ],
+   "correct": 4,
+   "explanation": "IV madde kullanıcılarında sağ kalp endokarditi ve S. aureus en sıktır.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q25",
+   "stem": "Endokardit kuşkusunda tanı için en önemli iki inceleme hangisidir?",
+   "options": [
+    "Antibiyotikten önce en az 3 set kan kültürü ve ekokardiyografi",
+    "Akciğer grafisi ve EKG",
+    "Prokalsitonin ve troponin",
+    "İdrar kültürü ve USG",
+    "CRP ve sedimentasyon"
+   ],
+   "correct": 0,
+   "explanation": "Modifiye Duke ölçütlerinin temelini kültür ve eko oluşturur.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q26",
+   "stem": "Mekanik kalp kapağı olan hastada ani nefes darlığı ve kapak seslerinde kaybolma görülmesi neyi düşündürür?",
+   "options": [
+    "Anksiyete",
+    "Anemi",
+    "Perikardit",
+    "Pnömoni",
+    "Kapak trombozu/disfonksiyonu"
+   ],
+   "correct": 4,
+   "explanation": "Mekanik kapak sesinin kaybolması ciddi kapak trombozunu düşündürür — acil eko ve kardiyoloji.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q27",
+   "stem": "Restriktif ve konstriktif kardiyomiyopatiyi ayırmada en yararlı yöntem hangisidir?",
+   "options": [
+    "Troponin",
+    "Holter",
+    "Ekokardiyografi/kardiyak MR ile perikard kalınlığı ve doldurma paternleri",
+    "Göğüs grafisi",
+    "Efor testi"
+   ],
+   "correct": 2,
+   "explanation": "Konstriksiyonda kalın/kalsifik perikard ve ventriküller arası bağımlılık; restriksiyonda miyokard tutulumu belirgindir.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q28",
+   "stem": "Viral enfeksiyon sonrası göğüs ağrısı, troponin yüksekliği ve normal koroner arterleri olan genç hastada en olası tanı hangisidir?",
+   "options": [
+    "Stabil angina",
+    "Miyokardit",
+    "Pulmoner hipertansiyon",
+    "Kostokondrit",
+    "Aort darlığı"
+   ],
+   "correct": 1,
+   "explanation": "Miyokardit aritmi ve kalp yetmezliği yapabilir; kardiyak MR tanıyı destekler.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q29",
+   "stem": "Sinüs ritminde, geniş QRS'li düzenli taşikardisi olan ve hemodinamisi bozulmuş hastada ilk tedavi hangisidir?",
+   "options": [
+    "Digoksin",
+    "Gözlem",
+    "Verapamil",
+    "Senkronize kardiyoversiyon",
+    "Adenozin"
+   ],
+   "correct": 3,
+   "explanation": "Instabil taşikardide (şok, senkop, iskemi, akut KY) elektrik ilk tercihtir.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  },
+  {
+   "key": "q30",
+   "stem": "Kalp yetmezlikli hastada uzun süreli tedaviye eklendiğinde kardiyovasküler ölüm ve KY hastaneye yatışını azaltan, diyabeti olmayanlarda da yararlı ilaç sınıfı hangisidir?",
+   "options": [
+    "Kalsiyum kanal blokerleri (verapamil)",
+    "SGLT2 inhibitörleri (dapagliflozin/empagliflozin)",
+    "Tiazolidindionlar",
+    "NSAİİ",
+    "Sülfonilüreler"
+   ],
+   "correct": 1,
+   "explanation": "HFrEF'in dört temel ilacı: ARNI/ACEi, beta bloker, MRA ve SGLT2 inhibitörü.",
+   "topic": "Kardiyovasküler Hastalıklar"
+  }
+ ]
+}

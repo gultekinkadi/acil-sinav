@@ -1,0 +1,430 @@
+{
+ "id": "soru-16",
+ "title": "Acil Tıp Soru Bankası — 16. Psikiyatrik ve Davranışsal Bozukluklar",
+ "desc": "Organik-psikiyatrik ayrımı ve tıbbi uygunluk, deliryum, alkol yoksunluğu, intihar riski, ajitasyon ve sedasyon, antipsikotik yan etkileri, karar verme kapasitesi.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 16. Psikiyatrik ve Davranışsal Bozukluklar",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Psikiyatrik öyküsü olmayan 62 yaşında hastada yeni başlayan görsel halüsinasyonlar ve dalgalı bilinç. En olası neden grubu hangisidir?",
+   "options": [
+    "Konversiyon bozukluğu",
+    "Organik (tıbbi) neden — deliryum",
+    "Panik bozukluk",
+    "Şizofreni",
+    "Bipolar bozukluk"
+   ],
+   "correct": 1,
+   "explanation": "Görsel halüsinasyon, ileri yaşta yeni başlangıç, anormal vital bulgular ve dalgalı bilinç organik nedeni düşündürür; işitsel halüsinasyonlar primer psikozda daha sıktır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q02",
+   "stem": "Deliryumu demanstan ayıran temel özellik hangisidir?",
+   "options": [
+    "Akut başlangıç ve dikkat bozukluğuyla dalgalanan bilinç",
+    "Yaşlılık",
+    "Uykusuzluk",
+    "Bellek kaybı",
+    "Ajitasyon"
+   ],
+   "correct": 0,
+   "explanation": "Deliryum bir tıbbi acildir; neden (enfeksiyon, ilaç, metabolik) aranır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q03",
+   "stem": "Psikiyatrik başvuruda 'tıbbi açıdan uygunluk' değerlendirmesi için en önemli bileşen hangisidir?",
+   "options": [
+    "Rutin LP",
+    "Her hastaya kraniyal BT",
+    "Dikkatli öykü, vital bulgular ve fizik/nörolojik muayene (rutin laboratuvar yerine)",
+    "EEG",
+    "Rutin toksikoloji paneli"
+   ],
+   "correct": 2,
+   "explanation": "ACEP: öykü ve muayenesi normal olan hastada rutin laboratuvar gereksizdir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q04",
+   "stem": "Göğüs ağrısı, çarpıntı, nefes darlığı, ellerde uyuşma ve ölüm korkusuyla gelen genç kadında panik atak tanısı koymadan önce ne yapılmalıdır?",
+   "options": [
+    "Hemen benzodiazepin ve taburcu",
+    "Tıbbi nedenlerin (AKS, PE, aritmi, hipertiroidi, hipoglisemi) uygun şekilde dışlanması",
+    "Psikiyatri konsültasyonu tek başına",
+    "Antidepresan reçetesi",
+    "Hiçbir tetkik"
+   ],
+   "correct": 1,
+   "explanation": "Panik bozukluk bir dışlama tanısıdır; risk faktörüne göre değerlendirme.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q05",
+   "stem": "Son içkisinden 24 saat sonra tremor, terleme, taşikardi ve anksiyete; 36. saatte jeneralize nöbet. Bu tabloya göre ilk tedavi hangisidir?",
+   "options": [
+    "Fenitoin",
+    "Haloperidol tek başına",
+    "Alkol vermek",
+    "Benzodiazepin (semptoma göre titre; CIWA-Ar)",
+    "Beta bloker tek başına"
+   ],
+   "correct": 3,
+   "explanation": "Alkol yoksunluk nöbetleri 6–48 saatte, deliryum tremens 48–96 saatte görülür; fenitoin etkisizdir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q06",
+   "stem": "Yüksek doz benzodiazepine rağmen ajitasyonu süren deliryum tremenste ek seçenek hangisidir?",
+   "options": [
+    "Fenobarbital veya propofol (yoğun bakım, hava yolu izlemi)",
+    "Fizostigmin",
+    "Tiamin tek başına",
+    "Haloperidol tek başına",
+    "Flumazenil"
+   ],
+   "correct": 0,
+   "explanation": "Benzodiazepine dirençli yoksunlukta GABA etkili ek ajanlar; tiamin de verilir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q07",
+   "stem": "İntihar girişimi sonrası değerlendirmede tekrar riski yüksek olan özellik hangisidir?",
+   "options": [
+    "Genç yaş tek başına",
+    "Kadın cinsiyet tek başına",
+    "Yardım istemesi",
+    "Erkek cinsiyet, ileri yaş, ölümcül yöntem, ayrıntılı plan, ateşli silaha erişim ve önceki girişimler",
+    "Sosyal destek varlığı"
+   ],
+   "correct": 3,
+   "explanation": "SAD PERSONS tek başına güvenilir değildir; yapılandırılmış değerlendirme ve ölümcül araçlara erişimin kısıtlanması önemlidir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q08",
+   "stem": "İntihar düşüncesi olan hastada acil serviste güvenlik açısından yapılması gereken hangisidir?",
+   "options": [
+    "Hastayı yalnız bırakmak",
+    "Yalnız ilaçla taburcu etmek",
+    "Gözetim altında tutmak, kendine zarar verebilecek eşyaları uzaklaştırmak, psikiyatri değerlendirmesi",
+    "Aile bilgilendirmeden göndermek",
+    "Bekleme salonunda bekletmek"
+   ],
+   "correct": 2,
+   "explanation": "Güvenlik planı ve yakın takip; ilaç alımı varsa tıbbi tedavi öncelikli.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q09",
+   "stem": "Ajite hastada ilk yaklaşım hangisidir?",
+   "options": [
+    "Sözel yatıştırma (de-eskalasyon) ve güvenli ortam",
+    "Hemen fiziksel tespit",
+    "Polis çağırmak tek başına",
+    "Hastayı dışarı çıkarmak",
+    "Hemen entübasyon"
+   ],
+   "correct": 0,
+   "explanation": "Sözel yöntemler başarısızsa sedasyon; tespit son çaredir ve yakın izlem gerektirir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q10",
+   "stem": "Sözel yöntemlere yanıt vermeyen, tıbbi nedeni dışlanmış ağır ajitasyonda IM seçenek hangisidir?",
+   "options": [
+    "Ketamin her hastada ilk tercih",
+    "Morfin",
+    "Fenitoin",
+    "Haloperidol + lorazepam/midazolam (ya da droperidol, olanzapin)",
+    "Fizostigmin"
+   ],
+   "correct": 3,
+   "explanation": "Antipsikotiklerin QT uzatıcı etkisi (FDA kutulu uyarı: droperidol) akılda tutulmalı; IM olanzapin ile IM benzodiazepin aynı anda verilmemeli.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q11",
+   "stem": "Fiziksel tespit uygulanan hastada en önemli güvenlik önlemi hangisidir?",
+   "options": [
+    "Hastayı yalnız bırakmak",
+    "Sürekli gözlem, vital ve dolaşım kontrolü; yüzüstü tespitten kaçınmak",
+    "Saatlerce tespitte tutmak",
+    "Göğüse ağırlık koymak",
+    "Yüzüstü tespit"
+   ],
+   "correct": 1,
+   "explanation": "Yüzüstü tespit ve göğüs basısı pozisyonel asfiksi ile ölüme yol açabilir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q12",
+   "stem": "Antipsikotik başlanmasından günler sonra yüksek ateş, kurşun boru rijidite, bilinç bulanıklığı, otonom instabilite ve CK yüksekliği. Tanı nedir?",
+   "options": [
+    "Serotonin sendromu",
+    "Nöroleptik malign sendrom",
+    "Malign hipertermi",
+    "Antikolinerjik toksisite",
+    "Tetanoz"
+   ],
+   "correct": 1,
+   "explanation": "İlacı kes, soğut, benzodiazepin, ağırda dantrolen/bromokriptin; yavaş gelişir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q13",
+   "stem": "Serotonin sendromunu nöroleptik malign sendromdan ayıran bulgu hangisidir?",
+   "options": [
+    "Klonus ve hiperrefleksi, hızlı başlangıç (saatler)",
+    "Günler içinde başlama",
+    "Ateş olmaması",
+    "Kurşun boru rijidite",
+    "Bradikinezi"
+   ],
+   "correct": 0,
+   "explanation": "Hunter ölçütleri; tedavi serotonerjik ilaçları kesmek, benzodiazepin, siproheptadin.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q14",
+   "stem": "Haloperidol sonrası gözlerin yukarı kayması (okülojirik kriz), boyunda tortikollis ve dil protrüzyonu. Tedavi hangisidir?",
+   "options": [
+    "Daha fazla haloperidol",
+    "Fizostigmin",
+    "Flumazenil",
+    "Dantrolen",
+    "Difenhidramin veya biperiden IV/IM"
+   ],
+   "correct": 4,
+   "explanation": "Akut distonik reaksiyon; yanıt dakikalar içinde olur, 2–3 gün oral devam edilir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q15",
+   "stem": "Antipsikotik başlanan hastada iç sıkıntısı ve yerinde duramama (sürekli hareket ihtiyacı). Tanı ve tedavi nedir?",
+   "options": [
+    "Ajitasyon — daha fazla antipsikotik",
+    "NMS",
+    "Anksiyete bozukluğu",
+    "Hipertiroidi",
+    "Akatizi — propranolol, benzodiazepin veya antikolinerjik; dozu azaltma"
+   ],
+   "correct": 4,
+   "explanation": "Akatizi ajitasyonla karıştırılıp yanlışlıkla doz artırılabilir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q16",
+   "stem": "Genç erişkinde ilk kez ortaya çıkan işitsel halüsinasyonlar, sanrılar ve sosyal çekilme; vital bulgular ve nörolojik muayene normal. Önce ne yapılmalıdır?",
+   "options": [
+    "Taburcu",
+    "EEG rutin",
+    "LP rutin",
+    "Madde kullanımı ve tıbbi nedenlerin (ör. tiroid, ensefalit belirtisi) değerlendirilmesi ve psikiyatri",
+    "Hemen uzun etkili antipsikotik depo"
+   ],
+   "correct": 3,
+   "explanation": "Şizofreni genellikle geç ergenlik-genç erişkinlikte başlar; ilk atakta organik nedenler dışlanır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q17",
+   "stem": "Bir tedaviyi reddeden hastanın karar verme kapasitesini değerlendirirken hangisi gereklidir?",
+   "options": [
+    "Bilgiyi anlama, değerlendirme, mantık yürütme ve seçimini ifade edebilme",
+    "Psikiyatrik tanı olmaması",
+    "Hekimle aynı fikirde olması",
+    "Yakınının onayı",
+    "Belirli bir eğitim düzeyi"
+   ],
+   "correct": 0,
+   "explanation": "Kapasite karar özgüdür ve hekim tarafından değerlendirilir; kapasiteli hasta reddedebilir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q18",
+   "stem": "Ani başlayan tek bacak felci olan, nörolojik muayenesi anatomik olarak tutarsız (Hoover bulgusu pozitif) hastada doğru yaklaşım hangisidir?",
+   "options": [
+    "Hastaya 'rol yapıyorsun' demek",
+    "Ağrılı uyaran uygulamak",
+    "Organik nedenleri uygun şekilde dışlayıp fonksiyonel nörolojik bozukluk olarak destekleyici yaklaşım",
+    "Rutin tromboliz",
+    "Hiçbir değerlendirme yapmamak"
+   ],
+   "correct": 2,
+   "explanation": "Konversiyon/fonksiyonel bozukluk istemsizdir; temaruzdan farklıdır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q19",
+   "stem": "Anoreksiya nervozalı hastada hastaneye yatışı gerektiren bulgu hangisidir?",
+   "options": [
+    "Bradikardi (<40–50), hipotansiyon, elektrolit bozukluğu veya senkop",
+    "Yemek yememe isteği",
+    "Anksiyete",
+    "Uykusuzluk",
+    "Kilo kaybı 1 kg"
+   ],
+   "correct": 0,
+   "explanation": "Tıbbi instabilite ve yeniden beslenme sendromu riski nedeniyle.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q20",
+   "stem": "Ekstrem ajitasyon, hipertermi, olağanüstü güç ve sedasyona direnç gösteren, uyarıcı madde kullanmış hastada en tehlikeli komplikasyon hangisidir?",
+   "options": [
+    "Migren",
+    "Bradikardi",
+    "Hipoglisemi tek başına",
+    "Ani kardiyak arrest (hipertermi, asidoz, hiperkalemi)",
+    "Hipotermi"
+   ],
+   "correct": 3,
+   "explanation": "Hızlı sedasyon (ör. ketamin veya benzodiazepin), soğutma ve fiziksel mücadelenin kısaltılması.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q21",
+   "stem": "Bilerek belirti üreten ve hasta rolünü üstlenmek dışında belirgin kazancı olmayan kişi hangi tabloya uyar?",
+   "options": [
+    "Şizofreni",
+    "Hipokondriyazis",
+    "Temaruz (malingering)",
+    "Konversiyon",
+    "Yapay (factitious) bozukluk"
+   ],
+   "correct": 4,
+   "explanation": "Temaruzda dış kazanç (para, iş izni, ilaç) amaçlanır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q22",
+   "stem": "Yaşlı hastada depresyon ile demansı ayırmaya yardımcı olan bulgu hangisidir?",
+   "options": [
+    "Demansta akut başlangıç",
+    "Demansta hızlı düzelme",
+    "Depresyonda halüsinasyon her zaman",
+    "Hiçbir fark yoktur",
+    "Depresyonda 'bilmiyorum' yanıtları ve bilişsel kayıp konusunda yakınma; demansta kaybı örtme eğilimi"
+   ],
+   "correct": 4,
+   "explanation": "Psödodemans tedaviyle düzelebilir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q23",
+   "stem": "Benzodiazepin aşırı dozunda doğru olan hangisidir?",
+   "options": [
+    "Mutlaka diyaliz",
+    "Tek başına alındığında genellikle destek tedavisi yeterlidir; flumazenil rutin önerilmez",
+    "Flumazenil her hastaya verilmelidir",
+    "Aktif kömür her zaman",
+    "Nalokson etkilidir"
+   ],
+   "correct": 1,
+   "explanation": "Flumazenil kronik kullanıcıda ve karışık alımda nöbet tetikleyebilir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q24",
+   "stem": "Lityum kullanan hastaya acil serviste hangi ilaç dikkatle verilmelidir (düzeyi artırır)?",
+   "options": [
+    "Parasetamol",
+    "Morfin",
+    "NSAİİ (ibuprofen)",
+    "Seftriakson",
+    "Ondansetron"
+   ],
+   "correct": 2,
+   "explanation": "NSAİİ, ACEi/ARB ve tiyazidler lityum atılımını azaltır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q25",
+   "stem": "Uyarıcı (amfetamin/kokain) kullanımına bağlı göğüs ağrısı ve hipertansiyonda ilk tercih ilaç hangisidir?",
+   "options": [
+    "Beta bloker",
+    "Flumazenil",
+    "Benzodiazepin",
+    "Fizostigmin",
+    "Haloperidol"
+   ],
+   "correct": 2,
+   "explanation": "Benzodiazepin sempatik aktivasyonu azaltır; saf beta bloker tartışmalıdır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q26",
+   "stem": "Psikotik ve ajite hastada sedasyon sonrası ateş ve rijidite gelişirse hangisi akla gelmelidir?",
+   "options": [
+    "Panik atak",
+    "Normal yanıt",
+    "Basit uykusuzluk",
+    "Konversiyon",
+    "Nöroleptik malign sendrom ve tıbbi nedenler (ör. ensefalit)"
+   ],
+   "correct": 4,
+   "explanation": "Ateşli ajitasyonda menenjit/ensefalit ve tirotoksikoz da dışlanmalıdır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q27",
+   "stem": "Akut stres sonrası nefes nefese kalma, ellerde karpopedal spazm ve perioral uyuşma hangi mekanizmayla açıklanır?",
+   "options": [
+    "Hiperkalemi",
+    "Hiperventilasyona bağlı respiratuvar alkaloz ve iyonize kalsiyum düşüşü",
+    "Hipoksi her zaman",
+    "Hipoglisemi",
+    "Metabolik asidoz"
+   ],
+   "correct": 1,
+   "explanation": "Kese kâğıdına solutma önerilmez (hipoksi riski); altta yatan tıbbi nedenler dışlanır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q28",
+   "stem": "Kronik ağrı ve depresyonla izlenen hastaya acilde antidepresan reçete edilirken hangi risk göz önünde tutulmalıdır?",
+   "options": [
+    "Hipoglisemi",
+    "Kanama",
+    "Hiçbir risk yoktur",
+    "Bağımlılık her zaman",
+    "Aşırı doz toksisitesi (özellikle TCA) — sınırlı miktar ve psikiyatri izlemi"
+   ],
+   "correct": 4,
+   "explanation": "İntihar riski olan hastada yüksek miktarda TCA reçetesinden kaçınılır.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q29",
+   "stem": "Bipolar bozukluğu olan hastada uykusuzluk, konuşma baskısı, büyüklük sanrıları ve riskli davranışlar. Acil serviste doğru yaklaşım hangisidir?",
+   "options": [
+    "Lityumu kesmek",
+    "Antidepresan başlamak",
+    "Taburcu",
+    "Tıbbi nedenleri/madde kullanımını dışlayıp, güvenliği sağlayarak psikiyatri değerlendirmesi ve gerekirse sedasyon",
+    "Yalnız uyku ilacı"
+   ],
+   "correct": 3,
+   "explanation": "Antidepresanlar maniyi tetikleyebilir; lityum/valproat düzeyleri kontrol edilir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  },
+  {
+   "key": "q30",
+   "stem": "Uzun süre benzodiazepin kullanan hastada ilacın ani kesilmesine bağlı en tehlikeli sonuç hangisidir?",
+   "options": [
+    "Kabızlık",
+    "Kilo alma",
+    "Nöbet ve deliryum",
+    "Hipertansiyon tek başına",
+    "Bradikardi"
+   ],
+   "correct": 2,
+   "explanation": "Yoksunluk alkol yoksunluğuna benzer; azaltarak kesilmelidir.",
+   "topic": "Psikiyatrik ve Davranışsal Bozukluklar"
+  }
+ ]
+}

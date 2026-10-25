@@ -103,5 +103,166 @@
   "desc": "Düşük riskli pnömoni, SGLT2 ilişkili öglisemik DKA, hipernatremi, süt çocuğunda SVT, herpes zoster oftalmikus, perfore peptik ülser, diz çıkığı sonrası popliteal arter yaralanması, refrakter VF, tiroidektomi sonrası hipokalsemi, kolanjitli biliyer pankreatit.",
   "sims": 10,
   "questions": 30
+ },
+ {
+  "file": "soru-01.json",
+  "title": "Acil Tıp Soru Bankası — 01. Analjezi, Anestezi ve Prosedürel Sedasyon",
+  "desc": "Opioid ve NSAİİ kullanımı, lokal anestezikler ve toksisite, sinir blokları, prosedürel sedasyon ajanları ve komplikasyonları.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-02.json",
+  "title": "Acil Tıp Soru Bankası — 02. Kardiyovasküler Hastalıklar",
+  "desc": "Akut koroner sendrom, kalp yetmezliği ve şok, kapak hastalıkları, perikardiyal hastalık, aort diseksiyonu, hipertansif aciller, aritmi, senkop, endokardit, periferik arter hastalığı.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-03.json",
+  "title": "Acil Tıp Soru Bankası — 03. Deri Hastalıkları",
+  "desc": "Fungal ve paraziter enfeksiyonlar, büllöz hastalıklar ve SJS/TEN, viral döküntüler, deri ve yumuşak doku enfeksiyonları, ilaç reaksiyonları.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-04.json",
+  "title": "Acil Tıp Soru Bankası — 04. Endokrin ve Elektrolit Acilleri",
+  "desc": "Tiroid fırtınası ve miksödem koması, adrenal kriz, DKA/HHS, hipoglisemi, asit-baz, sodyum-potasyum-kalsiyum-magnezyum-fosfor bozuklukları.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-05.json",
+  "title": "Acil Tıp Soru Bankası — 05. Çevresel Aciller",
+  "desc": "Sıcak ve soğuk hastalıkları, irtifa, dalış, boğulma, yıldırım ve elektrik, yanıklar ve kimyasal yaralanmalar, ısırık ve sokmalar, mantar zehirlenmesi.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-06.json",
+  "title": "Acil Tıp Soru Bankası — 06. Göz, Kulak-Burun-Boğaz ve Ağız Acilleri",
+  "desc": "Ani görme kaybı, kırmızı göz, göz travması, epistaksis, derin boyun enfeksiyonları, kulak acilleri, diş travması ve ağız enfeksiyonları.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-07.json",
+  "title": "Acil Tıp Soru Bankası — 07. Gastrointestinal Aciller",
+  "desc": "Barsak obstrüksiyonu ve mezenter iskemi, GİS kanamaları, safra yolu ve karaciğer acilleri, enfeksiyöz ishal, apandisit ve divertikülit, anorektal hastalıklar.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-08.json",
+  "title": "Acil Tıp Soru Bankası — 08. Jinekolojik ve Obstetrik Aciller",
+  "desc": "Ektopik gebelik, over torsiyonu ve PID, gebelikte görüntüleme ve tromboemboli, preeklampsi-eklampsi, üçüncü trimester kanamaları, doğum ve doğum komplikasyonları, gebelik fizyolojisi.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-09.json",
+  "title": "Acil Tıp Soru Bankası — 09. Hematolojik Hastalıklar",
+  "desc": "Antikoagülan ilişkili kanama ve geri çevirme, trombositopeniler, DİK, hemofili ve vWH, orak hücre hastalığı, transfüzyon reaksiyonları, onkolojik aciller.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-10.json",
+  "title": "Acil Tıp Soru Bankası — 10. Sistemik Enfeksiyon Hastalıkları",
+  "desc": "Sepsis ve septik şok, zoonozlar (KKKA, bruselloz), vektörle bulaşan hastalıklar, sıtma, kuduz ve tetanoz, CYBE ve HIV, nekrotizan enfeksiyonlar, toksin aracılı hastalıklar.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-11.json",
+  "title": "Acil Tıp Soru Bankası — 11. Kas-İskelet Hastalıkları (Travma Dışı)",
+  "desc": "Bel ve boyun ağrısında kırmızı bayraklar, kauda ekuina, vertebral enfeksiyonlar, monoartrit ve kristal artritler, el enfeksiyonları, tendon ve bursa hastalıkları, rabdomiyoliz.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-12.json",
+  "title": "Acil Tıp Soru Bankası — 12. Sinir Sistemi Hastalıkları",
+  "desc": "İskemik inme ve tromboliz/trombektomi, vertigo ve posterior dolaşım, menenjit-ensefalit, nöromusküler aciller, baş ağrısı sendromları, nöbet ve status, şant ve İİH.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-13.json",
+  "title": "Acil Tıp Soru Bankası — 13. Ortopedik Aciller",
+  "desc": "El ve el bileği yaralanmaları, omuz-dirsek-kalça çıkıkları, gizli kırıklar, Ottawa kuralları, ayak bileği ve ayak yaralanmaları, kompartman sendromu, açık kırık ve pelvis kırığı.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-14.json",
+  "title": "Acil Tıp Soru Bankası — 14. Pediatri",
+  "desc": "Pediatrik DKA, invajinasyon, Kawasaki, krup ve bronşiolit, febril nöbet ve febril bebek, kalça ağrıları, kusma nedenleri, konjenital kalp hastalığı, istismar ve diğer çocuk acilleri.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-15.json",
+  "title": "Acil Tıp Soru Bankası — 15. Hastane Öncesi Bakım ve Afet Hazırlığı",
+  "desc": "Kitlesel triyaj (START/JumpSTART), patlama ve ezilme yaralanmaları, radyasyon ve kimyasal olaylar, dekontaminasyon, biyolojik ajanlar, hava ambulansı, hastane öncesi uygulamalar ve afet yönetimi.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-16.json",
+  "title": "Acil Tıp Soru Bankası — 16. Psikiyatrik ve Davranışsal Bozukluklar",
+  "desc": "Organik-psikiyatrik ayrımı ve tıbbi uygunluk, deliryum, alkol yoksunluğu, intihar riski, ajitasyon ve sedasyon, antipsikotik yan etkileri, karar verme kapasitesi.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-17.json",
+  "title": "Acil Tıp Soru Bankası — 17. Pulmoner Aciller",
+  "desc": "Pulmoner emboli tanı algoritmaları, KOAH ve astım alevlenmesi, pnömoni ve atipik etkenler, plevral efüzyon ve ampiyem, ARDS ventilasyonu, oksijenasyon fizyolojisi.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-18.json",
+  "title": "Acil Tıp Soru Bankası — 18. Böbrek ve Genitoüriner Hastalıklar",
+  "desc": "Akut böbrek hasarı ve idrar bulguları, üriner retansiyon ve obstrüksiyon, böbrek taşı, İYE, diyaliz hastasının acilleri, skrotal aciller, penil aciller, hematüri.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-19.json",
+  "title": "Acil Tıp Soru Bankası — 19. Resüsitasyon",
+  "desc": "Erişkin, çocuk ve yenidoğan resüsitasyonu, ROSC sonrası bakım, şok ve vazopresörler, aritmilerin akut tedavisi, anafilaksi ve anjiyoödem, asit-baz değerlendirmesi.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-20.json",
+  "title": "Acil Tıp Soru Bankası — 20. Özel Durumlar",
+  "desc": "Cinsel saldırı ve partner şiddeti, çocuk ve yaşlı istismarı, aile katılımı ve ölüm haberi, onam ve kapasite, nakil hastası, yaşlı ve obez hasta, cihaz bağımlı hastalar, palyatif bakım ve hukuki konular.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-21.json",
+  "title": "Acil Tıp Soru Bankası — 21. Toksikolojik Aciller",
+  "desc": "Toksik alkoller, parasetamol ve salisilat, kardiyotoksik ilaçlar (TCA, BB, KKB, digoksin), toksidromlar ve antidotlar, CO ve siyanür, dekontaminasyon yöntemleri.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-22.json",
+  "title": "Acil Tıp Soru Bankası — 22. Travma",
+  "desc": "Birincil bakı ve şok sınıflaması, kanama kontrolü ve TXA, toraks travması, kafa travması ve herniasyon, spinal kord sendromları, karın ve pelvis travması, penetran yaralanmalar, gebe/yaşlı/çocuk travması.",
+  "sims": 0,
+  "questions": 30
+ },
+ {
+  "file": "soru-23.json",
+  "title": "Acil Tıp Soru Bankası — 23. Yara Bakımı",
+  "desc": "Yabancı cisim, irigasyon ve kapama zamanı, profilaktik antibiyotik, ısırık yaraları, doku yapıştırıcısı ve sütür seçimi, bölgesel bloklar, özel bölgeler (dudak, kulak, el), tetanoz.",
+  "sims": 0,
+  "questions": 30
  }
 ]

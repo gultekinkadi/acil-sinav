@@ -1,0 +1,430 @@
+{
+ "id": "soru-17",
+ "title": "Acil Tıp Soru Bankası — 17. Pulmoner Aciller",
+ "desc": "Pulmoner emboli tanı algoritmaları, KOAH ve astım alevlenmesi, pnömoni ve atipik etkenler, plevral efüzyon ve ampiyem, ARDS ventilasyonu, oksijenasyon fizyolojisi.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 17. Pulmoner Aciller",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Klinik olasılığı düşük (gestalt) PE şüphesinde hangi kural tüm ölçütleri negatifse D-dimer istemeden PE'yi dışlamaya izin verir?",
+   "options": [
+    "HEART",
+    "Wells ≥6",
+    "Geneva yüksek",
+    "CURB-65",
+    "PERC (yaş <50, Nb <100, SpO₂ ≥%95, hemoptizi yok, östrojen yok, VTE öyküsü yok, tek taraflı bacak şişliği yok, yakın cerrahi/travma yok)"
+   ],
+   "correct": 4,
+   "explanation": "PERC yalnız düşük ön test olasılığında kullanılır.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q02",
+   "stem": "80 yaşında hastada orta-düşük olasılıklı PE şüphesinde yaşa göre ayarlanmış D-dimer eşiği yaklaşık nedir?",
+   "options": [
+    "D-dimer kullanılmaz",
+    "1000 µg/L sabit",
+    "500 µg/L",
+    "250 µg/L",
+    "800 µg/L (yaş × 10)"
+   ],
+   "correct": 4,
+   "explanation": "50 yaş üstünde yaşa göre eşik gereksiz görüntülemeyi azaltır.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q03",
+   "stem": "Stabil PE hastasında ayaktan tedavi uygunluğunu değerlendirmek için kullanılan skor hangisidir?",
+   "options": [
+    "Glasgow-Blatchford",
+    "sPESI (ya da Hestia ölçütleri)",
+    "Wells",
+    "PERC",
+    "CHA₂DS₂-VASc"
+   ],
+   "correct": 1,
+   "explanation": "sPESI = 0 düşük risk; RV disfonksiyonu ve sosyal durum da değerlendirilir.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q04",
+   "stem": "Akciğer grafisinde plevraya dayanan kama şeklinde opasite (Hampton hörgücü) neyi düşündürür?",
+   "options": [
+    "Pulmoner infarkt (PE)",
+    "Pnömoni",
+    "Tümör",
+    "Pnömotoraks",
+    "Atelektazi"
+   ],
+   "correct": 0,
+   "explanation": "Westermark bulgusu (oligemi) da PE ile ilişkilidir; grafi çoğunlukla normaldir.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q05",
+   "stem": "Hiperkapnik solunum yetmezliği riski olan KOAH alevlenmesinde hedef SpO₂ nedir?",
+   "options": [
+    "%100",
+    "%94–98",
+    "%88–92",
+    "%80–85",
+    "Hedef yoktur"
+   ],
+   "correct": 2,
+   "explanation": "Fazla oksijen V/Q uyumsuzluğu ve Haldane etkisiyle CO₂ retansiyonunu artırır.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q06",
+   "stem": "KOAH alevlenmesinde pH 7,28 ve pCO₂ 68 mmHg olan, bilinci açık hastada ilk ventilasyon desteği hangisidir?",
+   "options": [
+    "Yüksek akım O₂ tek başına",
+    "Gözlem",
+    "Hemen entübasyon",
+    "Sedasyon",
+    "Non-invaziv ventilasyon (BiPAP)"
+   ],
+   "correct": 4,
+   "explanation": "NIV entübasyon ve mortaliteyi azaltır; kontrendikasyon yoksa ilk seçenek.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q07",
+   "stem": "KOAH alevlenmesinde sistemik steroid için önerilen süre hangisidir?",
+   "options": [
+    "1 gün",
+    "Steroid verilmez",
+    "1 ay",
+    "≈5 gün (prednizolon 40 mg)",
+    "14 gün"
+   ],
+   "correct": 3,
+   "explanation": "REDUCE çalışması 5 günün 14 gün kadar etkili olduğunu gösterdi.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q08",
+   "stem": "KOAH alevlenmesinde antibiyotik endikasyonu hangisidir?",
+   "options": [
+    "Hiçbir alevlenmede",
+    "Yalnız ateş varsa",
+    "Balgam pürülansında artış (± dispne ve balgam miktarında artış) ya da mekanik ventilasyon ihtiyacı",
+    "Her alevlenmede",
+    "Yalnız CRP normal ise"
+   ],
+   "correct": 2,
+   "explanation": "Anthonisen ölçütleri; pürülansı içeren ≥2 ölçüt.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q09",
+   "stem": "Ağır astım atağında inhaler tedaviye yanıt vermeyen hastada eklenecek IV ilaç hangisidir?",
+   "options": [
+    "Magnezyum sülfat 2 g IV 20 dakikada",
+    "Aminofilin rutin",
+    "Morfin",
+    "Antibiyotik",
+    "Furosemid"
+   ],
+   "correct": 0,
+   "explanation": "Steroid erken verilir; adrenalin, ketamin ve NIV dirençli olgularda düşünülür.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q10",
+   "stem": "Ağır astım atağında 'normal' pCO₂ (40 mmHg) bulunmasının anlamı nedir?",
+   "options": [
+    "Solunum kas yorgunluğu ve yaklaşan solunum yetmezliği",
+    "Hafif atak",
+    "İyileşme",
+    "Laboratuvar hatası",
+    "Metabolik alkaloz"
+   ],
+   "correct": 0,
+   "explanation": "Astım atağında hiperventilasyonla pCO₂ düşük beklenir.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q11",
+   "stem": "Entübe astım hastasının ventilasyonunda en önemli ilke hangisidir?",
+   "options": [
+    "Büyük tidal volüm",
+    "Uzun ekspiryum süresi (düşük solunum sayısı) ve permisif hiperkapni",
+    "Kısa ekspiryum",
+    "Yüksek PEEP",
+    "Yüksek solunum sayısı"
+   ],
+   "correct": 1,
+   "explanation": "Dinamik hiperinflasyon (oto-PEEP) hipotansiyon ve barotravma yapar; şüphede devreyi ayırıp göğse bası.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q12",
+   "stem": "Plevral sıvının eksüda olduğunu gösteren Light ölçütü hangisidir?",
+   "options": [
+    "Plevral glukoz >200",
+    "Berrak görünüm",
+    "Hücre sayısı düşük",
+    "Plevral pH 7,6",
+    "Plevral/serum protein >0,5 (veya LDH oranı >0,6 ya da plevral LDH > üst sınırın 2/3'ü)"
+   ],
+   "correct": 4,
+   "explanation": "Eksüda: enfeksiyon, malignite, PE; transüda: KY, siroz, nefrotik sendrom.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q13",
+   "stem": "Parapnömonik efüzyonda göğüs tüpü drenajı gerektiren bulgu hangisidir?",
+   "options": [
+    "Hafif efüzyon",
+    "Transüda",
+    "Eozinofili",
+    "Pü (ampiyem), pH <7,2, glukoz <60 veya Gram boyamada bakteri",
+    "Kan dolaşımında lökositoz"
+   ],
+   "correct": 3,
+   "explanation": "Komplike efüzyon/ampiyemde drenaj ve uzun süre antibiyotik.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q14",
+   "stem": "Hastaneye yatan ve rutin antibiyotikle düzelmeyen, alkol kullanımı ve dental hijyeni kötü hastada grafide hava-sıvı seviyeli kavite. Tanı nedir?",
+   "options": [
+    "Akciğer apsesi (aspirasyon) — anaerobik kapsam (ör. ampisilin-sulbaktam)",
+    "Pnömotoraks",
+    "Bül",
+    "Tüberküloz kesin",
+    "Bronşektazi"
+   ],
+   "correct": 0,
+   "explanation": "Tüberküloz da dışlanmalı (izolasyon).",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q15",
+   "stem": "Ateş, gece terlemesi, kilo kaybı ve üst lobda kavite olan hastada acil serviste ilk önlem hangisidir?",
+   "options": [
+    "Damlacık izolasyonu",
+    "Standart önlem yeterli",
+    "Havayolu izolasyonu (negatif basınç, N95) ve balgam ARB/PCR",
+    "Hemen taburcu",
+    "Bronkoskopi acil"
+   ],
+   "correct": 2,
+   "explanation": "Aktif TB şüphesinde tanı konana kadar havayolu izolasyonu.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q16",
+   "stem": "Akut bronşit tanısı alan sağlıklı erişkinde tedavi yaklaşımı nedir?",
+   "options": [
+    "Steroid",
+    "Florokinolon",
+    "Amoksisilin 10 gün",
+    "Semptomatik; antibiyotik önerilmez (öksürük 3 haftaya kadar sürebilir)",
+    "Makrolid"
+   ],
+   "correct": 3,
+   "explanation": "Akut bronşitin çoğu viraldir; boğmaca şüphesinde makrolid.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q17",
+   "stem": "Kronik bronşitin klinik tanımı hangisidir?",
+   "options": [
+    "1 haftalık öksürük",
+    "Ardışık en az 2 yılda, yılda ≥3 ay süren prodüktif öksürük",
+    "Spirometride FEV₁ azalması tek başına",
+    "Wheezing",
+    "Ateşli öksürük"
+   ],
+   "correct": 1,
+   "explanation": "KOAH tanısı spirometride FEV₁/FVC <0,70 ile konur.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q18",
+   "stem": "Sigara içmeyen, akciğer grafisi normal kronik öksürüklü erişkinde en sık nedenler hangileridir?",
+   "options": [
+    "Akciğer kanseri",
+    "Tüberküloz",
+    "Kistik fibrozis",
+    "Üst hava yolu öksürük sendromu (postnazal akıntı), astım ve GÖRH (ve ACE inhibitörü)",
+    "Sarkoidoz"
+   ],
+   "correct": 3,
+   "explanation": "ACE inhibitörü öksürüğü ilacın kesilmesinden haftalar sonra geçer.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q19",
+   "stem": "ARDS'li entübe hastada ventilatör ayarı için önerilen tidal volüm hangisidir?",
+   "options": [
+    "Tidal volüm önemsizdir",
+    "10–12 mL/kg gerçek ağırlık",
+    "≈6 mL/kg ideal vücut ağırlığı, plato basıncı <30 cmH₂O",
+    "15 mL/kg",
+    "3 mL/kg"
+   ],
+   "correct": 2,
+   "explanation": "Akciğer koruyucu ventilasyon mortaliteyi azaltır.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q20",
+   "stem": "A-a gradyanı normal olan hipoksemi hangi mekanizmayla açıklanır?",
+   "options": [
+    "Difüzyon bozukluğu",
+    "Şant",
+    "Pulmoner emboli",
+    "V/Q uyumsuzluğu",
+    "Hipoventilasyon (ya da düşük inspire O₂ — yüksek irtifa)"
+   ],
+   "correct": 4,
+   "explanation": "Örnek: opioid aşırı dozu; gradyan artmışsa akciğer parankim/vasküler sorun.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q21",
+   "stem": "CO zehirlenmesinde nabız oksimetresi neden güvenilir değildir?",
+   "options": [
+    "Karboksihemoglobini oksihemoglobin gibi okur; SpO₂ yanıltıcı biçimde normal görünür",
+    "Anemi yapar",
+    "Sinyali keser",
+    "Hipotermi yapar",
+    "Methemoglobin oluşturur"
+   ],
+   "correct": 0,
+   "explanation": "CO-oksimetri gereklidir; tedavi %100 O₂ ± HBO.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q22",
+   "stem": "Oksijen-hemoglobin ayrışma eğrisini sola kaydırarak dokuya O₂ verilmesini azaltan durum hangisidir?",
+   "options": [
+    "Asidoz",
+    "Hiperkapni",
+    "Alkaloz, hipotermi, CO zehirlenmesi, düşük 2,3-DPG",
+    "Yüksek 2,3-DPG",
+    "Ateş"
+   ],
+   "correct": 2,
+   "explanation": "Sağa kayma (asidoz, ateş, CO₂ artışı) O₂ salınımını kolaylaştırır.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q23",
+   "stem": "Toplum kökenli pnömonide atipik etken (Mycoplasma) lehine olan özellik hangisidir?",
+   "options": [
+    "Ani başlangıç ve pas renkli balgam",
+    "Genç hasta, yavaş başlangıç, kuru öksürük, ekstrapulmoner bulgular ve muayeneye göre belirgin grafi bulguları",
+    "Lober konsolidasyon ve titreme",
+    "Yaşlı alkolik",
+    "Hastane kaynaklı"
+   ],
+   "correct": 1,
+   "explanation": "Atipiklere makrolid veya doksisiklin etkilidir; beta-laktamlar etkisizdir.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q24",
+   "stem": "Penisiline dirençli pnömokok riskine rağmen yatan TKP hastasında önerilen ampirik tedavi seçeneği hangisidir?",
+   "options": [
+    "Metronidazol",
+    "Seftriakson + makrolid (ya da solunum florokinolonu)",
+    "Yalnız amoksisilin düşük doz",
+    "Vankomisin tek başına",
+    "Yalnız azitromisin"
+   ],
+   "correct": 1,
+   "explanation": "Yerel direnç ve hastanın risk faktörlerine göre seçilir.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q25",
+   "stem": "Spontan pnömotoraksta göğüs tüpü sonrası akciğer hızla ekspanse olduktan sonra öksürük, nefes darlığı ve aynı tarafta yeni infiltrat. Tanı nedir?",
+   "options": [
+    "Hemotoraks",
+    "Pulmoner emboli",
+    "Re-ekspansiyon pulmoner ödemi",
+    "Tansiyon pnömotoraks",
+    "Pnömoni"
+   ],
+   "correct": 2,
+   "explanation": "Uzun süre kollabe kalan akciğerde hızlı ekspansiyonla olur; destek tedavisi.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q26",
+   "stem": "Pulmoner emboli tanısı alan, hemodinamisi stabil ama RV disfonksiyonu ve troponin yüksekliği olan hastada (orta-yüksek risk) yaklaşım nedir?",
+   "options": [
+    "Ayaktan tedavi",
+    "Antikoagülasyon ve yakın izlem; kötüleşirse kurtarıcı reperfüzyon",
+    "Yalnız aspirin",
+    "Hemen sistemik tromboliz",
+    "Vena kava filtresi"
+   ],
+   "correct": 1,
+   "explanation": "PEITHO: rutin tromboliz kanamayı artırır; kötüleşmede kurtarıcı tromboliz.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q27",
+   "stem": "İdiyopatik pulmoner fibrozisi bilinen hastada akut alevlenme ve solunum yetmezliği gelişti. Entübasyon kararıyla ilgili doğru olan hangisidir?",
+   "options": [
+    "Tromboliz yapılır",
+    "Hiç oksijen verilmez",
+    "Entübasyon her zaman kür sağlar",
+    "Antibiyotik tek tedavidir",
+    "Prognoz kötüdür; hedefler ve tedavi sınırları hasta/aileyle önceden konuşulmalıdır"
+   ],
+   "correct": 4,
+   "explanation": "İPF akut alevlenmesinde mekanik ventilasyon mortalitesi çok yüksektir.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q28",
+   "stem": "Sarkoidozda en sık akciğer grafisi bulgusu hangisidir?",
+   "options": [
+    "Kavite",
+    "Pnömotoraks",
+    "Tek taraflı plevral efüzyon",
+    "Bilateral hiler lenfadenopati",
+    "Kerley B çizgileri"
+   ],
+   "correct": 3,
+   "explanation": "Löfgren sendromu: hiler LAP, eritema nodozum, artrit.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q29",
+   "stem": "Ateş, öksürük ve hipoksisi olan hastada akciğer grafisi normal görünüyorsa hangisi doğrudur?",
+   "options": [
+    "Erken pnömoni, PCP veya PE gibi tanıları dışlamaz",
+    "Pnömoni dışlanmıştır",
+    "Antibiyotik kontrendikedir",
+    "Hasta taburcu edilmelidir",
+    "Hipoksi ölçüm hatasıdır"
+   ],
+   "correct": 0,
+   "explanation": "Dehidratasyon, nötropeni ve erken dönemde grafi negatif olabilir; BT gerekebilir.",
+   "topic": "Pulmoner Aciller"
+  },
+  {
+   "key": "q30",
+   "stem": "İnspiratuvar stridor ile gelen erişkinde ilk değerlendirme ve tedavi önceliği hangisidir?",
+   "options": [
+    "Akciğer grafisi bekleme",
+    "Taburcu",
+    "Salbutamol tek başına",
+    "Üst hava yolu tıkanıklığının nedenini (anafilaksi, anjiyoödem, epiglotit, yabancı cisim, tümör) hızla belirleyip hava yolunu güvenceye almak",
+    "Antibiyotik"
+   ],
+   "correct": 3,
+   "explanation": "Stridor ekstratorasik hava yolu darlığını gösterir; zor hava yolu hazırlığı.",
+   "topic": "Pulmoner Aciller"
+  }
+ ]
+}

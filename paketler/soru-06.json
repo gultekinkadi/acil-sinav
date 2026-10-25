@@ -1,0 +1,430 @@
+{
+ "id": "soru-06",
+ "title": "Acil Tıp Soru Bankası — 06. Göz, Kulak-Burun-Boğaz ve Ağız Acilleri",
+ "desc": "Ani görme kaybı, kırmızı göz, göz travması, epistaksis, derin boyun enfeksiyonları, kulak acilleri, diş travması ve ağız enfeksiyonları.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 06. Göz, Kulak-Burun-Boğaz ve Ağız Acilleri",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "68 yaşında erkek, 40 dakika önce sağ gözde ani, ağrısız, tam görme kaybı tarifliyor. Fundusta soluk retina ve makulada kiraz kırmızısı leke var. En olası tanı hangisidir?",
+   "options": [
+    "Santral retinal ven tıkanıklığı",
+    "Retina dekolmanı",
+    "Optik nörit",
+    "Vitre kanaması",
+    "Santral retinal arter tıkanıklığı"
+   ],
+   "correct": 4,
+   "explanation": "SRAT inme eşdeğeri kabul edilir: acil inme/göz değerlendirmesi, embolik kaynak taraması; bazı merkezlerde erken tromboliz araştırılıyor.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q02",
+   "stem": "Santral retinal arter tıkanıklığı tanısı alan 75 yaşında hastada mutlaka dışlanması gereken arteritik neden hangisidir ve nasıl araştırılır?",
+   "options": [
+    "Migren — MR",
+    "Toksoplazma — seroloji",
+    "Sinüzit — BT",
+    "Dev hücreli arterit — ESH/CRP; şüphede hemen yüksek doz steroid",
+    "Diyabet — HbA1c"
+   ],
+   "correct": 3,
+   "explanation": "Dev hücreli arterit karşı gözü de tehdit eder; steroid biyopsiyi beklemeden başlanır.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q03",
+   "stem": "Göz hareketiyle ağrı, renkli görmede azalma ve relatif afferent pupil defekti olan genç kadında en olası tanı hangisidir?",
+   "options": [
+    "Akut açı kapanması glokomu",
+    "Keratit",
+    "Konjunktivit",
+    "Retina dekolmanı",
+    "Optik nörit"
+   ],
+   "correct": 4,
+   "explanation": "Optik nörit multipl sklerozla ilişkilidir; MR ve nörooftalmoloji.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q04",
+   "stem": "Kornea abrazyonunda doğru tedavi hangisidir?",
+   "options": [
+    "Göz kapama 48 saat",
+    "Topikal steroid",
+    "Eve topikal anestezik damla",
+    "Tedavi gerekmez",
+    "Topikal antibiyotik (kontakt lens kullanıcısında antipsödomonal), analjezi; kapama ve eve topikal anestezik verilmez"
+   ],
+   "correct": 4,
+   "explanation": "Kontakt lens kullanıcısında psödomonas keratiti riski nedeniyle florokinolon/aminoglikozid damla.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q05",
+   "stem": "Baş ağrısı, pitoz ve gözün 'aşağı-dışa' bakması ile birlikte dilate pupil saptanan hastada öncelikle ne düşünülmelidir?",
+   "options": [
+    "Miyastenia gravis",
+    "Posterior komünikan arter anevrizmasının 3. siniri sıkıştırması — acil BT anjiyografi",
+    "Bell paralizisi",
+    "Migren",
+    "Diyabetik mononöropati"
+   ],
+   "correct": 1,
+   "explanation": "Pupil tutulumlu 3. sinir felci kompresif lezyonu düşündürür; diyabetik (iskemik) felçte pupil genellikle korunur.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q06",
+   "stem": "Karanlık sinemadan çıkan yaşlı kadında şiddetli göz ağrısı, kusma, kırmızı göz, buğulu kornea ve orta dilate sabit pupil var. İlk tedavi hangisidir?",
+   "options": [
+    "Yalnız analjezik",
+    "Midriatik damla",
+    "Antibiyotik damla",
+    "Topikal beta bloker + alfa agonist, IV/oral asetazolamid (ve göz içi basınç düşünce pilokarpin); acil göz",
+    "Topikal steroid tek başına"
+   ],
+   "correct": 3,
+   "explanation": "Akut açı kapanması glokomunda basınç hızla düşürülür; kesin tedavi lazer iridotomi.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q07",
+   "stem": "Göze top çarpan hastada ön kamarada kanın kamaranın üçte birini doldurduğu görülüyor. Doğru yaklaşım hangisidir?",
+   "options": [
+    "Başı 30° yüksekte, göz kalkanı, NSAİİ/antiagregandan kaçınma, göz içi basıncı izlemi ve oftalmoloji",
+    "Hemen taburcu, kontrol yok",
+    "Göz masajı",
+    "Sıkı göz kapama ve bası",
+    "Aspirin ile analjezi"
+   ],
+   "correct": 0,
+   "explanation": "Hifemada yeniden kanama (3–5. gün) ve basınç artışı riski vardır; orak hücre hastalığında daha ciddi.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q08",
+   "stem": "Yüze yumruk sonrası yukarı bakışta çift görme, infraorbital uyuşma ve göz hareketinde kısıtlılık olan hastada en olası tanı hangisidir?",
+   "options": [
+    "Optik sinir yaralanması",
+    "Hifema",
+    "Retina dekolmanı",
+    "Orbita taban (blowout) kırığı ve inferior rektus sıkışması",
+    "Lens çıkığı"
+   ],
+   "correct": 3,
+   "explanation": "Kas sıkışması (özellikle çocukta 'beyaz göz blowout') acil cerrahi gerektirebilir; burun sümkürmemesi önerilir.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q09",
+   "stem": "Işık çakmaları, uçuşan cisimler ve görme alanında perde inmesi tarifleyen miyop hastada tanı hangisidir?",
+   "options": [
+    "Retina dekolmanı — aynı gün göz değerlendirmesi",
+    "Konjunktivit",
+    "Kuru göz",
+    "Migren aurası",
+    "Optik nörit"
+   ],
+   "correct": 0,
+   "explanation": "Makula tutulmadan önce onarım görmeyi korur.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q10",
+   "stem": "Katarakt ameliyatından 3 gün sonra ağrı, görme kaybı ve ön kamarada hipopiyon gelişen hastada tanı hangisidir?",
+   "options": [
+    "Kornea abrazyonu",
+    "Normal postoperatif iltihap",
+    "Endoftalmi — acil göz (intravitreal antibiyotik)",
+    "Glokom",
+    "Konjunktivit"
+   ],
+   "correct": 2,
+   "explanation": "Endoftalmi görmeyi saatler içinde tehdit eder.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q11",
+   "stem": "Göz kapağında ödem ve kızarıklıkla birlikte proptozis, göz hareketlerinde ağrı ve kısıtlılık olan çocukta tanı ve yönetim nedir?",
+   "options": [
+    "Konjunktivit — damla",
+    "Arpacık — sıcak kompres",
+    "Alerji — antihistaminik",
+    "Orbital (postseptal) selülit — IV antibiyotik ve kontrastlı BT",
+    "Preseptal selülit — oral antibiyotik"
+   ],
+   "correct": 3,
+   "explanation": "Proptozis, oftalmopleji, ağrılı göz hareketi ve görme kaybı postseptal tutulumu gösterir; subperiostal apse araştırılır.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q12",
+   "stem": "Dendritik (dal şeklinde) floresein boyanması gösteren kırmızı gözde hangisinden kaçınılmalıdır?",
+   "options": [
+    "Göz hekimi konsültasyonu",
+    "Analjezi",
+    "Topikal steroid",
+    "Topikal antiviral",
+    "Oral asiklovir"
+   ],
+   "correct": 2,
+   "explanation": "HSV keratitinde topikal steroid enfeksiyonu ağırlaştırır.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q13",
+   "stem": "Kaynak yaptıktan 8 saat sonra her iki gözde şiddetli ağrı, sulanma ve floreseinle noktasal boyanma görülüyor. Tanı nedir?",
+   "options": [
+    "Herpes keratiti",
+    "Ultraviyole (foto)keratit",
+    "Endoftalmi",
+    "Akut glokom",
+    "Kimyasal yanık"
+   ],
+   "correct": 1,
+   "explanation": "Kar körlüğü/kaynakçı keratiti; analjezi, siklopleji ve topikal antibiyotik, 24–48 saatte geçer.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q14",
+   "stem": "Yenidoğanda yaşamın 2–5. gününde ağır pürülan konjunktivit ve kapak ödemi hangi etkeni düşündürür?",
+   "options": [
+    "Alerji",
+    "Neisseria gonorrhoeae — sistemik seftriakson",
+    "Viral — tedavi gerekmez",
+    "Kimyasal konjunktivit",
+    "Chlamydia — topikal eritromisin yeterli"
+   ],
+   "correct": 1,
+   "explanation": "Gonokokal oftalmia korneayı hızla perfore edebilir; sistemik tedavi ve yatış.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q15",
+   "stem": "Burun kanamasında ön tampona rağmen kanaması süren, her iki burun deliğinden ve ağız arkasından akan kanamada ne düşünülür?",
+   "options": [
+    "Koagülopati yok — taburcu",
+    "Anterior epistaksis — yalnız bası",
+    "Burun fraktürü",
+    "Gümüş nitrat ile koter yeterli",
+    "Posterior epistaksis — posterior tampon/balon, yatış ve KBB"
+   ],
+   "correct": 4,
+   "explanation": "Posterior kanama yaşlı, hipertansif ve antikoagülanlı hastalarda sıktır; havayolu ve hemodinami izlenir.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q16",
+   "stem": "Burun travması sonrası septumda fluktuasyon veren mor şişlik görülüyor. Ne yapılmalıdır?",
+   "options": [
+    "Hiçbir şey",
+    "Soğuk uygulama ve izlem",
+    "Antihistaminik",
+    "Septal hematomun boşaltılması ve tampon (kıkırdak nekrozu, eyer burun önlenir)",
+    "Hemen redüksiyon"
+   ],
+   "correct": 3,
+   "explanation": "Boşaltılmayan hematom septum perforasyonu ve apseye yol açar.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q17",
+   "stem": "Yutma güçlüğü, ağız tabanında tahta gibi sertlik, dilin yukarı itilmesi ve diş enfeksiyonu öyküsü olan hastada en önemli tehlike nedir?",
+   "options": [
+    "Tükürük bezi taşı",
+    "Peritonsiller apse",
+    "Ludwig anjini — hava yolu tıkanıklığı",
+    "Sinüzit",
+    "Otitis"
+   ],
+   "correct": 2,
+   "explanation": "Bilateral submandibular boşluk enfeksiyonu; hava yolu güvenliği, IV antibiyotik (ör. ampisilin-sulbaktam), cerrahi.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q18",
+   "stem": "Peritonsiller apsesi olan, oral alabilen hastada standart tedavi hangisidir?",
+   "options": [
+    "İğne aspirasyonu veya insizyon-drenaj + antibiyotik",
+    "Steroid tek başına",
+    "Antiviral",
+    "Acil tonsillektomi her olguda",
+    "Yalnız antibiyotik ve beklemek"
+   ],
+   "correct": 0,
+   "explanation": "Drenaj ve antibiyotikle çoğu ayaktan tedavi edilir.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q19",
+   "stem": "Diyabetik yaşlıda kulak yolunda granülasyon dokusu, şiddetli kulak ağrısı ve fasiyal paralizi hangi tanıyı düşündürür?",
+   "options": [
+    "Akut otitis media",
+    "Furonkül",
+    "Bell paralizisi",
+    "Kolesteatom",
+    "Malign (nekrotizan) otitis eksterna — Pseudomonas"
+   ],
+   "correct": 4,
+   "explanation": "Kafa tabanı osteomiyelitidir; antipsödomonal IV antibiyotik ve görüntüleme.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q20",
+   "stem": "Otitis media sonrası kulak arkasında şişlik, kızarıklık ve kulak kepçesinin öne itilmesi hangi komplikasyondur?",
+   "options": [
+    "Perikondrit",
+    "Akut mastoidit",
+    "Lenfadenit",
+    "Otitis eksterna",
+    "Kolesteatom"
+   ],
+   "correct": 1,
+   "explanation": "IV antibiyotik ve BT; subperiostal apse, menenjit ve venöz sinüs trombozu komplikasyonlardır.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q21",
+   "stem": "Ani başlayan tek taraflı sensorinöral işitme kaybında acil servisteki yaklaşım hangisidir?",
+   "options": [
+    "Antihistaminik",
+    "Kulak yıkama",
+    "Antibiyotik",
+    "Erken oral kortikosteroid ve KBB/odyoloji yönlendirmesi",
+    "Gözlem"
+   ],
+   "correct": 3,
+   "explanation": "Ani SNİK otolojik acildir; Weber testi lateralizasyonu ayırımda yardımcıdır.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q22",
+   "stem": "Kulağında canlı böcek olan hastada ilk yapılması gereken nedir?",
+   "options": [
+    "Böceği mineral yağ veya lidokain ile öldürüp sonra çıkarmak",
+    "Bekleyip kendiliğinden çıkmasını beklemek",
+    "Su ile yıkamak",
+    "Antibiyotik damla",
+    "Pens ile yakalamaya çalışmak"
+   ],
+   "correct": 0,
+   "explanation": "Hareketli böcek zara zarar verebilir; zar perforasyonundan şüphede yıkama yapılmaz.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q23",
+   "stem": "Ellis sınıflamasına göre dişte pembe nokta (pulpa görünümü) ya da kanama varsa sınıf ve yaklaşım nedir?",
+   "options": [
+    "Ellis I — antibiyotik",
+    "Ellis I — yalnız törpüleme",
+    "Ellis III — çekim",
+    "Ellis II — 1 hafta sonra kontrol",
+    "Ellis III — pulpa açıkta; kalsiyum hidroksit/cam iyonomer ile örtme ve acil diş hekimi"
+   ],
+   "correct": 4,
+   "explanation": "Ellis I mine, II dentin (sarı), III pulpa; II ve III örtülür, III'te aynı gün diş hekimi.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q24",
+   "stem": "Kalıcı dişi yerinden çıkan (avülsiyon) 12 yaşında çocukta en iyi yaklaşım hangisidir?",
+   "options": [
+    "Dişi kökünden tutmadan hafifçe yıkayıp hemen yerine yerleştirmek; mümkün değilse süt/HBSS içinde taşımak",
+    "Dişi fırçalayıp kurutmak",
+    "Süt dişiyse de yerine koymak",
+    "Bir gün sonra diş hekimi",
+    "Dişi peçeteye sarmak"
+   ],
+   "correct": 0,
+   "explanation": "Kalıcı dişte 60 dakika içinde reimplantasyon başarıyı artırır; süt dişi yerine konmaz.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q25",
+   "stem": "Diş çekiminden 3 gün sonra çekim yerinde şiddetli ağrı ve kötü koku, boş görünen soket. Tanı ve tedavi nedir?",
+   "options": [
+    "Apse — insizyon",
+    "Kanama — sütür",
+    "Alveolar osteit (kuru soket) — irigasyon, eugenollü pansuman, analjezi",
+    "Osteomiyelit — IV antibiyotik",
+    "Normal iyileşme"
+   ],
+   "correct": 2,
+   "explanation": "Kuru soket pıhtının kaybıyla olur; antibiyotik genellikle gerekmez.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q26",
+   "stem": "Yemekle artan submandibular şişlik ve ağrı hangi tanıyı düşündürür?",
+   "options": [
+    "Kabakulak",
+    "Sialolitiyazis (tükürük bezi taşı)",
+    "Tiroglossal kist",
+    "Lenfoma",
+    "Dental apse"
+   ],
+   "correct": 1,
+   "explanation": "Taş en sık submandibular bezdedir; sialagog, masaj, hidrasyon.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q27",
+   "stem": "Masseter bölgesinde şişlik ve trismus ile gelen diş enfeksiyonlu hastada hangi derin boyun boşluğu tutulmuş olabilir?",
+   "options": [
+    "Sublingual boşluk tek başına",
+    "Retrofaringeal boşluk",
+    "Mastikatör boşluk",
+    "Karotis kılıfı",
+    "Prevertebral boşluk"
+   ],
+   "correct": 2,
+   "explanation": "Trismus mastikatör/parafaringeal tutulumu düşündürür; kontrastlı BT ve IV antibiyotik.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q28",
+   "stem": "Erişkinde epiglotit şüphesinde hangisinden kaçınılmalıdır?",
+   "options": [
+    "Fiberoptik değerlendirme (hazırlıkla)",
+    "IV antibiyotik",
+    "Hastayı sırtüstü yatırmak ve dil basacağı ile zorlayıcı muayene",
+    "Zor hava yolu ekibini çağırmak",
+    "Oturur pozisyon"
+   ],
+   "correct": 2,
+   "explanation": "Ajitasyon ve supin pozisyon tam tıkanıklığı tetikleyebilir.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q29",
+   "stem": "Kulak zarı travmatik perforasyonunda çoğu olguda yaklaşım hangisidir?",
+   "options": [
+    "Kulağı kuru tutma ve izlem (çoğu kendiliğinden kapanır); vertigo/işitme kaybında KBB",
+    "Acil cerrahi",
+    "Kulak yıkama",
+    "Yağlı damla",
+    "Steroid damla"
+   ],
+   "correct": 0,
+   "explanation": "Kontamine yaralanmada antibiyotikli damla (ototoksik olmayan) verilebilir.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  },
+  {
+   "key": "q30",
+   "stem": "Nefes darlığı olmayan, boyunda tek taraflı, ağrısız, 6 haftadır büyüyen sert kitle olan 55 yaşında sigara içicisinde en önemli olasılık hangisidir?",
+   "options": [
+    "Tiroglossal kist",
+    "Malignite (baş-boyun skuamöz hücreli kanser metastazı)",
+    "Brankiyal kist",
+    "Lipom",
+    "Reaktif lenfadenit"
+   ],
+   "correct": 1,
+   "explanation": "Erişkinde >2–3 hafta süren boyun kitlesi aksi kanıtlanana kadar malign kabul edilir; KBB yönlendirmesi.",
+   "topic": "Göz, Kulak-Burun-Boğaz ve Ağız Acilleri"
+  }
+ ]
+}

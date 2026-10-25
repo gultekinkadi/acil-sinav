@@ -1,0 +1,430 @@
+{
+ "id": "soru-18",
+ "title": "Acil Tıp Soru Bankası — 18. Böbrek ve Genitoüriner Hastalıklar",
+ "desc": "Akut böbrek hasarı ve idrar bulguları, üriner retansiyon ve obstrüksiyon, böbrek taşı, İYE, diyaliz hastasının acilleri, skrotal aciller, penil aciller, hematüri.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 18. Böbrek ve Genitoüriner Hastalıklar",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Kusma ve ishalle gelen hastada oligüri, idrar Na <20 mmol/L, FeNa <%1 ve idrarda hiyalen silendirler. AKI tipi hangisidir?",
+   "options": [
+    "Akut interstisyel nefrit",
+    "Akut tübüler nekroz",
+    "Postrenal",
+    "Prerenal",
+    "Glomerülonefrit"
+   ],
+   "correct": 3,
+   "explanation": "Diüretik kullananda FeÜre (<%35) daha güvenilirdir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q02",
+   "stem": "Uzamış hipotansiyon sonrası AKI gelişen hastada idrar mikroskopisinde 'çamur kahverengi' granüler silendirler. Tanı nedir?",
+   "options": [
+    "Akut tübüler nekroz",
+    "Glomerülonefrit",
+    "Prerenal azotemi",
+    "Postrenal obstrüksiyon",
+    "İnterstisyel nefrit"
+   ],
+   "correct": 0,
+   "explanation": "ATN'de FeNa >%2, idrar Na >40.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q03",
+   "stem": "Yeni başlanan antibiyotikten sonra ateş, döküntü, AKI ve idrarda lökosit silendirleri ile eozinofiliüri. Tanı nedir?",
+   "options": [
+    "ATN",
+    "Nefrolitiyazis",
+    "Prerenal",
+    "Akut interstisyel nefrit — ilacı kesmek",
+    "Pyelonefrit"
+   ],
+   "correct": 3,
+   "explanation": "Beta-laktamlar, PPI ve NSAİİ en sık nedenlerdir; steroid tartışmalıdır.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q04",
+   "stem": "İdrarda eritrosit silendirleri ve dismorfik eritrositler neyi gösterir?",
+   "options": [
+    "ATN",
+    "Nefrolitiyazis",
+    "Sistit",
+    "Glomerülonefrit",
+    "Mesane tümörü"
+   ],
+   "correct": 3,
+   "explanation": "Hipertansiyon ve ödem eşlik eden nefritik sendrom; nefroloji.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q05",
+   "stem": "Yaşlı erkekte AKI ve suprapubik dolgunluk. İlk tanısal adım hangisidir?",
+   "options": [
+    "Mesane USG ve sonda takılması (postrenal obstrüksiyon)",
+    "Böbrek biyopsisi",
+    "Diüretik testi",
+    "Sintigrafi",
+    "Kontrastlı BT"
+   ],
+   "correct": 0,
+   "explanation": "Obstrüksiyon dışlanmadan AKI değerlendirmesi tamamlanmaz; hidronefroz USG ile.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q06",
+   "stem": "Akut üriner retansiyonda sonda sonrası 'dekompresyon hematürisi' ve postobstrüktif diürez açısından doğru olan hangisidir?",
+   "options": [
+    "Klemplenerek yavaş boşaltma zorunludur",
+    "Diüretik verilir",
+    "Sonda takılmaz",
+    "Mesane tamamen boşaltılabilir; postobstrüktif diürezde idrar çıkışı ve elektrolitler izlenir",
+    "Hemen taburcu"
+   ],
+   "correct": 3,
+   "explanation": "Aralıklı klemplemenin yararı gösterilmemiştir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q07",
+   "stem": "Akut üriner retansiyonla gelen BPH'li erkekte kateter sonrası taburculukta önerilen ilaç hangisidir?",
+   "options": [
+    "Opioid",
+    "Alfa bloker (tamsulosin) — kateter çıkarma denemesinin başarısını artırır",
+    "Diüretik",
+    "Antihistaminik",
+    "Antikolinerjik"
+   ],
+   "correct": 1,
+   "explanation": "Antikolinerjik ve dekonjestanlar retansiyonu tetikler.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q08",
+   "stem": "Böbrek koliğinde ilk tercih görüntüleme hangisidir (gebe olmayan erişkin)?",
+   "options": [
+    "IVP",
+    "Kontrastlı BT",
+    "Kontrastsız düşük doz BT (ya da USG ile hidronefroz değerlendirmesi)",
+    "Direkt grafi tek başına",
+    "MR"
+   ],
+   "correct": 2,
+   "explanation": "Genç ve tipik tabloda USG ilk tercih edilebilir; gebede ve çocukta USG.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q09",
+   "stem": "Böbrek koliğinde hangi durum acil üroloji dekompresyonu (nefrostomi/stent) gerektirir?",
+   "options": [
+    "Önceki taş öyküsü",
+    "Kusma bir kez",
+    "5 mm distal üreter taşı ve kontrol altına alınan ağrı",
+    "Mikroskopik hematüri",
+    "Ateş/enfeksiyon bulgusu ile birlikte obstrüktif taş"
+   ],
+   "correct": 4,
+   "explanation": "Enfekte obstrüktif taş ürolojik acildir; tek böbrekte obstrüksiyon ve dirençli ağrı da endikasyondur.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q10",
+   "stem": "5 mm'lik distal üreter taşının kendiliğinden düşme olasılığını artıran tedavi hangisidir?",
+   "options": [
+    "Diüretik",
+    "Antibiyotik",
+    "Steroid",
+    "Bol sıvıyla zorlamak",
+    "Alfa bloker (tamsulosin) — medikal ekspulsif tedavi"
+   ],
+   "correct": 4,
+   "explanation": "Kanıt özellikle 5–10 mm distal taşlarda daha belirgindir; analjezide NSAİİ ilk tercih.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q11",
+   "stem": "Komplike olmayan sistitte kadın hastada önerilen ilk seçenek tedavi hangisidir?",
+   "options": [
+    "Antibiyotik gerekmez",
+    "Amoksisilin tek başına",
+    "Siprofloksasin 14 gün",
+    "Seftriakson IM",
+    "Nitrofurantoin 5 gün (ya da fosfomisin tek doz)"
+   ],
+   "correct": 4,
+   "explanation": "Florokinolonlar yan etkiler nedeniyle sistitte ilk seçenek değildir; yerel direnç oranları önemlidir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q12",
+   "stem": "Ateş, yan ağrısı ve kostovertebral açı hassasiyeti olan, oral alabilen, gebe olmayan kadında tedavi hangisidir?",
+   "options": [
+    "Antibiyotiksiz izlem",
+    "Kültür alıp oral (ya da tek doz parenteral sonrası oral) antibiyotikle ayaktan tedavi",
+    "Nitrofurantoin",
+    "Yatış her zaman",
+    "Fosfomisin tek doz"
+   ],
+   "correct": 1,
+   "explanation": "Nitrofurantoin ve fosfomisin böbrek dokusunda yeterli düzeye ulaşmaz.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q13",
+   "stem": "Üriner kateterli hastada kateter ilişkili İYE için doğru olan hangisidir?",
+   "options": [
+    "Her bakteriüri tedavi edilir",
+    "Kültür eski kateter torbasından alınır",
+    "Kateter asla değiştirilmez",
+    "Profilaktik antibiyotik",
+    "Semptom yoksa bakteriüri tedavi edilmez; semptomatikse kateter değiştirilip yeni kateterden kültür alınır"
+   ],
+   "correct": 4,
+   "explanation": "Asemptomatik bakteriüriyi tedavi etmek direnç ve C. difficile riskini artırır.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q14",
+   "stem": "Diyalize giren hastada acil diyaliz endikasyonu hangisidir?",
+   "options": [
+    "Tedaviye dirençli hiperkalemi, ağır asidoz, sıvı yüklenmesi, üremik perikardit/ensefalopati veya diyalizle uzaklaşan zehirlenme",
+    "Üre 80",
+    "Kreatinin 3",
+    "Hafif kaşıntı",
+    "Ödem olmadan kilo artışı 0,5 kg"
+   ],
+   "correct": 0,
+   "explanation": "AEIOU: Asidoz, Elektrolit, İntoksikasyon, Overload (yüklenme), Üremi.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q15",
+   "stem": "Hemodiyaliz hastasında pozisyonla değişen göğüs ağrısı, frotman; EKG'de belirgin ST değişikliği yok. Tanı ve tedavi nedir?",
+   "options": [
+    "Kostokondrit",
+    "Üremik perikardit — yoğunlaştırılmış diyaliz",
+    "Pnömoni — antibiyotik",
+    "PE — tromboliz",
+    "AKS — PKG"
+   ],
+   "correct": 1,
+   "explanation": "Üremik perikarditte NSAİİ'den çok diyaliz etkilidir; tamponad riski.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q16",
+   "stem": "Arteriyovenöz fistülde thrill ve üfürümün kaybolması neyi gösterir?",
+   "options": [
+    "Anevrizma",
+    "Normal",
+    "Enfeksiyon",
+    "Kanama",
+    "Fistül trombozu — aynı gün vasküler cerrahi/girişimsel"
+   ],
+   "correct": 4,
+   "explanation": "Erken müdahale ile fistül kurtarılabilir; fistülden KB ölçülmez veya kan alınmaz.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q17",
+   "stem": "Diyaliz fistülü iğne yerinden durmayan kanamada ilk müdahale hangisidir?",
+   "options": [
+    "Turnike",
+    "Heparin",
+    "Sütürle kapatmak hemen",
+    "Fistülü bağlamak",
+    "Damar akımını kesmeden 10–15 dakika doğrudan nokta bası"
+   ],
+   "correct": 4,
+   "explanation": "Psödoanevrizma rüptürü hayatı tehdit edebilir; gerekirse vasküler cerrahi.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q18",
+   "stem": "İlk hemodiyaliz seansından sonra baş ağrısı, bulantı, konfüzyon ve nöbet gelişen hastada tanı nedir?",
+   "options": [
+    "İnme",
+    "Hiperkalemi",
+    "Diyaliz dengesizlik sendromu",
+    "Subdural hematom kesin",
+    "Hipoglisemi"
+   ],
+   "correct": 2,
+   "explanation": "Hızlı üre düşüşü serebral ödem yapar; ancak antikoagülasyon nedeniyle subdural hematom dışlanmalıdır.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q19",
+   "stem": "Üremik hastada trombosit sayısı normal ama kanama zamanı uzun ve mukozal kanama var. Hızlı etkili tedavi hangisidir?",
+   "options": [
+    "Heparin",
+    "Desmopressin (DDAVP)",
+    "Protamin",
+    "K vitamini",
+    "Trombosit transfüzyonu"
+   ],
+   "correct": 1,
+   "explanation": "Üremik trombosit disfonksiyonu; diyaliz ve östrojen de etkilidir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q20",
+   "stem": "15 yaşında erkekte ani başlayan skrotal ağrı, bulantı, yüksekte yerleşimli testis ve kremaster refleksi yok. İlk adım hangisidir?",
+   "options": [
+    "İdrar kültürü bekleme",
+    "Analjezik ve ertesi gün kontrol",
+    "Buz ve elevasyon",
+    "Acil üroloji (cerrahi eksplorasyon); tanı belirsizse Doppler gecikme yaratmamalı",
+    "Antibiyotik"
+   ],
+   "correct": 3,
+   "explanation": "Testis torsiyonunda 6 saat içinde detorsiyon kurtarma oranını belirgin artırır; manuel detorsiyon (mediale doğru 'kitap açma' dışa doğru) denenebilir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q21",
+   "stem": "Cinsel aktif 25 yaşında erkekte yavaş başlayan skrotal ağrı, epididimde hassasiyet, Prehn bulgusu pozitif. Tedavi hangisidir?",
+   "options": [
+    "Cerrahi eksplorasyon",
+    "Siprofloksasin tek doz",
+    "Seftriakson 500 mg IM + doksisiklin 10 gün",
+    "Yalnız analjezik",
+    "Asiklovir"
+   ],
+   "correct": 2,
+   "explanation": "35 yaş altında gonore/klamidya; anal ilişkide enterik etkenler için levofloksasin eklenir. Prehn bulgusu güvenilir değildir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q22",
+   "stem": "Diyabetik erkekte perineal ağrı, skrotal eritem, krepitasyon ve sepsis. Tanı ve yaklaşım nedir?",
+   "options": [
+    "Epididimit — oral antibiyotik",
+    "Varikosel",
+    "Fournier gangreni — geniş spektrumlu antibiyotik ve acil cerrahi debridman",
+    "Hidrosel — aspirasyon",
+    "Selülit — ayaktan tedavi"
+   ],
+   "correct": 2,
+   "explanation": "Perineal nekrotizan fasiit; mortalite yüksek.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q23",
+   "stem": "Sonda takılan hastada sünnet derisinin geri çekildikten sonra glansın arkasında sıkışıp ödem yapması (parafimozis). Tedavi nedir?",
+   "options": [
+    "Sünnet derisini geri çekili bırakmak",
+    "Gözlem",
+    "Ödemi bası/buz ile azaltıp sünnet derisini manuel redükte etmek; başarısızsa dorsal insizyon",
+    "Antibiyotik",
+    "Diüretik"
+   ],
+   "correct": 2,
+   "explanation": "Parafimozis glans iskemisine yol açabilecek bir acildir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q24",
+   "stem": "Trazodon kullanan erkekte 6 saattir süren ağrılı ereksiyon. İlk tedavi hangisidir?",
+   "options": [
+    "Cerrahi şant ilk seçenek",
+    "Korpus kavernozumdan aspirasyon ve fenilefrin enjeksiyonu (iskemik priapizm)",
+    "Antibiyotik",
+    "Oral terbutalin tek başına",
+    "Buz ve bekleme"
+   ],
+   "correct": 1,
+   "explanation": "İskemik priapizmde 4 saatten sonra kalıcı erektil disfonksiyon riski artar.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q25",
+   "stem": "Pelvis kırığı olan erkek travma hastasında meatusta kan ve yüksek yerleşimli prostat. Hangisi yapılmamalıdır?",
+   "options": [
+    "Üroloji konsültasyonu",
+    "Kör üretral kateterizasyon — önce retrograd üretrografi",
+    "Suprapubik kateter (gerekirse)",
+    "Retrograd üretrografi",
+    "BT"
+   ],
+   "correct": 1,
+   "explanation": "Kısmi üretra yaralanmasını tam kopmaya dönüştürebilir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q26",
+   "stem": "Kanser tedavisi almayan, sigara içen 60 yaşında hastada ağrısız makroskopik hematüri. Önerilen yaklaşım hangisidir?",
+   "options": [
+    "Malignite açısından üroloji değerlendirmesi (sistoskopi ve üst üriner sistem görüntülemesi)",
+    "Antibiyotik ve taburcu",
+    "Steroid",
+    "Hiçbir şey",
+    "Yalnız idrar kültürü"
+   ],
+   "correct": 0,
+   "explanation": "Ağrısız makroskopik hematüri aksi kanıtlanana kadar mesane kanseri düşündürür; pıhtı retansiyonunda üç yollu sonda ile irigasyon.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q27",
+   "stem": "Nefrotik sendromda hangi komplikasyon özellikle görülür?",
+   "options": [
+    "Polisitemi",
+    "Hipoglisemi",
+    "Venöz tromboz (renal ven trombozu) ve enfeksiyon",
+    "Kanama",
+    "Hiperkalsemi"
+   ],
+   "correct": 2,
+   "explanation": "Antitrombin III kaybı ve hiperkoagülabilite.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q28",
+   "stem": "Kontrastlı BT öncesi böbrek fonksiyonu bozuk hastada kontrast nefropatisini önlemede en etkili önlem hangisidir?",
+   "options": [
+    "Yeterli hidrasyon ve gereksiz kontrastlı tetkikten kaçınma (endike tetkik geciktirilmez)",
+    "Kontrast hiç kullanılmaz",
+    "N-asetilsistein rutin",
+    "Bikarbonat her zaman",
+    "Diüretik"
+   ],
+   "correct": 0,
+   "explanation": "Güncel veriler kontrastla ilişkili AKI riskinin geçmişte abartıldığını gösterir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q29",
+   "stem": "Böbrek nakilli hastada ateş, greft hassasiyeti ve kreatinin yüksekliği. Ayırıcı tanıda öncelikli iki durum hangileridir?",
+   "options": [
+    "Diyabet ve hipertansiyon",
+    "Anemi ve demir eksikliği",
+    "Migren ve epilepsi",
+    "Akut rejeksiyon ve enfeksiyon (pyelonefrit/CMV)",
+    "Gut ve psödogut"
+   ],
+   "correct": 3,
+   "explanation": "Nakil merkeziyle erken iletişim; kalsinörin inhibitörü düzeyi ve etkileşimler.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  },
+  {
+   "key": "q30",
+   "stem": "Üretral akıntı ve dizüri olan erkekte gonore ve klamidya tanısı için en iyi test hangisidir?",
+   "options": [
+    "İlk akım idrarda nükleik asit amplifikasyon testi (NAAT)",
+    "Seroloji",
+    "Gram boyama tek başına",
+    "İdrar kültürü",
+    "Kan kültürü"
+   ],
+   "correct": 0,
+   "explanation": "Pozitif sonuçta eş de tedavi edilir ve HIV/sifiliz taraması önerilir.",
+   "topic": "Böbrek ve Genitoüriner Hastalıklar"
+  }
+ ]
+}

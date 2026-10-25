@@ -1,0 +1,430 @@
+{
+ "id": "soru-21",
+ "title": "Acil Tıp Soru Bankası — 21. Toksikolojik Aciller",
+ "desc": "Toksik alkoller, parasetamol ve salisilat, kardiyotoksik ilaçlar (TCA, BB, KKB, digoksin), toksidromlar ve antidotlar, CO ve siyanür, dekontaminasyon yöntemleri.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 21. Toksikolojik Aciller",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Antifriz içtiği düşünülen hastada yüksek anyon açıklı metabolik asidoz, ozmolal açık ve idrarda zarf şeklinde kristaller. Tedavi hangisidir?",
+   "options": [
+    "Fomepizol (ya da etanol), gerekirse hemodiyaliz; tiamin ve piridoksin",
+    "Yalnız bikarbonat",
+    "Aktif kömür",
+    "N-asetilsistein",
+    "Nalokson"
+   ],
+   "correct": 0,
+   "explanation": "Etilen glikol kalsiyum oksalat kristalleri ve böbrek yetmezliği yapar; ozmolal açık geç dönemde normalleşebilir.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q02",
+   "stem": "Kaçak içki tüketen birkaç kişide ağır metabolik asidoz ve 'kar fırtınası' tarzı görme bozukluğu. Toksik alkol ve ek tedavi hangisidir?",
+   "options": [
+    "İzopropanol — destek",
+    "Metanol — fomepizol/etanol, folinik asit ve hemodiyaliz",
+    "Etanol — tiamin",
+    "Aseton — gözlem",
+    "Etilen glikol — piridoksin"
+   ],
+   "correct": 1,
+   "explanation": "Türkiye'de sahte alkol kaynaklı toplu metanol zehirlenmeleri sık bildirilmektedir; formik asit retina ve bazal gangliyonlara toksiktir.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q03",
+   "stem": "Asidoz olmadan ketozis (idrarda aseton) ve ozmolal açık varsa hangi alkol düşünülür?",
+   "options": [
+    "İzopropil alkol",
+    "Etilen glikol",
+    "Propilen glikol",
+    "Dietilen glikol",
+    "Metanol"
+   ],
+   "correct": 0,
+   "explanation": "İzopropanol asetona metabolize olur; destek tedavisi yeterlidir, fomepizol gerekmez.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q04",
+   "stem": "Akut tek seferlik parasetamol alımında N-asetilsistein kararını vermek için serum düzeyi ne zaman ölçülür?",
+   "options": [
+    "Yalnız karaciğer enzimleri yükselince",
+    "24 saat sonra",
+    "Ölçüm gerekmez",
+    "Hemen geliş anında, saat fark etmez",
+    "Alımdan 4 saat sonra (ve nomograma göre değerlendirme)"
+   ],
+   "correct": 4,
+   "explanation": "4 saatten önceki düzey nomograma uygulanamaz; zaman bilinmiyorsa veya tekrarlı alımda NAC ve enzimlere göre karar.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q05",
+   "stem": "Parasetamol zehirlenmesinde N-asetilsistein en etkili olduğu zaman hangisidir?",
+   "options": [
+    "Alımdan sonraki ilk 8 saat içinde başlandığında",
+    "Hiçbir zaman",
+    "Yalnız oral verildiğinde",
+    "Karaciğer yetmezliği geliştiğinde",
+    "Yalnız 24 saatten sonra"
+   ],
+   "correct": 0,
+   "explanation": "Geç başvuruda ve karaciğer yetmezliğinde de yararlıdır.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q06",
+   "stem": "Salisilat zehirlenmesinde tipik asit-baz bozukluğu hangisidir?",
+   "options": [
+    "Normal anyon açıklı asidoz",
+    "Respiratuvar alkaloz + anyon açıklı metabolik asidoz",
+    "Metabolik alkaloz",
+    "Normal kan gazı",
+    "Saf respiratuvar asidoz"
+   ],
+   "correct": 1,
+   "explanation": "Kulak çınlaması, kusma, takipne ve hipertermi; tedavi sodyum bikarbonat (idrar alkalinizasyonu).",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q07",
+   "stem": "Ağır salisilat zehirlenmesinde entübasyon gerekirse en önemli dikkat noktası hangisidir?",
+   "options": [
+    "Sedasyonu azaltmak",
+    "Entübasyon sonrası hiperventilasyonu sürdürmek (önceki dakika ventilasyonunu korumak); asidozun derinleşmesi ölümcüldür",
+    "Düşük solunum sayısı",
+    "Hiçbir fark yoktur",
+    "Bikarbonatı kesmek"
+   ],
+   "correct": 1,
+   "explanation": "Mümkünse entübasyondan kaçınılır; diyaliz endikasyonları: bilinç değişikliği, böbrek yetmezliği, çok yüksek düzey, pulmoner ödem.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q08",
+   "stem": "İdrar alkalinizasyonu ile atılımı artırılan, zayıf asit yapısındaki ilaç hangisidir?",
+   "options": [
+    "Demir",
+    "Salisilat (ve fenobarbital)",
+    "Digoksin",
+    "Amfetamin",
+    "Lityum"
+   ],
+   "correct": 1,
+   "explanation": "İyon tuzağı: alkali idrarda iyonize zayıf asit geri emilemez.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q09",
+   "stem": "Amitriptilin alan hastada QRS 140 ms, hipotansiyon ve nöbet. İlk tedavi hangisidir?",
+   "options": [
+    "Sodyum bikarbonat 1–2 mEq/kg IV bolus (QRS daralana kadar)",
+    "Amiodaron",
+    "Flumazenil",
+    "Prokainamid",
+    "Fizostigmin"
+   ],
+   "correct": 0,
+   "explanation": "TCA sodyum kanal blokajı; aVR'de R >3 mm kötü prognoz. Nöbetlerde benzodiazepin.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q10",
+   "stem": "Demir zehirlenmesinde ilk saatlerde kusma-ishalin geçmesinden sonra görünürde düzelme dönemi olabilir. Şelatör hangisidir?",
+   "options": [
+    "EDTA",
+    "Aktif kömür",
+    "Penisilamin",
+    "Deferoksamin IV",
+    "Dimerkaprol"
+   ],
+   "correct": 3,
+   "explanation": "Demir aktif kömüre bağlanmaz; elementer demir >60 mg/kg ciddi toksisite; grafide radyoopak tabletler.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q11",
+   "stem": "Beta bloker aşırı dozunda bradikardi ve hipotansiyon atropin ve sıvıya yanıtsız. Ek tedaviler hangileridir?",
+   "options": [
+    "Hemodiyaliz her zaman",
+    "Flumazenil",
+    "Fizostigmin",
+    "Glukagon, yüksek doz insülin-öglisemi tedavisi ve vazopresör/pacing",
+    "Nalokson"
+   ],
+   "correct": 3,
+   "explanation": "Propranolol sodyum kanal blokajı da yapar (bikarbonat); lipid emülsiyonu son çare.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q12",
+   "stem": "Kalsiyum kanal blokeri (verapamil) aşırı dozunda beta blokerden ayırt ettirebilen bulgu hangisidir?",
+   "options": [
+    "Hipertermi",
+    "Miyozis",
+    "Hiperglisemi (pankreatik insülin salınımının baskılanması)",
+    "Hipoglisemi",
+    "Bronkospazm"
+   ],
+   "correct": 2,
+   "explanation": "Tedavide kalsiyum, yüksek doz insülin, vazopresör; hiperglisemi şiddetle ilişkilidir.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q13",
+   "stem": "Kronik digoksin kullanan yaşlı hastada bulantı, sarı görme, bradiaritmi ve K 5,9. Antidot ve endikasyonu nedir?",
+   "options": [
+    "Hemodiyaliz",
+    "Atropin tek başına",
+    "Kalsiyum glukonat",
+    "Lidokain",
+    "Digoksine özgü antikor (Fab) — yaşamı tehdit eden aritmi, hiperkalemi (>5,0 akut), son organ hasarı"
+   ],
+   "correct": 4,
+   "explanation": "Digoksin diyalizle uzaklaştırılamaz.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q14",
+   "stem": "Sülfonilüre ile oluşan hipoglisemide dekstroza ek olarak verilen ve tekrar hipoglisemiyi önleyen ilaç hangisidir?",
+   "options": [
+    "Hidrokortizon",
+    "Nalokson",
+    "Oktreotid",
+    "Glukagon",
+    "Diazoksit"
+   ],
+   "correct": 2,
+   "explanation": "Sülfonilüre alımında en az 24 saat gözlem (uzun etkili ajanlar).",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q15",
+   "stem": "Opioid aşırı dozunda solunum depresyonu olan hastada nalokson ile ilgili doğru olan hangisidir?",
+   "options": [
+    "Etkisi 24 saat sürer",
+    "Etki süresi birçok opioidden kısadır; tekrar dozlar/infüzyon ve gözlem gerekebilir",
+    "Tek doz her zaman yeterlidir",
+    "Yalnız IV verilebilir",
+    "Sedasyonu değil solunumu etkilemez"
+   ],
+   "correct": 1,
+   "explanation": "Metadon ve uzun etkili opioidlerde infüzyon (saatlik doz ≈ etkili bolusun 2/3'ü).",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q16",
+   "stem": "Tarımda çalışan kişide miyozis, bol sekresyon, bradikardi, bronkore ve kas fasikülasyonları. Tedavi hangisidir?",
+   "options": [
+    "Nalokson",
+    "Fizostigmin",
+    "Flumazenil",
+    "Adrenalin",
+    "Atropin (sekresyonlar kuruyana kadar artan dozlarda) + pralidoksim + dekontaminasyon"
+   ],
+   "correct": 4,
+   "explanation": "Organofosfat zehirlenmesi; atropin dozunu belirleyen sekresyonlardır, kalp hızı değil.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q17",
+   "stem": "Midriyazis, kuru-sıcak deri, taşikardi, idrar retansiyonu ve ajite deliryum. Toksidrom ve özgül antidot nedir?",
+   "options": [
+    "Sempatomimetik — benzodiazepin",
+    "Opioid — nalokson",
+    "Kolinerjik — atropin",
+    "Serotonerjik — siproheptadin",
+    "Antikolinerjik — fizostigmin (QRS genişliği yoksa, seçilmiş hastada)"
+   ],
+   "correct": 4,
+   "explanation": "Sempatomimetikte deri terli olur; antikolinerjikte kuru.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q18",
+   "stem": "Kokain kullanımı sonrası ajitasyon, hipertansiyon, taşikardi ve hipertermi. İlk tedavi hangisidir?",
+   "options": [
+    "Fizostigmin",
+    "Haloperidol tek başına",
+    "Beta bloker (propranolol)",
+    "Benzodiazepin ve aktif soğutma",
+    "Nalokson"
+   ],
+   "correct": 3,
+   "explanation": "Göğüs ağrısında aspirin ve nitrat; saf beta blokerden kaçınılır.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q19",
+   "stem": "Siyanür zehirlenmesinde ilk tercih antidot hangisidir?",
+   "options": [
+    "Metilen mavisi",
+    "Deferoksamin",
+    "Atropin",
+    "Fomepizol",
+    "Hidroksokobalamin 5 g IV"
+   ],
+   "correct": 4,
+   "explanation": "Hidroksokobalamin idrarı ve deriyi kırmızıya boyar; kolorimetrik testleri bozar.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q20",
+   "stem": "CO zehirlenmesinde hiperbarik oksijen için kabul gören endikasyon hangisidir?",
+   "options": [
+    "Bilinç kaybı, nörolojik defisit, kardiyak iskemi, gebelikte yüksek COHb ya da çok yüksek COHb (≈>25)",
+    "Hafif baş ağrısı",
+    "Tüm hastalar",
+    "Sigara içicisi olmak",
+    "COHb %8"
+   ],
+   "correct": 0,
+   "explanation": "HBO gecikmiş nörolojik sekeli azaltabilir; merkezler arası farklılık vardır.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q21",
+   "stem": "Aktif kömür için doğru olan hangisidir?",
+   "options": [
+    "Bilinci kapalı hastada hava yolu korunmadan verilir",
+    "Kostik alımında tercih edilir",
+    "Ciddi toksisite beklenen, hava yolu korunan hastada genellikle ilk 1 saatte yararlıdır; alkoller, metaller (demir, lityum) ve kostiklere bağlanmaz",
+    "Demiri bağlar",
+    "Her zehirlenmede verilir"
+   ],
+   "correct": 2,
+   "explanation": "Aspirasyon başlıca komplikasyondur.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q22",
+   "stem": "Paketlenmiş uyuşturucu yutan (body packer) asemptomatik hastada önerilen yaklaşım hangisidir?",
+   "options": [
+    "Endoskopik çıkarma her zaman",
+    "Aktif kömür tek başına",
+    "Kusturma",
+    "Tüm barsak irrigasyonu (PEG) ve gözlem; paket yırtılması/obstrüksiyonda cerrahi",
+    "Laksatifsiz taburcu"
+   ],
+   "correct": 3,
+   "explanation": "Kokain paketinin yırtılması ölümcül sempatomimetik toksisite yapar.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q23",
+   "stem": "Lavabo açıcı (alkali) içen hastada yaklaşım hangisidir?",
+   "options": [
+    "Bol su ile mideyi yıkama",
+    "Asitle nötralizasyon",
+    "Kusturma ve nötralizasyon yok; hava yolu değerlendirmesi ve 12–24 saatte endoskopi",
+    "Aktif kömür",
+    "Kusturma"
+   ],
+   "correct": 2,
+   "explanation": "Stridor, salya ve kusma ciddi yaralanmayı düşündürür; sonradan darlık gelişebilir.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q24",
+   "stem": "İzoniazid aşırı dozuna bağlı benzodiazepine dirençli nöbetlerde özgül tedavi hangisidir?",
+   "options": [
+    "Magnezyum",
+    "Fenitoin",
+    "Tiamin",
+    "Piridoksin (B6) — alınan INH gramı kadar, bilinmiyorsa 5 g IV",
+    "Folik asit"
+   ],
+   "correct": 3,
+   "explanation": "INH GABA sentezini bozar; fenitoin etkisizdir.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q25",
+   "stem": "Benzodiazepin aşırı dozunda flumazenil kullanımı hangi hastada güvenlidir?",
+   "options": [
+    "Benzodiazepin kullanmayan, prosedürel sedasyon sonrası aşırı sedasyonu olan hastada",
+    "TCA ile birlikte alımda",
+    "Nöbet öyküsünde",
+    "Bilinmeyen karışık alımda",
+    "Kronik benzodiazepin kullanıcısında"
+   ],
+   "correct": 0,
+   "explanation": "Rutin 'koma kokteylinde' flumazenil önerilmez.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q26",
+   "stem": "Serotonin sendromunda ağır hipertermi (>41 °C) ve rijidite varsa yaklaşım hangisidir?",
+   "options": [
+    "Parasetamol",
+    "Haloperidol",
+    "Fizik tedavi",
+    "Sedasyon, entübasyon ve nöromusküler blokaj (non-depolarizan) ile aktif soğutma; antipiretik etkisizdir",
+    "Dantrolen ilk seçenek"
+   ],
+   "correct": 3,
+   "explanation": "Kas aktivitesi ısıyı üretir; siproheptadin destekleyici.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q27",
+   "stem": "Lityum zehirlenmesinde hangi yöntem lityumu etkin şekilde uzaklaştırır?",
+   "options": [
+    "Forse diürez furosemidle",
+    "Hemodiyaliz",
+    "Kusturma",
+    "Aktif kömür",
+    "Şelasyon"
+   ],
+   "correct": 1,
+   "explanation": "Kronik zehirlenmede nörolojik bulgular ve böbrek yetmezliği diyaliz kararında belirleyicidir.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q28",
+   "stem": "Hidroflorik asit içen ya da geniş yanığı olan hastada en tehlikeli sistemik etki hangisidir?",
+   "options": [
+    "Hiperkalsemi",
+    "Methemoglobinemi",
+    "Hipoglisemi",
+    "Hipotermi",
+    "Hipokalsemi, hipomagnezemi ve hiperkalemiye bağlı ölümcül aritmiler"
+   ],
+   "correct": 4,
+   "explanation": "IV kalsiyum ve magnezyum, sık elektrolit ve EKG izlemi.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q29",
+   "stem": "Bilinmeyen madde alan bilinci kapalı hastada ilk yapılacak yatak başı test hangisidir?",
+   "options": [
+    "Serum ilaç düzeyleri",
+    "Aktif kömür",
+    "Kapiller kan glukozu",
+    "BT",
+    "İdrar toksikoloji taraması"
+   ],
+   "correct": 2,
+   "explanation": "Hipoglisemi hızla düzeltilebilir ve kalıcı hasarı önler.",
+   "topic": "Toksikolojik Aciller"
+  },
+  {
+   "key": "q30",
+   "stem": "İntihar amaçlı ilaç alan her hastada (alımı inkâr etse bile) kontrol edilmesi önerilen düzey hangisidir?",
+   "options": [
+    "Digoksin",
+    "Teofilin",
+    "Parasetamol (ve gerekirse salisilat)",
+    "Fenitoin",
+    "Lityum"
+   ],
+   "correct": 2,
+   "explanation": "Parasetamol alımı erken dönemde asemptomatik olup tedavi penceresi kaçabilir.",
+   "topic": "Toksikolojik Aciller"
+  }
+ ]
+}

@@ -1,0 +1,430 @@
+{
+ "id": "soru-09",
+ "title": "Acil Tıp Soru Bankası — 09. Hematolojik Hastalıklar",
+ "desc": "Antikoagülan ilişkili kanama ve geri çevirme, trombositopeniler, DİK, hemofili ve vWH, orak hücre hastalığı, transfüzyon reaksiyonları, onkolojik aciller.",
+ "source": "Gazi Acil Tıp — özgün sorular (güncel kılavuzlara dayanır; klinik kontrol sonrası alıştırmaya açın)",
+ "pool": "Acil Tıp Soru Bankası — 09. Hematolojik Hastalıklar",
+ "sims": [],
+ "questions": [
+  {
+   "key": "q01",
+   "stem": "Varfarin kullanan hastada INR 12; kanama yok. En uygun yaklaşım hangisidir?",
+   "options": [
+    "Hiçbir şey yapmadan aynı dozla devam",
+    "4F-PCC ve IV K vitamini",
+    "TDP 4 ünite",
+    "Varfarini kesmek ve oral K vitamini (≈2,5–5 mg) vermek",
+    "Protamin"
+   ],
+   "correct": 3,
+   "explanation": "Kanamasız INR >10 ise oral K vitamini; 4,5–10 arasında doz atlanır, rutin K vitamini gerekmez. Hayatı tehdit eden kanamada 4F-PCC + IV K vitamini.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q02",
+   "stem": "Varfarin kullanan hastada intrakraniyal kanama; INR 3,8. Tercih edilen tedavi hangisidir?",
+   "options": [
+    "Yalnız TDP",
+    "Desmopressin",
+    "Traneksamik asit tek başına",
+    "Yalnız oral K vitamini",
+    "4 faktörlü protrombin kompleks konsantresi + IV K vitamini 10 mg"
+   ],
+   "correct": 4,
+   "explanation": "PCC TDP'den hızlı etkili ve hacim yükü azdır; K vitamini etkinin sürmesini sağlar.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q03",
+   "stem": "Anfraksiyone heparin infüzyonu altında ciddi kanama gelişen hastada antidot hangisidir?",
+   "options": [
+    "K vitamini",
+    "İdarusizumab",
+    "Andeksanet",
+    "Desmopressin",
+    "Protamin sülfat"
+   ],
+   "correct": 4,
+   "explanation": "1 mg protamin ≈100 Ü heparini nötralize eder; DMAH'ı kısmen geri çevirir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q04",
+   "stem": "Dabigatran kullanan hastada travmatik subdural kanama. Spesifik geri çevirici ajan hangisidir?",
+   "options": [
+    "Andeksanet alfa",
+    "Protamin",
+    "İdarusizumab",
+    "K vitamini",
+    "TDP"
+   ],
+   "correct": 2,
+   "explanation": "Dabigatran diyalizle de uzaklaştırılabilir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q05",
+   "stem": "Kalp cerrahisinden 7 gün sonra trombositleri %50'den fazla düşen ve yeni DVT gelişen heparin alan hastada tanı ve tedavi hangisidir?",
+   "options": [
+    "Heparinle indüklenen trombositopeni — tüm heparinleri kes, heparin dışı antikoagülan (argatroban/fondaparinuks) başla",
+    "Antikoagülasyonu tamamen kes",
+    "Trombosit transfüzyonu",
+    "Heparin dozunu artır",
+    "Varfarine hemen geç"
+   ],
+   "correct": 0,
+   "explanation": "HIT protrombotiktir; trombosit transfüzyonu ve erken varfarin (venöz gangren) kaçınılır. 4T skoru kullanılır.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q06",
+   "stem": "Yaygın peteşi ve diş eti kanaması olan, trombosit 8.000/mm³, diğer hücre serileri normal ve dalak büyük değil. Tanı ve ilk tedavi hangisidir?",
+   "options": [
+    "TTP — plazmaferez",
+    "İmmün trombositopeni — kortikosteroid (kanamada IVIG ± trombosit)",
+    "Aplastik anemi — kemik iliği nakli",
+    "Lösemi — kemoterapi",
+    "DİK — TDP"
+   ],
+   "correct": 1,
+   "explanation": "ITP dışlama tanısıdır; periferik yaymada şistosit olmaz.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q07",
+   "stem": "Ateş, mikroanjiyopatik hemolitik anemi (şistosit), trombositopeni, nörolojik bulgular ve böbrek bozukluğu olan hastada hangisi yapılmamalıdır?",
+   "options": [
+    "Plazma değişimi",
+    "ADAMTS13 testi",
+    "Trombosit transfüzyonu (hayatı tehdit eden kanama yoksa)",
+    "Hematoloji konsültasyonu",
+    "Kortikosteroid"
+   ],
+   "correct": 2,
+   "explanation": "TTP'de trombosit transfüzyonu tromboz riskini artırabilir; acil plazma değişimi hayat kurtarıcıdır (kaplasizumab eklenebilir).",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q08",
+   "stem": "Sepsisli hastada uzamış PT/aPTT, düşük fibrinojen, yüksek D-dimer ve trombositopeni. Tanı nedir?",
+   "options": [
+    "Yaygın damar içi pıhtılaşma (DİK)",
+    "Hemofili A",
+    "K vitamini eksikliği tek başına",
+    "ITP",
+    "Von Willebrand hastalığı"
+   ],
+   "correct": 0,
+   "explanation": "DİK'te tedavi altta yatan nedendir; kanamada kriyopresipitat, TDP, trombosit.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q09",
+   "stem": "Uzamış aPTT, normal PT ve dizde spontan hemartroz olan genç erkekte en olası tanı hangisidir?",
+   "options": [
+    "Von Willebrand hastalığı tip 3",
+    "K vitamini eksikliği",
+    "Karaciğer hastalığı",
+    "Hemofili A (faktör VIII eksikliği)",
+    "ITP"
+   ],
+   "correct": 3,
+   "explanation": "Hemofili X'e bağlı geçer; kanama durumunda hemen faktör replasmanı (kan testlerini beklemeden).",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q10",
+   "stem": "Hemofili A'lı hastada kafa travması sonrası başağrısı var, nörolojik bulgu yok. İlk adım hangisidir?",
+   "options": [
+    "BT'yi beklemeden faktör VIII'i %100 düzeyine çıkaracak replasman",
+    "Önce BT, kanama varsa faktör",
+    "Gözlem",
+    "Traneksamik asit tek başına",
+    "Yalnız TDP"
+   ],
+   "correct": 0,
+   "explanation": "Hemofilide kafa travması ölümcül olabilir; önce faktör, sonra görüntüleme.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q11",
+   "stem": "Burun ve menstrüel kanamaları fazla olan, aPTT hafif uzun genç kadında hafif von Willebrand hastalığı (tip 1) tedavisinde ilk seçenek hangisidir?",
+   "options": [
+    "Desmopressin (DDAVP)",
+    "Protamin",
+    "Trombosit transfüzyonu",
+    "K vitamini",
+    "Faktör IX"
+   ],
+   "correct": 0,
+   "explanation": "DDAVP endotelden vWF salınımını artırır; tip 2B'de kontrendike olabilir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q12",
+   "stem": "Orak hücre anemili çocukta ateş, göğüs ağrısı, hipoksi ve grafide yeni infiltrat. Tanı ve tedavi nedir?",
+   "options": [
+    "Pulmoner emboli — tromboliz",
+    "Astım — salbutamol",
+    "Akut göğüs sendromu — O₂, analjezi, antibiyotik (sefalosporin + makrolid), gerekirse transfüzyon/değişim transfüzyonu",
+    "Kalp yetmezliği — diüretik",
+    "Pnömoni — yalnız oral antibiyotik"
+   ],
+   "correct": 2,
+   "explanation": "Akut göğüs sendromu orak hücrede başlıca ölüm nedenidir; teşvik spirometrisi önerilir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q13",
+   "stem": "Orak hücre hastasında ani hemoglobin düşüşü ve retikülosit sayısının çok düşük olması hangi tabloyu düşündürür?",
+   "options": [
+    "Demir eksikliği",
+    "Hemolitik kriz",
+    "Dalak sekestrasyonu",
+    "Parvovirüs B19'a bağlı aplastik kriz",
+    "Vazooklüzif kriz"
+   ],
+   "correct": 3,
+   "explanation": "Sekestrasyon krizinde retikülosit yüksektir ve dalak hızla büyür.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q14",
+   "stem": "Orak hücre anemili çocukta ani hemiparezi gelişiyor. Tedavi hangisidir?",
+   "options": [
+    "Heparin",
+    "Aspirin tek başına",
+    "Acil değişim transfüzyonu (hedef HbS <%30)",
+    "Yalnız hidrasyon",
+    "IV tromboliz"
+   ],
+   "correct": 2,
+   "explanation": "Orak hücreye bağlı iskemik inmede değişim transfüzyonu temel tedavidir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q15",
+   "stem": "Orak hücre hastasında 4 saattir süren ağrılı priapizm için doğru yaklaşım hangisidir?",
+   "options": [
+    "Antibiyotik",
+    "Yalnız buz ve bekleme",
+    "Antihistaminik",
+    "Analjezi, hidrasyon ve üroloji — korpus kavernozum aspirasyonu ve fenilefrin irigasyonu",
+    "Testosteron"
+   ],
+   "correct": 3,
+   "explanation": "İskemik priapizm 4 saati geçmeden müdahale gerektirir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q16",
+   "stem": "Transfüzyonun ilk dakikalarında ateş, yan ağrısı, hipotansiyon ve koyu idrar gelişiyor. İlk adım nedir?",
+   "options": [
+    "Diüretik",
+    "Transfüzyonu hemen durdurmak; kimlik/etiket kontrolü, sıvı ve hemoliz incelemesi",
+    "Parasetamol verip hızı yavaşlatmak",
+    "Steroid ve devam",
+    "Antihistaminik verip devam"
+   ],
+   "correct": 1,
+   "explanation": "Akut hemolitik reaksiyon çoğunlukla ABO uyumsuzluğundan (kimlik hatası) kaynaklanır.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q17",
+   "stem": "Transfüzyondan 2 saat sonra hipoksi, bilateral infiltratlar, normal JVP ve ateş gelişiyor; diüretiğe yanıt yok. En olası tanı hangisidir?",
+   "options": [
+    "Bakteriyel kontaminasyon",
+    "TRALI (transfüzyonla ilişkili akut akciğer hasarı)",
+    "Anafilaksi",
+    "Febril nonhemolitik reaksiyon",
+    "TACO (dolaşım yüklenmesi)"
+   ],
+   "correct": 1,
+   "explanation": "TACO'da hipertansiyon, JVP artışı ve BNP yüksekliği olur ve diüretiğe yanıt verir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q18",
+   "stem": "IgA eksikliği olan hastada kan transfüzyonu başlar başlamaz anafilaksi gelişebilir. Önlem nedir?",
+   "options": [
+    "Önlem gerekmez",
+    "Yıkanmış veya IgA eksik donör ürünleri kullanmak",
+    "Premedikasyon yeterlidir",
+    "Tam kan kullanmak",
+    "Daha hızlı transfüzyon"
+   ],
+   "correct": 1,
+   "explanation": "Anti-IgA antikorları anafilaksiye yol açar.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q19",
+   "stem": "Masif transfüzyonda eritrosit, TDP ve trombosit için önerilen oran hangisidir?",
+   "options": [
+    "4:1:1",
+    "1:0:1",
+    "Yalnız eritrosit",
+    "1:4:0",
+    "Yaklaşık 1:1:1"
+   ],
+   "correct": 4,
+   "explanation": "Dengeli transfüzyon koagülopatiyi önler; erken traneksamik asit ve kalsiyum izlemi eklenir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q20",
+   "stem": "Masif transfüzyon sırasında gelişen ve sitrata bağlı en sık elektrolit bozukluğu hangisidir?",
+   "options": [
+    "Hipofosfatemi",
+    "Hipokalsemi",
+    "Hiperkalsemi",
+    "Hipomagnezemi tek başına",
+    "Hipernatremi"
+   ],
+   "correct": 1,
+   "explanation": "Sitrat kalsiyumu bağlar; iyonize Ca izlenip replase edilir (ölümcül triad + hipokalsemi).",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q21",
+   "stem": "Lenfoma için kemoterapi başlanan hastada hiperkalemi, hiperfosfatemi, hipokalsemi, hiperürisemi ve AKI gelişiyor. Tanı ve tedavi nedir?",
+   "options": [
+    "Sepsis — antibiyotik tek başına",
+    "Hiperkalsemi — bisfosfonat",
+    "SIADH — sıvı kısıtlaması",
+    "Tümör lizis sendromu — agresif hidrasyon, rasburikaz, elektrolit tedavisi, gerekirse diyaliz",
+    "Rabdomiyoliz — bikarbonat"
+   ],
+   "correct": 3,
+   "explanation": "Rasburikaz G6PD eksikliğinde hemoliz yapar.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q22",
+   "stem": "Akciğer kanserli hastada yüz ve boyunda şişlik, kolda venöz dolgunluk ve öne eğilince artan nefes darlığı. Tanı nedir?",
+   "options": [
+    "Süperior vena kava sendromu",
+    "Anjiyoödem",
+    "Tiroid fırtınası",
+    "Pulmoner emboli",
+    "Perikardiyal tamponad"
+   ],
+   "correct": 0,
+   "explanation": "Stridor/serebral ödem yoksa önce doku tanısı; ağırda endovasküler stent.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q23",
+   "stem": "Prostat kanserli hastada sırt ağrısı ve yeni başlayan bacak güçsüzlüğü. İlk yapılması gerekenler hangileridir?",
+   "options": [
+    "Fizik tedavi",
+    "Lomber grafi ve analjezi ile taburcu",
+    "Deksametazon ve acil tüm omurga MR (spinal kord basısı)",
+    "Opioid ve izlem",
+    "Kemoterapi"
+   ],
+   "correct": 2,
+   "explanation": "Metastatik kord basısında yürüme fonksiyonu tanı anındaki duruma bağlıdır; radyoterapi/cerrahi.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q24",
+   "stem": "Multipl miyelomlu hastada baş ağrısı, bulanık görme, burun kanaması ve konfüzyon hangi tabloyu düşündürür?",
+   "options": [
+    "Migren — triptan",
+    "Menenjit — antibiyotik",
+    "Hiperkalsemi — tek başına sıvı",
+    "Hiperviskozite sendromu — plazmaferez",
+    "İnme — tromboliz"
+   ],
+   "correct": 3,
+   "explanation": "Waldenström makroglobulinemisinde daha sık; fundusta 'sosis' venler.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q25",
+   "stem": "G6PD eksikliği olan hastada hangi ilaç akut hemolize yol açabilir?",
+   "options": [
+    "Seftriakson",
+    "Primakin (ve dapson, rasburikaz, metilen mavisi)",
+    "Amoksisilin",
+    "Omeprazol",
+    "Parasetamol"
+   ],
+   "correct": 1,
+   "explanation": "Bakla (fava) ve oksidan ilaçlar hemolizi tetikler.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q26",
+   "stem": "B12 eksikliğinde anemiye eşlik edebilen ve kalıcı olabilen bulgu hangisidir?",
+   "options": [
+    "Kaşıksı tırnak",
+    "Splenomegali her zaman",
+    "Hiperkalemi",
+    "Diş eti hipertrofisi",
+    "Subakut kombine dejenerasyon (pozisyon ve titreşim duyusu kaybı, ataksi)"
+   ],
+   "correct": 4,
+   "explanation": "Folat tek başına verilirse anemi düzelir ama nörolojik hasar ilerleyebilir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q27",
+   "stem": "Uzun süre tedavisiz kalan demir eksikliği anemisi olan, hemodinamisi stabil, Hb 7,8 olan genç kadında en uygun yaklaşım hangisidir?",
+   "options": [
+    "Eritropoetin",
+    "Steroid",
+    "B12 enjeksiyonu",
+    "Hemen 2 ünite eritrosit",
+    "Oral (ya da yetersizlikte IV) demir tedavisi ve nedenin araştırılması"
+   ],
+   "correct": 4,
+   "explanation": "Kronik anemide stabil hastada transfüzyon genellikle gerekmez.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q28",
+   "stem": "Tromboz öyküsü olmayan hastada D-dimer normal ve klinik olasılık düşük. Bu sonuç neyi sağlar?",
+   "options": [
+    "DİK tanısını",
+    "Hiçbir bilgi vermez",
+    "Venöz tromboemboliyi güvenle dışlamayı",
+    "Sepsis tanısını",
+    "VTE tanısını koymayı"
+   ],
+   "correct": 2,
+   "explanation": "D-dimerin duyarlılığı yüksek, özgüllüğü düşüktür; yaşa göre eşik (yaş × 10 µg/L) kullanılabilir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q29",
+   "stem": "Kemoterapi alan hastada mutlak nötrofil sayısı <500 ve ateş 38,5 °C. İlk tedavi hangisidir?",
+   "options": [
+    "Yalnız antipiretik",
+    "Granülosit transfüzyonu",
+    "Antifungal",
+    "Kültür sonucunu beklemek",
+    "Bir saat içinde antipsödomonal beta-laktam monoterapisi"
+   ],
+   "correct": 4,
+   "explanation": "Vankomisin yalnız belirli endikasyonlarda (instabilite, kateter, deri enfeksiyonu, MRSA) eklenir.",
+   "topic": "Hematolojik Hastalıklar"
+  },
+  {
+   "key": "q30",
+   "stem": "Apiksaban/rivaroksaban kullanan hastada hayatı tehdit eden kanamada kullanılan geri çeviriciler hangileridir?",
+   "options": [
+    "Andeksanet alfa ya da 4F-PCC",
+    "Desmopressin",
+    "İdarusizumab",
+    "Protamin",
+    "K vitamini tek başına"
+   ],
+   "correct": 0,
+   "explanation": "Faktör Xa inhibitörleri için andeksanet; yoksa PCC 50 IU/kg.",
+   "topic": "Hematolojik Hastalıklar"
+  }
+ ]
+}
