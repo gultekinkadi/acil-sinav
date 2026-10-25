@@ -1,0 +1,1327 @@
+{
+ "id": "ilk-nobet-4",
+ "title": "İlk Nöbet Vakaları — 4. Paket",
+ "desc": "Digoksin ve TCA zehirlenmesi, çocukta dehidratasyon, omuz çıkığı, distal radius kırığı, akut glokom, septik artrit, epidural hematom, torsades de pointes, kompartman sendromu.",
+ "source": "Gazi Acil Tıp — özgün senaryolar (güncel kılavuzlara dayanır; klinik kontrol sonrası yayınlayın)",
+ "pool": "İlk Nöbet Vakaları — 4. Paket",
+ "sims": [
+  {
+   "key": "c31",
+   "title": "Bulantı ve sarı görme — 82 yaşında kadın",
+   "topic": "Toksikoloji",
+   "intro": "82 yaşında kadın, yaklaşık 55 kg. Kalp yetmezliği ve AF için yıllardır digoksin 0,25 mg/gün kullanıyor. 1 hafta önce idrar yolu enfeksiyonu için klaritromisin başlanmış. 3 gündür bulantı, iştahsızlık, halsizlik; “her şeyi sarımsı” görüyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Monitörlü alan",
+     "text": "Bilinç açık, hafif konfüze. Dehidrate.",
+     "vitals": "KB 98/58 · Nb 38 · SpO₂ %95",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "12 derivasyonlu EKG",
+       "pts": 2,
+       "min": 5,
+       "res": "Yavaş, düzenli **kavşak ritmi 38/dk** (AF'li hastada düzenli ritim = AV blok), ST'de “kepçe” çökmesi, ventriküler ekstrasistoller.",
+       "fb": "AF'de yavaş ve düzenli ritim digoksin toksisitesini düşündürür."
+      },
+      {
+       "kind": "test",
+       "label": "Digoksin düzeyi, K, kreatinin, Mg",
+       "pts": 3,
+       "min": 40,
+       "res": "Digoksin **4,2 ng/mL** · **K 6,1** · kreatinin 2,1 (bazal 1,0) · Mg 1,7.",
+       "fb": "Böbrek hasarı + makrolid (P-gp inhibisyonu) → digoksin birikimi. Hiperkalemi toksisite ağırlığını gösterir."
+      },
+      {
+       "kind": "act",
+       "label": "Digoksin ve klaritromisini kes; monitör; **digoksine özgü antikor (Fab)**: kronik zehirlenmede flakon sayısı ≈ düzey (ng/mL) × kg / 100 → 4,2 × 55 / 100 ≈ 2,3 → 3 flakon (ya da kurum protokolüne göre 1–2 flakonla başla); hiperkalemi Fab ile düzelir; atropin köprü",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Fab endikasyonları: yaşamı tehdit eden aritmi/bradikardi, K >5–5,5, son organ hasarı, yüksek düzey."
+      },
+      {
+       "kind": "act",
+       "label": "Hiperkalemi için önce kalsiyum + insülin-glukoz, digoksini sürdür",
+       "pts": -3,
+       "min": 20,
+       "to": "n3",
+       "fb": "Digoksini sürdürmek toksisiteyi artırır; asıl tedavi Fab. (Kalsiyumun güvenliği tartışmalı; Fab varken ilk seçenek değil.)"
+      },
+      {
+       "kind": "act",
+       "label": "Bradikardi için transkutan pace ve elektriksel kardiyoversiyon hazırlığı, digoksine devam",
+       "pts": -4,
+       "min": 20,
+       "to": "n9",
+       "fb": "Digoksin toksisitesinde elektriksel girişimler ventriküler aritmileri tetikleyebilir; neden tedavi edilmeli."
+      }
+     ]
+    },
+    "n3": {
+     "title": "1 saat sonra",
+     "text": "Ventriküler bigemine ritim, hız 36.",
+     "vitals": "KB 84/50 · K 5,8",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Digoksini kes, Fab antikor ver",
+       "pts": 2,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru — gecikmeli."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Fab sonrası düzelme",
+     "text": "Fab sonrası 60 dakikada hız 72'ye çıktı, K 4,6'ya düştü. Hasta 3 gün izlendi; digoksin dozu böbrek fonksiyonuna göre yeniden düzenlendi, makrolid değiştirildi.\n\n**Akılda kalsın**\n- Kronik digoksin zehirlenmesi: **yaşlı, böbrek yetmezliği, ilaç etkileşimi** (makrolid, amiodaron, verapamil), dehidratasyon.\n- Bulgular: bulantı, konfüzyon, **sarı-yeşil görme**, bradikardi/AV blok, **AF'de düzenli yavaş ritim**, ventriküler ektopi, çift yönlü VT.\n- **Hiperkalemi** = ağır toksisite (akut alımda K >5–5,5 Fab endikasyonu).\n- Tedavi: digoksini kes, **digoksin Fab**; elektriksel kardiyoversiyondan kaçın.\n- Fab sonrası serum digoksin düzeyi yorumlanamaz.\n\n*Kaynak: Lapostolle F. ve ark.; Goldfrank's Toxicologic Emergencies (11. baskı).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ventriküler fibrilasyon",
+     "text": "Hasta VF'ye girdi; uzun resüsitasyon gerekti.\n\nDigoksin toksisitesinde nedene yönelik tedavi Fab'dır.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c32",
+   "title": "Bilinç bulanıklığı — 26 yaşında kadın",
+   "topic": "Toksikoloji",
+   "intro": "26 yaşında kadın. Arkadaşı, depresyon tedavisi gören hastanın yaklaşık 2 saat önce amitriptilin kutusunun tamamını (25 mg × 30) ve alkol aldığını, giderek uykuya daldığını söylüyor. Yaklaşık 60 kg.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Resüsitasyon alanı",
+     "text": "GKS 10, pupiller midriyatik, deri kuru-sıcak, mesane dolu (antikolinerjik bulgular).",
+     "vitals": "KB 88/52 · Nb 128 · SS 14 · SpO₂ %94 · Ateş 37,8",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "12 derivasyonlu EKG",
+       "pts": 3,
+       "min": 5,
+       "res": "Sinüs taşikardisi, **QRS 138 ms**, **aVR'de terminal R dalgası 4 mm**, QTc uzun.",
+       "fb": "QRS >100 ms nöbet, >160 ms ventriküler aritmi riskini artırır; aVR'de R >3 mm toksisite göstergesi."
+      },
+      {
+       "kind": "test",
+       "label": "Kan gazı",
+       "pts": 1,
+       "min": 10,
+       "res": "pH 7,32, pCO₂ 44.",
+       "fb": "Asidoz sodyum kanal blokajını artırır."
+      },
+      {
+       "kind": "act",
+       "label": "Sodyum bikarbonat 1–2 mEq/kg IV bolus (%8,4); QRS daralana kadar tekrar, ardından infüzyon (hedef pH 7,45–7,55); hava yolunu koru (gerekirse entübasyon + hiperventilasyon); hipotansiyonda sıvı, gerekirse norepinefrin",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Bikarbonat (sodyum yükü + alkalinizasyon) TCA'nın sodyum kanal blokajını aşar."
+      },
+      {
+       "kind": "act",
+       "label": "Flumazenil ver (benzodiazepin de almış olabilir)",
+       "pts": -5,
+       "min": 5,
+       "to": "n9",
+       "fb": "Flumazenil TCA zehirlenmesinde nöbeti tetikler; kontrendikedir."
+      },
+      {
+       "kind": "act",
+       "label": "Fizostigmin ile antikolinerjik bulguları geri çevir",
+       "pts": -4,
+       "min": 5,
+       "to": "n9",
+       "fb": "TCA'da fizostigmin asistoli ve nöbetle ilişkilidir; kontrendike."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Bikarbonattan sonra",
+     "text": "QRS 110 ms'ye daraldı. Hasta jeneralize nöbet geçirmeye başladı.",
+     "vitals": "KB 96/60 · Nb 120",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Benzodiazepin (ör. diazepam 10 mg IV ya da midazolam); bikarbonatı tekrarla (nöbet asidozu artırır); fenitoin verme",
+       "pts": 3,
+       "min": 5,
+       "to": "n3",
+       "fb": "Doğru. TCA nöbetinde ilk seçenek benzodiazepin; fenitoin sodyum kanal blokajını artırabilir."
+      },
+      {
+       "kind": "act",
+       "label": "Fenitoin yükle",
+       "pts": -3,
+       "min": 15,
+       "to": "n9",
+       "fb": "Fenitoin TCA kardiyotoksisitesinde önerilmez."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Yoğun bakımda iyileşme",
+     "text": "Entübe edilip bikarbonat infüzyonu ile izlendi; 24 saatte QRS normale döndü, hasta ekstübe edildi. Psikiyatri değerlendirmesi yapıldı.\n\n**Akılda kalsın**\n- TCA: **antikolinerjik bulgular + nöbet + hipotansiyon + geniş QRS**.\n- EKG: **QRS >100 ms**, aVR'de **R >3 mm**, sağ eksen.\n- **Sodyum bikarbonat 1–2 mEq/kg** bolus, QRS daralana kadar; hedef pH 7,45–7,55.\n- Nöbette **benzodiazepin**; fenitoin, flumazenil, fizostigmin, sınıf IA/IC antiaritmik yok.\n- Hava yolu güvenliyse ve ilk 1–2 saatteyse aktif kömür düşünülebilir.\n\n*Kaynak: Goldfrank's Toxicologic Emergencies; EXTRIP/AACT önerileri.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ventriküler aritmi / arrest",
+     "text": "Hasta geniş QRS'li taşikardiye, ardından arreste girdi.\n\nTCA zehirlenmesinde bikarbonat hayat kurtarır; flumazenil, fizostigmin ve fenitoinden kaçınılır.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c33",
+   "title": "İshal ve kusma — 18 aylık erkek",
+   "topic": "Pediatri",
+   "intro": "18 aylık erkek, 11 kg (1 hafta önce 11,8 kg). 2 gündür sulu ishal (günde 8–10) ve kusma. Son 8 saatte 1 bez ıslatmış. Ateş 38 °C.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Çocuk acil",
+     "text": "Huzursuz ama uyanık; gözler çökük, mukozalar kuru, ağlarken az gözyaşı, deri turgoru hafif azalmış, kapiller dolum 2 sn. Ekstremiteler sıcak.",
+     "vitals": "Nb 148 · SS 32 · KB 92/58",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Dehidratasyon derecesi",
+       "pts": 2,
+       "min": 2,
+       "res": "Kilo kaybı ≈ %7 → **orta dehidratasyon**.",
+       "fb": "Klinik dehidratasyon skalası; hafif <%5, orta %5–10, ağır >%10 (şok)."
+      },
+      {
+       "kind": "test",
+       "label": "Kapiller glukoz",
+       "pts": 1,
+       "min": 1,
+       "res": "72 mg/dL.",
+       "fb": "Uzamış açlıkta hipoglisemi olabilir."
+      },
+      {
+       "kind": "test",
+       "label": "Rutin elektrolit ve gaita kültürü",
+       "pts": 0,
+       "min": 60,
+       "res": "Na 138, K 3,6, HCO₃ 18.",
+       "fb": "Orta dehidratasyonda ORS ile tedavi edilen çocukta rutin laboratuvar gerekmez."
+      },
+      {
+       "kind": "act",
+       "label": "Oral rehidratasyon: ORS 75 mL/kg (≈800 mL) 4 saatte, sık ve küçük yudumlarla (5 dakikada bir 5–10 mL); kusma varsa ondansetron 0,15 mg/kg PO (≈2 mg); emzirme/beslenmeyi sürdür",
+       "pts": 4,
+       "min": 30,
+       "to": "n2",
+       "fb": "Doğru. Orta dehidratasyonda ilk seçenek ORS; ondansetron kusmayı ve IV ihtiyacını azaltır."
+      },
+      {
+       "kind": "act",
+       "label": "IV hipotonik (%0,45) sıvı yükle, aç bırak",
+       "pts": -2,
+       "min": 30,
+       "to": "n2",
+       "fb": "Orta dehidratasyonda ORS IV kadar etkilidir; IV gerekiyorsa izotonik sıvı kullanılır. Aç bırakmak gereksiz."
+      },
+      {
+       "kind": "act",
+       "label": "Loperamid + meyve suyu/kola öner, taburcu",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Loperamid küçük çocukta kontrendike (ileus, SSS depresyonu); şekerli içecekler ishali artırır."
+      }
+     ]
+    },
+    "n2": {
+     "title": "4 saat sonra",
+     "text": "Çocuk 750 mL ORS içti, 2 kez idrar yaptı, oyun oynuyor. İshal sürüyor.",
+     "vitals": "Nb 118",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Taburculuk: her ishal sonrası 10 mL/kg ORS, normal beslenme; uyarı bulguları (az idrar, uyuşukluk, kanlı ishal, inatçı kusma) anlatıldı; çinko (10–20 mg/gün, 10–14 gün)",
+       "pts": 3,
+       "min": 15,
+       "to": "n3",
+       "fb": "Doğru."
+      },
+      {
+       "kind": "act",
+       "label": "İshal geçene kadar yatır",
+       "pts": -1,
+       "min": 30,
+       "to": "n3",
+       "fb": "Rehidrate ve oral alan çocuk ayaktan izlenebilir."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Başarılı oral rehidratasyon",
+     "text": "Kontrolde çocuk 11,6 kg, iyi görünüyor.\n\n**Akılda kalsın**\n- Dehidratasyon derecesini **klinik bulgularla** belirle (kapiller dolum, turgor, solunum paterni en değerli).\n- Hafif–orta: **ORS 50–100 mL/kg, 4 saatte**; sık ve küçük yudumlar.\n- Kusmada **ondansetron 0,15 mg/kg**.\n- Ağır/şok: **20 mL/kg izotonik bolus**, yeniden değerlendir.\n- **Beslenmeyi kesme**; loperamid ve şekerli içecek yok; çinko (DSÖ).\n\n*Kaynak: ESPGHAN/ESPID 2014; DSÖ ishal yönetimi.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ağır dehidratasyon",
+     "text": "Çocuk 24 saat sonra letarjik, şokta getirildi; ayrıca loperamide bağlı abdominal distansiyon vardı.\n\nÇocukta ishalde ORS esastır; antidiyareik verilmez.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c34",
+   "title": "Omuz ağrısı — 25 yaşında erkek",
+   "topic": "Ortopedi",
+   "intro": "25 yaşında erkek. Basketbolda kolu dışa dönük ve yukarıdayken düşmüş. Sağ omzunu hareket ettiremiyor, kolunu diğer eliyle tutuyor. İlk kez oluyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sağ omuzda deltoid konturu kaybolmuş (“apolet” görünümü), humerus başı önde ele geliyor. Kol hafif abdüksiyon ve dış rotasyonda.",
+     "vitals": "KB 132/80 · Nb 96",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Nörovasküler muayene (aksiller sinir)",
+       "pts": 2,
+       "min": 2,
+       "res": "Deltoid üzerindeki “apolet” bölgesinde duyu **normal**; radial nabız normal.",
+       "fb": "Aksiller sinir hasarı en sık eşlik eden sinir yaralanmasıdır; redüksiyon öncesi ve sonrası belgele."
+      },
+      {
+       "kind": "test",
+       "label": "Omuz grafisi (AP + skapular Y/aksiller)",
+       "pts": 2,
+       "min": 15,
+       "res": "**Anterior glenohumeral çıkık**; eşlik eden kırık yok.",
+       "fb": "İlk çıkık, yüksek enerji ve yaşlı hastada redüksiyon öncesi grafi önerilir."
+      },
+      {
+       "kind": "act",
+       "label": "Analjezi (± prosedürel sedasyon/intraartiküler lidokain); atravmatik redüksiyon tekniği — dış rotasyon, Cunningham veya FARES ya da skapular manipülasyon",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Kuvvet uygulamayan teknikler çoğunlukla sedasyon gerektirmeden başarılıdır."
+      },
+      {
+       "kind": "act",
+       "label": "Analjezi vermeden, ayakla koltuk altına bastırıp sert çekiş (Hipokrat), kırık grafisi gerekmez",
+       "pts": -3,
+       "min": 10,
+       "to": "n2",
+       "fb": "Analjezisiz zorlu çekiş ağrılı ve komplikasyon (sinir/damar, kırık) riski yüksektir; grafi atlanırsa eşlik eden kırık gözden kaçabilir."
+      },
+      {
+       "kind": "act",
+       "label": "Grafi çekmeden, sedasyonsuz ve kuvvetli kaldıraç (Kocher) manevrası",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Kaldıraç manevraları humerus kırığı ve damar-sinir yaralanmasıyla ilişkilidir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Redüksiyon sonrası",
+     "text": "“Klonk” sesiyle omuz yerine oturdu; hasta rahatladı.",
+     "vitals": "Nb 84",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Redüksiyon sonrası nörovasküler muayene ve kontrol grafisi; kol askısı (konfor için kısa süre), erken fizyoterapi ve ortopedi kontrolü",
+       "pts": 3,
+       "min": 15,
+       "to": "n3",
+       "fb": "Doğru."
+      },
+      {
+       "kind": "act",
+       "label": "Muayene/grafi gerekmez, 6 hafta sıkı askı",
+       "pts": -2,
+       "min": 10,
+       "to": "n3",
+       "fb": "Redüksiyon sonrası kontrol ve muayene atlanmamalı; uzun immobilizasyon nüksü azaltmaz, sertlik yapar."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Başarılı redüksiyon",
+     "text": "Kontrol grafisinde eklem yerinde; aksiller sinir fonksiyonu normal. Genç ve ilk çıkık olduğu için nüks riski anlatıldı; ortopedi kontrolü planlandı.\n\n**Akılda kalsın**\n- Anterior çıkık en sık; **aksiller sinir** (deltoid üstü duyu) muayenesi redüksiyon öncesi ve sonrası.\n- İlk çıkıkta grafi; **atravmatik teknikler** (dış rotasyon, Cunningham, FARES, skapular manipülasyon).\n- Yeterli analjezi; intraartiküler lidokain bir seçenektir.\n- **>40 yaşta rotator manşet yırtığı**, genç hastada **nüks** riski yüksek.\n- Posterior çıkık: nöbet/elektrik çarpması sonrası, kol iç rotasyonda kilitli — kolayca atlanır.\n\n*Kaynak: Roberts & Hedges' Clinical Procedures (7. baskı).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Komplikasyon",
+     "text": "Kuvvetli kaldıraç manevrası sonrası humerus cerrahi boyun kırığı gelişti; hasta acil ameliyata alındı.\n\nRedüksiyonda kuvvet değil, gevşeme ve atravmatik teknik esastır.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c35",
+   "title": "Bilekte ağrı ve şekil bozukluğu — 68 yaşında kadın",
+   "topic": "Ortopedi",
+   "intro": "68 yaşında kadın. Buzlu kaldırımda düşerken sol elini yere koymuş. Bilekte ağrı ve “çatal sırtı” şekil bozukluğu var.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n8",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Distal radiusta dorsale açılanma ve şişlik. Parmaklar sıcak, kapiller dolum normal.",
+     "vitals": "KB 148/86 · Nb 90",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Median sinir muayenesi",
+       "pts": 2,
+       "min": 2,
+       "res": "İlk üç parmak volar yüzde hafif uyuşma; tenar güç normal.",
+       "fb": "Distal radius kırığında akut karpal tünel sendromu gelişebilir — redüksiyon öncesi ve sonrası belgele."
+      },
+      {
+       "kind": "test",
+       "label": "El bileği grafisi (AP + lateral)",
+       "pts": 2,
+       "min": 15,
+       "res": "Ekstraartiküler distal radius kırığı, **dorsal açılanma 25°**, radial kısalma 4 mm; ulna stiloid kırığı.",
+       "fb": "Kabul edilebilirlik ölçütleri: volar tilt ≈ nötr (dorsal açılanma <10°), radial boy kaybı <3–5 mm, radial inklinasyon korunmuş, eklem içi basamak <2 mm."
+      },
+      {
+       "kind": "act",
+       "label": "Analjezi + hematom bloğu (ya da Bier bloğu); kapalı redüksiyon (traksiyon, volar fleksiyon/ulnar deviasyon); sugar-tong/dorsal atel; redüksiyon sonrası grafi ve nörovasküler muayene",
+       "pts": 4,
+       "min": 30,
+       "to": "n2",
+       "fb": "Doğru. Kabul edilemez açılanmada redüksiyon gerekir."
+      },
+      {
+       "kind": "act",
+       "label": "Redüksiyon yapmadan alçıya al, 6 hafta sonra kontrol",
+       "pts": -3,
+       "min": 15,
+       "to": "n8",
+       "fb": "Dorsal açılanma 25° kabul edilemez; malunion ve fonksiyon kaybı."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Redüksiyon sonrası",
+     "text": "Kontrol grafisi: dorsal açılanma 5°, radial boy korunmuş. Hasta ateli tolere ediyor.",
+     "vitals": "",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Kolu kalp seviyesinde/hafif yüksek tut, parmak egzersizleri; 1 hafta içinde kırık kliniği/ortopedi (yer değiştirme kontrolü); uyarılar (artan ağrı, uyuşma, parmak rengi); kemik sağlığı (osteoporoz) değerlendirmesine yönlendir",
+       "pts": 3,
+       "min": 15,
+       "to": "n3",
+       "fb": "Doğru. Düşük enerjili kırık yaşlı kadında frajilite kırığıdır."
+      },
+      {
+       "kind": "act",
+       "label": "Sıkı dairesel alçı, kontrol gerekmez",
+       "pts": -3,
+       "min": 10,
+       "to": "n9",
+       "fb": "Akut dönemde dairesel alçı kompartman/sinir basısı riski taşır; ilk haftalarda yer değiştirme sık."
+      }
+     ]
+    },
+    "n3": {
+     "title": "İyi sonuç",
+     "text": "1. hafta grafisinde redüksiyon korunmuştu; 6 haftada alçı çıkarıldı. DXA'da osteoporoz saptandı, tedavi başlandı.\n\n**Akılda kalsın**\n- Colles: dorsale açılanmış distal radius kırığı (“çatal sırtı”).\n- **Median sinir** muayenesi; akut karpal tünel cerrahi acil olabilir.\n- Kabul edilemez dizilimde **hematom/Bier bloğu ile kapalı redüksiyon**, atel.\n- Akut dönemde **dairesel alçı yok**; 1 hafta içinde kontrol.\n- Yaşlıda **frajilite kırığı** → osteoporoz değerlendirmesi.\n\n*Kaynak: AAOS 2020 distal radius kırığı kılavuzu; BOAST 2017.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n8": {
+     "title": "Malunion",
+     "text": "6 haftada kırık açılanmış olarak kaynadı; kavrama gücü ve rotasyon kısıtlı, korektif osteotomi planlandı.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n9": {
+     "title": "Alçı altında bası",
+     "text": "İki gün sonra şiddetli ağrı ve parmaklarda uyuşmayla döndü; alçı açıldı, akut karpal tünel sendromu için cerrahi gevşetme gerekti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c36",
+   "title": "Kırmızı göz ve baş ağrısı — 62 yaşında kadın",
+   "topic": "Göz",
+   "intro": "62 yaşında kadın, hipermetrop. Akşam karanlık sinema salonunda sağ gözünde şiddetli ağrı, baş ağrısı, bulantı-kusma başlamış; ışıkların çevresinde halkalar görüyor, görmesi bulanık.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sağ göz kırmızı (silier enjeksiyon), kornea buğulu, **pupil orta dilate ve ışığa yanıtsız**. Palpasyonda göz taş gibi sert. Sağ görme keskinliği el hareketi düzeyinde.",
+     "vitals": "KB 168/94 · Nb 92",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Göz içi basıncı (tonometri)",
+       "pts": 3,
+       "min": 5,
+       "res": "Sağ **58 mmHg**, sol 16 mmHg.",
+       "fb": "Normal 10–21 mmHg."
+      },
+      {
+       "kind": "test",
+       "label": "Beyin BT (migren/kanama için)",
+       "pts": -2,
+       "min": 40,
+       "res": "Normal. 40 dakika kaybedildi.",
+       "fb": "Kırmızı göz + dilate sabit pupil + sert göz → glokom; BT tedaviyi geciktirmemeli."
+      },
+      {
+       "kind": "act",
+       "label": "GİB düşürücü tedavi: topikal timolol %0,5 + apraklonidin/brimonidin + (birkaç dakika arayla) pilokarpin %1–2; asetazolamid 500 mg IV/PO; analjezi + antiemetik; dirençli ise mannitol IV; acil göz konsültasyonu (lazer iridotomi)",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Amaç GİB'i hızla düşürüp optik siniri korumak; kesin tedavi lazer periferik iridotomi."
+      },
+      {
+       "kind": "act",
+       "label": "Migren — triptan ve antiemetik, karanlık odada dinlendir",
+       "pts": -5,
+       "min": 30,
+       "to": "n9",
+       "fb": "Karanlık ortam pupili dilate ederek açı kapanmasını artırır; görme kaybı riski."
+      },
+      {
+       "kind": "act",
+       "label": "Pupili büyütüp fundusa bak (tropikamid)",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Midriyatikler açı kapanmasını kötüleştirir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Görme korundu",
+     "text": "1 saatte GİB 30 mmHg'ye, 3 saatte 18 mmHg'ye indi. Ertesi gün iki göze lazer periferik iridotomi yapıldı (diğer göz de risk altında).\n\n**Akılda kalsın**\n- Kırmızı göz + şiddetli ağrı/baş ağrısı + bulantı-kusma + halolar + **orta dilate sabit pupil** + sert göz = **akut açı kapanması**.\n- Karanlık ortam, antikolinerjik/sempatomimetik ilaçlar, midriyatikler tetikler.\n- Tedavi: **timolol + alfa agonist + pilokarpin + asetazolamid** (± mannitol); acil göz.\n- Kesin tedavi **lazer iridotomi** (karşı göze de profilaktik).\n- Migren veya gastroenteritle karıştırılabilir.\n\n*Kaynak: AAO Preferred Practice Pattern 2020 (birincil açı kapanması).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kalıcı görme kaybı",
+     "text": "Basınç saatlerce yüksek kaldı; optik sinir hasarı ile sağ gözde kalıcı görme kaybı gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c37",
+   "title": "Şiş, sıcak diz — 70 yaşında erkek",
+   "topic": "Ortopedi / Enfeksiyon",
+   "intro": "70 yaşında erkek, diyabet ve gut öyküsü. 2 gündür sağ dizde artan ağrı, şişlik; yürüyemiyor. Dün titremesi olmuş. 2 hafta önce dize başka bir merkezde steroid enjeksiyonu yapılmış.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sağ diz sıcak, kızarık, belirgin efüzyon; pasif hareket çok ağrılı.",
+     "vitals": "KB 128/76 · Nb 108 · Ateş 38,6",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Eklem aspirasyonu (antibiyotikten önce): hücre sayımı, Gram boyama, kültür, kristal",
+       "pts": 4,
+       "min": 20,
+       "res": "Bulanık sıvı; **lökosit 82.000/mm³ (%92 PNL)**; Gram pozitif koklar; **ürat kristalleri de var**.",
+       "fb": "Sinovyal lökosit >50.000 septik artriti düşündürür; **kristal varlığı enfeksiyonu dışlamaz**."
+      },
+      {
+       "kind": "test",
+       "label": "Kan kültürü, CRP, lökosit",
+       "pts": 1,
+       "min": 30,
+       "res": "CRP 210, lökosit 15.400.",
+       "fb": "Kan kültürü %30–50 pozitif."
+      },
+      {
+       "kind": "test",
+       "label": "Diz grafisi",
+       "pts": 0,
+       "min": 20,
+       "res": "Efüzyon; kemik tutulumu yok.",
+       "fb": "Başlangıçta normal olabilir; bazal olarak yararlı."
+      },
+      {
+       "kind": "act",
+       "label": "Aspirasyondan sonra IV ampirik antibiyotik (ör. vankomisin + seftriakson; risk faktörlerine göre); ortopedi — acil eklem drenajı/lavaj; analjezi",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Septik artrit eklem kıkırdağını günler içinde yıkar; drenaj ve antibiyotik birlikte."
+      },
+      {
+       "kind": "act",
+       "label": "Kristal görüldü — gut atağı: NSAİİ + kolşisin, taburcu",
+       "pts": -5,
+       "min": 15,
+       "to": "n9",
+       "fb": "Gut ve septik artrit birlikte olabilir; yüksek hücre sayısı + Gram boyamada bakteri septik artrittir."
+      },
+      {
+       "kind": "act",
+       "label": "İntraartiküler steroid enjeksiyonu yap",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Enfekte ekleme steroid enfeksiyonu ağırlaştırır."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Drenaj ve antibiyotik",
+     "text": "Artroskopik lavaj yapıldı; kültürde MSSA üredi, sefazoline geçildi. 6 haftalık antibiyotikle iyileşti.\n\n**Akılda kalsın**\n- Akut monoartrit = **aksi kanıtlanana kadar septik artrit**.\n- **Antibiyotikten önce eklem aspirasyonu** (Gram, kültür, hücre, kristal).\n- Sinovyal lökosit >50.000 (özellikle >100.000) güçlü destek; **kristal enfeksiyonu dışlamaz**.\n- IV ampirik antibiyotik + **acil drenaj**.\n- Risk: ileri yaş, diyabet, RA, protez, yakın zamanda eklem girişimi, IV ilaç kullanımı.\n\n*Kaynak: BSR/BOA septik artrit kılavuzu; EULAR.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Eklem yıkımı / sepsis",
+     "text": "Hasta 3 gün sonra sepsis ve eklem kıkırdağı yıkımıyla döndü; kalıcı fonksiyon kaybı.\n\nSeptik artritte zaman kıkırdaktır.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c38",
+   "title": "Kafa travması — 19 yaşında erkek",
+   "topic": "Beyin cerrahisi / Travma",
+   "intro": "19 yaşında erkek. Kasksız bisiklet kazasında sol şakağını çarpmış, kısa süre bilinç kaybı olmuş. Arkadaşları acile getirdi; yolda uyanık ve konuşuyormuş.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Acil girişi",
+     "text": "Uyanık, oryante, baş ağrısı ve bulantısı var. Sol temporalde şişlik. Nörolojik muayene normal.",
+     "vitals": "GKS 15 · KB 132/78 · Nb 76 · SpO₂ %98",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kraniyal BT (Kanada BT kuralı)",
+       "pts": 3,
+       "min": 20,
+       "res": "**Sol temporalde 2,1 cm kalınlıkta bikonveks (lens şeklinde) hiperdens epidural hematom**, temporal kemikte lineer kırık; 4 mm orta hat kayması.",
+       "fb": "Kanada BT kuralı: bilinç kaybı + kafatası kırığı şüphesi, kusma, ≥65 yaş, tehlikeli mekanizma vb. → BT."
+      },
+      {
+       "kind": "act",
+       "label": "GKS 15, nörolojisi normal — 4 saat gözlem, sonra taburcu",
+       "pts": -5,
+       "min": 120,
+       "to": "n3",
+       "fb": "“Lusid interval”: epidural hematomlu hastalar başlangıçta iyi görünebilir. Bilinç kaybı ve temporal travma BT endikasyonudur."
+      },
+      {
+       "kind": "act",
+       "label": "BT çek; hematom görülürse acil beyin cerrahisi",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru."
+      }
+     ]
+    },
+    "n3": {
+     "title": "2 saat sonra — gözlem alanı",
+     "text": "Hasta uykuya meyilli, kusuyor. Sol pupil dilate, sağ kolda güçsüzlük.",
+     "vitals": "GKS 9 · KB 168/88 · Nb 54",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Acil BT + beyin cerrahisi; hava yolu (entübasyon), başı 30° kaldır, hiperozmolar tedavi (mannitol 1 g/kg veya %3 NaCl) köprü olarak; hipotansiyon/hipoksiden kaçın",
+       "pts": 2,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru — herniasyon bulguları. Cushing yanıtı (hipertansiyon + bradikardi) kafa içi basınç artışını gösterir."
+      },
+      {
+       "kind": "act",
+       "label": "Analjezik ve antiemetik, sabaha kadar gözlem",
+       "pts": -5,
+       "min": 60,
+       "to": "n9",
+       "fb": "Herniasyon bulguları; dakikalar içinde ölümcül olabilir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Acil kraniyotomi",
+     "text": "Hematom boşaltıldı; orta meningeal arter kanaması kontrol edildi. Hasta 1 hafta sonra nörolojik sekelsiz taburcu oldu.\n\n**Akılda kalsın**\n- Epidural hematom: temporal travma, **orta meningeal arter**, BT'de **bikonveks**, kemik kırığı.\n- **Lusid interval**: uyanık hastada ani kötüleşme.\n- Kafa travmasında **Kanada BT kuralı** / NICE ölçütleri ile BT kararı.\n- Herniasyon: anizokori, kontralateral hemiparezi, Cushing yanıtı → **acil cerrahi**; hiperozmolar tedavi ve kısa süreli hiperventilasyon yalnız köprü.\n- Hipoksi (SpO₂ <%90) ve hipotansiyon (sistolik <110 erişkin) sekonder hasarı artırır.\n\n*Kaynak: Brain Trauma Foundation 2016; NICE NG232 (2023).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Herniasyon",
+     "text": "Hasta transtentoryal herniasyonla kaybedildi.\n\nKafa travmasında bilinç kaybı ve temporal darbe varsa BT ile değerlendirilmeli.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c39",
+   "title": "Tekrarlayan bayılma — 58 yaşında kadın",
+   "topic": "Kardiyoloji",
+   "intro": "58 yaşında kadın. Pnömoni için levofloksasin, bulantı için ondansetron kullanıyor; kalp yetmezliği nedeniyle furosemid alıyor. Bugün iki kez kısa süreli bayılmış.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Monitörlü alan",
+     "text": "Uyanık. Monitörde birkaç saniyelik, QRS'leri eksen etrafında dönen polimorfik VT atakları kendiliğinden sonlanıyor.",
+     "vitals": "KB 112/70 · Nb 58 · SpO₂ %96",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "12 derivasyonlu EKG (atak arası)",
+       "pts": 3,
+       "min": 5,
+       "res": "Sinüs bradikardisi, **QTc 590 ms**, belirgin U dalgaları.",
+       "fb": "Uzun QT + polimorfik VT = **torsades de pointes**."
+      },
+      {
+       "kind": "test",
+       "label": "K, Mg, Ca",
+       "pts": 2,
+       "min": 20,
+       "res": "**K 2,9**, **Mg 1,4**, Ca normal.",
+       "fb": "Hipokalemi ve hipomagnezemi QT'yi uzatır."
+      },
+      {
+       "kind": "act",
+       "label": "**Magnezyum sülfat 2 g IV** (1–2 dakikada; stabilse 10–15 dakikada); K'yı 4,5–5 mmol/L'ye yükselt; QT uzatan ilaçları (levofloksasin, ondansetron) kes; defibrilatör pedleri takılı",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Magnezyum, Mg düzeyi normal olsa bile ilk tedavidir."
+      },
+      {
+       "kind": "act",
+       "label": "Amiodaron 300 mg IV",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Amiodaron QT'yi uzatır; torsades'ı kötüleştirir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Magnezyumdan sonra",
+     "text": "Ataklar seyreldi ama 2 kez daha tekrarladı; bradikardik dönemlerden sonra başlıyor.",
+     "vitals": "Nb 52",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Kalp hızını artır: geçici transvenöz overdrive pace (hız 90–110) ya da izoprenalin infüzyonu (köprü); gerekirse magnezyum tekrarı",
+       "pts": 3,
+       "min": 20,
+       "to": "n3",
+       "fb": "Doğru. Bradikardi ve duraklamalar torsades'ı tetikler; hızı artırmak QT'yi kısaltır."
+      },
+      {
+       "kind": "act",
+       "label": "Beta bloker ver",
+       "pts": -3,
+       "min": 10,
+       "to": "n9",
+       "fb": "Edinsel uzun QT'de bradikardi torsades'ı tetikler; beta bloker (konjenital uzun QT dışında) kötüleştirir."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Kontrol altında",
+     "text": "Overdrive pace ve elektrolit düzeltilmesiyle atak kalmadı; 48 saatte QTc 470 ms'ye indi. İlaç listesi düzenlendi.\n\n**Akılda kalsın**\n- Torsades = **uzun QT + polimorfik VT**; çoğu kendiliğinden durur ama VF'ye dönebilir.\n- **Nabızsız/instabil → asenkron defibrilasyon**.\n- **Magnezyum sülfat 2 g IV**; K'yı 4,5–5'e çıkar.\n- QT uzatan ilaçları kes (makrolid, florokinolon, ondansetron, haloperidol, metadon, sınıf IA/III).\n- Hızı artır: **overdrive pace** veya izoprenalin. **Amiodaron yok.**\n\n*Kaynak: ESC 2022 Ventriküler aritmiler ve ani kardiyak ölüm kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ventriküler fibrilasyon",
+     "text": "Torsades VF'ye dönüştü; defibrilasyon ve uzun resüsitasyon gerekti.\n\nTorsades'da QT'yi uzatan ilaçlardan kaçınılır.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c40",
+   "title": "Alçı altında artan ağrı — 24 yaşında erkek",
+   "topic": "Ortopedi",
+   "intro": "24 yaşında erkek. Dün motosiklet kazasında sağ tibia cisim kırığı; uzun bacak ateliyle gözleme alındı. Gece boyunca artan, morfine rağmen geçmeyen bacak ağrısı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Gece 03:00",
+     "text": "Ağrı muayeneyle orantısız şiddetli. Ayak parmaklarının **pasif ekstansiyonu çok ağrılı**. Bacak gergin. 1. ve 2. parmak arasında hafif uyuşma. Dorsalis pedis nabzı alınıyor.",
+     "vitals": "KB 138/80 · Nb 112",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kompartman basıncı ölçümü",
+       "pts": 3,
+       "min": 15,
+       "res": "Anterior kompartman **54 mmHg**; diyastolik KB 80 → **ΔP 26 mmHg**.",
+       "fb": "ΔP (diyastolik KB − kompartman basıncı) <30 mmHg fasyotomi endikasyonu; tanı esas olarak kliniktir."
+      },
+      {
+       "kind": "act",
+       "label": "Ateli/bandajı tüm katmanlarıyla gevşet, bacağı kalp seviyesinde tut (yükseltme), hipotansiyonu önle; acil ortopedi — fasyotomi",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Nabzın varlığı kompartman sendromunu dışlamaz."
+      },
+      {
+       "kind": "act",
+       "label": "Analjezik dozunu artır, bacağı yükselt, sabah vizitini bekle",
+       "pts": -5,
+       "min": 240,
+       "to": "n9",
+       "fb": "Yükseltme perfüzyon basıncını düşürür; analjezik ihtiyacının artması önemli bir uyarıdır. Gecikme kalıcı kas nekrozuna yol açar."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Acil fasyotomi",
+     "text": "Hasta 1 saat içinde ameliyata alındı; dört kompartman fasyotomisi ve kırığa eksternal fiksatör uygulandı. Kaslar canlıydı.\n\n**Akılda kalsın**\n- En erken ve en güvenilir bulgu: **orantısız ağrı** ve **pasif germe ile ağrı**.\n- Parestezi, solukluk, nabızsızlık, paralizi **geç** bulgulardır; **nabız varlığı dışlamaz**.\n- Tüm sargıyı/alçıyı gevşet, ekstremite **kalp seviyesinde** (yükseltme yok).\n- ΔP (diyastolik − kompartman) **<30 mmHg** → fasyotomi.\n- Risk: tibia kırığı, ezilme, reperfüzyon, sıkı alçı, antikoagülan.\n\n*Kaynak: BOAST 2016 akut kompartman sendromu; AAOS.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kas nekrozu",
+     "text": "Sabah fasyotomi yapıldığında anterior kompartman kasları nekrotikti; düşük ayak kaldı, rabdomiyoliz ve böbrek hasarı gelişti.\n\nKompartman sendromunda saatler önemlidir.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  }
+ ],
+ "questions": [
+  {
+   "key": "c31q1",
+   "stem": "Uzun süredir AF'si olan hastada ritmin düzenli ve yavaşlaması neyi düşündürür?",
+   "options": [
+    "Spontan sinüs ritmine dönüş",
+    "Digoksin toksisitesi (AV blok + kavşak ritmi)",
+    "Hipertiroidi",
+    "Hipokalsemi",
+    "Normal bulgu"
+   ],
+   "correct": 1,
+   "explanation": "AF'de düzenli yavaş ritim tam AV blok + kavşak/ventriküler kaçışı gösterir; digoksin toksisitesinde tipiktir.",
+   "topic": "Toksikoloji"
+  },
+  {
+   "key": "c31q2",
+   "stem": "Kronik digoksin zehirlenmesinde Fab flakon sayısı formülü hangisidir?",
+   "options": [
+    "Düzey × kg / 100",
+    "Düzey × 10",
+    "kg / 10",
+    "Alınan mg × 2",
+    "Düzey / kg"
+   ],
+   "correct": 0,
+   "explanation": "Kronik: flakon ≈ serum düzeyi (ng/mL) × kg / 100.",
+   "topic": "Toksikoloji"
+  },
+  {
+   "key": "c31q3",
+   "stem": "Digoksinle ilaç etkileşimi yaparak düzeyini artıran ilaç hangisidir?",
+   "options": [
+    "Parasetamol",
+    "Klaritromisin",
+    "Furosemid tek başına azaltır",
+    "Metformin",
+    "Omeprazol (anlamlı değil)"
+   ],
+   "correct": 1,
+   "explanation": "Makrolidler, amiodaron, verapamil, kinidin digoksin düzeyini artırır.",
+   "topic": "Toksikoloji"
+  },
+  {
+   "key": "c32q1",
+   "stem": "TCA zehirlenmesinde QRS genişliğinde ilk tedavi hangisidir?",
+   "options": [
+    "Amiodaron",
+    "Sodyum bikarbonat 1–2 mEq/kg IV",
+    "Lidokain tek başına",
+    "Kalsiyum glukonat",
+    "Fizostigmin"
+   ],
+   "correct": 1,
+   "explanation": "Hipertonik sodyum ve alkalinizasyon sodyum kanal blokajını aşar.",
+   "topic": "Toksikoloji"
+  },
+  {
+   "key": "c32q2",
+   "stem": "TCA zehirlenmesinde kontrendike olan ilaç hangisidir?",
+   "options": [
+    "Diazepam",
+    "Norepinefrin",
+    "Flumazenil",
+    "Sodyum bikarbonat",
+    "Aktif kömür (uygun hastada)"
+   ],
+   "correct": 2,
+   "explanation": "Flumazenil nöbet eşiğini düşürür.",
+   "topic": "Toksikoloji"
+  },
+  {
+   "key": "c32q3",
+   "stem": "TCA zehirlenmesinde EKG'de toksisiteyi gösteren bulgu hangisidir?",
+   "options": [
+    "aVR'de R dalgası >3 mm",
+    "Sivri T",
+    "Delta dalgası",
+    "U dalgası",
+    "Osborn dalgası"
+   ],
+   "correct": 0,
+   "explanation": "aVR'de terminal R >3 mm ve QRS >100 ms.",
+   "topic": "Toksikoloji"
+  },
+  {
+   "key": "c33q1",
+   "stem": "Orta dehidratasyonlu çocukta ilk seçenek tedavi hangisidir?",
+   "options": [
+    "IV %0,45 NaCl",
+    "ORS 50–100 mL/kg, 4 saatte",
+    "Meyve suyu",
+    "Loperamid",
+    "Açlık"
+   ],
+   "correct": 1,
+   "explanation": "Oral rehidratasyon IV kadar etkili ve daha güvenlidir.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "c33q2",
+   "stem": "Gastroenteritte kusan çocukta ORS toleransını artıran ilaç hangisidir?",
+   "options": [
+    "Metoklopramid",
+    "Ondansetron 0,15 mg/kg",
+    "Prometazin",
+    "Loperamid",
+    "Domperidon"
+   ],
+   "correct": 1,
+   "explanation": "Tek doz ondansetron kusmayı ve IV ihtiyacını azaltır.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "c33q3",
+   "stem": "Şok bulguları olan dehidrate çocukta ilk IV sıvı bolusu hangisidir?",
+   "options": [
+    "5 mL/kg %5 dekstroz",
+    "20 mL/kg izotonik kristaloid",
+    "40 mL/kg %0,45 NaCl",
+    "10 mL/kg albümin",
+    "Sıvı verilmez"
+   ],
+   "correct": 1,
+   "explanation": "Ağır dehidratasyonda 20 mL/kg izotonik bolus, ardından yeniden değerlendirme.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "c34q1",
+   "stem": "Anterior omuz çıkığında redüksiyon öncesi mutlaka değerlendirilmesi gereken sinir hangisidir?",
+   "options": [
+    "Radial sinir",
+    "Aksiller sinir",
+    "Ulnar sinir",
+    "Median sinir",
+    "Torasik uzun sinir"
+   ],
+   "correct": 1,
+   "explanation": "Deltoid üstü (apolet bölgesi) duyu kaybı aksiller sinir hasarını gösterir.",
+   "topic": "Ortopedi"
+  },
+  {
+   "key": "c34q2",
+   "stem": "Hangisi kuvvet uygulamayan (atravmatik) bir redüksiyon tekniğidir?",
+   "options": [
+    "Hipokrat",
+    "Kocher kaldıracı",
+    "Cunningham tekniği",
+    "Sert traksiyon-kontratraksiyon",
+    "Hiçbiri"
+   ],
+   "correct": 2,
+   "explanation": "Cunningham, dış rotasyon, FARES ve skapular manipülasyon atravmatik tekniklerdir.",
+   "topic": "Ortopedi"
+  },
+  {
+   "key": "c34q3",
+   "stem": "Nöbet veya elektrik çarpması sonrası kolun iç rotasyonda kilitli olduğu omuz çıkığı hangisidir?",
+   "options": [
+    "Anterior",
+    "Posterior",
+    "İnferior (luxatio erecta)",
+    "Superior",
+    "Akromiyoklaviküler"
+   ],
+   "correct": 1,
+   "explanation": "Posterior çıkık sıklıkla atlanır; aksiller veya skapular Y grafisi gerekir.",
+   "topic": "Ortopedi"
+  },
+  {
+   "key": "c35q1",
+   "stem": "Distal radius kırığında redüksiyon öncesi ve sonrası özellikle değerlendirilmesi gereken sinir hangisidir?",
+   "options": [
+    "Ulnar",
+    "Median",
+    "Radial",
+    "Aksiller",
+    "Muskulokutanöz"
+   ],
+   "correct": 1,
+   "explanation": "Akut karpal tünel sendromu (median sinir) önemli bir komplikasyondur.",
+   "topic": "Ortopedi"
+  },
+  {
+   "key": "c35q2",
+   "stem": "Distal radius kırığında hangi bulgu kabul edilemez dizilimi gösterir?",
+   "options": [
+    "Volar tilt nötr",
+    "Dorsal açılanma 25°",
+    "Radial boy kaybı 1 mm",
+    "Eklem içi basamak 0 mm",
+    "Radial inklinasyon 22°"
+   ],
+   "correct": 1,
+   "explanation": "Dorsal açılanma >10° (bazı kaynaklarda >15–20°) genellikle kabul edilemez.",
+   "topic": "Ortopedi"
+  },
+  {
+   "key": "c35q3",
+   "stem": "68 yaşında düşük enerjili düşmeyle distal radius kırığı olan kadında ek olarak ne planlanmalıdır?",
+   "options": [
+    "Rutin el BT",
+    "Osteoporoz değerlendirmesi",
+    "Antikoagülan",
+    "Profilaktik antibiyotik",
+    "Psikiyatri konsültasyonu"
+   ],
+   "correct": 1,
+   "explanation": "Frajilite kırıkları osteoporoz değerlendirmesi ve tedavi gerektirir.",
+   "topic": "Ortopedi"
+  },
+  {
+   "key": "c36q1",
+   "stem": "Akut açı kapanması glokomunda pupil nasıldır?",
+   "options": [
+    "Miyotik, ışığa yanıtlı",
+    "Orta dilate, ışığa yanıtsız",
+    "Normal",
+    "Anizokori yok, iki taraf miyotik",
+    "Marcus Gunn"
+   ],
+   "correct": 1,
+   "explanation": "Orta dilate, sabit pupil tipiktir.",
+   "topic": "Göz"
+  },
+  {
+   "key": "c36q2",
+   "stem": "Akut açı kapanmasında kontrendike olan ilaç hangisidir?",
+   "options": [
+    "Timolol",
+    "Asetazolamid",
+    "Pilokarpin",
+    "Tropikamid (midriyatik)",
+    "Apraklonidin"
+   ],
+   "correct": 3,
+   "explanation": "Midriyatikler açıyı daha da kapatır.",
+   "topic": "Göz"
+  },
+  {
+   "key": "c36q3",
+   "stem": "Akut açı kapanması glokomunun kesin tedavisi hangisidir?",
+   "options": [
+    "Topikal steroid",
+    "Lazer periferik iridotomi",
+    "Oral antibiyotik",
+    "Kontakt lens",
+    "Yapay gözyaşı"
+   ],
+   "correct": 1,
+   "explanation": "Lazer iridotomi hümör akışı için yeni yol açar; karşı göze de profilaktik uygulanır.",
+   "topic": "Göz"
+  },
+  {
+   "key": "c37q1",
+   "stem": "Akut monoartritte antibiyotikten önce yapılması gereken işlem hangisidir?",
+   "options": [
+    "MR",
+    "Eklem aspirasyonu (Gram, kültür, hücre, kristal)",
+    "Kemik sintigrafisi",
+    "Ürik asit düzeyi",
+    "Romatoid faktör"
+   ],
+   "correct": 1,
+   "explanation": "Tanı ve hedefe yönelik tedavi için aspirasyon antibiyotikten önce yapılır (ama geciktirilmez).",
+   "topic": "Ortopedi / Enfeksiyon"
+  },
+  {
+   "key": "c37q2",
+   "stem": "Sinovyal sıvıda ürat kristali görülmesi ile ilgili doğru ifade hangisidir?",
+   "options": [
+    "Septik artriti dışlar",
+    "Septik artrit ile birlikte bulunabilir",
+    "Antibiyotik gereksizdir",
+    "Yalnız psödogutta görülür",
+    "Kültür gerekmez"
+   ],
+   "correct": 1,
+   "explanation": "Kristal artropatisi ve enfeksiyon birlikte olabilir.",
+   "topic": "Ortopedi / Enfeksiyon"
+  },
+  {
+   "key": "c37q3",
+   "stem": "Septik artritte antibiyotikle birlikte gereken temel tedavi hangisidir?",
+   "options": [
+    "İntraartiküler steroid",
+    "Eklem drenajı/lavajı",
+    "Uzun süre immobilizasyon tek başına",
+    "Soğuk uygulama",
+    "Kolşisin"
+   ],
+   "correct": 1,
+   "explanation": "Pürülan sıvının drenajı (iğne, artroskopi veya açık) kıkırdağı korur.",
+   "topic": "Ortopedi / Enfeksiyon"
+  },
+  {
+   "key": "c38q1",
+   "stem": "Epidural hematomun BT görünümü nasıldır?",
+   "options": [
+    "Hilal şeklinde",
+    "Bikonveks (lens şeklinde)",
+    "Sulkuslarda hiperdensite",
+    "Bazal sisternlerde kan",
+    "İntraparankimal"
+   ],
+   "correct": 1,
+   "explanation": "Epidural hematom sütür hatlarını aşmaz, bikonvekstir; subdural hilal şeklindedir.",
+   "topic": "Beyin cerrahisi / Travma"
+  },
+  {
+   "key": "c38q2",
+   "stem": "Epidural hematomda en sık kanama kaynağı hangisidir?",
+   "options": [
+    "Köprü venler",
+    "Orta meningeal arter",
+    "Baziler arter",
+    "Sinüs sagittalis superior",
+    "Koroid pleksus"
+   ],
+   "correct": 1,
+   "explanation": "Temporal kemik kırığı ile orta meningeal arter yaralanması klasiktir.",
+   "topic": "Beyin cerrahisi / Travma"
+  },
+  {
+   "key": "c38q3",
+   "stem": "Cushing yanıtı hangi bulgulardan oluşur?",
+   "options": [
+    "Hipotansiyon + taşikardi",
+    "Hipertansiyon + bradikardi + düzensiz solunum",
+    "Ateş + taşikardi",
+    "Hipotermi + hipotansiyon",
+    "Taşipne + hipotansiyon"
+   ],
+   "correct": 1,
+   "explanation": "Artmış kafa içi basıncının geç bulgusudur.",
+   "topic": "Beyin cerrahisi / Travma"
+  },
+  {
+   "key": "c39q1",
+   "stem": "Torsades de pointes'in ilk ilaç tedavisi hangisidir?",
+   "options": [
+    "Amiodaron",
+    "Magnezyum sülfat 2 g IV",
+    "Prokainamid",
+    "Sotalol",
+    "Adenozin"
+   ],
+   "correct": 1,
+   "explanation": "Mg, serum düzeyi normal olsa bile ilk tedavidir.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c39q2",
+   "stem": "Edinsel uzun QT'ye bağlı tekrarlayan torsades'da hangisi yararlıdır?",
+   "options": [
+    "Beta bloker",
+    "Kalp hızını artırmak (overdrive pace/izoprenalin)",
+    "Amiodaron",
+    "Haloperidol",
+    "Hipokalemiyi sürdürmek"
+   ],
+   "correct": 1,
+   "explanation": "Hız artışı QT'yi kısaltır, duraklama bağımlı torsades'ı önler.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c39q3",
+   "stem": "Hangisi QT uzatan ilaç değildir?",
+   "options": [
+    "Levofloksasin",
+    "Ondansetron",
+    "Haloperidol",
+    "Klaritromisin",
+    "Parasetamol"
+   ],
+   "correct": 4,
+   "explanation": "Parasetamol QT'yi uzatmaz.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c40q1",
+   "stem": "Akut kompartman sendromunun en erken bulgusu hangisidir?",
+   "options": [
+    "Nabızsızlık",
+    "Paralizi",
+    "Orantısız ağrı ve pasif germe ile ağrı",
+    "Solukluk",
+    "Hipotermi"
+   ],
+   "correct": 2,
+   "explanation": "Nabızsızlık ve paralizi geç bulgulardır.",
+   "topic": "Ortopedi"
+  },
+  {
+   "key": "c40q2",
+   "stem": "Fasyotomi için kullanılan basınç ölçütü hangisidir?",
+   "options": [
+    "Kompartman basıncı >10 mmHg",
+    "ΔP (diyastolik KB − kompartman basıncı) <30 mmHg",
+    "Sistolik KB <90",
+    "Ortalama arter basıncı >100",
+    "Kompartman basıncı <20"
+   ],
+   "correct": 1,
+   "explanation": "ΔP <30 mmHg yetersiz perfüzyon göstergesidir.",
+   "topic": "Ortopedi"
+  },
+  {
+   "key": "c40q3",
+   "stem": "Kompartman sendromu şüphesinde ekstremite pozisyonu nasıl olmalıdır?",
+   "options": [
+    "Kalp seviyesinin belirgin üstünde",
+    "Kalp seviyesinde",
+    "Sarkıtılmış",
+    "Buz ve kompresyon",
+    "Turnike"
+   ],
+   "correct": 1,
+   "explanation": "Yükseltme perfüzyon basıncını azaltır.",
+   "topic": "Ortopedi"
+  }
+ ],
+ "module": {
+  "title": "İlk Nöbet Vakaları — 4. Paket",
+  "topic": "Acil tıp",
+  "order": 4,
+  "req": [
+   2
+  ],
+  "desc": "Toksikoloji, ortopedi, göz ve nöroşirürji acillerinden 10 vaka.",
+  "intro": "- Her vakayı önce **kendi bildiğinizle** çözün, sonra yeniden oynayıp farklı kararların sonucunu görün.\n- Sonuç ekranındaki **“Akılda kalsın”** bölümü vakanın özüdür.\n- Sonunda **pekiştirme sorularını** çözün; yanlışlarınız tekrar listenize eklenir.\n- İlaç dozları kılavuzlardan alınmıştır; uygulamada kurumunuzun protokollerini esas alın."
+ }
+}

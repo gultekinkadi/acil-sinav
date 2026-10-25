@@ -1,3 +1,72 @@
 [
- {"file":"ilk-nobet-1.json","title":"İlk Nöbet Vakaları — 1. Paket","desc":"10 sanal hasta (STEMI, hipoglisemi, anafilaksi, inme, astım, AF, sepsis, PE, hiperkalemi, DKA) + 40 alıştırma sorusu + 1. yıl zorunlu modülü"}
+ {
+  "file": "ilk-nobet-1.json",
+  "title": "İlk Nöbet Vakaları — 1. Paket (vaka 1–10)",
+  "desc": "Sık ve hayatı tehdit eden 10 acil: göğüs ağrısı (STEMI), hipoglisemi, anafilaksi, inme, astım, AF, sepsis, pulmoner emboli, hiperkalemi, DKA. Her biri dallanan sanal hasta + 4 alıştırma sorusu.",
+  "sims": 10,
+  "questions": 40
+ },
+ {
+  "file": "ilk-nobet-2.json",
+  "title": "İlk Nöbet Vakaları — 2. Paket (vaka 11–20)",
+  "desc": "Senkop, status epileptikus, CO zehirlenmesi, apandisit, menenjit, üst GİS kanama, hipertansif acil, febril konvülziyon, aort diseksiyonu, parasetamol zehirlenmesi.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-3.json",
+  "title": "İlk Nöbet Vakaları — 3. Paket (vaka 21–30)",
+  "desc": "Akut akciğer ödemi, testis torsiyonu, ektopik gebelik, çocukta yabancı cisim aspirasyonu, akut pankreatit, hiponatremi, SVT, nekrotizan fasiit, epiglotit, akut üriner retansiyon.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-4.json",
+  "title": "İlk Nöbet Vakaları — 4. Paket (vaka 31–40)",
+  "desc": "Digoksin ve TCA zehirlenmesi, çocukta dehidratasyon, omuz çıkığı, distal radius kırığı, akut glokom, septik artrit, epidural hematom, torsades de pointes, kompartman sendromu.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-5.json",
+  "title": "İlk Nöbet Vakaları — 5. Paket (vaka 41–50)",
+  "desc": "Akut ekstremite iskemisi, Boerhaave, serotonin sendromu, invajinasyon, gazlı gangren, transfüzyon reaksiyonu, temporal arterit, malign hipertermi, amniyotik sıvı embolisi, kardiyak tamponad.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-6.json",
+  "title": "İlk Nöbet Vakaları — 6. Paket (vaka 51–60)",
+  "desc": "Wernicke, hiperkalsemi, tansiyon pnömotoraks, SIADH, meningokoksemi, adrenal kriz, masif PE'ye bağlı arrest, mezenter iskemi, yangında CO + siyanür, abdominal kompartman sendromu.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-7.json",
+  "title": "İlk Nöbet Vakaları — 7. Paket (vaka 61–70)",
+  "desc": "Botulizm, refeeding sendromu, myastenik kriz, gebede arrest (amniyotik sıvı embolisi), toksik şok sendromu, PRES, eklampsi, methemoglobinemi, sıcak çarpması, yağ embolisi.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-8.json",
+  "title": "İlk Nöbet Vakaları — 8. Paket (vaka 71–80)",
+  "desc": "Crush sendromu, dekompresyon hastalığı, tetanoz, hava embolisi, MDMA'ya bağlı hiponatremi (SIADH), kauda equina, ozmotik demiyelinizasyon, steroid kesilmesine bağlı adrenal kriz, Brugada, geç tanı Boerhaave.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-9.json",
+  "title": "İlk Nöbet Vakaları — 9. Paket (vaka 81–90)",
+  "desc": "Üst ekstremite akut iskemisi, alkali göz yanığı, sigmoid volvulus, infektif endokardit, retrobulber hemoraji, miksödem koması, pnömatozis intestinalis, korneal ülser, karotis diseksiyonu, dijital iskemi.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-10.json",
+  "title": "İlk Nöbet Vakaları — 10. Paket (vaka 91–100)",
+  "desc": "Serebral venöz sinüs trombozu, spontan pnömotoraks, pnömoni, peritonsiller apse, sinüzit (orbital komplikasyon), otitis media (mastoidit), nekrotizan otitis eksterna, sistit, gebelikte piyelonefrit, arka dolaşım inmesi.",
+  "sims": 10,
+  "questions": 30
+ }
 ]

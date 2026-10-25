@@ -3307,7 +3307,12 @@ async function packageDlg(){
       catch(e){ fail(e,"Aktarılamadı"); b.disabled=false; b.textContent="İçe aktar"; } }; };
   E.querySelector("#pkF").onchange=async e=>{ const f=e.target.files[0]; if(!f) return; try{ run(JSON.parse(await f.text())); }catch(err){ toast("Dosya okunamadı: geçerli bir paket (.json) değil",true); } };
   try{ const r=await fetch("paketler/index.json",{cache:"no-store"}); if(!r.ok) throw 0; const L2=await r.json();
-    E.querySelector("#pkL").innerHTML=L2.length?L2.map((x,i)=>`<div class="tplrow"><div class="grow"><b>${esc(x.title)}</b><div class="small muted">${esc(x.desc||"")}</div></div><button class="btn sm" data-pk="${i}">Görüntüle</button></div>`).join(""):`<div class="small muted">Hazır paket yok.</div>`;
+    E.querySelector("#pkL").innerHTML=L2.length?`${L2.length>1?`<div class="row" style="justify-content:space-between;margin-bottom:8px"><span class="small muted">${L2.length} paket · ${L2.reduce((a,x)=>a+(x.sims||0),0)} vaka · ${L2.reduce((a,x)=>a+(x.questions||0),0)} soru</span><button class="btn sm primary" id="pkAll">Hepsini içe aktar</button></div><div id="pkAllP"></div>`:""}`+L2.map((x,i)=>`<div class="tplrow"><div class="grow"><b>${esc(x.title)}</b><div class="small muted">${esc(x.desc||"")}</div></div><button class="btn sm" data-pk="${i}">Görüntüle</button></div>`).join(""):`<div class="small muted">Hazır paket yok.</div>`;
+    E.querySelector("#pkAll")?.addEventListener("click",async()=>{ const b=E.querySelector("#pkAll"), pr=E.querySelector("#pkAllP"); b.disabled=true; let tot={sims:0,qs:0,mods:0,skip:0};
+      try{ for(let i=0;i<L2.length;i++){ pr.innerHTML=`<div class="small muted">${i+1} / ${L2.length}: ${esc(L2[i].title)}…</div><div class="pbar"><span style="width:${(i)/L2.length*100}%"></span></div>`;
+          const r2=await fetch("paketler/"+L2[i].file,{cache:"no-store"}); const r=await importPackage(await r2.json()); tot.sims+=r.sims; tot.qs+=r.qs; tot.mods+=r.mod?1:0; tot.skip+=r.skipS; }
+        m.close(); toast(`${tot.sims} vaka, ${tot.qs} soru, ${tot.mods} modül eklendi${tot.skip?` (${tot.skip} vaka zaten vardı)`:""}`); go("edu",{sec:"sims"}); }
+      catch(e){ fail(e,"Aktarım yarıda kaldı (aktarılanlar korunur, yeniden deneyebilirsiniz)"); b.disabled=false; } });
     E.querySelectorAll("[data-pk]").forEach(b=>b.onclick=async()=>{ try{ const r2=await fetch("paketler/"+L2[Number(b.dataset.pk)].file,{cache:"no-store"}); run(await r2.json()); }catch(e){ toast("Paket indirilemedi",true); } });
   }catch(e){ E.querySelector("#pkL").innerHTML=`<div class="small muted">Hazır paket listesi alınamadı.</div>`; }
 }

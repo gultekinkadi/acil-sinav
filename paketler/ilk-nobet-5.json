@@ -1,0 +1,1231 @@
+{
+ "id": "ilk-nobet-5",
+ "title": "İlk Nöbet Vakaları — 5. Paket",
+ "desc": "Akut ekstremite iskemisi, Boerhaave, serotonin sendromu, invajinasyon, gazlı gangren, transfüzyon reaksiyonu, temporal arterit, malign hipertermi, amniyotik sıvı embolisi, kardiyak tamponad.",
+ "source": "Gazi Acil Tıp — özgün senaryolar (güncel kılavuzlara dayanır; klinik kontrol sonrası yayınlayın)",
+ "pool": "İlk Nöbet Vakaları — 5. Paket",
+ "sims": [
+  {
+   "key": "c41",
+   "title": "Soğuk ve ağrılı bacak — 76 yaşında kadın",
+   "topic": "Kalp-damar cerrahisi",
+   "intro": "76 yaşında kadın, AF tanılı; antikoagülanı 2 ay önce kendisi bırakmış. 3 saat önce sol bacağında ani, şiddetli ağrı başlamış; bacağı soğuk ve uyuşuk.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sol bacak dizden aşağıda soluk ve soğuk. Femoral nabız var; popliteal ve ayak nabızları **yok**. Ayak parmaklarında duyu azalmış, ayak bileği dorsifleksiyonu hafif zayıf.",
+     "vitals": "KB 146/84 · Nb 112 (düzensiz) · SpO₂ %96",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "El Doppler (ayak bileği arterleri)",
+       "pts": 2,
+       "min": 5,
+       "res": "Arteriyel sinyal **yok**; venöz sinyal var.",
+       "fb": "Rutherford IIb: duyu kaybı ayak parmaklarının ötesinde + hafif-orta motor kayıp, arteriyel sinyal yok → **acil revaskülarizasyon**."
+      },
+      {
+       "kind": "test",
+       "label": "EKG",
+       "pts": 1,
+       "min": 5,
+       "res": "AF, hız 110.",
+       "fb": "Embolik kaynak."
+      },
+      {
+       "kind": "test",
+       "label": "BT anjiyografi",
+       "pts": 1,
+       "min": 30,
+       "res": "Sol popliteal arterde ani kesilme (emboli).",
+       "fb": "Revaskülarizasyonu geciktirmeyecekse planlamaya yardımcı."
+      },
+      {
+       "kind": "act",
+       "label": "Hemen anfraksiyone heparin IV (ör. 80 Ü/kg bolus, ardından infüzyon); analjezi; acil damar cerrahisi — embolektomi",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Akut ekstremite iskemisinde heparin trombüsün ilerlemesini önler; IIb'de saatler içinde revaskülarizasyon gerekir."
+      },
+      {
+       "kind": "act",
+       "label": "Periferik arter hastalığı — sıcak uygulama ve analjezik, poliklinik randevusu",
+       "pts": -5,
+       "min": 30,
+       "to": "n9",
+       "fb": "Sıcak uygulama doku hasarını artırır; ani başlangıç + nabızsızlık + nörolojik kayıp acildir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Embolektomi",
+     "text": "Fogarty kateterle embolektomi yapıldı, distal nabızlar döndü. Reperfüzyon sonrası kompartman sendromu açısından izlendi; antikoagülan yeniden başlandı.\n\n**Akılda kalsın**\n- 6P: **ağrı, solukluk, nabızsızlık, parestezi, paralizi, soğukluk (poikilotermi)**.\n- **Rutherford**: I (canlı), IIa (az tehdit), **IIb (acil tehdit — revaskülarizasyon saatler içinde)**, III (geri dönüşsüz).\n- **Hemen heparin** + acil damar cerrahisi.\n- Embolik kaynak (AF) ve **reperfüzyon sonrası kompartman sendromu** unutulmasın.\n\n*Kaynak: ESVS 2020 akut ekstremite iskemisi kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Amputasyon",
+     "text": "Hasta 24 saat sonra geri döndüğünde bacak geri dönüşsüz iskemideydi (Rutherford III); diz üstü amputasyon gerekti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c42",
+   "title": "Kusma sonrası göğüs ağrısı — 48 yaşında erkek",
+   "topic": "Göğüs cerrahisi",
+   "intro": "48 yaşında erkek. Gece alkol aldıktan sonra defalarca şiddetli kusmuş; son kusmanın ardından göğüs kafesinin arkasında yırtılır tarzda, sırta vuran ağrı başlamış. Nefes alırken ağrı artıyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Resüsitasyon alanı",
+     "text": "Terli, taşipneik. Boyunda ve supraklaviküler bölgede **cilt altı amfizem** (krepitasyon).",
+     "vitals": "KB 102/64 · Nb 122 · SS 26 · SpO₂ %93 · Ateş 37,9",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "EKG + troponin",
+       "pts": 1,
+       "min": 30,
+       "res": "Sinüs taşikardisi; iskemi yok.",
+       "fb": "AKS ayırıcı tanıda."
+      },
+      {
+       "kind": "test",
+       "label": "Akciğer grafisi",
+       "pts": 2,
+       "min": 15,
+       "res": "**Pnömomediastinum**, sol plevral efüzyon.",
+       "fb": "Mackler triadı: kusma + göğüs ağrısı + cilt altı amfizem."
+      },
+      {
+       "kind": "test",
+       "label": "Toraks BT (IV kontrast + suda çözünür oral kontrast)",
+       "pts": 3,
+       "min": 30,
+       "res": "Distal özofagus sol posterolateral duvarda perforasyon, kontrast kaçağı, mediastinal hava ve sıvı.",
+       "fb": "Tanıda tercih edilen yöntem. Baryum mediastinite yol açtığı için ilk tercih değildir."
+      },
+      {
+       "kind": "act",
+       "label": "Ağızdan hiçbir şey verme; sıvı resüsitasyonu; geniş spektrumlu IV antibiyotik (ör. piperasilin-tazobaktam) + antifungal; IV PPI; acil göğüs cerrahisi",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Özofagus rüptüründe ilk 24 saatte tedavi mortaliteyi belirgin azaltır."
+      },
+      {
+       "kind": "act",
+       "label": "AKS olabilir: ASA + heparin, kardiyolojiye danış",
+       "pts": -3,
+       "min": 30,
+       "to": "n9",
+       "fb": "Kusma sonrası ağrı + cilt altı amfizem AKS değil, özofagus rüptürüdür; antitrombotik yararsız ve zararlı olabilir."
+      },
+      {
+       "kind": "act",
+       "label": "Gastrit — PPİ ve antiemetik ile taburcu",
+       "pts": -5,
+       "min": 20,
+       "to": "n9",
+       "fb": "Mediastinit hızla sepsise ilerler."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Erken cerrahi onarım",
+     "text": "Hasta 6 saat içinde primer onarım + drenaj ile opere edildi; yoğun bakımdan sonra iyileşti.\n\n**Akılda kalsın**\n- **Boerhaave**: şiddetli kusma sonrası transmural özofagus rüptürü (en sık distal sol posterolateral).\n- **Mackler triadı**: kusma + retrosternal ağrı + cilt altı amfizem (hep birlikte nadir).\n- Grafi: pnömomediastinum, sol efüzyon. **BT (oral suda çözünür kontrastla)** tanı koydurur.\n- **Ağızdan hiçbir şey**, geniş spektrum antibiyotik + antifungal, PPI, **acil cerrahi**.\n- AKS, pankreatit, aort diseksiyonu ile karışır.\n\n*Kaynak: WSES 2019 özofagus perforasyonu kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Mediastinit — septik şok",
+     "text": "Tanı 24 saat gecikti; mediastinit ve septik şok gelişti, mortalite riski çok yükseldi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c43",
+   "title": "Ajitasyon ve titreme — 34 yaşında kadın",
+   "topic": "Toksikoloji",
+   "intro": "34 yaşında kadın, depresyon için sertralin kullanıyor. 2 gün önce diş ağrısı için tramadol başlanmış, bugün öksürük şurubu (dekstrometorfan) da almış. Son birkaç saatte huzursuzluk, terleme, titreme ve ishal başlamış.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Ajite, terli, pupiller midriyatik. Alt ekstremitelerde **belirgin hiperrefleksi ve indüklenebilir klonus**, oküler klonus. Rijidite yok.",
+     "vitals": "KB 158/92 · Nb 128 · SS 22 · Ateş 39,2",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Hunter ölçütleri",
+       "pts": 2,
+       "min": 2,
+       "res": "Serotonerjik ajan + **indüklenebilir klonus + ajitasyon + terleme** → ölçütler karşılanıyor.",
+       "fb": "Hunter: spontan klonus; ya da indüklenebilir/oküler klonus + ajitasyon veya terleme; ya da tremor + hiperrefleksi; ya da hipertoni + ateş >38 + klonus."
+      },
+      {
+       "kind": "test",
+       "label": "CK, elektrolit, böbrek fonksiyonu",
+       "pts": 1,
+       "min": 40,
+       "res": "CK 1200, kreatinin 1,0.",
+       "fb": "Rabdomiyoliz ve komplikasyon takibi."
+      },
+      {
+       "kind": "act",
+       "label": "Serotonerjik ilaçları kes; destek tedavisi (IV sıvı, dış soğutma); **benzodiazepin** (ör. diazepam/midazolam) ajitasyon için; yanıt yetersizse **siproheptadin** 12 mg PO, ardından 2 saatte bir 2 mg",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Tedavinin temeli ilacı kesmek ve benzodiazepinle sedasyondur."
+      },
+      {
+       "kind": "act",
+       "label": "Fiziksel kısıtlama ve haloperidol",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Kısıtlama izometrik kasılma ile hipertermi ve laktik asidozu artırır; haloperidol antikolinerjik/ısı düzenleyici etkilerle tabloyu ağırlaştırabilir."
+      },
+      {
+       "kind": "act",
+       "label": "Nöroleptik malign sendrom — bromokriptin + dantrolen",
+       "pts": -2,
+       "min": 20,
+       "to": "n9",
+       "fb": "NMS antipsikotikle, günler içinde, kurşun boru rijidite ve bradikinezi ile gelişir; burada hızlı başlangıç, klonus ve hiperrefleksi serotonin sendromunu gösterir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "2 saat sonra",
+     "text": "Ajitasyon azaldı. Ateş 40,8 °C'ye yükseldi, kas tonusu artıyor.",
+     "vitals": "Nb 140 · KB 172/98",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Ağır serotonin sendromu: derin sedasyon, **nondepolarizan** blokerle paralizi ve entübasyon, agresif soğutma; antipiretik (parasetamol) etkisizdir; yoğun bakım",
+       "pts": 4,
+       "min": 20,
+       "to": "n3",
+       "fb": "Doğru. >41 °C'ye ilerleyen hipertermi kas aktivitesinden kaynaklanır; paralizi gerekir. Süksinilkolin hiperkalemi riski nedeniyle kaçınılır."
+      },
+      {
+       "kind": "act",
+       "label": "Parasetamol ver ve bekle",
+       "pts": -3,
+       "min": 30,
+       "to": "n9",
+       "fb": "Hipotalamik set noktası değişmediği için antipiretik etkisizdir."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Yoğun bakımda düzelme",
+     "text": "Paralizi + soğutma ile ateş 38'in altına indi; 24 saatte klinik düzeldi. İlaç listesi düzenlendi.\n\n**Akılda kalsın**\n- Triad: **mental durum değişikliği + otonomik bulgular + nöromüsküler hiperaktivite** (klonus, hiperrefleksi — özellikle alt ekstremite).\n- **Hunter ölçütleri**; başlangıç **saatler** içinde (NMS günler).\n- Tetikleyiciler: SSRI/SNRI + **tramadol, dekstrometorfan, linezolid, MAOİ, triptan, fentanil**.\n- Tedavi: ilacı kes, **benzodiazepin**, siproheptadin; ağırda paralizi + entübasyon. Antipiretik ve fiziksel kısıtlama yok.\n\n*Kaynak: Boyer & Shannon, NEJM 2005; Goldfrank's.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ağır hipertermi",
+     "text": "Ateş 42 °C'ye çıktı; rabdomiyoliz, DİK ve böbrek yetmezliği gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c44",
+   "title": "Aralıklı ağlama krizleri — 10 aylık erkek",
+   "topic": "Pediatri",
+   "intro": "10 aylık erkek bebek. Dünden beri 15–20 dakikada bir şiddetli ağlayıp bacaklarını karnına çekiyor, aralarda sakin ve halsiz. 3 kez kusmuş; son bezde çilek reçeli kıvamında kanlı-mukuslu dışkı var.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Çocuk acil",
+     "text": "Ataklar arasında uykulu, soluk. Sağ üst kadranda sosis şeklinde kitle ele geliyor.",
+     "vitals": "Nb 156 · SS 34 · Ateş 37,4 · Kapiller dolum 3 sn",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Abdominal USG",
+       "pts": 3,
+       "min": 15,
+       "res": "**Hedef (target/donut) işareti**: ileokolik invajinasyon. Serbest sıvı/perforasyon yok.",
+       "fb": "İnvajinasyon tanısında USG ilk tercihtir (duyarlılık ve özgüllük >%95)."
+      },
+      {
+       "kind": "test",
+       "label": "Direkt grafi",
+       "pts": 0,
+       "min": 15,
+       "res": "Sağ alt kadranda gaz azlığı.",
+       "fb": "Tanıda zayıf; perforasyon şüphesinde serbest hava için."
+      },
+      {
+       "kind": "act",
+       "label": "IV damar yolu, 20 mL/kg izotonik bolus; pediatrik cerrahi ve radyoloji — peritonit/perforasyon yoksa USG veya floroskopi eşliğinde hidrostatik/pnömatik redüksiyon",
+       "pts": 4,
+       "min": 30,
+       "to": "n2",
+       "fb": "Doğru. Stabil hastada lavmanla redüksiyon ilk seçenektir; başarısızlık veya perforasyonda cerrahi."
+      },
+      {
+       "kind": "act",
+       "label": "Gastroenterit ve kolik — ORS ve taburcu",
+       "pts": -5,
+       "min": 20,
+       "to": "n9",
+       "fb": "Aralıklı kolik ağlama + kusma + kanlı mukuslu dışkı + kitle invajinasyondur; gecikme bağırsak nekrozu yapar."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Başarılı redüksiyon",
+     "text": "Pnömatik redüksiyonla ileokolik invajinasyon açıldı; 24 saat izlendi, tekrarlamadı.\n\n**Akılda kalsın**\n- 3 ay–3 yaş; **aralıklı kolik ağrı** (bacakları karna çekme), kusma, letarji; **çilek reçeli dışkı geç bulgu**.\n- **USG: hedef işareti**.\n- Sıvı resüsitasyonu; stabilse **hidrostatik/pnömatik redüksiyon**.\n- Peritonit, perforasyon, şok → **cerrahi**.\n- Redüksiyon sonrası ilk 24–72 saatte **nüks** olabilir.\n\n*Kaynak: ESPR/ESPGHAN önerileri; Tintinalli Pediatrik acil.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Bağırsak nekrozu",
+     "text": "Bebek 24 saat sonra şok ve peritonitle getirildi; laparotomide nekrotik ileum rezeke edildi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c45",
+   "title": "Yarada gaz ve kötü koku — 37 yaşında erkek",
+   "topic": "Enfeksiyon / Cerrahi",
+   "intro": "37 yaşında erkek, tarım işçisi. 30 saat önce traktör kazasında sol bacağında toprakla kirlenmiş açık yara oluşmuş; başka bir merkezde yara primer kapatılmış. Son birkaç saatte dayanılmaz ağrı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Resüsitasyon alanı",
+     "text": "Yara çevresinde **bronz-mor renk**, gergin ödem, hemorajik bül, kirli kahverengi ve tatlımsı kötü kokulu akıntı; belirgin **krepitasyon**. Ağrı muayeneyle orantısız. Hasta konfüze.",
+     "vitals": "KB 84/48 · Nb 138 · SS 28 · Ateş 38,8",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Bacak grafisi",
+       "pts": 2,
+       "min": 15,
+       "res": "Kas planları boyunca **tüylü görünümde gaz**.",
+       "fb": "Destekler ama görüntüleme cerrahiyi geciktirmemeli."
+      },
+      {
+       "kind": "test",
+       "label": "Yara Gram boyaması",
+       "pts": 1,
+       "min": 15,
+       "res": "Büyük Gram pozitif çomaklar, lökosit az.",
+       "fb": "*Clostridium perfringens* ile uyumlu."
+      },
+      {
+       "kind": "act",
+       "label": "Septik şok resüsitasyonu; **acil cerrahi debridman** (gerekirse amputasyon); IV penisilin G + **klindamisin** (veya geniş spektrum + klindamisin); tetanoz profilaksisi; olanak varsa hiperbarik oksijen yardımcı",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Klostridyal miyonekroz saatler içinde yayılır; tedavinin temeli acil cerrahidir."
+      },
+      {
+       "kind": "act",
+       "label": "Yara enfeksiyonu — dikişleri al, oral antibiyotik, ertesi gün kontrol",
+       "pts": -5,
+       "min": 30,
+       "to": "n9",
+       "fb": "Krepitasyon, bronz renk, orantısız ağrı ve şok gazlı gangrendir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Acil debridman",
+     "text": "Geniş debridman ve 24 saat sonra ikinci bakış yapıldı; uzuv korundu. HBO yardımcı olarak uygulandı.\n\n**Akılda kalsın**\n- **Gazlı gangren (klostridyal miyonekroz)**: kirli derin yara, ezilme, kas hasarı; saatler içinde ilerler.\n- **Orantısız ağrı**, bronz renk, bül, tatlımsı koku, **krepitasyon**, sistemik toksisite.\n- Kirli derin yaralar **primer kapatılmaz**.\n- Tedavi: **acil cerrahi debridman**, penisilin + **klindamisin**, şok tedavisi; HBO yardımcı.\n- Tetanoz profilaksisini unutma.\n\n*Kaynak: IDSA 2014 deri ve yumuşak doku enfeksiyonları kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ölümcül seyir",
+     "text": "Ertesi gün hasta çoklu organ yetmezliği ve hemolizle getirildi; kalça dezartikülasyonuna rağmen kaybedildi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c46",
+   "title": "Kan verilirken titreme — 64 yaşında kadın",
+   "topic": "Hematoloji",
+   "intro": "64 yaşında kadın, üst GİS kanaması nedeniyle acilde eritrosit süspansiyonu takıldı. Transfüzyonun 10. dakikasında titreme, bel ağrısı, göğüste sıkışma ve “kötü bir şey olacak” hissi başladı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Transfüzyonun 10. dakikası",
+     "text": "Terli, huzursuz. İnfüzyon yerinde yanma. Sonda torbasında koyu kırmızı idrar.",
+     "vitals": "KB 82/48 · Nb 132 · SS 26 · SpO₂ %94 · Ateş 39,0 (önce 36,8)",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Hasta kimliği ve kan torbası etiketinin yatak başında kontrolü",
+       "pts": 3,
+       "min": 3,
+       "res": "Torbadaki isim aynı servisteki başka bir hastaya ait; **ABO uyumsuzluğu** (A grubu kan, 0 grubu hasta).",
+       "fb": "Akut hemolitik reaksiyonların çoğu kimlik doğrulama hatasından kaynaklanır."
+      },
+      {
+       "kind": "test",
+       "label": "DAT (direkt Coombs), hemoliz paneli, DİK testleri",
+       "pts": 2,
+       "min": 30,
+       "res": "DAT pozitif, LDH ↑, haptoglobin ↓, serbest Hb ↑, fibrinojen düşük.",
+       "fb": "Hemoliz ve DİK."
+      },
+      {
+       "kind": "act",
+       "label": "**Transfüzyonu hemen durdur**, seti değiştir, damar yolunu SF ile açık tut; torbayı ve setleri kan bankasına gönder, numuneler al; sıvı resüsitasyonu (idrar >1 mL/kg/saat, erişkinde ≈100 mL/saat), gerekirse vazopresör; DİK ve böbrek izlemi; olayı bildir",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. Akut hemolitik reaksiyonda verilen kan miktarı prognozu belirler; ilk adım durdurmak."
+      },
+      {
+       "kind": "act",
+       "label": "Ateş için parasetamol ver, transfüzyonu yavaşlatarak sürdür",
+       "pts": -5,
+       "min": 20,
+       "to": "n9",
+       "fb": "Ateş + hipotansiyon + bel ağrısı + hemoglobinüri akut hemolitik reaksiyondur; devam etmek ölümcüldür."
+      },
+      {
+       "kind": "act",
+       "label": "Antihistaminik ver, transfüzyona devam et (alerjik reaksiyon)",
+       "pts": -4,
+       "min": 20,
+       "to": "n9",
+       "fb": "Yalnız ürtiker varsa (izole hafif alerjik) duraklatma + antihistaminik sonrası sürdürülebilir; ateş ve hipotansiyon varsa asla."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Akut hemolitik reaksiyon kontrol altında",
+     "text": "Hasta sıvı ve kısa süreli norepinefrinle stabilize edildi; idrar çıkışı korundu, DİK izlendi. Olay kan bankasına ve hemovijilans sistemine bildirildi; ikinci hastanın torbası da durduruldu.\n\n**Akılda kalsın**\n- Transfüzyon sırasında **her yeni belirti → durdur** ve değerlendir.\n- Akut hemolitik: ateş, titreme, bel/göğüs ağrısı, hipotansiyon, **hemoglobinüri**, DİK — çoğu **kimlik hatası**.\n- Ayırıcı: febril nonhemolitik (yalnız ateş), alerjik (ürtiker), anafilaksi (IgA eksikliği), **TRALI** (6 saat içinde hipoksi, nonkardiyojenik ödem), **TACO** (hipervolemi, hipertansiyon), sepsis (kontamine ürün).\n- Torba + set + numuneler **kan bankasına**; bildir.\n\n*Kaynak: SHOT 2023; BSH transfüzyon reaksiyonları kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ağır hemoliz",
+     "text": "Transfüzyon sürdü; hasta DİK, akut böbrek yetmezliği ve şok gelişerek yoğun bakıma alındı.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c47",
+   "title": "Yeni başlayan baş ağrısı — 74 yaşında kadın",
+   "topic": "Romatoloji / Göz",
+   "intro": "74 yaşında kadın. 3 haftadır sağ şakakta yeni başlayan baş ağrısı, saçını tararken kafa derisinde hassasiyet, yemek yerken çenesinde yorulma/ağrı. Dün sağ gözünde birkaç dakika süren görme kaybı olmuş, geçmiş. Omuzlarında sabah tutukluğu var.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sağ temporal arter kalın, hassas, nabzı zayıf. Görme keskinliği iki gözde normal. Nörolojik muayene normal.",
+     "vitals": "KB 152/84 · Nb 86 · Ateş 37,6",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "ESH ve CRP",
+       "pts": 2,
+       "min": 30,
+       "res": "**ESH 96 mm/saat**, **CRP 78 mg/L**, trombosit 480.000.",
+       "fb": "Yüksek inflamatuvar belirteçler GCA'yı destekler."
+      },
+      {
+       "kind": "test",
+       "label": "Temporal arter USG",
+       "pts": 1,
+       "min": 30,
+       "res": "Sağ temporal arterde **halo işareti**.",
+       "fb": "Deneyimli merkezde ilk tanı testi olabilir; tedaviyi geciktirmez."
+      },
+      {
+       "kind": "test",
+       "label": "Beyin BT",
+       "pts": 0,
+       "min": 30,
+       "res": "Normal.",
+       "fb": "İnme/kanama ayrımı için, ama tanıyı koymaz."
+      },
+      {
+       "kind": "act",
+       "label": "Görme belirtisi var: hemen **IV metilprednizolon** (500–1000 mg/gün, 3 gün), ardından oral prednizolon 1 mg/kg (en çok 60 mg); acil göz ve romatoloji; biyopsi/USG tedaviyi geciktirmeden 1–2 hafta içinde",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Geçici görme kaybı kalıcı körlüğün habercisidir."
+      },
+      {
+       "kind": "act",
+       "label": "Temporal arter biyopsisi sonucunu bekle, sonra steroid başla",
+       "pts": -5,
+       "min": 1440,
+       "to": "n9",
+       "fb": "Biyopsi steroid başladıktan sonra 1–2 hafta içinde de tanısaldır; beklemek körlük riskini artırır."
+      },
+      {
+       "kind": "act",
+       "label": "Gerilim tipi baş ağrısı — NSAİİ ile taburcu",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "50 yaş üstü yeni baş ağrısı + çene kladikasyonu + görme belirtisi GCA kırmızı bayraklarıdır."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Görme korundu",
+     "text": "Steroid sonrası baş ağrısı 48 saatte geriledi; yeni görme kaybı olmadı. Biyopsi tanıyı doğruladı; tosilizumab eklenmesi planlandı.\n\n**Akılda kalsın**\n- **>50 yaş + yeni baş ağrısı**: GCA'yı düşün.\n- Kırmızı bayraklar: **çene kladikasyonu**, kafa derisi hassasiyeti, **geçici/ani görme kaybı**, diplopi, polimiyalji romatika.\n- **ESH/CRP**; temporal arter USG (halo) veya biyopsi.\n- **Steroid tanı testini beklemez**: görme belirtisinde IV metilprednizolon; yoksa prednizolon 40–60 mg/gün.\n\n*Kaynak: EULAR 2018; ACR/VF 2021 GCA kılavuzu; BSR 2020.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kalıcı körlük",
+     "text": "Hasta 2 gün sonra sağ gözde kalıcı görme kaybıyla döndü (arteritik ön iskemik optik nöropati).",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c48",
+   "title": "Entübasyondan sonra ateş — 22 yaşında erkek",
+   "topic": "Anestezi / Toksikoloji",
+   "intro": "22 yaşında erkek, motosiklet kazası sonrası GKS 8 olduğu için acilde süksinilkolin ile hızlı ardışık entübasyon yapıldı. Entübasyondan 20 dakika sonra mekanik ventilatörde end-tidal CO₂ hızla yükseliyor. Ailede “anestezi sırasında ölen bir dayı” varmış.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Entübasyondan 20 dakika sonra",
+     "text": "Masseter ve gövde kaslarında **rijidite**. Deri sıcak, terli.",
+     "vitals": "KB 162/96 · Nb 148 · **EtCO₂ 78 mmHg** (dakika ventilasyonu artırılmasına rağmen) · Ateş 39,4 (yükseliyor)",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kan gazı, K, CK",
+       "pts": 2,
+       "min": 10,
+       "res": "pH 7,08, pCO₂ 92, laktat 6, **K 6,8**, CK yükseliyor.",
+       "fb": "Hipermetabolizma: artan CO₂ üretimi, asidoz, hiperkalemi, rabdomiyoliz."
+      },
+      {
+       "kind": "act",
+       "label": "Malign hipertermi: tetikleyiciyi kes (süksinilkolin; inhalasyon anesteziği varsa kapat); %100 O₂ ile yüksek akım hiperventilasyon; **dantrolen 2,5 mg/kg IV** (yanıta göre tekrar, toplam 10 mg/kg'a kadar); aktif soğutma; hiperkalemi tedavisi (kalsiyum, insülin-glukoz); idrar çıkışı",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. Dantrolen ryanodin reseptörü üzerinden kalsiyum salınımını durdurur; erken verilmesi mortaliteyi belirgin düşürür."
+      },
+      {
+       "kind": "act",
+       "label": "Ateş için parasetamol, sedasyonu derinleştir",
+       "pts": -5,
+       "min": 20,
+       "to": "n9",
+       "fb": "MH'de antipiretik etkisizdir; dantrolen gecikmesi ölümcüldür."
+      },
+      {
+       "kind": "act",
+       "label": "Kalsiyum kanal blokeri (verapamil) ile taşikardiyi kontrol et",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Dantrolen ile birlikte verapamil ağır hiperkalemi ve kardiyovasküler kollaps yapabilir; kontrendikedir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Dantrolen sonrası düzelme",
+     "text": "Toplam 5 mg/kg dantrolen sonrası EtCO₂ 42'ye, ateş 37,8'e indi. Hasta yoğun bakımda 48 saat izlendi (nüks riski); aileye genetik test ve uyarı kartı önerildi.\n\n**Akılda kalsın**\n- Tetikleyiciler: **süksinilkolin, volatil anestezikler**.\n- En erken bulgu: açıklanamayan **EtCO₂ artışı**; ardından taşikardi, rijidite (masseter), hipertermi (geç), asidoz, hiperkalemi, rabdomiyoliz.\n- Tedavi: tetikleyiciyi kes, %100 O₂ hiperventilasyon, **dantrolen 2,5 mg/kg** tekrarlı, soğutma, hiperkalemi tedavisi.\n- Dantrolen ile **kalsiyum kanal blokeri verme**.\n- Aile öyküsü sorulmalı; acil serviste dantrolen erişimi olmalı.\n\n*Kaynak: EMHG 2021 malign hipertermi kılavuzu; MHAUS.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kardiyak arrest",
+     "text": "Hiperkalemi ve hipertermiye bağlı ventriküler fibrilasyon gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c49",
+   "title": "Acilde doğum sonrası ani kollaps — 34 yaşında kadın",
+   "topic": "Kadın doğum / Resüsitasyon",
+   "intro": "34 yaşında, 3. gebeliği, 39 haftalık kadın acil servise ileri eylemde geldi ve 10 dakika içinde acilde doğurdu. Plasenta doğduktan 5 dakika sonra aniden nefes darlığı, huzursuzluk ve “öleceğim” hissi başladı, ardından bilinci bulanıklaştı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Doğumdan 5 dakika sonra",
+     "text": "Siyanotik, bilinci bulanık; ardından kısa bir jeneralize nöbet. Vajinal kanama artıyor ve pıhtılaşmıyor.",
+     "vitals": "KB 68/34 · Nb 140 · SpO₂ %78 · SS 32",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "POCUS (kalp)",
+       "pts": 2,
+       "min": 3,
+       "res": "**Sağ ventrikül belirgin dilate**, sol ventrikül küçük ve hiperdinamik.",
+       "fb": "Akut sağ ventrikül yetmezliği AFE'nin erken hemodinamik tablosudur."
+      },
+      {
+       "kind": "test",
+       "label": "Pıhtılaşma testleri (fibrinojen, PT, aPTT, trombosit; varsa ROTEM)",
+       "pts": 2,
+       "min": 20,
+       "res": "**Fibrinojen 0,9 g/L**, PT uzamış, trombosit 70.000.",
+       "fb": "AFE'de DİK sık ve erken; fibrinojen hızla düşer."
+      },
+      {
+       "kind": "act",
+       "label": "Yardım çağır (kadın doğum, anestezi, kan bankası); hava yolu + %100 O₂ (entübasyon); vazopresör (norepinefrin) ± inotrop (dobutamin/milrinon) — sağ ventrikülü aşırı sıvıyla yükleme; **masif transfüzyon protokolü** (eritrosit + TDP + trombosit, erken kriyopresipitat/fibrinojen konsantresi), traneksamik asit 1 g; uterus tonusu (oksitosin, masaj)",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. AFE tedavisi destekleyicidir: oksijenasyon, sağ ventrikül desteği, DİK/kanama yönetimi."
+      },
+      {
+       "kind": "act",
+       "label": "Pulmoner emboli olabilir — sistemik tromboliz",
+       "pts": -4,
+       "min": 15,
+       "to": "n9",
+       "fb": "Doğum sonrası kanama ve DİK varken tromboliz ölümcül kanamaya yol açar."
+      },
+      {
+       "kind": "act",
+       "label": "Hızla 4 litre kristaloid ver",
+       "pts": -3,
+       "min": 20,
+       "to": "n9",
+       "fb": "Aşırı sıvı dilate sağ ventrikülü kötüleştirir ve koagülopatiyi dilüsyonla derinleştirir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "10 dakika sonra",
+     "text": "Nabız alınamıyor; monitörde nabızsız elektriksel aktivite.",
+     "vitals": "",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Yüksek kaliteli KPR; adrenalin 1 mg 3–5 dakikada bir; geri döndürülebilir nedenleri ara (kanama/hipovolemi, hipoksi); transfüzyonu sürdür; varsa ECPR (ECMO) için merkez",
+       "pts": 3,
+       "min": 10,
+       "to": "n3",
+       "fb": "Doğru. AFE'de arrest sık; standart İYD + kanama kontrolü. (Doğum gerçekleştiği için uterus yer değiştirme veya perimortem sezaryen gerekmez.)"
+      },
+      {
+       "kind": "act",
+       "label": "Resüsitasyonu sonlandır — AFE ölümcüldür",
+       "pts": -5,
+       "min": 0,
+       "to": "n9",
+       "fb": "AFE'de uygun destekle sağkalım mümkündür."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Spontan dolaşımın dönüşü",
+     "text": "4 dakikalık KPR sonrası dolaşım döndü; masif transfüzyon ve fibrinojenle kanama kontrol edildi, hasta yoğun bakıma alındı.\n\n**Akılda kalsın**\n- AFE: doğum sırasında/hemen sonrasında **ani hipoksi + hipotansiyon/arrest + DİK** (± nöbet, bilinç değişikliği).\n- Tanı klinik ve dışlamayladır.\n- Tedavi destekleyici: **oksijenasyon**, sağ ventrikül desteği (vazopresör, inotrop; aşırı sıvıdan kaçın), **erken kan ürünleri + fibrinojen**, traneksamik asit.\n- Arrestte yüksek kaliteli KPR; doğum gerçekleşmediyse **sol uterus yer değiştirme** ve 4–5 dakikada **perimortem sezaryen**.\n\n*Kaynak: SMFM 2016 AFE kılavuzu; ERC 2021 gebelikte arrest.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ölüm",
+     "text": "Hasta kanama ve refrakter şokla kaybedildi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c50",
+   "title": "Nefes darlığı ve hipotansiyon — 58 yaşında erkek",
+   "topic": "Kardiyoloji",
+   "intro": "58 yaşında erkek, akciğer kanseri nedeniyle kemoterapi alıyor. 1 haftadır artan nefes darlığı, yatamıyor; bugün baş dönmesi ve halsizlik.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Resüsitasyon alanı",
+     "text": "Oturur pozisyonda. Boyun venleri dolgun, kalp sesleri derinden geliyor, akciğerler temiz.",
+     "vitals": "KB 84/62 · Nb 126 · SS 26 · SpO₂ %93 · **Pulsus paradoksus 22 mmHg**",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "12 derivasyonlu EKG",
+       "pts": 1,
+       "min": 5,
+       "res": "Sinüs taşikardisi, **düşük voltaj**, **elektriksel alternans**.",
+       "fb": "Büyük perikardiyal efüzyon bulguları."
+      },
+      {
+       "kind": "test",
+       "label": "POCUS",
+       "pts": 3,
+       "min": 5,
+       "res": "Büyük perikardiyal efüzyon; **sağ ventrikülde diyastolik kollaps**, sağ atriyumda sistolik kollaps; VCI pletorik.",
+       "fb": "Tamponad: ekokardiyografik tanı + klinik."
+      },
+      {
+       "kind": "act",
+       "label": "USG eşliğinde **perikardiyosentez** (subksifoid veya apikal; perikardiyal kateter bırak); hazırlanırken küçük sıvı bolusu (≈500 mL) köprü olabilir; kardiyoloji",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Tamponadın kesin tedavisi drenajdır; birkaç yüz mL boşaltmak bile hemodinamiyi düzeltir."
+      },
+      {
+       "kind": "act",
+       "label": "Akciğer ödemi değil mi? Furosemid + nitrat",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Ön yükü azaltan ilaçlar tamponadda kardiyak debiyi daha da düşürür."
+      },
+      {
+       "kind": "act",
+       "label": "Hemen entübe edip pozitif basınçlı ventilasyon",
+       "pts": -3,
+       "min": 15,
+       "to": "n9",
+       "fb": "Pozitif basınç venöz dönüşü azaltır; tamponadlı hastada entübasyon sırasında kollaps riski çok yüksek — mümkünse önce drenaj."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Perikardiyosentez",
+     "text": "USG eşliğinde 650 mL hemorajik sıvı boşaltıldı; KB 122/76'ya yükseldi, pulsus paradoksus kayboldu. Malign efüzyon için perikardiyal pencere planlandı.\n\n**Akılda kalsın**\n- **Beck triadı**: hipotansiyon, JVD, derinden gelen kalp sesleri; **pulsus paradoksus >10 mmHg**.\n- EKG: düşük voltaj, **elektriksel alternans**.\n- POCUS: efüzyon + **sağ kalp boşluklarında diyastolik kollaps**, pletorik VCI.\n- Tedavi: **perikardiyosentez** (USG eşliğinde); travmada torakotomi.\n- Diüretik/vazodilatör yok; pozitif basınçlı ventilasyon tehlikeli.\n\n*Kaynak: ESC 2015 perikard hastalıkları kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kardiyak arrest",
+     "text": "Hasta nabızsız elektriksel aktiviteye girdi; acil perikardiyosentezle dolaşım ancak dönebildi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  }
+ ],
+ "questions": [
+  {
+   "key": "c41q1",
+   "stem": "Akut ekstremite iskemisinde ilk ilaç tedavisi hangisidir?",
+   "options": [
+    "Aspirin tek başına",
+    "Anfraksiyone heparin IV",
+    "Kilostazol",
+    "Varfarin oral",
+    "Tromboliz herkese"
+   ],
+   "correct": 1,
+   "explanation": "Heparin trombüs ilerlemesini durdurur; revaskülarizasyon planlanır.",
+   "topic": "Kalp-damar cerrahisi"
+  },
+  {
+   "key": "c41q2",
+   "stem": "Rutherford IIb akut ekstremite iskemisinin özelliği hangisidir?",
+   "options": [
+    "Duyu ve motor normal, Doppler sinyali var",
+    "Ayak parmaklarının ötesinde duyu kaybı ve hafif-orta motor kayıp",
+    "Derin felç ve rijidite",
+    "Yalnız kladikasyon",
+    "Kronik yara"
+   ],
+   "correct": 1,
+   "explanation": "IIb acil tehdittir; III geri dönüşsüzdür (derin duyu-motor kaybı).",
+   "topic": "Kalp-damar cerrahisi"
+  },
+  {
+   "key": "c41q3",
+   "stem": "Revaskülarizasyon sonrası izlenmesi gereken önemli komplikasyon hangisidir?",
+   "options": [
+    "Kompartman sendromu",
+    "Pnömotoraks",
+    "Hipoglisemi",
+    "Menenjit",
+    "Hiponatremi"
+   ],
+   "correct": 0,
+   "explanation": "Reperfüzyon ödemi kompartman sendromuna yol açabilir.",
+   "topic": "Kalp-damar cerrahisi"
+  },
+  {
+   "key": "c42q1",
+   "stem": "Mackler triadı hangisidir?",
+   "options": [
+    "Ateş, sarılık, karın ağrısı",
+    "Kusma, retrosternal ağrı, cilt altı amfizem",
+    "Hipotansiyon, JVD, kalp seslerinde azalma",
+    "Baş ağrısı, ateş, ense sertliği",
+    "Hematüri, böğür ağrısı, kitle"
+   ],
+   "correct": 1,
+   "explanation": "Boerhaave sendromuna özgü triad.",
+   "topic": "Göğüs cerrahisi"
+  },
+  {
+   "key": "c42q2",
+   "stem": "Özofagus perforasyonu şüphesinde tercih edilen oral kontrast hangisidir?",
+   "options": [
+    "Baryum",
+    "Suda çözünür (iyotlu) kontrast",
+    "Kontrast gerekmez, endoskopi her zaman ilk",
+    "Gadolinyum",
+    "Mannitol"
+   ],
+   "correct": 1,
+   "explanation": "Baryum kaçağı ağır mediastinite yol açabilir.",
+   "topic": "Göğüs cerrahisi"
+  },
+  {
+   "key": "c42q3",
+   "stem": "Boerhaave sendromunda en sık rüptür yeri neresidir?",
+   "options": [
+    "Servikal özofagus",
+    "Distal özofagus sol posterolateral duvar",
+    "Mide fundusu",
+    "Duodenum",
+    "Proksimal özofagus sağ duvar"
+   ],
+   "correct": 1,
+   "explanation": "Distal özofagusun sol posterolateral duvarı en zayıf bölgedir.",
+   "topic": "Göğüs cerrahisi"
+  },
+  {
+   "key": "c43q1",
+   "stem": "Serotonin sendromunu nöroleptik malign sendromdan ayıran bulgu hangisidir?",
+   "options": [
+    "Ateş",
+    "Klonus ve hiperrefleksi, hızlı başlangıç",
+    "Kurşun boru rijidite, bradikinezi",
+    "CK yüksekliği",
+    "Bilinç değişikliği"
+   ],
+   "correct": 1,
+   "explanation": "NMS'de rijidite ve bradikinezi, günler içinde başlangıç; SS'de klonus/hiperrefleksi, saatler içinde.",
+   "topic": "Toksikoloji"
+  },
+  {
+   "key": "c43q2",
+   "stem": "Serotonin sendromunda kullanılan serotonin antagonisti hangisidir?",
+   "options": [
+    "Ondansetron",
+    "Siproheptadin",
+    "Bromokriptin",
+    "Dantrolen",
+    "Fizostigmin"
+   ],
+   "correct": 1,
+   "explanation": "Siproheptadin 12 mg PO, ardından 2 saatte bir 2 mg.",
+   "topic": "Toksikoloji"
+  },
+  {
+   "key": "c43q3",
+   "stem": "SSRI kullanan hastada hangisi serotonin sendromu riskini artırmaz?",
+   "options": [
+    "Tramadol",
+    "Dekstrometorfan",
+    "Linezolid",
+    "Parasetamol",
+    "Fentanil"
+   ],
+   "correct": 3,
+   "explanation": "Parasetamol serotonerjik değildir.",
+   "topic": "Toksikoloji"
+  },
+  {
+   "key": "c44q1",
+   "stem": "İnvajinasyon tanısında ilk tercih edilen görüntüleme hangisidir?",
+   "options": [
+    "BT",
+    "Ultrasonografi",
+    "Baryumlu grafi",
+    "MR",
+    "Direkt grafi tek başına"
+   ],
+   "correct": 1,
+   "explanation": "USG'de hedef işareti; radyasyonsuz ve yüksek doğruluklu.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "c44q2",
+   "stem": "İnvajinasyonda “çilek reçeli” dışkı için doğru ifade hangisidir?",
+   "options": [
+    "En erken bulgudur",
+    "Geç bulgudur; yokluğu tanıyı dışlamaz",
+    "Her hastada vardır",
+    "Yalnız erişkinde görülür",
+    "Gastroenteriti gösterir"
+   ],
+   "correct": 1,
+   "explanation": "Mukozal iskemiyi gösterir; geç ortaya çıkar.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "c44q3",
+   "stem": "Stabil, peritonit bulgusu olmayan invajinasyonda ilk tedavi hangisidir?",
+   "options": [
+    "Laparotomi",
+    "Hidrostatik veya pnömatik redüksiyon",
+    "Antibiyotik ve gözlem",
+    "Kolonoskopi",
+    "Laksatif"
+   ],
+   "correct": 1,
+   "explanation": "Lavmanla redüksiyon çoğu olguda başarılıdır.",
+   "topic": "Pediatri"
+  },
+  {
+   "key": "c45q1",
+   "stem": "Gazlı gangrenin en sık etkeni hangisidir?",
+   "options": [
+    "Streptococcus pyogenes",
+    "Clostridium perfringens",
+    "Staphylococcus aureus",
+    "Pseudomonas aeruginosa",
+    "Vibrio vulnificus"
+   ],
+   "correct": 1,
+   "explanation": "C. perfringens alfa toksini miyonekroz ve hemoliz yapar.",
+   "topic": "Enfeksiyon / Cerrahi"
+  },
+  {
+   "key": "c45q2",
+   "stem": "Gazlı gangrende antibiyotiğe klindamisin eklenmesinin nedeni nedir?",
+   "options": [
+    "Böbrek koruması",
+    "Toksin üretimini baskılamak",
+    "Antipiretik",
+    "Antikoagülan etki",
+    "Vankomisin yerine"
+   ],
+   "correct": 1,
+   "explanation": "Protein sentezi inhibisyonu ile toksin üretimini azaltır.",
+   "topic": "Enfeksiyon / Cerrahi"
+  },
+  {
+   "key": "c45q3",
+   "stem": "Toprakla kirlenmiş derin bir yaranın yönetimi için doğru olan hangisidir?",
+   "options": [
+    "Primer kapatma",
+    "Debridman ve gecikmiş primer kapatma",
+    "Yalnız oral antibiyotik",
+    "Steril örtü ve 1 hafta sonra kontrol",
+    "Steroid"
+   ],
+   "correct": 1,
+   "explanation": "Kirli derin yaralar kapatılmadan debride edilir.",
+   "topic": "Enfeksiyon / Cerrahi"
+  },
+  {
+   "key": "c46q1",
+   "stem": "Transfüzyon sırasında ateş, hipotansiyon ve bel ağrısı gelişirse ilk yapılacak nedir?",
+   "options": [
+    "Parasetamol verip devam etmek",
+    "Transfüzyonu hemen durdurmak",
+    "Hızı artırmak",
+    "Antihistaminik verip devam etmek",
+    "Furosemid vermek"
+   ],
+   "correct": 1,
+   "explanation": "Her ciddi reaksiyonda ilk adım transfüzyonu durdurmaktır.",
+   "topic": "Hematoloji"
+  },
+  {
+   "key": "c46q2",
+   "stem": "Akut hemolitik transfüzyon reaksiyonlarının en sık nedeni nedir?",
+   "options": [
+    "Bakteriyel kontaminasyon",
+    "Kimlik doğrulama hatasına bağlı ABO uyumsuzluğu",
+    "IgA eksikliği",
+    "Sıvı yüklenmesi",
+    "Sitrat toksisitesi"
+   ],
+   "correct": 1,
+   "explanation": "Hasta-ürün eşleştirme hataları en sık nedendir.",
+   "topic": "Hematoloji"
+  },
+  {
+   "key": "c46q3",
+   "stem": "Transfüzyon sonrası 6 saat içinde gelişen hipoksi, bilateral infiltrasyon ve normal/düşük KB hangisini düşündürür?",
+   "options": [
+    "TACO",
+    "TRALI",
+    "Febril nonhemolitik reaksiyon",
+    "Gecikmiş hemolitik reaksiyon",
+    "Hiperkalemi"
+   ],
+   "correct": 1,
+   "explanation": "TRALI nonkardiyojenik ödemdir; TACO'da hipervolemi ve hipertansiyon öndedir.",
+   "topic": "Hematoloji"
+  },
+  {
+   "key": "c47q1",
+   "stem": "Dev hücreli arteritte en tehlikeli komplikasyon hangisidir?",
+   "options": [
+    "Hipertansiyon",
+    "Kalıcı görme kaybı",
+    "Anemi",
+    "Kilo kaybı",
+    "Ateş"
+   ],
+   "correct": 1,
+   "explanation": "Arteritik ön iskemik optik nöropati kalıcı körlüğe yol açar.",
+   "topic": "Romatoloji / Göz"
+  },
+  {
+   "key": "c47q2",
+   "stem": "Görme belirtisi olan GCA şüphesinde doğru yaklaşım hangisidir?",
+   "options": [
+    "Biyopsi sonucu gelince steroid",
+    "Hemen yüksek doz IV metilprednizolon",
+    "NSAİİ",
+    "Antikoagülan",
+    "Antibiyotik"
+   ],
+   "correct": 1,
+   "explanation": "Steroid tanı testini beklemeden başlanır.",
+   "topic": "Romatoloji / Göz"
+  },
+  {
+   "key": "c47q3",
+   "stem": "GCA için en özgül klinik bulgulardan biri hangisidir?",
+   "options": [
+    "Çene kladikasyonu",
+    "Bulantı",
+    "Ateş",
+    "Burun akıntısı",
+    "Ishal"
+   ],
+   "correct": 0,
+   "explanation": "Çene kladikasyonu GCA olasılığını belirgin artırır.",
+   "topic": "Romatoloji / Göz"
+  },
+  {
+   "key": "c48q1",
+   "stem": "Malign hipertermide en erken bulgu hangisidir?",
+   "options": [
+    "Ateş 42 °C",
+    "Açıklanamayan end-tidal CO₂ artışı",
+    "Hipoglisemi",
+    "Bradikardi",
+    "Miyozis"
+   ],
+   "correct": 1,
+   "explanation": "Ateş geç bulgudur; artan CO₂ üretimi erkendir.",
+   "topic": "Anestezi / Toksikoloji"
+  },
+  {
+   "key": "c48q2",
+   "stem": "Malign hipertermide dantrolenin başlangıç dozu hangisidir?",
+   "options": [
+    "0,25 mg/kg",
+    "1 mg/kg",
+    "2,5 mg/kg IV, gerekirse tekrar",
+    "10 mg tek doz",
+    "20 mg/kg"
+   ],
+   "correct": 2,
+   "explanation": "2,5 mg/kg; yanıta göre tekrar (genelde toplam 10 mg/kg'a kadar).",
+   "topic": "Anestezi / Toksikoloji"
+  },
+  {
+   "key": "c48q3",
+   "stem": "Malign hipertermiyi tetikleyen ilaç hangisidir?",
+   "options": [
+    "Rokuronyum",
+    "Süksinilkolin",
+    "Propofol",
+    "Ketamin",
+    "Fentanil"
+   ],
+   "correct": 1,
+   "explanation": "Süksinilkolin ve volatil anestezikler tetikleyicidir.",
+   "topic": "Anestezi / Toksikoloji"
+  },
+  {
+   "key": "c49q1",
+   "stem": "Amniyotik sıvı embolisinin klasik triadı hangisidir?",
+   "options": [
+    "Ateş, hipertansiyon, ödem",
+    "Ani hipoksi, hipotansiyon/arrest, koagülopati (DİK)",
+    "Baş ağrısı, görme bozukluğu, proteinüri",
+    "Karın ağrısı, vajinal kanama, şok",
+    "Göğüs ağrısı, ST elevasyonu, troponin"
+   ],
+   "correct": 1,
+   "explanation": "Doğum sırasında/sonrası ani kardiyopulmoner kollaps + DİK.",
+   "topic": "Kadın doğum / Resüsitasyon"
+  },
+  {
+   "key": "c49q2",
+   "stem": "AFE'de koagülopati yönetiminde öncelikli olarak izlenip yerine konan faktör hangisidir?",
+   "options": [
+    "Vitamin K",
+    "Fibrinojen",
+    "Albümin",
+    "Heparin",
+    "Faktör VIII tek başına"
+   ],
+   "correct": 1,
+   "explanation": "Fibrinojen hızla düşer; kriyopresipitat/fibrinojen konsantresi erken verilir.",
+   "topic": "Kadın doğum / Resüsitasyon"
+  },
+  {
+   "key": "c49q3",
+   "stem": "Gebelikte (doğum olmamış, 20. hafta üzeri) kardiyak arrestte uterus nasıl yönetilir?",
+   "options": [
+    "Sağa itilir",
+    "Sola itilir (manuel sol uterus yer değiştirme) ve 4–5 dakikada perimortem sezaryen düşünülür",
+    "Dokunulmaz",
+    "Yalnız oksitosin verilir",
+    "Hemen tokoliz"
+   ],
+   "correct": 1,
+   "explanation": "Aortokaval basıyı azaltmak için sol yer değiştirme; ROSC yoksa resüsitatif histerotomi.",
+   "topic": "Kadın doğum / Resüsitasyon"
+  },
+  {
+   "key": "c50q1",
+   "stem": "Beck triadı hangisidir?",
+   "options": [
+    "Ateş, sarılık, ağrı",
+    "Hipotansiyon, juguler venöz dolgunluk, derinden gelen kalp sesleri",
+    "Hipertansiyon, bradikardi, düzensiz solunum",
+    "Taşikardi, taşipne, ateş",
+    "Raller, S3, ödem"
+   ],
+   "correct": 1,
+   "explanation": "Kardiyak tamponadın klasik bulguları.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c50q2",
+   "stem": "Kardiyak tamponadda EKG'de hangi bulgu görülebilir?",
+   "options": [
+    "Delta dalgası",
+    "Elektriksel alternans",
+    "Sivri T",
+    "Epsilon dalgası",
+    "Brugada paterni"
+   ],
+   "correct": 1,
+   "explanation": "Kalbin sıvı içinde salınımı QRS amplitüdünü vuru-vuru değiştirir.",
+   "topic": "Kardiyoloji"
+  },
+  {
+   "key": "c50q3",
+   "stem": "Tamponadlı hipotansif hastada hangisi kaçınılması gereken bir tedavidir?",
+   "options": [
+    "Perikardiyosentez",
+    "Küçük sıvı bolusu",
+    "Furosemid",
+    "Oksijen",
+    "USG eşliğinde drenaj"
+   ],
+   "correct": 2,
+   "explanation": "Ön yükü azaltmak debiyi düşürür.",
+   "topic": "Kardiyoloji"
+  }
+ ],
+ "module": {
+  "title": "İlk Nöbet Vakaları — 5. Paket",
+  "topic": "Acil tıp",
+  "order": 5,
+  "req": [
+   2
+  ],
+  "desc": "Atlanırsa öldüren, daha az sık 10 acil tablo.",
+  "intro": "- Her vakayı önce **kendi bildiğinizle** çözün, sonra yeniden oynayıp farklı kararların sonucunu görün.\n- Sonuç ekranındaki **“Akılda kalsın”** bölümü vakanın özüdür.\n- Sonunda **pekiştirme sorularını** çözün; yanlışlarınız tekrar listenize eklenir.\n- İlaç dozları kılavuzlardan alınmıştır; uygulamada kurumunuzun protokollerini esas alın."
+ }
+}

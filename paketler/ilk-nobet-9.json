@@ -1,0 +1,1151 @@
+{
+ "id": "ilk-nobet-9",
+ "title": "İlk Nöbet Vakaları — 9. Paket",
+ "desc": "Üst ekstremite akut iskemisi, alkali göz yanığı, sigmoid volvulus, infektif endokardit, retrobulber hemoraji, miksödem koması, pnömatozis intestinalis, korneal ülser, karotis diseksiyonu, dijital iskemi.",
+ "source": "Gazi Acil Tıp — özgün senaryolar (güncel kılavuzlara dayanır; klinik kontrol sonrası yayınlayın)",
+ "pool": "İlk Nöbet Vakaları — 9. Paket",
+ "sims": [
+  {
+   "key": "c81",
+   "title": "Soğuk ve uyuşuk kol — 69 yaşında erkek",
+   "topic": "Kalp-damar cerrahisi",
+   "intro": "69 yaşında erkek, mitral darlığı ve AF; antikoagülan düzeyi takip edilmemiş. 2 saat önce sağ kolunda ani ağrı, uyuşma ve soğukluk başlamış.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sağ el ve ön kol soluk, soğuk; brakiyal nabız dirsek üstünde alınıyor, **radial ve ulnar nabızlar yok**. Parmaklarda duyu azalmış, kavrama gücü hafif zayıf.",
+     "vitals": "KB 134/80 (sol kol) · Nb 108 (düzensiz)",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Doppler (radial/ulnar)",
+       "pts": 2,
+       "min": 5,
+       "res": "Arteriyel sinyal yok.",
+       "fb": "Duyu ve motor tutulum varsa acil revaskülarizasyon gerekir."
+      },
+      {
+       "kind": "test",
+       "label": "INR",
+       "pts": 1,
+       "min": 20,
+       "res": "INR 1,3 (terapötik değil).",
+       "fb": "Embolik kaynak: AF + mitral darlığı."
+      },
+      {
+       "kind": "act",
+       "label": "Anfraksiyone heparin IV bolus + infüzyon; analjezi; acil damar cerrahisi — brakiyal embolektomi",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Üst ekstremite kollateral dolaşımı daha iyi olsa da duyu-motor kaybı varsa acil revaskülarizasyon gerekir."
+      },
+      {
+       "kind": "act",
+       "label": "Üst ekstremitede iskemi tolere edilir — oral antikoagülanı düzenleyip taburcu",
+       "pts": -4,
+       "min": 20,
+       "to": "n9",
+       "fb": "Nörolojik bulgulu akut iskemi her ekstremitede acildir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Embolektomi",
+     "text": "Lokal anestezi altında brakiyal embolektomiyle nabızlar döndü. Ekokardiyografide sol atriyal trombüs; antikoagülasyon yeniden düzenlendi.\n\n**Akılda kalsın**\n- Üst ekstremite akut iskemisinin çoğu **kardiyak emboli** (AF, mitral darlık, MI).\n- 6P; duyu/motor kaybı = **acil revaskülarizasyon**.\n- **Heparin** + embolektomi (çoğu lokal anesteziyle).\n- Emboli kaynağını ara (ekokardiyografi), antikoagülasyonu düzelt.\n- Torasik çıkış sendromu, diseksiyon, vaskülit, iyatrojenik (arteriyel kateter) ayırıcı tanıda.\n\n*Kaynak: ESVS 2020 akut ekstremite iskemisi kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Gangren",
+     "text": "Hasta 3 gün sonra parmaklarda kuru gangrenle döndü; parmak amputasyonları gerekti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c82",
+   "title": "Gözüne lavabo açıcı sıçrayan hasta — 35 yaşında kadın",
+   "topic": "Göz",
+   "intro": "35 yaşında kadın. 15 dakika önce lavabo açıcı (sodyum hidroksit) gözüne sıçramış. Evde birkaç saniye musluk suyuyla yıkamış. Gözünü açamıyor, şiddetli ağrı var.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Triaj",
+     "text": "Sağ göz kapakları spazmda, kızarık. Hasta gözünü açamıyor.",
+     "vitals": "Nb 104",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Görme keskinliği ve tam göz muayenesi (önce)",
+       "pts": -3,
+       "min": 15,
+       "res": "Hasta gözünü açamadığı için muayene yapılamadı; 15 dakika kaybedildi.",
+       "fb": "Kimyasal yanıkta yıkama muayeneden önce gelir (yalnız hızlı pH ölçümü)."
+      },
+      {
+       "kind": "test",
+       "label": "pH turnusolü (konjunktival fornikse)",
+       "pts": 1,
+       "min": 1,
+       "res": "**pH 11**.",
+       "fb": "Hedef yıkama sonrası 7,0–7,5."
+      },
+      {
+       "kind": "act",
+       "label": "**Hemen bol yıkama**: topikal anestezik damla, kapak ekartörü/Morgan lens, en az 1–2 L SF veya Ringer laktat (30 dakika), forniksleri süpür (partikül), yıkama bittikten 5–10 dakika sonra pH ölç, gerekirse yıkamaya devam",
+       "pts": 4,
+       "min": 40,
+       "to": "n2",
+       "fb": "Doğru. Alkaliler lipofilik olup dokuya hızla penetre olur (likefaksiyon nekrozu); yıkama süresi prognozu belirler."
+      },
+      {
+       "kind": "act",
+       "label": "Asitli bir solüsyonla nötralize et",
+       "pts": -5,
+       "min": 5,
+       "to": "n9",
+       "fb": "Nötralizasyon ekzotermik reaksiyonla ek hasar yapar; yalnız bol yıkama."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Yıkama sonrası",
+     "text": "3 L sonrası pH 7,4. Floresein: geniş epitel defekti; limbusun yaklaşık 1/3'ünde iskemi (beyazlama).",
+     "vitals": "",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Sikloplejik, topikal antibiyotik, analjezi; **acil göz konsültasyonu** (aynı gün; limbal iskemi → ağır yanık); tetanoz durumu",
+       "pts": 3,
+       "min": 15,
+       "to": "n3",
+       "fb": "Doğru. Limbal iskemi prognozu kötüleştirir; göz uzmanı tedaviyi (steroid, askorbat, amniyon membranı) planlar."
+      },
+      {
+       "kind": "act",
+       "label": "Topikal steroid başla, kapama yap, 1 hafta sonra kontrol",
+       "pts": -3,
+       "min": 10,
+       "to": "n9",
+       "fb": "Steroid ve tedavi kararı göz uzmanına aittir; ağır yanık yakın izlem gerektirir."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Görme korundu",
+     "text": "Göz kliniğinde yoğun tedavi uygulandı; 3 haftada epitel kapandı, görme 0,8.\n\n**Akılda kalsın**\n- Kimyasal göz yanığı = **gerçek oftalmolojik acil**; **önce yıka, sonra muayene et**.\n- **Alkali** (lavabo açıcı, kireç, amonyak, çimento) asitten daha tehlikelidir.\n- Topikal anestezik + **bol yıkama (≥1–2 L)**, forniks süpürme, **pH 7,0–7,5** olana kadar.\n- Nötralizasyon yok.\n- Limbal iskemi ve kornea opasitesi ağırlık göstergesidir → acil göz.\n\n*Kaynak: Royal College of Ophthalmologists; Roper-Hall/Dua sınıflaması.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kornea hasarı",
+     "text": "Yetersiz yıkama/yanlış tedaviyle kornea perforasyonu ve kalıcı görme kaybı gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c83",
+   "title": "Aşırı karın şişliği — 82 yaşında erkek",
+   "topic": "Genel cerrahi",
+   "intro": "82 yaşında erkek, huzurevinde kalıyor; kronik kabızlık, Parkinson. 2 gündür gaz-gaita çıkaramıyor, karnı hızla şişmiş, kusmaya başlamış.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Karın belirgin distandü, timpanik; hafif yaygın hassasiyet, defans/rebound yok.",
+     "vitals": "KB 132/76 · Nb 102 · Ateş 37,2",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Direkt karın grafisi",
+       "pts": 3,
+       "min": 15,
+       "res": "Sol alt kadrandan sağ üste uzanan, dev, **ters U şeklinde (“kahve çekirdeği”) distandü sigmoid**.",
+       "fb": "Sigmoid volvulus."
+      },
+      {
+       "kind": "test",
+       "label": "Laktat, lökosit",
+       "pts": 1,
+       "min": 30,
+       "res": "Laktat 1,6, lökosit 11.000.",
+       "fb": "İskemi bulgusu yok."
+      },
+      {
+       "kind": "test",
+       "label": "BT",
+       "pts": 1,
+       "min": 30,
+       "res": "Mezenterde “girdap” (whirl) işareti; bağırsak duvarı kontrastlanıyor, serbest hava yok.",
+       "fb": "Tanı ve iskemi değerlendirmesi."
+      },
+      {
+       "kind": "act",
+       "label": "Peritonit/iskemi yok: sıvı, NG dekompresyon; **endoskopik (fleksibl sigmoidoskopi) detorsiyon** + rektal tüp; ardından aynı yatışta elektif sigmoid rezeksiyon planı (uygun hastada)",
+       "pts": 4,
+       "min": 30,
+       "to": "n2",
+       "fb": "Doğru. Endoskopik detorsiyon çoğunlukla başarılıdır ama nüks sıktır."
+      },
+      {
+       "kind": "act",
+       "label": "Kabızlık — lavman ve laksatif ile huzurevine geri gönder",
+       "pts": -5,
+       "min": 20,
+       "to": "n9",
+       "fb": "Kapalı loop obstrüksiyon iskemi ve perforasyona ilerler."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Endoskopik detorsiyon",
+     "text": "Fleksibl sigmoidoskopiyle detorsiyon sağlandı, mukoza canlıydı; rektal tüp bırakıldı. Nüks riski nedeniyle aynı yatışta sigmoid rezeksiyonu planlandı.\n\n**Akılda kalsın**\n- Sigmoid volvulus: yaşlı, kronik kabızlık, nörolojik/psikiyatrik hastalık, kurumda yaşama.\n- Grafi: **kahve çekirdeği**; BT: **girdap işareti**.\n- Peritonit/iskemi/perforasyon yoksa **endoskopik detorsiyon**; varsa **acil cerrahi** (Hartmann).\n- **Çekal volvulus** endoskopik değil, cerrahi tedavi edilir.\n\n*Kaynak: ASCRS 2021 kolonik volvulus kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Perforasyon",
+     "text": "Hasta 24 saat sonra perforasyon ve fekal peritonitle döndü; acil Hartmann ameliyatı, yoğun bakım.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c84",
+   "title": "Ateş ve öksürük — 31 yaşında erkek",
+   "topic": "Enfeksiyon / Kardiyoloji",
+   "intro": "31 yaşında erkek, damar içi madde kullanıyor. 1 haftadır yüksek ateş, titreme, plöritik göğüs ağrısı ve öksürük. Kollarda enjeksiyon izleri var.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Toksik görünümlü. Sol sternal kenarda inspiryumla artan **pansistolik üfürüm**. Parmak uçlarında küçük ağrısız hemorajik lezyonlar (Janeway), tırnak altı kıymık hemorajileri.",
+     "vitals": "KB 104/62 · Nb 118 · SS 24 · SpO₂ %93 · Ateş 39,6",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kan kültürü — 3 set (farklı ven ponksiyonlarından, antibiyotikten önce)",
+       "pts": 3,
+       "min": 30,
+       "res": "Alındı; 18 saatte 3/3 şişede **S. aureus** üredi.",
+       "fb": "Duke ölçütleri: tipik mikroorganizma ile tekrarlayan pozitif kültür majör ölçüttür."
+      },
+      {
+       "kind": "test",
+       "label": "Toraks BT",
+       "pts": 2,
+       "min": 30,
+       "res": "İki akciğerde periferik, kaviteli **septik emboliler**.",
+       "fb": "Sağ kalp (triküspit) endokarditi."
+      },
+      {
+       "kind": "test",
+       "label": "Ekokardiyografi",
+       "pts": 3,
+       "min": 40,
+       "res": "Triküspit kapakta 18 mm vejetasyon, ciddi triküspit yetersizliği.",
+       "fb": "Majör ölçüt (vejetasyon)."
+      },
+      {
+       "kind": "act",
+       "label": "Kültürler alındıktan hemen sonra **ampirik IV antibiyotik** (ör. vankomisin ± gentamisin ya da yerel protokol; S. aureus — MRSA olasılığı); endokardit ekibi (kardiyoloji, enfeksiyon, kalp cerrahisi); bağımlılık tedavisine yönlendirme",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Hemodinamik bozulma ve sepsis varsa antibiyotik kültürden hemen sonra; sonuçlara göre daraltılır."
+      },
+      {
+       "kind": "act",
+       "label": "Pnömoni — oral amoksisilin-klavulanat ile taburcu",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Damar içi madde kullanımı + üfürüm + çoklu periferik akciğer nodülü = sağ kalp endokarditi."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Endokardit tedavisi",
+     "text": "Kültürde MSSA üredi, antibiyotik flukloksasilin/sefazoline daraltıldı; 6 hafta IV tedavi verildi. Büyük vejetasyon ve kalıcı bakteriyemi nedeniyle cerrahi değerlendirildi.\n\n**Akılda kalsın**\n- Ateş + yeni üfürüm + risk (damar içi madde, protez kapak, önceki IE, kalp hastalığı) → **IE düşün**.\n- **Antibiyotikten önce 3 set kan kültürü**; ekokardiyografi (TTE, gerekirse TEE).\n- Bulgular: embolik fenomenler (Janeway, splinter, septik emboli, inme), immünolojik (Osler, Roth, glomerülonefrit).\n- Ampirik tedavi yerel protokole göre; endokardit ekibi.\n- IE'ye bağlı embolik inmede **tromboliz önerilmez**.\n\n*Kaynak: ESC 2023 Endokardit Kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Komplikasyon",
+     "text": "Hasta septik şok ve akut triküspit yetersizliğine bağlı sağ kalp yetmezliğiyle döndü.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c85",
+   "title": "Yüz travması sonrası görme kaybı — 27 yaşında erkek",
+   "topic": "Göz / Travma",
+   "intro": "27 yaşında erkek, kavgada sol gözüne yumruk almış. 40 dakikadır sol gözde artan ağrı, şişlik ve görmede bulanıklık.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sol göz **proptotik**, göz kapakları gergin, göz hareketleri kısıtlı, subkonjonktival kanama. Sol gözde **relatif afferent pupil defekti**. Görme: 1 metreden parmak sayma. Palpasyonda orbita taş gibi sert.",
+     "vitals": "KB 146/90 · Nb 98",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Göz içi basıncı",
+       "pts": 2,
+       "min": 5,
+       "res": "Sol **52 mmHg**.",
+       "fb": "Orbital kompartman sendromu."
+      },
+      {
+       "kind": "test",
+       "label": "BT (cerrahi öncesi)",
+       "pts": -3,
+       "min": 40,
+       "res": "Retrobulber hematom. 40 dakika kaybedildi.",
+       "fb": "Klinik tanı açıkken BT dekompresyonu geciktirmemeli."
+      },
+      {
+       "kind": "act",
+       "label": "**Lateral kantotomi + inferior kantoliz** (acil hekimi, hemen); ardından GİB ve görme kontrolü; göz konsültasyonu; tıbbi tedavi (asetazolamid, mannitol) yardımcı",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. Retina iskemisi ≈90–120 dakikada kalıcı hasar yapar; işlem yatak başında yapılır."
+      },
+      {
+       "kind": "act",
+       "label": "Soğuk uygulama + analjezik, sabah göz polikliniği",
+       "pts": -5,
+       "min": 20,
+       "to": "n9",
+       "fb": "Orbital kompartman sendromu dakikalar-saatler içinde körlük yapar."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Görme korundu",
+     "text": "Kantotomi/kantoliz sonrası GİB 24 mmHg'ye indi, RAPD kayboldu; görme 0,7'ye yükseldi.\n\n**Akılda kalsın**\n- Orbital kompartman sendromu: travma/cerrahi sonrası **proptozis, ağrı, görme kaybı, RAPD, GİB yüksekliği (>40), gergin orbita**.\n- **Klinik tanıdır**: görüntüleme beklenmez.\n- **Lateral kantotomi + kantoliz** acil hekiminin yapması gereken görme kurtarıcı işlemdir.\n- Antikoagülan kullananlar risklidir.\n\n*Kaynak: Roberts & Hedges' Clinical Procedures; Royal College of Emergency Medicine.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kalıcı körlük",
+     "text": "Sabah göz polikliniğinde görme ışık hissi düzeyindeydi; optik sinir hasarı kalıcıydı.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c86",
+   "title": "Kış günü evde bulunan uykulu hasta — 78 yaşında kadın",
+   "topic": "Endokrin",
+   "intro": "78 yaşında kadın, yalnız yaşıyor. Hipotiroidi tanısı var ama ilaçlarını aylardır kullanmıyor. Kızı onu soğuk evde uyuklarken, yanıtları çok yavaş bulmuş. 1 haftadır pnömoni belirtileri var.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Resüsitasyon alanı",
+     "text": "Letarjik (GKS 11), yüz şiş, deri kuru-kaba, dil büyük, refleksler gecikmeli gevşeme.",
+     "vitals": "KB 88/52 · **Nb 44** · **SS 8** · SpO₂ %88 · **Isı 33,4 °C** · Glukoz 58",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "TSH, sT4, kortizol (tedaviden önce örnek)",
+       "pts": 2,
+       "min": 40,
+       "res": "**TSH 68**, sT4 çok düşük. (Kortizol sonucu sonra gelecek.)",
+       "fb": "Primer hipotiroidi; adrenal yetmezlik eşlik edebilir."
+      },
+      {
+       "kind": "test",
+       "label": "Na, kan gazı",
+       "pts": 2,
+       "min": 10,
+       "res": "Na 124, pCO₂ 68, pH 7,24.",
+       "fb": "Hiponatremi ve hiperkapnik solunum yetmezliği."
+      },
+      {
+       "kind": "act",
+       "label": "Hava yolu/ventilasyon desteği (hiperkapni); **IV hidrokortizon 100 mg** (8 saatte bir) — tiroid hormonundan önce/birlikte; **IV levotiroksin** yükleme (ör. 200–400 mcg; yaşlı/kardiyak hastada düşük doz, 100–200 mcg); pasif ısıtma; hipoglisemi ve hiponatremi tedavisi; tetikleyici (pnömoni) için antibiyotik; yoğun bakım",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Steroidsiz tiroid hormonu, eşlik eden adrenal yetmezlikte krizi tetikleyebilir."
+      },
+      {
+       "kind": "act",
+       "label": "Hızlı aktif dış ısıtma (ısıtıcı battaniye, sıcak su) ve oral levotiroksin",
+       "pts": -4,
+       "min": 30,
+       "to": "n9",
+       "fb": "Agresif dış ısıtma periferik vazodilatasyonla şoka yol açabilir; oral emilim güvenilmez; steroid atlandı."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Yoğun bakımda düzelme",
+     "text": "NIV ve ardından kısa süreli entübasyonla ventilasyon desteklendi; 48 saatte bilinç düzeldi, ısı 36,5 °C. Kortizol düşük çıktı; hidrokortizon azaltılarak sürdürüldü.\n\n**Akılda kalsın**\n- Miksödem koması: **bilinç değişikliği + hipotermi + bradikardi + hipoventilasyon**, hiponatremi, hipoglisemi; tetikleyici: enfeksiyon, soğuk, sedatif, ilaç bırakma.\n- **Önce/birlikte hidrokortizon**, sonra **IV levotiroksin** (yaşlı/kardiyakta düşük doz).\n- **Pasif ısıtma**; ventilasyon desteği; hiponatremi ve hipoglisemi tedavisi.\n- Tedaviye laboratuvarı beklemeden başlanır.\n\n*Kaynak: ATA 2014 hipotiroidi kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kollaps",
+     "text": "Ani ısıtma sonrası hipotansiyon derinleşti; hasta arrest oldu.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c87",
+   "title": "Karın ağrısı ve BT'de bağırsak duvarında hava — 74 yaşında kadın",
+   "topic": "Genel cerrahi",
+   "intro": "74 yaşında kadın, KKY ve AF. 12 saattir karın ağrısı, kusma; son saatlerde ağrı yayıldı. Bir önceki merkezde çekilen BT raporunda “pneumatosis intestinalis” yazıyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Karın distandü, yaygın hassasiyet ve defans.",
+     "vitals": "KB 88/50 · Nb 124 · Ateş 38,1",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Laktat, kan gazı",
+       "pts": 2,
+       "min": 10,
+       "res": "**Laktat 6,2**, pH 7,24.",
+       "fb": "Sistemik hipoperfüzyon/iskemi."
+      },
+      {
+       "kind": "test",
+       "label": "BT'nin yeniden değerlendirilmesi",
+       "pts": 3,
+       "min": 10,
+       "res": "İnce bağırsak duvarında lineer gaz + **portal venöz gaz**; süperior mezenter arterde dolum defekti.",
+       "fb": "Pnömatozis + portal venöz gaz + peritonit + laktat = **transmural iskemi**."
+      },
+      {
+       "kind": "act",
+       "label": "Resüsitasyon, geniş spektrum antibiyotik, heparin; **acil cerrahi** (laparotomi) + damar cerrahisi",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Pnömatozis tek başına değil, klinikle birlikte yorumlanır; tehlike işaretleri varken cerrahi gerekir."
+      },
+      {
+       "kind": "act",
+       "label": "Pnömatozis çoğunlukla iyi huyludur — konservatif izlem, oral beslenme",
+       "pts": -5,
+       "min": 30,
+       "to": "n9",
+       "fb": "Peritonit, laktat yüksekliği ve portal venöz gaz iyi huylu pnömatozisi dışlar."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Acil laparotomi",
+     "text": "SMA embolektomisi ve nekrotik ileum rezeksiyonu yapıldı; ikinci bakışta kalan bağırsak canlıydı.\n\n**Akılda kalsın**\n- Pnömatozis intestinalis bir **görüntüleme bulgusudur**, tanı değil.\n- **İyi huylu**: asemptomatik, KOAH, steroid/kemoterapi, endoskopi sonrası — konservatif.\n- **Tehlikeli**: karın ağrısı + **peritonit**, **laktat ↑**, asidoz, hipotansiyon, **portal venöz gaz** → bağırsak iskemisi → **acil cerrahi**.\n\n*Kaynak: DuBose ve ark., PIPES çalışması (JAMA Surg 2013); Tintinalli.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ölüm",
+     "text": "Konservatif izlenen hasta septik şokla kaybedildi; otopside yaygın bağırsak nekrozu.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c88",
+   "title": "Kırmızı, ağrılı göz — 23 yaşında kadın",
+   "topic": "Göz",
+   "intro": "23 yaşında kadın, aylık yumuşak kontakt lens kullanıyor; sık sık lensle uyuyor ve lensi musluk suyuyla temizliyor. 1 gündür sağ gözde artan ağrı, kızarıklık, ışığa hassasiyet ve görme bulanıklığı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sağ gözde silier enjeksiyon, kornea ortasında **beyaz infiltrat**, ön kamarada hafif hipopiyon. Görme 0,3.",
+     "vitals": "",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Floresein boyama (yarık lamba/mavi ışık)",
+       "pts": 3,
+       "min": 5,
+       "res": "İnfiltrat üzerinde **3 mm epitel defekti** boyanıyor.",
+       "fb": "Bakteriyel keratit (lens kullanıcılarında Pseudomonas sık; Acanthamoeba unutulmamalı)."
+      },
+      {
+       "kind": "act",
+       "label": "Lensi çıkar (ve sakla/kültüre gönder); **aynı gün acil göz konsültasyonu** (kazıntı/kültür, yoğun topikal antibiyotik — ör. saatlik florokinolon); kapama yok, steroid yok; lens kullanmayı bırak",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Korneal ülser görmeyi tehdit eder; tedavi göz hekimince yoğun topikal antibiyotikle yapılır."
+      },
+      {
+       "kind": "act",
+       "label": "Konjonktivit — steroid-antibiyotik kombine damla ve göz kapama",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Steroid enfeksiyonu ağırlaştırabilir; lens kullanıcısında kapama Pseudomonas için uygun ortam yaratır."
+      }
+     ]
+    },
+    "n2": {
+     "title": "İyileşme",
+     "text": "Kültürde Pseudomonas üredi; yoğun topikal antibiyotikle 2 haftada ülser skarla iyileşti, görme 0,8.\n\n**Akılda kalsın**\n- Kırmızı göz kırmızı bayrakları: **görme azalması, şiddetli ağrı, fotofobi, kornea opasitesi/infiltrat, hipopiyon, lens kullanımı**.\n- Lens kullanıcısında ağrılı kırmızı göz = **keratit** aksi kanıtlanana kadar.\n- **Aynı gün göz**; kazıntı/kültür, yoğun topikal antibiyotik.\n- **Kapama yok, acilde steroid yok**.\n- Lensle uyumak ve musluk suyu (Acanthamoeba) büyük risk.\n\n*Kaynak: AAO Bakteriyel Keratit Tercihli Uygulama Örüntüsü (PPP).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kornea perforasyonu",
+     "text": "Ülser derinleşti, kornea perforasyonu gelişti; acil keratoplasti gerekti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c89",
+   "title": "Boyun ağrısı ve göz kapağında düşme — 38 yaşında kadın",
+   "topic": "Nöroloji",
+   "intro": "38 yaşında kadın. 3 gün önce kuaförde saçları yıkanırken boynu uzun süre geriye bükülmüş. O günden beri sol boyun ve şakak ağrısı; bugün sol göz kapağının düştüğünü fark etmiş. 1 saat önce 10 dakika süren sağ elde güçsüzlük olmuş, geçmiş.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sol **pitoz ve miyozis** (Horner sendromu), anhidroz yok. Şu an nörolojik defisit yok.",
+     "vitals": "KB 128/80 · Nb 78",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "BT anjiyografi (boyun + beyin)",
+       "pts": 4,
+       "min": 30,
+       "res": "Sol internal karotis arterde **diseksiyon** (alev şeklinde daralma, intramural hematom).",
+       "fb": "Ağrılı Horner + TİA = karotis diseksiyonu."
+      },
+      {
+       "kind": "test",
+       "label": "Beyin MR (difüzyon)",
+       "pts": 1,
+       "min": 60,
+       "res": "Sol hemisferde küçük akut iskemik odak.",
+       "fb": "Sessiz/küçük infarktlar."
+      },
+      {
+       "kind": "act",
+       "label": "Diseksiyona bağlı TİA/inme: **antitrombotik tedavi** (antiplatelet veya antikoagülan — benzer etkinlik), nöroloji yatışı/inme ünitesi; yeni defisit gelişir ve pencere içindeyse tromboliz kontrendike değildir",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. CADISS ve TREAT-CAD çalışmaları; tedavi seçimi nörolojiyle."
+      },
+      {
+       "kind": "act",
+       "label": "Migren + gerilim — analjezik ile taburcu",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Genç hastada ağrılı Horner sendromu karotis diseksiyonudur; inme riski en yüksek ilk günlerdedir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "İnme önlendi",
+     "text": "Antiplatelet tedaviyle izlendi; yeni iskemik olay olmadı. 3. ayda damar rekanalize oldu.\n\n**Akılda kalsın**\n- Genç inmenin önemli nedeni; minör travma (boyun manipülasyonu, spor, kuaför), bağ dokusu hastalıkları.\n- **Ağrılı Horner** (pitoz + miyozis), boyun/yüz/baş ağrısı, TİA/inme, pulsatil tinnitus.\n- Tanı: **BT/MR anjiyografi**.\n- **Antitrombotik** (antiplatelet ≈ antikoagülan); diseksiyon tek başına trombolize engel değil.\n- Vertebral diseksiyon: ense ağrısı + arka dolaşım inmesi.\n\n*Kaynak: ESO 2021 servikal arter diseksiyonu kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "İnme",
+     "text": "Hasta 2 gün sonra sağ hemipleji ve afaziyle getirildi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c90",
+   "title": "Parmağa adrenalin enjeksiyonu — 26 yaşında kadın",
+   "topic": "El cerrahisi / Toksikoloji",
+   "intro": "26 yaşında kadın, çocuğunun adrenalin oto-enjektörünü kontrol ederken yanlışlıkla sol baş parmağına batırmış (0,3 mg). 20 dakikadır parmak bembeyaz, soğuk ve ağrılı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sol baş parmak distal falanks soluk-beyaz, soğuk; kapiller dolum >4 sn. Sistemik belirti yok.",
+     "vitals": "KB 132/80 · Nb 96",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "**Fentolamin** lokal infiltrasyonu (ör. 0,5–1 mg, 1–5 mL lidokain/SF ile seyreltilmiş, enjeksiyon yerine/parmak kaidesine); ılık ortam; yanıt izlemi; alternatif: topikal nitrogliserin",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Alfa bloker fentolamin vazospazmı dakikalar içinde geri çevirir."
+      },
+      {
+       "kind": "act",
+       "label": "Parmağa buz koy ve izle",
+       "pts": -4,
+       "min": 30,
+       "to": "n9",
+       "fb": "Soğuk vazokonstriksiyonu artırır."
+      },
+      {
+       "kind": "act",
+       "label": "Hiçbir şey yapma — kendiliğinden geçer, taburcu",
+       "pts": -1,
+       "min": 10,
+       "to": "n3",
+       "fb": "Olguların çoğu kendiliğinden düzelir ama uzamış iskemi riski için izlem ve tedavi seçeneği sunulmalıdır."
+      }
+     ]
+    },
+    "n3": {
+     "title": "1 saat sonra",
+     "text": "Parmak hâlâ soluk, ağrı artıyor.",
+     "vitals": "",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Fentolamin lokal infiltrasyonu",
+       "pts": 2,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru — gecikmeli."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Perfüzyon döndü",
+     "text": "Fentolaminden 10 dakika sonra parmak pembeleşti, kapiller dolum 2 sn. 1 saat izlenip taburcu edildi; oto-enjektör kullanımı yeniden anlatıldı.\n\n**Akılda kalsın**\n- Dijital iskemi nedenleri: **vazokonstriktör enjeksiyonu** (adrenalin oto-enjektör), emboli, Raynaud/skleroderma, vaskülit, travma, ergot, kokain.\n- Adrenalin enjeksiyonunda: **fentolamin lokal**, ılık ortam; soğuk uygulama yok.\n- Not: **adrenalinli lokal anestezik** sağlıklı parmakta güvenli kabul edilir; sorun yüksek dozlu oto-enjektördedir.\n- Raynaud/skleroderma kaynaklı kritik iskemide: sıcak, kalsiyum kanal blokeri, iloprost; romatoloji.\n\n*Kaynak: Muck ve ark., Ann Emerg Med 2010 (sistematik derleme).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Uzamış iskemi",
+     "text": "Soğuk uygulama sonrası iskemi uzadı; parmak ucunda doku kaybı gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  }
+ ],
+ "questions": [
+  {
+   "key": "c81q1",
+   "stem": "Üst ekstremite akut arteriyel iskemisinin en sık nedeni hangisidir?",
+   "options": [
+    "Ateroskleroz",
+    "Kardiyak emboli",
+    "Vaskülit",
+    "Travma",
+    "Raynaud"
+   ],
+   "correct": 1,
+   "explanation": "AF ve kapak hastalığı başlıca kaynaklardır.",
+   "topic": "Kalp-damar cerrahisi"
+  },
+  {
+   "key": "c81q2",
+   "stem": "Duyu kaybı olan akut kol iskemisinde doğru yaklaşım hangisidir?",
+   "options": [
+    "Oral antikoagülan ve taburculuk",
+    "Heparin + acil embolektomi",
+    "Sıcak uygulama",
+    "NSAİİ",
+    "Gözlem"
+   ],
+   "correct": 1,
+   "explanation": "Nörolojik tutulum acil revaskülarizasyon gerektirir.",
+   "topic": "Kalp-damar cerrahisi"
+  },
+  {
+   "key": "c81q3",
+   "stem": "Embolektomi sonrası emboli kaynağı için hangi tetkik yapılmalıdır?",
+   "options": [
+    "Ekokardiyografi",
+    "Kolonoskopi",
+    "Beyin MR",
+    "Spirometri",
+    "Tiroid USG"
+   ],
+   "correct": 0,
+   "explanation": "Sol atriyal/ventriküler trombüs, vejetasyon araştırılır.",
+   "topic": "Kalp-damar cerrahisi"
+  },
+  {
+   "key": "c82q1",
+   "stem": "Kimyasal göz yanığında ilk yapılacak işlem hangisidir?",
+   "options": [
+    "Görme keskinliği ölçümü",
+    "Bol miktarda yıkama",
+    "Göz kapama",
+    "Steroid damla",
+    "Nötralizan solüsyon"
+   ],
+   "correct": 1,
+   "explanation": "Yıkama muayeneden önce gelir.",
+   "topic": "Göz"
+  },
+  {
+   "key": "c82q2",
+   "stem": "Kimyasal yanıkta yıkama ne zamana kadar sürdürülür?",
+   "options": [
+    "Ağrı geçene kadar",
+    "Konjunktival pH 7,0–7,5 olana kadar (5–10 dk sonra kontrol)",
+    "1 dakika",
+    "Hasta istemeyene kadar",
+    "Yıkama gerekmez"
+   ],
+   "correct": 1,
+   "explanation": "pH normale dönene kadar.",
+   "topic": "Göz"
+  },
+  {
+   "key": "c82q3",
+   "stem": "Hangisi daha ağır göz hasarı yapma eğilimindedir?",
+   "options": [
+    "Seyreltik asit",
+    "Alkali (ör. sodyum hidroksit, kireç)",
+    "Su",
+    "Serum fizyolojik",
+    "Sabun"
+   ],
+   "correct": 1,
+   "explanation": "Alkaliler likefaksiyon nekrozuyla derine ilerler.",
+   "topic": "Göz"
+  },
+  {
+   "key": "c83q1",
+   "stem": "Sigmoid volvulusun klasik direkt grafi bulgusu hangisidir?",
+   "options": [
+    "Kahve çekirdeği (ters U)",
+    "Çift baloncuk",
+    "Merdiven basamağı tek başına",
+    "Serbest hava",
+    "Hedef işareti"
+   ],
+   "correct": 0,
+   "explanation": "Dev distandü sigmoid loop.",
+   "topic": "Genel cerrahi"
+  },
+  {
+   "key": "c83q2",
+   "stem": "Peritonit bulgusu olmayan sigmoid volvulusta ilk tedavi hangisidir?",
+   "options": [
+    "Acil laparotomi",
+    "Endoskopik detorsiyon",
+    "Lavman ve taburculuk",
+    "Antibiyotik",
+    "Gözlem"
+   ],
+   "correct": 1,
+   "explanation": "Ardından nüksü önlemek için elektif rezeksiyon düşünülür.",
+   "topic": "Genel cerrahi"
+  },
+  {
+   "key": "c83q3",
+   "stem": "Çekal volvulusun tedavisi hangisidir?",
+   "options": [
+    "Endoskopik detorsiyon",
+    "Cerrahi",
+    "Lavman",
+    "Konservatif",
+    "Antibiyotik"
+   ],
+   "correct": 1,
+   "explanation": "Endoskopik detorsiyon başarısı düşüktür; cerrahi gerekir.",
+   "topic": "Genel cerrahi"
+  },
+  {
+   "key": "c84q1",
+   "stem": "İnfektif endokardit şüphesinde antibiyotikten önce yapılması gereken nedir?",
+   "options": [
+    "Tek set kan kültürü",
+    "Farklı ponksiyonlardan 3 set kan kültürü",
+    "Yalnız CRP",
+    "Boğaz kültürü",
+    "İdrar kültürü tek başına"
+   ],
+   "correct": 1,
+   "explanation": "Sürekli bakteriyemiyi göstermek için.",
+   "topic": "Enfeksiyon / Kardiyoloji"
+  },
+  {
+   "key": "c84q2",
+   "stem": "Damar içi madde kullananlarda en sık tutulan kapak hangisidir?",
+   "options": [
+    "Aort",
+    "Mitral",
+    "Triküspit",
+    "Pulmoner",
+    "Hepsi eşit"
+   ],
+   "correct": 2,
+   "explanation": "Sağ kalp endokarditi ve septik pulmoner emboliler.",
+   "topic": "Enfeksiyon / Kardiyoloji"
+  },
+  {
+   "key": "c84q3",
+   "stem": "Endokardite bağlı akut iskemik inmede hangisi önerilmez?",
+   "options": [
+    "Antibiyotik",
+    "IV tromboliz",
+    "Nöroloji konsültasyonu",
+    "Görüntüleme",
+    "Ekokardiyografi"
+   ],
+   "correct": 1,
+   "explanation": "Mikotik anevrizma ve kanama riski nedeniyle.",
+   "topic": "Enfeksiyon / Kardiyoloji"
+  },
+  {
+   "key": "c85q1",
+   "stem": "Retrobulber hemorajide görmeyi kurtaran acil işlem hangisidir?",
+   "options": [
+    "Göz kapama",
+    "Lateral kantotomi + inferior kantoliz",
+    "Topikal steroid",
+    "Soğuk kompres",
+    "Pupil dilatasyonu"
+   ],
+   "correct": 1,
+   "explanation": "Orbita basıncını hemen düşürür.",
+   "topic": "Göz / Travma"
+  },
+  {
+   "key": "c85q2",
+   "stem": "Orbital kompartman sendromunda tanı nasıl konur?",
+   "options": [
+    "Yalnız BT ile",
+    "Klinik olarak (proptozis, görme kaybı, RAPD, GİB yüksekliği)",
+    "MR ile",
+    "Ultrasonla zorunlu",
+    "Kan testiyle"
+   ],
+   "correct": 1,
+   "explanation": "Görüntüleme işlemi geciktirmemelidir.",
+   "topic": "Göz / Travma"
+  },
+  {
+   "key": "c85q3",
+   "stem": "Retina iskemisinde kalıcı hasar ne kadar sürede gelişebilir?",
+   "options": [
+    "5 dakika",
+    "≈90–120 dakika",
+    "24 saat",
+    "1 hafta",
+    "Hiçbir zaman"
+   ],
+   "correct": 1,
+   "explanation": "Zaman kritik.",
+   "topic": "Göz / Travma"
+  },
+  {
+   "key": "c86q1",
+   "stem": "Miksödem komasında tiroid hormonundan önce/birlikte verilmesi gereken ilaç hangisidir?",
+   "options": [
+    "Propranolol",
+    "Hidrokortizon",
+    "Furosemid",
+    "Digoksin",
+    "Amiodaron"
+   ],
+   "correct": 1,
+   "explanation": "Eşlik edebilecek adrenal yetmezlik nedeniyle.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c86q2",
+   "stem": "Miksödem komasında levotiroksin hangi yoldan verilir?",
+   "options": [
+    "Oral",
+    "IV",
+    "İntramüsküler",
+    "Rektal",
+    "Topikal"
+   ],
+   "correct": 1,
+   "explanation": "Bağırsak ödemi nedeniyle oral emilim güvenilmez.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c86q3",
+   "stem": "Miksödem komasında hipotermi nasıl yönetilir?",
+   "options": [
+    "Hızlı aktif dış ısıtma",
+    "Pasif ısıtma (battaniye)",
+    "Soğutma",
+    "Hiçbir şey",
+    "Sıcak su banyosu"
+   ],
+   "correct": 1,
+   "explanation": "Aktif dış ısıtma vazodilatasyon ve şok riski taşır.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c87q1",
+   "stem": "Pnömatozis intestinaliste hangisi tehlikeli (iskemik) formu düşündürür?",
+   "options": [
+    "Asemptomatik hasta",
+    "Portal venöz gaz + laktat yüksekliği + peritonit",
+    "KOAH öyküsü",
+    "Steroid kullanımı",
+    "Endoskopi sonrası"
+   ],
+   "correct": 1,
+   "explanation": "Bu bulgular transmural iskemiyi gösterir.",
+   "topic": "Genel cerrahi"
+  },
+  {
+   "key": "c87q2",
+   "stem": "Asemptomatik, laboratuvarı normal pnömatozisli hastada yaklaşım hangisidir?",
+   "options": [
+    "Acil laparotomi",
+    "Konservatif izlem",
+    "Tromboliz",
+    "Antikoagülan",
+    "Hemen kolektomi"
+   ],
+   "correct": 1,
+   "explanation": "İyi huylu formlar sıktır.",
+   "topic": "Genel cerrahi"
+  },
+  {
+   "key": "c87q3",
+   "stem": "Pnömatozis intestinalis için doğru ifade hangisidir?",
+   "options": [
+    "Her zaman cerrahi gerektirir",
+    "Bir görüntüleme bulgusudur; klinikle yorumlanır",
+    "Yalnız çocuklarda görülür",
+    "Tanı koydurucudur",
+    "Hiçbir zaman tehlikeli değildir"
+   ],
+   "correct": 1,
+   "explanation": "Klinik bağlam kararı belirler.",
+   "topic": "Genel cerrahi"
+  },
+  {
+   "key": "c88q1",
+   "stem": "Kontakt lens kullanıcısında ağrılı kırmızı gözde ilk düşünülmesi gereken hangisidir?",
+   "options": [
+    "Alerjik konjonktivit",
+    "Mikrobiyal keratit",
+    "Episklerit",
+    "Subkonjonktival kanama",
+    "Kuru göz"
+   ],
+   "correct": 1,
+   "explanation": "Pseudomonas ve Acanthamoeba başlıca etkenler.",
+   "topic": "Göz"
+  },
+  {
+   "key": "c88q2",
+   "stem": "Lens ilişkili korneal ülserde hangisi yapılmamalıdır?",
+   "options": [
+    "Lensi çıkarmak",
+    "Göz kapama ve steroidli damla",
+    "Acil göz konsültasyonu",
+    "Kültür",
+    "Yoğun topikal antibiyotik"
+   ],
+   "correct": 1,
+   "explanation": "Kapama ve steroid enfeksiyonu kötüleştirir.",
+   "topic": "Göz"
+  },
+  {
+   "key": "c88q3",
+   "stem": "Hangi bulgu kırmızı gözde ciddi patolojiyi düşündürür?",
+   "options": [
+    "Kaşıntı",
+    "Sulu akıntı",
+    "Görme keskinliğinde azalma ve fotofobi",
+    "Bilateral hafif kızarıklık",
+    "Yanma"
+   ],
+   "correct": 2,
+   "explanation": "Kırmızı bayraklar acil değerlendirme gerektirir.",
+   "topic": "Göz"
+  },
+  {
+   "key": "c89q1",
+   "stem": "Ağrılı Horner sendromu (pitoz + miyozis + baş/boyun ağrısı) hangi tanıyı düşündürür?",
+   "options": [
+    "Migren",
+    "İnternal karotis diseksiyonu",
+    "Bell paralizisi",
+    "Glokom",
+    "Sinüzit"
+   ],
+   "correct": 1,
+   "explanation": "Sempatik liflerin karotis duvarında hasarı.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c89q2",
+   "stem": "Servikal arter diseksiyonunda inme önleme tedavisi hangisidir?",
+   "options": [
+    "Tromboliz herkese",
+    "Antiplatelet veya antikoagülan",
+    "Steroid",
+    "Cerrahi her olguda",
+    "Hiçbir şey"
+   ],
+   "correct": 1,
+   "explanation": "İki strateji benzer etkinlikte bulunmuştur.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c89q3",
+   "stem": "Karotis diseksiyonu tanısında tercih edilen görüntüleme hangisidir?",
+   "options": [
+    "Direkt grafi",
+    "BT veya MR anjiyografi",
+    "Ekokardiyografi",
+    "EEG",
+    "LP"
+   ],
+   "correct": 1,
+   "explanation": "Lümen daralması ve intramural hematom gösterilir.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c90q1",
+   "stem": "Adrenalin oto-enjektörünün parmağa yanlışlıkla enjeksiyonunda kullanılan antidot hangisidir?",
+   "options": [
+    "Nalokson",
+    "Fentolamin (lokal infiltrasyon)",
+    "Atropin",
+    "Propranolol",
+    "Heparin"
+   ],
+   "correct": 1,
+   "explanation": "Alfa-adrenerjik vazospazmı geri çevirir.",
+   "topic": "El cerrahisi / Toksikoloji"
+  },
+  {
+   "key": "c90q2",
+   "stem": "Dijital vazospazmda hangisinden kaçınılmalıdır?",
+   "options": [
+    "Ilık ortam",
+    "Soğuk uygulama (buz)",
+    "Fentolamin",
+    "Topikal nitrat",
+    "Gözlem"
+   ],
+   "correct": 1,
+   "explanation": "Soğuk vazokonstriksiyonu artırır.",
+   "topic": "El cerrahisi / Toksikoloji"
+  },
+  {
+   "key": "c90q3",
+   "stem": "Adrenalinli lokal anesteziğin parmakta kullanımı için güncel görüş hangisidir?",
+   "options": [
+    "Kesinlikle kontrendike",
+    "Sağlıklı parmaklarda genellikle güvenli",
+    "Yalnız çocuklarda",
+    "Her zaman fentolamin gerekir",
+    "Kangren yapar"
+   ],
+   "correct": 1,
+   "explanation": "Düşük konsantrasyonlu adrenalinli lidokainin güvenliği gösterilmiştir.",
+   "topic": "El cerrahisi / Toksikoloji"
+  }
+ ],
+ "module": {
+  "title": "İlk Nöbet Vakaları — 9. Paket",
+  "topic": "Acil tıp",
+  "order": 9,
+  "req": [
+   3
+  ],
+  "desc": "Göz, damar, endokrin ve nadir abdominal acillerden 10 vaka.",
+  "intro": "- Her vakayı önce **kendi bildiğinizle** çözün, sonra yeniden oynayıp farklı kararların sonucunu görün.\n- Sonuç ekranındaki **“Akılda kalsın”** bölümü vakanın özüdür.\n- Sonunda **pekiştirme sorularını** çözün; yanlışlarınız tekrar listenize eklenir.\n- İlaç dozları kılavuzlardan alınmıştır; uygulamada kurumunuzun protokollerini esas alın."
+ }
+}

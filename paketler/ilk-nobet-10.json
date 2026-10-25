@@ -1,0 +1,1175 @@
+{
+ "id": "ilk-nobet-10",
+ "title": "İlk Nöbet Vakaları — 10. Paket",
+ "desc": "Serebral venöz sinüs trombozu, spontan pnömotoraks, pnömoni, peritonsiller apse, sinüzit (orbital komplikasyon), otitis media (mastoidit), nekrotizan otitis eksterna, sistit, gebelikte piyelonefrit, arka dolaşım inmesi.",
+ "source": "Gazi Acil Tıp — özgün senaryolar (güncel kılavuzlara dayanır; klinik kontrol sonrası yayınlayın)",
+ "pool": "İlk Nöbet Vakaları — 10. Paket",
+ "sims": [
+  {
+   "key": "c91",
+   "title": "Giderek artan baş ağrısı — 29 yaşında kadın",
+   "topic": "Nöroloji",
+   "intro": "29 yaşında kadın, oral kontraseptif kullanıyor. 5 gündür giderek artan, yatınca ve öksürünce kötüleşen baş ağrısı; bulantı-kusma. Bugün sağ kolunda kasılma ile başlayan jeneralize nöbet geçirdi.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Postiktal, konfüzyon düzeliyor. Fundoskopide **bilateral papil ödemi**. Sağ kolda hafif güçsüzlük.",
+     "vitals": "KB 132/82 · Nb 92 · Ateş 37,1",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kontrastsız BT",
+       "pts": 2,
+       "min": 20,
+       "res": "Sol parietal küçük hemorajik infarkt; superior sagital sinüste **hiperdens** görünüm (kordon işareti).",
+       "fb": "Arter sulama alanına uymayan hemorajik infarkt venöz trombozu düşündürür."
+      },
+      {
+       "kind": "test",
+       "label": "BT venografi / MR venografi",
+       "pts": 3,
+       "min": 40,
+       "res": "**Superior sagital ve sol transvers sinüste trombüs** (kontrastlı BT'de boş delta işareti).",
+       "fb": "Tanı venografiyle konur."
+      },
+      {
+       "kind": "test",
+       "label": "D-dimer",
+       "pts": 0,
+       "min": 40,
+       "res": "Yüksek.",
+       "fb": "Normal D-dimer SVT'yi dışlamaz."
+      },
+      {
+       "kind": "act",
+       "label": "**Antikoagülasyon** — DMAH (ör. enoksaparin 1 mg/kg 12 saatte bir) ya da anfraksiyone heparin; **hemorajik infarkt varlığında bile**; nöbet tedavisi (levetirasetam); kontraseptifi kes; nöroloji/inme ünitesi",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. SVT'de kanamalı infarkt antikoagülasyon kontrendikasyonu değildir."
+      },
+      {
+       "kind": "act",
+       "label": "Beyinde kanama var — antikoagülan kontrendike, yalnız analjezi",
+       "pts": -4,
+       "min": 20,
+       "to": "n9",
+       "fb": "Kanama venöz tıkanıklığın sonucudur; antikoagülasyonsuz tromboz ilerler."
+      },
+      {
+       "kind": "act",
+       "label": "Migren — triptan ve taburcu",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Papil ödemi, nöbet ve fokal bulgulu baş ağrısı ikincil nedenlidir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Düzelme",
+     "text": "Antikoagülasyonla 1 haftada baş ağrısı ve kol güçsüzlüğü geriledi; oral antikoagülana geçildi (3–12 ay), kontrasepsiyon yöntemi değiştirildi.\n\n**Akılda kalsın**\n- SVT: **genç kadın, OKS/gebelik/lohusalık, trombofili, enfeksiyon**.\n- Baş ağrısı (artan, pozisyonel), **papil ödemi**, nöbet, fokal defisit, bilinç değişikliği.\n- BT normal olabilir; tanı **BT/MR venografi**.\n- **Antikoagülasyon** (hemorajik infarktta da); nöbet ve KİBAS tedavisi.\n\n*Kaynak: ESO 2017 SVT kılavuzu; AHA 2024 bilimsel bildiri.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kötüleşme",
+     "text": "Tromboz ilerledi; bilinç bozuldu, yaygın venöz infarktlar gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c92",
+   "title": "Ani yan ağrısı — 21 yaşında erkek",
+   "topic": "Göğüs hastalıkları",
+   "intro": "21 yaşında, uzun boylu, zayıf erkek; sigara içiyor. 6 saat önce dinlenirken sağ göğüste ani batıcı ağrı ve hafif nefes darlığı başlamış. Akciğer hastalığı yok.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Konuşabiliyor, rahat. Sağda solunum sesleri hafif azalmış.",
+     "vitals": "KB 126/78 · Nb 92 · SS 18 · SpO₂ %97",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Akciğer grafisi",
+       "pts": 3,
+       "min": 15,
+       "res": "**Sağ pnömotoraks**, hilus seviyesinde akciğer-göğüs duvarı mesafesi ≈3 cm (büyük); mediasten kayması yok.",
+       "fb": "BTS 2023: tedavi kararı boyuttan çok **semptom ve risk** ile verilir."
+      },
+      {
+       "kind": "act",
+       "label": "Primer spontan pnömotoraks, minimal semptom, stabil: **konservatif izlem** (gözlem, kontrol grafisi, uyarılar) ya da hasta tercihine göre iğne aspirasyonu/ambulatuvar cihaz; sigarayı bırakma danışmanlığı",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Semptomu az olan PSP'de konservatif yaklaşım, büyük pnömotoraksta bile güvenlidir (Brown ve ark., NEJM 2020)."
+      },
+      {
+       "kind": "act",
+       "label": "Hemen büyük çaplı göğüs tüpü (28 F)",
+       "pts": -1,
+       "min": 30,
+       "to": "n2",
+       "fb": "Gereksiz invazif; komplikasyon ve hastanede kalış artar. Gerekirse küçük çaplı kateter yeterlidir."
+      },
+      {
+       "kind": "act",
+       "label": "Analjezikle taburcu; yarın uçakla tatile gidebilir",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Pnömotoraks tam düzelmeden uçuş kontrendikedir; takip ve uyarılar şart."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Kendiliğinden düzelme",
+     "text": "4 saatlik gözlemde semptom artmadı; kontrol grafisinde ilerleme yoktu. Hasta uyarılarla taburcu edildi; 2 hafta sonra pnömotoraks rezorbe oldu.\n\n**Akılda kalsın**\n- **Primer** (sağlıklı akciğer, genç, uzun boylu, sigara) vs **sekonder** (KOAH vb. — daha agresif tedavi).\n- Stabil, minimal semptomlu PSP: **konservatif izlem** uygun; semptomatikse **iğne aspirasyonu** veya ambulatuvar cihaz; başarısızlıkta küçük çaplı tüp.\n- **Instabilite = tansiyon** → acil dekompresyon.\n- Tam düzelmeden **uçuş ve dalış yok**; sigarayı bırak.\n\n*Kaynak: BTS 2023 plevral hastalık kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Tansiyon pnömotoraks — uçakta",
+     "text": "Hasta uçakta ani nefes darlığı geliştirdi; acil iniş yapıldı.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c93",
+   "title": "Ateş ve öksürük — 72 yaşında erkek",
+   "topic": "Enfeksiyon / Göğüs",
+   "intro": "72 yaşında erkek, diyabet. 3 gündür ateş, balgamlı öksürük, sağ yan ağrısı; bugün kızı biraz konfüze olduğunu söylüyor. Yaklaşık 70 kg.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hafif konfüze (yer-zaman oryantasyonu bozuk). Sağ alt zonda bronşiyal solunum ve raller.",
+     "vitals": "KB 98/58 · Nb 108 · SS 26 · SpO₂ %90 · Ateş 38,9",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Akciğer grafisi",
+       "pts": 2,
+       "min": 15,
+       "res": "Sağ alt lob konsolidasyonu.",
+       "fb": "Tanı."
+      },
+      {
+       "kind": "test",
+       "label": "Üre, kreatinin, hemogram, CRP",
+       "pts": 1,
+       "min": 30,
+       "res": "Üre 62 mg/dL (BUN 29; >7 mmol/L), lökosit 17.000, CRP 210.",
+       "fb": "CURB-65 hesaplanır."
+      },
+      {
+       "kind": "test",
+       "label": "CURB-65",
+       "pts": 2,
+       "min": 2,
+       "res": "Konfüzyon (1) + üre >7 mmol/L (1) + SS ≥30 (0) + KB (sistolik <90 veya diyastolik ≤60) (1) + yaş ≥65 (1) = **4**.",
+       "fb": "3–5: ağır pnömoni → yatış, yoğun bakım değerlendirmesi."
+      },
+      {
+       "kind": "act",
+       "label": "Yatış; O₂ (hedef SpO₂ %94–98); **ilk 4 saatte** (sepsis bulgusunda 1 saatte) antibiyotik — ağır TKP: seftriakson (ya da amoksisilin-klavulanat) + makrolid (klaritromisin); kan ve balgam kültürü, idrar antijenleri; sıvı; sepsis ve yoğun bakım ölçütlerini değerlendir",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Ağır TKP'de beta-laktam + makrolid kombinasyonu."
+      },
+      {
+       "kind": "act",
+       "label": "Oral amoksisilin ile ayaktan tedavi",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "CURB-65 = 4: ağır pnömoni; ayaktan tedavi ölümcül olabilir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "İyileşme",
+     "text": "Hasta 5 gün IV, ardından oral antibiyotikle iyileşti; 6 hafta sonra kontrol grafisi planlandı (malignite ekarte).\n\n**Akılda kalsın**\n- **CURB-65**: Konfüzyon, Üre >7 mmol/L, SS ≥30, KB düşük (s<90/d≤60), ≥65 yaş. 0–1 ayaktan, 2 yatış düşün, 3–5 ağır.\n- Ağır TKP: **beta-laktam + makrolid** (ya da yerel protokol); antibiyotik **4 saat içinde**, sepsiste 1 saatte.\n- O₂ hedefi %94–98 (hiperkapni riskinde %88–92).\n- Yoğun bakım ölçütleri (ATS/IDSA majör/minör).\n\n*Kaynak: BTS/NICE NG138; ATS/IDSA 2019 TKP kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Septik şok",
+     "text": "Hasta ertesi gün septik şok ve solunum yetmezliğiyle döndü.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c94",
+   "title": "Boğaz ağrısı ve ağız açamama — 24 yaşında erkek",
+   "topic": "KBB",
+   "intro": "24 yaşında erkek. 5 gündür boğaz ağrısı; 2 gün önce başka bir yerde reçetesiz antibiyotik başlamış. Son 24 saatte sol tarafta artan ağrı, yutkunamama, ağzını tam açamama; sesi “ağzında sıcak patates varmış gibi”.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "**Trismus** (2 parmak). Sol peritonsiller bölgede belirgin şişlik, **uvula sağa itilmiş**. Salya biriktiriyor ama solunum sıkıntısı yok, stridor yok.",
+     "vitals": "Nb 108 · SpO₂ %98 · Ateş 38,7",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "İntraoral USG",
+       "pts": 2,
+       "min": 10,
+       "res": "Sol peritonsiller bölgede 2,4 cm sıvı koleksiyonu.",
+       "fb": "Apse ile selülit ayrımında yardımcı."
+      },
+      {
+       "kind": "test",
+       "label": "Boyun BT",
+       "pts": 0,
+       "min": 40,
+       "res": "Peritonsiller apse; derin boyun yayılımı yok.",
+       "fb": "Derin boyun enfeksiyonu şüphesi ya da tanı belirsizse."
+      },
+      {
+       "kind": "act",
+       "label": "**İğne aspirasyonu veya insizyon-drenaj** (KBB/deneyimli hekim; karotis yakınlığına dikkat, iğneyi lateral değil medial-posteriora yönlendirme); ardından antibiyotik (ör. amoksisilin-klavulanat ya da penisilin + metronidazol); analjezi, sıvı; tek doz steroid düşünülebilir",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Peritonsiller apse drenaj gerektirir; antibiyotik tek başına yetmez."
+      },
+      {
+       "kind": "act",
+       "label": "Basit tonsillit — oral penisilin ve taburcu",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Trismus, tek taraflı şişlik ve uvula deviasyonu apseyi gösterir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Drenaj sonrası rahatlama",
+     "text": "Aspirasyonla 6 mL pü boşaltıldı; hasta aynı gün yutabildi, oral antibiyotikle taburcu edildi.\n\n**Akılda kalsın**\n- Tonsillofarenjitte antibiyotik kararı: **Centor/McIsaac** (ateş, tonsil eksüdası, ön servikal LAP, öksürük yokluğu, yaş).\n- Peritonsiller apse: **trismus, sıcak patates sesi, tek taraflı şişlik, uvula deviasyonu**.\n- Tedavi: **drenaj** (aspirasyon/insizyon) + antibiyotik.\n- Kırmızı bayraklar: stridor, boyun şişliği, tortikollis → **derin boyun enfeksiyonu**, epiglotit, Lemierre.\n\n*Kaynak: ENT UK peritonsiller apse önerileri; IDSA 2012 farenjit kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Derin boyun enfeksiyonu",
+     "text": "Apse parafarengeal alana yayıldı; hasta hava yolu tehlikesiyle geri döndü.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c95",
+   "title": "Göz çevresinde şişlik — 16 yaşında erkek",
+   "topic": "KBB / Göz",
+   "intro": "16 yaşında erkek. 10 gündür burun tıkanıklığı ve sarı-yeşil akıntı; 2 gün önce biraz düzelip yeniden kötüleşmiş. Bugün sol göz çevresi şişmiş, kızarmış; gözünü hareket ettirince ağrıyor ve çift görüyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sol periorbital ödem ve eritem, **proptozis**, göz hareketleri ağrılı ve kısıtlı, kemozis. Görme sağda 1,0, solda 0,7. RAPD yok.",
+     "vitals": "Ateş 38,9 · Nb 104",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kontrastlı orbita + sinüs BT",
+       "pts": 4,
+       "min": 30,
+       "res": "Etmoid ve maksiller sinüzit; **sol subperiosteal apse** (medial), orbital selülit.",
+       "fb": "Orbital (septum arkası) tutulum: proptozis, ağrılı/kısıtlı göz hareketi, diplopi, görme azalması → BT."
+      },
+      {
+       "kind": "act",
+       "label": "**IV antibiyotik** (ör. seftriakson + vankomisin ± metronidazol); burun dekonjestanı; acil **KBB ve göz** konsültasyonu (apse drenajı); görme ve pupil izlemi",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Orbital selülit görme kaybı, kavernöz sinüs trombozu ve intrakraniyal yayılım yapabilir."
+      },
+      {
+       "kind": "act",
+       "label": "Preseptal selülit — oral amoksisilin-klavulanat ile ayaktan",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Proptozis, oftalmopleji ve görme azalması orbital (postseptal) tutulumdur."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Drenaj ve IV tedavi",
+     "text": "Endoskopik sinüs cerrahisiyle subperiosteal apse boşaltıldı; görme 1,0'e döndü.\n\n**Akılda kalsın**\n- Akut bakteriyel rinosinüzit: **>10 gün** süren ya da **iki kez kötüleşen** belirtiler, ağır başlangıç; çoğu viraldir.\n- Kırmızı bayraklar: **periorbital ödem, proptozis, ağrılı/kısıtlı göz hareketi, diplopi, görme azalması**, şiddetli baş ağrısı, nörolojik bulgu.\n- **Preseptal** (göz hareketleri normal) → oral; **orbital** → **BT + IV antibiyotik + KBB/göz**.\n\n*Kaynak: EPOS 2020; Chandler sınıflaması.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kalıcı görme kaybı",
+     "text": "Apse ilerledi; optik nöropati ve kavernöz sinüs trombozu gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c96",
+   "title": "Kulak arkasında şişlik — 3 yaşında kız",
+   "topic": "Pediatri / KBB",
+   "intro": "3 yaşında kız. 6 gün önce sağ kulak ağrısı ve ateş başlamış; aile antibiyotik vermemiş. Bugün sağ kulak arkası şişmiş, kızarmış ve kulak öne doğru itilmiş görünüyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sağ **retroaurikuler şişlik, kızarıklık ve hassasiyet**, kulak kepçesi öne-aşağı itilmiş. Otoskopide kızarık, bombeli zar. Ense sertliği yok, fasiyal sinir normal.",
+     "vitals": "Ateş 39,2 · Nb 132",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Kontrastlı temporal kemik BT",
+       "pts": 3,
+       "min": 40,
+       "res": "Sağ mastoid hücrelerde koalesans, **subperiosteal apse**; sigmoid sinüs açık.",
+       "fb": "Akut mastoidit komplikasyonu."
+      },
+      {
+       "kind": "act",
+       "label": "Akut mastoidit: **IV antibiyotik** (ör. seftriakson ± klindamisin/vankomisin), analjezi; acil **KBB** (miringotomi ± tüp, apse drenajı/mastoidektomi); intrakraniyal komplikasyon izlemi",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru."
+      },
+      {
+       "kind": "act",
+       "label": "Akut otitis media — oral amoksisilin ile ayaktan",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Retroaurikuler şişlik ve kulak kepçesinin öne itilmesi mastoidittir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Drenaj ve iyileşme",
+     "text": "Miringotomi ve apse drenajı yapıldı; IV tedaviyle 5 günde iyileşti.\n\n**Akılda kalsın**\n- AOM tanısı: **bombeli zar** (+ akıntı, kızarıklık, ağrı).\n- Antibiyotik: <6 ay; 6–24 ay bilateral veya ağır; ağır belirti (ateş ≥39, şiddetli ağrı, >48 saat) → **amoksisilin 80–90 mg/kg/gün**; seçilmiş hastada izle-bekle; **analjezi her zaman**.\n- Kırmızı bayraklar: **retroaurikuler şişlik, kulak kepçesinin itilmesi** (mastoidit), fasiyal paralizi, baş ağrısı, ense sertliği, nörolojik bulgu.\n\n*Kaynak: AAP 2013 AOM kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "İntrakraniyal komplikasyon",
+     "text": "Çocuk 2 gün sonra sigmoid sinüs trombozu ve epidural apseyle getirildi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c97",
+   "title": "İnatçı kulak ağrısı — 74 yaşında erkek",
+   "topic": "KBB / Enfeksiyon",
+   "intro": "74 yaşında erkek, kötü kontrollü diyabet. 3 haftadır sağ kulakta akıntı ve geceleri uyutmayan şiddetli ağrı; iki kez antibiyotikli kulak damlası kullanmış, düzelmemiş. Dün sağ yüzünde kayma fark etmiş.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sağ dış kulak yolunda ödem, akıntı ve kemik-kıkırdak bileşkesinde **granülasyon dokusu**. **Sağ periferik fasiyal paralizi**.",
+     "vitals": "Ateş 37,4 · Glukoz 312",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "ESH/CRP",
+       "pts": 1,
+       "min": 30,
+       "res": "ESH 86, CRP 64.",
+       "fb": "Takipte de kullanılır."
+      },
+      {
+       "kind": "test",
+       "label": "Temporal kemik BT (± MR)",
+       "pts": 3,
+       "min": 60,
+       "res": "Dış kulak yolu tabanında ve mastoidde **kemik erozyonu**.",
+       "fb": "Kafa tabanı osteomiyeliti."
+      },
+      {
+       "kind": "test",
+       "label": "Kulak akıntısı kültürü",
+       "pts": 2,
+       "min": 10,
+       "res": "*Pseudomonas aeruginosa*.",
+       "fb": "En sık etken."
+      },
+      {
+       "kind": "act",
+       "label": "Nekrotizan (malign) otitis eksterna: yatış; **IV antipsödomonal antibiyotik** (ör. seftazidim veya piperasilin-tazobaktam; yerel duyarlılığa göre, uzun süreli); glukoz kontrolü; KBB (debridman, biyopsi — malignite dışlanmalı)",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Kafa tabanı osteomiyeliti haftalarca IV tedavi gerektirir."
+      },
+      {
+       "kind": "act",
+       "label": "Basit otitis eksterna — yeni bir kulak damlası ve analjezik",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Diyabetik yaşlıda inatçı ağrı + granülasyon + kraniyal sinir tutulumu nekrotizan otitis eksternadır."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Uzun süreli tedavi",
+     "text": "6 hafta IV + oral antibiyotikle ağrı ve akıntı geriledi; fasiyal paralizi kısmen düzeldi.\n\n**Akılda kalsın**\n- Basit OE: **topikal** damla (± kulak yolu temizliği), analjezi.\n- Nekrotizan OE: **yaşlı, diyabetik/immünsüprese**, gece kötüleşen şiddetli ağrı, **granülasyon** (kemik-kıkırdak bileşkesi), **kraniyal sinir paralizisi** (VII sık).\n- Etken çoğunlukla **Pseudomonas**; BT/MR, **uzun süreli IV antipsödomonal** tedavi, KBB.\n\n*Kaynak: Treviño González ve ark., derleme 2021; AAO-HNS 2014 OE kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Kafa tabanı osteomiyeliti ilerledi",
+     "text": "Çoklu kraniyal sinir felci ve sigmoid sinüs trombozu gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c98",
+   "title": "Yanarak idrar yapma — 26 yaşında kadın",
+   "topic": "Üroloji / Enfeksiyon",
+   "intro": "26 yaşında kadın. 2 gündür idrar yaparken yanma, sık idrara çıkma ve suprapubik rahatsızlık. Ateş, yan ağrısı, vajinal akıntı yok. Son adeti 2 hafta önce.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Genel durumu iyi. Kostovertebral açı hassasiyeti yok.",
+     "vitals": "Ateş 36,8 · Nb 82",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "Gebelik testi",
+       "pts": 2,
+       "min": 5,
+       "res": "Negatif.",
+       "fb": "Gebelikte tedavi seçimi ve izlem değişir."
+      },
+      {
+       "kind": "test",
+       "label": "İdrar strip",
+       "pts": 1,
+       "min": 5,
+       "res": "Lökosit esteraz +, nitrit +.",
+       "fb": "Tipik öyküde tanı kliniktir; strip destekler."
+      },
+      {
+       "kind": "test",
+       "label": "İdrar kültürü + böbrek USG",
+       "pts": -1,
+       "min": 60,
+       "res": "—",
+       "fb": "Komplike olmayan ilk sistitte rutin kültür ve görüntüleme gerekmez."
+      },
+      {
+       "kind": "act",
+       "label": "Komplike olmayan sistit: **nitrofurantoin** (ör. 100 mg modifiye salınımlı, 12 saatte bir, 5 gün) ya da **fosfomisin 3 g tek doz** (veya pivmesilinam); bol sıvı, analjezi; ateş/yan ağrısı gelişirse başvuru uyarısı",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. İlk basamak ajanlar direnç ve yan etki profiliyle seçilir."
+      },
+      {
+       "kind": "act",
+       "label": "Siprofloksasin 500 mg, 14 gün",
+       "pts": -3,
+       "min": 10,
+       "to": "n2",
+       "fb": "Florokinolonlar komplike olmayan sistitte ilk seçenek olarak önerilmez (yan etki, direnç); süre gereksiz uzun."
+      },
+      {
+       "kind": "act",
+       "label": "Antibiyotik gerekmez; ateş ve yan ağrısı olsa bile bol su yeterli",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Belirti varken tedavisiz bırakmak ve uyarı vermemek piyelonefrite ilerlemeye yol açabilir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "İyileşme",
+     "text": "Belirtiler 2 günde geçti.\n\n**Akılda kalsın**\n- Komplike olmayan sistit: gebe olmayan, sağlıklı kadın, **ateş/yan ağrısı yok**.\n- Tanı klinik; rutin kültür gerekmez (tekrarlayan, tedavi başarısızlığı, gebelik, erkek, komplike olgularda kültür).\n- İlk seçenek: **nitrofurantoin 5 gün**, **fosfomisin 3 g tek doz**, pivmesilinam; **florokinolon ilk seçenek değil**.\n- Gebelikte **asemptomatik bakteriüri de tedavi edilir**.\n- Ateş, yan ağrısı, kusma → **piyelonefrit**.\n\n*Kaynak: EAU 2024 Ürolojik Enfeksiyonlar Kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Piyelonefrit",
+     "text": "Hasta 3 gün sonra ateş, titreme ve yan ağrısıyla geri geldi; IV antibiyotik gerekti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c99",
+   "title": "Ateş ve yan ağrısı — 24 haftalık gebe",
+   "topic": "Kadın doğum / Enfeksiyon",
+   "intro": "27 yaşında, 24 haftalık gebe. 2 gündür sık idrara çıkma, dün başlayan titremeyle yüksek ateş, sağ yan ağrısı ve kusma.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Sağ kostovertebral açı hassasiyeti belirgin. Uterus gebelik haftasıyla uyumlu, hassasiyet yok.",
+     "vitals": "KB 102/60 · Nb 118 · SS 22 · Ateş 39,4",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "İdrar strip + kültür, kan kültürü",
+       "pts": 2,
+       "min": 10,
+       "res": "Lökosit +++, nitrit +; kültürler alındı.",
+       "fb": "Gebelikte piyelonefritte kültür şart."
+      },
+      {
+       "kind": "test",
+       "label": "Laktat, kreatinin, hemogram",
+       "pts": 1,
+       "min": 30,
+       "res": "Laktat 2,1, kreatinin 0,8, lökosit 16.000.",
+       "fb": "Sepsis taraması."
+      },
+      {
+       "kind": "test",
+       "label": "Böbrek USG",
+       "pts": 2,
+       "min": 20,
+       "res": "Sağda hafif hidronefroz (gebelikte fizyolojik olabilir), taş yok.",
+       "fb": "Obstrüksiyon/apse dışlanmalı."
+      },
+      {
+       "kind": "test",
+       "label": "Fetal kalp sesi / obstetrik değerlendirme",
+       "pts": 2,
+       "min": 10,
+       "res": "Fetal kalp sesi 160/dk (maternal ateşe bağlı), kasılma yok.",
+       "fb": "Erken doğum riski izlenir."
+      },
+      {
+       "kind": "act",
+       "label": "Yatış; IV sıvı; **IV seftriakson** (gebelikte uygun); parasetamol; kadın doğum ile birlikte izlem; kültüre göre düzenle; tedavi sonrası bakteriüri taraması",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Gebelikte piyelonefrit yatış ve IV tedavi gerektirir (sepsis, ARDS, erken doğum riski)."
+      },
+      {
+       "kind": "act",
+       "label": "Oral siprofloksasin ile ayaktan tedavi",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Florokinolonlar gebelikte tercih edilmez; gebe piyelonefriti yatış gerektirir."
+      },
+      {
+       "kind": "act",
+       "label": "Oral nitrofurantoin",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Nitrofurantoin böbrek dokusunda yeterli düzeye ulaşmaz; piyelonefritte kullanılmaz."
+      }
+     ]
+    },
+    "n2": {
+     "title": "İyileşme",
+     "text": "48 saatte ateş düştü; kültürde E. coli, seftriaksona duyarlı. Oral sefaleksinle toplam 14 güne tamamlandı; gebeliğin geri kalanında idrar kültürü takibi planlandı.\n\n**Akılda kalsın**\n- Piyelonefrit: **ateş, titreme, yan ağrısı, KVA hassasiyeti**, bulantı-kusma ± sistit belirtileri.\n- Gebelikte **yatış + IV beta-laktam** (seftriakson); **florokinolon ve nitrofurantoin yok**.\n- Kültür; obstrüksiyon/apse için **USG**; sepsis taraması.\n- Gebe olmayan, hafif olguda ayaktan oral tedavi (yerel direnç oranına göre) mümkündür.\n\n*Kaynak: EAU 2024; ACOG.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ürosepsis",
+     "text": "Hasta ertesi gün septik şok ve erken doğum eylemiyle getirildi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c100",
+   "title": "Ani baş dönmesi ve kusma — 61 yaşında erkek",
+   "topic": "Nöroloji",
+   "intro": "61 yaşında erkek, hipertansiyon ve sigara. 1,5 saat önce ani başlayan şiddetli baş dönmesi, kusma, yürüyememe. Konuşması biraz peltek.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Uyanık. **Yön değiştiren nistagmus**, ayakta duramıyor (gövde ataksisi), hafif dizartri. Kafa itme (head impulse) testi **normal**, alternan örtme testinde **vertikal kayma (skew)**.",
+     "vitals": "KB 182/98 · Nb 84 · Glukoz 138",
+     "opts": [
+      {
+       "kind": "test",
+       "label": "HINTS",
+       "pts": 3,
+       "min": 3,
+       "res": "**Santral**: normal kafa itme testi + yön değiştiren nistagmus + skew deviasyonu.",
+       "fb": "Akut sürekli vertigoda HINTS, deneyimli elde ilk 48 saatte MR'dan daha duyarlıdır."
+      },
+      {
+       "kind": "test",
+       "label": "Kontrastsız BT",
+       "pts": 0,
+       "min": 20,
+       "res": "Normal.",
+       "fb": "Arka çukurda iskemiyi göstermekte duyarsızdır; normal BT inmeyi dışlamaz."
+      },
+      {
+       "kind": "test",
+       "label": "BT anjiyografi",
+       "pts": 4,
+       "min": 20,
+       "res": "**Baziler arterde tıkanıklık**.",
+       "fb": "Baziler oklüzyon hayatı tehdit eder."
+      },
+      {
+       "kind": "act",
+       "label": "Kod inme: BT + BTA; uygunsa **IV tromboliz** (4,5 saat içinde; KB <185/110'a indirilerek) ve **trombektomi** (baziler oklüzyonda 24 saate kadar kanıt var); nöroloji/girişimsel",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. ATTENTION/BAOCHE (2022): baziler arter oklüzyonunda trombektomi işlevsel sonucu belirgin iyileştirir."
+      },
+      {
+       "kind": "act",
+       "label": "Periferik vertigo — antiemetik + antihistaminik, taburcu",
+       "pts": -5,
+       "min": 20,
+       "to": "n9",
+       "fb": "Gövde ataksisi, dizartri ve santral HINTS bulguları arka dolaşım inmesidir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Rekanalizasyon",
+     "text": "Tromboliz + trombektomiyle baziler arter açıldı; 90. günde hasta bağımsız yürüyordu (mRS 1).\n\n**Akılda kalsın**\n- Arka dolaşım inmesi: **vertigo, kusma, gövde ataksisi**, dizartri, diplopi, bilinç değişikliği; sık atlanır.\n- **HINTS**: anormal kafa itme + tek yönlü nistagmus + skew yok → periferik; **normal kafa itme, yön değiştiren nistagmus, skew** → santral.\n- **BT arka çukurda duyarsız**; BTA/MR (DWI).\n- **Baziler oklüzyon**: tromboliz + **trombektomi** (24 saate kadar).\n\n*Kaynak: ESO-ESMINT 2023 arka dolaşım trombektomisi; ATTENTION & BAOCHE (NEJM 2022).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Baziler tıkanıklığın ilerlemesi",
+     "text": "Hasta gece komaya girdi; “kilitli adam” sendromu gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  }
+ ],
+ "questions": [
+  {
+   "key": "c91q1",
+   "stem": "Serebral venöz sinüs trombozunda hemorajik infarkt varlığında tedavi hangisidir?",
+   "options": [
+    "Antikoagülasyon kontrendikedir",
+    "Antikoagülasyon yine verilir (DMAH/heparin)",
+    "Yalnız aspirin",
+    "Tromboliz herkese",
+    "Steroid"
+   ],
+   "correct": 1,
+   "explanation": "Kanama venöz tıkanıklığın sonucudur.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c91q2",
+   "stem": "SVT tanısında kullanılan görüntüleme hangisidir?",
+   "options": [
+    "Kontrastsız BT tek başına yeterli",
+    "BT veya MR venografi",
+    "Karotis Doppler",
+    "EEG",
+    "LP"
+   ],
+   "correct": 1,
+   "explanation": "Venöz sistem görüntülenmelidir.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c91q3",
+   "stem": "SVT için risk faktörü hangisidir?",
+   "options": [
+    "Oral kontraseptif kullanımı",
+    "Düzenli egzersiz",
+    "Akdeniz diyeti",
+    "Erkek cinsiyet",
+    "İleri yaş tek başına"
+   ],
+   "correct": 0,
+   "explanation": "OKS, gebelik/lohusalık, trombofili, malignite, enfeksiyon.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c92q1",
+   "stem": "Minimal semptomlu, stabil primer spontan pnömotoraksta güncel yaklaşım hangisidir?",
+   "options": [
+    "Her zaman büyük çaplı göğüs tüpü",
+    "Konservatif izlem bir seçenektir",
+    "Acil torakotomi",
+    "Plevrodez",
+    "Tromboliz"
+   ],
+   "correct": 1,
+   "explanation": "BTS 2023 ve RKÇ verileri konservatif izlemi destekler.",
+   "topic": "Göğüs hastalıkları"
+  },
+  {
+   "key": "c92q2",
+   "stem": "Sekonder spontan pnömotoraksın primerden farkı nedir?",
+   "options": [
+    "Daha iyi huyludur",
+    "Altta yatan akciğer hastalığı vardır; daha az tolere edilir, daha agresif tedavi",
+    "Yalnız gençlerde görülür",
+    "Tedavi gerektirmez",
+    "Travmatiktir"
+   ],
+   "correct": 1,
+   "explanation": "KOAH, kistik fibrozis vb.",
+   "topic": "Göğüs hastalıkları"
+  },
+  {
+   "key": "c92q3",
+   "stem": "Pnömotoraks geçiren hastaya hangi uyarı verilmelidir?",
+   "options": [
+    "Tam düzelme gösterilmeden uçak yolculuğu ve dalıştan kaçınma",
+    "Egzersiz zorunlu",
+    "Sigara serbest",
+    "Yüksek irtifa yararlı",
+    "Hiçbiri"
+   ],
+   "correct": 0,
+   "explanation": "Basınç değişiklikleri pnömotoraksı büyütür.",
+   "topic": "Göğüs hastalıkları"
+  },
+  {
+   "key": "c93q1",
+   "stem": "CURB-65 bileşenlerinden hangisi değildir?",
+   "options": [
+    "Konfüzyon",
+    "Üre >7 mmol/L",
+    "Solunum sayısı ≥30",
+    "Ateş >39 °C",
+    "Yaş ≥65"
+   ],
+   "correct": 3,
+   "explanation": "Ateş CURB-65'te yoktur.",
+   "topic": "Enfeksiyon / Göğüs"
+  },
+  {
+   "key": "c93q2",
+   "stem": "CURB-65 skoru 3–5 olan hastada yaklaşım hangisidir?",
+   "options": [
+    "Ayaktan oral tedavi",
+    "Ağır pnömoni: yatış, yoğun bakım değerlendirmesi",
+    "Antibiyotiksiz izlem",
+    "Yalnız antipiretik",
+    "Ertesi gün kontrol"
+   ],
+   "correct": 1,
+   "explanation": "Mortalite riski yüksektir.",
+   "topic": "Enfeksiyon / Göğüs"
+  },
+  {
+   "key": "c93q3",
+   "stem": "Hastaneye yatan ağır toplum kökenli pnömonide ampirik tedavi seçeneği hangisidir?",
+   "options": [
+    "Yalnız azitromisin",
+    "Beta-laktam (ör. seftriakson) + makrolid",
+    "Yalnız metronidazol",
+    "Vankomisin tek başına",
+    "Antiviral"
+   ],
+   "correct": 1,
+   "explanation": "Atipik etkenleri de kapsar.",
+   "topic": "Enfeksiyon / Göğüs"
+  },
+  {
+   "key": "c94q1",
+   "stem": "Peritonsiller apseyi tonsillitten ayıran bulgu hangisidir?",
+   "options": [
+    "Ateş",
+    "Boğaz ağrısı",
+    "Trismus ve uvula deviasyonu",
+    "Eksüda",
+    "Servikal LAP"
+   ],
+   "correct": 2,
+   "explanation": "Tek taraflı şişlik ve trismus apseyi düşündürür.",
+   "topic": "KBB"
+  },
+  {
+   "key": "c94q2",
+   "stem": "Peritonsiller apsenin temel tedavisi hangisidir?",
+   "options": [
+    "Yalnız antibiyotik",
+    "Drenaj (iğne aspirasyonu veya insizyon) + antibiyotik",
+    "Tonsillektomi her olguda acil",
+    "Steroid tek başına",
+    "Gargara"
+   ],
+   "correct": 1,
+   "explanation": "Drenaj olmadan iyileşme gecikir.",
+   "topic": "KBB"
+  },
+  {
+   "key": "c94q3",
+   "stem": "Hangisi Centor ölçütlerinden biri değildir?",
+   "options": [
+    "Ateş",
+    "Tonsil eksüdası",
+    "Öksürük yokluğu",
+    "Hassas ön servikal LAP",
+    "Burun akıntısı"
+   ],
+   "correct": 4,
+   "explanation": "Öksürük ve burun akıntısı viral nedeni düşündürür.",
+   "topic": "KBB"
+  },
+  {
+   "key": "c95q1",
+   "stem": "Orbital (postseptal) selüliti preseptal selülitten ayıran bulgu hangisidir?",
+   "options": [
+    "Göz kapağında kızarıklık",
+    "Proptozis ve ağrılı/kısıtlı göz hareketleri",
+    "Ateş",
+    "Burun akıntısı",
+    "Kapakta ödem"
+   ],
+   "correct": 1,
+   "explanation": "Postseptal tutulumda göz hareketleri ve görme etkilenir.",
+   "topic": "KBB / Göz"
+  },
+  {
+   "key": "c95q2",
+   "stem": "Orbital selülit şüphesinde ilk görüntüleme hangisidir?",
+   "options": [
+    "Direkt sinüs grafisi",
+    "Kontrastlı orbita-sinüs BT",
+    "Göz USG tek başına",
+    "Beyin MR zorunlu ilk",
+    "Görüntüleme gerekmez"
+   ],
+   "correct": 1,
+   "explanation": "Apse ve yayılım değerlendirilir.",
+   "topic": "KBB / Göz"
+  },
+  {
+   "key": "c95q3",
+   "stem": "Akut bakteriyel rinosinüziti düşündüren seyir hangisidir?",
+   "options": [
+    "3 günlük burun akıntısı",
+    "10 günden uzun süren ya da düzelip yeniden kötüleşen belirtiler",
+    "Hapşırık",
+    "Kaşıntı",
+    "Mevsimsel tekrarlama"
+   ],
+   "correct": 1,
+   "explanation": "“Çift kötüleşme” ve uzamış seyir bakteriyel nedeni düşündürür.",
+   "topic": "KBB / Göz"
+  },
+  {
+   "key": "c96q1",
+   "stem": "Akut otitis media tanısında en önemli otoskopik bulgu hangisidir?",
+   "options": [
+    "Kulak zarında hafif kızarıklık",
+    "Bombeli kulak zarı",
+    "Buşon",
+    "Zarda retraksiyon",
+    "Normal zar"
+   ],
+   "correct": 1,
+   "explanation": "Bombeli zar AOM için en özgül bulgudur.",
+   "topic": "Pediatri / KBB"
+  },
+  {
+   "key": "c96q2",
+   "stem": "AOM'de ilk tercih edilen antibiyotik ve dozu hangisidir?",
+   "options": [
+    "Siprofloksasin",
+    "Amoksisilin 80–90 mg/kg/gün",
+    "Azitromisin tek doz",
+    "Sefaleksin düşük doz",
+    "Metronidazol"
+   ],
+   "correct": 1,
+   "explanation": "Yüksek doz amoksisilin.",
+   "topic": "Pediatri / KBB"
+  },
+  {
+   "key": "c96q3",
+   "stem": "Akut mastoiditin bulgusu hangisidir?",
+   "options": [
+    "Kulak kaşıntısı",
+    "Retroaurikuler şişlik ve kulak kepçesinin öne itilmesi",
+    "Kulak çınlaması",
+    "Dış kulak yolu ödemi tek başına",
+    "İşitme kaybı yok"
+   ],
+   "correct": 1,
+   "explanation": "Kırmızı bayrak — IV antibiyotik ve KBB.",
+   "topic": "Pediatri / KBB"
+  },
+  {
+   "key": "c97q1",
+   "stem": "Nekrotizan otitis eksternanın en sık etkeni hangisidir?",
+   "options": [
+    "Staphylococcus epidermidis",
+    "Pseudomonas aeruginosa",
+    "Candida",
+    "Streptococcus pneumoniae",
+    "Haemophilus influenzae"
+   ],
+   "correct": 1,
+   "explanation": "Kafa tabanı osteomiyeliti yapar.",
+   "topic": "KBB / Enfeksiyon"
+  },
+  {
+   "key": "c97q2",
+   "stem": "Nekrotizan otitis eksternada en sık tutulan kraniyal sinir hangisidir?",
+   "options": [
+    "III",
+    "V",
+    "VII (fasiyal)",
+    "X",
+    "XII"
+   ],
+   "correct": 2,
+   "explanation": "Stilomastoid foramen yakınlığı.",
+   "topic": "KBB / Enfeksiyon"
+  },
+  {
+   "key": "c97q3",
+   "stem": "Basit (komplike olmayan) otitis eksternanın tedavisi hangisidir?",
+   "options": [
+    "IV antibiyotik",
+    "Topikal antibiyotik damla ± kulak yolu temizliği, analjezi",
+    "Cerrahi",
+    "Steroid tablet",
+    "Antiviral"
+   ],
+   "correct": 1,
+   "explanation": "Sistemik antibiyotik genellikle gerekmez.",
+   "topic": "KBB / Enfeksiyon"
+  },
+  {
+   "key": "c98q1",
+   "stem": "Komplike olmayan akut sistitte ilk seçenek tedavi hangisidir?",
+   "options": [
+    "Siprofloksasin 14 gün",
+    "Nitrofurantoin 5 gün veya fosfomisin 3 g tek doz",
+    "IV seftriakson",
+    "Amoksisilin 4 hafta",
+    "Antibiyotik gerekmez"
+   ],
+   "correct": 1,
+   "explanation": "EAU önerileri.",
+   "topic": "Üroloji / Enfeksiyon"
+  },
+  {
+   "key": "c98q2",
+   "stem": "Hangi durumda sistitte idrar kültürü önerilir?",
+   "options": [
+    "Sağlıklı genç kadında ilk atak",
+    "Gebelik, tedavi başarısızlığı, tekrarlayan enfeksiyon, erkek hasta",
+    "Hiçbir zaman",
+    "Yalnız ateş varsa",
+    "Her hastada iki kez"
+   ],
+   "correct": 1,
+   "explanation": "Komplike/özel durumlarda kültür alınır.",
+   "topic": "Üroloji / Enfeksiyon"
+  },
+  {
+   "key": "c98q3",
+   "stem": "Gebelikte asemptomatik bakteriüri için doğru ifade hangisidir?",
+   "options": [
+    "Tedavi edilmez",
+    "Taranır ve tedavi edilir",
+    "Yalnız 3. trimesterde önemlidir",
+    "Florokinolonla tedavi edilir",
+    "Doğumdan sonra tedavi edilir"
+   ],
+   "correct": 1,
+   "explanation": "Piyelonefrit ve erken doğum riskini azaltır.",
+   "topic": "Üroloji / Enfeksiyon"
+  },
+  {
+   "key": "c99q1",
+   "stem": "Gebede akut piyelonefrit tedavisi için uygun ilk seçenek hangisidir?",
+   "options": [
+    "Oral siprofloksasin",
+    "IV seftriakson (yatırarak)",
+    "Nitrofurantoin",
+    "Doksisiklin",
+    "Gözlem"
+   ],
+   "correct": 1,
+   "explanation": "Gebelikte yatış ve IV beta-laktam.",
+   "topic": "Kadın doğum / Enfeksiyon"
+  },
+  {
+   "key": "c99q2",
+   "stem": "Nitrofurantoin piyelonefritte neden kullanılmaz?",
+   "options": [
+    "Pahalı olduğu için",
+    "Böbrek dokusunda yeterli düzeye ulaşmadığı için",
+    "Nefrotoksik olduğu için",
+    "Yalnız IV formu olduğu için",
+    "Gebelikte kontrendike olduğu için (tek neden)"
+   ],
+   "correct": 1,
+   "explanation": "Yalnız idrarda yoğunlaşır.",
+   "topic": "Kadın doğum / Enfeksiyon"
+  },
+  {
+   "key": "c99q3",
+   "stem": "Piyelonefritte böbrek USG'nin amacı nedir?",
+   "options": [
+    "Tanı koymak zorunlu",
+    "Obstrüksiyon veya apse gibi komplikasyonları dışlamak",
+    "Kültür yerine",
+    "Antibiyotik seçmek",
+    "Rutin değildir hiçbir zaman"
+   ],
+   "correct": 1,
+   "explanation": "Tıkalı enfekte sistem acil drenaj gerektirir.",
+   "topic": "Kadın doğum / Enfeksiyon"
+  },
+  {
+   "key": "c100q1",
+   "stem": "Akut sürekli vertigoda santral nedeni düşündüren HINTS bulgusu hangisidir?",
+   "options": [
+    "Anormal kafa itme testi",
+    "Tek yönlü yatay nistagmus",
+    "Normal kafa itme testi + yön değiştiren nistagmus + skew deviasyonu",
+    "Pozisyonla kısa süreli vertigo",
+    "Kulak çınlaması"
+   ],
+   "correct": 2,
+   "explanation": "Bu üçlü santral (inme) lehinedir.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c100q2",
+   "stem": "Arka çukur iskemisinde kontrastsız BT için doğru ifade hangisidir?",
+   "options": [
+    "Çok duyarlıdır",
+    "Duyarlılığı düşüktür; normal BT inmeyi dışlamaz",
+    "MR'dan üstündür",
+    "Tek başına yeterlidir",
+    "Gereksizdir"
+   ],
+   "correct": 1,
+   "explanation": "Kemik artefaktı ve erken iskemi nedeniyle.",
+   "topic": "Nöroloji"
+  },
+  {
+   "key": "c100q3",
+   "stem": "Baziler arter oklüzyonunda güncel tedavi hangisidir?",
+   "options": [
+    "Yalnız aspirin",
+    "Uygun hastada tromboliz + endovasküler trombektomi",
+    "Yalnız gözlem",
+    "Steroid",
+    "Antihistaminik"
+   ],
+   "correct": 1,
+   "explanation": "2022 RKÇ'leri trombektominin yararını gösterdi.",
+   "topic": "Nöroloji"
+  }
+ ],
+ "module": {
+  "title": "İlk Nöbet Vakaları — 10. Paket",
+  "topic": "Acil tıp",
+  "order": 10,
+  "req": [
+   1
+  ],
+  "desc": "Sık başvuru nedenlerinin (enfeksiyonlar, baş dönmesi, pnömotoraks) atlanmaması gereken yüzleri.",
+  "intro": "- Her vakayı önce **kendi bildiğinizle** çözün, sonra yeniden oynayıp farklı kararların sonucunu görün.\n- Sonuç ekranındaki **“Akılda kalsın”** bölümü vakanın özüdür.\n- Sonunda **pekiştirme sorularını** çözün; yanlışlarınız tekrar listenize eklenir.\n- İlaç dozları kılavuzlardan alınmıştır; uygulamada kurumunuzun protokollerini esas alın."
+ }
+}
