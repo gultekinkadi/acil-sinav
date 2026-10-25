@@ -8,15 +8,16 @@ def D(label,pts,mins,res,fb="",vit=False):
     if vit: o["vit"]=True
     return o
 
-SKIP={"c57","c64"}                      # arrest: ilk ekranda doğrudan KPR kararı
+SKIP={"c57","c64","c148"}                      # arrest: ilk ekranda doğrudan KPR kararı
 NO_O2={"c13","c48","c49","c59","c68","c72","c74"}   # oksijen ana kararın parçası
 NO_IV={"c71"}                           # damar yolu ana kararın kendisi
 
 EXAM={
  "c01":"Solgun, terli. Hava yolu açık, konuşuyor. Kalp sesleri ritmik, üfürüm yok. Akciğerler temiz. Periferik nabızlar eşit. Ağrı 8/10, yayılım yok.",
+ "c101":"Uyanık, konuşabiliyor, hafif terli. Akciğerler temiz, üfürüm yok. Periferik nabızlar alınıyor.",
  "c39":"Uyanık, oryante. Kalp sesleri ritmik, üfürüm yok. Akciğerler temiz. Nörolojik muayene normal.",
 }
-VITRES={"c39":"Monitörde birkaç saniyelik, QRS'leri eksen etrafında dönen **polimorfik VT atakları** kendiliğinden sonlanıyor."}
+VITRES={"c101":"Monitörde **düzensiz, çok hızlı, QRS genişliği atımdan atıma değişen** taşikardi.","c39":"Monitörde birkaç saniyelik, QRS'leri eksen etrafında dönen **polimorfik VT atakları** kendiliğinden sonlanıyor."}
 VITALS={"c88":"KB 118/72 · Nb 80 · Ateş 36,8"}
 
 # SpO2'si yazılmamış vakalara klinik tabloya uygun değer (oksijen kararı anlamlı olsun)
@@ -39,6 +40,20 @@ IV={ # key: (pts, res, fb)
  "c88":(0,"Damar yolu açıldı.","Keratitte damar yolu gerekmez."),
  "c90":(0,"Damar yolu açıldı.","Sistemik belirtisi olmayan dijital adrenalin enjeksiyonunda damar yolu gerekmez."),
  "c98":(0,"Damar yolu açıldı.","Genel durumu iyi, komplike olmayan sistitte damar yolu gerekmez."),
+ # 101–150
+ "c103":(0,"Damar yolu açıldı.","Klavikula kırığında analjezi çoğunlukla ağızdan yeterli; damar yolu zorunlu değil."),
+ "c108":(0,"Damar yolu açıldı.","İzole parmak yaralanmasında damar yolu gerekmez."),
+ "c111":(0,"Damar yolu açıldı.","İzole bilek yaralanmasında damar yolu gerekmez."),
+ "c112":(0,"Damar yolu açıldı.","Paronişide damar yolu gerekmez; dijital blok ve drenaj yeterli."),
+ "c115":(0,"Damar yolu açıldı.","Zorunlu değil; ağızdan antibiyotik çoğu kavga ısırığında yeterlidir (el cerrahisi IV tedavi isteyebilir)."),
+ "c117":(0,"Damar yolu açıldı.","Tamamen düzelmiş, tipik nöbet geçiren hastada rutin damar yolu gerekmez."),
+ "c118":(0,"Damar yolu zaten açık.","Hastanın damar yolu var; ikinci basamak ilaçlar için hemen kullanılabilir."),
+ "c121":(0,"Damar yolu açıldı.","Ayaktan tedavi düşünülen DVT'de damar yolu gerekmez; kan örneği (böbrek, hemogram) yeterli."),
+ "c124":(0,"Damar yolu açıldı.","Aurikula hematomunda damar yolu gerekmez."),
+ "c128":(0,"Damar yolu açıldı.","Korneal yabancı cisimde damar yolu gerekmez."),
+ "c132":(0,"Damar yolu açıldı.","Bell paralizisinde damar yolu gerekmez; tedavi ağızdan."),
+ "c141":(0,"Damar yolu açıldı.","Düşük riskli, ayaktan tedavi edilecek pnömonide damar yolu gerekmez."),
+ "c145":(0,"Damar yolu açıldı.","Bağışıklığı normal HZO hastasında tedavi ağızdan; damar yolu gerekmez."),
 }
 
 O2_SPECIAL={
@@ -46,6 +61,8 @@ O2_SPECIAL={
  "c29":(0,"Nemlendirilmiş O₂ başlandı.","SpO₂ %95: hastayı rahat ettiği pozisyonda, ajite etmeden izleyin; O₂ gerekirse nemlendirilmiş verilir."),
  "c53":(1,"Rezervuarlı maskeyle O₂ sürüyor; SpO₂ hâlâ %82.","Oksijen sürmeli, ama hipoksinin nedeni (tansiyon pnömotoraks) hemen dekomprese edilmeli."),
  "c60":(0,"Hasta mekanik ventilasyonda; FiO₂ SpO₂'ye göre ayarlandı.","Ventilatördeki hastada FiO₂'yi SpO₂ hedefine göre ayarlayın."),
+ "c113":(2,"Venturi maske %28 ile kontrollü O₂; SpO₂ %90.","Hipoksemi var ama hiperkapni riski: **hedef SpO₂ %88–92**, yüksek akım O₂ değil."),
+ "c114":(0,"Nazal kanülle O₂ başlandı.","SpO₂ normal; rutin O₂ gerekmez, ama hava yolu girişimi olasılığına karşı preoksijenasyon için hazır olun."),
  "c92":(0,"Nazal kanülle O₂ başlandı.","SpO₂ %97 — hipoksemi yok; rutin oksijen gerekmez (gözlem için yatırılan hastada bazı merkezler yüksek akım O₂ tercih eder)."),
 }
 

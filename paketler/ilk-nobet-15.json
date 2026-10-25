@@ -1,0 +1,1649 @@
+{
+ "id": "ilk-nobet-15",
+ "title": "İlk Nöbet Vakaları — 15. Paket (vaka 141–150)",
+ "desc": "Düşük riskli pnömoni, SGLT2 ilişkili öglisemik DKA, hipernatremi, süt çocuğunda SVT, herpes zoster oftalmikus, perfore peptik ülser, diz çıkığı sonrası popliteal arter yaralanması, refrakter VF, tiroidektomi sonrası hipokalsemi, kolanjitli biliyer pankreatit.",
+ "source": "Gazi Acil Tıp — özgün senaryolar (güncel kılavuzlara dayanır; klinik kontrol sonrası yayınlayın)",
+ "pool": "İlk Nöbet Vakaları — 15. Paket",
+ "sims": [
+  {
+   "key": "c141",
+   "title": "Ateş ve balgamlı öksürük — 34 yaşında kadın",
+   "topic": "Enfeksiyon / Göğüs",
+   "intro": "34 yaşında kadın, sağlıklı, ilaç alerjisi yok. 3 gündür ateş, sarı balgamlı öksürük, sağ yan ağrısı. Yemek yiyebiliyor, sıvı alabiliyor. Gebe değil.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 122/76 · Nb 96 · SS 20 · SpO₂ %97 · Ateş 38,4",
+     "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Genel durumu iyi, oryante. Sağ alt zonda raller.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 0,
+       "min": 3,
+       "res": "Damar yolu açıldı.",
+       "fb": "Düşük riskli, ayaktan tedavi edilecek pnömonide damar yolu gerekmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %97 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
+      {
+       "kind": "test",
+       "label": "Akciğer grafisi",
+       "pts": 2,
+       "min": 15,
+       "res": "Sağ alt lobda sınırlı konsolidasyon; efüzyon yok.",
+       "fb": "Tanı."
+      },
+      {
+       "kind": "test",
+       "label": "CURB-65 / CRB-65",
+       "pts": 2,
+       "min": 2,
+       "res": "Konfüzyon yok, SS <30, KB normal, yaş <65 (üre bakılmadan CRB-65 = **0**).",
+       "fb": "Düşük risk: ayaktan tedavi uygun."
+      },
+      {
+       "kind": "test",
+       "label": "Toraks BT",
+       "pts": -2,
+       "min": 30,
+       "res": "Sağ alt lob pnömonisi.",
+       "fb": "Komplike olmayan pnömonide gereksiz."
+      },
+      {
+       "kind": "act",
+       "label": "**Düşük şiddetli TKP**: ayaktan **amoksisilin 500 mg (ya da 1 g) günde 3 kez, 5 gün**; parasetamol, sıvı; **güvenlik ağı** (nefes darlığı, konfüzyon, düzelmeme → 48–72 saatte kontrol)",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. NICE NG138: düşük şiddette 5 gün amoksisilin."
+      },
+      {
+       "kind": "act",
+       "label": "Moksifloksasin IV ve yatış",
+       "pts": -3,
+       "min": 30,
+       "to": "n9",
+       "fb": "Gereksiz yatış ve geniş spektrum; direnç ve yan etki."
+      },
+      {
+       "kind": "act",
+       "label": "Viral olabilir — antibiyotiksiz taburcu",
+       "pts": -2,
+       "min": 5,
+       "to": "n9",
+       "fb": "Radyolojik konsolidasyon + klinik → bakteriyel pnömoni tedavi edilir."
+      }
+     ],
+     "vh": true
+    },
+    "n2": {
+     "title": "Ayaktan iyileşme",
+     "text": "Hasta 3. günde ateşsizleşti; 5 günlük tedaviyle iyileşti.\n\n**Akılda kalsın**\n- **CRB-65 / CURB-65 = 0–1**: düşük risk → **ayaktan tedavi** (sosyal durum, oral alım, komorbidite de göz önünde).\n- Düşük şiddette **amoksisilin, 5 gün**; penisilin alerjisinde doksisiklin/klaritromisin.\n- Gereksiz BT, yatış ve geniş spektrumdan kaçın.\n- **Güvenlik ağı**: kötüleşme belirtileri ve 48–72 saatte yeniden değerlendirme.\n\n*Kaynak: NICE NG138 (2019, güncelleme 2025); BTS TKP kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Uygunsuz tedavi",
+     "text": "Hasta ya gereksiz yere 4 gün yattı (C. difficile ishali gelişti) ya da antibiyotiksiz kalıp 3 gün sonra kötüleşerek döndü.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c142",
+   "title": "Bulantı, karın ağrısı, kan şekeri “normal” — 56 yaşında erkek",
+   "topic": "Endokrin",
+   "intro": "56 yaşında erkek, tip 2 diyabet; metformin + **empagliflozin**. 3 gün önce laparoskopik kolesistektomi; o günden beri az yiyor. Bulantı, kusma, karın ağrısı ve hızlı solunum. “Şekerim 190, normal” diyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n4",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 104/66 · Nb 112 · SS 28 · SpO₂ %98 · Kapiller glukoz 192",
+     "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Halsiz, **derin-hızlı solunum**, mukozalar kuru. Karın yumuşak, ameliyat yerleri temiz.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %98 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
+      {
+       "kind": "test",
+       "label": "Venöz kan gazı",
+       "pts": 3,
+       "min": 10,
+       "res": "**pH 7,11, HCO₃ 8**, anyon açığı 26.",
+       "fb": "Yüksek anyon açıklı metabolik asidoz."
+      },
+      {
+       "kind": "test",
+       "label": "Kapiller/serum keton (β-hidroksibütirat)",
+       "pts": 3,
+       "min": 10,
+       "res": "**5,8 mmol/L**.",
+       "fb": "Normal glukozda ketoasidoz → **öglisemik DKA**."
+      },
+      {
+       "kind": "test",
+       "label": "Laktat, lipaz, karın BT",
+       "pts": -1,
+       "min": 60,
+       "res": "Laktat 1,4; lipaz normal; BT'de cerrahi komplikasyon yok.",
+       "fb": "Ameliyat sonrası komplikasyon dışlanır ama tanı keton ve kan gazıyla konur."
+      },
+      {
+       "kind": "act",
+       "label": "**SGLT2 inhibitörü ilişkili öglisemik DKA**: empagliflozini kes; izotonik sıvı; **sabit doz IV insülin 0,1 Ü/kg/saat** + **en baştan %5–10 dekstroz** (glukoz düşmesin); K izlemi/replasmanı (K <3,5 ise insülinden önce); keton ve kan gazıyla takip; endokrinoloji, yoğun bakım/yakın izlem",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Glukoz normal diye insülin kesilmez; dekstrozla birlikte verilir."
+      },
+      {
+       "kind": "act",
+       "label": "Glukoz 192 — DKA olamaz; antiemetik ve sıvı, taburcu",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Öglisemik DKA kaçırıldı."
+      },
+      {
+       "kind": "act",
+       "label": "İnsülin infüzyonu, dekstroz yok",
+       "pts": -2,
+       "min": 20,
+       "to": "n3",
+       "fb": "Glukoz hızla düşer, hipoglisemi; insülin erken kesilmek zorunda kalınır, asidoz düzelmez."
+      }
+     ],
+     "vh": true
+    },
+    "n3": {
+     "title": "2 saat sonra",
+     "text": "Glukoz 68 mg/dL, pH 7,14.",
+     "vitals": "KB 110/70 · Nb 100",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "İnsülini sürdür, **%10 dekstroz** ekle",
+       "pts": 2,
+       "min": 10,
+       "to": "n4",
+       "fb": "Doğru düzeltme."
+      },
+      {
+       "kind": "act",
+       "label": "İnsülini kes",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Ketoasidoz derinleşir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Düzelme",
+     "text": "18 saatte keton <0,6, pH 7,33; hasta oral beslenmeye geçti, SC insüline geçildi. SGLT2 inhibitörü kalıcı kesildi.\n\n**Akılda kalsın**\n- **Öglisemik DKA**: glukoz <250 mg/dL ama **keton ↑ + asidoz**; SGLT2 inhibitörü, açlık, cerrahi, gebelik, alkol.\n- Tanı: **kan gazı + keton** (glukoz değil).\n- Tedavi: sıvı, **sabit doz insülin + baştan dekstroz**, K; SGLT2i kes.\n- Ameliyat öncesi SGLT2i **3 gün önce** (ertugliflozin 4 gün) kesilmeli.\n\n*Kaynak: JBDS 2023 DKA kılavuzu; ADA 2024 hiperglisemik krizler uzlaşı raporu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n4": {
+     "title": "Gecikmeli düzelme",
+     "text": "Dekstroz eklendikten sonra asidoz düzeldi; hasta bir gün fazla yoğun bakımda kaldı.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ağır asidoz",
+     "text": "Hasta 12 saat sonra pH 6,9 ile döndü; yoğun bakımda entübe edildi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c143",
+   "title": "Bakımevinden gelen uykulu hasta — 88 yaşında kadın",
+   "topic": "Metabolik / Geriatri",
+   "intro": "88 yaşında kadın, ileri demans, bakımevinde yaşıyor. 5 gündür ateş ve az sıvı alımı; bugün uyandırmakta zorlanmışlar. Yaklaşık 50 kg.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 86/50 · Nb 118 · SS 24 · SpO₂ %93 · Ateş 38,3 · Kapiller glukoz 168",
+     "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "GKS 11, mukozalar çok kuru, deri turgoru azalmış. Sağ bazalde raller.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": 2,
+       "min": 1,
+       "res": "Yüksek akım O₂ (rezervuarlı maske) başlandı; SpO₂ hedefi %94–98'e göre titre ediliyor.",
+       "fb": "Hipoksemi var (SpO₂ %93): oksijen ilk müdahalelerdendir."
+      },
+      {
+       "kind": "test",
+       "label": "Na, K, üre, kreatinin, osmolalite",
+       "pts": 3,
+       "min": 40,
+       "res": "**Na 166**, K 3,6, üre 128, kreatinin 2,0; serum osm 352.",
+       "fb": "Hipovolemik hipernatremi; >48 saat → kronik."
+      },
+      {
+       "kind": "test",
+       "label": "Akciğer grafisi, kültürler",
+       "pts": 2,
+       "min": 30,
+       "res": "Sağ alt lob pnömonisi.",
+       "fb": "Altta yatan neden (sıklıkla enfeksiyon + su alamama)."
+      },
+      {
+       "kind": "act",
+       "label": "Önce **şok/hipovolemi**: **izotonik kristaloid** bolusları (KB ve perfüzyon düzelene kadar); sonra **hipotonik sıvı** (%5 dekstroz ya da %0,45 NaCl / enteral su) ile serbest su açığını kapat — **24 saatte ≤10–12 mmol/L** düşüş; 4–6 saatte bir Na; **pnömoni tedavisi** (sepsis bulgusunda 1 saatte antibiyotik)",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Su açığı ≈ 0,45 × 50 × (166/140 − 1) ≈ 4 L; 48 saate yayılır."
+      },
+      {
+       "kind": "act",
+       "label": "Hemen 4 L %5 dekstroz, 6 saatte",
+       "pts": -4,
+       "min": 20,
+       "to": "n9",
+       "fb": "Kronik hipernatremide hızlı düzeltme serebral ödem riski; ayrıca şok önce izotonikle düzeltilmeli."
+      },
+      {
+       "kind": "act",
+       "label": "Na çok yüksek — SF verme, yalnız oral su",
+       "pts": -3,
+       "min": 20,
+       "to": "n9",
+       "fb": "Hipotansif, bilinç bozuk hasta oral alamaz; perfüzyon önceliklidir."
+      }
+     ],
+     "vh": true
+    },
+    "n2": {
+     "title": "Düzelme",
+     "text": "İlk 24 saatte Na 166 → 156, 72 saatte 144; bilinç başlangıç düzeyine döndü, pnömoni tedavi edildi.\n\n**Akılda kalsın**\n- Yaşlı/demanslı hastada hipernatremi = **su alamama** (+ ateş, enfeksiyon, diürez).\n- Önce **perfüzyon (izotonik)**, sonra **serbest su**.\n- **Serbest su açığı** = TBW × (Na/140 − 1); TBW: yaşlı kadında ≈0,45 × kg.\n- Kronik hipernatremide **≈10–12 mmol/L/24 saat** sınırı (akutta daha hızlı olabilir).\n- Altta yatan nedeni tedavi et.\n\n*Kaynak: Adrogué & Madias, NEJM 2000; ESE 2014 / sodyum bozuklukları derlemeleri.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Komplikasyon",
+     "text": "Hızlı/uygunsuz düzeltme sonrası nöbet ve bilinç kötüleşmesi gelişti ya da şok derinleşti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c144",
+   "title": "Hızlı soluyan, emmeyen bebek — 2 aylık erkek",
+   "topic": "Çocuk / Kardiyoloji",
+   "intro": "2 aylık erkek bebek. Annesi 6 saattir emmediğini, huzursuz ve terli olduğunu söylüyor. Ateş yok. Yaklaşık 5 kg.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n4",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "Nb 290 (düzenli) · SS 56 · SpO₂ %96 · Ateş 36,9",
+     "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Huzursuz, soluk ama tepki veriyor. Kapiller dolum 2 sn, nabızlar iyi. Karaciğer kot altında 2 cm.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %96 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
+      {
+       "kind": "test",
+       "label": "12 derivasyonlu EKG",
+       "pts": 3,
+       "min": 5,
+       "res": "**Dar QRS, düzenli taşikardi 290/dk**, P dalgası görülmüyor, hız değişkenliği yok.",
+       "fb": "Bebekte >220/dk dar QRS → SVT (sinüs taşikardisi değil)."
+      },
+      {
+       "kind": "act",
+       "label": "**Stabil SVT (bebek)**: vagal manevra — **yüze buzlu su torbası** 10–15 sn (göze bası yok); yanıt yoksa **adenozin 0,1 mg/kg (0,5 mg) hızlı IV bolus + hızlı SF yıkama** (proksimal damar), ikinci doz 0,2 mg/kg (en çok 12 mg); defibrilatör pedleri hazır",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. Stabil SVT'de vagal → adenozin."
+      },
+      {
+       "kind": "act",
+       "label": "Ateş ve sepsis sanılarak 20 mL/kg sıvı bolusu ve antibiyotik",
+       "pts": -2,
+       "min": 20,
+       "to": "n3",
+       "fb": "Sinüs taşikardisi bu hızda ve sabit olmaz; tanı EKG'de."
+      },
+      {
+       "kind": "act",
+       "label": "Verapamil 0,1 mg/kg IV",
+       "pts": -5,
+       "min": 5,
+       "to": "n9",
+       "fb": "Bebeklerde verapamil ağır hipotansiyon ve arreste yol açar — kontrendike."
+      }
+     ],
+     "vh": true
+    },
+    "n3": {
+     "title": "Kötüleşme",
+     "text": "Bebek letarjik, kapiller dolum 4 sn, nabızlar zayıf.",
+     "vitals": "Nb 290 · SpO₂ %92",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "**Senkronize kardiyoversiyon 0,5–1 J/kg** (yanıtsızsa 2 J/kg); sedasyon geciktirmeyecekse",
+       "pts": 2,
+       "min": 5,
+       "to": "n4",
+       "fb": "Instabil SVT."
+      },
+      {
+       "kind": "act",
+       "label": "Bir sıvı bolusu daha",
+       "pts": -3,
+       "min": 10,
+       "to": "n9",
+       "fb": "Ritim düzeltilmedikçe kalp yetmezliği ilerler."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Sinüs ritmi",
+     "text": "Buzlu su başarısız oldu; adenozin 0,5 mg ile SVT sonlandı. EKG'de preeksitasyon yoktu; çocuk kardiyolojisi tedavi planladı.\n\n**Akılda kalsın**\n- Bebekte dar QRS **>220/dk** (çocukta >180) ve **sabit hız** → SVT.\n- Bebekler bulgu vermez: **emmeme, huzursuzluk, terleme**; saatler sonra kalp yetmezliği.\n- Stabil: **buzlu su (dalış refleksi)** → **adenozin 0,1 mg/kg** (≤6 mg) → **0,2 mg/kg** (≤12 mg).\n- Instabil: **senkronize kardiyoversiyon 0,5–1 → 2 J/kg**.\n- **<1 yaşta verapamil yok**.\n\n*Kaynak: ERC 2021 pediatrik yaşam desteği; AHA PALS 2020.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n4": {
+     "title": "Geç kardiyoversiyon",
+     "text": "Kardiyoversiyonla sinüs ritmi sağlandı; bebek kalp yetmezliği nedeniyle 2 gün yoğun bakımda kaldı.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n9": {
+     "title": "Arrest",
+     "text": "Bebek bradikardi ve arreste girdi; resüsitasyonla döndürüldü.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c145",
+   "title": "Alında döküntü ve göz ağrısı — 71 yaşında erkek",
+   "topic": "Enfeksiyon / Göz",
+   "intro": "71 yaşında erkek. 4 gündür sol alında yanma; 2 gündür sol alın ve saçlı deride kümeler hâlinde su dolu kabarcıklar. Bugün sol gözde kızarıklık ve batma. Bağışıklık baskılayıcı ilaç kullanmıyor.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 138/84 · Nb 82 · SpO₂ %98 · Ateş 36,9",
+     "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Sol V1 dermatomunda orta hattı geçmeyen **grup veziküller**, **burun ucunda vezikül (Hutchinson bulgusu)**. Sol gözde konjonktival hiperemi; görme 0,7. Ateş yok, genel durum iyi.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 0,
+       "min": 3,
+       "res": "Damar yolu açıldı.",
+       "fb": "Bağışıklığı normal HZO hastasında tedavi ağızdan; damar yolu gerekmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %98 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
+      {
+       "kind": "test",
+       "label": "Floresein ile göz muayenesi",
+       "pts": 2,
+       "min": 10,
+       "res": "Korneada **dendritiform (psödodendrit)** boyanma.",
+       "fb": "Göz tutulumu var."
+      },
+      {
+       "kind": "act",
+       "label": "**Herpes zoster oftalmikus**: **oral valasiklovir 1 g günde 3 kez, 7 gün** (ya da asiklovir 800 mg günde 5 kez); **aynı gün göz hekimi** (yarık lamba, keratit/üveit); analjezi; **topikal steroidi göz hekimi kararı olmadan verme**",
+       "pts": 4,
+       "min": 10,
+       "to": "n2",
+       "fb": "Doğru. Hutchinson bulgusu göz tutulumu riskini artırır; erken antiviral ve oftalmoloji."
+      },
+      {
+       "kind": "act",
+       "label": "Topikal steroidli göz damlası + asiklovir krem",
+       "pts": -4,
+       "min": 10,
+       "to": "n9",
+       "fb": "Göz hekimi değerlendirmesi olmadan steroid ve topikal antiviral tek başına uygun değil."
+      },
+      {
+       "kind": "act",
+       "label": "Analjezik, döküntü 72 saati geçti — antiviral gereksiz",
+       "pts": -3,
+       "min": 5,
+       "to": "n9",
+       "fb": "Göz tutulumunda ve yeni lezyon çıkarken 72 saatten sonra da antiviral verilir."
+      }
+     ],
+     "vh": true
+    },
+    "n2": {
+     "title": "Görme korundu",
+     "text": "Göz hekimi keratit ve hafif ön üveit saptayarak tedaviyi düzenledi; görme 0,9'a yükseldi.\n\n**Akılda kalsın**\n- **Hutchinson bulgusu** (burun ucu-yanı: nazosiliyer sinir) → göz tutulumu riski yüksek.\n- HZO: **oral antiviral** (valasiklovir 1 g × 3 / asiklovir 800 mg × 5, 7 gün) ideal **72 saat içinde**, göz tutulumunda sonra da; **aynı gün göz hekimi**.\n- **İmmünsüpresyon, yaygın/dissemine zona, görmeyi tehdit eden tablo, SSS tutulumu** → **IV asiklovir**.\n- Topikal steroid yalnız göz hekimince.\n\n*Kaynak: AAO; CDC zona klinik özeti; Am Fam Physician 2011 (HZO).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Görme kaybı",
+     "text": "Tedavi gecikti; stromal keratit ve sekonder glokom gelişti, görme kalıcı olarak azaldı.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c146",
+   "title": "Ani başlayan şiddetli karın ağrısı — 49 yaşında erkek",
+   "topic": "Genel cerrahi",
+   "intro": "49 yaşında erkek. Bel ağrısı için 2 haftadır yüksek doz ibuprofen kullanıyor, sigara içiyor. 3 saat önce epigastriumda **bıçak saplanır tarzda ani** ağrı başladı, tüm karına yayıldı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 104/66 · Nb 118 · SS 24 · SpO₂ %97 · Ateş 37,6",
+     "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Hareketsiz yatıyor, dizleri karnına çekik. Karın **tahta gibi sert** (yaygın defans), rebound; karaciğer matitesi silinmiş.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %97 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
+      {
+       "kind": "test",
+       "label": "Ayakta akciğer grafisi",
+       "pts": 2,
+       "min": 15,
+       "res": "**Sağ diyafram altında serbest hava**.",
+       "fb": "Duyarlılığı ≈%70–80; negatifse BT."
+      },
+      {
+       "kind": "test",
+       "label": "Kontrastlı abdominal BT",
+       "pts": 2,
+       "min": 30,
+       "res": "Serbest hava ve sıvı; duodenum bulbus ön duvarında defekt.",
+       "fb": "Tanı ve lokalizasyon."
+      },
+      {
+       "kind": "test",
+       "label": "Lipaz, hemogram, laktat",
+       "pts": 1,
+       "min": 30,
+       "res": "Lipaz hafif yüksek; lökosit 16.000; laktat 2,4.",
+       "fb": "Perforasyonda lipaz hafif artabilir — pankreatitle karıştırma."
+      },
+      {
+       "kind": "act",
+       "label": "**Perfore peptik ülser**: aç bırak, **NG dekompresyon**, IV sıvı, analjezi; **IV PPI**; **geniş spektrumlu antibiyotik** (ör. piperasilin-tazobaktam ya da seftriakson + metronidazol); **acil genel cerrahi** (onarım/omentopeksi)",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Erken cerrahi kaynak kontrolü mortaliteyi azaltır."
+      },
+      {
+       "kind": "act",
+       "label": "Akut pankreatit — sıvı, analjezi, servise yatış",
+       "pts": -4,
+       "min": 20,
+       "to": "n9",
+       "fb": "Lipazdaki hafif artış perforasyonda da görülür; serbest hava var."
+      },
+      {
+       "kind": "act",
+       "label": "NSAİİ ile analjezi, antasit ve gözlem",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "Peritonit bulguları ve NSAİİ öyküsü — perforasyon dışlanmalı."
+      }
+     ],
+     "vh": true
+    },
+    "n2": {
+     "title": "Cerrahi onarım",
+     "text": "Laparoskopik primer onarım ve omentopeksi yapıldı; H. pylori testi pozitif, eradikasyon tedavisi verildi.\n\n**Akılda kalsın**\n- Ani “bıçak saplanır” epigastrik ağrı + **tahta karın** → **perforasyon**.\n- Risk: **NSAİİ, sigara, H. pylori**, steroid, yaşlılık.\n- **Ayakta akciğer grafisi** (serbest hava) → negatif ama şüphe sürerse **BT**.\n- Aç bırak, **NG**, sıvı, **IV PPI**, **antibiyotik**, **acil cerrahi**.\n\n*Kaynak: WSES 2020 perfore peptik ülser kılavuzu.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Septik şok",
+     "text": "Tanı gecikti; hasta peritonit ve septik şokla yoğun bakıma alındı.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c147",
+   "title": "Motosiklet kazası, diz yaralanması — 28 yaşında erkek",
+   "topic": "Travma / Vasküler",
+   "intro": "28 yaşında erkek. Motosikletten düşüp sağ dizini çarpmış. Olay yerinde dizi “yerinden çıkmış”, paramedik çekişle düzeltmiş. Dizde şişlik ve ağrı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 132/80 · Nb 98 · SS 18 · SpO₂ %98",
+     "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Sağ diz belirgin şiş, **çok yönlü instabilite**. Sağ ayak sıcak; dorsalis pedis ve posterior tibial nabızlar **zayıf ama alınıyor**. Peroneal sinir alanında hafif uyuşma.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %98 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
+      {
+       "kind": "test",
+       "label": "Ayak bileği-kol indeksi (ABI)",
+       "pts": 3,
+       "min": 10,
+       "res": "Sağ **ABI 0,72**; sol 1,1.",
+       "fb": "**ABI <0,9** → arter yaralanması → BT anjiyografi."
+      },
+      {
+       "kind": "test",
+       "label": "Diz grafisi",
+       "pts": 1,
+       "min": 15,
+       "res": "Eklem redükte; tibial platoda küçük avulsiyon parçası.",
+       "fb": "Kendiliğinden redükte olmuş çıkık sık gözden kaçar."
+      },
+      {
+       "kind": "act",
+       "label": "**Redükte diz çıkığı + ABI <0,9**: **BT anjiyografi**, **vasküler cerrahi** ve ortopedi acil; uzun bacak ateli; seri nörovasküler muayene; kompartman sendromu izlemi",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Nabzın alınması popliteal arter yaralanmasını dışlamaz."
+      },
+      {
+       "kind": "act",
+       "label": "Nabızlar var — diz ateli, ertesi gün ortopedi polikliniği",
+       "pts": -5,
+       "min": 10,
+       "to": "n9",
+       "fb": "İntimal yırtık saatler içinde tromboza ilerler; 6–8 saati geçen iskemide amputasyon riski."
+      }
+     ],
+     "vh": true
+    },
+    "n2": {
+     "title": "Ekstremite kurtarıldı",
+     "text": "BTA'da popliteal arterde intimal yırtık ve kısmi tromboz saptandı; vasküler cerrahi bypass yaptı, profilaktik fasyotomi uygulandı.\n\n**Akılda kalsın**\n- **Diz çıkığı** (çoğu kendiliğinden redükte) → **popliteal arter yaralanması** riski yüksek.\n- **Nabızlar alınıyor diye dışlama**: **ABI** ölç; **<0,9 → BT anjiyografi**; **kesin bulgular** (nabızsızlık, aktif kanama, büyüyen hematom, üfürüm/thrill) → doğrudan ameliyathane.\n- Akut ekstremite iskemisi: **6 P** (ağrı, solukluk, nabızsızlık, parestezi, paralizi, soğukluk); duyu/motor kaybı = acil revaskülarizasyon.\n- Reperfüzyon sonrası **kompartman sendromu**.\n\n*Kaynak: EAST 2012 ekstremite vasküler yaralanma kılavuzu; ESVS 2020 akut ekstremite iskemisi.*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Amputasyon",
+     "text": "Ertesi sabah ayak soğuk ve nabızsızdı; geç revaskülarizasyona rağmen diz altı amputasyon gerekti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c148",
+   "title": "Acil bekleme salonunda yığılma — 59 yaşında erkek",
+   "topic": "Resüsitasyon",
+   "intro": "59 yaşında erkek. Göğüs ağrısı nedeniyle triajda beklerken yığıldı. Hemşire yanıtsız ve solunumu olmadığını, nabız alınamadığını bildirdi; hasta resüsitasyon odasına alındı, KPR başladı.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n3",
+    "n4",
+    "n5",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Arrest",
+     "text": "Yanıtsız, solunum yok, nabız yok. Pedler takıldı: **ventrikül fibrilasyonu**.",
+     "vitals": "Monitör: kaba VF",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "**Hemen defibrilasyon** (bifazik 150–200 J veya cihaz önerisi), şoktan hemen sonra **2 dakika KPR** (göğüs basısına ara vermeden); ritim kontrolü",
+       "pts": 4,
+       "min": 2,
+       "to": "n2",
+       "fb": "Doğru. Şoklanabilir ritimde en önemli girişim erken defibrilasyon."
+      },
+      {
+       "kind": "act",
+       "label": "Önce entübasyon, sonra şok",
+       "pts": -4,
+       "min": 5,
+       "to": "n9",
+       "fb": "Defibrilasyonu geciktirir; ileri hava yolu bekleyebilir."
+      },
+      {
+       "kind": "act",
+       "label": "Önce adrenalin 1 mg IV, sonra şok",
+       "pts": -3,
+       "min": 3,
+       "to": "n9",
+       "fb": "Şoklanabilir ritimde adrenalin 3. şoktan sonra verilir."
+      }
+     ]
+    },
+    "n2": {
+     "title": "3. şoktan sonra",
+     "text": "Üç şok ve 6 dakika KPR sonrası VF sürüyor. Damar yolu açıldı.",
+     "vitals": "Monitör: VF",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "**Adrenalin 1 mg IV** + **amiodaron 300 mg IV**; KPR'ye ara vermeden devam; geri döndürülebilir nedenler (4H/4T); EtCO₂ izlemi",
+       "pts": 4,
+       "min": 2,
+       "to": "n3",
+       "fb": "Doğru. ERC: 3. şoktan sonra adrenalin ve amiodaron."
+      },
+      {
+       "kind": "act",
+       "label": "Amiodaron 150 mg ve lidokain birlikte",
+       "pts": -1,
+       "min": 2,
+       "to": "n3",
+       "fb": "İlk amiodaron dozu 300 mg'dır."
+      },
+      {
+       "kind": "act",
+       "label": "Şoklar işe yaramadı — KPR'yi sonlandır",
+       "pts": -5,
+       "min": 1,
+       "to": "n9",
+       "fb": "Refrakter VF'de resüsitasyon sürer."
+      }
+     ]
+    },
+    "n3": {
+     "title": "Refrakter VF",
+     "text": "5. şoktan sonra hâlâ VF. EtCO₂ 22 mmHg. Göğüs ağrısı ile gelmişti.",
+     "vitals": "Monitör: VF",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "**Amiodaron 150 mg** (5. şoktan sonra); **ped yerini değiştir (ön-arka)**, gerekiyorsa çift ardışık defibrilasyon (kurumda varsa); adrenalin 3–5 dakikada bir; koroner oklüzyon olasılığı için kardiyoloji (ROSC sonrası acil anjiyo)",
+       "pts": 4,
+       "min": 3,
+       "to": "n4",
+       "fb": "Doğru. DOSE-VF: vektör değişikliği ve DSED refrakter VF'de sağkalımı artırdı."
+      },
+      {
+       "kind": "act",
+       "label": "Aynı pedlerle aynı enerjide sürdür, başka bir şey yapma",
+       "pts": -1,
+       "min": 3,
+       "to": "n5",
+       "fb": "Refrakter VF'de seçenekler kullanılmalı."
+      }
+     ]
+    },
+    "n4": {
+     "title": "ROSC",
+     "text": "Ön-arka ped pozisyonuyla 6. şoktan sonra ROSC sağlandı; EKG'de anterior STEMI; acil anjiyografide LAD açıldı. Hedefli sıcaklık yönetimi ile iyi nörolojik sonuçla taburcu oldu.\n\n**Akılda kalsın**\n- VF/nabızsız VT: **erken defibrilasyon + kesintisiz KPR**.\n- **Adrenalin 1 mg** ve **amiodaron 300 mg** **3. şoktan sonra**; adrenalin 3–5 dk'da bir; amiodaron **150 mg 5. şoktan sonra**.\n- Refrakter VF: **ped vektörü değişikliği (ön-arka)**, **çift ardışık defibrilasyon** (DOSE-VF), 4H/4T, olası koroner oklüzyon.\n- ROSC sonrası: STEMI varsa **acil anjiyo**, ateşten kaçınma, normoksi/normokapni.\n\n*Kaynak: ERC 2021 erişkin ileri yaşam desteği; DOSE-VF (NEJM 2022).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n5": {
+     "title": "Geç ROSC",
+     "text": "Uzamış resüsitasyon sonrası ROSC sağlandı; ancak hipoksik beyin hasarı gelişti.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n9": {
+     "title": "Ölüm",
+     "text": "Resüsitasyon başarısız oldu.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c149",
+   "title": "Ağız çevresinde uyuşma ve kramp — 45 yaşında kadın",
+   "topic": "Endokrin",
+   "intro": "45 yaşında kadın. 2 gün önce total tiroidektomi olmuş, dün taburcu edilmiş. Bu sabahtan beri ağız çevresi ve parmak uçlarında uyuşma, ellerde kramp.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n2",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 128/80 · Nb 92 · SS 18 · SpO₂ %99",
+     "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Anksiyöz. **Chvostek bulgusu pozitif**; KB manşonu şişirilince **Trousseau** (karpopedal spazm). Stridor yok. Boyun yarası temiz, hematom yok.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %99 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
+      {
+       "kind": "test",
+       "label": "Serum kalsiyum, albümin, Mg, fosfor, PTH",
+       "pts": 3,
+       "min": 40,
+       "res": "**Düzeltilmiş Ca 6,6 mg/dL** (iyonize 0,78 mmol/L), **Mg 1,4**, P yüksek, PTH düşük.",
+       "fb": "Postoperatif hipoparatiroidi; hipomagnezemi eşlik ediyor."
+      },
+      {
+       "kind": "test",
+       "label": "EKG",
+       "pts": 2,
+       "min": 5,
+       "res": "**QTc 520 ms**.",
+       "fb": "Aritmi riski."
+      },
+      {
+       "kind": "act",
+       "label": "**Semptomatik akut hipokalsemi**: **%10 kalsiyum glukonat 10–20 mL**, 50–100 mL %5 dekstrozda **10 dakikada IV** (EKG monitörde), ardından kalsiyum infüzyonu; **Mg replasmanı** (magnezyum sülfat 2 g IV); oral kalsiyum + **kalsitriol**; endokrin/cerrahi",
+       "pts": 4,
+       "min": 15,
+       "to": "n2",
+       "fb": "Doğru. Hipomagnezemi düzeltilmezse hipokalsemi dirençli kalır."
+      },
+      {
+       "kind": "act",
+       "label": "Yalnız oral kalsiyum ile taburcu",
+       "pts": -3,
+       "min": 10,
+       "to": "n9",
+       "fb": "QT uzaması ve tetani — IV tedavi gerekir."
+      },
+      {
+       "kind": "act",
+       "label": "Kalsiyumu bikarbonatlı sıvıyla aynı hattan hızlı bolus",
+       "pts": -3,
+       "min": 5,
+       "to": "n9",
+       "fb": "Kalsiyum bikarbonatla çöker; hızlı bolus aritmi yapabilir."
+      }
+     ],
+     "vh": true
+    },
+    "n2": {
+     "title": "Düzelme",
+     "text": "IV kalsiyum ve Mg sonrası semptomlar geçti, QTc 450'ye indi; kalsitriol ve oral kalsiyumla taburcu edildi.\n\n**Akılda kalsın**\n- Tiroidektomi/paratiroidektomi sonrası: **hipoparatiroidi** (ve “aç kemik” sendromu).\n- Bulgular: perioral uyuşma, parestezi, **Chvostek/Trousseau**, tetani, laringospazm, nöbet, **uzun QT**.\n- Tedavi: **%10 kalsiyum glukonat 10–20 mL / 10 dk** (EKG), sonra infüzyon; **Mg düzelt**; **kalsitriol** + oral kalsiyum.\n- Kalsiyumu bikarbonat/fosfatla karıştırma; digoksin kullananda dikkat.\n\n*Kaynak: Society for Endocrinology acil hipokalsemi kılavuzu (2016).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n9": {
+     "title": "Komplikasyon",
+     "text": "Hasta evde laringospazm ve nöbetle döndü / aritmi gelişti.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  },
+  {
+   "key": "c150",
+   "title": "Karın ağrısı, sarılık ve ateş — 62 yaşında kadın",
+   "topic": "Gastroenteroloji / Cerrahi",
+   "intro": "62 yaşında kadın. Bilinen safra taşı. Dün başlayan sırta vuran epigastrik ağrı, kusma; bugün ateş, titreme ve gözlerde sararma.",
+   "start": "n1",
+   "order": [
+    "n1",
+    "n3",
+    "n2",
+    "n4",
+    "n9"
+   ],
+   "nodes": {
+    "n1": {
+     "title": "Muayene",
+     "text": "Hasta sedyeye alındı. **İlk değerlendirme** adımlarından gerekli gördüklerinizi seçin; ardından tetkik isteyin ya da karar verin.",
+     "vitals": "KB 96/58 · Nb 116 · SS 22 · SpO₂ %95 · Ateş 39,0",
+     "opts": [
+      {
+       "kind": "do",
+       "label": "Monitöre bağla, vital bulguları ölç",
+       "pts": 1,
+       "min": 2,
+       "res": "",
+       "fb": "Her hastada ilk adım: monitör ve vital bulgular.",
+       "vit": true
+      },
+      {
+       "kind": "do",
+       "label": "Fizik muayene (ABCDE)",
+       "pts": 1,
+       "min": 3,
+       "res": "Sklera ikterik; epigastrium ve sağ üst kadranda hassasiyet, defans yok. Hafif konfüze.",
+       "fb": "Sistematik ABCDE değerlendirmesi kritik bulguları kaçırmamanızı sağlar."
+      },
+      {
+       "kind": "do",
+       "label": "Damar yolu aç, kan örneklerini al",
+       "pts": 1,
+       "min": 3,
+       "res": "Geniş lümenli (18G) damar yolu açıldı; kan örnekleri laboratuvara gönderildi.",
+       "fb": "Hastanın tedavisi için erken damar yolu ve kan örnekleri — ilaç/sıvı vermeyi geciktirmez."
+      },
+      {
+       "kind": "do",
+       "label": "Oksijen başla",
+       "pts": -1,
+       "min": 1,
+       "res": "Nazal kanülle O₂ başlandı.",
+       "fb": "SpO₂ %95 — hipoksemi yok. Rutin oksijen yarar sağlamaz; hiperoksi (ör. AKS ve inmede) zararlı olabilir. Hedef %94–98."
+      },
+      {
+       "kind": "test",
+       "label": "Lipaz, KCFT, bilirubin, hemogram, laktat",
+       "pts": 3,
+       "min": 40,
+       "res": "Lipaz 2.400 U/L (>3×); total bilirubin **4,8**, ALT 320, ALP 410; lökosit 18.000; laktat 2,6.",
+       "fb": "Pankreatit + kolestaz + sistemik enflamasyon."
+      },
+      {
+       "kind": "test",
+       "label": "Abdominal USG",
+       "pts": 2,
+       "min": 20,
+       "res": "Safra kesesinde taşlar, **koledok 11 mm**, distalde taş şüphesi.",
+       "fb": "Biliyer etiyoloji."
+      },
+      {
+       "kind": "test",
+       "label": "Kontrastlı abdominal BT (hemen)",
+       "pts": -1,
+       "min": 40,
+       "res": "Ödematöz pankreatit; nekroz değerlendirmesi için erken.",
+       "fb": "Tanı kesinse erken BT gerekmez; 72 saatten sonra komplikasyon için."
+      },
+      {
+       "kind": "act",
+       "label": "**Biliyer pankreatit + akut kolanjit (Charcot üçlüsü + konfüzyon/hipotansiyon)**: kan kültürü ve **hemen antibiyotik** (ör. piperasilin-tazobaktam); **hedefe yönelik ılımlı sıvı** (hipovolemide 10 mL/kg bolus, sonra ≈1,5 mL/kg/saat; aşırı yüklemeden kaçın); analjezi (opioid uygun); **acil ERCP (24 saat içinde)** — gastroenteroloji; erken oral beslenme hedefi",
+       "pts": 4,
+       "min": 20,
+       "to": "n2",
+       "fb": "Doğru. Kolanjit eşlik eden biliyer pankreatitte erken ERCP; kolanjitsiz olguda rutin erken ERCP önerilmez."
+      },
+      {
+       "kind": "act",
+       "label": "Agresif sıvı (20 mL/kg bolus + 3 mL/kg/saat), antibiyotik yok, pankreatit izlemi",
+       "pts": -3,
+       "min": 20,
+       "to": "n3",
+       "fb": "WATERFALL: agresif sıvı yarar sağlamadı, sıvı yüklenmesini artırdı; kolanjit tedavisiz kaldı."
+      },
+      {
+       "kind": "act",
+       "label": "Profilaktik karbapenem ile 72 saat izle, ERCP'yi elektif planla",
+       "pts": -3,
+       "min": 30,
+       "to": "n3",
+       "fb": "Kolanjit varken ERCP ertelenmemeli."
+      }
+     ],
+     "vh": true
+    },
+    "n3": {
+     "title": "12 saat sonra",
+     "text": "Hipotansiyon derinleşti, bilirubin 7,2; solunum sıkıntısı arttı.",
+     "vitals": "KB 82/48 · Nb 128 · SpO₂ %91",
+     "opts": [
+      {
+       "kind": "act",
+       "label": "Antibiyotik (yoksa başla), vazopresör, **acil ERCP**",
+       "pts": 2,
+       "min": 20,
+       "to": "n4",
+       "fb": "Kaynak kontrolü."
+      },
+      {
+       "kind": "act",
+       "label": "Sıvıya devam",
+       "pts": -4,
+       "min": 30,
+       "to": "n9",
+       "fb": "Septik şok ve sıvı yüklenmesi."
+      }
+     ]
+    },
+    "n2": {
+     "title": "Düzelme",
+     "text": "ERCP'de koledok taşı çıkarıldı, sfinkterotomi yapıldı; ateş 24 saatte düştü. Aynı yatışta kolesistektomi planlandı.\n\n**Akılda kalsın**\n- Akut pankreatit: **3 ölçütten 2'si** (tipik ağrı, lipaz/amilaz ≥3×, görüntüleme).\n- **Biliyer pankreatit + kolanjit** → **antibiyotik + ERCP ≤24 saat**; kolanjit/obstrüksiyon yoksa rutin erken ERCP yok.\n- Sıvı: **ılımlı, hedefe yönelik** (WATERFALL 2022); aşırı sıvıdan kaçın.\n- Profilaktik antibiyotik **önerilmez** (enfekte nekroz/kolanjit yoksa); **erken oral beslenme**.\n- Biliyer pankreatitte **aynı yatışta kolesistektomi**.\n\n*Kaynak: ACG 2024 akut pankreatit kılavuzu; Tokyo 2018 kolanjit; WATERFALL (NEJM 2022).*",
+     "end": true,
+     "outcome": "good",
+     "opts": []
+    },
+    "n4": {
+     "title": "Geç ERCP",
+     "text": "ERCP ile drenaj sağlandı; hasta septik şok nedeniyle 4 gün yoğun bakımda kaldı.",
+     "end": true,
+     "outcome": "mid",
+     "opts": []
+    },
+    "n9": {
+     "title": "Septik şok",
+     "text": "Hasta çoklu organ yetmezliğine ilerledi.",
+     "end": true,
+     "outcome": "bad",
+     "opts": []
+    }
+   }
+  }
+ ],
+ "questions": [
+  {
+   "key": "c141q1",
+   "stem": "CRB-65 = 0 olan sağlıklı erişkinde TKP tedavisi hangisidir?",
+   "options": [
+    "IV seftriakson + yatış",
+    "Ayaktan amoksisilin 5 gün",
+    "Moksifloksasin IV",
+    "Antibiyotiksiz izlem",
+    "Vankomisin"
+   ],
+   "correct": 1,
+   "explanation": "NICE NG138.",
+   "topic": "Enfeksiyon / Göğüs"
+  },
+  {
+   "key": "c141q2",
+   "stem": "Düşük şiddetli TKP'de önerilen antibiyotik süresi nedir?",
+   "options": [
+    "3 gün",
+    "5 gün",
+    "14 gün",
+    "21 gün",
+    "6 hafta"
+   ],
+   "correct": 1,
+   "explanation": "Klinik yanıt varsa 5 gün yeterli.",
+   "topic": "Enfeksiyon / Göğüs"
+  },
+  {
+   "key": "c141q3",
+   "stem": "Penisilin alerjisinde düşük şiddetli TKP için alternatif hangisidir?",
+   "options": [
+    "Doksisiklin veya klaritromisin",
+    "Amoksisilin-klavulanat",
+    "Sefaleksin",
+    "Nitrofurantoin",
+    "Metronidazol"
+   ],
+   "correct": 0,
+   "explanation": "NICE önerisi.",
+   "topic": "Enfeksiyon / Göğüs"
+  },
+  {
+   "key": "c142q1",
+   "stem": "Öglisemik DKA'nın en sık ilaç nedeni hangisidir?",
+   "options": [
+    "Metformin",
+    "SGLT2 inhibitörleri",
+    "DPP-4 inhibitörleri",
+    "Sülfonilüre",
+    "GLP-1 agonisti"
+   ],
+   "correct": 1,
+   "explanation": "Empagliflozin, dapagliflozin vb.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c142q2",
+   "stem": "Öglisemik DKA tedavisinde farklı olan nedir?",
+   "options": [
+    "İnsülin verilmez",
+    "İnsülinle birlikte en baştan dekstroz verilir",
+    "Bikarbonat zorunlu",
+    "Sıvı kısıtlanır",
+    "Potasyum verilmez"
+   ],
+   "correct": 1,
+   "explanation": "Glukoz düşmeden keton temizlenir.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c142q3",
+   "stem": "DKA tanısında en belirleyici testler hangileridir?",
+   "options": [
+    "Yalnız glukoz",
+    "Kan gazı ve keton",
+    "HbA1c",
+    "Lipaz",
+    "Troponin"
+   ],
+   "correct": 1,
+   "explanation": "Glukoz normal olabilir.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c143q1",
+   "stem": "Hipovolemik ve hipotansif hipernatremik hastada ilk sıvı hangisidir?",
+   "options": [
+    "%5 dekstroz",
+    "İzotonik kristaloid",
+    "%3 NaCl",
+    "Albümin zorunlu",
+    "Sıvı verilmez"
+   ],
+   "correct": 1,
+   "explanation": "Önce perfüzyon.",
+   "topic": "Metabolik / Geriatri"
+  },
+  {
+   "key": "c143q2",
+   "stem": "Kronik hipernatremide düzeltme hızı yaklaşık ne olmalıdır?",
+   "options": [
+    "24 saatte ≤10–12 mmol/L",
+    "1 saatte 10 mmol/L",
+    "24 saatte 30 mmol/L",
+    "Hız önemsiz",
+    "Hemen normale"
+   ],
+   "correct": 0,
+   "explanation": "Serebral ödem riski.",
+   "topic": "Metabolik / Geriatri"
+  },
+  {
+   "key": "c143q3",
+   "stem": "Serbest su açığı formülü hangisidir?",
+   "options": [
+    "TBW × (Na/140 − 1)",
+    "Kilo × 0,1",
+    "(Na − 140) × 2",
+    "TBW × Na",
+    "Kilo/Na"
+   ],
+   "correct": 0,
+   "explanation": "TBW cinsiyet ve yaşa göre.",
+   "topic": "Metabolik / Geriatri"
+  },
+  {
+   "key": "c144q1",
+   "stem": "Bebekte SVT'de adenozin ilk dozu nedir?",
+   "options": [
+    "0,01 mg/kg",
+    "0,1 mg/kg (en çok 6 mg)",
+    "1 mg/kg",
+    "6 mg sabit",
+    "0,5 mg/kg"
+   ],
+   "correct": 1,
+   "explanation": "İkinci doz 0,2 mg/kg (≤12 mg).",
+   "topic": "Çocuk / Kardiyoloji"
+  },
+  {
+   "key": "c144q2",
+   "stem": "Bebeklerde kontrendike olan antiaritmik hangisidir?",
+   "options": [
+    "Adenozin",
+    "Verapamil",
+    "Amiodaron",
+    "Senkronize kardiyoversiyon",
+    "Buzlu su"
+   ],
+   "correct": 1,
+   "explanation": "Ağır hipotansiyon/arrest riski.",
+   "topic": "Çocuk / Kardiyoloji"
+  },
+  {
+   "key": "c144q3",
+   "stem": "Bebekte vagal manevra olarak hangisi uygulanır?",
+   "options": [
+    "Göz küresine bası",
+    "Yüze buzlu su torbası",
+    "Karotis masajı",
+    "Valsalva",
+    "Rektal uyarı"
+   ],
+   "correct": 1,
+   "explanation": "Dalış refleksi; göze bası yapılmaz.",
+   "topic": "Çocuk / Kardiyoloji"
+  },
+  {
+   "key": "c145q1",
+   "stem": "Hutchinson bulgusu neyi gösterir?",
+   "options": [
+    "Kulak tutulumu",
+    "Nazosiliyer sinir tutulumu — göz tutulumu riski",
+    "Sistemik yayılım",
+    "Bakteriyel süperenfeksiyon",
+    "Postherpetik nevralji"
+   ],
+   "correct": 1,
+   "explanation": "Burun ucunda vezikül.",
+   "topic": "Enfeksiyon / Göz"
+  },
+  {
+   "key": "c145q2",
+   "stem": "Bağışıklığı normal HZO hastasında antiviral tedavi hangisidir?",
+   "options": [
+    "Oral valasiklovir 1 g günde 3 kez, 7 gün",
+    "Topikal asiklovir tek başına",
+    "Oseltamivir",
+    "IV gansiklovir",
+    "Antiviral gerekmez"
+   ],
+   "correct": 0,
+   "explanation": "Göz hekimi ile birlikte.",
+   "topic": "Enfeksiyon / Göz"
+  },
+  {
+   "key": "c145q3",
+   "stem": "Zonada IV asiklovir endikasyonu hangisidir?",
+   "options": [
+    "Tek dermatom, sağlıklı genç",
+    "İmmünsüpresyon veya dissemine zona",
+    "Hafif kaşıntı",
+    "Postherpetik ağrı",
+    "72 saati geçmiş tek lezyon"
+   ],
+   "correct": 1,
+   "explanation": "Görmeyi tehdit eden ve SSS tutulumu da.",
+   "topic": "Enfeksiyon / Göz"
+  },
+  {
+   "key": "c146q1",
+   "stem": "Perfore peptik ülser şüphesinde ilk görüntüleme hangisidir?",
+   "options": [
+    "Ayakta akciğer grafisi (serbest hava)",
+    "MR",
+    "Endoskopi",
+    "Baryumlu grafi",
+    "Sintigrafi"
+   ],
+   "correct": 0,
+   "explanation": "Negatifse BT.",
+   "topic": "Genel cerrahi"
+  },
+  {
+   "key": "c146q2",
+   "stem": "Peptik perforasyonda hangisi kontrendikedir?",
+   "options": [
+    "NG dekompresyon",
+    "Endoskopi (tanı için)",
+    "IV PPI",
+    "Antibiyotik",
+    "Cerrahi konsültasyon"
+   ],
+   "correct": 1,
+   "explanation": "Hava insüflasyonu perforasyonu büyütür.",
+   "topic": "Genel cerrahi"
+  },
+  {
+   "key": "c146q3",
+   "stem": "Peptik ülser perforasyonu için risk faktörü hangisidir?",
+   "options": [
+    "NSAİİ kullanımı",
+    "Düşük tuzlu diyet",
+    "Statin",
+    "Metformin",
+    "D vitamini"
+   ],
+   "correct": 0,
+   "explanation": "Sigara ve H. pylori de.",
+   "topic": "Genel cerrahi"
+  },
+  {
+   "key": "c147q1",
+   "stem": "Diz çıkığı sonrası nabızları alınan hastada arter yaralanmasını taramak için ne yapılır?",
+   "options": [
+    "Hiçbir şey",
+    "ABI ölçümü; <0,9 ise BT anjiyografi",
+    "Yalnız grafi",
+    "D-dimer",
+    "EMG"
+   ],
+   "correct": 1,
+   "explanation": "Nabız varlığı yaralanmayı dışlamaz.",
+   "topic": "Travma / Vasküler"
+  },
+  {
+   "key": "c147q2",
+   "stem": "Arter yaralanmasının 'kesin bulgusu' hangisidir?",
+   "options": [
+    "Nabızsızlık veya aktif pulsatil kanama",
+    "Hafif şişlik",
+    "Ekimoz",
+    "Ağrı",
+    "Uyuşma tek başına"
+   ],
+   "correct": 0,
+   "explanation": "Doğrudan cerrahi.",
+   "topic": "Travma / Vasküler"
+  },
+  {
+   "key": "c147q3",
+   "stem": "Revaskülarizasyon sonrası izlenmesi gereken komplikasyon hangisidir?",
+   "options": [
+    "Kompartman sendromu",
+    "Pnömotoraks",
+    "Hipoglisemi",
+    "Menenjit",
+    "Pankreatit"
+   ],
+   "correct": 0,
+   "explanation": "Reperfüzyon ödemi.",
+   "topic": "Travma / Vasküler"
+  },
+  {
+   "key": "c148q1",
+   "stem": "VF'de adrenalin ilk ne zaman verilir (ERC 2021)?",
+   "options": [
+    "Hemen, şoktan önce",
+    "3. şoktan sonra",
+    "İlk şoktan sonra",
+    "Hiç verilmez",
+    "ROSC sonrası"
+   ],
+   "correct": 1,
+   "explanation": "Sonra 3–5 dakikada bir.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "c148q2",
+   "stem": "Refrakter VF'de amiodaron dozları nedir?",
+   "options": [
+    "300 mg (3. şok sonrası), 150 mg (5. şok sonrası)",
+    "150 mg tek",
+    "1 g bolus",
+    "50 mg",
+    "5 mg/kg infüzyon"
+   ],
+   "correct": 0,
+   "explanation": "ERC 2021.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "c148q3",
+   "stem": "Refrakter VF'de sağkalımı artırdığı gösterilen yöntem hangisidir?",
+   "options": [
+    "Ped vektörü değişikliği / çift ardışık defibrilasyon",
+    "Yüksek doz adrenalin",
+    "Kalsiyum",
+    "Bikarbonat rutin",
+    "Atropin"
+   ],
+   "correct": 0,
+   "explanation": "DOSE-VF çalışması.",
+   "topic": "Resüsitasyon"
+  },
+  {
+   "key": "c149q1",
+   "stem": "Semptomatik akut hipokalsemide ilk tedavi hangisidir?",
+   "options": [
+    "Oral kalsiyum",
+    "%10 kalsiyum glukonat 10–20 mL, 10 dakikada IV",
+    "Bisfosfonat",
+    "Furosemid",
+    "Kalsitonin"
+   ],
+   "correct": 1,
+   "explanation": "Sonra infüzyon.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c149q2",
+   "stem": "Hipokalseminin düzelmemesine yol açan eşlik eden bozukluk hangisidir?",
+   "options": [
+    "Hipomagnezemi",
+    "Hiperkalemi",
+    "Hiperglisemi",
+    "Hipernatremi",
+    "Hipofosfatemi"
+   ],
+   "correct": 0,
+   "explanation": "Mg PTH salınımı ve etkisi için gereklidir.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c149q3",
+   "stem": "Hipokalsemide EKG bulgusu hangisidir?",
+   "options": [
+    "QT uzaması",
+    "Kısa QT",
+    "Delta dalgası",
+    "Sivri T",
+    "U dalgası tek başına"
+   ],
+   "correct": 0,
+   "explanation": "Aritmi riski.",
+   "topic": "Endokrin"
+  },
+  {
+   "key": "c150q1",
+   "stem": "Biliyer pankreatite kolanjit eşlik ediyorsa ERCP zamanlaması nedir?",
+   "options": [
+    "Elektif, 6 hafta sonra",
+    "Acil/erken (≤24 saat)",
+    "Hiç yapılmaz",
+    "Yalnız taburculuktan sonra",
+    "Kolesistektomiden sonra"
+   ],
+   "correct": 1,
+   "explanation": "Kolanjitsiz olguda rutin erken ERCP önerilmez.",
+   "topic": "Gastroenteroloji / Cerrahi"
+  },
+  {
+   "key": "c150q2",
+   "stem": "Akut pankreatitte güncel sıvı yaklaşımı hangisidir?",
+   "options": [
+    "Agresif (20 mL/kg bolus + 3 mL/kg/saat) herkese",
+    "Hedefe yönelik ılımlı sıvı",
+    "Sıvı kısıtlaması",
+    "Yalnız kolloid",
+    "Sıvı gerekmez"
+   ],
+   "correct": 1,
+   "explanation": "WATERFALL çalışması.",
+   "topic": "Gastroenteroloji / Cerrahi"
+  },
+  {
+   "key": "c150q3",
+   "stem": "Akut pankreatitte profilaktik antibiyotik ne zaman önerilir?",
+   "options": [
+    "Her hastada",
+    "Rutin önerilmez; enfeksiyon (kolanjit, enfekte nekroz) varsa",
+    "Lipaz >1000 ise",
+    "Ateş 37,5 ise",
+    "Alkolik pankreatitte"
+   ],
+   "correct": 1,
+   "explanation": "ACG 2024.",
+   "topic": "Gastroenteroloji / Cerrahi"
+  }
+ ],
+ "module": {
+  "title": "İlk Nöbet Vakaları — 15. Paket",
+  "topic": "Temel acil",
+  "order": 15,
+  "req": [
+   2
+  ],
+  "desc": "Metabolik, enfeksiyon, cerrahi ve resüsitasyon acillerinden 10 vaka.",
+  "intro": "- Her vakayı önce **kendi bildiğinizle** çözün, sonra yeniden oynayıp farklı kararların sonucunu görün.\n- Önce **ilk değerlendirme** (muayene, monitör, damar yolu, oksijen) — gereksiz girişim puan kaybettirir.\n- Sonuç ekranındaki **“Akılda kalsın”** bölümü vakanın özüdür.\n- Sonunda **pekiştirme sorularını** çözün; yanlışlarınız tekrar listenize eklenir.\n- İlaç dozları kılavuzlardan alınmıştır; uygulamada kurumunuzun protokollerini esas alın."
+ }
+}

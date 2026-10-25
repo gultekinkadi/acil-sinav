@@ -68,5 +68,40 @@
   "desc": "Serebral venöz sinüs trombozu, spontan pnömotoraks, pnömoni, peritonsiller apse, sinüzit (orbital komplikasyon), otitis media (mastoidit), nekrotizan otitis eksterna, sistit, gebelikte piyelonefrit, arka dolaşım inmesi.",
   "sims": 10,
   "questions": 30
+ },
+ {
+  "file": "ilk-nobet-11.json",
+  "title": "İlk Nöbet Vakaları — 11. Paket (vaka 101–110)",
+  "desc": "Preeksitasyonlu AF, kronik lityum zehirlenmesi, klavikula kırığı, akrep sokması, düğme pil yutma, lomber patlama kırığı, antikoagülan ilişkili intraparankimal kanama, mallet parmak, çok yüksek riskli NSTEMI, sol dal bloğunda akut MI.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-12.json",
+  "title": "İlk Nöbet Vakaları — 12. Paket (vaka 111–120)",
+  "desc": "Skafoid kırığı, paronişi, sekonder pnömotoraks, ACE inhibitörü anjiyoödemi, boksör kırığı ve kavga ısırığı, akut dekompanse kalp yetmezliği, bilinen epilepside nöbet, benzodiazepine dirençli status, açık glob, BRASH sendromu.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-13.json",
+  "title": "İlk Nöbet Vakaları — 13. Paket (vaka 121–130)",
+  "desc": "Derin ven trombozu, yüksek riskli pulmoner emboli, masif hemoptizi, aurikula hematomu, Wellens sendromu, silik inferoposterior STEMI, AV tam blok, korneal yabancı cisim, uyanma inmesi, Guillain-Barré sendromu.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-14.json",
+  "title": "İlk Nöbet Vakaları — 14. Paket (vaka 131–140)",
+  "desc": "Migren atağı, Bell paralizisi, BT negatif subaraknoid kanama, hiponatremide aşırı düzeltme, gebede apandisit, yaşlıda odontoid kırığı, adezyon ileusu, rüptüre aort anevrizması, febril nötropeni, stabil ventriküler taşikardi.",
+  "sims": 10,
+  "questions": 30
+ },
+ {
+  "file": "ilk-nobet-15.json",
+  "title": "İlk Nöbet Vakaları — 15. Paket (vaka 141–150)",
+  "desc": "Düşük riskli pnömoni, SGLT2 ilişkili öglisemik DKA, hipernatremi, süt çocuğunda SVT, herpes zoster oftalmikus, perfore peptik ülser, diz çıkığı sonrası popliteal arter yaralanması, refrakter VF, tiroidektomi sonrası hipokalsemi, kolanjitli biliyer pankreatit.",
+  "sims": 10,
+  "questions": 30
  }
 ]
