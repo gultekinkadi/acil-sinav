@@ -1,5 +1,12 @@
 [
  {
+  "file": "ekg-litfl-ornek.json",
+  "title": "EKG Atlası (LITFL) — örnek",
+  "desc": "İnferior STEMI: işaretli atlas görüntüsü + 2 görselli soru (LITFL, CC BY-NC-SA 4.0).",
+  "sims": 0,
+  "questions": 2
+ },
+ {
   "file": "ilk-nobet-1.json",
   "title": "İlk Nöbet Vakaları — 1. Paket (vaka 1–10)",
   "desc": "Sık ve hayatı tehdit eden 10 acil: göğüs ağrısı (STEMI), hipoglisemi, anafilaksi, inme, astım, AF, sepsis, pulmoner emboli, hiperkalemi, DKA. Her biri dallanan sanal hasta + 4 alıştırma sorusu.",

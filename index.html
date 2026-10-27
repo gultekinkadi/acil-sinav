@@ -3386,17 +3386,31 @@ async function viewSimPlay(id,back){
 
 /* ---- vaka paketi içe aktarma (sanal hasta + soru havuzu + modül) ---- */
 function pkgSummary(P){ return `<b>${esc(P.title||"Paket")}</b>${P.desc?`<div class="small muted">${esc(P.desc)}</div>`:""}
-  <div class="small" style="margin-top:6px">${(P.sims||[]).length} sanal hasta · ${(P.questions||[]).length} alıştırma sorusu${P.module?" · 1 modül":""}</div>
+  <div class="small" style="margin-top:6px">${(P.atlas||[]).length?`${P.atlas.length} atlas görüntüsü · `:""}${(P.sims||[]).length} sanal hasta · ${(P.questions||[]).length} alıştırma sorusu${P.module?" · 1 modül":""}</div>
   <ol class="small" style="margin:6px 0 0;padding-left:20px">${(P.sims||[]).map(x=>`<li>${esc(x.title)}${x.topic?` <span class="muted">(${esc(x.topic)})</span>`:""}</li>`).join("")}</ol>`; }
+// URL'deki görüntüyü (CORS izinli kaynak, ör. LITFL) indirip images koleksiyonuna kaydeder
+async function imageFromUrl(url,cache){ if(cache[url]) return cache[url];
+  const r=await fetch(url,{mode:"cors"}); if(!r.ok) throw new Error("Görüntü indirilemedi: "+url);
+  const b=await r.blob(); const f=new File([b],url.split("/").pop()||"img.jpg",{type:b.type||"image/jpeg"});
+  return cache[url]=await uploadImageNow(f); }
 async function importPackage(P,onProg){
   if(!P||!Array.isArray(P.sims)) throw new Error("Geçersiz paket dosyası");
   const pid=String(P.id||"paket").replace(/[^a-zA-Z0-9_-]/g,"").slice(0,40)||"paket";
-  const [ss,qs,ps,ms]=await Promise.all([getDocs(collection(db,"sims")),getDocs(collection(db,"questions")),getDocs(collection(db,"pools")),getDocs(collection(db,"modules"))]);
+  const [ss,qs,ps,ms,as]=await Promise.all([getDocs(collection(db,"sims")),getDocs(collection(db,"questions")),getDocs(collection(db,"pools")),getDocs(collection(db,"modules")),(P.atlas||[]).length?getDocs(collection(db,"atlas")):{docs:[]}]);
+  const imgC={};
   const haveS={}, docS={}; ss.docs.forEach(d=>{ const k=d.data().pkg; if(k){ haveS[k]=d.id; docS[k]=d.data(); } });
   const mapOpt=(o,k,j)=>({id:o.id||`${k}o${j}`,kind:o.kind==="act"?"act":o.kind==="do"?"do":"test",label:o.label,pts:Number(o.pts)||0,min:Number(o.min)||0,fb:o.fb||"",
     ...(o.kind==="act"?{to:o.to}:o.kind==="do"?{res:o.res||"",...(o.vit?{vit:true}:{})}:{res:o.res||"",resImg:null,resDcm:null,src:o.src||"",...(o.hide!=null?{hide:!!o.hide}:{}),hpen:Number(o.hpen??1)})});
   const haveQ=new Set(qs.docs.map(d=>d.data().pkg).filter(Boolean));
-  const ops=[], res={sims:0,skipS:0,upd:0,qs:0,skipQ:0,mod:false}, simId={};
+  const ops=[], res={sims:0,skipS:0,upd:0,qs:0,skipQ:0,mod:false,atlas:0}, simId={};
+  // atlas kayıtları (görüntüler URL'den indirilir)
+  const haveA=new Set(as.docs.map(d=>d.data().pkg).filter(Boolean));
+  for(const A of (P.atlas||[])){ const key=`${pid}:${A.key}`; if(haveA.has(key)) continue;
+    onProg&&onProg(`Görüntü indiriliyor: ${A.title}`);
+    const media=[]; for(const m of (A.media||[])) media.push({imageId:await imageFromUrl(m.url,imgC),dicomId:null,cap:m.cap||""});
+    const d={title:A.title,cat:A.cat||"Diğer",topic:A.topic||"",desc:A.desc||"",pearls:A.pearls||"",media,imageId:media[0]?.imageId||null,dicomId:null,
+      findings:(A.findings||[]).map(cleanShape),tasks:(A.tasks||[]).map(t=>({id:t.id,fid:t.fid,prompt:t.prompt})),published:false,pkg:key,source:A.source||P.source||"",createdAt:serverTimestamp(),updatedAt:serverTimestamp()};
+    ops.push(b=>b.set(doc(db,"atlas",newId()),d)); res.atlas++; }
   for(const x of P.sims){ const key=`${pid}:${x.key}`;
     if(haveS[key]){ simId[x.key]=haveS[key]; res.skipS++;
       // var olan vakaya yalnızca "ilk değerlendirme" adımlarını ekle (yöneticinin diğer düzenlemeleri korunur)
@@ -3414,8 +3428,9 @@ async function importPackage(P,onProg){
   let poolId=null;
   if((P.questions||[]).length){ const pn=P.pool||P.title; const ex=ps.docs.find(d=>d.data().name===pn);
     poolId=ex?ex.id:newId(); if(!ex) ops.push(b=>b.set(doc(db,"pools",poolId),{name:pn,practice:false,createdAt:serverTimestamp()}));
-    P.questions.forEach((q,i)=>{ const key=`${pid}:${q.key||"q"+i}`; if(haveQ.has(key)){ res.skipQ++; return; }
-      ops.push(b=>b.set(doc(db,"questions",newId()),{type:"mcq",stem:q.stem,options:q.options,correct:Number(q.correct)||0,points:1,topic:q.topic||"",explanation:q.explanation||"",caseId:null,imageId:null,poolId,practice:false,pkg:key,createdAt:serverTimestamp(),updatedAt:serverTimestamp()})); res.qs++; }); }
+    for(const [i,q] of P.questions.entries()){ const key=`${pid}:${q.key||"q"+i}`; if(haveQ.has(key)){ res.skipQ++; continue; }
+      const imageId=q.imageUrl?await imageFromUrl(q.imageUrl,imgC):null;
+      ops.push(b=>b.set(doc(db,"questions",newId()),{type:"mcq",stem:q.stem,options:q.options,correct:Number(q.correct)||0,points:1,topic:q.topic||"",explanation:q.explanation||"",caseId:null,imageId,poolId,practice:false,pkg:key,createdAt:serverTimestamp(),updatedAt:serverTimestamp()})); res.qs++; } }
   if(P.module&&!ms.docs.some(d=>d.data().pkg===pid)){ const M=P.module;
     const items=[...(M.intro?[{id:"intro",k:"text",title:M.introTitle||"Nasıl çalışılır?",body:M.intro,url:"",ref:""}]:[]),
       ...P.sims.map(x=>({id:"s_"+x.key,k:"sim",title:"",body:"",url:"",ref:simId[x.key]})),
@@ -3435,15 +3450,15 @@ async function packageDlg(){
     E.querySelector("#pkS").scrollIntoView({behavior:"smooth",block:"nearest"});
     E.querySelector("#pkGo").onclick=async()=>{ const b=E.querySelector("#pkGo"); b.disabled=true; b.textContent="Aktarılıyor…";
       try{ const r=await importPackage(P,t=>b.textContent=t); m.close();
-        toast(`${r.sims} vaka, ${r.qs} soru${r.mod?", 1 modül":""} eklendi${r.skipS?` (${r.skipS} vaka zaten vardı${r.upd?`; ${r.upd} vakaya ilk değerlendirme adımları eklendi`:""})`:""}`); go("edu",{sec:"sims"}); }
+        toast(`${r.atlas?r.atlas+" atlas görüntüsü, ":""}${r.sims} vaka, ${r.qs} soru${r.mod?", 1 modül":""} eklendi${r.skipS?` (${r.skipS} vaka zaten vardı${r.upd?`; ${r.upd} vakaya ilk değerlendirme adımları eklendi`:""})`:""}`); go("edu",{sec:"sims"}); }
       catch(e){ fail(e,"Aktarılamadı"); b.disabled=false; b.textContent="İçe aktar"; } }; };
   E.querySelector("#pkF").onchange=async e=>{ const f=e.target.files[0]; if(!f) return; try{ run(JSON.parse(await f.text())); }catch(err){ toast("Dosya okunamadı: geçerli bir paket (.json) değil",true); } };
   try{ const r=await fetch("paketler/index.json",{cache:"no-store"}); if(!r.ok) throw 0; const L2=await r.json();
     E.querySelector("#pkL").innerHTML=L2.length?`${L2.length>1?`<div class="row" style="justify-content:space-between;margin-bottom:8px"><span class="small muted">${L2.length} paket · ${L2.reduce((a,x)=>a+(x.sims||0),0)} vaka · ${L2.reduce((a,x)=>a+(x.questions||0),0)} soru</span><button class="btn sm primary" id="pkAll">Hepsini içe aktar / güncelle</button></div><div id="pkAllP"></div>`:""}`+L2.map((x,i)=>`<div class="tplrow"><div class="grow"><b>${esc(x.title)}</b><div class="small muted">${esc(x.desc||"")}</div></div><button class="btn sm" data-pk="${i}">Görüntüle</button></div>`).join(""):`<div class="small muted">Hazır paket yok.</div>`;
-    E.querySelector("#pkAll")?.addEventListener("click",async()=>{ const b=E.querySelector("#pkAll"), pr=E.querySelector("#pkAllP"); b.disabled=true; let tot={sims:0,qs:0,mods:0,skip:0,upd:0};
+    E.querySelector("#pkAll")?.addEventListener("click",async()=>{ const b=E.querySelector("#pkAll"), pr=E.querySelector("#pkAllP"); b.disabled=true; let tot={sims:0,qs:0,mods:0,skip:0,upd:0,atlas:0};
       try{ for(let i=0;i<L2.length;i++){ pr.innerHTML=`<div class="small muted">${i+1} / ${L2.length}: ${esc(L2[i].title)}…</div><div class="pbar"><span style="width:${(i)/L2.length*100}%"></span></div>`;
-          const r2=await fetch("paketler/"+L2[i].file,{cache:"no-store"}); const r=await importPackage(await r2.json()); tot.sims+=r.sims; tot.qs+=r.qs; tot.mods+=r.mod?1:0; tot.skip+=r.skipS; tot.upd+=r.upd; }
-        m.close(); toast(`${tot.sims} vaka, ${tot.qs} soru, ${tot.mods} modül eklendi${tot.skip?` (${tot.skip} vaka zaten vardı${tot.upd?`; ${tot.upd} vakaya ilk değerlendirme adımları eklendi`:""})`:""}`); go("edu",{sec:"sims"}); }
+          const r2=await fetch("paketler/"+L2[i].file,{cache:"no-store"}); const r=await importPackage(await r2.json()); tot.sims+=r.sims; tot.qs+=r.qs; tot.mods+=r.mod?1:0; tot.skip+=r.skipS; tot.upd+=r.upd; tot.atlas+=r.atlas; }
+        m.close(); toast(`${tot.atlas?tot.atlas+" atlas görüntüsü, ":""}${tot.sims} vaka, ${tot.qs} soru, ${tot.mods} modül eklendi${tot.skip?` (${tot.skip} vaka zaten vardı${tot.upd?`; ${tot.upd} vakaya ilk değerlendirme adımları eklendi`:""})`:""}`); go("edu",{sec:"sims"}); }
       catch(e){ fail(e,"Aktarım yarıda kaldı (aktarılanlar korunur, yeniden deneyebilirsiniz)"); b.disabled=false; } });
     E.querySelectorAll("[data-pk]").forEach(b=>b.onclick=async()=>{ try{ const r2=await fetch("paketler/"+L2[Number(b.dataset.pk)].file,{cache:"no-store"}); run(await r2.json()); }catch(e){ toast("Paket indirilemedi",true); } });
   }catch(e){ E.querySelector("#pkL").innerHTML=`<div class="small muted">Hazır paket listesi alınamadı.</div>`; }
