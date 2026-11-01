@@ -90,6 +90,8 @@ Asistanlar siteye girdiğinde **Öğren** sekmesi açılır (açık bir sınavla
 - **Oyunlar → ATLS Ekip Oyunu → + Yeni oyun:** ekip adı ve rolleri (lider, havayolu, dolaşım, kayıt), senaryo, başlangıç bütçesi (100/150/200 coin) ve zaman hızı seçilir. Oyun tam ekran açılır; projeksiyona yansıtıp ekip birlikte oynar.
 - Senaryolar: motosiklet kazası (tansiyon PTX + pelvis kırığı + üretra yaralanması), iskeleden düşme (havayolu + epidural hematom), bıçaklanma (kardiyak tamponad).
 - Her muayene, tetkik, müdahale ve konsültasyon coin harcar; monitör bağlanmadan vitaller görünmez, damar yolu olmadan sıvı/ilaç verilemez. Zaman akar, tedavi edilmeyen sorun hastayı kötüleştirir; zararlı işlemler ceza getirir. Eğitmen paneli: duraklat, ±coin, not.
+- **Müdahale menüsü** (kurulumda): *Yalnız eğitmen* (ekip oyununda varsayılan) seçilirse oyun ekranındaki **Projeksiyon ekranı** düğmesi ayrı bir pencere açar; bu pencereyi projeksiyona taşıyın. Ekip yalnız hastayı, monitörü, açılan bilgileri, süreyi ve coin'i görür; isteğini sözlü söyler, siz kendi ekranınızda arama kutusuyla bulup işaretlersiniz. Tarayıcı açılır pencereyi engellerse adres çubuğundan izin verin. *Ekip de görür* seçeneği ve bireysel oyun menüyü açık gösterir.
+- **+ Listede olmayan istek:** menüde olmayan bir istek için tür, coin, süre, ekibe gösterilecek sonuç ve gerekirse ceza puanı girilir.
 - Puan = kalan coin (hasta yaşıyorsa) + zamanında kritik eylemler − cezalar + sağkalım bonusu. Sonuçlar `atlsRuns` koleksiyonuna kaydedilir; Oyunlar sekmesinde değerlendirme ve senaryo bazında liderlik tablosu.
 - Asistanlar **Öğren → ATLS oyunu** kartından bireysel oynar ve yalnız kendi sonuçlarını görür. Öğrenci önizlemesinde sonuç kaydedilmez.
 
