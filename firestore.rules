@@ -276,6 +276,20 @@ service cloud.firestore {
     // Bilgi tahtası (tek ekran, yönetici yönetir)
     match /jeopardy/{id} { allow read, write: if isAdmin(); }
 
+    // ATLS ekip oyunu (Altın Saat) sonuçları: yönetici ekip oyununu, asistan kendi oyununu kaydeder
+    match /atlsRuns/{id} {
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create: if (isAdmin() || isResident())
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'name', 'mode', 'team', 'members', 'scen', 'scenTitle',
+             'score', 'alive', 'def', 'minutes', 'coinsLeft', 'start', 'critSum', 'critMax', 'penSum', 'surv',
+             'crit', 'pen', 'spent', 'log', 'reason', 'vitals', 'at'])
+        && request.resource.data.score is int
+        && request.resource.data.team is string && request.resource.data.team.size() <= 60
+        && request.resource.data.at == request.time;
+      allow update, delete: if isAdmin();
+    }
+
     // Alıştırma ilerlemesi: asistan kendi belgesini yazar; yönetici okur
     match /practice/{uid} {
       allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);

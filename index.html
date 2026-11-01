@@ -428,6 +428,84 @@ footer.credit svg{width:16px;height:16px}
 .dcm-chip{cursor:pointer;margin:6px 0}
 @media (max-width:640px){ .dcm-t .lb{display:none} .dcm-stage{height:min(50vh,400px)} }
 @media print{ .dcm-bar,.dcm-slider{display:none!important} .dcmv{break-inside:avoid} }
+/* ATLS Ekip Oyunu · Altın Saat */
+body.game-mode:has(.gm.atls){background:#0c1211}
+.gm.atls{--a-panel:#141d1b;--a-panel2:#1a2523;--a-line:#26332f;--a-muted:#8fa29d;--a-ink:#e6efec;--a-acc:#3fb9a3;--a-gold:#f0b73a;--a-ok:#52c983;--a-warn:#f0a43a;--a-bad:#ff7a6e;--a-badsoft:#3a1c19;--a-oksoft:#15301f;
+  --v-hr:#3ddc84;--v-bp:#ff6b6b;--v-spo2:#4fd1ff;--v-rr:#ffd166;--v-gcs:#e0e0e0;--v-tmp:#c3a6ff;
+  background:#0c1211;color:var(--a-ink);font-size:15px;padding:0 max(16px,env(safe-area-inset-right,0px)) 30px max(16px,env(safe-area-inset-left,0px))}
+.gm.atls .g-x{display:inline-flex;align-items:center;gap:6px}
+.gm.atls .g-x.at-danger{background:#ff7a6e2e;color:#ffb3ab}
+.at-top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 0;background:#0c1211;border-bottom:1px solid var(--a-line);margin-bottom:14px}
+.at-team{flex:1;min-width:0;display:flex;flex-direction:column}.at-team b{font-size:20px;line-height:1.1}
+.at-team small{color:var(--a-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.at-l{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--a-muted);font-weight:600}
+.at-clock{font-size:26px;font-weight:600;line-height:1.1}
+.at-bank{position:relative;background:#3a2f12;border-radius:8px;padding:5px 12px}.at-bank .at-l{color:var(--a-gold)}
+.at-ctl{display:flex;gap:6px;flex-wrap:wrap}
+.at-coin{display:inline-flex;align-items:center;gap:4px;font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--a-gold,#b07a0c)}
+.at-coin i{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe28a,#d49a14 60%,#9c6c06);box-shadow:inset 0 0 0 1.5px #8a5e05;display:inline-block}
+.at-coin.big{font-size:24px}.at-coin.big i{width:20px;height:20px}
+.at-float{position:absolute;right:8px;top:-4px;color:var(--a-bad);font-weight:700;pointer-events:none;animation:atUp 1s ease-out forwards}
+@keyframes atUp{to{transform:translateY(-26px);opacity:0}}
+.at-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px;align-items:start;max-width:1400px;margin:0 auto}
+@media (max-width:960px){.at-grid{grid-template-columns:1fr}}
+.at-col{display:flex;flex-direction:column;gap:14px;min-width:0}
+.at-panel{background:var(--a-panel);border:1px solid var(--a-line);border-radius:10px;padding:14px}
+.at-h{font-size:19px;margin:4px 0 0}.at-mist{margin:6px 0 0;color:var(--a-muted);font-size:14px}
+.at-mon{background:#0b1110;border:1px solid var(--a-line);border-radius:10px;padding:12px}
+.at-mon .top{display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5b6d69}
+.at-mon canvas{width:100%;height:58px;display:block}
+.at-monoff{display:grid;place-items:center;gap:10px;height:140px;text-align:center;color:#6f817d}
+.at-vit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.at-vit .vt{border-top:1px solid var(--a-line);padding-top:6px}
+.at-vit .k{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.at-vit .v{font-weight:600;font-size:clamp(22px,3.4vw,32px);line-height:1.05}.at-vit .u{font-size:11px;opacity:.6;font-family:"IBM Plex Sans",sans-serif}
+.at-vit .alarm .v{animation:atBlink 1s steps(2) infinite}@keyframes atBlink{50%{opacity:.35}}
+.at-finds{display:flex;flex-direction:column;gap:8px;max-height:460px;overflow:auto;margin-top:8px}
+.at-find{border:1px solid var(--a-line);border-radius:8px;padding:8px 10px;background:var(--a-panel2)}
+.at-find .h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.at-find .h span{font-size:12px;color:var(--a-muted)}
+.at-find p{margin:3px 0 0;font-size:14px}
+.at-find.harm{border-color:var(--a-bad);background:var(--a-badsoft)}.at-find.sys{border-style:dashed;border-color:var(--a-warn)}
+.at-find.new{animation:atFlash 1.2s ease-out}@keyframes atFlash{from{box-shadow:0 0 0 3px var(--a-gold)}to{box-shadow:0 0 0 0 transparent}}
+.at-empty{color:var(--a-muted);font-size:14px;padding:6px 0}
+.at-quick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.at-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.at-tabs button{border:1px solid var(--a-line);background:var(--a-panel2);color:var(--a-ink);border-radius:8px;padding:6px 10px;min-width:46px;font:inherit;font-weight:700;font-size:16px;line-height:1.1;cursor:pointer}
+.at-tabs button small{display:block;font-weight:500;font-size:11px;color:var(--a-muted)}
+.at-tabs button[aria-selected="true"]{background:var(--a-acc);border-color:var(--a-acc);color:#06201b}.at-tabs button[aria-selected="true"] small{color:#06201b}
+.at-acts{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.at-act{text-align:left;border:1px solid var(--a-line);background:var(--a-panel2);color:var(--a-ink);border-radius:8px;padding:9px 10px;display:flex;flex-direction:column;gap:6px;min-height:76px;font:inherit;cursor:pointer}
+.at-act:hover:not(:disabled){border-color:var(--a-acc)}.at-act:disabled{opacity:.5;cursor:not-allowed}
+.at-act .t{font-weight:600;font-size:14.5px;line-height:1.25}.at-act .m{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-top:auto}
+.at-act.done{background:var(--a-oksoft);border-color:var(--a-ok)}.at-act .cnt{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--a-ok);font-weight:600}
+.at-kind{text-transform:uppercase;letter-spacing:.07em;font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:4px;border:1px solid currentColor}
+.at-kind.info{color:var(--a-acc)}.at-kind.int{color:var(--a-warn)}.at-kind.test{color:#a99cff}.at-kind.cons{color:var(--a-muted)}
+.at-log{max-height:300px;overflow:auto;font-size:13.5px;margin-top:6px}.at-log.full{max-height:none}
+.at-log>div{display:grid;grid-template-columns:54px 1fr auto;gap:8px;padding:4px 0;border-bottom:1px solid var(--a-line,var(--line))}
+.at-log .tm{color:var(--a-muted,var(--muted))}
+.at-scl{display:grid;gap:8px}
+.at-sc{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:9px 10px;cursor:pointer}
+.at-sc span{display:flex;flex-direction:column}.at-sc:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.at-rsc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+/* değerlendirme: oyunda koyu, pencerede site renkleri */
+.at-deb{--a-line:var(--line);--a-muted:var(--muted);--a-panel:var(--surface);--a-gold:var(--warn);--a-ok:var(--ok);--a-warn:var(--warn);--a-bad:var(--bad);display:flex;flex-direction:column;gap:14px;max-width:1200px;margin:0 auto}
+.gm.atls .at-deb{--a-line:#26332f;--a-muted:#8fa29d;--a-panel:#141d1b;--a-gold:#f0b73a;--a-ok:#52c983;--a-warn:#f0a43a;--a-bad:#ff7a6e}
+.ad-p{background:var(--a-panel);border:1px solid var(--a-line);border-radius:10px;padding:14px;min-width:0}
+.ad-l{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--a-muted);font-weight:600;margin-bottom:6px}
+.ad-m{margin:4px 0 0;color:var(--a-muted);font-size:14px}
+.ad-verdict{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+.ad-verdict h2{font-size:clamp(22px,4vw,34px);line-height:1.1;margin:0}.ad-verdict h2.ok{color:var(--a-ok)}.ad-verdict h2.bad{color:var(--a-bad)}
+.ad-score{text-align:right}.ad-score .mono{font-size:clamp(36px,7vw,64px);font-weight:600;color:var(--a-gold);line-height:1}
+.ad-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media (max-width:860px){.ad-grid{grid-template-columns:1fr}}
+.ad-col{display:flex;flex-direction:column;gap:14px;min-width:0}
+.ad-crit{display:grid;grid-template-columns:22px 1fr auto;gap:8px;padding:6px 0;border-bottom:1px solid var(--a-line);font-size:14px;align-items:start}
+.ad-crit small{color:var(--a-muted)}.ad-crit .ic{font-weight:700}
+.ad-crit.y .ic{color:var(--a-ok)}.ad-crit.h .ic{color:var(--a-warn)}.ad-crit.n .ic{color:var(--a-bad)}
+.ad-bd{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px}.ad-bd b{border-top:1px solid var(--a-line);padding-top:4px}
+.ad-bars{display:grid;gap:6px}.ad-bar{display:grid;grid-template-columns:96px 1fr 40px;gap:8px;align-items:center;font-size:13px}.ad-bar .mono{text-align:right}
+.ad-bar .tr{height:10px;border:1px solid var(--a-line);border-radius:5px;overflow:hidden}.ad-bar .tr span{display:block;height:100%;background:var(--a-gold)}
+@media (prefers-reduced-motion:reduce){.at-float,.at-vit .alarm .v,.at-find.new{animation:none}}
+
 /* Öğren / eğitim */
 .md p{margin:0 0 8px}.md ul,.md ol{margin:0 0 8px;padding-left:20px}.md h3,.md h4,.md h5{margin:10px 0 6px}.md>:last-child{margin-bottom:0}
 .atl{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:16px;align-items:start}
@@ -971,7 +1049,7 @@ function shell(content, tabs){
 }
 function adminTabs(){
   const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["edu","Eğitim"],["games","Oyunlar"],["residents","Asistanlar"],["settings","Ayarlar"]];
-  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents",liveHost:"games",jEdit:"games",jPlay:"games",atlasEdit:"edu",atlasView:"edu",simEdit:"edu",simPlay:"edu"}[S.view]||S.view;
+  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents",liveHost:"games",jEdit:"games",jPlay:"games",atlsPlay:"games",atlasEdit:"edu",atlasView:"edu",simEdit:"edu",simPlay:"edu"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join("");
 }
 function bindShell(){
@@ -995,6 +1073,7 @@ async function render(){
       if(v==="simEdit") return await viewSimEdit(S.params.id);
       if(v==="simPlay") return await viewSimPlay(S.params.id,S.params.back);
       if(v==="games") return await viewGames();
+      if(v==="atlsPlay") return ATLS.play(S.params.cfg,S.params.back);
       if(v==="liveHost") return await viewLiveHost(S.params.id);
       if(v==="jEdit") return await viewJEdit(S.params.id);
       if(v==="jPlay") return await viewJPlay(S.params.id);
@@ -1023,6 +1102,8 @@ async function render(){
       if(v==="simPlay") return await viewSimPlay(S.params.id,S.params.back);
       if(v==="module") return await viewModule(S.params.id);
       if(v==="weekly") return await viewWeekly(S.params.id);
+      if(v==="atls") return await ATLS.page();
+      if(v==="atlsPlay") return ATLS.play(S.params.cfg,S.params.back);
       if(v==="practice") return await viewPractice();
       if(v==="live") return viewLiveJoin();
       if(v==="home") return await viewHome();
@@ -2422,7 +2503,7 @@ async function viewResidents(){
    ASİSTAN — ANA SAYFA
    ===================================================================== */
 const myDevice=()=>{ let d=lsGet("acilDevice"); if(!d){ d="d"+newId(); lsSet("acilDevice",d); } return d; };
-function residentTabs(){ const t=[["learn","Öğren"],["srs","Tekrar"],["practice","Alıştırma"],["home","Sınavlarım"],["live","Yarışma"]]; const cur={take:"home",review:"home",livePlay:"live",atlas:"learn",atlasView:"learn",sims:"learn",simPlay:"learn",module:"learn",weekly:"learn"}[S.view]||S.view;
+function residentTabs(){ const t=[["learn","Öğren"],["srs","Tekrar"],["practice","Alıştırma"],["home","Sınavlarım"],["live","Yarışma"]]; const cur={take:"home",review:"home",livePlay:"live",atlas:"learn",atlasView:"learn",sims:"learn",simPlay:"learn",module:"learn",weekly:"learn",atls:"learn",atlsPlay:"learn"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join(""); }
 async function viewHome(){
   paint(`<div class="spinner"></div>`,residentTabs());
@@ -3611,6 +3692,7 @@ async function viewLearn(){
       <button class="lcard" data-go="atlas"><span class="ic">🖼</span><b>Görüntü atlası</b><span class="big">${atlas.length}</span><span class="small">${atlas.filter(a=>L.d.atlas[a.id]?.done).length} sınandı · ${atlas.filter(a=>L.d.atlas[a.id]?.seen).length} görüldü</span></button>
       <button class="lcard" data-go="sims"><span class="ic">🩺</span><b>Sanal hasta</b><span class="big">${sims.length}</span><span class="small">${sims.filter(x=>L.d.sim[x.id]).length} vaka tamamlandı</span></button>
       <button class="lcard" data-go="practice"><span class="ic">✎</span><b>Alıştırma</b><span class="big">→</span><span class="small">konu konu soru çöz</span></button>
+      <button class="lcard" data-go="atls"><span class="ic">⏱</span><b>ATLS oyunu</b><span class="big">3</span><span class="small">Altın Saat · travma senaryosu</span></button>
     </div>
     ${W?`<div class="card pad wkcard" style="margin-bottom:16px" id="wkHost"></div>`:""}
     <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Modüller</h2>${req.length?`<span class="badge ${reqDone===req.length?"ok":"warn"}">Zorunlu: ${reqDone}/${req.length} tamamlandı</span>`:""}</div>
@@ -3951,11 +4033,11 @@ function gameOpts(q,{reveal=null,dist=null,tap=false}={}){
 /* ---------- Oyunlar sayfası (yönetici) ---------- */
 async function viewGames(){
   paint(`<div class="spinner"></div>`);
-  const [gs,js]=await Promise.all([getDocs(collection(db,"games")).catch(()=>({docs:[]})),getDocs(collection(db,"jeopardy")).catch(()=>({docs:[]}))]);
+  const [gs,js,aRuns]=await Promise.all([getDocs(collection(db,"games")).catch(()=>({docs:[]})),getDocs(collection(db,"jeopardy")).catch(()=>({docs:[]})),ATLS.loadRuns(false).catch(e=>{ console.error(e); return []; })]);
   const games=gs.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0)).slice(0,15);
   const boards=js.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0));
   const GST={lobby:["Bekleme odası","info"],question:["Oynanıyor","acc"],reveal:["Oynanıyor","acc"],leader:["Oynanıyor","acc"],end:["Bitti",""]};
-  paint(`<div class="page-head"><div><h1>Oyunlar</h1><div class="sub">Soru bankanızdaki çoktan seçmeli sorularla derste veya eğitim toplantısında oynanan yarışmalar.</div></div></div>
+  paint(`<div class="page-head"><div><h1>Oyunlar</h1><div class="sub">Derste veya eğitim toplantısında oynanan yarışmalar ve ATLS ekip simülasyonu.</div></div></div>
     <div class="grid2" style="align-items:start">
       <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Canlı Yarışma</h2><button class="btn primary" id="newLive">+ Yeni yarışma</button></div>
         <p class="small muted">Sorular ekrana yansıtılır; katılımcılar telefonlarından PIN veya QR kodla girip cevaplar. Doğru ve hızlı cevap daha çok puan getirir; her sorudan sonra puan tablosu çıkar.</p>
@@ -3966,7 +4048,9 @@ async function viewGames(){
         <div class="list" style="gap:0">${boards.map(b=>{ const used=(b.cats||[]).flatMap(c=>c.cells||[]).filter(x=>x&&x.used).length, all=(b.cats||[]).flatMap(c=>c.cells||[]).filter(x=>x&&x.qid).length;
           return `<div class="tplrow"><div class="grow" style="min-width:0"><b>${esc(b.title)}</b><div class="small muted">${(b.cats||[]).length} konu · ${(b.teams||[]).map(t=>esc(t.name)).join(", ")} · ${used}/${all} soru oynandı</div></div>
           <div class="row" style="flex-wrap:nowrap"><button class="btn sm primary" data-jplay="${b.id}">Oyna</button><button class="btn sm" data-jedit="${b.id}">Düzenle</button><button class="btn sm ghost danger" data-jdel="${b.id}">✕</button></div></div>`; }).join("")||`<div class="small muted">Henüz tahta yok.</div>`}</div></div>
+      ${ATLS.adminCard(aRuns)}
     </div>`);
+  ATLS.bindAdminCard(aRuns,viewGames);
   document.getElementById("newLive").onclick=liveSetupDlg;
   document.getElementById("newJ").onclick=()=>go("jEdit",{id:null});
   $app.querySelectorAll("[data-host]").forEach(b=>b.onclick=()=>go("liveHost",{id:b.dataset.host}));
@@ -4234,6 +4318,552 @@ async function viewJPlay(id){
   };
   draw();
 }
+
+
+/* ================= ATLS Ekip Oyunu · Altın Saat ================= */
+const ATLS=(()=>{
+/* ================= ACTION LIBRARY ================= */
+const CATS=[
+ {id:'x',k:'X',n:'Kanama'},{id:'A',k:'A',n:'Havayolu'},{id:'B',k:'B',n:'Solunum'},{id:'C',k:'C',n:'Dolaşım'},
+ {id:'D',k:'D',n:'Nörolojik'},{id:'E',k:'E',n:'Açığa çıkar'},{id:'T',k:'Tetkik',n:'Yardımcı'},{id:'K',k:'Konsült',n:'Definitif'}];
+const KIND={info:'Bilgi',int:'Müdahale',test:'Tetkik',cons:'Çağrı'};
+const ACTIONS=[
+ {id:'x_inspect',cat:'x',kind:'info',cost:5,label:'Masif dış kanama kontrolü'},
+ {id:'x_pressure',cat:'x',kind:'int',cost:5,label:'Direkt bası / yara paketleme',once:1},
+ {id:'x_tourniquet',cat:'x',kind:'int',cost:10,label:'Turnike uygula',once:1},
+ {id:'a_talk',cat:'A',kind:'info',cost:5,label:'Hastayla konuş, ses / stridor dinle'},
+ {id:'a_inspect',cat:'A',kind:'info',cost:5,label:'Ağız içi inspeksiyon'},
+ {id:'a_cspine',cat:'A',kind:'int',cost:5,label:'Servikal koruma (manuel + kolar)',once:1},
+ {id:'a_suction',cat:'A',kind:'int',cost:5,label:'Aspirasyon',once:1},
+ {id:'a_jaw',cat:'A',kind:'int',cost:5,label:'Çene itme (jaw thrust)',once:1},
+ {id:'a_opa',cat:'A',kind:'int',cost:5,label:'Orofaringeal airway',once:1},
+ {id:'a_rsi',cat:'A',kind:'int',cost:25,label:'RSI + endotrakeal entübasyon',once:1,dur:3},
+ {id:'a_cric',cat:'A',kind:'int',cost:30,label:'Cerrahi krikotiroidotomi',once:1,dur:2},
+ {id:'b_inspect',cat:'B',kind:'info',cost:5,label:'Göğüs inspeksiyonu, boyun venleri'},
+ {id:'b_palp',cat:'B',kind:'info',cost:5,label:'Trakea ve göğüs palpasyonu'},
+ {id:'b_ausc',cat:'B',kind:'info',cost:5,label:'Akciğer ve kalp oskültasyonu'},
+ {id:'b_perc',cat:'B',kind:'info',cost:5,label:'Perküsyon'},
+ {id:'b_o2',cat:'B',kind:'int',cost:5,label:'Rezervuarlı maske, O₂ 15 L/dk',once:1},
+ {id:'b_needle_r',cat:'B',kind:'int',cost:10,label:'İğne dekompresyon — SAĞ',once:1},
+ {id:'b_needle_l',cat:'B',kind:'int',cost:10,label:'İğne dekompresyon — SOL',once:1},
+ {id:'b_tube_r',cat:'B',kind:'int',cost:20,label:'Göğüs tüpü — SAĞ',once:1,dur:2},
+ {id:'b_tube_l',cat:'B',kind:'int',cost:20,label:'Göğüs tüpü — SOL',once:1,dur:2},
+ {id:'b_seal',cat:'B',kind:'int',cost:5,label:'Üç taraflı kapatıcı pansuman',once:1},
+ {id:'c_monitor',cat:'C',kind:'int',cost:5,label:'Monitör bağla (EKG, SpO₂, NIBP)',once:1},
+ {id:'c_skin',cat:'C',kind:'info',cost:5,label:'Cilt, kapiller dolum, nabızlar'},
+ {id:'c_iv',cat:'C',kind:'int',cost:5,label:'İki geniş damar yolu (16G) + kan örneği',once:1},
+ {id:'c_fluid',cat:'C',kind:'int',cost:5,label:'Isıtılmış kristaloid 1 L',rep:1,iv:1},
+ {id:'c_blood',cat:'C',kind:'int',cost:20,label:'Masif transfüzyon protokolü (MTP)',once:1,iv:1},
+ {id:'c_txa',cat:'C',kind:'int',cost:10,label:'Traneksamik asit 1 g',once:1,iv:1},
+ {id:'c_pelvis',cat:'C',kind:'info',cost:5,label:'Pelvis muayenesi (tek kez, nazik)'},
+ {id:'c_binder',cat:'C',kind:'int',cost:10,label:'Pelvik kuşak',once:1},
+ {id:'c_pericardio',cat:'C',kind:'int',cost:25,label:'Perikardiyosentez (USG eşliğinde)',once:1,dur:1},
+ {id:'d_gcs',cat:'D',kind:'info',cost:5,label:'GKS değerlendir'},
+ {id:'d_pupil',cat:'D',kind:'info',cost:5,label:'Pupil muayenesi'},
+ {id:'d_lateral',cat:'D',kind:'info',cost:5,label:'Lateralizasyon / motor muayene'},
+ {id:'d_glucose',cat:'D',kind:'info',cost:5,label:'Kapiller kan şekeri'},
+ {id:'d_hyperosm',cat:'D',kind:'int',cost:10,label:'Hipertonik salin %3 / mannitol',once:1,iv:1},
+ {id:'d_headup',cat:'D',kind:'int',cost:5,label:'Yatak başı 30° (spinal korumayla)',once:1},
+ {id:'e_expose',cat:'E',kind:'info',cost:5,label:'Tamamen soy ve incele'},
+ {id:'e_logroll',cat:'E',kind:'info',cost:5,label:'Log-roll, sırt muayenesi'},
+ {id:'e_warm',cat:'E',kind:'int',cost:5,label:'Hipotermi önleme (battaniye, ısıtıcı)',once:1},
+ {id:'e_splint',cat:'E',kind:'int',cost:5,label:'Ekstremite ateli',once:1},
+ {id:'t_efast',cat:'T',kind:'test',cost:15,label:'eFAST'},
+ {id:'t_cxr',cat:'T',kind:'test',cost:15,label:'AP akciğer grafisi',dur:2},
+ {id:'t_pxr',cat:'T',kind:'test',cost:15,label:'AP pelvis grafisi',dur:2},
+ {id:'t_abg',cat:'T',kind:'test',cost:10,label:'Kan gazı + laktat'},
+ {id:'t_lab',cat:'T',kind:'test',cost:10,label:'Hemogram, koagülasyon, kan grubu'},
+ {id:'t_ecg',cat:'T',kind:'test',cost:10,label:'12 derivasyon EKG'},
+ {id:'t_foley',cat:'T',kind:'int',cost:5,label:'Üriner kateter',once:1},
+ {id:'t_ct',cat:'T',kind:'test',cost:30,label:'Tüm vücut BT (hastayı BT’ye götür)',once:1,dur:10},
+ {id:'k_ample',cat:'K',kind:'info',cost:5,label:'AMPLE öykü (hasta / 112 / yakın)'},
+ {id:'k_surgery',cat:'K',kind:'cons',cost:10,label:'Genel / göğüs cerrahisi — ameliyathane',once:1},
+ {id:'k_ir',cat:'K',kind:'cons',cost:10,label:'Girişimsel radyoloji (anjiyoembolizasyon)',once:1},
+ {id:'k_neuro',cat:'K',kind:'cons',cost:10,label:'Beyin cerrahisi',once:1},
+ {id:'k_ortho',cat:'K',kind:'cons',cost:10,label:'Ortopedi',once:1},
+];
+const A=Object.fromEntries(ACTIONS.map(a=>[a.id,a]));
+const DEF={
+ x_inspect:'Masif dış kanama yok.',x_pressure:'Bası uygulandı; aktif dış kanama odağı yok.',x_tourniquet:'Ekstremitede kontrolsüz kanama yok — endikasyon yok.',
+ a_talk:'Konuşuyor, havayolu açık.',a_inspect:'Ağız içi temiz.',a_cspine:'Manuel in-line stabilizasyon ve servikal kolar uygulandı.',
+ a_suction:'Aspire edildi; az miktarda sekresyon.',a_jaw:'Çene itme manevrası yapıldı.',a_opa:'Orofaringeal airway yerleştirildi.',
+ b_inspect:'Göğüs hareketleri simetrik.',b_palp:'Trakea orta hatta, krepitasyon yok.',b_ausc:'Solunum sesleri bilateral eşit.',b_perc:'Perküsyon bilateral normal.',
+ b_o2:'Rezervuarlı maske ile 15 L/dk O₂ başlandı.',c_skin:'Cilt sıcak, kapiller dolum < 2 sn.',c_iv:'İki adet 16G damar yolu açıldı, kan örnekleri alındı.',
+ c_pelvis:'Pelvis stabil.',d_gcs:'GKS 15.',d_pupil:'Pupiller izokorik, ışık refleksi bilateral +.',d_lateral:'Lateralizan bulgu yok.',d_glucose:'Kan şekeri 104 mg/dL.',
+ d_headup:'Yatak başı 30° kaldırıldı.',e_expose:'Ek yaralanma saptanmadı.',e_logroll:'Sırtta basamaklanma ve hassasiyet yok.',e_warm:'Isıtıcı battaniye, ortam ısısı artırıldı, sıvılar ısıtılıyor.',
+ e_splint:'Atel uygulandı.',t_efast:'eFAST negatif.',t_cxr:'Akciğer grafisi normal.',t_pxr:'Pelvis grafisi normal.',t_abg:'Kan gazı normal sınırlarda.',t_lab:'Laboratuvar gönderildi.',
+ t_ecg:'Sinüs ritmi.',t_foley:'Üriner kateter takıldı.',t_ct:'BT normal.',k_ample:'Öykü alınamadı.',
+ k_surgery:'Cerrahi ekip haberdar edildi.',k_ir:'Girişimsel radyoloji haberdar edildi.',k_neuro:'Beyin cerrahisi haberdar edildi.',k_ortho:'Ortopedi haberdar edildi.'
+};
+
+/* ================= HELPERS ================= */
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+function toward(v,k,t,r){const d=t-v[k];v[k]+=Math.sign(d)*Math.min(Math.abs(d),r)}
+const GCSMAP={15:[4,5,6],14:[3,5,6],13:[3,4,6],12:[3,4,5],11:[2,4,5],10:[2,3,5],9:[2,2,5],8:[2,2,4],7:[1,2,4],6:[1,1,4],5:[1,1,3],4:[1,1,2],3:[1,1,1]};
+function gcsTxt(S){const g=clamp(Math.round(S.v.gcs),3,15),[e,v,m]=GCSMAP[g];return S.f.intub?`GKS ${e+m}T (E${e} V-T M${m})`:`GKS ${g} (E${e} V${v} M${m})`}
+const sbpW=S=>S.v.sbp<70?'Ciddi hipotansif.':S.v.sbp<90?'Hipotansif.':'';
+
+/* ================= SCENARIOS ================= */
+const SCEN=[
+{id:'moto',tag:'01',title:'Motosiklet kazası',brief:'34 yaş erkek, yüksek enerjili künt travma. Nefes darlığı ve hipotansiyon.',
+ mist:'112: “80 km/s hızla motosikletten savrulmuş, kasklı. Olay yerinde ‘nefes alamıyorum’ diyordu. Nabız 130, TA 85/50. Kolar takıldı, 1 damar yolu, 250 mL SF gitti. Yol 15 dk.”',
+ init:{v:{hr:128,sbp:84,rr:34,spo2:85,gcs:13,temp:35.9},f:{tpx:'tension'}},
+ tick(S,L){const v=S.v,f=S.f;
+  if(f.tpx==='tension'){v.spo2-=f.o2?1.0:1.6;v.sbp-=2.4;v.rr=clamp(v.rr+0.4,10,44)}
+  else{toward(v,'spo2',f.o2?(f.tpx==='tube'?97:93):(f.tpx==='tube'?93:89),1.4);toward(v,'rr',f.tpx==='tube'?22:27,0.8);
+   if(f.tpx==='decomp'){f.dT=(f.dT||0)+1;if(f.dT>=8){f.tpx='tension';L('sys','Dekompresyon kateteri kıvrıldı — sol tarafta tansiyon fizyolojisi geri geliyor!')}}}
+  const loss=f.def?0:1.5*(f.binder?.5:1)*(f.txa?.85:1)*(f.fluid>2?1.25:1);v.sbp-=loss;
+  if(f.mtp&&v.sbp<112)v.sbp+=f.def?2.4:1.7; if(f.def&&!f.mtp)toward(v,'sbp',92,1.5);
+  toward(v,'hr',70+Math.max(0,110-v.sbp)*1.05+(f.tpx==='tension'?14:0)+(v.spo2<88?8:0),3);
+  if(v.sbp<70||v.spo2<80)v.gcs-=.25;else if(v.sbp>90&&v.spo2>92)toward(v,'gcs',14,.2);
+  v.dbp=v.sbp*.62},
+ find:{
+  x_inspect:'Belirgin dış kanama yok. Sol önkolda yüzeyel sıyrıklar.',
+  a_talk:S=>S.v.gcs>=12?'İnleyerek kısa yanıt veriyor: “Nefes… alamıyorum.” Havayolu açık, stridor yok.':'Yanıtları anlamsızlaşıyor; havayolu şu an açık.',
+  a_inspect:'Ağız içi temiz, yabancı cisim yok.',
+  b_inspect:S=>S.f.tpx==='tension'?'Takipneik, yardımcı solunum kaslarını kullanıyor. Sol hemitoraks hareketi azalmış. Boyun venleri DOLGUN.':S.f.tpx==='tube'?'Sol göğüs tüpü yerinde, ekspansiyon simetrik.':'Solda ekspansiyon hafif azalmış; dekompresyon kateteri yerinde.',
+  b_palp:S=>S.f.tpx==='tension'?'Trakea SAĞA deviye. Sol hemitoraksta subkutan amfizem.':'Trakea orta hatta. Solda subkutan amfizem.',
+  b_ausc:S=>S.f.tpx==='tension'?'SOL hemitoraksta solunum sesi alınamıyor. Sağ normal. Kalp sesleri taşikardik.':S.f.tpx==='tube'?'Bilateral solunum sesleri eşit.':'Solda solunum sesi azalmış ama duyuluyor.',
+  b_perc:S=>S.f.tpx==='tension'?'Solda HİPERREZONANS.':'Bilateral rezonan.',
+  c_skin:S=>(S.v.sbp<90?'Soluk, soğuk, nemli; kapiller dolum 4 sn. Radiyal nabız zayıf ve hızlı. ':'Cilt ısınıyor, kapiller dolum 2–3 sn. ')+sbpW(S),
+  c_pelvis:S=>S.f.binder?'Pelvik kuşak yerinde; tekrar zorlama yapılmamalı.':'Pelviste instabilite ve belirgin ağrı. Perinede ekimoz. Bu muayene tekrarlanmamalı.',
+  d_gcs:S=>gcsTxt(S),d_pupil:'Pupiller izokorik, ışık refleksi bilateral +.',d_lateral:'Lateralizan bulgu yok; 4 ekstremiteyi hareket ettiriyor.',d_glucose:'Kan şekeri 118 mg/dL.',
+  e_expose:'Perinede hematom, ÜRETRAL MEADA KAN. Pelvik bölgede ekimoz. Sol göğüs duvarında sıyrık. Ekstremitelerde deformite yok.',
+  e_logroll:'Torakolomber basamaklanma yok, sırtta sıyrıklar. (Pelvik kırıkta log-roll dikkatli yapılmalı.)',
+  k_ample:'A: yok · M: yok · P: sağlıklı · L: 3 saat önce yemek · E: 80 km/s, kasklı motosiklet sürücüsü, savrulma.',
+  t_efast:S=>`Pelviste (rektovezikal alan) serbest sıvı. Perikard temiz. ${S.f.tpx==='tube'?'Bilateral akciğer kayması mevcut.':'SOLDA akciğer kayması yok (barkod işareti).'}`,
+  t_pxr:'Simfiz diastazı > 2.5 cm, sol sakroiliak eklem açılması — açık kitap (open-book) pelvis kırığı.',
+  t_abg:S=>`pH ${S.v.sbp<80?'7.18':'7.26'}, pCO₂ ${S.f.tpx==='tension'?52:42}, pO₂ ${Math.round(S.v.spo2*0.7)}, BE ${S.v.sbp<80?-11:-7}, laktat ${S.v.sbp<80?6.4:4.1} mmol/L.`,
+  t_lab:'Hb 10.1 g/dL (erken dönemde kaybı yansıtmaz), INR 1.4, fibrinojen 150 mg/dL, kan grubu çalışıldı.',
+  t_ecg:'Sinüs taşikardisi, iskemi bulgusu yok.'},
+ act:{
+  b_needle_l:S=>{if(S.f.tpx==='tension'){S.f.tpx='decomp';S.f.dT=0;S.v.sbp+=10;S.v.spo2+=4;return{text:'Sol 4–5. ICS orta aksiller hat: HAVA ÇIKIŞI! Satürasyon ve TA yükseliyor. Kalıcı çözüm: göğüs tüpü.'}}return{text:'Dekompresyon yapıldı.'}},
+  b_tube_l:S=>{S.f.tpx='tube';S.v.sbp+=12;S.v.spo2+=6;return{text:'Sol 5. ICS göğüs tüpü: hava kaçağı + 180 mL kanlı drenaj. Akciğer ekspanse.'}},
+  b_needle_r:()=>({text:'Sağdan hava gelmedi. Yanlış taraf!',pen:[10,'Yanlış tarafa dekompresyon (iyatrojenik PTX riski)']}),
+  b_tube_r:()=>({text:'Sağ hemitoraksta patoloji yok — yanlış taraf.',pen:[15,'Yanlış tarafa göğüs tüpü']}),
+  b_seal:()=>({text:'Açık göğüs yarası yok; endikasyon yok.',pen:[3,'Endikasyonsuz kapatıcı pansuman']}),
+  c_binder:S=>{S.f.binder=1;return{text:'Pelvik kuşak büyük trokanterler hizasında uygulandı. Kanama hızı azaldı.'}},
+  c_blood:S=>{S.f.mtp=1;return{text:'MTP aktive: ES:TDP:TS dengeli oranda başlandı.'}},
+  c_txa:S=>{S.f.txa=1;return{text:'TXA 1 g 10 dk’da, ardından 1 g 8 saatte infüzyon.'}},
+  c_fluid:S=>{S.v.sbp+=7;return S.f.fluid>2?{text:'Kristaloid verildi; geçici yanıt.',pen:[10,'Aşırı kristaloid (> 2 L) — dilüsyonel koagülopati']}:{text:'1 L ısıtılmış kristaloid; geçici yanıt.'}},
+  k_ir:S=>{S.f.def=1;return{text:'Girişimsel radyoloji anjiyoembolizasyon için hazır. Kanama kaynağına definitif kontrol planlandı.'}},
+  k_surgery:S=>{S.f.def=1;return{text:'Cerrahi: preperitoneal pelvik packing için ameliyathane hazırlanıyor.'}},
+  t_foley:()=>({text:'Üretral meada kan varken kateter takılmaya çalışıldı!',pen:[20,'Üretral yaralanma bulgusu varken üriner kateter — KONTRENDİKE']}),
+  t_cxr:S=>S.f.tpx==='tension'?{text:'Sol total pnömotoraks, mediastinal şift. Tansiyon PTX klinik tanıdır; grafi beklenmemeliydi.',pen:[10,'Tansiyon PTX’te tedaviyi grafi için geciktirme']}:{text:S.f.tpx==='tube'?'Sol göğüs tüpü yerinde, akciğer ekspanse. Kot kırığı yok.':'Solda rezidü pnömotoraks, kateter yerinde.'},
+  t_ct:S=>S.v.sbp<90||S.f.tpx==='tension'?{text:'Hasta BT masasında hızla kötüleşti!',pen:[30,'Hemodinamik instabil hasta BT’ye gönderildi'],hurt:()=>{S.v.sbp-=12}}:{text:'Sol PTX (tüp yerinde), open-book pelvis kırığı, aktif kontrast ekstravazasyonu. Üretra yaralanması şüphesi.'},
+  a_rsi:S=>{S.f.intub=1;if(S.f.tpx==='tension'){S.v.sbp-=18;return{text:'Pozitif basınçlı ventilasyon sonrası TA ani düştü!',pen:[15,'Dekomprese edilmemiş tansiyon PTX’te pozitif basınçlı ventilasyon']}}return{text:'Entübe edildi.',pen:[5,'Endikasyonu sınırlı entübasyon (GKS 13, havayolu açık)']}},
+  a_cric:()=>({text:'Havayolu açıktı.',pen:[20,'Endikasyonsuz cerrahi havayolu']}),
+  c_pericardio:()=>({text:'Perikardda sıvı yok.',pen:[10,'Endikasyonsuz perikardiyosentez']}),
+  d_hyperosm:()=>({text:'Kafa travması bulgusu yok; ozmotik diürez hipovolemiyi artırır.',pen:[10,'Endikasyonsuz hiperozmolar tedavi']}),
+  x_tourniquet:()=>({text:'Ekstremite kanaması yok.',pen:[5,'Endikasyonsuz turnike']}),
+ },
+ crit:[
+  {label:'O₂ başlandı',ids:['b_o2'],within:3,pts:10},
+  {label:'Sol toraks dekompresyonu (iğne / tüp)',ids:['b_needle_l','b_tube_l'],within:5,pts:25},
+  {label:'Sol göğüs tüpü (definitif)',ids:['b_tube_l'],within:12,pts:10},
+  {label:'Servikal koruma',ids:['a_cspine'],within:3,pts:5},
+  {label:'İki geniş damar yolu',ids:['c_iv'],within:5,pts:5},
+  {label:'Pelvik kuşak',ids:['c_binder'],within:10,pts:15},
+  {label:'Kan ürünü / MTP',ids:['c_blood'],within:10,pts:15},
+  {label:'Traneksamik asit',ids:['c_txa'],within:15,pts:10},
+  {label:'Kanama kontrolü: Gİ Radyoloji veya cerrahi',ids:['k_ir','k_surgery'],within:18,pts:15},
+  {label:'Hipotermi önleme',ids:['e_warm'],within:15,pts:5}],
+ hints:['Solunum muayenesi: trakea, boyun venleri, solunum sesleri. Tansiyon PTX klinik tanıdır.','Pelvik instabilite + şok = pelvik kuşak ve erken kan ürünü.','Üretral meada kan görürseniz neyden kaçınmalısınız?','Kanama kaynağına definitif kontrol için kimi çağırmalısınız?']},
+
+{id:'tbi',tag:'02',title:'İskeleden düşme',brief:'52 yaş erkek, 4 metreden düşme. Bilinç bulanık, solunum sesli.',
+ mist:'112: “İnşaatta 4 m iskeleden düşmüş. Arkadaşları önce konuştuğunu, sonra uykuya daldığını söylüyor. GKS 8, sesli solunum, nabız 58, TA 170/95. Kolar takıldı.”',
+ init:{v:{hr:56,sbp:172,rr:9,spo2:86,gcs:7,temp:36.4},f:{airway:'obs'}},
+ tick(S,L){const v=S.v,f=S.f;
+  if(f.airway==='obs'){v.spo2-=f.o2?.8:1.5;toward(v,'rr',9,.5)}
+  else if(f.airway==='part')toward(v,'spo2',f.o2?93:87,1.5);
+  else{toward(v,'spo2',99,2.5);toward(v,'rr',14,2)}
+  if(f.neuro&&f.ct&&!f.def){f.def=1;L('sys','Beyin cerrahisi BT’yi gördü: acil kraniyotomi için ameliyathaneye alınıyor.')}
+  if(!f.def){v.gcs-=.12*(v.spo2<90?2:1)*(f.hyper?.35:1)*(f.headup?.85:1)}
+  const g=clamp(v.gcs,3,15);toward(v,'hr',56-(8-g)*3+(v.spo2<85?6:0),2);toward(v,'sbp',f.def?150:168+(8-g)*6,2);
+  v.dbp=v.sbp*.56},
+ dead:S=>S.v.gcs<=3.2?'Transtentoryal herniasyon — pupiller bilateral fiks dilate.':null,
+ find:{
+  x_inspect:'Sol temporal skalp laserasyonundan sızıntı tarzı kanama. Masif kanama yok.',
+  a_talk:S=>S.f.intub?'Entübe, ventilatörde.':'Anlamsız sesler; HORLAMA tarzı, gurgling (gargara) sesi var.',
+  a_inspect:S=>S.f.suction?'Ağız içi aspire edilmiş; dil kökü geriye düşmüş.':'Ağızda kan ve pıhtı, kırık diş parçası.',
+  b_inspect:'Göğüs hareketleri simetrik ama yüzeyel ve düzensiz.',b_ausc:'Bilateral solunum sesleri eşit. Üst havayolu sesleri iletiliyor.',
+  c_skin:'Cilt sıcak, nabız dolgun ve YAVAŞ.',
+  d_gcs:S=>gcsTxt(S),
+  d_pupil:S=>S.v.gcs<5?'SOL pupil 7 mm fiks, SAĞ pupil 5 mm ve yavaş.':'SOL pupil 6 mm, ışığa yanıtsız; sağ 3 mm, reaktif. ANİZOKORİ.',
+  d_lateral:'SAĞ hemiparezi; ağrılı uyaranda sağda anormal fleksiyon.',d_glucose:'Kan şekeri 132 mg/dL.',
+  e_expose:'Sol temporal hematom ve 4 cm skalp laserasyonu. Göğüs, batın, ekstremitelerde belirgin yaralanma yok.',
+  k_ample:'Arkadaşı: “Düşünce kalktı, konuştu; 15 dk sonra uyudu.” (lucid interval) · Amlodipin kullanıyor · Antikoagülan yok.',
+  t_efast:'eFAST negatif.',t_cxr:'Akciğer grafisi normal.',
+  t_abg:S=>S.f.airway==='sec'?'pH 7.38, pCO₂ 38, pO₂ 180.':`pH 7.26, pCO₂ ${S.f.airway==='obs'?62:54}, pO₂ ${Math.round(S.v.spo2*.65)}. Hiperkapnik solunum yetmezliği.`,
+  t_lab:'Hb 14.2, INR 1.0, trombosit 240.000.',t_ecg:'Sinüs bradikardisi, 54/dk.'},
+ act:{
+  a_suction:S=>{S.f.suction=1;if(S.f.adj)S.f.airway='part';return{text:'Kan, pıhtı ve diş parçası aspire edildi.'+(S.f.adj?' Havayolu kısmen açıldı.':'')}},
+  a_jaw:S=>{S.f.adj=1;if(S.f.suction)S.f.airway='part';return{text:S.f.suction?'Çene itme ile havayolu açıldı; horlama azaldı.':'Çene itme yapıldı ama ağızdaki kan devam ediyor.'}},
+  a_opa:S=>{S.f.adj=1;if(S.f.suction)S.f.airway='part';return{text:S.f.suction?'OPA yerleşti, öğürme refleksi yok. Havayolu kısmen açık.':'OPA yerleşti ama ağızda kan var.'}},
+  a_rsi:S=>{S.f.airway='sec';S.f.intub=1;return Object.assign({text:'RSI: preoksijenasyon, MILS altında video laringoskopla entübasyon. EtCO₂ ile doğrulandı. Hedef PaCO₂ 35–45.'},S.f.cspine?{}:{pen:[10,'Servikal koruma olmadan havayolu girişimi']})},
+  a_cric:S=>S.f.airway==='sec'?{text:'Havayolu zaten güvende.',pen:[15,'Endikasyonsuz cerrahi havayolu']}:(S.f.airway='sec',S.f.intub=1,{text:'Krikotiroidotomi açıldı.',pen:[8,'RSI ile sağlanabilecek havayolu için cerrahi yol']}),
+  d_hyperosm:S=>{S.f.hyper=1;return{text:'%3 NaCl 250 mL bolus (veya mannitol 1 g/kg). Herniasyon progresyonu yavaşladı.'}},
+  d_headup:S=>{S.f.headup=1;return{text:'Ters Trendelenburg ile baş 30° kaldırıldı.'}},
+  t_ct:S=>{if(S.f.airway!=='sec')return{text:'BT’de hasta desatüre oldu, tarama yarıda kaldı!',pen:[20,'Havayolu güvenceye alınmadan BT’ye gönderme'],hurt:()=>{S.v.spo2-=10;S.v.gcs-=.5}};S.f.ct=1;return{text:'SOL temporal bikonveks EPİDURAL HEMATOM (35 mm), orta hat şifti 9 mm. Servikal BT normal.'}},
+  k_neuro:S=>{S.f.neuro=1;return{text:S.f.ct?'Beyin cerrahisi görüntüleri değerlendiriyor.':'Beyin cerrahisi yolda; BT görmek istiyor.'}},
+  c_blood:()=>({text:'Kanama bulgusu yok.',pen:[10,'Endikasyonsuz MTP']}),
+  c_binder:()=>({text:'Pelvis stabil.',pen:[5,'Endikasyonsuz pelvik kuşak']}),
+  b_needle_r:()=>({text:'Hava gelmedi.',pen:[15,'Endikasyonsuz iğne dekompresyon']}),b_needle_l:()=>({text:'Hava gelmedi.',pen:[15,'Endikasyonsuz iğne dekompresyon']}),
+  b_tube_r:()=>({text:'Patoloji yok.',pen:[15,'Endikasyonsuz göğüs tüpü']}),b_tube_l:()=>({text:'Patoloji yok.',pen:[15,'Endikasyonsuz göğüs tüpü']}),
+  c_pericardio:()=>({text:'Perikardda sıvı yok.',pen:[15,'Endikasyonsuz perikardiyosentez']}),
+ },
+ crit:[
+  {label:'Servikal koruma',ids:['a_cspine'],within:2,pts:10},
+  {label:'Aspirasyon',ids:['a_suction'],within:3,pts:10},
+  {label:'O₂ başlandı',ids:['b_o2'],within:3,pts:5},
+  {label:'Definitif havayolu (RSI)',ids:['a_rsi'],within:8,pts:25},
+  {label:'Pupil muayenesi',ids:['d_pupil'],within:10,pts:5},
+  {label:'Kan şekeri',ids:['d_glucose'],within:12,pts:5},
+  {label:'Hiperozmolar tedavi',ids:['d_hyperosm'],within:12,pts:15},
+  {label:'Baş 30°',ids:['d_headup'],within:15,pts:5},
+  {label:'Havayolu sonrası BT',ids:['t_ct'],within:20,pts:10},
+  {label:'Beyin cerrahisi',ids:['k_neuro'],within:18,pts:15}],
+ hints:['GKS ≤ 8 ve gurgling: önce aspirasyon ve basit manevralar, sonra definitif havayolu.','Anizokori + kontralateral hemiparezi = herniasyon. Hiperozmolar tedavi düşünün.','Hasta BT’ye güvenle gidebilir mi? Önce A.','Epidural hematomun definitif tedavisi kimde?']},
+
+{id:'stab',tag:'03',title:'Bıçaklanma',brief:'24 yaş erkek, göğüs ön duvarında delici yaralanma. Ajite, soluk.',
+ mist:'112: “Kavgada göğsünden bıçaklanmış, 20 dk önce. Sol parasternal 2 cm yara. Nabız 125, TA 80/60. Ajite. 1 damar yolu açıldı.”',
+ init:{v:{hr:126,sbp:80,rr:26,spo2:94,gcs:14,temp:36.6},f:{tamp:'on'}},
+ tick(S,L){const v=S.v,f=S.f;
+  if(f.tamp==='on'){v.sbp-=2.0;if(f.mtp)v.sbp+=.8}
+  else if(f.tamp==='temp'){toward(v,'sbp',98,3);f.tT=(f.tT||0)+1;if(f.tT>=6&&!f.def){f.tamp='on';L('sys','Perikardiyal kan yeniden birikiyor — TA tekrar düşüyor!')}}
+  if(f.def){f.tamp='fixed';toward(v,'sbp',112,2.5)}
+  toward(v,'hr',70+Math.max(0,110-v.sbp)*1.1,3);toward(v,'spo2',f.o2?98:94,1);
+  if(v.sbp<70)v.gcs-=.3;else if(v.sbp>90)toward(v,'gcs',15,.3);
+  v.dbp=v.sbp-(f.tamp==='fixed'?40:18)},
+ find:{
+  x_inspect:'Sol parasternal 4. ICS’de 2 cm kesi; minimal sızıntı. Masif dış kanama yok.',
+  a_talk:'Ajite, “Ölecek miyim?” diyor. Havayolu açık.',a_inspect:'Ağız içi temiz.',
+  b_inspect:S=>S.f.tamp==='fixed'?'Boyun venleri normal.':'Sol parasternal 2 cm yara, hava emmiyor. BOYUN VENLERİ DOLGUN. Göğüs simetrik.',
+  b_palp:'Trakea orta hatta, krepitasyon yok.',
+  b_ausc:S=>S.f.tamp==='fixed'?'Solunum ve kalp sesleri normal.':'Solunum sesleri bilateral EŞİT. Kalp sesleri DERİNDEN geliyor.',
+  b_perc:'Bilateral rezonan.',
+  c_skin:S=>'Soluk, soğuk, terli; kapiller dolum 3–4 sn. '+(S.v.sbp-S.v.dbp<25?'Nabız basıncı DAR. ':'')+sbpW(S),
+  d_gcs:S=>gcsTxt(S),d_glucose:'Kan şekeri 141 mg/dL.',
+  e_expose:'Başka delici yara yok. Sırtta yara yok.',e_logroll:'Sırtta yara yok.',
+  k_ample:'A: penisilin · M: yok · P: yok · L: 2 saat önce · E: kavgada mutfak bıçağıyla tek darbe.',
+  t_efast:S=>S.f.tamp==='fixed'?'Perikard boşaltılmış.':'PERİKARDİYAL EFÜZYON, sağ ventrikül diyastolik kollapsı. Bilateral akciğer kayması mevcut, hemotoraks yok. Batın negatif.',
+  t_cxr:'PTX / hemotoraks yok. Kalp gölgesi hafif globüler.',
+  t_ecg:'Sinüs taşikardisi, DÜŞÜK VOLTAJ, elektriksel alternans şüphesi.',
+  t_abg:'pH 7.29, laktat 4.6 mmol/L, BE −8.',t_lab:'Hb 12.1, INR 1.1, kan grubu çalışıldı.'},
+ act:{
+  c_pericardio:S=>{if(S.f.tamp==='on'){S.f.tamp='temp';S.f.tT=0;S.v.sbp+=14;return{text:'Subksifoid, USG eşliğinde 25 mL pıhtısız kan aspire edildi — TA yükseldi. Bu bir KÖPRÜ; definitif cerrahi gerekli.'}}return{text:'Belirgin sıvı aspire edilemedi.'}},
+  k_surgery:S=>{S.f.def=1;return{text:'Göğüs/kalp cerrahisi: acil sternotomi için ameliyathaneye alınıyor.'}},
+  c_fluid:S=>{S.v.sbp+=6;return S.f.fluid>2?{text:'Geçici yanıt.',pen:[10,'Aşırı kristaloid (> 2 L)']}:{text:'Ön yükü artırmak için 1 L bolus; kısa süreli yanıt.'}},
+  c_blood:S=>{S.f.mtp=1;return{text:'MTP başlatıldı.'}},
+  c_txa:()=>({text:'TXA verildi.'}),
+  a_rsi:S=>{S.f.intub=1;if(S.f.tamp!=='fixed'){S.v.sbp-=22;return{text:'İndüksiyon + pozitif basınçlı ventilasyon sonrası TA çöktü!',pen:[15,'Tamponadda definitif tedavi öncesi indüksiyon / PPV']}}return{text:'Entübe edildi.'}},
+  b_tube_l:()=>({text:'Minimal drenaj; hemotoraks / PTX yoktu.',pen:[10,'Endikasyonsuz göğüs tüpü']}),
+  b_tube_r:()=>({text:'Patoloji yok.',pen:[15,'Endikasyonsuz göğüs tüpü']}),
+  b_needle_l:()=>({text:'Hava gelmedi.',pen:[10,'Endikasyonsuz iğne dekompresyon']}),b_needle_r:()=>({text:'Hava gelmedi.',pen:[10,'Endikasyonsuz iğne dekompresyon']}),
+  b_seal:()=>({text:'Yara hava emmiyor; gerek yoktu.',pen:[3,'Endikasyonsuz kapatıcı pansuman']}),
+  t_ct:S=>S.f.tamp!=='fixed'?{text:'BT’de arrest öncesi tablo!',pen:[30,'Hemodinamik instabil hasta BT’ye gönderildi'],hurt:()=>{S.v.sbp-=10}}:{text:'Postop değerlendirme.'},
+  c_binder:()=>({text:'Pelvis stabil.',pen:[5,'Endikasyonsuz pelvik kuşak']}),
+  d_hyperosm:()=>({text:'Kafa travması yok.',pen:[10,'Endikasyonsuz hiperozmolar tedavi']}),
+ },
+ crit:[
+  {label:'O₂ başlandı',ids:['b_o2'],within:3,pts:5},
+  {label:'İki geniş damar yolu',ids:['c_iv'],within:4,pts:5},
+  {label:'Beck triadı muayenesi (boyun venleri / kalp sesleri)',ids:['b_inspect','b_ausc'],within:5,pts:10},
+  {label:'eFAST',ids:['t_efast'],within:5,pts:20},
+  {label:'Kan ürünü',ids:['c_blood'],within:10,pts:10},
+  {label:'Köprü: perikardiyosentez',ids:['c_pericardio'],within:12,pts:10},
+  {label:'Cerrahi çağrısı — ameliyathane',ids:['k_surgery'],within:10,pts:30}],
+ hints:['Hipotansiyon + dolgun boyun venleri + derinden gelen kalp sesleri…','Yatak başı tanı için en hızlı tetkik hangisi?','Perikardiyosentez yalnızca köprüdür. Definitif tedavi?','İndüksiyon ve pozitif basınç bu hastada arreste yol açabilir.']}
+];
+
+
+/* ================= OYUN AKIŞI ================= */
+const ROLES=['Ekip lideri','Havayolu','Dolaşım','Kayıt / prosedür'];
+const LIMIT=30, HINT_COST=25;
+const CATNAME={x:'X Kanama',A:'A Havayolu',B:'B Solunum',C:'C Dolaşım',D:'D Nörolojik',E:'E Açığa çıkar',T:'Tetkik',K:'Konsült',H:'İpucu'};
+let R=null, cfgCur=null, backTo='games', tab='x', raf=null, lastFind=null;
+const $=id=>document.getElementById(id);
+const coin=n=>`<span class="at-coin"><i></i>${n}</span>`;
+const sc=()=>SCEN.find(s=>s.id===R.scen);
+const scenTitle=id=>(SCEN.find(s=>s.id===id)||{}).title||id;
+function lastCfg(){ try{ return JSON.parse(localStorage.getItem('atls_cfg')||'null')||{}; }catch(e){ return {}; } }
+
+/* ---- kurulum ---- */
+function setupDlg(mode){
+  const c=Object.assign({team:'',members:['','','',''],scen:'moto',coins:150,speed:12},lastCfg());
+  if(mode==='bireysel'&&!c.team) c.team=S.resident?.name||S.user?.displayName||'';
+  const m=modal(`<div class="modal-h"><h2>Altın Saat · yeni oyun</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="field"><label class="f" for="atT">${mode==='ekip'?'Ekip adı':'Oyuncu / ekip adı'}</label><input type="text" id="atT" value="${esc(c.team)}" placeholder="Örn. Kırmızı Alan"></div>
+    <details ${mode==='ekip'?'open':''} style="margin-bottom:12px"><summary class="small"><b>Ekip üyeleri</b>${mode==='ekip'?'':' (isteğe bağlı)'}</summary>
+      <div class="grid2" style="margin-top:8px">${ROLES.map((r,i)=>`<div class="field"><label class="f" for="atM${i}">${r}</label><input type="text" id="atM${i}" value="${esc((c.members||[])[i]||'')}"></div>`).join('')}</div></details>
+    <div class="field"><label class="f">Senaryo</label><div class="at-scl">${SCEN.map(s=>`<label class="at-sc"><input type="radio" name="atS" value="${s.id}" ${c.scen===s.id?'checked':''}><span><b>${s.title}</b><span class="small muted">${s.brief}</span></span></label>`).join('')}</div></div>
+    <div class="grid2"><div class="field"><label class="f" for="atC">Başlangıç bütçesi</label><select id="atC">${[100,150,200].map(n=>`<option value="${n}" ${c.coins===n?'selected':''}>${n} coin</option>`).join('')}</select></div>
+      <div class="field"><label class="f" for="atSp">1 simülasyon dakikası</label><select id="atSp">${[[20,'20 sn (yavaş)'],[12,'12 sn (normal)'],[6,'6 sn (hızlı)']].map(([v,t])=>`<option value="${v}" ${c.speed===v?'selected':''}>${t}</option>`).join('')}</select></div></div>
+    <div class="small muted">Monitör bağlanmadan vitaller görünmez. Her muayene, tetkik ve müdahale coin harcar; tedavi edilmeyen sorun hastayı kötüleştirir. Puan = kalan coin (hasta yaşıyorsa) + kritik eylemler − cezalar + sağkalım bonusu.${S.preview?' <b>Önizlemede sonuç kaydedilmez.</b>':''}</div>
+  </div><div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="atGo">Hastayı karşıla</button></div>`);
+  m.el.querySelector('#atGo').onclick=()=>{
+    const q=s=>m.el.querySelector(s);
+    const cfg={mode,team:q('#atT').value.trim().slice(0,60)||(mode==='ekip'?'İsimsiz ekip':(S.resident?.name||'Oyuncu')),
+      members:ROLES.map((r,i)=>q('#atM'+i).value.trim().slice(0,60)),scen:q('input[name=atS]:checked')?.value||'moto',coins:+q('#atC').value,speed:+q('#atSp').value};
+    try{ localStorage.setItem('atls_cfg',JSON.stringify(cfg)); }catch(e){}
+    m.close(); go('atlsPlay',{cfg,back:mode==='ekip'?'games':'atls'});
+  };
+}
+
+/* ---- oyun ---- */
+function play(cfg,back){
+  if(!cfg){ return go(back||'games'); }
+  stopGame(); document.body.classList.add('game-mode'); G={unsubs:[],tick:null};
+  cfgCur=cfg; backTo=back||'games'; tab='x'; raf=null;
+  const s=SCEN.find(x=>x.id===cfg.scen)||SCEN[0];
+  R={scen:s.id,t:0,coins:cfg.coins,start:cfg.coins,v:{...s.init.v},f:{fluid:0,...s.init.f},done:{},first:{},spent:{},finds:[],log:[],pen:[],penKeys:{},hint:0,ended:false,running:false};
+  R.v.dbp=R.v.sbp*.6;
+  shell();
+  const m=modal(`<div class="modal-h"><h2>${esc(s.title)}</h2></div><div class="modal-b"><div class="lbl2">112 bildirimi</div><p>${esc(s.mist)}</p>
+    <p class="small muted">${esc(cfg.team)} · bütçe ${cfg.coins} coin · 1 simülasyon dakikası = ${cfg.speed} sn</p></div>
+    <div class="modal-f"><button class="btn primary" id="atStart">Hasta geldi, başla</button></div>`,'narrow');
+  m.el.querySelector('#atStart').onclick=()=>{ m.close(); run(); };
+}
+function lg(kind,text,cost,label){
+  R.log.push({t:R.t,kind,text,cost:cost||0});
+  if(kind==='sys'||kind==='harm'){ R.finds.unshift({t:R.t,label:kind==='sys'?'Durum değişikliği':label,text,kind}); lastFind=R.finds[0]; }
+}
+function pen(pts,reason){ if(R.penKeys[reason]) return; R.penKeys[reason]=1; R.pen.push({t:R.t,pts,reason}); lg('harm',reason,0,`Ceza −${pts}`); }
+function run(){ if(!R||R.ended||!G) return; R.running=true; clearInterval(G.tick); G.tick=setInterval(()=>advance(1),cfgCur.speed*1000); hud(); vitals(); }
+function pause(){ if(G) clearInterval(G.tick); if(R) R.running=false; hud(); vitals(); }
+function advance(n){
+  if(!R||!$('atClock')){ pause(); return; }
+  for(let i=0;i<n&&!R.ended;i++){
+    R.t+=1; sc().tick(R,lg);
+    if(!R.f.warm) R.v.temp-=.04;
+    const v=R.v; v.sbp=clamp(v.sbp,0,220); v.spo2=clamp(v.spo2,40,100); v.hr=clamp(v.hr,20,190); v.gcs=clamp(v.gcs,3,15); v.rr=clamp(v.rr,4,44);
+    const d=sc().dead?.(R)||(v.sbp<45?'Hemodinamik çöküş — nabızsız elektriksel aktivite.':v.spo2<60?'Ağır hipoksi — kardiyak arrest.':null);
+    if(d){ endGame(false,d); return; }
+    if(R.t>=LIMIT){ endGame(true,'Süre doldu.'); return; }
+  }
+  vitals(); finds(); hud();
+}
+function buy(id){
+  if(!R||R.ended) return;
+  const a=A[id], s=sc();
+  if(a.once&&R.done[id]) return;
+  if(R.coins<a.cost) return toast('Yeterli coin yok',true);
+  if(a.iv&&!R.f.iv) return toast('Damar yolu yok. Önce “İki geniş damar yolu”.',true);
+  R.coins-=a.cost; R.spent[a.cat]=(R.spent[a.cat]||0)+a.cost; R.done[id]=(R.done[id]||0)+1; if(R.first[id]==null) R.first[id]=R.t;
+  floatCoin(a.cost);
+  const F=R.f; ({b_o2:()=>F.o2=1,e_warm:()=>F.warm=1,c_iv:()=>F.iv=1,a_cspine:()=>F.cspine=1,c_monitor:()=>F.mon=1,c_fluid:()=>F.fluid++})[id]?.();
+  if(id==='e_warm'&&R.v.temp<36) R.v.temp+=.3;
+  let r;
+  if(s.act[id]) r=s.act[id](R);
+  else { const f=s.find[id]; r={text:typeof f==='function'?f(R):(f||DEF[id]||'Uygulandı.')}; }
+  if(id==='c_monitor') r={text:'Monitör bağlandı: EKG, SpO₂, NIBP aktif.'};
+  R.finds.unshift({t:R.t,label:a.label,text:r.text,kind:r.pen?'harm':a.kind}); lastFind=R.finds[0];
+  lg(a.kind,a.label+': '+r.text,a.cost);
+  if(r.pen) pen(r.pen[0],r.pen[1]);
+  if(r.hurt) r.hurt();
+  if(a.dur){ toast(`${a.label}: ${a.dur} dk sürdü`); advance(a.dur); }
+  if(!R.ended){ vitals(); finds(); acts(); hud(); }
+}
+function hint(){
+  const h=sc().hints; if(R.ended) return; if(R.hint>=h.length) return toast('İpucu kalmadı');
+  if(R.coins<HINT_COST) return toast('Yeterli coin yok',true);
+  R.coins-=HINT_COST; R.spent.H=(R.spent.H||0)+HINT_COST; floatCoin(HINT_COST);
+  const t=h[R.hint++]; R.finds.unshift({t:R.t,label:'Eğitmen ipucu',text:t,kind:'sys'}); lastFind=R.finds[0]; R.log.push({t:R.t,kind:'hint',text:'İpucu: '+t,cost:HINT_COST});
+  finds(); hud();
+}
+
+/* ---- çizim ---- */
+function shell(){
+  const s=sc(), mem=cfgCur.members.map((x,i)=>x?`${ROLES[i]}: ${esc(x)}`:'').filter(Boolean).join(' · ');
+  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':'ATLS oyunu'}</button>
+      <div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(s.title)}${mem?' · '+mem:''}</small></div>
+      <div><div class="at-l">Süre</div><div class="at-clock mono" id="atClock">00:00</div></div>
+      <div class="at-bank" id="atBank"><div class="at-l">Coin</div><span class="at-coin big"><i></i><span id="atCoins">0</span></span></div>
+      <div class="at-ctl"><button class="g-x" id="atPP">Başlat</button><button class="g-x" id="atIn">Eğitmen</button><button class="g-x at-danger" id="atEnd">Vakayı bitir</button></div></div>
+    <div class="at-grid"><div class="at-col">
+      <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(s.brief)}</h2><p class="at-mist">${esc(s.mist)}</p></section>
+      <section class="at-mon" id="atMon"></section>
+      <section class="at-panel"><div class="at-l">Açılan bilgiler</div><div class="at-finds" id="atFinds"></div></section></div>
+     <div class="at-col"><section class="at-panel"><div class="at-quick"><button class="g-x" id="atAmple">AMPLE öykü ${coin(5)}</button><button class="g-x" id="atHint">Eğitmen ipucu ${coin(HINT_COST)}</button></div>
+        <div class="at-tabs" id="atTabs" role="tablist"></div><div class="at-acts" id="atActs"></div></section>
+      <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="atLog"></div></section></div></div>`,'atls');
+  $('atX').onclick=async()=>{ if(!R.ended&&(R.t>0||R.log.length)){ const was=R.running; pause(); if(!await confirmDlg('Oyundan çık','<p>Vaka yarıda kalır ve sonuç kaydedilmez.</p>','Çık',true)){ if(was) run(); return; } } exitGame(); };
+  $('atPP').onclick=()=>R.running?pause():run();
+  $('atEnd').onclick=confirmEnd; $('atIn').onclick=instructor; $('atAmple').onclick=()=>buy('k_ample'); $('atHint').onclick=hint;
+  tabs(); acts(); vitals(); finds(); hud();
+}
+function exitGame(){ stopGame(); R=null; go(backTo); }
+function tabs(){
+  $('atTabs').innerHTML=CATS.map(c=>`<button role="tab" aria-selected="${tab===c.id}" data-at="${c.id}">${c.k}<small>${c.n}</small></button>`).join('');
+  $('atTabs').querySelectorAll('[data-at]').forEach(b=>b.onclick=()=>{ tab=b.dataset.at; tabs(); acts(); });
+}
+function acts(){
+  const list=ACTIONS.filter(a=>a.cat===tab&&a.id!=='k_ample');
+  $('atActs').innerHTML=list.map(a=>{ const n=R.done[a.id]||0, locked=(a.once&&n)||R.ended;
+    return `<button class="at-act ${n?'done':''}" data-aa="${a.id}" ${locked?'disabled':''}><span class="t">${a.label}</span>
+      <span class="m"><span class="at-kind ${a.kind}">${KIND[a.kind]}${a.dur?' · '+a.dur+' dk':''}</span>${n?`<span class="cnt">${a.once?'✓ yapıldı':'×'+n}</span>`:''}${coin(a.cost)}</span></button>`; }).join('');
+  $('atActs').querySelectorAll('[data-aa]').forEach(b=>b.onclick=()=>buy(b.dataset.aa));
+}
+const fmt=t=>String(Math.floor(t)).padStart(2,'0')+':00';
+const logRow=l=>`<div><span class="tm mono">dk ${String(l.t).padStart(2,'0')}</span><span>${esc(l.text)}</span><span class="at-coin">${l.cost?'−'+l.cost:''}</span></div>`;
+function hud(){
+  if(!R||!$('atClock')) return;
+  $('atClock').textContent=fmt(R.t); $('atCoins').textContent=R.coins;
+  $('atPP').textContent=R.running?'Duraklat':(R.t||R.log.length?'Devam':'Başlat');
+  $('atLog').innerHTML=R.log.slice().reverse().map(logRow).join('')||'<span class="at-empty">Henüz işlem yok.</span>';
+}
+function floatCoin(n){ const b=$('atBank'); if(!b) return; const e=document.createElement('span'); e.className='at-float mono'; e.textContent='−'+n; b.appendChild(e); setTimeout(()=>e.remove(),1000); }
+function finds(){
+  if(!$('atFinds')) return;
+  $('atFinds').innerHTML=R.finds.length?R.finds.map(f=>`<div class="at-find ${f.kind==='harm'?'harm':f.kind==='sys'?'sys':''} ${f===lastFind?'new':''}"><div class="h"><b>${esc(f.label)}</b><span class="mono">dk ${String(f.t).padStart(2,'0')}</span></div><p>${esc(f.text)}</p></div>`).join('')
+    :'<div class="at-empty">Coin harcayarak muayene edin, tetkik isteyin. Bulgular burada açılır.</div>';
+  lastFind=null;
+}
+function vitals(){
+  const m=$('atMon'); if(!m||!R) return; const v=R.v;
+  if(!R.f.mon){ m.innerHTML=`<div class="top"><span>Monitör</span><span>Bağlı değil</span></div><div class="at-monoff"><div>Vital bulgular monitör bağlanınca görünür.</div><button class="g-x" id="atMonB">Monitör bağla · 5 coin</button></div>`; $('atMonB').onclick=()=>buy('c_monitor'); return; }
+  const j=x=>Math.round(x+(Math.random()-.5)*2);
+  const V=[['Nabız','hr',j(v.hr),'/dk',v.hr>120||v.hr<50],['TA','bp',`${Math.round(v.sbp)}/${Math.round(v.dbp)}`,'mmHg',v.sbp<90||v.sbp>180],['SpO₂','spo2',clamp(j(v.spo2),40,100),'%',v.spo2<90],
+    ['Solunum','rr',Math.round(v.rr),'/dk',v.rr>29||v.rr<10],['GKS','gcs',R.f.intub?Math.round(v.gcs)+'T':Math.round(v.gcs),'',v.gcs<=8],['Ateş','tmp',v.temp.toFixed(1),'°C',v.temp<35.5]];
+  if(!m.querySelector('canvas')) m.innerHTML=`<div class="top"><span>Monitör · DII</span><span id="atMs"></span></div><canvas id="atEcg" width="600" height="80"></canvas><div class="at-vit" id="atVit"></div>`;
+  $('atMs').textContent=R.running?'Canlı':'Duraklatıldı';
+  $('atVit').innerHTML=V.map(([k,c,val,u,al])=>`<div class="vt ${al?'alarm':''}" style="color:var(--v-${c})"><div class="k">${k}</div><div class="v mono">${val} <span class="u">${u}</span></div></div>`).join('');
+  ecg();
+}
+function ecg(){
+  const c=$('atEcg'); if(!c||raf) return; const ctx=c.getContext('2d'); let x=0,last=performance.now(),phase=0,prevY=40;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  ctx.fillStyle='#0b1110'; ctx.fillRect(0,0,600,80);
+  const frame=now=>{
+    if(!document.body.contains(c)){ raf=null; return; }
+    const dt=Math.min(.05,(now-last)/1000); last=now;
+    if(R&&R.running&&!reduce){
+      const steps=Math.max(1,Math.round(dt*160));
+      for(let i=0;i<steps;i++){
+        phase+=(R.v.hr/60)/160; if(phase>1) phase-=1;
+        const p=phase; let y=40;
+        if(p<.08) y=40-Math.sin(p/.08*Math.PI)*5; else if(p>.14&&p<.16) y=46; else if(p>=.16&&p<.19) y=8; else if(p>=.19&&p<.22) y=52; else if(p>.36&&p<.5) y=40-Math.sin((p-.36)/.14*Math.PI)*8;
+        ctx.fillStyle='#0b1110'; ctx.fillRect(x,0,8,80);
+        ctx.strokeStyle='#3ddc84'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x-1,prevY); ctx.lineTo(x,y); ctx.stroke(); prevY=y;
+        x+=1; if(x>=600) x=0;
+      }
+    }
+    raf=requestAnimationFrame(frame);
+  };
+  raf=requestAnimationFrame(frame);
+}
+async function confirmEnd(){
+  const was=R.running; pause();
+  if(await confirmDlg('Vakayı bitir','<p>Hasta mevcut durumuyla devredilir ve değerlendirme açılır.</p>','Bitir ve değerlendir')) endGame(true,'Ekip vakayı sonlandırdı.');
+  else if(was) run();
+}
+function instructor(){
+  const was=R.running; pause();
+  const m=modal(`<div class="modal-h"><h2>Eğitmen paneli</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <p class="small muted" style="margin-top:0">Oyun duraklatıldı. Ekibe ödül veya ceza coin’i verin; not zaman çizelgesine yazılır.</p>
+    <div class="row">${[-20,-10,10,20].map(n=>`<button class="btn" data-n="${n}">${n>0?'+':''}${n} coin</button>`).join('')}</div>
+    <div class="field" style="margin-top:12px"><label class="f" for="atNote">Not</label><input type="text" id="atNote" placeholder="Örn. Kapalı döngü iletişim iyi"></div></div>
+    <div class="modal-f"><button class="btn primary" id="atIc">Kapat ve devam et</button></div>`,'narrow');
+  m.el.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{ const n=+b.dataset.n, note=m.el.querySelector('#atNote').value.trim(); R.coins=Math.max(0,R.coins+n);
+    R.log.push({t:R.t,kind:'instr',text:`Eğitmen ${n>0?'+':''}${n} coin${note?': '+note:''}`,cost:0}); hud(); toast(`${n>0?'+':''}${n} coin`); });
+  m.el.querySelector('#atIc').onclick=()=>{ m.close(); if(was) run(); };
+}
+
+/* ---- bitiş ve değerlendirme ---- */
+function score(alive,reason){
+  const s=sc();
+  const crit=s.crit.map(c=>{ const ts=c.ids.map(i=>R.first[i]).filter(x=>x!=null); const t=ts.length?Math.min(...ts):null;
+    const st=t==null?'n':(t<=c.within?'y':'h'); return {label:c.label,within:c.within,pts:c.pts,t,st,got:st==='y'?c.pts:st==='h'?Math.round(c.pts/2):0}; });
+  const critSum=crit.reduce((a,c)=>a+c.got,0), critMax=crit.reduce((a,c)=>a+c.pts,0), penSum=R.pen.reduce((a,p)=>a+p.pts,0);
+  const def=!!R.f.def, surv=alive?(def?50:20):0;
+  const v=R.v;
+  return {mode:cfgCur.mode,team:cfgCur.team,members:cfgCur.members,scen:s.id,scenTitle:s.title,score:Math.round((alive?R.coins:0)+critSum-penSum+surv),alive,def,minutes:R.t,coinsLeft:R.coins,start:R.start,
+    critSum,critMax,penSum,surv,crit,pen:R.pen,spent:R.spent,log:R.log.slice(-200).map(l=>({t:l.t,text:String(l.text).slice(0,400),cost:l.cost||0})),reason,
+    vitals:{hr:Math.round(v.hr),sbp:Math.round(v.sbp),dbp:Math.round(v.dbp),spo2:Math.round(v.spo2),gcs:Math.round(v.gcs),temp:Math.round(v.temp*10)/10,intub:!!R.f.intub}};
+}
+function debriefHtml(r){
+  const verdict=!r.alive?'Hasta kaybedildi':r.def?'Hasta definitif bakıma ulaştı':'Hasta hayatta, definitif plan eksik';
+  const v=r.vitals||{}, tot=Object.values(r.spent||{}).reduce((a,b)=>a+b,0)||1;
+  return `<div class="at-deb">
+    <section class="ad-p ad-verdict"><div><div class="ad-l">${esc(r.scenTitle)} · ${esc(r.team)} · dk ${r.minutes}</div><h2 class="${r.alive?'ok':'bad'}">${verdict}</h2>
+      <p class="ad-m">${esc(r.reason||'')} Son vitaller: nabız ${v.hr}, TA ${v.sbp}/${v.dbp}, SpO₂ ${v.spo2}, GKS ${v.gcs}${v.intub?'T':''}, ${v.temp} °C.</p></div>
+      <div class="ad-score"><div class="ad-l">Toplam puan</div><div class="mono">${r.score}</div></div></section>
+    <div class="ad-grid">
+      <section class="ad-p"><div class="ad-l">Kritik eylemler · ${r.critSum}/${r.critMax}</div>
+        ${(r.crit||[]).map(c=>`<div class="ad-crit ${c.st}"><span class="ic">${c.st==='y'?'✓':c.st==='h'?'◐':'✗'}</span><span>${esc(c.label)}<br><small>${c.t==null?'Yapılmadı':'dk '+c.t+(c.st==='h'?` (hedef ≤ ${c.within} dk, geç)`:'')}</small></span><span class="mono">+${c.got}</span></div>`).join('')}</section>
+      <div class="ad-col">
+        <section class="ad-p"><div class="ad-l">Puan dökümü</div><div class="ad-bd"><span>Kalan coin${r.alive?"":" (hasta kaybedildi, sayılmaz)"}</span><span class="mono">${r.alive?r.coinsLeft:0}</span><span>Kritik eylemler</span><span class="mono">+${r.critSum}</span><span>Cezalar</span><span class="mono">−${r.penSum}</span><span>Sağkalım bonusu</span><span class="mono">+${r.surv}</span><b>Toplam</b><b class="mono">${r.score}</b></div></section>
+        <section class="ad-p"><div class="ad-l">Hatalar ve cezalar</div>${(r.pen||[]).length?r.pen.map(p=>`<div class="ad-crit n"><span class="ic">!</span><span>${esc(p.reason)}<br><small>dk ${p.t}</small></span><span class="mono">−${p.pts}</span></div>`).join(''):'<div class="ad-m">Ceza yok.</div>'}</section>
+        <section class="ad-p"><div class="ad-l">Coin nereye gitti</div><div class="ad-bars">${Object.entries(r.spent||{}).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<div class="ad-bar"><span>${CATNAME[k]||k}</span><span class="tr"><span style="width:${n/tot*100}%"></span></span><span class="mono">${n}</span></div>`).join('')||'<div class="ad-m">Coin harcanmadı.</div>'}</div></section>
+      </div></div>
+    <section class="ad-p"><div class="ad-l">Zaman çizelgesi</div><div class="at-log full">${(r.log||[]).map(logRow).join('')}</div></section></div>`;
+}
+async function endGame(alive,reason){
+  R.ended=true; pause();
+  const res=score(alive,reason);
+  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':'ATLS oyunu'}</button><b>Değerlendirme</b><span class="small" id="atSave">${S.preview?'Önizleme: sonuç kaydedilmedi':'Kaydediliyor…'}</span></div>
+    ${debriefHtml(res)}<div class="g-act"><button class="g-btn ghost" id="atAgain">Aynı senaryoyu tekrar oyna</button><button class="g-btn" id="atNew">Yeni oyun</button></div>`,'atls');
+  window.scrollTo(0,0);
+  $('atX').onclick=exitGame; $('atAgain').onclick=()=>go('atlsPlay',{cfg:cfgCur,back:backTo}); $('atNew').onclick=()=>setupDlg(cfgCur.mode);
+  if(S.preview) return;
+  try{ await setDoc(doc(collection(db,'atlsRuns')),{...res,uid:S.user.uid,email:S.email,name:S.resident?.name||S.user.displayName||S.email,at:serverTimestamp()});
+    if($('atSave')) $('atSave').textContent='Sonuç kaydedildi'; }
+  catch(e){ fail(e,'Sonuç kaydedilemedi'); if($('atSave')) $('atSave').textContent='Sonuç kaydedilemedi'; }
+}
+
+/* ---- kayıtlar: liste, değerlendirme, liderlik ---- */
+function showRun(r){ modal(`<div class="modal-h"><h2>${esc(r.team)} · ${esc(r.scenTitle)}</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="small muted" style="margin-bottom:10px">${esc(r.name||'')} · ${fmtDT(r.at)} · ${r.mode==='ekip'?'Ekip oyunu':'Bireysel'}${(r.members||[]).filter(Boolean).length?' · '+r.members.map((m,i)=>m?`${ROLES[i]}: ${esc(m)}`:'').filter(Boolean).join(' · '):''}</div>${debriefHtml(r)}</div>`,'wide'); }
+function runRow(r,admin){
+  return `<div class="tplrow"><div class="grow" style="min-width:0"><b>${esc(r.team)}</b> <span class="badge ${r.alive?'ok':'bad'}">${r.alive?'Hayatta':'Ex'}</span> ${admin&&r.mode!=='ekip'?'<span class="badge">Bireysel</span>':''}
+    <div class="small muted">${esc(r.scenTitle)} · ${r.score} puan · ${fmtDT(r.at)}</div></div>
+    <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-arun="${r.id}">Değerlendirme</button>${admin?`<button class="btn sm ghost danger" data-adel="${r.id}">✕</button>`:''}</div></div>`;
+}
+function leaderboard(runs){
+  modal(`<div class="modal-h"><h2>Altın Saat · liderlik</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">${SCEN.map(s=>{
+    const top=runs.filter(r=>r.scen===s.id).sort((a,b)=>b.score-a.score).slice(0,10);
+    return `<h3 style="margin-top:12px">${s.title}</h3>${top.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>Ekip / oyuncu</th><th>Sonuç</th><th>Tarih</th><th style="text-align:right">Puan</th></tr></thead><tbody>${top.map((r,i)=>`<tr><td class="mono">${i+1}</td><td>${esc(r.team)}${r.mode!=='ekip'?' <span class="small muted">(bireysel)</span>':''}</td><td>${r.alive?'Hayatta':'Ex'}</td><td class="small">${fmtDT(r.at)}</td><td class="mono" style="text-align:right">${r.score}</td></tr>`).join('')}</tbody></table></div>`:'<div class="small muted">Henüz oynanmadı.</div>'}`; }).join('')}</div>`,'wide');
+}
+async function loadRuns(mine){
+  const q=mine?query(collection(db,'atlsRuns'),where('uid','==',S.user.uid)):collection(db,'atlsRuns');
+  const s=await getDocs(q); return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.at)||0)-(tsMs(a.at)||0));
+}
+/* Oyunlar sekmesindeki kart (yönetici) */
+function adminCard(runs){
+  return `<div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">ATLS Ekip Oyunu · Altın Saat</h2><div class="row"><button class="btn" id="atLb">🏆 Liderlik</button><button class="btn primary" id="atNewE">+ Yeni oyun</button></div></div>
+    <p class="small muted">Travma hastası gerçek zamanlı kötüleşir. Ekip xABCDE sırasıyla muayene, tetkik ve müdahaleye coin harcar; zamanında kritik eylem puan, zararlı işlem ceza getirir. Tek ekrana yansıtın, ekip birlikte karar versin. Asistanlar Öğren sekmesinden bireysel de oynayabilir.</p>
+    <div class="list" style="gap:0">${runs.slice(0,15).map(r=>runRow(r,true)).join('')||'<div class="small muted">Henüz oyun yok.</div>'}</div></div>`;
+}
+function bindAdminCard(runs,reload){
+  $('atNewE')&&($('atNewE').onclick=()=>setupDlg('ekip'));
+  $('atLb')&&($('atLb').onclick=()=>leaderboard(runs));
+  bindRows(runs,reload);
+}
+function bindRows(runs,reload){
+  $app.querySelectorAll('[data-arun]').forEach(b=>b.onclick=()=>{ const r=runs.find(x=>x.id===b.dataset.arun); if(r) showRun(r); });
+  $app.querySelectorAll('[data-adel]').forEach(b=>b.onclick=async()=>{ if(!await confirmDlg('Oyun kaydını sil','<p>Bu oyunun sonucu ve değerlendirmesi silinir.</p>','Sil',true)) return;
+    try{ await deleteDoc(doc(db,'atlsRuns',b.dataset.adel)); toast('Silindi'); reload(); }catch(e){ fail(e); } });
+}
+/* Asistan sayfası */
+async function page(){
+  paint(`<div class="spinner"></div>`);
+  let runs=[]; try{ runs=await loadRuns(true); }catch(e){ console.error(e); }
+  const best=id=>{ const x=runs.filter(r=>r.scen===id); return x.length?Math.max(...x.map(r=>r.score)):null; };
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Öğren</button><h1>ATLS oyunu · Altın Saat</h1><div class="sub">Travma hastası gelir ve zaman akar. Her muayene, tetkik ve müdahale coin harcar. Doğru sırayla, az coin harcayarak hastayı definitif bakıma ulaştırın.</div></div><button class="btn primary" id="atNewR">Yeni oyun</button></div>
+    <div class="at-rsc">${SCEN.map(s=>`<div class="card pad"><div class="lbl2">Senaryo ${s.tag}</div><h2 style="margin:2px 0 4px">${s.title}</h2><div class="small muted">${s.brief}</div>
+      <div class="small" style="margin-top:8px">${best(s.id)!=null?`En iyi puanınız: <b class="mono">${best(s.id)}</b>`:'Henüz oynamadınız'}</div></div>`).join('')}</div>
+    <div class="card pad" style="margin-top:16px"><h2 style="margin-top:0">Nasıl oynanır</h2><ul class="small" style="margin:0;padding-left:18px;display:grid;gap:4px">
+      <li>Monitör bağlanmadan vital bulgular görünmez. Damar yolu olmadan sıvı ve ilaç verilemez.</li>
+      <li>Aynı muayeneyi tekrarlamak da coin harcar; yeniden değerlendirmenin bedeli vardır.</li>
+      <li>Bazı işlemler süre yer (BT 10 dk). Tedavi edilmeyen sorun hastayı kötüleştirir.</li>
+      <li>Endikasyonsuz veya zararlı işlem ceza getirir. Takılırsanız 25 coin karşılığı ipucu alabilirsiniz.</li>
+      <li>Puan = kalan coin (hasta yaşıyorsa) + zamanında yapılan kritik eylemler − cezalar + sağkalım bonusu.</li></ul></div>
+    <div class="card pad" style="margin-top:16px"><h2 style="margin-top:0">Oyunlarım</h2><div class="list" style="gap:0">${runs.map(r=>runRow(r,false)).join('')||'<div class="small muted">Henüz oyun yok.</div>'}</div></div>`);
+  $('bk').onclick=()=>go('learn'); $('atNewR').onclick=()=>setupDlg('bireysel');
+  bindRows(runs,page);
+}
+return {setupDlg,play,page,adminCard,bindAdminCard,loadRuns};
+})();
 
 </script>
 </body>

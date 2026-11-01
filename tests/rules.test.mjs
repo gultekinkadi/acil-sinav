@@ -190,6 +190,23 @@ await t("asistan bildirimini çözülmüş yapamaz", () => assertFails(updateDoc
 await t("yönetici bildirimleri listeler", () => assertSucceeds(getDocs(collection(admin, "reports"))));
 await t("yönetici çözüldü işaretler", () => assertSucceeds(updateDoc(doc(admin, "reports/r1"), { status: "resolved", adminNote: "Düzeltildi", resolvedBy: "gultekinkadi@gmail.com", resolvedAt: serverTimestamp() })));
 
+console.log("ATLS oyunu");
+const run = (uid, email, extra = {}) => ({ uid, email, name: "Ayşe", mode: "bireysel", team: "Ayşe", members: ["", "", "", ""], scen: "moto", scenTitle: "Motosiklet kazası",
+  score: 210, alive: true, def: true, minutes: 14, coinsLeft: 80, start: 150, critSum: 90, critMax: 115, penSum: 10, surv: 50,
+  crit: [], pen: [], spent: { B: 30 }, log: [{ t: 1, text: "O2", cost: 5 }], reason: "Ekip vakayı sonlandırdı.", vitals: { hr: 96 }, at: serverTimestamp(), ...extra });
+await t("asistan kendi ATLS sonucunu kaydeder", () => assertSucceeds(setDoc(doc(ayse, "atlsRuns/r1"), run("u1", "ayse@gmail.com"))));
+await t("yönetici ekip oyununu kaydeder", () => assertSucceeds(setDoc(doc(admin, "atlsRuns/r2"), run("adm", "gultekinkadi@gmail.com", { mode: "ekip", team: "Kırmızı Alan" }))));
+await t("başkası adına ATLS sonucu kaydedemez", () => assertFails(setDoc(doc(ayse, "atlsRuns/r3"), run("u2", "ayse@gmail.com"))));
+await t("ATLS kaydına fazladan alan yazamaz", () => assertFails(setDoc(doc(ayse, "atlsRuns/r4"), run("u1", "ayse@gmail.com", { approved: true }))));
+await t("ATLS puanı sayı olmalı", () => assertFails(setDoc(doc(ayse, "atlsRuns/r5"), run("u1", "ayse@gmail.com", { score: "999" }))));
+await t("listede olmayan ATLS sonucu kaydedemez", () => assertFails(setDoc(doc(yabanci, "atlsRuns/r6"), run("x1", "yabanci@gmail.com"))));
+await t("soru yazarı ATLS sonucu kaydedemez", () => assertFails(setDoc(doc(yazar, "atlsRuns/r7"), run("au1", "yazar@gmail.com"))));
+await t("asistan kendi ATLS sonuçlarını sorgular", () => assertSucceeds(getDocs(query(collection(ayse, "atlsRuns"), where("uid", "==", "u1")))));
+await t("asistan tüm ATLS sonuçlarını listeleyemez", () => assertFails(getDocs(collection(ayse, "atlsRuns"))));
+await t("asistan başkasının ATLS sonucunu okuyamaz", () => assertFails(getDoc(doc(ali, "atlsRuns/r1"))));
+await t("asistan ATLS puanını değiştiremez", () => assertFails(updateDoc(doc(ayse, "atlsRuns/r1"), { score: 999 })));
+await t("yönetici ATLS sonuçlarını listeler", () => assertSucceeds(getDocs(collection(admin, "atlsRuns"))));
+
 await env.cleanup();
 console.log(`\n${pass} geçti, ${failN} başarısız`);
 process.exit(failN ? 1 : 0);
