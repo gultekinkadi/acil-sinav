@@ -3704,7 +3704,7 @@ async function viewLearn(){
       <button class="lcard" data-go="atlas"><span class="ic">🖼</span><b>Görüntü atlası</b><span class="big">${atlas.length}</span><span class="small">${atlas.filter(a=>L.d.atlas[a.id]?.done).length} sınandı · ${atlas.filter(a=>L.d.atlas[a.id]?.seen).length} görüldü</span></button>
       <button class="lcard" data-go="sims"><span class="ic">🩺</span><b>Sanal hasta</b><span class="big">${sims.length}</span><span class="small">${sims.filter(x=>L.d.sim[x.id]).length} vaka tamamlandı</span></button>
       <button class="lcard" data-go="practice"><span class="ic">✎</span><b>Alıştırma</b><span class="big">→</span><span class="small">konu konu soru çöz</span></button>
-      <button class="lcard" data-go="atls"><span class="ic">⏱</span><b>ATLS oyunu</b><span class="big">3</span><span class="small">Altın Saat · travma senaryosu</span></button>
+      <button class="lcard" data-go="atls"><span class="ic">⏱</span><b>ATLS oyunu</b><span class="big">4</span><span class="small">Altın Saat · travma senaryoları</span></button>
       <button class="lcard" data-go="acls"><span class="ic">♥</span><b>ACLS oyunu</b><span class="big">10</span><span class="small">Geri Dönüş · arrest, periarrest, megakod</span></button>
     </div>
     ${W?`<div class="card pad wkcard" style="margin-bottom:16px" id="wkHost"></div>`:""}
@@ -4640,27 +4640,29 @@ function score(alive,reason){
     if(c.from){ m=R.f.mark?.[c.from];
       if(m==null) unr=true;
       else { const ts=c.ids.flatMap(i=>(R.hist[i]||[]).filter(x=>x>=m)); if(ts.length) t=Math.min(...ts); else if(c.any&&c.ids.some(i=>(R.hist[i]||[]).length)) t=m; } }
+    else if(c.fn){ t=c.fn(R); }
     else { const ts=c.ids.map(i=>R.first[i]).filter(x=>x!=null); t=ts.length?Math.min(...ts):null; }
     const dt=t==null?null:t-(m||0), st=t==null?'n':(dt<=c.within?'y':'h');
-    return {label:c.label,within:c.within,pts:c.pts,t,st,got:st==='y'?c.pts:st==='h'?Math.round(c.pts/2):0,...(c.from?{rel:dt,unr}:{})}; });
+    return {label:c.label,within:c.within,pts:c.pts,t,st,got:st==='y'?c.pts:st==='h'?Math.round(c.pts/2):0,...(c.from?{rel:dt,unr}:{}),...(c.must?{must:1}:{})}; });
   const critSum=crit.reduce((a,c)=>a+c.got,0), critMax=crit.reduce((a,c)=>a+c.pts,0), penSum=R.pen.reduce((a,p)=>a+p.pts,0);
   const def=!!R.f.def, surv=alive?(def?50:20):0;
-  return {mode:cfgCur.mode,team:cfgCur.team,members:cfgCur.members,scen:s.id,scenTitle:s.title,score:Math.round((alive?R.coins:0)+critSum-penSum+surv),alive,def,minutes:R.t,coinsLeft:R.coins,start:R.start,
+  return {mode:cfgCur.mode,team:cfgCur.team,members:cfgCur.members,scen:s.id,scenTitle:s.title,score:Math.round((alive?Math.min(R.coins,s.coinCap??Infinity):0)+critSum-penSum+surv),alive,def,minutes:R.t,coinsLeft:R.coins,start:R.start,
     critSum,critMax,penSum,surv,crit,pen:R.pen,spent:R.spent,log:R.log.slice(-200).map(l=>({t:l.t,text:String(l.text).slice(0,400),cost:l.cost||0})),reason,
     vitals:C.snap(R)};
 }
 function debriefHtml(r){
   const verdict=C.verdict(r);
   const v=r.vitals||{}, tot=Object.values(r.spent||{}).reduce((a,b)=>a+b,0)||1;
+  const musts=(r.crit||[]).filter(c=>c.must), pass=musts.length?musts.every(c=>c.st!=='n'):null;
   return `<div class="at-deb">
     <section class="ad-p ad-verdict"><div><div class="ad-l">${esc(r.scenTitle)} · ${esc(r.team)} · dk ${r.minutes}</div><h2 class="${r.alive?'ok':'bad'}">${verdict}</h2>
-      <p class="ad-m">${esc(r.reason||'')} ${C.vline(v)}</p></div>
+      <p class="ad-m">${esc(r.reason||'')} ${C.vline(v)}</p>${pass==null?'':`<p class="ad-m"><span class="badge ${pass?'ok':'bad'}">Kritik tedavi kararları: ${pass?'Başarılı':'Tamamlanmadı'}</span> ${pass?'':'Eksik: '+musts.filter(c=>c.st==='n').map(c=>esc(c.label)).join(' · ')}</p>`}</div>
       <div class="ad-score"><div class="ad-l">Toplam puan</div><div class="mono">${r.score}</div></div></section>
     <div class="ad-grid">
       <section class="ad-p"><div class="ad-l">Kritik eylemler · ${r.critSum}/${r.critMax}</div>
-        ${(r.crit||[]).map(c=>`<div class="ad-crit ${c.st}"><span class="ic">${c.st==='y'?'✓':c.st==='h'?'◐':'✗'}</span><span>${esc(c.label)}<br><small>${c.t==null?(c.unr?'Bu aşamaya ulaşılmadı':'Yapılmadı'):'dk '+c.t+(c.rel!=null?` (aşama başından +${c.rel} dk)`:'')+(c.st==='h'?` — hedef ≤ ${c.within} dk, geç`:'')}</small></span><span class="mono">+${c.got}</span></div>`).join('')}</section>
+        ${(r.crit||[]).map(c=>`<div class="ad-crit ${c.st}"><span class="ic">${c.st==='y'?'✓':c.st==='h'?'◐':'✗'}</span><span>${esc(c.label)}${c.must?' <b title="Kritik tedavi kararı">★</b>':''}<br><small>${c.t==null?(c.unr?'Bu aşamaya ulaşılmadı':'Yapılmadı'):'dk '+c.t+(c.rel!=null?` (aşama başından +${c.rel} dk)`:'')+(c.st==='h'?` — hedef ≤ ${c.within} dk, geç`:'')}</small></span><span class="mono">+${c.got}</span></div>`).join('')}</section>
       <div class="ad-col">
-        <section class="ad-p"><div class="ad-l">Puan dökümü</div><div class="ad-bd"><span>Kalan coin${r.alive?"":" (hasta kaybedildi, sayılmaz)"}</span><span class="mono">${r.alive?r.coinsLeft:0}</span><span>Kritik eylemler</span><span class="mono">+${r.critSum}</span><span>Cezalar</span><span class="mono">−${r.penSum}</span><span>Sağkalım bonusu</span><span class="mono">+${r.surv}</span><b>Toplam</b><b class="mono">${r.score}</b></div></section>
+        <section class="ad-p"><div class="ad-l">Puan dökümü</div><div class="ad-bd"><span>Kalan coin${r.alive?(r.score-r.critSum+r.penSum-r.surv<r.coinsLeft?` (${r.coinsLeft} kaldı; bu vakada en çok ${r.score-r.critSum+r.penSum-r.surv} sayılır)`:''):" (hasta kaybedildi, sayılmaz)"}</span><span class="mono">${r.alive?r.score-r.critSum+r.penSum-r.surv:0}</span><span>Kritik eylemler</span><span class="mono">+${r.critSum}</span><span>Cezalar</span><span class="mono">−${r.penSum}</span><span>Sağkalım bonusu</span><span class="mono">+${r.surv}</span><b>Toplam</b><b class="mono">${r.score}</b></div></section>
         <section class="ad-p"><div class="ad-l">Hatalar ve cezalar</div>${(r.pen||[]).length?r.pen.map(p=>`<div class="ad-crit n"><span class="ic">!</span><span>${esc(p.reason)}<br><small>dk ${p.t}</small></span><span class="mono">−${p.pts}</span></div>`).join(''):'<div class="ad-m">Ceza yok.</div>'}</section>
         <section class="ad-p"><div class="ad-l">Coin nereye gitti</div><div class="ad-bars">${Object.entries(r.spent||{}).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<div class="ad-bar"><span>${CATNAME[k]||k}</span><span class="tr"><span style="width:${n/tot*100}%"></span></span><span class="mono">${n}</span></div>`).join('')||'<div class="ad-m">Coin harcanmadı.</div>'}</div></section>
       </div></div>
@@ -4851,6 +4853,20 @@ const ACTIONS=[
  {id:'k_ir',cat:'K',kind:'cons',cost:10,label:'Girişimsel radyoloji (anjiyoembolizasyon)',once:1},
  {id:'k_neuro',cat:'K',kind:'cons',cost:10,label:'Beyin cerrahisi',once:1},
  {id:'k_ortho',cat:'K',kind:'cons',cost:10,label:'Ortopedi',once:1},
+ {id:'a_ppe',cat:'A',kind:'info',cost:0,label:'Standart koruyucu önlemler',once:1},
+ {id:'a_headtilt',cat:'A',kind:'int',cost:5,label:'Baş geri – çene yukarı (boyun ekstansiyonu)',once:1},
+ {id:'b_bvm',cat:'B',kind:'int',cost:5,label:'Ventilasyon desteği (balon-valf / ventilatör)'},
+ {id:'x_open',cat:'x',kind:'info',cost:5,label:'Kanayan pansumanı aç, kaynağı değerlendir',once:1},
+ {id:'x_scalp',cat:'x',kind:'int',cost:5,label:'Saçlı deri kanaması: bası / hızlı sütür',once:1},
+ {id:'d_wound',cat:'D',kind:'int',cost:5,label:'Açık kafa yarası: sondalamadan kapat, koru',once:1},
+ {id:'e_traction',cat:'E',kind:'int',cost:10,label:'Traksiyon ateli (femur)',once:1},
+ {id:'t_ogt',cat:'T',kind:'int',cost:5,label:'Orogastrik tüp',once:1},
+ {id:'t_ngt',cat:'T',kind:'int',cost:5,label:'Nazogastrik tüp',once:1},
+ {id:'t_cspine',cat:'T',kind:'test',cost:10,label:'Lateral servikal grafi'},
+ {id:'t_extxr',cat:'T',kind:'test',cost:10,label:'Ekstremite grafileri'},
+ {id:'k_tetanus',cat:'K',kind:'int',cost:5,label:'Tetanoz profilaksisi (± antibiyotik)',once:1},
+ {id:'k_transfer',cat:'K',kind:'cons',cost:10,label:'Üst merkeze sevk: kabul eden hekimle görüş',once:1},
+ {id:'k_sbar',cat:'K',kind:'cons',cost:5,label:'Sevk hazırlığı ve SBAR devri',once:1},
 ];
 const DEF={
  x_inspect:'Masif dış kanama yok.',x_pressure:'Bası uygulandı; aktif dış kanama odağı yok.',x_tourniquet:'Ekstremitede kontrolsüz kanama yok — endikasyon yok.',
@@ -4862,7 +4878,12 @@ const DEF={
  d_headup:'Yatak başı 30° kaldırıldı.',e_expose:'Ek yaralanma saptanmadı.',e_logroll:'Sırtta basamaklanma ve hassasiyet yok.',e_warm:'Isıtıcı battaniye, ortam ısısı artırıldı, sıvılar ısıtılıyor.',
  e_splint:'Atel uygulandı.',t_efast:'eFAST negatif.',t_cxr:'Akciğer grafisi normal.',t_pxr:'Pelvis grafisi normal.',t_abg:'Kan gazı normal sınırlarda.',t_lab:'Laboratuvar gönderildi.',
  t_ecg:'Sinüs ritmi.',t_foley:'Üriner kateter takıldı.',t_ct:'BT normal.',k_ample:'Öykü alınamadı.',
- k_surgery:'Cerrahi ekip haberdar edildi.',k_ir:'Girişimsel radyoloji haberdar edildi.',k_neuro:'Beyin cerrahisi haberdar edildi.',k_ortho:'Ortopedi haberdar edildi.'
+ k_surgery:'Cerrahi ekip haberdar edildi.',k_ir:'Girişimsel radyoloji haberdar edildi.',k_neuro:'Beyin cerrahisi haberdar edildi.',k_ortho:'Ortopedi haberdar edildi.',
+ a_ppe:'Standart koruyucu önlemler alındı: eldiven, önlük, gözlük, maske.',a_headtilt:'Baş geri – çene yukarı manevrası yapıldı (travmada servikal yaralanma riski!).',
+ b_bvm:'Balon-valf-maske ile ventilasyon desteği verildi.',x_open:'Pansuman açıldı; aktif kanama odağı yok.',x_scalp:'Saçlı deride kanama yok.',d_wound:'Açık kafa yarası yok.',
+ e_traction:'Femur kırığı yok; traksiyon ateli endikasyonu yok.',t_ogt:'Orogastrik tüp yerleştirildi.',t_ngt:'Nazogastrik tüp yerleştirildi.',
+ t_cspine:'Lateral servikal grafi: kırık görülmedi (C7–T1 değerlendirilemediyse BT gerekir).',t_extxr:'Ekstremite grafilerinde kırık yok.',
+ k_tetanus:'Tetanoz profilaksisi değerlendirildi / uygulandı.',k_transfer:'Sevk için kabul eden hekimle görüşüldü.',k_sbar:'Sevk hazırlığı yapıldı, SBAR ile devredildi.'
 };
 
 /* ================= HELPERS ================= */
@@ -5043,6 +5064,123 @@ const SCEN=[
  hints:['Hipotansiyon + dolgun boyun venleri + derinden gelen kalp sesleri…','Yatak başı tanı için en hızlı tetkik hangisi?','Perikardiyosentez yalnızca köprüdür. Definitif tedavi?','İndüksiyon ve pozitif basınç bu hastada arreste yol açabilir.']}
 ];
 
+/* ---- Kurs değerlendirme vakası: Hasta B (eğitmenin senaryo ve değerlendirme formundan) ---- */
+const firstOf=(R,ids)=>{ const t=ids.map(i=>R.first[i]).filter(x=>x!=null); return t.length?Math.min(...t):null; };
+SCEN.push({id:'hastaB',tag:'04',title:'Hasta B: kasksız motosiklet, çoklu travma',group:'Kurs değerlendirme vakaları',limit:40,coins:300,coinCap:50,
+ brief:'24 yaş erkek, yarı römorkun altına kaydı; yüz kırıkları, şok, açık femur kırığı. Küçük hastanede tek hekimsiniz.',
+ mist:'112: “M: Kasksız motosikletle yarı römorklu araca önden çarpmış, aracın altına kaymış. I: Kanayan açık sol femur kırığı, sol el bileğinde deformite, santral siyanoz, sol temporal kanayan laserasyon. S: TA 80/40, nabız 140, solunum 40/dk; çok gürültülü ve yetersiz soluyor, yalnız basınca yanıt veriyor. T: OPA, maskeyle 6–8 L/dk O₂, uyluk ve başa basınçlı pansuman (kanla ıslandı), kolar ve uzun tahta, el bileğine atel.” Küçük bir yerel hastanede bu hastaya bakabilecek tek hekimsiniz.',
+ init:{v:{hr:140,sbp:80,dbp:40,rr:40,spo2:78,gcs:8,temp:36.1},f:{aw:'obs',femCtl:0,scalpCtl:0,cspine:1}},
+ tick(R,lg){ const v=R.v,f=R.f;
+   if(f.aw==='obs'){ v.spo2-=f.o2?1.2:1.6; v.rr=40; }
+   else { toward(v,'spo2',(f.vent?90:82)+(f.tube?6:0),3); v.rr=f.vent?24:30; }
+   const fem=f.femCtl>=2?0:f.femCtl===1?.6:1.2, sc=f.scalpCtl?0:.6, loss=fem+sc;
+   v.sbp-=loss*(f.txa?.85:1); if(f.mtp) v.sbp+=loss===0?2.2:1.4; if(v.sbp>112) v.sbp=112;
+   if(loss===0&&!f.ctlMsg){ f.ctlMsg=1; lg('sys','Femur ve saçlı deri kanaması kontrol altında; kalp hızı düşüyor.'); }
+   toward(v,'hr',72+Math.max(0,118-v.sbp)*1.1+(loss>0?14:0),5);
+   if(v.spo2<85||v.sbp<70) v.gcs-=.15;
+   v.dbp=v.sbp*.55;
+   if(f.transfer&&f.aw!=='obs'&&loss===0) f.def=1; },
+ act:{
+   a_headtilt:R=>{ R.f.cord=1; return {text:'Boyun hiperekstansiyona getirildi: havayolu açılmadı ve hasta artık alt ekstremitelerini hareket ettiremiyor!',pen:[20,'Havayolunu açarken boyun hiperekstansiyonu (omurilik yaralanması)']}; },
+   a_jaw:()=>({text:'Spinal hareket kısıtlanarak çene itme yapıldı: solunum sıkıntısı düzelmedi.'}),
+   a_suction:R=>{ R.v.spo2+=2; return {text:'Ağız ve farenks aspire edildi; kan gelmeye devam ediyor. Solunum hâlâ gürültülü, siyanoz sürüyor.'}; },
+   a_opa:()=>({text:'OPA zaten yerinde; tıkanıklık yüz kırıkları ve kana bağlı, sürüyor.'}),
+   b_bvm:R=>{ const f=R.f; if(f.aw==='obs'){ R.v.spo2-=6; return {text:'Maske ağır yaralı yüze bastırılınca solunum kötüleşti, satürasyon düştü!'}; }
+     f.vent=1; return {text:'Cerrahi havayolu üzerinden yüksek konsantrasyon O₂ ile balon / ventilatör desteği (hemşire dışında biri ventile ediyor). Hasta kolay ventile ediliyor, rengi düzeliyor.'}; },
+   a_rsi:R=>R.f.aw==='obs'?{text:'Servikal hareket kısıtlanarak orotrakeal entübasyon denendi: vokal kordlar görülemiyor, aspirasyona rağmen farenks sürekli kanla doluyor. Entübasyon başarısız.'}
+     :{text:'Havayolu zaten cerrahi olarak güvencede.',pen:[10,'Cerrahi havayolu varken entübasyon girişimi']},
+   a_cric:R=>{ const f=R.f; if(f.aw!=='obs') return {text:'Krikotiroidotomi zaten yapılmış.'};
+     f.aw='surg'; f.intub=1; R.v.spo2=Math.max(R.v.spo2,76);
+     return {text:'Yardımcı baş-boynu sabitlerken kolar açıldı; anatomik işaretler bulundu, cerrahi krikotiroidotomi yapıldı. Hasta daha iyi soluyor ama solunum yüzeyel: ventilasyon desteği gerekli. SpO₂ %82.',
+       pen:f.cspine?null:[10,'Krikotiroidotomi sırasında baş-boyun hareketi kısıtlanmadı']}; },
+   b_needle_l:()=>({text:'Hava gelmedi; hipersonorite ve tansiyon bulgusu yoktu.',pen:[10,'Tansiyon pnömotoraks bulgusu yokken iğne dekompresyon']}),
+   b_needle_r:()=>({text:'Hava gelmedi.',pen:[10,'Tansiyon pnömotoraks bulgusu yokken iğne dekompresyon']}),
+   b_tube_l:R=>{ R.f.tube=1; return {text:'Sol 5. interkostal aralık, orta aksiller hat: göğüs tüpü su altı drenaja bağlandı; az miktarda kan ve hava geldi.'}; },
+   b_tube_r:()=>({text:'Sağ hemitoraksta patoloji yoktu.',pen:[15,'Yanlış tarafa göğüs tüpü']}),
+   b_seal:()=>({text:'Açık göğüs yarası yok.',pen:[3,'Endikasyonsuz kapatıcı pansuman']}),
+   x_open:R=>{ R.f.open=1; return {text:'Pansumanlar açıldı: açık sol femur kırığından yoğun kanama; saçlı deride arteriyel (fışkıran) kanama. Sol ayakta nabız yok, ayak soğuk ve soluk. Giysiler ve yatak örtüsü kan içinde.'}; },
+   x_pressure:R=>{ const f=R.f; if(!f.open) return {text:'Islanmış pansumanın üzerinden bası yapıldı; kanama sürüyor. Kaynağı görmek için pansumanı açın.'};
+     f.femCtl=Math.max(f.femCtl,1); return {text:'Femur yarasına doğrudan bası uygulandı; kanama azaldı ama sürüyor.'}; },
+   e_traction:R=>{ const f=R.f; f.femCtl=f.open?2:Math.max(f.femCtl,1);
+     return {text:f.open?'Sol bacağa traksiyon ateli + basınçlı pansuman: femur kanaması kontrol altında; distal nabızlar yeniden alınıyor, ayak ısınıyor.':'Traksiyon ateli uygulandı; kanama azaldı ama yara görülmeden kaynak değerlendirilemedi.'}; },
+   x_tourniquet:R=>{ const f=R.f; if(!f.open) return {text:'Turnike uygulandı; yara görülmeden kaynak değerlendirilemedi.'}; f.femCtl=2;
+     return {text:'Uyluk turnikesi kanamayı durdurdu. Uygulama saatini kaydedin; traksiyon ateli ve basınçlı pansumanla kontrol, distal perfüzyonu korumak için tercih edilir.'}; },
+   x_scalp:R=>{ if(!R.f.open) return {text:'Baştaki pansumanın üzerinden bası yapıldı; kaynak görülmeden kanama sürüyor. Pansumanı açın.'};
+     R.f.scalpCtl=1; return {text:'Saçlı deri arteriyel kanamasına doğrudan bası ve hızlı sütür: kanama durdu.'}; },
+   c_fluid:R=>{ R.v.sbp+=3; return R.f.fluid>2?{text:'Kristaloid verildi; yanıt yok.',pen:[10,'Aşırı kristaloid (> 2 L), kan ürünü yerine']}:{text:'Isıtılmış 1000 mL kristaloid: TA ve nabız yanıt vermedi.'}; },
+   c_blood:R=>{ R.f.mtp=1; return {text:'Isıtılmış O Rh(−) kan başlandı, masif transfüzyon protokolü aktive edildi (dengeli resüsitasyon). Çapraz karşılaştırmalı kan 20 dk sonra hazır.'}; },
+   c_txa:R=>{ R.f.txa=1; return {text:'Traneksamik asit 1 g 10 dk’da, ardından 1 g 8 saatte.'}; },
+   c_binder:()=>({text:'Pelvis stabil; kuşak endikasyonu yok.',pen:[5,'Endikasyonsuz pelvik kuşak']}),
+   c_pericardio:()=>({text:'Perikardda sıvı yok.',pen:[15,'Endikasyonsuz perikardiyosentez']}),
+   d_hyperosm:()=>({text:'Hipotansif hastada ozmotik tedavi hipovolemiyi artırabilir; öncelik oksijenasyon, ventilasyon ve perfüzyon.'}),
+   e_logroll:R=>R.f.cspine?{text:'Modifiye logroll ile spinal koruma altında çevrildi, tahta çıkarıldı. Sırtta belirgin yaralanma yok; rektal muayene normal.'}
+     :(R.f.cord=1,{text:'Logroll sırasında baş-boyun sabitlenmedi: hasta artık alt ekstremitelerini hareket ettiremiyor!',pen:[20,'Logroll sırasında spinal koruma sürdürülmedi']}),
+   t_foley:R=>({text:'Üretra ağzında kan yok, perineal ekimoz yok; kateterden 50 mL berrak, sarı idrar.',pen:R.done.e_expose||R.done.c_pelvis?null:[5,'Kateter öncesi üretra ağzı ve perine değerlendirilmedi']}),
+   t_ngt:()=>({text:'Yüz kırıkları ve olası kribriform plak kırığında nazal tüp kontrendike!',pen:[15,'Yüz / kafa tabanı travmasında nazogastrik tüp (nazal girişim)']}),
+   t_ct:R=>({text:'Hasta 10 dk BT’de kaldı; sevk gecikti.',pen:[15,'Tanısal inceleme için sevki geciktirme'],hurt:()=>{ if(R.f.femCtl<2||!R.f.scalpCtl) R.v.sbp-=10; }}),
+   k_surgery:()=>({text:'Bu hastanede cerrahi ekip yok; kesin tedavi için sevk gerekir.'}),
+   k_ir:()=>({text:'Bu hastanede girişimsel radyoloji yok; sevk gerekir.'}),
+   k_ortho:()=>({text:'Bu hastanede ortopedi yok; sevk merkezinde değerlendirilecek.'}),
+   k_neuro:R=>{ R.f.neuro=1; return {text:'Hastanenizde beyin cerrahisi yok: beyin cerrahisi olan merkezle görüşülmeli. İdari personel sevk için ilk iletişimi başlattı.'}; },
+   k_transfer:R=>{ R.f.transfer=1; return {text:'Üst düzey travma merkezindeki kabul eden hekimle doğrudan görüşüldü; hasta kabul edildi.'+(R.f.aw==='obs'?' Havayolu güvence altında değilken hasta yola çıkamaz.':'')}; } },
+ find:{
+   a_talk:R=>R.f.aw==='obs'?'Konuşamıyor; çok gürültülü, hırıltılı ve hızlı solunum; ağız ve burunda kan, yüzde deformite.':'Krikotiroidotomi nedeniyle konuşamıyor.',
+   a_inspect:'Yüzde belirgin deformite ve krepitasyon, ağız ve burunda aktif kanama; OPA yerinde ama farenks kanla doluyor.',
+   a_cspine:'Kolar ve uzun tahta yerinde; manuel in-line stabilizasyon için yardımcı görevlendirildi, spinal hareket kısıtlaması sürdürülüyor. Oksiput ve üst boyun palpasyonunda hassasiyet.',
+   b_o2:'Yüksek akım O₂ (15 L/dk). Siyanoz sürüyor.',
+   b_inspect:'Takipneik; sol göğüs duvarında abrazyon ve kontüzyon, solda ekspansiyon azalmış. Boyun venleri düz.',
+   b_palp:'Trakea orta hatta. Sol göğüs duvarında hassasiyet, kırık krepitasyonu ve cilt altı amfizem.',
+   b_ausc:'Her iki tarafta solunum sesi var ama azalmış (solda daha belirgin).',
+   b_perc:'Solda perküsyon mat; hipersonorite yok.',
+   c_skin:R=>(R.v.sbp<90?'Soluk, soğuk, terli; kapiller dolum 4 sn; radiyal nabız zayıf ve hızlı. ':'Cilt ısınıyor, kapiller dolum 2–3 sn. ')+sbpW(R),
+   c_pelvis:'Pelvis stabil; sol kalçada hareketle ağrı.',
+   x_inspect:'Sol uyluk ve baştaki basınçlı pansumanlar kanla ıslanmış; giysiler ve yatak örtüsü kan içinde.',
+   d_gcs:R=>gcsTxt(R)+(R.f.intub?' — sözel yanıt değerlendirilemez (VNT): koma.':''),
+   d_pupil:'Pupiller orta derecede dilate, ışığa bilateral yavaş yanıt.',
+   d_lateral:R=>R.f.cord?'Basınç uyaranıyla sağ üst ekstremite hareket ediyor; ALT EKSTREMİTELERDE HAREKET YOK.':'Basınç uyaranıyla sağ ekstremiteler hareket ediyor; sol taraf yaralanmalar nedeniyle kısıtlı.',
+   d_glucose:'Kan şekeri 128 mg/dL.',
+   d_wound:'Sol temporal çökme kırığı fark edildi; yara sondalanmadan nazikçe kapatıldı, steril pansumanla kontaminasyondan korundu.',
+   e_expose:'Tüm giysiler çıkarıldı: yüz deformitesi, sol temporal yara ve çökme, sol göğüste abrazyon / kontüzyon, açık sol femur kırığı, sol el bileğinde deformite ve şişlik. Üretra ağzında kan ve perineal ekimoz yok.',
+   e_splint:'Sol el bileği deformitesi atelle immobilize edildi; distal nabız ve dolaşım iyi.',
+   t_efast:'FAST normal: perikard ve batında serbest sıvı yok.',
+   t_cxr:R=>`Solda çoklu kosta kırıkları, pulmoner kontüzyon, sol hemotoraks${R.f.tube?', sol göğüs tüpü yerinde':''}, cilt altı hava. Sol hemidiyafram seçilemiyor${R.done.t_ogt?', gastrik tüp yer değiştirmiş':''}: DİYAFRAM RÜPTÜRÜ şüphesi.`,
+   t_pxr:'Pelvik halka sağlam; sol femur boynu / intertrokanterik kırık.',
+   t_extxr:'Sol femur cisim orta bölüm kırığı; sol distal radius kırığı.',
+   t_cspine:'Yatay ışınlı lateral servikal grafi: C1 kırığı. C6–T1 seçilemiyor; kırık dışlanamaz, spinal koruma sürmeli. (Grafi resüsitasyonu geciktirmemeli.)',
+   t_abg:R=>R.f.aw==='obs'?'PaO₂ 45 mmHg, PaCO₂ 58 mmHg, pH 7.18, SaO₂ %78, BD −9: ağır hipoksemi ve hiperkapni.'
+     :(R.f.femCtl>=2&&R.f.scalpCtl&&R.f.vent?'PaO₂ 80 mmHg (10,7 kPa), PaCO₂ 28 mmHg (3,7 kPa), pH 7.32, SaO₂ %96, BD −5 mEq/L.':'PaO₂ 60 mmHg (8 kPa), PaCO₂ 36 mmHg (4,8 kPa), pH 7.25, SaO₂ %90, BD −7,2 mEq/L.'),
+   t_lab:'Kan grubu, çapraz karşılaştırma, hemogram, koagülasyon ve biyokimya gönderildi; sonuçlar 20 dk sonra.',
+   t_ecg:'Sinüs taşikardisi.',t_ogt:'Orogastrik tüp yerleştirildi; mide dekomprese edildi.',
+   k_ample:'A, M, P: bilinmiyor (hasta konuşamıyor, yakını yok) · L: bilinmiyor · E: kasksız motosikletle yarı römorklu araca önden çarpma, aracın altına kayma.',
+   k_tetanus:'Tetanoz toksoidi uygulandı; açık kırık için geniş spektrumlu antibiyotik başlandı (doz kiloya göre).',
+   k_sbar:'Sevk hazırlığı: kesintisiz monitörizasyon, krikotiroidotomi sabitlendi, göğüs tüpü ve drenaj kontrol edildi, spinal koruma ve kolar sürüyor; eşlik edecek ekip, ekipman ve grafiler hazır. Yolda TA düşmesi, GKS kötüleşmesi, cric veya tüp sorununa karşı plan yapıldı; ABC–SBAR ile devir.'},
+ crit:[
+  {label:'Standart koruyucu önlemler',ids:['a_ppe'],within:1,pts:5},
+  {label:'Spinal hareket kısıtlaması sürdürüldü',ids:['a_cspine'],within:2,pts:10,must:1},
+  {label:'Havayolu aspirasyonu',ids:['a_suction'],within:3,pts:5},
+  {label:'Yüksek akım O₂',ids:['b_o2'],within:3,pts:5},
+  {label:'Krikotiroidotomi (zamanında, spinal koruma ile)',ids:['a_cric'],within:6,pts:25,must:1},
+  {label:'Cric sonrası ventilasyon desteği',ids:['b_bvm'],within:8,pts:10,must:1,fn:R=>{ const h=R.hist.b_bvm||[], c=R.first.a_cric; if(c==null) return null; const t=h.find(x=>x>=c); return t==null?null:t; }},
+  {label:'Öncelik sırası: havayolu, dolaşım müdahalelerinden önce güvenceye alındı',ids:['a_cric'],within:60,pts:5,must:1,fn:R=>{ const a=R.first.a_cric; if(a==null) return null; const c=firstOf(R,['c_blood','e_traction','x_scalp','x_tourniquet']); return c==null||a<=c?a:null; }},
+  {label:'İki geniş damar yolu + kan örnekleri',ids:['c_iv'],within:6,pts:5},
+  {label:'Hemorajik şok: kan transfüzyonu / MTP zamanında',ids:['c_blood'],within:10,pts:15,must:1},
+  {label:'Kanama kaynağını görmek için pansumanları aç',ids:['x_open'],within:9,pts:5},
+  {label:'Femur kanaması: bası + traksiyon ateli',ids:['e_traction','x_tourniquet'],within:10,pts:15,must:1},
+  {label:'Saçlı deri arteriyel kanaması kontrolü',ids:['x_scalp'],within:11,pts:10,must:1},
+  {label:'Sol göğüs tüpü',ids:['b_tube_l'],within:20,pts:10},
+  {label:'Akciğer ve pelvis grafisi',ids:['t_cxr','t_pxr'],within:18,pts:5},
+  {label:'Orogastrik tüp (nazal yol değil)',ids:['t_ogt'],within:20,pts:5},
+  {label:'GKS ve pupil değerlendirmesi',ids:['d_gcs','d_pupil'],within:15,pts:5},
+  {label:'Açık kafa travması: yarayı kontaminasyondan koru',ids:['d_wound'],within:20,pts:5},
+  {label:'Beyin cerrahisi gereksinimi / iletişim',ids:['k_neuro'],within:20,pts:5,must:1},
+  {label:'Hipotermiden korunma',ids:['e_warm'],within:15,pts:5},
+  {label:'Sol el bileği kırığını immobilize et',ids:['e_splint'],within:25,pts:5},
+  {label:'Tetanoz profilaksisi',ids:['k_tetanus'],within:25,pts:5},
+  {label:'Sevk: kabul eden hekimle doğrudan görüşme',ids:['k_transfer'],within:25,pts:15,must:1},
+  {label:'Sevk hazırlığı ve SBAR devri',ids:['k_sbar'],within:30,pts:10}],
+ hints:['Önce A: yüz kırıklarına bağlı havayolu tıkanıklığı. Basit manevralar ve entübasyon işe yaramazsa ne yaparsınız?','Cerrahi havayolundan sonra hasta tek başına yeterli soluyamaz.','Pansumanlar kanla ıslanmış: kaynağı görmek için açın. Femur ve saçlı deri.','Küçük bir hastanedesiniz: kesin tedavi nerede? Sevki geciktiren her şeyden kaçının.']
+});
+
 return SIM_ENGINE({key:'atls',coll:'atlsRuns',view:'atls',playView:'atlsPlay',editView:'atlsEdit',deltaKeys:[['hr','Nabız'],['sbp','Sistolik TA'],['spo2','SpO₂'],['rr','Solunum'],['gcs','GKS'],['temp','Ateş']],brand:'Altın Saat',short:'ATLS oyunu',
   cardTitle:'ATLS Ekip Oyunu · Altın Saat',cardDesc:'Travma hastası gerçek zamanlı kötüleşir. Ekip xABCDE sırasıyla muayene, tetkik ve müdahaleye coin harcar; zamanında kritik eylem puan, zararlı işlem ceza getirir.',
   pageTitle:'ATLS oyunu · Altın Saat',pageSub:'Travma hastası gelir ve zaman akar. Her muayene, tetkik ve müdahale coin harcar. Doğru sırayla, az coin harcayarak hastayı definitif bakıma ulaştırın.',
@@ -5051,7 +5189,7 @@ return SIM_ENGINE({key:'atls',coll:'atlsRuns',view:'atls',playView:'atlsPlay',ed
     'Puan = kalan coin (hasta yaşıyorsa) + zamanında yapılan kritik eylemler − cezalar + sağkalım bonusu.'],
   ROLES:['Ekip lideri','Havayolu','Dolaşım','Kayıt / prosedür'],CATS,ACTIONS,DEF,SCEN,
   catName:{x:'X Kanama',A:'A Havayolu',B:'B Solunum',C:'C Dolaşım',D:'D Nörolojik',E:'E Açığa çıkar',T:'Tetkik',K:'Konsült'},
-  quick:{id:'k_ample',label:'AMPLE öykü'},searchPh:'Ara: göğüs tüpü, eFAST, pelvik…',
+  quick:{id:'k_ample',label:'AMPLE öykü'},searchPh:'Ara: göğüs tüpü, eFAST, pelvik…',coinOpts:[100,150,200,250,300],
   monId:'c_monitor',monBtn:'Monitör bağla',monText:'Monitör bağlandı: EKG, SpO₂, NIBP aktif.',ivMsg:'Damar yolu yok. Önce “İki geniş damar yolu”.',
   flags:{b_o2:F=>F.o2=1,e_warm:(F,R)=>{F.warm=1; if(R.v.temp<36) R.v.temp+=.3;},c_iv:F=>F.iv=1,a_cspine:F=>F.cspine=1,c_monitor:F=>F.mon=1,c_fluid:F=>F.fluid++},
   after(R){ if(!R.f.warm) R.v.temp-=.04; const v=R.v; v.sbp=clamp(v.sbp,0,220); v.spo2=clamp(v.spo2,40,100); v.hr=clamp(v.hr,20,190); v.gcs=clamp(v.gcs,3,15); v.rr=clamp(v.rr,4,44); },

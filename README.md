@@ -95,6 +95,11 @@ Asistanlar siteye girdiğinde **Öğren** sekmesi açılır (açık bir sınavla
 - Puan = kalan coin (hasta yaşıyorsa) + zamanında kritik eylemler − cezalar + sağkalım bonusu. Sonuçlar `atlsRuns` koleksiyonuna kaydedilir; Oyunlar sekmesinde değerlendirme ve senaryo bazında liderlik tablosu.
 - Asistanlar **Öğren → ATLS oyunu** kartından bireysel oynar ve yalnız kendi sonuçlarını görür. Öğrenci önizlemesinde sonuç kaydedilmez.
 
+### ATLS kurs değerlendirme vakası: Hasta B
+- 24 yaş, kasksız motosiklet → yarı römork altı; maksillofasiyal havayolu tıkanıklığı (çene itme, aspirasyon, BVM ve orotrakeal entübasyon başarısız → servikal koruma ile **krikotiroidotomi** + ventilasyon desteği), hemorajik şok (açık femur kırığı + saçlı deri arteriyel kanaması: pansumanı aç, bası, **traksiyon ateli**, sütür; O Rh(−) kan / MTP), sol kosta kırıkları / hemotoraks (sol göğüs tüpü), açık çökme kırığı, sol el bileği kırığı; küçük hastanede **sevk**.
+- Değerlendirme formu → puanlama: “Kritik tedavi kararları” ★ ile işaretli kritik eylemler (öncelik sırası dahil); değerlendirmede **Başarılı / Tamamlanmadı** sonucu çıkar. “Gözlenen uygulamalar” kritik eylem veya ceza: boyun hiperekstansiyonu / korumasız logroll (alt ekstremite hareketi kaybolur), nazogastrik tüp, sevki BT için geciktirme, aşırı kristaloid.
+- Bütçe 300 coin, süre 40 dk; bu vakada kalan coin'in en çok 50'si puana sayılır (eksiksizlik öncelikli).
+
 ## ACLS Ekip Oyunu · Geri Dönüş
 - **Oyunlar → ACLS Ekip Oyunu → + Yeni oyun**; asistanlar **Öğren → ACLS oyunu**. Kurulum, coin, eğitmen modu (ayrı projeksiyon ekranı), listede olmayan istek, değerlendirme ve liderlik ATLS ile aynıdır. Sonuçlar `aclsRuns` koleksiyonunda. Roller: lider, göğüs basısı, havayolu, damar yolu/ilaç, defibrilatör/monitör, kayıt/zaman.
 - Senaryolar: tanıklı VF arrest (inferior STEMI), diyaliz hastasında hiperkalemiye bağlı NEA, semptomatik bradikardi (tam AV blok), unstabil monomorfik VT (hipokalemi/hipomagnezemi).
