@@ -217,6 +217,15 @@ await t("asistan ACLS puanını değiştiremez", () => assertFails(updateDoc(doc
 await t("yönetici ACLS sonuçlarını listeler", () => assertSucceeds(getDocs(collection(admin, "aclsRuns"))));
 await t("oyun kuralı başka koleksiyona yazma izni vermez", () => assertFails(setDoc(doc(ayse, "rastgeleRuns/z1"), run("u1", "ayse@gmail.com"))));
 
+console.log("Oyun kartları (simCustom)");
+const kart = { actions: [{ id: "u_1", label: "Glukagon", cat: "I", kind: "int", cost: 10, scen: { "*": { text: "Verildi" } } }], updatedAt: serverTimestamp() };
+await t("yönetici oyun kartı ekler", () => assertSucceeds(setDoc(doc(admin, "simCustom/acls"), kart)));
+await t("asistan oyun kartlarını okur", () => assertSucceeds(getDoc(doc(ayse, "simCustom/acls"))));
+await t("asistan oyun kartı ekleyemez", () => assertFails(setDoc(doc(ayse, "simCustom/acls"), kart)));
+await t("listede olmayan kullanıcı oyun kartlarını okuyamaz", () => assertFails(getDoc(doc(yabanci, "simCustom/acls"))));
+await t("bilinmeyen kursa kart yazılamaz", () => assertFails(setDoc(doc(admin, "simCustom/baska"), kart)));
+await t("kart belgesine fazladan alan yazılamaz", () => assertFails(setDoc(doc(admin, "simCustom/atls"), { ...kart, x: 1 })));
+
 await env.cleanup();
 console.log(`\n${pass} geçti, ${failN} başarısız`);
 process.exit(failN ? 1 : 0);

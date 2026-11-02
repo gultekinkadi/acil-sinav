@@ -488,6 +488,9 @@ body.game-mode:has(.gm.atls){background:#0c1211}
 .at-log>div{display:grid;grid-template-columns:54px 1fr auto;gap:8px;padding:4px 0;border-bottom:1px solid var(--a-line,var(--line))}
 .at-log .tm{color:var(--a-muted,var(--muted))}
 .at-scl{display:grid;gap:8px}
+.at-cu{font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--a-gold,var(--warn));border:1px solid currentColor;border-radius:4px;padding:0 4px;vertical-align:middle}
+.cu-sc{border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:8px}.cu-sc summary{cursor:pointer}
+.cu-dk{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}.cu-dk label{display:flex;flex-direction:column;gap:2px}.cu-dk input{width:100%}
 .at-sc{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:9px 10px;cursor:pointer}
 .at-sc span{display:flex;flex-direction:column}.at-sc:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
 .at-rsc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
@@ -1053,7 +1056,7 @@ function shell(content, tabs){
 }
 function adminTabs(){
   const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["edu","Eğitim"],["games","Oyunlar"],["residents","Asistanlar"],["settings","Ayarlar"]];
-  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents",liveHost:"games",jEdit:"games",jPlay:"games",atlsPlay:"games",aclsPlay:"games",atlasEdit:"edu",atlasView:"edu",simEdit:"edu",simPlay:"edu"}[S.view]||S.view;
+  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents",liveHost:"games",jEdit:"games",jPlay:"games",atlsPlay:"games",aclsPlay:"games",atlsEdit:"games",aclsEdit:"games",atlasEdit:"edu",atlasView:"edu",simEdit:"edu",simPlay:"edu"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join("");
 }
 function bindShell(){
@@ -1079,6 +1082,8 @@ async function render(){
       if(v==="games") return await viewGames();
       if(v==="atlsPlay") return ATLS.play(S.params.cfg,S.params.back);
       if(v==="aclsPlay") return ACLS.play(S.params.cfg,S.params.back);
+      if(v==="atlsEdit") return await ATLS.editor();
+      if(v==="aclsEdit") return await ACLS.editor();
       if(v==="liveHost") return await viewLiveHost(S.params.id);
       if(v==="jEdit") return await viewJEdit(S.params.id);
       if(v==="jPlay") return await viewJPlay(S.params.id);
@@ -4338,8 +4343,24 @@ function sinusY(p){ if(p<.08) return 40-Math.sin(p/.08*Math.PI)*5; if(p>.14&&p<.
 /* ================= SİMÜLASYON MOTORU (ATLS / ACLS ortak) ================= */
 const SIM_ENGINE=C=>{
 const {CATS,ACTIONS,DEF,SCEN,ROLES,key:K}=C;
-const A=Object.fromEntries(ACTIONS.map(a=>[a.id,a]));
+let ALL=ACTIONS, A=Object.fromEntries(ACTIONS.map(a=>[a.id,a])), CUSTOM=[];
 const LIMIT=C.limit||30, HINT_COST=25;
+/* eğitmenin eklediği müdahale / bilgi kartları (simCustom/{kurs}) */
+function applyCustom(list){
+  CUSTOM=(Array.isArray(list)?list:[]).filter(x=>x&&x.id&&x.label&&CATS.some(c=>c.id===x.cat)&&!ACTIONS.some(a=>a.id===x.id))
+    .map(x=>({...x,custom:1,kind:KIND[x.kind]?x.kind:'info',cost:clamp(Math.round(+x.cost||0),0,50),dur:clamp(Math.round(+x.dur||0),0,10),once:x.once?1:0,iv:x.iv?1:0}));
+  ALL=[...ACTIONS,...CUSTOM]; A=Object.fromEntries(ALL.map(a=>[a.id,a]));
+}
+async function loadCustom(){ try{ const d=await getDoc(doc(db,'simCustom',K)); applyCustom(d.exists()?d.data().actions:[]); }catch(e){ console.error(e); applyCustom([]); } return CUSTOM; }
+const hasD=d=>d&&Object.values(d).some(x=>x!==''&&x!=null&&+x!==0);
+function customOut(a,sid){ const sc0=(a.scen||{})['*']||{}, z=(a.scen||{})[sid]||{};
+  const own=!!((z.text||'').trim()||hasD(z.d)||+z.pen);
+  return {text:(z.text||'').trim()||(sc0.text||'').trim()||'Uygulandı.',pen:own?(+z.pen||0):(+sc0.pen||0),d:hasD(z.d)?z.d:(sc0.d||{})}; }
+function customResp(a,s){ const o=customOut(a,s.id); const r={text:o.text};
+  if(o.pen>0) r.pen=[clamp(Math.round(o.pen),0,50),'Eğitmen kuralı: '+a.label];
+  Object.entries(o.d||{}).forEach(([k,v])=>{ const n=+v; if(n&&typeof R.v[k]==='number') R.v[k]+=n; });
+  return r; }
+const customCrit=s=>CUSTOM.filter(a=>+(a.scen?.[s.id]?.critPts)>0).map(a=>({label:a.label+' (eğitmen)',ids:[a.id],within:clamp(+a.scen[s.id].critWithin||LIMIT,0,60),pts:clamp(Math.round(+a.scen[s.id].critPts),1,50)}));
 const CATNAME={...C.catName,H:'İpucu',O:'Diğer istek'};
 let R=null, cfgCur=null, backTo='games', tab=CATS[0].id, lastFind=null, pjWin=null;
 const P=id=>pjWin&&!pjWin.closed?pjWin.document.getElementById(id):null;
@@ -4377,8 +4398,9 @@ function setupDlg(mode){
 }
 
 /* ---- oyun ---- */
-function play(cfg,back){
+async function play(cfg,back){
   if(!cfg){ return go(back||'games'); }
+  $app.innerHTML=gameShell('<div class="spinner"></div>','atls'); await loadCustom();
   stopGame(); document.body.classList.add('game-mode'); G={unsubs:[],tick:null};
   cfgCur={menu:'gorunur',...cfg}; backTo=back||'games'; tab=CATS[0].id;
   const s=SCEN.find(x=>x.id===cfg.scen)||SCEN[0];
@@ -4421,7 +4443,7 @@ function buy(id){
   R.coins-=a.cost; R.spent[a.cat]=(R.spent[a.cat]||0)+a.cost; R.done[id]=(R.done[id]||0)+1; if(R.first[id]==null) R.first[id]=R.t; (R.hist[id]=R.hist[id]||[]).push(R.t);
   floatCoin(a.cost);
   C.flags?.[id]?.(R.f,R);
-  let r=s.act[id]?.(R,s,lg)||C.act?.[id]?.(R,s,lg)||null;
+  let r=a.custom?customResp(a,s):(s.act[id]?.(R,s,lg)||C.act?.[id]?.(R,s,lg)||null);
   if(!r){ const f=s.find[id]; r={text:typeof f==='function'?f(R):(f||DEF[id]||'Uygulandı.')}; if(id===C.monId&&!s.find[id]) r={text:C.monText}; }
   R.finds.unshift({t:R.t,label:a.label,text:r.text,kind:r.pen?'harm':a.kind}); lastFind=R.finds[0];
   lg(a.kind,a.label+': '+r.text,a.cost);
@@ -4468,11 +4490,11 @@ function tabs(){
 }
 function acts(){
   const q=trLower(($('atQ')?.value||'').trim());
-  const list=q?ACTIONS.filter(a=>trLower(a.label).includes(q)||trLower(KIND[a.kind]).includes(q)):ACTIONS.filter(a=>a.cat===tab&&a.id!==C.quick.id);
+  const list=q?ALL.filter(a=>trLower(a.label).includes(q)||trLower(KIND[a.kind]).includes(q)):ALL.filter(a=>a.cat===tab&&a.id!==C.quick.id);
   $('atTabs').classList.toggle('dim',!!q);
   if(q&&!list.length){ $('atActs').innerHTML=`<div class="at-empty">“${esc(q)}” bulunamadı. Ekibin isteği listede yoksa <b>+ Listede olmayan istek</b> ile kaydedin.</div>`; return; }
   $('atActs').innerHTML=list.map(a=>{ const n=R.done[a.id]||0, locked=(a.once&&n)||R.ended||(a.dis&&a.dis(R));
-    return `<button class="at-act ${n?'done':''}" data-aa="${a.id}" ${locked?'disabled':''}><span class="t">${a.label}</span>
+    return `<button class="at-act ${n?'done':''}" data-aa="${a.id}" ${locked?'disabled':''}><span class="t">${esc(a.label)}${a.custom?' <span class="at-cu">eğitmen</span>':''}</span>
       <span class="m"><span class="at-kind ${a.kind}">${q?(CATS.find(c=>c.id===a.cat)||{}).k+' · ':''}${KIND[a.kind]}${a.dur?' · '+a.dur+' dk':''}</span>${n?`<span class="cnt">${a.once?'✓ yapıldı':'×'+n}</span>`:''}${coin(a.cost)}</span></button>`; }).join('');
   $('atActs').querySelectorAll('[data-aa]').forEach(b=>b.onclick=()=>buy(b.dataset.aa));
 }
@@ -4614,7 +4636,7 @@ function instructor(){
 /* ---- bitiş ve değerlendirme ---- */
 function score(alive,reason){
   const s=sc();
-  const crit=s.crit.map(c=>{ let t=null, m=0, unr=false;
+  const crit=[...s.crit,...customCrit(s)].map(c=>{ let t=null, m=0, unr=false;
     if(c.from){ m=R.f.mark?.[c.from];
       if(m==null) unr=true;
       else { const ts=c.ids.flatMap(i=>(R.hist[i]||[]).filter(x=>x>=m)); if(ts.length) t=Math.min(...ts); else if(c.any&&c.ids.some(i=>(R.hist[i]||[]).length)) t=m; } }
@@ -4676,13 +4698,14 @@ async function loadRuns(mine){
 }
 /* Oyunlar sekmesindeki kart (yönetici) */
 function adminCard(runs){
-  return `<div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${C.cardTitle}</h2><div class="row"><button class="btn" id="${K}Lb">🏆 Liderlik</button><button class="btn primary" id="${K}NewE">+ Yeni oyun</button></div></div>
+  return `<div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${C.cardTitle}</h2><div class="row"><button class="btn" id="${K}Cust">Müdahale / bilgi ekle</button><button class="btn" id="${K}Lb">🏆 Liderlik</button><button class="btn primary" id="${K}NewE">+ Yeni oyun</button></div></div>
     <p class="small muted">${C.cardDesc} Tek ekrana yansıtın, ekip birlikte karar versin. Asistanlar Öğren sekmesinden bireysel de oynayabilir.</p>
     <div class="list" style="gap:0">${runs.slice(0,15).map(r=>runRow(r,true)).join('')||'<div class="small muted">Henüz oyun yok.</div>'}</div></div>`;
 }
 function bindAdminCard(runs,reload){
   $(K+'NewE')&&($(K+'NewE').onclick=()=>setupDlg('ekip'));
   $(K+'Lb')&&($(K+'Lb').onclick=()=>leaderboard(runs));
+  $(K+'Cust')&&($(K+'Cust').onclick=()=>go(C.editView));
   bindRows(runs,reload);
 }
 function bindRows(runs,reload){
@@ -4704,7 +4727,68 @@ async function page(){
   $('bk').onclick=()=>go('learn'); $('atNewR').onclick=()=>setupDlg('bireysel');
   bindRows(runs,page);
 }
-return {setupDlg,play,page,adminCard,bindAdminCard,loadRuns};
+/* ---- eğitmen düzenleyicisi: kendi müdahale / bilgi kartları ---- */
+const DK=C.deltaKeys||[];
+async function saveCustom(list){ await setDoc(doc(db,'simCustom',K),{actions:list,updatedAt:serverTimestamp()}); applyCustom(list); }
+async function editor(){
+  paint(`<div class="spinner"></div>`);
+  await loadCustom();
+  const catN=id=>{ const c=CATS.find(x=>x.id===id); return c?`${c.k} · ${c.n}`:id; };
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Oyunlar</button><h1>${esc(C.brand)} · eklenen müdahaleler ve bilgiler</h1>
+      <div class="sub">Buraya eklediğiniz kartlar oyunda seçtiğiniz sekmede, “eğitmen” etiketiyle görünür; ekip oyununda ve asistanların bireysel oyununda kullanılır. Her senaryo için ayrı yanıt, ceza, vital etkisi ve kritik eylem puanı tanımlayabilirsiniz.</div></div>
+      <button class="btn primary" id="cuNew">+ Yeni ekle</button></div>
+    <div class="card pad">${CUSTOM.length?`<div class="list" style="gap:0">${CUSTOM.map(a=>{ const sc=Object.keys(a.scen||{}).filter(k=>k!=='*'&&((a.scen[k].text||'').trim()||+a.scen[k].pen||+a.scen[k].critPts||hasD(a.scen[k].d))).length, cr=SCEN.filter(x=>+(a.scen?.[x.id]?.critPts)>0).length;
+        return `<div class="tplrow"><div class="grow" style="min-width:0"><b>${esc(a.label)}</b> <span class="badge">${esc(KIND[a.kind])}</span>
+          <div class="small muted">${esc(catN(a.cat))} · ${a.cost} coin${a.dur?` · ${a.dur} dk`:''}${a.once?' · tek sefer':''}${a.iv?' · damar yolu gerekir':''} · ${sc?`${sc} senaryoda özel yanıt`:'tüm senaryolarda aynı yanıt'}${cr?` · ${cr} senaryoda kritik eylem`:''}</div></div>
+          <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-cued="${esc(a.id)}">Düzenle</button><button class="btn sm ghost danger" data-cudel="${esc(a.id)}">✕</button></div></div>`; }).join('')}</div>`
+      :`<div class="small muted">Henüz eklenmiş kart yok. <b>+ Yeni ekle</b> ile örneğin “Glukagon 5 mg IV”, “FAST tekrarı” ya da “Yakınından ek öykü” gibi bir müdahale veya bilgi ekleyin.</div>`}</div>`);
+  $('bk').onclick=()=>go('games'); $('cuNew').onclick=()=>editDlg(null);
+  $app.querySelectorAll('[data-cued]').forEach(b=>b.onclick=()=>editDlg(CUSTOM.find(a=>a.id===b.dataset.cued)));
+  $app.querySelectorAll('[data-cudel]').forEach(b=>b.onclick=async()=>{ const a=CUSTOM.find(x=>x.id===b.dataset.cudel); if(!a) return;
+    if(!await confirmDlg('Kartı sil',`<p>“${esc(a.label)}” oyunlardan kaldırılır. Eski oyun kayıtları etkilenmez.</p>`,'Sil',true)) return;
+    try{ await saveCustom(CUSTOM.filter(x=>x.id!==a.id).map(strip)); toast('Silindi'); editor(); }catch(e){ fail(e,'Silinemedi'); } });
+}
+const strip=a=>{ const {custom,...x}=a; return x; };
+function respBlock(key,o,withCrit){
+  o=o||{}; const d=o.d||{};
+  return `<div class="field"><label class="f" for="cuT_${key}">Ekibe gösterilecek yanıt / bulgu</label><textarea id="cuT_${key}" maxlength="600" placeholder="${key==='all'?'Örn. Glukagon 5 mg IV verildi; kalp hızı 52/dk’ya çıktı.':'Boş bırakırsanız varsayılan yanıt kullanılır.'}">${esc(o.text||'')}</textarea></div>
+    <div class="grid3"><div class="field"><label class="f" for="cuP_${key}">Ceza puanı</label><input type="number" id="cuP_${key}" min="0" max="50" value="${+o.pen||0}"></div>
+      ${withCrit?`<div class="field"><label class="f" for="cuCp_${key}">Kritik eylem puanı</label><input type="number" id="cuCp_${key}" min="0" max="50" value="${+o.critPts||0}"></div>
+      <div class="field"><label class="f" for="cuCw_${key}">Hedef süre (dk ≤)</label><input type="number" id="cuCw_${key}" min="0" max="60" value="${+o.critWithin||10}"></div>`:''}</div>
+    ${DK.length?`<div class="small muted" style="margin:2px 0 4px">Vital etkisi (bir kez eklenir; eksi değer düşürür)</div><div class="cu-dk">${DK.map(([k,l])=>`<label class="small">${l}<input type="number" step="any" id="cuD_${key}_${k}" value="${d[k]??''}" placeholder="0"></label>`).join('')}</div>`:''}`;
+}
+function readResp(m,key,withCrit){ const q=x=>m.el.querySelector(x); const o={text:(q('#cuT_'+key).value||'').trim().slice(0,600),pen:clamp(Math.round(+q('#cuP_'+key).value||0),0,50)};
+  const d={}; DK.forEach(([k])=>{ const v=q(`#cuD_${key}_${k}`).value; if(v!==''&&+v) d[k]=+v; }); if(Object.keys(d).length) o.d=d;
+  if(withCrit){ o.critPts=clamp(Math.round(+q('#cuCp_'+key).value||0),0,50); o.critWithin=clamp(Math.round(+q('#cuCw_'+key).value||0),0,60); }
+  return o; }
+function editDlg(a){
+  const x=a?strip(a):{id:'u_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),label:'',cat:CATS[0].id,kind:'int',cost:5,dur:0,once:0,iv:0,scen:{}};
+  const sc=x.scen||{};
+  const m=modal(`<div class="modal-h"><h2>${a?'Kartı düzenle':'Yeni müdahale / bilgi'}</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="field"><label class="f" for="cuL">Ad (ekip bunu görür)</label><input type="text" id="cuL" maxlength="80" value="${esc(x.label)}" placeholder="Örn. Glukagon 5 mg IV"></div>
+    <div class="grid2"><div class="field"><label class="f" for="cuC">Sekme</label><select id="cuC">${CATS.map(c=>`<option value="${c.id}" ${x.cat===c.id?'selected':''}>${esc(c.k)} · ${esc(c.n)}</option>`).join('')}</select></div>
+      <div class="field"><label class="f" for="cuK">Tür</label><select id="cuK">${Object.entries(KIND).map(([k,l])=>`<option value="${k}" ${x.kind===k?'selected':''}>${l}</option>`).join('')}</select></div></div>
+    <div class="grid3"><div class="field"><label class="f" for="cuCo">Coin</label><input type="number" id="cuCo" min="0" max="50" value="${x.cost}"></div>
+      <div class="field"><label class="f" for="cuDu">Süre (dk)</label><input type="number" id="cuDu" min="0" max="10" value="${x.dur}"></div>
+      <div class="field"><label class="f">Seçenekler</label><label class="small"><input type="checkbox" id="cuO" ${x.once?'checked':''}> Tek sefer</label><label class="small"><input type="checkbox" id="cuIv" ${x.iv?'checked':''}> Damar yolu gerekir</label></div></div>
+    <h3 style="margin-top:14px">Tüm senaryolar (varsayılan)</h3>${respBlock('all',sc['*'],false)}
+    <h3 style="margin-top:14px">Senaryoya özel</h3><div class="small muted" style="margin-bottom:6px">Boş bıraktığınız alanlarda varsayılan kullanılır. Kritik eylem puanı verirseniz bu kart o senaryonun değerlendirmesinde kritik eylem olarak sayılır.</div>
+    ${SCEN.map(s=>{ const o=sc[s.id]; const used=o&&((o.text||'').trim()||+o.pen||+o.critPts||hasD(o.d));
+      return `<details class="cu-sc" ${used?'open':''}><summary><b>${esc(s.tag)}</b> ${esc(s.title)}${used?' <span class="badge info">özel</span>':''}</summary>${respBlock(s.id,o,true)}</details>`; }).join('')}
+  </div><div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="cuSave">Kaydet</button></div>`,'wide');
+  const q=s=>m.el.querySelector(s);
+  q('#cuSave').onclick=async()=>{
+    const label=q('#cuL').value.trim(); if(!label) return toast('Ad yazın',true);
+    const y={id:x.id,label:label.slice(0,80),cat:q('#cuC').value,kind:q('#cuK').value,cost:clamp(Math.round(+q('#cuCo').value||0),0,50),dur:clamp(Math.round(+q('#cuDu').value||0),0,10),once:q('#cuO').checked?1:0,iv:q('#cuIv').checked?1:0,scen:{}};
+    const dflt=readResp(m,'all',false); y.scen['*']=dflt;
+    SCEN.forEach(s=>{ const o=readResp(m,s.id,true); if(o.text||o.pen||o.critPts||o.d) y.scen[s.id]=o; });
+    const list=CUSTOM.map(strip); const i=list.findIndex(z=>z.id===y.id); if(i>=0) list[i]=y; else list.push(y);
+    if(list.length>150) return toast('En fazla 150 kart eklenebilir',true);
+    q('#cuSave').disabled=true;
+    try{ await saveCustom(list); m.close(); toast('Kaydedildi'); editor(); }catch(e){ q('#cuSave').disabled=false; fail(e,'Kaydedilemedi'); }
+  };
+}
+return {setupDlg,play,page,adminCard,bindAdminCard,loadRuns,editor};
 };
 
 /* ================= ATLS Ekip Oyunu · Altın Saat ================= */
@@ -4959,7 +5043,7 @@ const SCEN=[
  hints:['Hipotansiyon + dolgun boyun venleri + derinden gelen kalp sesleri…','Yatak başı tanı için en hızlı tetkik hangisi?','Perikardiyosentez yalnızca köprüdür. Definitif tedavi?','İndüksiyon ve pozitif basınç bu hastada arreste yol açabilir.']}
 ];
 
-return SIM_ENGINE({key:'atls',coll:'atlsRuns',view:'atls',playView:'atlsPlay',brand:'Altın Saat',short:'ATLS oyunu',
+return SIM_ENGINE({key:'atls',coll:'atlsRuns',view:'atls',playView:'atlsPlay',editView:'atlsEdit',deltaKeys:[['hr','Nabız'],['sbp','Sistolik TA'],['spo2','SpO₂'],['rr','Solunum'],['gcs','GKS'],['temp','Ateş']],brand:'Altın Saat',short:'ATLS oyunu',
   cardTitle:'ATLS Ekip Oyunu · Altın Saat',cardDesc:'Travma hastası gerçek zamanlı kötüleşir. Ekip xABCDE sırasıyla muayene, tetkik ve müdahaleye coin harcar; zamanında kritik eylem puan, zararlı işlem ceza getirir.',
   pageTitle:'ATLS oyunu · Altın Saat',pageSub:'Travma hastası gelir ve zaman akar. Her muayene, tetkik ve müdahale coin harcar. Doğru sırayla, az coin harcayarak hastayı definitif bakıma ulaştırın.',
   howto:['Monitör bağlanmadan vital bulgular görünmez. Damar yolu olmadan sıvı ve ilaç verilemez.','Aynı muayeneyi tekrarlamak da coin harcar; yeniden değerlendirmenin bedeli vardır.',
@@ -5492,7 +5576,7 @@ SCEN.push(
   abgPre:'pH 7.30, laktat 3.9 mmol/L, K 4.5, Mg 2.0.'})
 );
 
-return SIM_ENGINE({key:'acls',coll:'aclsRuns',view:'acls',playView:'aclsPlay',brand:'Geri Dönüş',short:'ACLS oyunu',
+return SIM_ENGINE({key:'acls',coll:'aclsRuns',view:'acls',playView:'aclsPlay',editView:'aclsEdit',deltaKeys:[['hr','Kalp hızı'],['sbp','Sistolik TA'],['spo2','SpO₂'],['etco2','EtCO₂']],brand:'Geri Dönüş',short:'ACLS oyunu',
   cardTitle:'ACLS Ekip Oyunu · Geri Dönüş',cardDesc:'Arrest ve periarrest senaryoları gerçek zamanlı ilerler. Ekip KPR, ritim kontrolü, şok, ilaç ve geri dönüşlü nedenler için coin harcar; KPR kesintisi, yanlış ritme şok ve doz hataları ceza getirir.',
   pageTitle:'ACLS oyunu · Geri Dönüş',pageSub:'Arrest veya periarrest hastası gelir ve zaman akar. Kaliteli KPR’yi sürdürün, ritmi tanıyın, doğru zamanda şok ve ilaç verin, geri dönüşlü nedeni bulun.',
   howto:['Pedler bağlanmadan monitör görünmez. Göğüs basısı sürerken monitörde yalnızca KPR artefaktı görünür; ritmi görmek için ritim + nabız kontrolü yapın.',

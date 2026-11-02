@@ -287,6 +287,13 @@ service cloud.firestore {
         && request.resource.data.team is string && request.resource.data.team.size() <= 60
         && request.resource.data.at == request.time;
     }
+    // Eğitmenin oyunlara eklediği müdahale / bilgi kartları (kurs başına tek belge: atls, acls)
+    match /simCustom/{course} {
+      allow read: if isAdmin() || isResident() || isAuthor();
+      allow write: if isAdmin() && course in ['atls', 'acls']
+        && request.resource.data.keys().hasOnly(['actions', 'updatedAt'])
+        && request.resource.data.actions is list && request.resource.data.actions.size() <= 150;
+    }
     match /atlsRuns/{id} {
       allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
       allow create: if simRunCreateOk();

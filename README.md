@@ -102,6 +102,11 @@ Asistanlar siteye girdiğinde **Öğren** sekmesi açılır (açık bir sınavla
 
 - **Megakod senaryoları (M1–M6):** AHA 2025 megakod sınav kontrol listelerindeki altı ritim akışı, özgün vaka öyküleriyle: M1 bradikardi → nabızsız VT → NEA (1/3/8), M2 bradikardi → VF → asistoli (2/5), M3 unstabil taşikardi → VF → NEA (4/7/10), M4 bradikardi → VF → NEA (6/11), M5 stabil taşikardi → NEA → VF (9), M6 bradikardi → VF → asistoli → NEA (12). Ritim, sınavdaki gibi doğru tedaviye rağmen sırayla değişir; arrest içindeki ritim değişikliği yalnız ritim kontrolünde görülür (kontrolsüz şok cezalanır). Puanlama kontrol listesi maddelerini izler; her aşamanın maddeleri o aşamanın başlangıcından itibaren zamanlanır. Önerilen bütçe 250 coin, süre sınırı 40 dk (senaryo seçilince bütçe kendiliğinden 250 olur).
 
+## Oyunlara kendi müdahale / bilgi kartlarınızı ekleme
+- **Oyunlar → ATLS veya ACLS kartı → Müdahale / bilgi ekle.** Her kart: ad, sekme, tür (bilgi / müdahale / tetkik / çağrı), coin, süre, tek sefer, damar yolu gerekir.
+- **Yanıtlar:** “Tüm senaryolar” için varsayılan yanıt ve ceza; her senaryo için ayrıca özel yanıt, ceza puanı, vital etkisi (ör. nabız +16, sistolik TA +18) ve **kritik eylem puanı + hedef süre**. Kritik eylem verilen kart o senaryonun değerlendirmesinde “(eğitmen)” etiketiyle sayılır.
+- Kartlar `simCustom/atls` ve `simCustom/acls` belgelerinde tutulur (en çok 150); yalnız yönetici yazar, asistanlar okur. Oyunda sekmede ve aramada “eğitmen” etiketiyle görünür; bir sonraki oyundan itibaren geçerlidir.
+
 ## Hata bildirimi
 - Asistanlar (ve soru yazarları) Alıştırma, Tekrar, sanal hasta (oyun sırasında ve vaka sonunda) ve atlas ekranlarındaki **⚑ Hata bildir** düğmesiyle neden seçip not yazarak bildirim gönderir (`reports` koleksiyonu).
 - Yönetici: Soru Bankası veya Eğitim → **⚑ Hata bildirimleri**. Açık/çözülen filtresi, “Soruyu düzenle / İçeriği aç”, “Çözüldü” (yanıt notuyla), Excel'e aktarma. Açık bildirimi olan sorular bankada ⚑ rozetiyle görünür.
