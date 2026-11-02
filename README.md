@@ -95,6 +95,11 @@ Asistanlar siteye girdiğinde **Öğren** sekmesi açılır (açık bir sınavla
 - Puan = kalan coin (hasta yaşıyorsa) + zamanında kritik eylemler − cezalar + sağkalım bonusu. Sonuçlar `atlsRuns` koleksiyonuna kaydedilir; Oyunlar sekmesinde değerlendirme ve senaryo bazında liderlik tablosu.
 - Asistanlar **Öğren → ATLS oyunu** kartından bireysel oynar ve yalnız kendi sonuçlarını görür. Öğrenci önizlemesinde sonuç kaydedilmez.
 
+## ACLS Ekip Oyunu · Geri Dönüş
+- **Oyunlar → ACLS Ekip Oyunu → + Yeni oyun**; asistanlar **Öğren → ACLS oyunu**. Kurulum, coin, eğitmen modu (ayrı projeksiyon ekranı), listede olmayan istek, değerlendirme ve liderlik ATLS ile aynıdır. Sonuçlar `aclsRuns` koleksiyonunda. Roller: lider, göğüs basısı, havayolu, damar yolu/ilaç, defibrilatör/monitör, kayıt/zaman.
+- Senaryolar: tanıklı VF arrest (inferior STEMI), diyaliz hastasında hiperkalemiye bağlı NEA, semptomatik bradikardi (tam AV blok), unstabil monomorfik VT (hipokalemi/hipomagnezemi).
+- Mekanik: pedler bağlanmadan monitör yok; göğüs basısı sürerken monitörde KPR artefaktı görünür, gerçek ritim yalnız **ritim + nabız kontrolünde** birkaç saniye görünür. Bası yapan kişi 2 dk'da bir değişmezse kalite düşer ve ROSC gecikir; arrestte KPR'siz geçen süre cezalanır, toplam 6 dk'yı aşarsa hasta kaybedilir. ROSC ritim/nabız kontrolüyle doğrulanır (kapnografi bağlıysa EtCO₂ sıçraması görünür). Adrenalin aralığı, şoklanamaz ritme şok, nabızlı hastaya şok/KPR/bolus adrenalin, unstabil VT'de ilaçla gecikme, geniş QRS'de diltiazem gibi hatalar ceza getirir.
+
 ## Hata bildirimi
 - Asistanlar (ve soru yazarları) Alıştırma, Tekrar, sanal hasta (oyun sırasında ve vaka sonunda) ve atlas ekranlarındaki **⚑ Hata bildir** düğmesiyle neden seçip not yazarak bildirim gönderir (`reports` koleksiyonu).
 - Yönetici: Soru Bankası veya Eğitim → **⚑ Hata bildirimleri**. Açık/çözülen filtresi, “Soruyu düzenle / İçeriği aç”, “Çözüldü” (yanıt notuyla), Excel'e aktarma. Açık bildirimi olan sorular bankada ⚑ rozetiyle görünür.

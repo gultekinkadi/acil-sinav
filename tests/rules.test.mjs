@@ -207,6 +207,16 @@ await t("asistan başkasının ATLS sonucunu okuyamaz", () => assertFails(getDoc
 await t("asistan ATLS puanını değiştiremez", () => assertFails(updateDoc(doc(ayse, "atlsRuns/r1"), { score: 999 })));
 await t("yönetici ATLS sonuçlarını listeler", () => assertSucceeds(getDocs(collection(admin, "atlsRuns"))));
 
+console.log("ACLS oyunu");
+await t("asistan kendi ACLS sonucunu kaydeder", () => assertSucceeds(setDoc(doc(ayse, "aclsRuns/c1"), run("u1", "ayse@gmail.com", { scen: "vf", scenTitle: "Tanıklı VF arrest", vitals: { rh: "Sinüs", rosc: 1 } }))));
+await t("yönetici ACLS ekip oyununu kaydeder", () => assertSucceeds(setDoc(doc(admin, "aclsRuns/c2"), run("adm", "gultekinkadi@gmail.com", { mode: "ekip", team: "Mavi" }))));
+await t("başkası adına ACLS sonucu kaydedemez", () => assertFails(setDoc(doc(ayse, "aclsRuns/c3"), run("u2", "ayse@gmail.com"))));
+await t("asistan tüm ACLS sonuçlarını listeleyemez", () => assertFails(getDocs(collection(ayse, "aclsRuns"))));
+await t("asistan kendi ACLS sonuçlarını sorgular", () => assertSucceeds(getDocs(query(collection(ayse, "aclsRuns"), where("uid", "==", "u1")))));
+await t("asistan ACLS puanını değiştiremez", () => assertFails(updateDoc(doc(ayse, "aclsRuns/c1"), { score: 999 })));
+await t("yönetici ACLS sonuçlarını listeler", () => assertSucceeds(getDocs(collection(admin, "aclsRuns"))));
+await t("oyun kuralı başka koleksiyona yazma izni vermez", () => assertFails(setDoc(doc(ayse, "rastgeleRuns/z1"), run("u1", "ayse@gmail.com"))));
+
 await env.cleanup();
 console.log(`\n${pass} geçti, ${failN} başarısız`);
 process.exit(failN ? 1 : 0);

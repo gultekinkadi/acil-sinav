@@ -1053,7 +1053,7 @@ function shell(content, tabs){
 }
 function adminTabs(){
   const t=[["exams","Sınavlar"],["bank","Soru Bankası"],["edu","Eğitim"],["games","Oyunlar"],["residents","Asistanlar"],["settings","Ayarlar"]];
-  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents",liveHost:"games",jEdit:"games",jPlay:"games",atlsPlay:"games",atlasEdit:"edu",atlasView:"edu",simEdit:"edu",simPlay:"edu"}[S.view]||S.view;
+  const cur = {examEdit:"exams",results:"exams",attempt:"exams",profile:"residents",liveHost:"games",jEdit:"games",jPlay:"games",atlsPlay:"games",aclsPlay:"games",atlasEdit:"edu",atlasView:"edu",simEdit:"edu",simPlay:"edu"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join("");
 }
 function bindShell(){
@@ -1078,6 +1078,7 @@ async function render(){
       if(v==="simPlay") return await viewSimPlay(S.params.id,S.params.back);
       if(v==="games") return await viewGames();
       if(v==="atlsPlay") return ATLS.play(S.params.cfg,S.params.back);
+      if(v==="aclsPlay") return ACLS.play(S.params.cfg,S.params.back);
       if(v==="liveHost") return await viewLiveHost(S.params.id);
       if(v==="jEdit") return await viewJEdit(S.params.id);
       if(v==="jPlay") return await viewJPlay(S.params.id);
@@ -1108,6 +1109,8 @@ async function render(){
       if(v==="weekly") return await viewWeekly(S.params.id);
       if(v==="atls") return await ATLS.page();
       if(v==="atlsPlay") return ATLS.play(S.params.cfg,S.params.back);
+      if(v==="acls") return await ACLS.page();
+      if(v==="aclsPlay") return ACLS.play(S.params.cfg,S.params.back);
       if(v==="practice") return await viewPractice();
       if(v==="live") return viewLiveJoin();
       if(v==="home") return await viewHome();
@@ -2507,7 +2510,7 @@ async function viewResidents(){
    ASİSTAN — ANA SAYFA
    ===================================================================== */
 const myDevice=()=>{ let d=lsGet("acilDevice"); if(!d){ d="d"+newId(); lsSet("acilDevice",d); } return d; };
-function residentTabs(){ const t=[["learn","Öğren"],["srs","Tekrar"],["practice","Alıştırma"],["home","Sınavlarım"],["live","Yarışma"]]; const cur={take:"home",review:"home",livePlay:"live",atlas:"learn",atlasView:"learn",sims:"learn",simPlay:"learn",module:"learn",weekly:"learn",atls:"learn",atlsPlay:"learn"}[S.view]||S.view;
+function residentTabs(){ const t=[["learn","Öğren"],["srs","Tekrar"],["practice","Alıştırma"],["home","Sınavlarım"],["live","Yarışma"]]; const cur={take:"home",review:"home",livePlay:"live",atlas:"learn",atlasView:"learn",sims:"learn",simPlay:"learn",module:"learn",weekly:"learn",atls:"learn",atlsPlay:"learn",acls:"learn",aclsPlay:"learn"}[S.view]||S.view;
   return t.map(([k,l])=>`<button data-tab="${k}" class="${cur===k?"on":""}">${l}</button>`).join(""); }
 async function viewHome(){
   paint(`<div class="spinner"></div>`,residentTabs());
@@ -3697,6 +3700,7 @@ async function viewLearn(){
       <button class="lcard" data-go="sims"><span class="ic">🩺</span><b>Sanal hasta</b><span class="big">${sims.length}</span><span class="small">${sims.filter(x=>L.d.sim[x.id]).length} vaka tamamlandı</span></button>
       <button class="lcard" data-go="practice"><span class="ic">✎</span><b>Alıştırma</b><span class="big">→</span><span class="small">konu konu soru çöz</span></button>
       <button class="lcard" data-go="atls"><span class="ic">⏱</span><b>ATLS oyunu</b><span class="big">3</span><span class="small">Altın Saat · travma senaryosu</span></button>
+      <button class="lcard" data-go="acls"><span class="ic">♥</span><b>ACLS oyunu</b><span class="big">4</span><span class="small">Geri Dönüş · arrest ve periarrest</span></button>
     </div>
     ${W?`<div class="card pad wkcard" style="margin-bottom:16px" id="wkHost"></div>`:""}
     <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Modüller</h2>${req.length?`<span class="badge ${reqDone===req.length?"ok":"warn"}">Zorunlu: ${reqDone}/${req.length} tamamlandı</span>`:""}</div>
@@ -4037,11 +4041,11 @@ function gameOpts(q,{reveal=null,dist=null,tap=false}={}){
 /* ---------- Oyunlar sayfası (yönetici) ---------- */
 async function viewGames(){
   paint(`<div class="spinner"></div>`);
-  const [gs,js,aRuns]=await Promise.all([getDocs(collection(db,"games")).catch(()=>({docs:[]})),getDocs(collection(db,"jeopardy")).catch(()=>({docs:[]})),ATLS.loadRuns(false).catch(e=>{ console.error(e); return []; })]);
+  const [gs,js,aRuns,cRuns]=await Promise.all([getDocs(collection(db,"games")).catch(()=>({docs:[]})),getDocs(collection(db,"jeopardy")).catch(()=>({docs:[]})),ATLS.loadRuns(false).catch(e=>{ console.error(e); return []; }),ACLS.loadRuns(false).catch(e=>{ console.error(e); return []; })]);
   const games=gs.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0)).slice(0,15);
   const boards=js.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.createdAt)||0)-(tsMs(a.createdAt)||0));
   const GST={lobby:["Bekleme odası","info"],question:["Oynanıyor","acc"],reveal:["Oynanıyor","acc"],leader:["Oynanıyor","acc"],end:["Bitti",""]};
-  paint(`<div class="page-head"><div><h1>Oyunlar</h1><div class="sub">Derste veya eğitim toplantısında oynanan yarışmalar ve ATLS ekip simülasyonu.</div></div></div>
+  paint(`<div class="page-head"><div><h1>Oyunlar</h1><div class="sub">Derste veya eğitim toplantısında oynanan yarışmalar ve ATLS / ACLS ekip simülasyonları.</div></div></div>
     <div class="grid2" style="align-items:start">
       <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Canlı Yarışma</h2><button class="btn primary" id="newLive">+ Yeni yarışma</button></div>
         <p class="small muted">Sorular ekrana yansıtılır; katılımcılar telefonlarından PIN veya QR kodla girip cevaplar. Doğru ve hızlı cevap daha çok puan getirir; her sorudan sonra puan tablosu çıkar.</p>
@@ -4053,8 +4057,9 @@ async function viewGames(){
           return `<div class="tplrow"><div class="grow" style="min-width:0"><b>${esc(b.title)}</b><div class="small muted">${(b.cats||[]).length} konu · ${(b.teams||[]).map(t=>esc(t.name)).join(", ")} · ${used}/${all} soru oynandı</div></div>
           <div class="row" style="flex-wrap:nowrap"><button class="btn sm primary" data-jplay="${b.id}">Oyna</button><button class="btn sm" data-jedit="${b.id}">Düzenle</button><button class="btn sm ghost danger" data-jdel="${b.id}">✕</button></div></div>`; }).join("")||`<div class="small muted">Henüz tahta yok.</div>`}</div></div>
       ${ATLS.adminCard(aRuns)}
+      ${ACLS.adminCard(cRuns)}
     </div>`);
-  ATLS.bindAdminCard(aRuns,viewGames);
+  ATLS.bindAdminCard(aRuns,viewGames); ACLS.bindAdminCard(cRuns,viewGames);
   document.getElementById("newLive").onclick=liveSetupDlg;
   document.getElementById("newJ").onclick=()=>go("jEdit",{id:null});
   $app.querySelectorAll("[data-host]").forEach(b=>b.onclick=()=>go("liveHost",{id:b.dataset.host}));
@@ -4324,13 +4329,384 @@ async function viewJPlay(id){
 }
 
 
+/* ================= Simülasyon oyunları: ortak yardımcılar ================= */
+const KIND={info:'Bilgi',int:'Müdahale',test:'Tetkik',cons:'Çağrı'};
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+function toward(v,k,t,r){const d=t-v[k];v[k]+=Math.sign(d)*Math.min(Math.abs(d),r)}
+function sinusY(p){ if(p<.08) return 40-Math.sin(p/.08*Math.PI)*5; if(p>.14&&p<.16) return 46; if(p>=.16&&p<.19) return 8; if(p>=.19&&p<.22) return 52; if(p>.36&&p<.5) return 40-Math.sin((p-.36)/.14*Math.PI)*8; return 40; }
+
+/* ================= SİMÜLASYON MOTORU (ATLS / ACLS ortak) ================= */
+const SIM_ENGINE=C=>{
+const {CATS,ACTIONS,DEF,SCEN,ROLES,key:K}=C;
+const A=Object.fromEntries(ACTIONS.map(a=>[a.id,a]));
+const LIMIT=C.limit||30, HINT_COST=25;
+const CATNAME={...C.catName,H:'İpucu',O:'Diğer istek'};
+let R=null, cfgCur=null, backTo='games', tab=CATS[0].id, lastFind=null, pjWin=null;
+const P=id=>pjWin&&!pjWin.closed?pjWin.document.getElementById(id):null;
+const egt=()=>cfgCur&&cfgCur.menu==='egitmen';
+const $=id=>document.getElementById(id);
+const coin=n=>`<span class="at-coin"><i></i>${n}</span>`;
+const sc=()=>SCEN.find(s=>s.id===R.scen);
+const aliveNow=()=>C.aliveAtEnd?C.aliveAtEnd(R):true;
+function lastCfg(){ try{ return JSON.parse(localStorage.getItem(K+'_cfg')||'null')||{}; }catch(e){ return {}; } }
+
+/* ---- kurulum ---- */
+function setupDlg(mode){
+  const c=Object.assign({team:'',members:['','','',''],scen:SCEN[0].id,coins:150,speed:12},lastCfg());
+  if(!SCEN.some(s=>s.id===c.scen)) c.scen=SCEN[0].id;
+  if(mode==='bireysel'&&!c.team) c.team=S.resident?.name||S.user?.displayName||'';
+  const m=modal(`<div class="modal-h"><h2>${C.brand} · yeni oyun</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="field"><label class="f" for="atT">${mode==='ekip'?'Ekip adı':'Oyuncu / ekip adı'}</label><input type="text" id="atT" value="${esc(c.team)}" placeholder="Örn. Kırmızı Alan"></div>
+    <details ${mode==='ekip'?'open':''} style="margin-bottom:12px"><summary class="small"><b>Ekip üyeleri</b>${mode==='ekip'?'':' (isteğe bağlı)'}</summary>
+      <div class="grid2" style="margin-top:8px">${ROLES.map((r,i)=>`<div class="field"><label class="f" for="atM${i}">${r}</label><input type="text" id="atM${i}" value="${esc((c.members||[])[i]||'')}"></div>`).join('')}</div></details>
+    <div class="field"><label class="f">Senaryo</label><div class="at-scl">${SCEN.map(s=>`<label class="at-sc"><input type="radio" name="atS" value="${s.id}" ${c.scen===s.id?'checked':''}><span><b>${s.title}</b><span class="small muted">${s.brief}</span></span></label>`).join('')}</div></div>
+    <div class="grid2"><div class="field"><label class="f" for="atC">Başlangıç bütçesi</label><select id="atC">${[100,150,200].map(n=>`<option value="${n}" ${c.coins===n?'selected':''}>${n} coin</option>`).join('')}</select></div>
+      <div class="field"><label class="f" for="atSp">1 simülasyon dakikası</label><select id="atSp">${[[20,'20 sn (yavaş)'],[12,'12 sn (normal)'],[6,'6 sn (hızlı)']].map(([v,t])=>`<option value="${v}" ${c.speed===v?'selected':''}>${t}</option>`).join('')}</select></div></div>
+    ${mode==='ekip'?`<div class="field"><label class="f" for="atMn">Müdahale menüsü</label><select id="atMn"><option value="egitmen" ${c.menu!=='gorunur'?'selected':''}>Yalnız eğitmen görür (ekip ister, siz işaretlersiniz)</option><option value="gorunur" ${c.menu==='gorunur'?'selected':''}>Ekip de görür</option></select>
+      <div class="small muted" style="margin-top:4px">“Yalnız eğitmen” seçilirse oyunda <b>Projeksiyon ekranı</b> ayrı bir pencerede açılır; ekip yalnız hastayı, monitörü ve açılan bilgileri görür. O pencereyi projeksiyona taşıyın, menü sizin ekranınızda kalsın.</div></div>`:''}
+    <div class="small muted">Monitör bağlanmadan vitaller görünmez. Her muayene, tetkik ve müdahale coin harcar; tedavi edilmeyen sorun hastayı kötüleştirir. Puan = kalan coin (hasta yaşıyorsa) + kritik eylemler − cezalar + sağkalım bonusu.${S.preview?' <b>Önizlemede sonuç kaydedilmez.</b>':''}</div>
+  </div><div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="atGo">Hastayı karşıla</button></div>`);
+  m.el.querySelector('#atGo').onclick=()=>{
+    const q=s=>m.el.querySelector(s);
+    const cfg={mode,team:q('#atT').value.trim().slice(0,60)||(mode==='ekip'?'İsimsiz ekip':(S.resident?.name||'Oyuncu')),
+      members:ROLES.map((r,i)=>q('#atM'+i).value.trim().slice(0,60)),scen:q('input[name=atS]:checked')?.value||SCEN[0].id,coins:+q('#atC').value,speed:+q('#atSp').value,menu:mode==='ekip'?q('#atMn').value:'gorunur'};
+    try{ localStorage.setItem(K+'_cfg',JSON.stringify(cfg)); }catch(e){}
+    m.close(); go(C.playView,{cfg,back:mode==='ekip'?'games':C.view});
+  };
+}
+
+/* ---- oyun ---- */
+function play(cfg,back){
+  if(!cfg){ return go(back||'games'); }
+  stopGame(); document.body.classList.add('game-mode'); G={unsubs:[],tick:null};
+  cfgCur={menu:'gorunur',...cfg}; backTo=back||'games'; tab=CATS[0].id;
+  const s=SCEN.find(x=>x.id===cfg.scen)||SCEN[0];
+  R={scen:s.id,t:0,coins:cfg.coins,start:cfg.coins,v:{...s.init.v},f:{fluid:0,...s.init.f},done:{},first:{},spent:{},finds:[],log:[],pen:[],penKeys:{},hint:0,ended:false,running:false};
+  if(R.v.dbp==null) R.v.dbp=R.v.sbp*.6; C.init?.(R);
+  shell();
+  const m=modal(`<div class="modal-h"><h2>${esc(s.title)}</h2></div><div class="modal-b"><div class="lbl2">${s.mistLabel||'112 bildirimi'}</div><p>${esc(s.mist)}</p>
+    <p class="small muted">${esc(cfg.team)} · bütçe ${cfg.coins} coin · 1 simülasyon dakikası = ${cfg.speed} sn</p>
+    ${egt()?`<p class="small" style="margin-bottom:0">Önce <b>Projeksiyon ekranını açın</b> ve o pencereyi projeksiyona sürükleyin; menü ve bu pencere sizin ekranınızda kalır.</p>`:''}</div>
+    <div class="modal-f">${egt()?`<button class="btn" id="atPjO">Projeksiyon ekranını aç</button>`:''}<button class="btn primary" id="atStart">Hasta geldi, başla</button></div>`,'narrow');
+  m.el.querySelector('#atStart').onclick=()=>{ m.close(); run(); };
+  m.el.querySelector('#atPjO')?.addEventListener('click',pjOpen);
+  if(pjWin&&!pjWin.closed) pjShell();
+}
+function lg(kind,text,cost,label){
+  R.log.push({t:R.t,kind,text,cost:cost||0});
+  if(kind==='sys'||kind==='harm'){ R.finds.unshift({t:R.t,label:kind==='sys'?'Durum değişikliği':label,text,kind}); lastFind=R.finds[0]; }
+}
+function pen(pts,reason){ if(R.penKeys[reason]) return; R.penKeys[reason]=1; R.pen.push({t:R.t,pts,reason}); lg('harm',reason,0,`Ceza −${pts}`); }
+function run(){ if(!R||R.ended||!G) return; R.running=true; clearInterval(G.tick); G.tick=setInterval(()=>advance(1),cfgCur.speed*1000); hud(); vitals(); }
+function pause(){ if(G) clearInterval(G.tick); if(R) R.running=false; hud(); vitals(); }
+function advance(n){
+  if(!R||!$('atClock')){ pause(); return; }
+  for(let i=0;i<n&&!R.ended;i++){
+    R.t+=1; sc().tick(R,lg,pen); C.after?.(R,lg,pen);
+    const d=sc().dead?.(R)||C.dead?.(R);
+    if(d){ endGame(false,d); return; }
+    if(R.t>=LIMIT){ endGame(aliveNow(),C.limitReason?C.limitReason(R):'Süre doldu.'); return; }
+  }
+  vitals(); finds(); acts(); hud();
+}
+function buy(id){
+  if(!R||R.ended) return;
+  const a=A[id], s=sc();
+  if(a.once&&R.done[id]) return;
+  if(a.dis&&a.dis(R)) return;
+  if(R.coins<a.cost) return toast('Yeterli coin yok',true);
+  if(a.iv&&!R.f.iv) return toast(C.ivMsg,true);
+  if(a.need&&!R.f[a.need[0]]) return toast(a.need[1],true);
+  R.coins-=a.cost; R.spent[a.cat]=(R.spent[a.cat]||0)+a.cost; R.done[id]=(R.done[id]||0)+1; if(R.first[id]==null) R.first[id]=R.t;
+  floatCoin(a.cost);
+  C.flags?.[id]?.(R.f,R);
+  let r=s.act[id]?.(R,s,lg)||C.act?.[id]?.(R,s,lg)||null;
+  if(!r){ const f=s.find[id]; r={text:typeof f==='function'?f(R):(f||DEF[id]||'Uygulandı.')}; if(id===C.monId&&!s.find[id]) r={text:C.monText}; }
+  R.finds.unshift({t:R.t,label:a.label,text:r.text,kind:r.pen?'harm':a.kind}); lastFind=R.finds[0];
+  lg(a.kind,a.label+': '+r.text,a.cost);
+  if(r.pen) pen(r.pen[0],r.pen[1]);
+  (r.pens||[]).forEach(p=>pen(p[0],p[1]));
+  if(r.hurt) r.hurt();
+  if(a.dur){ toast(`${a.label}: ${a.dur} dk sürdü`); advance(a.dur); }
+  if(!R.ended){ vitals(); finds(); acts(); hud(); }
+}
+function hint(){
+  const h=sc().hints; if(R.ended) return; if(R.hint>=h.length) return toast('İpucu kalmadı');
+  if(R.coins<HINT_COST) return toast('Yeterli coin yok',true);
+  R.coins-=HINT_COST; R.spent.H=(R.spent.H||0)+HINT_COST; floatCoin(HINT_COST);
+  const t=h[R.hint++]; R.finds.unshift({t:R.t,label:'Eğitmen ipucu',text:t,kind:'sys'}); lastFind=R.finds[0]; R.log.push({t:R.t,kind:'hint',text:'İpucu: '+t,cost:HINT_COST});
+  finds(); hud();
+}
+
+/* ---- çizim ---- */
+function shell(){
+  const s=sc(), mem=cfgCur.members.map((x,i)=>x?`${ROLES[i]}: ${esc(x)}`:'').filter(Boolean).join(' · ');
+  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':C.short}</button>
+      <div class="at-team"><b>${esc(cfgCur.team)}</b><small>${egt()?'Eğitmen ekranı · ':''}${esc(s.title)}${mem?' · '+mem:''}</small></div>
+      <div><div class="at-l">Süre</div><div class="at-clock mono" id="atClock">00:00</div></div>
+      <div class="at-bank" id="atBank"><div class="at-l">Coin</div><span class="at-coin big"><i></i><span id="atCoins">0</span></span></div>
+      <div class="at-ctl">${egt()?'<button class="g-x" id="atPj">Projeksiyon ekranı</button>':''}<button class="g-x" id="atPP">Başlat</button><button class="g-x" id="atIn">Eğitmen</button><button class="g-x at-danger" id="atEnd">Vakayı bitir</button></div></div>
+    <div class="at-grid"><div class="at-col">
+      <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(s.brief)}</h2><p class="at-mist">${esc(s.mist)}</p></section>
+      <section class="at-mon" id="atMon"></section>
+      <section class="at-panel"><div class="at-l">Açılan bilgiler</div><div class="at-finds" id="atFinds"></div></section></div>
+     <div class="at-col"><section class="at-panel"><div class="at-quick"><button class="g-x" id="atAmple">${C.quick.label} ${coin(A[C.quick.id].cost)}</button><button class="g-x" id="atHint">Eğitmen ipucu ${coin(HINT_COST)}</button>${cfgCur.mode==='ekip'?'<button class="g-x" id="atCustom">+ Listede olmayan istek</button>':''}</div>
+        <input type="search" class="at-q" id="atQ" placeholder="${C.searchPh}" autocomplete="off" aria-label="Müdahale ara">
+        <div class="at-tabs" id="atTabs" role="tablist"></div><div class="at-acts" id="atActs"></div></section>
+      <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="atLog"></div></section></div></div>`,'atls');
+  $('atX').onclick=async()=>{ if(!R.ended&&(R.t>0||R.log.length)){ const was=R.running; pause(); if(!await confirmDlg('Oyundan çık','<p>Vaka yarıda kalır ve sonuç kaydedilmez.</p>','Çık',true)){ if(was) run(); return; } } exitGame(); };
+  $('atPP').onclick=()=>R.running?pause():run();
+  $('atEnd').onclick=confirmEnd; $('atIn').onclick=instructor; $('atAmple').onclick=()=>buy(C.quick.id); $('atHint').onclick=hint;
+  $('atQ').oninput=acts; $('atPj')&&($('atPj').onclick=pjOpen); $('atCustom')&&($('atCustom').onclick=customDlg);
+  tabs(); acts(); vitals(); finds(); hud();
+}
+function exitGame(){ stopGame(); R=null; if(pjWin&&!pjWin.closed) pjWin.close(); pjWin=null; go(backTo); }
+function tabs(){
+  $('atTabs').innerHTML=CATS.map(c=>`<button role="tab" aria-selected="${tab===c.id}" data-at="${c.id}">${c.k}<small>${c.n}</small></button>`).join('');
+  $('atTabs').querySelectorAll('[data-at]').forEach(b=>b.onclick=()=>{ tab=b.dataset.at; if($('atQ')) $('atQ').value=''; tabs(); acts(); });
+}
+function acts(){
+  const q=trLower(($('atQ')?.value||'').trim());
+  const list=q?ACTIONS.filter(a=>trLower(a.label).includes(q)||trLower(KIND[a.kind]).includes(q)):ACTIONS.filter(a=>a.cat===tab&&a.id!==C.quick.id);
+  $('atTabs').classList.toggle('dim',!!q);
+  if(q&&!list.length){ $('atActs').innerHTML=`<div class="at-empty">“${esc(q)}” bulunamadı. Ekibin isteği listede yoksa <b>+ Listede olmayan istek</b> ile kaydedin.</div>`; return; }
+  $('atActs').innerHTML=list.map(a=>{ const n=R.done[a.id]||0, locked=(a.once&&n)||R.ended||(a.dis&&a.dis(R));
+    return `<button class="at-act ${n?'done':''}" data-aa="${a.id}" ${locked?'disabled':''}><span class="t">${a.label}</span>
+      <span class="m"><span class="at-kind ${a.kind}">${q?(CATS.find(c=>c.id===a.cat)||{}).k+' · ':''}${KIND[a.kind]}${a.dur?' · '+a.dur+' dk':''}</span>${n?`<span class="cnt">${a.once?'✓ yapıldı':'×'+n}</span>`:''}${coin(a.cost)}</span></button>`; }).join('');
+  $('atActs').querySelectorAll('[data-aa]').forEach(b=>b.onclick=()=>buy(b.dataset.aa));
+}
+const fmt=t=>String(Math.floor(t)).padStart(2,'0')+':00';
+const logRow=l=>`<div><span class="tm mono">dk ${String(l.t).padStart(2,'0')}</span><span>${esc(l.text)}</span><span class="at-coin">${l.cost?'−'+l.cost:''}</span></div>`;
+function hud(){
+  if(!R||!$('atClock')) return;
+  $('atClock').textContent=fmt(R.t); $('atCoins').textContent=R.coins;
+  $('atPP').textContent=R.running?'Duraklat':(R.t||R.log.length?'Devam':'Başlat');
+  const lh=R.log.slice().reverse().map(logRow).join('')||'<span class="at-empty">Henüz işlem yok.</span>';
+  $('atLog').innerHTML=lh;
+  if(P('pjClock')){ P('pjClock').textContent=fmt(R.t); P('pjCoins').textContent=R.coins; P('pjLog').innerHTML=lh;
+    const st=P('pjSt'); st.textContent=R.running?'Canlı':(R.t||R.log.length?'Duraklatıldı':'Hazır'); st.className='at-state'+(R.running?' live':''); }
+}
+function floatCoin(n){ const b=$('atBank'); if(!b) return; const e=document.createElement('span'); e.className='at-float mono'; e.textContent='−'+n; b.appendChild(e); setTimeout(()=>e.remove(),1000); }
+function finds(){
+  if(!$('atFinds')) return;
+  const fh=R.finds.length?R.finds.map(f=>`<div class="at-find ${f.kind==='harm'?'harm':f.kind==='sys'?'sys':''} ${f===lastFind?'new':''}"><div class="h"><b>${esc(f.label)}</b><span class="mono">dk ${String(f.t).padStart(2,'0')}</span></div><p>${esc(f.text)}</p></div>`).join('')
+    :'<div class="at-empty">Coin harcayarak muayene edin, tetkik isteyin. Bulgular burada açılır.</div>';
+  $('atFinds').innerHTML=fh; if(P('pjFinds')) P('pjFinds').innerHTML=fh.replace('Coin harcayarak muayene edin, tetkik isteyin.','Ekip ne yapmak istediğini söylesin.');
+  lastFind=null;
+}
+function vitals(){
+  if(!R) return; const v=R.v;
+  const j=x=>Math.round(x+(Math.random()-.5)*2);
+  const V=C.vitals(R,j);
+  const vh=V.map(([k,c,val,u,al])=>`<div class="vt ${al?'alarm':''}" style="color:var(--v-${c})"><div class="k">${k}</div><div class="v mono">${val} <span class="u">${u}</span></div></div>`).join('');
+  monInto($('atMon'),window,vh,true);
+  if(pjWin&&!pjWin.closed) monInto(P('pjMon'),pjWin,vh,false);
+}
+function monInto(m,win,vh,ctl){
+  if(!m) return;
+  if(!R.f.mon){ m.innerHTML=`<div class="top"><span>Monitör</span><span>Bağlı değil</span></div><div class="at-monoff"><div>Vital bulgular monitör bağlanınca görünür.</div>${ctl?`<button class="g-x" data-monb>${C.monBtn} · ${A[C.monId].cost} coin</button>`:''}</div>`;
+    m.querySelector('[data-monb]')?.addEventListener('click',()=>buy(C.monId)); return; }
+  if(!m.querySelector('canvas')) m.innerHTML=`<div class="top"><span data-ml></span><span data-ms></span></div><canvas width="600" height="80"></canvas><div class="at-vit" data-vit></div>`;
+  m.querySelector('[data-ms]').textContent=R.running?'Canlı':'Duraklatıldı';
+  m.querySelector('[data-ml]').textContent=C.monLabel?C.monLabel(R):'Monitör · DII';
+  m.querySelector('[data-vit]').innerHTML=vh;
+  ecg(m.querySelector('canvas'),win);
+}
+function ecg(c,win){
+  if(!c||c._on) return; c._on=1; const ctx=c.getContext('2d'); let x=0,last=win.performance.now(),prevY=40; const st={phase:0,n:0,pa:0};
+  const reduce=win.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  ctx.fillStyle='#0b1110'; ctx.fillRect(0,0,600,80);
+  const frame=now=>{
+    if(win.closed||!win.document.body.contains(c)) return;
+    const dt=Math.min(.05,(now-last)/1000); last=now;
+    if(R&&R.running&&!reduce){
+      const steps=Math.max(1,Math.round(dt*160));
+      for(let i=0;i<steps;i++){
+        st.n++; st.phase+=((C.ecgRate?C.ecgRate(R):R.v.hr)/60)/160; if(st.phase>1) st.phase-=1;
+        const y=C.ecgY?C.ecgY(R,st):sinusY(st.phase);
+        ctx.fillStyle='#0b1110'; ctx.fillRect(x,0,8,80);
+        ctx.strokeStyle='#3ddc84'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x-1,prevY); ctx.lineTo(x,y); ctx.stroke(); prevY=y;
+        x+=1; if(x>=600) x=0;
+      }
+    }
+    win.requestAnimationFrame(frame);
+  };
+  win.requestAnimationFrame(frame);
+}
+/* ---- projeksiyon ekranı (eğitmen modu) ---- */
+function pjOpen(){
+  if(pjWin&&!pjWin.closed){ pjWin.focus(); return; }
+  pjWin=window.open('',K+'Ekran','width=1280,height=800');
+  if(!pjWin) return toast('Açılır pencere engellendi. Adres çubuğundan bu siteye açılır pencere izni verip tekrar deneyin.',true);
+  const css=[...document.querySelectorAll('style')].map(x=>x.textContent).join('\n');
+  const fonts=[...document.querySelectorAll('link[rel=stylesheet]')].map(l=>l.outerHTML).join('');
+  pjWin.document.open();
+  pjWin.document.write(`<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${C.brand} · Projeksiyon</title>${fonts}<style>${css}</style></head><body class="game-mode"><div id="pjRoot"></div></body></html>`);
+  pjWin.document.close();
+  pjShell(); toast('Projeksiyon ekranı açıldı; pencereyi projeksiyona taşıyın');
+}
+function pjShell(){
+  const root=P('pjRoot'); if(!root||!R) return; const s=sc();
+  root.innerHTML=gameShell(`<div class="at-top"><div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(s.title)}</small></div><span class="at-state" id="pjSt">Hazır</span>
+      <div><div class="at-l">Süre</div><div class="at-clock mono" id="pjClock">00:00</div></div>
+      <div class="at-bank"><div class="at-l">Coin</div><span class="at-coin big"><i></i><span id="pjCoins">0</span></span></div>
+      <button class="g-x" id="pjFs">Tam ekran</button></div>
+    <div class="at-grid"><div class="at-col">
+      <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(s.brief)}</h2><p class="at-mist">${esc(s.mist)}</p></section>
+      <section class="at-mon" id="pjMon"></section></div>
+     <div class="at-col"><section class="at-panel"><div class="at-l">Açılan bilgiler</div><div class="at-finds tall" id="pjFinds"></div></section>
+      <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="pjLog"></div></section></div></div>`,'atls pjv');
+  P('pjFs').onclick=()=>{ const d=pjWin.document; try{ const r=d.fullscreenElement?d.exitFullscreen():d.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){} };
+  if(R.ended&&R.res) return pjEnd(R.res);
+  lastFind=null; finds(); vitals(); hud();
+}
+function pjEnd(res){
+  const root=P('pjRoot'); if(!root) return;
+  root.innerHTML=gameShell(`<div class="at-top"><div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(res.scenTitle)}</small></div><b>Değerlendirme</b></div>${debriefHtml(res)}`,'atls pjv');
+  pjWin.scrollTo(0,0);
+}
+/* ---- listede olmayan istek ---- */
+function customDlg(){
+  if(!R||R.ended) return; const was=R.running; pause();
+  const m=modal(`<div class="modal-h"><h2>Listede olmayan istek</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <p class="small muted" style="margin-top:0">Ekip menüde olmayan bir şey isterse bedelini ve sonucunu siz belirleyin. Sonuç ekibe “Açılan bilgiler”de gösterilir, zaman çizelgesine yazılır.</p>
+    <div class="field"><label class="f" for="atCuL">Ekibin isteği</label><input type="text" id="atCuL" maxlength="80" placeholder="Örn. Femur traksiyonu"></div>
+    <div class="grid3"><div class="field"><label class="f" for="atCuK">Tür</label><select id="atCuK"><option value="info">Bilgi</option><option value="int" selected>Müdahale</option><option value="test">Tetkik</option><option value="cons">Çağrı</option></select></div>
+      <div class="field"><label class="f" for="atCuC">Coin</label><input type="number" id="atCuC" min="0" max="50" value="5"></div>
+      <div class="field"><label class="f" for="atCuD">Süre (dk)</label><input type="number" id="atCuD" min="0" max="10" value="0"></div></div>
+    <div class="field"><label class="f" for="atCuT">Ekibe gösterilecek sonuç / bulgu</label><textarea id="atCuT" placeholder="Örn. Uygulandı; belirgin değişiklik yok."></textarea></div>
+    <div class="field"><label class="f" for="atCuP">Ceza puanı (zararlı veya endikasyonsuzsa)</label><input type="number" id="atCuP" min="0" max="50" value="0"></div>
+  </div><div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="atCuGo">Kaydet</button></div>`);
+  const q=x=>m.el.querySelector(x), num=(x,mx)=>clamp(Math.round(+q(x).value||0),0,mx);
+  m.el.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{ if(was) run(); }));
+  q('#atCuL').focus();
+  q('#atCuGo').onclick=()=>{
+    const label=q('#atCuL').value.trim(); if(!label) return toast('İsteği yazın',true);
+    const cost=num('#atCuC',50), dur=num('#atCuD',10), pts=num('#atCuP',50), kind=q('#atCuK').value, text=q('#atCuT').value.trim().slice(0,400)||'Uygulandı.';
+    if(R.coins<cost) return toast('Ekibin yeterli coin’i yok',true);
+    R.coins-=cost; if(cost){ R.spent.O=(R.spent.O||0)+cost; floatCoin(cost); }
+    R.finds.unshift({t:R.t,label,text,kind:pts?'harm':kind}); lastFind=R.finds[0];
+    R.log.push({t:R.t,kind,text:label+': '+text,cost});
+    if(pts) pen(pts,'Eğitmen: '+label);
+    m.close();
+    if(dur){ toast(`${label}: ${dur} dk sürdü`); advance(dur); }
+    if(!R.ended){ vitals(); finds(); hud(); if(was) run(); }
+  };
+}
+async function confirmEnd(){
+  const was=R.running; pause();
+  if(await confirmDlg('Vakayı bitir','<p>Hasta mevcut durumuyla devredilir ve değerlendirme açılır.</p>','Bitir ve değerlendir')) endGame(aliveNow(),'Ekip vakayı sonlandırdı.');
+  else if(was) run();
+}
+function instructor(){
+  const was=R.running; pause();
+  const m=modal(`<div class="modal-h"><h2>Eğitmen paneli</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <p class="small muted" style="margin-top:0">Oyun duraklatıldı. Ekibe ödül veya ceza coin’i verin; not zaman çizelgesine yazılır.</p>
+    <div class="row">${[-20,-10,10,20].map(n=>`<button class="btn" data-n="${n}">${n>0?'+':''}${n} coin</button>`).join('')}</div>
+    <div class="field" style="margin-top:12px"><label class="f" for="atNote">Not</label><input type="text" id="atNote" placeholder="Örn. Kapalı döngü iletişim iyi"></div></div>
+    <div class="modal-f"><button class="btn primary" id="atIc">Kapat ve devam et</button></div>`,'narrow');
+  m.el.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{ const n=+b.dataset.n, note=m.el.querySelector('#atNote').value.trim(); R.coins=Math.max(0,R.coins+n);
+    R.log.push({t:R.t,kind:'instr',text:`Eğitmen ${n>0?'+':''}${n} coin${note?': '+note:''}`,cost:0}); hud(); toast(`${n>0?'+':''}${n} coin`); });
+  m.el.querySelector('#atIc').onclick=()=>{ m.close(); if(was) run(); };
+}
+
+/* ---- bitiş ve değerlendirme ---- */
+function score(alive,reason){
+  const s=sc();
+  const crit=s.crit.map(c=>{ const ts=c.ids.map(i=>R.first[i]).filter(x=>x!=null); const t=ts.length?Math.min(...ts):null;
+    const st=t==null?'n':(t<=c.within?'y':'h'); return {label:c.label,within:c.within,pts:c.pts,t,st,got:st==='y'?c.pts:st==='h'?Math.round(c.pts/2):0}; });
+  const critSum=crit.reduce((a,c)=>a+c.got,0), critMax=crit.reduce((a,c)=>a+c.pts,0), penSum=R.pen.reduce((a,p)=>a+p.pts,0);
+  const def=!!R.f.def, surv=alive?(def?50:20):0;
+  return {mode:cfgCur.mode,team:cfgCur.team,members:cfgCur.members,scen:s.id,scenTitle:s.title,score:Math.round((alive?R.coins:0)+critSum-penSum+surv),alive,def,minutes:R.t,coinsLeft:R.coins,start:R.start,
+    critSum,critMax,penSum,surv,crit,pen:R.pen,spent:R.spent,log:R.log.slice(-200).map(l=>({t:l.t,text:String(l.text).slice(0,400),cost:l.cost||0})),reason,
+    vitals:C.snap(R)};
+}
+function debriefHtml(r){
+  const verdict=C.verdict(r);
+  const v=r.vitals||{}, tot=Object.values(r.spent||{}).reduce((a,b)=>a+b,0)||1;
+  return `<div class="at-deb">
+    <section class="ad-p ad-verdict"><div><div class="ad-l">${esc(r.scenTitle)} · ${esc(r.team)} · dk ${r.minutes}</div><h2 class="${r.alive?'ok':'bad'}">${verdict}</h2>
+      <p class="ad-m">${esc(r.reason||'')} ${C.vline(v)}</p></div>
+      <div class="ad-score"><div class="ad-l">Toplam puan</div><div class="mono">${r.score}</div></div></section>
+    <div class="ad-grid">
+      <section class="ad-p"><div class="ad-l">Kritik eylemler · ${r.critSum}/${r.critMax}</div>
+        ${(r.crit||[]).map(c=>`<div class="ad-crit ${c.st}"><span class="ic">${c.st==='y'?'✓':c.st==='h'?'◐':'✗'}</span><span>${esc(c.label)}<br><small>${c.t==null?'Yapılmadı':'dk '+c.t+(c.st==='h'?` (hedef ≤ ${c.within} dk, geç)`:'')}</small></span><span class="mono">+${c.got}</span></div>`).join('')}</section>
+      <div class="ad-col">
+        <section class="ad-p"><div class="ad-l">Puan dökümü</div><div class="ad-bd"><span>Kalan coin${r.alive?"":" (hasta kaybedildi, sayılmaz)"}</span><span class="mono">${r.alive?r.coinsLeft:0}</span><span>Kritik eylemler</span><span class="mono">+${r.critSum}</span><span>Cezalar</span><span class="mono">−${r.penSum}</span><span>Sağkalım bonusu</span><span class="mono">+${r.surv}</span><b>Toplam</b><b class="mono">${r.score}</b></div></section>
+        <section class="ad-p"><div class="ad-l">Hatalar ve cezalar</div>${(r.pen||[]).length?r.pen.map(p=>`<div class="ad-crit n"><span class="ic">!</span><span>${esc(p.reason)}<br><small>dk ${p.t}</small></span><span class="mono">−${p.pts}</span></div>`).join(''):'<div class="ad-m">Ceza yok.</div>'}</section>
+        <section class="ad-p"><div class="ad-l">Coin nereye gitti</div><div class="ad-bars">${Object.entries(r.spent||{}).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<div class="ad-bar"><span>${CATNAME[k]||k}</span><span class="tr"><span style="width:${n/tot*100}%"></span></span><span class="mono">${n}</span></div>`).join('')||'<div class="ad-m">Coin harcanmadı.</div>'}</div></section>
+      </div></div>
+    <section class="ad-p"><div class="ad-l">Zaman çizelgesi</div><div class="at-log full">${(r.log||[]).map(logRow).join('')}</div></section></div>`;
+}
+async function endGame(alive,reason){
+  R.ended=true; pause();
+  const res=score(alive,reason); R.res=res; pjEnd(res);
+  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':C.short}</button><b>Değerlendirme</b><span class="small" id="atSave">${S.preview?'Önizleme: sonuç kaydedilmedi':'Kaydediliyor…'}</span></div>
+    ${debriefHtml(res)}<div class="g-act"><button class="g-btn ghost" id="atAgain">Aynı senaryoyu tekrar oyna</button><button class="g-btn" id="atNew">Yeni oyun</button></div>`,'atls');
+  window.scrollTo(0,0);
+  $('atX').onclick=exitGame; $('atAgain').onclick=()=>go(C.playView,{cfg:cfgCur,back:backTo}); $('atNew').onclick=()=>setupDlg(cfgCur.mode);
+  if(S.preview) return;
+  try{ await setDoc(doc(collection(db,C.coll)),{...res,uid:S.user.uid,email:S.email,name:S.resident?.name||S.user.displayName||S.email,at:serverTimestamp()});
+    if($('atSave')) $('atSave').textContent='Sonuç kaydedildi'; }
+  catch(e){ fail(e,'Sonuç kaydedilemedi'); if($('atSave')) $('atSave').textContent='Sonuç kaydedilemedi'; }
+}
+
+/* ---- kayıtlar: liste, değerlendirme, liderlik ---- */
+function showRun(r){ modal(`<div class="modal-h"><h2>${esc(r.team)} · ${esc(r.scenTitle)}</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
+    <div class="small muted" style="margin-bottom:10px">${esc(r.name||'')} · ${fmtDT(r.at)} · ${r.mode==='ekip'?'Ekip oyunu':'Bireysel'}${(r.members||[]).filter(Boolean).length?' · '+r.members.map((m,i)=>m?`${ROLES[i]}: ${esc(m)}`:'').filter(Boolean).join(' · '):''}</div>${debriefHtml(r)}</div>`,'wide'); }
+function runRow(r,admin){
+  return `<div class="tplrow"><div class="grow" style="min-width:0"><b>${esc(r.team)}</b> <span class="badge ${r.alive?'ok':'bad'}">${r.alive?'Hayatta':'Ex'}</span> ${admin&&r.mode!=='ekip'?'<span class="badge">Bireysel</span>':''}
+    <div class="small muted">${esc(r.scenTitle)} · ${r.score} puan · ${fmtDT(r.at)}</div></div>
+    <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-${K}run="${r.id}">Değerlendirme</button>${admin?`<button class="btn sm ghost danger" data-${K}del="${r.id}">✕</button>`:''}</div></div>`;
+}
+function leaderboard(runs){
+  modal(`<div class="modal-h"><h2>${C.brand} · liderlik</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">${SCEN.map(s=>{
+    const top=runs.filter(r=>r.scen===s.id).sort((a,b)=>b.score-a.score).slice(0,10);
+    return `<h3 style="margin-top:12px">${s.title}</h3>${top.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>Ekip / oyuncu</th><th>Sonuç</th><th>Tarih</th><th style="text-align:right">Puan</th></tr></thead><tbody>${top.map((r,i)=>`<tr><td class="mono">${i+1}</td><td>${esc(r.team)}${r.mode!=='ekip'?' <span class="small muted">(bireysel)</span>':''}</td><td>${r.alive?'Hayatta':'Ex'}</td><td class="small">${fmtDT(r.at)}</td><td class="mono" style="text-align:right">${r.score}</td></tr>`).join('')}</tbody></table></div>`:'<div class="small muted">Henüz oynanmadı.</div>'}`; }).join('')}</div>`,'wide');
+}
+async function loadRuns(mine){
+  const q=mine?query(collection(db,C.coll),where('uid','==',S.user.uid)):collection(db,C.coll);
+  const s=await getDocs(q); return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.at)||0)-(tsMs(a.at)||0));
+}
+/* Oyunlar sekmesindeki kart (yönetici) */
+function adminCard(runs){
+  return `<div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${C.cardTitle}</h2><div class="row"><button class="btn" id="${K}Lb">🏆 Liderlik</button><button class="btn primary" id="${K}NewE">+ Yeni oyun</button></div></div>
+    <p class="small muted">${C.cardDesc} Tek ekrana yansıtın, ekip birlikte karar versin. Asistanlar Öğren sekmesinden bireysel de oynayabilir.</p>
+    <div class="list" style="gap:0">${runs.slice(0,15).map(r=>runRow(r,true)).join('')||'<div class="small muted">Henüz oyun yok.</div>'}</div></div>`;
+}
+function bindAdminCard(runs,reload){
+  $(K+'NewE')&&($(K+'NewE').onclick=()=>setupDlg('ekip'));
+  $(K+'Lb')&&($(K+'Lb').onclick=()=>leaderboard(runs));
+  bindRows(runs,reload);
+}
+function bindRows(runs,reload){
+  $app.querySelectorAll(`[data-${K}run]`).forEach(b=>b.onclick=()=>{ const r=runs.find(x=>x.id===b.dataset[K+'run']); if(r) showRun(r); });
+  $app.querySelectorAll(`[data-${K}del]`).forEach(b=>b.onclick=async()=>{ if(!await confirmDlg('Oyun kaydını sil','<p>Bu oyunun sonucu ve değerlendirmesi silinir.</p>','Sil',true)) return;
+    try{ await deleteDoc(doc(db,C.coll,b.dataset[K+'del'])); toast('Silindi'); reload(); }catch(e){ fail(e); } });
+}
+/* Asistan sayfası */
+async function page(){
+  paint(`<div class="spinner"></div>`);
+  let runs=[]; try{ runs=await loadRuns(true); }catch(e){ console.error(e); }
+  const best=id=>{ const x=runs.filter(r=>r.scen===id); return x.length?Math.max(...x.map(r=>r.score)):null; };
+  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Öğren</button><h1>${C.pageTitle}</h1><div class="sub">${C.pageSub}</div></div><button class="btn primary" id="atNewR">Yeni oyun</button></div>
+    <div class="at-rsc">${SCEN.map(s=>`<div class="card pad"><div class="lbl2">Senaryo ${s.tag}</div><h2 style="margin:2px 0 4px">${s.title}</h2><div class="small muted">${s.brief}</div>
+      <div class="small" style="margin-top:8px">${best(s.id)!=null?`En iyi puanınız: <b class="mono">${best(s.id)}</b>`:'Henüz oynamadınız'}</div></div>`).join('')}</div>
+    <div class="card pad" style="margin-top:16px"><h2 style="margin-top:0">Nasıl oynanır</h2><ul class="small" style="margin:0;padding-left:18px;display:grid;gap:4px">
+      ${C.howto.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="card pad" style="margin-top:16px"><h2 style="margin-top:0">Oyunlarım</h2><div class="list" style="gap:0">${runs.map(r=>runRow(r,false)).join('')||'<div class="small muted">Henüz oyun yok.</div>'}</div></div>`);
+  $('bk').onclick=()=>go('learn'); $('atNewR').onclick=()=>setupDlg('bireysel');
+  bindRows(runs,page);
+}
+return {setupDlg,play,page,adminCard,bindAdminCard,loadRuns};
+};
+
 /* ================= ATLS Ekip Oyunu · Altın Saat ================= */
 const ATLS=(()=>{
 /* ================= ACTION LIBRARY ================= */
 const CATS=[
  {id:'x',k:'X',n:'Kanama'},{id:'A',k:'A',n:'Havayolu'},{id:'B',k:'B',n:'Solunum'},{id:'C',k:'C',n:'Dolaşım'},
  {id:'D',k:'D',n:'Nörolojik'},{id:'E',k:'E',n:'Açığa çıkar'},{id:'T',k:'Tetkik',n:'Yardımcı'},{id:'K',k:'Konsült',n:'Definitif'}];
-const KIND={info:'Bilgi',int:'Müdahale',test:'Tetkik',cons:'Çağrı'};
 const ACTIONS=[
  {id:'x_inspect',cat:'x',kind:'info',cost:5,label:'Masif dış kanama kontrolü'},
  {id:'x_pressure',cat:'x',kind:'int',cost:5,label:'Direkt bası / yara paketleme',once:1},
@@ -4386,7 +4762,6 @@ const ACTIONS=[
  {id:'k_neuro',cat:'K',kind:'cons',cost:10,label:'Beyin cerrahisi',once:1},
  {id:'k_ortho',cat:'K',kind:'cons',cost:10,label:'Ortopedi',once:1},
 ];
-const A=Object.fromEntries(ACTIONS.map(a=>[a.id,a]));
 const DEF={
  x_inspect:'Masif dış kanama yok.',x_pressure:'Bası uygulandı; aktif dış kanama odağı yok.',x_tourniquet:'Ekstremitede kontrolsüz kanama yok — endikasyon yok.',
  a_talk:'Konuşuyor, havayolu açık.',a_inspect:'Ağız içi temiz.',a_cspine:'Manuel in-line stabilizasyon ve servikal kolar uygulandı.',
@@ -4401,8 +4776,6 @@ const DEF={
 };
 
 /* ================= HELPERS ================= */
-const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
-function toward(v,k,t,r){const d=t-v[k];v[k]+=Math.sign(d)*Math.min(Math.abs(d),r)}
 const GCSMAP={15:[4,5,6],14:[3,5,6],13:[3,4,6],12:[3,4,5],11:[2,4,5],10:[2,3,5],9:[2,2,5],8:[2,2,4],7:[1,2,4],6:[1,1,4],5:[1,1,3],4:[1,1,2],3:[1,1,1]};
 function gcsTxt(S){const g=clamp(Math.round(S.v.gcs),3,15),[e,v,m]=GCSMAP[g];return S.f.intub?`GKS ${e+m}T (E${e} V-T M${m})`:`GKS ${g} (E${e} V${v} M${m})`}
 const sbpW=S=>S.v.sbp<70?'Ciddi hipotansif.':S.v.sbp<90?'Hipotansif.':'';
@@ -4580,376 +4953,412 @@ const SCEN=[
  hints:['Hipotansiyon + dolgun boyun venleri + derinden gelen kalp sesleri…','Yatak başı tanı için en hızlı tetkik hangisi?','Perikardiyosentez yalnızca köprüdür. Definitif tedavi?','İndüksiyon ve pozitif basınç bu hastada arreste yol açabilir.']}
 ];
 
+return SIM_ENGINE({key:'atls',coll:'atlsRuns',view:'atls',playView:'atlsPlay',brand:'Altın Saat',short:'ATLS oyunu',
+  cardTitle:'ATLS Ekip Oyunu · Altın Saat',cardDesc:'Travma hastası gerçek zamanlı kötüleşir. Ekip xABCDE sırasıyla muayene, tetkik ve müdahaleye coin harcar; zamanında kritik eylem puan, zararlı işlem ceza getirir.',
+  pageTitle:'ATLS oyunu · Altın Saat',pageSub:'Travma hastası gelir ve zaman akar. Her muayene, tetkik ve müdahale coin harcar. Doğru sırayla, az coin harcayarak hastayı definitif bakıma ulaştırın.',
+  howto:['Monitör bağlanmadan vital bulgular görünmez. Damar yolu olmadan sıvı ve ilaç verilemez.','Aynı muayeneyi tekrarlamak da coin harcar; yeniden değerlendirmenin bedeli vardır.',
+    'Bazı işlemler süre yer (BT 10 dk). Tedavi edilmeyen sorun hastayı kötüleştirir.','Endikasyonsuz veya zararlı işlem ceza getirir. Takılırsanız 25 coin karşılığı ipucu alabilirsiniz.',
+    'Puan = kalan coin (hasta yaşıyorsa) + zamanında yapılan kritik eylemler − cezalar + sağkalım bonusu.'],
+  ROLES:['Ekip lideri','Havayolu','Dolaşım','Kayıt / prosedür'],CATS,ACTIONS,DEF,SCEN,
+  catName:{x:'X Kanama',A:'A Havayolu',B:'B Solunum',C:'C Dolaşım',D:'D Nörolojik',E:'E Açığa çıkar',T:'Tetkik',K:'Konsült'},
+  quick:{id:'k_ample',label:'AMPLE öykü'},searchPh:'Ara: göğüs tüpü, eFAST, pelvik…',
+  monId:'c_monitor',monBtn:'Monitör bağla',monText:'Monitör bağlandı: EKG, SpO₂, NIBP aktif.',ivMsg:'Damar yolu yok. Önce “İki geniş damar yolu”.',
+  flags:{b_o2:F=>F.o2=1,e_warm:(F,R)=>{F.warm=1; if(R.v.temp<36) R.v.temp+=.3;},c_iv:F=>F.iv=1,a_cspine:F=>F.cspine=1,c_monitor:F=>F.mon=1,c_fluid:F=>F.fluid++},
+  after(R){ if(!R.f.warm) R.v.temp-=.04; const v=R.v; v.sbp=clamp(v.sbp,0,220); v.spo2=clamp(v.spo2,40,100); v.hr=clamp(v.hr,20,190); v.gcs=clamp(v.gcs,3,15); v.rr=clamp(v.rr,4,44); },
+  dead:R=>R.v.sbp<45?'Hemodinamik çöküş — nabızsız elektriksel aktivite.':R.v.spo2<60?'Ağır hipoksi — kardiyak arrest.':null,
+  vitals(R,j){ const v=R.v; return [['Nabız','hr',j(v.hr),'/dk',v.hr>120||v.hr<50],['TA','bp',`${Math.round(v.sbp)}/${Math.round(v.dbp)}`,'mmHg',v.sbp<90||v.sbp>180],['SpO₂','spo2',clamp(j(v.spo2),40,100),'%',v.spo2<90],
+    ['Solunum','rr',Math.round(v.rr),'/dk',v.rr>29||v.rr<10],['GKS','gcs',R.f.intub?Math.round(v.gcs)+'T':Math.round(v.gcs),'',v.gcs<=8],['Ateş','tmp',v.temp.toFixed(1),'°C',v.temp<35.5]]; },
+  snap(R){ const v=R.v; return {hr:Math.round(v.hr),sbp:Math.round(v.sbp),dbp:Math.round(v.dbp),spo2:Math.round(v.spo2),gcs:Math.round(v.gcs),temp:Math.round(v.temp*10)/10,intub:!!R.f.intub}; },
+  vline:v=>`Son vitaller: nabız ${v.hr}, TA ${v.sbp}/${v.dbp}, SpO₂ ${v.spo2}, GKS ${v.gcs}${v.intub?'T':''}, ${v.temp} °C.`,
+  verdict:r=>!r.alive?'Hasta kaybedildi':r.def?'Hasta definitif bakıma ulaştı':'Hasta hayatta, definitif plan eksik'});
+})();
 
-/* ================= OYUN AKIŞI ================= */
-const ROLES=['Ekip lideri','Havayolu','Dolaşım','Kayıt / prosedür'];
-const LIMIT=30, HINT_COST=25;
-const CATNAME={x:'X Kanama',A:'A Havayolu',B:'B Solunum',C:'C Dolaşım',D:'D Nörolojik',E:'E Açığa çıkar',T:'Tetkik',K:'Konsült',H:'İpucu',O:'Diğer istek'};
-let R=null, cfgCur=null, backTo='games', tab='x', lastFind=null, pjWin=null;
-const P=id=>pjWin&&!pjWin.closed?pjWin.document.getElementById(id):null;
-const egt=()=>cfgCur&&cfgCur.menu==='egitmen';
-const $=id=>document.getElementById(id);
-const coin=n=>`<span class="at-coin"><i></i>${n}</span>`;
-const sc=()=>SCEN.find(s=>s.id===R.scen);
-const scenTitle=id=>(SCEN.find(s=>s.id===id)||{}).title||id;
-function lastCfg(){ try{ return JSON.parse(localStorage.getItem('atls_cfg')||'null')||{}; }catch(e){ return {}; } }
 
-/* ---- kurulum ---- */
-function setupDlg(mode){
-  const c=Object.assign({team:'',members:['','','',''],scen:'moto',coins:150,speed:12},lastCfg());
-  if(mode==='bireysel'&&!c.team) c.team=S.resident?.name||S.user?.displayName||'';
-  const m=modal(`<div class="modal-h"><h2>Altın Saat · yeni oyun</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
-    <div class="field"><label class="f" for="atT">${mode==='ekip'?'Ekip adı':'Oyuncu / ekip adı'}</label><input type="text" id="atT" value="${esc(c.team)}" placeholder="Örn. Kırmızı Alan"></div>
-    <details ${mode==='ekip'?'open':''} style="margin-bottom:12px"><summary class="small"><b>Ekip üyeleri</b>${mode==='ekip'?'':' (isteğe bağlı)'}</summary>
-      <div class="grid2" style="margin-top:8px">${ROLES.map((r,i)=>`<div class="field"><label class="f" for="atM${i}">${r}</label><input type="text" id="atM${i}" value="${esc((c.members||[])[i]||'')}"></div>`).join('')}</div></details>
-    <div class="field"><label class="f">Senaryo</label><div class="at-scl">${SCEN.map(s=>`<label class="at-sc"><input type="radio" name="atS" value="${s.id}" ${c.scen===s.id?'checked':''}><span><b>${s.title}</b><span class="small muted">${s.brief}</span></span></label>`).join('')}</div></div>
-    <div class="grid2"><div class="field"><label class="f" for="atC">Başlangıç bütçesi</label><select id="atC">${[100,150,200].map(n=>`<option value="${n}" ${c.coins===n?'selected':''}>${n} coin</option>`).join('')}</select></div>
-      <div class="field"><label class="f" for="atSp">1 simülasyon dakikası</label><select id="atSp">${[[20,'20 sn (yavaş)'],[12,'12 sn (normal)'],[6,'6 sn (hızlı)']].map(([v,t])=>`<option value="${v}" ${c.speed===v?'selected':''}>${t}</option>`).join('')}</select></div></div>
-    ${mode==='ekip'?`<div class="field"><label class="f" for="atMn">Müdahale menüsü</label><select id="atMn"><option value="egitmen" ${c.menu!=='gorunur'?'selected':''}>Yalnız eğitmen görür (ekip ister, siz işaretlersiniz)</option><option value="gorunur" ${c.menu==='gorunur'?'selected':''}>Ekip de görür</option></select>
-      <div class="small muted" style="margin-top:4px">“Yalnız eğitmen” seçilirse oyunda <b>Projeksiyon ekranı</b> ayrı bir pencerede açılır; ekip yalnız hastayı, monitörü ve açılan bilgileri görür. O pencereyi projeksiyona taşıyın, menü sizin ekranınızda kalsın.</div></div>`:''}
-    <div class="small muted">Monitör bağlanmadan vitaller görünmez. Her muayene, tetkik ve müdahale coin harcar; tedavi edilmeyen sorun hastayı kötüleştirir. Puan = kalan coin (hasta yaşıyorsa) + kritik eylemler − cezalar + sağkalım bonusu.${S.preview?' <b>Önizlemede sonuç kaydedilmez.</b>':''}</div>
-  </div><div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="atGo">Hastayı karşıla</button></div>`);
-  m.el.querySelector('#atGo').onclick=()=>{
-    const q=s=>m.el.querySelector(s);
-    const cfg={mode,team:q('#atT').value.trim().slice(0,60)||(mode==='ekip'?'İsimsiz ekip':(S.resident?.name||'Oyuncu')),
-      members:ROLES.map((r,i)=>q('#atM'+i).value.trim().slice(0,60)),scen:q('input[name=atS]:checked')?.value||'moto',coins:+q('#atC').value,speed:+q('#atSp').value,menu:mode==='ekip'?q('#atMn').value:'gorunur'};
-    try{ localStorage.setItem('atls_cfg',JSON.stringify(cfg)); }catch(e){}
-    m.close(); go('atlsPlay',{cfg,back:mode==='ekip'?'games':'atls'});
-  };
-}
+/* ================= ACLS Ekip Oyunu · Geri Dönüş ================= */
+const ACLS=(()=>{
+const CATS=[
+ {id:'K',k:'KPR',n:'Bası, kontrol'},{id:'E',k:'Elektrik',n:'Şok, pace'},{id:'H',k:'Havayolu',n:'O₂, ventilasyon'},{id:'I',k:'İlaç',n:'Damar yolu'},
+ {id:'T',k:'Tetkik',n:'5H–5T'},{id:'P',k:'ROSC',n:'Sonrası bakım'},{id:'C',k:'Konsült',n:'Definitif'}];
+const inArr=R=>!!R.f.arrest;
+const ACTIONS=[
+ {id:'k_code',cat:'K',kind:'cons',cost:0,label:'Kod mavi: yardım, defibrilatör ve arabayı iste',once:1},
+ {id:'k_resp',cat:'K',kind:'info',cost:5,label:'Yanıt, solunum ve nabız kontrolü (≤ 10 sn)'},
+ {id:'k_cpr',cat:'K',kind:'int',cost:0,label:'Göğüs basısı başlat (100–120/dk, 5–6 cm)',dis:R=>!!R.f.cpr},
+ {id:'k_swap',cat:'K',kind:'int',cost:0,label:'Bası yapan kişiyi değiştir',dis:R=>!R.f.cpr},
+ {id:'k_check',cat:'K',kind:'info',cost:3,label:'Ritim + nabız kontrolü (basıya ≤ 10 sn ara)'},
+ {id:'k_stop',cat:'K',kind:'int',cost:0,label:'Göğüs basısını durdur',dis:R=>!R.f.cpr},
+ {id:'r_pads',cat:'E',kind:'int',cost:5,label:'Defibrilatör pedleri + monitör',once:1},
+ {id:'r_shock',cat:'E',kind:'int',cost:5,label:'Defibrilasyon — bifazik 200 J',need:['pads','Önce defibrilatör pedlerini bağlayın.']},
+ {id:'r_sync',cat:'E',kind:'int',cost:5,label:'Senkronize kardiyoversiyon — 100 J',need:['pads','Önce defibrilatör pedlerini bağlayın.']},
+ {id:'r_pace',cat:'E',kind:'int',cost:15,label:'Transkütan pacing (yakalama eşiği + 10 mA)',once:1,need:['pads','Önce defibrilatör pedlerini bağlayın.']},
+ {id:'h_o2',cat:'H',kind:'int',cost:5,label:'Maske ile O₂ (hedef SpO₂ %94–98)',once:1},
+ {id:'h_bvm',cat:'H',kind:'int',cost:5,label:'Balon-valf-maske + O₂ 15 L/dk (30:2)',once:1},
+ {id:'h_opa',cat:'H',kind:'int',cost:5,label:'Orofaringeal airway',once:1},
+ {id:'h_sga',cat:'H',kind:'int',cost:10,label:'Supraglottik havayolu (i-gel)',once:1},
+ {id:'h_eti',cat:'H',kind:'int',cost:15,label:'Endotrakeal entübasyon (basıya ara vermeden)',once:1},
+ {id:'h_capno',cat:'H',kind:'test',cost:5,label:'Dalga formlu kapnografi (EtCO₂)',once:1},
+ {id:'i_iv',cat:'I',kind:'int',cost:5,label:'Damar yolu / İO erişim',once:1},
+ {id:'i_epi',cat:'I',kind:'int',cost:5,label:'Adrenalin 1 mg IV/İO (arrest dozu)',iv:1},
+ {id:'i_amio300',cat:'I',kind:'int',cost:10,label:'Amiodaron 300 mg IV/İO bolus',once:1,iv:1},
+ {id:'i_amio150',cat:'I',kind:'int',cost:10,label:'Amiodaron 150 mg (2. arrest dozu / nabızlıda 10 dk’da)',once:1,iv:1},
+ {id:'i_lido',cat:'I',kind:'int',cost:10,label:'Lidokain 1–1,5 mg/kg IV/İO',once:1,iv:1},
+ {id:'i_atro',cat:'I',kind:'int',cost:5,label:'Atropin 1 mg IV (3–5 dk’da bir, en çok 3 mg)',iv:1,dis:R=>(R.done.i_atro||0)>=3},
+ {id:'i_aden',cat:'I',kind:'int',cost:5,label:'Adenozin 6 mg hızlı IV (sonra 12 mg)',iv:1,dis:R=>(R.done.i_aden||0)>=2},
+ {id:'i_dilt',cat:'I',kind:'int',cost:10,label:'Diltiazem 0,25 mg/kg IV',once:1,iv:1},
+ {id:'i_mg',cat:'I',kind:'int',cost:5,label:'Magnezyum sülfat 2 g IV',once:1,iv:1},
+ {id:'i_ca',cat:'I',kind:'int',cost:10,label:'Kalsiyum klorür %10, 10 mL IV',iv:1},
+ {id:'i_bicarb',cat:'I',kind:'int',cost:10,label:'Sodyum bikarbonat 50 mEq IV',once:1,iv:1},
+ {id:'i_insdex',cat:'I',kind:'int',cost:10,label:'İnsülin 10 Ü + dekstroz 25 g IV',once:1,iv:1},
+ {id:'i_kcl',cat:'I',kind:'int',cost:5,label:'Potasyum replasmanı (KCl infüzyonu)',once:1,iv:1},
+ {id:'i_fluid',cat:'I',kind:'int',cost:5,label:'Kristaloid 500 mL bolus',iv:1},
+ {id:'i_norad',cat:'I',kind:'int',cost:10,label:'Noradrenalin infüzyonu (hedef OAB ≥ 65)',once:1,iv:1},
+ {id:'i_dopa',cat:'I',kind:'int',cost:10,label:'Dopamin infüzyonu 5–20 mcg/kg/dk',once:1,iv:1},
+ {id:'i_epiinf',cat:'I',kind:'int',cost:10,label:'Adrenalin infüzyonu 2–10 mcg/dk',once:1,iv:1},
+ {id:'i_sed',cat:'I',kind:'int',cost:5,label:'Analjezi / sedasyon (fentanil + midazolam)',once:1,iv:1},
+ {id:'i_tpa',cat:'I',kind:'int',cost:25,label:'Trombolitik (alteplaz) — arrestte PE şüphesi',once:1,iv:1},
+ {id:'t_ecg12',cat:'T',kind:'test',cost:10,label:'12 derivasyonlu EKG'},
+ {id:'t_abg',cat:'T',kind:'test',cost:10,label:'Kan gazı + elektrolit (K, iCa, laktat)'},
+ {id:'t_glu',cat:'T',kind:'info',cost:5,label:'Kapiller kan şekeri'},
+ {id:'t_echo',cat:'T',kind:'test',cost:10,label:'Yatak başı eko (nabız kontrolünde ≤ 10 sn)'},
+ {id:'t_temp',cat:'T',kind:'info',cost:5,label:'Vücut ısısı'},
+ {id:'t_ht',cat:'T',kind:'info',cost:0,label:'5H–5T: geri dönüşlü nedenleri gözden geçir'},
+ {id:'p_o2',cat:'P',kind:'int',cost:5,label:'O₂ titrasyonu (SpO₂ %92–98)',once:1,dis:inArr},
+ {id:'p_vent',cat:'P',kind:'int',cost:10,label:'Ventilatör: normokapni (PaCO₂ 35–45)',once:1,dis:inArr,need:['intub','Önce ileri havayolu gerekli.']},
+ {id:'p_ttm',cat:'P',kind:'int',cost:10,label:'Sıcaklık kontrolü (32–37,5 °C, ateşi önle)',once:1,dis:inArr},
+ {id:'p_neuro',cat:'P',kind:'info',cost:5,label:'Nörolojik değerlendirme (GKS, pupiller)',dis:inArr},
+ {id:'o_hist',cat:'C',kind:'info',cost:5,label:'Öykü (yakını / hemşire / 112)'},
+ {id:'c_cardio',cat:'C',kind:'cons',cost:10,label:'Kardiyoloji — koroner anjiyografi / transvenöz pace',once:1},
+ {id:'c_neph',cat:'C',kind:'cons',cost:10,label:'Nefroloji — acil hemodiyaliz',once:1},
+ {id:'c_icu',cat:'C',kind:'cons',cost:10,label:'Yoğun bakım',once:1},
+];
+const DEF={
+ k_code:'Kod mavi verildi: defibrilatör ve resüsitasyon arabası geldi, roller dağıtıldı.',
+ h_o2:'Rezervuarlı maske ile O₂ başlandı.',h_opa:'Orofaringeal airway yerleştirildi.',
+ t_ecg12:'Sinüs ritmi, akut değişiklik yok.',t_abg:'Kan gazı ve elektrolitler normal sınırlarda.',t_glu:'Kan şekeri 112 mg/dL.',t_echo:'Perikard temiz, sağ ventrikül normal boyutta.',t_temp:'36,5 °C.',
+ t_ht:'5H: hipovolemi, hipoksi, hidrojen iyonu (asidoz), hipo/hiperkalemi, hipotermi. 5T: tansiyon pnömotoraks, tamponad, toksinler, pulmoner tromboz, koroner tromboz. Öykü ve tetkiklerle eleyin.',
+ p_o2:'FiO₂ azaltıldı; SpO₂ %92–98 hedefleniyor (hiperoksiden kaçının).',p_vent:'Ventilatör: VT 6–8 mL/kg, PaCO₂ 35–45 mmHg hedefli.',
+ p_ttm:'Sıcaklık kontrolü başlandı: hedef 32–37,5 °C, ateş önlenecek.',p_neuro:'Nörolojik değerlendirme yapıldı.',
+ o_hist:'Öykü alınamadı.',c_cardio:'Kardiyoloji haberdar edildi.',c_neph:'Nefroloji haberdar edildi.',c_icu:'Yoğun bakım haberdar edildi; yatak hazırlanıyor.'
+};
 
-/* ---- oyun ---- */
-function play(cfg,back){
-  if(!cfg){ return go(back||'games'); }
-  stopGame(); document.body.classList.add('game-mode'); G={unsubs:[],tick:null};
-  cfgCur={menu:'gorunur',...cfg}; backTo=back||'games'; tab='x';
-  const s=SCEN.find(x=>x.id===cfg.scen)||SCEN[0];
-  R={scen:s.id,t:0,coins:cfg.coins,start:cfg.coins,v:{...s.init.v},f:{fluid:0,...s.init.f},done:{},first:{},spent:{},finds:[],log:[],pen:[],penKeys:{},hint:0,ended:false,running:false};
-  R.v.dbp=R.v.sbp*.6;
-  shell();
-  const m=modal(`<div class="modal-h"><h2>${esc(s.title)}</h2></div><div class="modal-b"><div class="lbl2">112 bildirimi</div><p>${esc(s.mist)}</p>
-    <p class="small muted">${esc(cfg.team)} · bütçe ${cfg.coins} coin · 1 simülasyon dakikası = ${cfg.speed} sn</p>
-    ${egt()?`<p class="small" style="margin-bottom:0">Önce <b>Projeksiyon ekranını açın</b> ve o pencereyi projeksiyona sürükleyin; menü ve bu pencere sizin ekranınızda kalır.</p>`:''}</div>
-    <div class="modal-f">${egt()?`<button class="btn" id="atPjO">Projeksiyon ekranını aç</button>`:''}<button class="btn primary" id="atStart">Hasta geldi, başla</button></div>`,'narrow');
-  m.el.querySelector('#atStart').onclick=()=>{ m.close(); run(); };
-  m.el.querySelector('#atPjO')?.addEventListener('click',pjOpen);
-  if(pjWin&&!pjWin.closed) pjShell();
-}
-function lg(kind,text,cost,label){
-  R.log.push({t:R.t,kind,text,cost:cost||0});
-  if(kind==='sys'||kind==='harm'){ R.finds.unshift({t:R.t,label:kind==='sys'?'Durum değişikliği':label,text,kind}); lastFind=R.finds[0]; }
-}
-function pen(pts,reason){ if(R.penKeys[reason]) return; R.penKeys[reason]=1; R.pen.push({t:R.t,pts,reason}); lg('harm',reason,0,`Ceza −${pts}`); }
-function run(){ if(!R||R.ended||!G) return; R.running=true; clearInterval(G.tick); G.tick=setInterval(()=>advance(1),cfgCur.speed*1000); hud(); vitals(); }
-function pause(){ if(G) clearInterval(G.tick); if(R) R.running=false; hud(); vitals(); }
-function advance(n){
-  if(!R||!$('atClock')){ pause(); return; }
-  for(let i=0;i<n&&!R.ended;i++){
-    R.t+=1; sc().tick(R,lg);
-    if(!R.f.warm) R.v.temp-=.04;
-    const v=R.v; v.sbp=clamp(v.sbp,0,220); v.spo2=clamp(v.spo2,40,100); v.hr=clamp(v.hr,20,190); v.gcs=clamp(v.gcs,3,15); v.rr=clamp(v.rr,4,44);
-    const d=sc().dead?.(R)||(v.sbp<45?'Hemodinamik çöküş — nabızsız elektriksel aktivite.':v.spo2<60?'Ağır hipoksi — kardiyak arrest.':null);
-    if(d){ endGame(false,d); return; }
-    if(R.t>=LIMIT){ endGame(true,'Süre doldu.'); return; }
+/* ---- ritimler ---- */
+const RH={
+ vf:{s:'VF',name:'ventriküler fibrilasyon (VF)',d:'Düzensiz, kaotik, değişken amplitüdlü dalgalar; QRS ve T seçilemiyor.',shock:1},
+ pvt:{s:'Nabızsız VT',name:'nabızsız ventriküler taşikardi',d:'Düzenli, geniş QRS’li, yaklaşık 190/dk taşikardi.',shock:1},
+ asys:{s:'Asistoli',name:'asistoli',d:'Düz çizgi; ped bağlantısı ve kazanç kontrol edildi, P dalgası yok.'},
+ pea:{s:'NEA',name:'nabızsız elektriksel aktivite (NEA)',d:'Organize, geniş QRS’li yavaş kompleksler.'},
+ sr:{s:'Sinüs',name:'sinüs ritmi',d:'Dar QRS, her QRS öncesinde P dalgası, düzenli.'},
+ st:{s:'Sinüs taşi.',name:'sinüs taşikardisi',d:'Dar QRS, P dalgaları mevcut, yaklaşık 110/dk.'},
+ chb:{s:'Tam AV blok',name:'tam (3. derece) AV blok',d:'P dalgaları düzenli ~80/dk; geniş QRS’ler düzenli ~32/dk; P ile QRS arasında ilişki yok.'},
+ vt:{s:'VT',name:'monomorfik ventriküler taşikardi',d:'Düzenli, geniş QRS’li (~180/dk) taşikardi; P seçilmiyor, QRS’ler tek tip.'},
+ paced:{s:'Pace',name:'pace ritmi',d:'Her pace spike’ını geniş QRS izliyor (elektriksel yakalama), 70/dk.'}
+};
+const rhD=(R,s)=>(s.rhDesc&&s.rhDesc[R.f.rh])||RH[R.f.rh].d;
+function wideY(p){ if(p>.12&&p<.32) return 40-26*Math.sin((p-.12)/.2*Math.PI); if(p>=.32&&p<.4) return 40+9*Math.sin((p-.32)/.08*Math.PI); if(p>.46&&p<.68) return 40+8*Math.sin((p-.46)/.22*Math.PI); return 40; }
+const visRh=R=>R.f.cpr&&!(R.f.peek>Date.now())?'cpr':R.f.rh;
+
+/* ---- ortak arrest fizyolojisi ---- */
+function arrestStart(R,rh,lg,msg){ const f=R.f; f.arrest=1; f.rh=rh; f.cpr=0; f.shocksArr=0; f.roscReady=0; f.roscWait=0; f.arrT=R.t; R.v.sbp=0; R.v.dbp=0; lg('sys',msg); }
+function setReady(R,rh,vit){ const f=R.f; if(f.roscReady) return; f.roscReady=1; f.rh=rh; f.roscV=vit; f.roscWait=0; }
+function roscConfirm(R,lg,msg){ const f=R.f; Object.assign(R.v,f.roscV||{}); f.arrest=0; f.cpr=0; f.rosc=(f.rosc||0)+1; f.roscT=R.t; f.roscReady=0; f.etMsg=0; f.lastCheck={t:R.t,s:RH[f.rh].s}; lg('sys',msg); }
+function base(R,lg,pen){
+  const f=R.f;
+  if(!f.arrest) return;
+  if(f.cpr){
+    f.cprMin=(f.cprMin||0)+1;
+    if(R.t-f.lastSwap>=3){ f.cprQ=Math.max(.3,f.cprQ-.25); if(!f.tired){ f.tired=1; lg('sys','Göğüs basısı yapan kişi yoruldu: derinlik ve hız düşüyor. Bası yapan kişi her 2 dk’da değişmeli.'); } }
+  } else {
+    f.noflow=(f.noflow||0)+1;
+    if(f.noflow===1) lg('sys','Hasta nabızsız ve göğüs basısı yapılmıyor!');
+    if(f.noflow>=2) pen(10,'Arrestte KPR’siz geçen süre ≥ 2 dk');
   }
-  vitals(); finds(); hud();
-}
-function buy(id){
-  if(!R||R.ended) return;
-  const a=A[id], s=sc();
-  if(a.once&&R.done[id]) return;
-  if(R.coins<a.cost) return toast('Yeterli coin yok',true);
-  if(a.iv&&!R.f.iv) return toast('Damar yolu yok. Önce “İki geniş damar yolu”.',true);
-  R.coins-=a.cost; R.spent[a.cat]=(R.spent[a.cat]||0)+a.cost; R.done[id]=(R.done[id]||0)+1; if(R.first[id]==null) R.first[id]=R.t;
-  floatCoin(a.cost);
-  const F=R.f; ({b_o2:()=>F.o2=1,e_warm:()=>F.warm=1,c_iv:()=>F.iv=1,a_cspine:()=>F.cspine=1,c_monitor:()=>F.mon=1,c_fluid:()=>F.fluid++})[id]?.();
-  if(id==='e_warm'&&R.v.temp<36) R.v.temp+=.3;
-  let r;
-  if(s.act[id]) r=s.act[id](R);
-  else { const f=s.find[id]; r={text:typeof f==='function'?f(R):(f||DEF[id]||'Uygulandı.')}; }
-  if(id==='c_monitor') r={text:'Monitör bağlandı: EKG, SpO₂, NIBP aktif.'};
-  R.finds.unshift({t:R.t,label:a.label,text:r.text,kind:r.pen?'harm':a.kind}); lastFind=R.finds[0];
-  lg(a.kind,a.label+': '+r.text,a.cost);
-  if(r.pen) pen(r.pen[0],r.pen[1]);
-  if(r.hurt) r.hurt();
-  if(a.dur){ toast(`${a.label}: ${a.dur} dk sürdü`); advance(a.dur); }
-  if(!R.ended){ vitals(); finds(); acts(); hud(); }
-}
-function hint(){
-  const h=sc().hints; if(R.ended) return; if(R.hint>=h.length) return toast('İpucu kalmadı');
-  if(R.coins<HINT_COST) return toast('Yeterli coin yok',true);
-  R.coins-=HINT_COST; R.spent.H=(R.spent.H||0)+HINT_COST; floatCoin(HINT_COST);
-  const t=h[R.hint++]; R.finds.unshift({t:R.t,label:'Eğitmen ipucu',text:t,kind:'sys'}); lastFind=R.finds[0]; R.log.push({t:R.t,kind:'hint',text:'İpucu: '+t,cost:HINT_COST});
-  finds(); hud();
+  if(f.roscReady){
+    if(f.capno&&f.cpr&&!f.etMsg){ f.etMsg=1; lg('sys','EtCO₂ birden yükseldi (≈ 40 mmHg)!'); }
+    f.roscWait=(f.roscWait||0)+1;
+    if(f.roscWait>=3){ roscConfirm(R,lg,'Hasta öksürüyor ve kollarını hareket ettiriyor: nabız var — ROSC (ritim/nabız kontrolü yapılmadığı için geç fark edildi).'); pen(5,'ROSC geç fark edildi (zamanında ritim/nabız kontrolü yok)'); }
+  }
 }
 
-/* ---- çizim ---- */
-function shell(){
-  const s=sc(), mem=cfgCur.members.map((x,i)=>x?`${ROLES[i]}: ${esc(x)}`:'').filter(Boolean).join(' · ');
-  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':'ATLS oyunu'}</button>
-      <div class="at-team"><b>${esc(cfgCur.team)}</b><small>${egt()?'Eğitmen ekranı · ':''}${esc(s.title)}${mem?' · '+mem:''}</small></div>
-      <div><div class="at-l">Süre</div><div class="at-clock mono" id="atClock">00:00</div></div>
-      <div class="at-bank" id="atBank"><div class="at-l">Coin</div><span class="at-coin big"><i></i><span id="atCoins">0</span></span></div>
-      <div class="at-ctl">${egt()?'<button class="g-x" id="atPj">Projeksiyon ekranı</button>':''}<button class="g-x" id="atPP">Başlat</button><button class="g-x" id="atIn">Eğitmen</button><button class="g-x at-danger" id="atEnd">Vakayı bitir</button></div></div>
-    <div class="at-grid"><div class="at-col">
-      <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(s.brief)}</h2><p class="at-mist">${esc(s.mist)}</p></section>
-      <section class="at-mon" id="atMon"></section>
-      <section class="at-panel"><div class="at-l">Açılan bilgiler</div><div class="at-finds" id="atFinds"></div></section></div>
-     <div class="at-col"><section class="at-panel"><div class="at-quick"><button class="g-x" id="atAmple">AMPLE öykü ${coin(5)}</button><button class="g-x" id="atHint">Eğitmen ipucu ${coin(HINT_COST)}</button>${cfgCur.mode==='ekip'?'<button class="g-x" id="atCustom">+ Listede olmayan istek</button>':''}</div>
-        <input type="search" class="at-q" id="atQ" placeholder="Ara: göğüs tüpü, eFAST, pelvik…" autocomplete="off" aria-label="Müdahale ara">
-        <div class="at-tabs" id="atTabs" role="tablist"></div><div class="at-acts" id="atActs"></div></section>
-      <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="atLog"></div></section></div></div>`,'atls');
-  $('atX').onclick=async()=>{ if(!R.ended&&(R.t>0||R.log.length)){ const was=R.running; pause(); if(!await confirmDlg('Oyundan çık','<p>Vaka yarıda kalır ve sonuç kaydedilmez.</p>','Çık',true)){ if(was) run(); return; } } exitGame(); };
-  $('atPP').onclick=()=>R.running?pause():run();
-  $('atEnd').onclick=confirmEnd; $('atIn').onclick=instructor; $('atAmple').onclick=()=>buy('k_ample'); $('atHint').onclick=hint;
-  $('atQ').oninput=acts; $('atPj')&&($('atPj').onclick=pjOpen); $('atCustom')&&($('atCustom').onclick=customDlg);
-  tabs(); acts(); vitals(); finds(); hud();
-}
-function exitGame(){ stopGame(); R=null; if(pjWin&&!pjWin.closed) pjWin.close(); pjWin=null; go(backTo); }
-function tabs(){
-  $('atTabs').innerHTML=CATS.map(c=>`<button role="tab" aria-selected="${tab===c.id}" data-at="${c.id}">${c.k}<small>${c.n}</small></button>`).join('');
-  $('atTabs').querySelectorAll('[data-at]').forEach(b=>b.onclick=()=>{ tab=b.dataset.at; if($('atQ')) $('atQ').value=''; tabs(); acts(); });
-}
-function acts(){
-  const q=trLower(($('atQ')?.value||'').trim());
-  const list=q?ACTIONS.filter(a=>trLower(a.label).includes(q)||trLower(KIND[a.kind]).includes(q)):ACTIONS.filter(a=>a.cat===tab&&a.id!=='k_ample');
-  $('atTabs').classList.toggle('dim',!!q);
-  if(q&&!list.length){ $('atActs').innerHTML=`<div class="at-empty">“${esc(q)}” bulunamadı. Ekibin isteği listede yoksa <b>+ Listede olmayan istek</b> ile kaydedin.</div>`; return; }
-  $('atActs').innerHTML=list.map(a=>{ const n=R.done[a.id]||0, locked=(a.once&&n)||R.ended;
-    return `<button class="at-act ${n?'done':''}" data-aa="${a.id}" ${locked?'disabled':''}><span class="t">${a.label}</span>
-      <span class="m"><span class="at-kind ${a.kind}">${q?(CATS.find(c=>c.id===a.cat)||{}).k+' · ':''}${KIND[a.kind]}${a.dur?' · '+a.dur+' dk':''}</span>${n?`<span class="cnt">${a.once?'✓ yapıldı':'×'+n}</span>`:''}${coin(a.cost)}</span></button>`; }).join('');
-  $('atActs').querySelectorAll('[data-aa]').forEach(b=>b.onclick=()=>buy(b.dataset.aa));
-}
-const fmt=t=>String(Math.floor(t)).padStart(2,'0')+':00';
-const logRow=l=>`<div><span class="tm mono">dk ${String(l.t).padStart(2,'0')}</span><span>${esc(l.text)}</span><span class="at-coin">${l.cost?'−'+l.cost:''}</span></div>`;
-function hud(){
-  if(!R||!$('atClock')) return;
-  $('atClock').textContent=fmt(R.t); $('atCoins').textContent=R.coins;
-  $('atPP').textContent=R.running?'Duraklat':(R.t||R.log.length?'Devam':'Başlat');
-  const lh=R.log.slice().reverse().map(logRow).join('')||'<span class="at-empty">Henüz işlem yok.</span>';
-  $('atLog').innerHTML=lh;
-  if(P('pjClock')){ P('pjClock').textContent=fmt(R.t); P('pjCoins').textContent=R.coins; P('pjLog').innerHTML=lh;
-    const st=P('pjSt'); st.textContent=R.running?'Canlı':(R.t||R.log.length?'Duraklatıldı':'Hazır'); st.className='at-state'+(R.running?' live':''); }
-}
-function floatCoin(n){ const b=$('atBank'); if(!b) return; const e=document.createElement('span'); e.className='at-float mono'; e.textContent='−'+n; b.appendChild(e); setTimeout(()=>e.remove(),1000); }
-function finds(){
-  if(!$('atFinds')) return;
-  const fh=R.finds.length?R.finds.map(f=>`<div class="at-find ${f.kind==='harm'?'harm':f.kind==='sys'?'sys':''} ${f===lastFind?'new':''}"><div class="h"><b>${esc(f.label)}</b><span class="mono">dk ${String(f.t).padStart(2,'0')}</span></div><p>${esc(f.text)}</p></div>`).join('')
-    :'<div class="at-empty">Coin harcayarak muayene edin, tetkik isteyin. Bulgular burada açılır.</div>';
-  $('atFinds').innerHTML=fh; if(P('pjFinds')) P('pjFinds').innerHTML=fh.replace('Coin harcayarak muayene edin, tetkik isteyin.','Ekip ne yapmak istediğini söylesin.');
-  lastFind=null;
-}
-function vitals(){
-  if(!R) return; const v=R.v;
-  const j=x=>Math.round(x+(Math.random()-.5)*2);
-  const V=[['Nabız','hr',j(v.hr),'/dk',v.hr>120||v.hr<50],['TA','bp',`${Math.round(v.sbp)}/${Math.round(v.dbp)}`,'mmHg',v.sbp<90||v.sbp>180],['SpO₂','spo2',clamp(j(v.spo2),40,100),'%',v.spo2<90],
-    ['Solunum','rr',Math.round(v.rr),'/dk',v.rr>29||v.rr<10],['GKS','gcs',R.f.intub?Math.round(v.gcs)+'T':Math.round(v.gcs),'',v.gcs<=8],['Ateş','tmp',v.temp.toFixed(1),'°C',v.temp<35.5]];
-  const vh=V.map(([k,c,val,u,al])=>`<div class="vt ${al?'alarm':''}" style="color:var(--v-${c})"><div class="k">${k}</div><div class="v mono">${val} <span class="u">${u}</span></div></div>`).join('');
-  monInto($('atMon'),window,vh,true);
-  if(pjWin&&!pjWin.closed) monInto(P('pjMon'),pjWin,vh,false);
-}
-function monInto(m,win,vh,ctl){
-  if(!m) return;
-  if(!R.f.mon){ m.innerHTML=`<div class="top"><span>Monitör</span><span>Bağlı değil</span></div><div class="at-monoff"><div>Vital bulgular monitör bağlanınca görünür.</div>${ctl?'<button class="g-x" data-monb>Monitör bağla · 5 coin</button>':''}</div>`;
-    m.querySelector('[data-monb]')?.addEventListener('click',()=>buy('c_monitor')); return; }
-  if(!m.querySelector('canvas')) m.innerHTML=`<div class="top"><span>Monitör · DII</span><span data-ms></span></div><canvas width="600" height="80"></canvas><div class="at-vit" data-vit></div>`;
-  m.querySelector('[data-ms]').textContent=R.running?'Canlı':'Duraklatıldı';
-  m.querySelector('[data-vit]').innerHTML=vh;
-  ecg(m.querySelector('canvas'),win);
-}
-function ecg(c,win){
-  if(!c||c._on) return; c._on=1; const ctx=c.getContext('2d'); let x=0,last=win.performance.now(),phase=0,prevY=40;
-  const reduce=win.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  ctx.fillStyle='#0b1110'; ctx.fillRect(0,0,600,80);
-  const frame=now=>{
-    if(win.closed||!win.document.body.contains(c)) return;
-    const dt=Math.min(.05,(now-last)/1000); last=now;
-    if(R&&R.running&&!reduce){
-      const steps=Math.max(1,Math.round(dt*160));
-      for(let i=0;i<steps;i++){
-        phase+=(R.v.hr/60)/160; if(phase>1) phase-=1;
-        const p=phase; let y=40;
-        if(p<.08) y=40-Math.sin(p/.08*Math.PI)*5; else if(p>.14&&p<.16) y=46; else if(p>=.16&&p<.19) y=8; else if(p>=.19&&p<.22) y=52; else if(p>.36&&p<.5) y=40-Math.sin((p-.36)/.14*Math.PI)*8;
-        ctx.fillStyle='#0b1110'; ctx.fillRect(x,0,8,80);
-        ctx.strokeStyle='#3ddc84'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x-1,prevY); ctx.lineTo(x,y); ctx.stroke(); prevY=y;
-        x+=1; if(x>=600) x=0;
-      }
-    }
-    win.requestAnimationFrame(frame);
-  };
-  win.requestAnimationFrame(frame);
-}
-/* ---- projeksiyon ekranı (eğitmen modu) ---- */
-function pjOpen(){
-  if(pjWin&&!pjWin.closed){ pjWin.focus(); return; }
-  pjWin=window.open('','atlsEkran','width=1280,height=800');
-  if(!pjWin) return toast('Açılır pencere engellendi. Adres çubuğundan bu siteye açılır pencere izni verip tekrar deneyin.',true);
-  const css=[...document.querySelectorAll('style')].map(x=>x.textContent).join('\n');
-  const fonts=[...document.querySelectorAll('link[rel=stylesheet]')].map(l=>l.outerHTML).join('');
-  pjWin.document.open();
-  pjWin.document.write(`<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Altın Saat · Projeksiyon</title>${fonts}<style>${css}</style></head><body class="game-mode"><div id="pjRoot"></div></body></html>`);
-  pjWin.document.close();
-  pjShell(); toast('Projeksiyon ekranı açıldı; pencereyi projeksiyona taşıyın');
-}
-function pjShell(){
-  const root=P('pjRoot'); if(!root||!R) return; const s=sc();
-  root.innerHTML=gameShell(`<div class="at-top"><div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(s.title)}</small></div><span class="at-state" id="pjSt">Hazır</span>
-      <div><div class="at-l">Süre</div><div class="at-clock mono" id="pjClock">00:00</div></div>
-      <div class="at-bank"><div class="at-l">Coin</div><span class="at-coin big"><i></i><span id="pjCoins">0</span></span></div>
-      <button class="g-x" id="pjFs">Tam ekran</button></div>
-    <div class="at-grid"><div class="at-col">
-      <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(s.brief)}</h2><p class="at-mist">${esc(s.mist)}</p></section>
-      <section class="at-mon" id="pjMon"></section></div>
-     <div class="at-col"><section class="at-panel"><div class="at-l">Açılan bilgiler</div><div class="at-finds tall" id="pjFinds"></div></section>
-      <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="pjLog"></div></section></div></div>`,'atls pjv');
-  P('pjFs').onclick=()=>{ const d=pjWin.document; try{ const r=d.fullscreenElement?d.exitFullscreen():d.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){} };
-  if(R.ended&&R.res) return pjEnd(R.res);
-  lastFind=null; finds(); vitals(); hud();
-}
-function pjEnd(res){
-  const root=P('pjRoot'); if(!root) return;
-  root.innerHTML=gameShell(`<div class="at-top"><div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(res.scenTitle)}</small></div><b>Değerlendirme</b></div>${debriefHtml(res)}`,'atls pjv');
-  pjWin.scrollTo(0,0);
-}
-/* ---- listede olmayan istek ---- */
-function customDlg(){
-  if(!R||R.ended) return; const was=R.running; pause();
-  const m=modal(`<div class="modal-h"><h2>Listede olmayan istek</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
-    <p class="small muted" style="margin-top:0">Ekip menüde olmayan bir şey isterse bedelini ve sonucunu siz belirleyin. Sonuç ekibe “Açılan bilgiler”de gösterilir, zaman çizelgesine yazılır.</p>
-    <div class="field"><label class="f" for="atCuL">Ekibin isteği</label><input type="text" id="atCuL" maxlength="80" placeholder="Örn. Femur traksiyonu"></div>
-    <div class="grid3"><div class="field"><label class="f" for="atCuK">Tür</label><select id="atCuK"><option value="info">Bilgi</option><option value="int" selected>Müdahale</option><option value="test">Tetkik</option><option value="cons">Çağrı</option></select></div>
-      <div class="field"><label class="f" for="atCuC">Coin</label><input type="number" id="atCuC" min="0" max="50" value="5"></div>
-      <div class="field"><label class="f" for="atCuD">Süre (dk)</label><input type="number" id="atCuD" min="0" max="10" value="0"></div></div>
-    <div class="field"><label class="f" for="atCuT">Ekibe gösterilecek sonuç / bulgu</label><textarea id="atCuT" placeholder="Örn. Uygulandı; belirgin değişiklik yok."></textarea></div>
-    <div class="field"><label class="f" for="atCuP">Ceza puanı (zararlı veya endikasyonsuzsa)</label><input type="number" id="atCuP" min="0" max="50" value="0"></div>
-  </div><div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="atCuGo">Kaydet</button></div>`);
-  const q=x=>m.el.querySelector(x), num=(x,mx)=>clamp(Math.round(+q(x).value||0),0,mx);
-  m.el.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{ if(was) run(); }));
-  q('#atCuL').focus();
-  q('#atCuGo').onclick=()=>{
-    const label=q('#atCuL').value.trim(); if(!label) return toast('İsteği yazın',true);
-    const cost=num('#atCuC',50), dur=num('#atCuD',10), pts=num('#atCuP',50), kind=q('#atCuK').value, text=q('#atCuT').value.trim().slice(0,400)||'Uygulandı.';
-    if(R.coins<cost) return toast('Ekibin yeterli coin’i yok',true);
-    R.coins-=cost; if(cost){ R.spent.O=(R.spent.O||0)+cost; floatCoin(cost); }
-    R.finds.unshift({t:R.t,label,text,kind:pts?'harm':kind}); lastFind=R.finds[0];
-    R.log.push({t:R.t,kind,text:label+': '+text,cost});
-    if(pts) pen(pts,'Eğitmen: '+label);
-    m.close();
-    if(dur){ toast(`${label}: ${dur} dk sürdü`); advance(dur); }
-    if(!R.ended){ vitals(); finds(); hud(); if(was) run(); }
-  };
-}
-async function confirmEnd(){
-  const was=R.running; pause();
-  if(await confirmDlg('Vakayı bitir','<p>Hasta mevcut durumuyla devredilir ve değerlendirme açılır.</p>','Bitir ve değerlendir')) endGame(true,'Ekip vakayı sonlandırdı.');
-  else if(was) run();
-}
-function instructor(){
-  const was=R.running; pause();
-  const m=modal(`<div class="modal-h"><h2>Eğitmen paneli</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
-    <p class="small muted" style="margin-top:0">Oyun duraklatıldı. Ekibe ödül veya ceza coin’i verin; not zaman çizelgesine yazılır.</p>
-    <div class="row">${[-20,-10,10,20].map(n=>`<button class="btn" data-n="${n}">${n>0?'+':''}${n} coin</button>`).join('')}</div>
-    <div class="field" style="margin-top:12px"><label class="f" for="atNote">Not</label><input type="text" id="atNote" placeholder="Örn. Kapalı döngü iletişim iyi"></div></div>
-    <div class="modal-f"><button class="btn primary" id="atIc">Kapat ve devam et</button></div>`,'narrow');
-  m.el.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{ const n=+b.dataset.n, note=m.el.querySelector('#atNote').value.trim(); R.coins=Math.max(0,R.coins+n);
-    R.log.push({t:R.t,kind:'instr',text:`Eğitmen ${n>0?'+':''}${n} coin${note?': '+note:''}`,cost:0}); hud(); toast(`${n>0?'+':''}${n} coin`); });
-  m.el.querySelector('#atIc').onclick=()=>{ m.close(); if(was) run(); };
+/* ---- ortak müdahaleler (senaryo kendi kuralını tanımlamadıysa) ---- */
+const ok=(s,id)=>(s.ok||[]).includes(id);
+const ACT={
+ k_resp:R=>inArr(R)?{text:'Yanıtsız, solunum yok / yalnızca agonal soluk (gasping), karotis nabzı alınmıyor: KARDİYAK ARREST.'}:null,
+ k_cpr:R=>{ const f=R.f; if(!f.arrest) return {text:'Karotis nabzı var: göğüs basısı başlatılmadı.',pen:[5,'Nabzı olan hastaya göğüs basısı girişimi']};
+   f.cpr=1; f.cprQ=1; f.lastSwap=R.t; f.tired=0;
+   return {text:`Göğüs basısı başladı: 100–120/dk, 5–6 cm, tam geri gelme, kesinti < 10 sn.${f.intub?' İleri havayolu var: 6 sn’de bir ventilasyon, basıya ara yok.':' Havayolu yoksa 30:2.'}`}; },
+ k_swap:R=>{ const f=R.f; f.cprQ=1; f.lastSwap=R.t; f.tired=0; return {text:'Bası yapan kişi ritim kontrolü sırasında değişti; bası kalitesi düzeldi.'}; },
+ k_stop:R=>{ R.f.cpr=0; return inArr(R)?{text:'Göğüs basısı durdu — hasta nabızsız!',pen:[15,'Arrest sürerken göğüs basısı durduruldu']}:{text:'Göğüs basısı durduruldu.'}; },
+ k_check:(R,s,lg)=>{ const f=R.f; f.peek=Date.now()+5000;
+   const pens=[]; if(f.arrest&&f.cpr&&f.lastCheckT!=null&&R.t-f.lastCheckT<2) pens.push([5,'2 dk dolmadan ritim kontrolü (gereksiz bası kesintisi)']);
+   f.lastCheckT=R.t;
+   if(!f.pads) return {text:`Monitör / ped yok: ritim görülemiyor. ${f.arrest&&!f.roscReady?'Karotis nabzı yok.':'Karotis nabzı var.'}`,pens};
+   if(f.roscReady){ roscConfirm(R,lg,'ROSC: organize ritim ve palpe edilen karotis nabzı. Göğüs basısı durduruldu.'); return {text:`${f.cpr?'Basıya ara: ':''}${rhD(R,s)} Karotis nabzı ALINIYOR → ROSC! (${RH[f.rh].name})`,pens}; }
+   f.lastCheck={t:R.t,s:RH[f.rh].s};
+   return {text:`${f.cpr?'Basıya ≤ 10 sn ara: ':''}${rhD(R,s)} ${f.arrest?'Karotis nabzı yok.':'Nabız var.'} → ${RH[f.rh].name}${f.arrest&&f.cpr?'. Basıya hemen devam.':''}`,pens}; },
+ r_shock:(R,s,lg)=>{ const f=R.f;
+   if(!f.arrest){ const wasVT=f.rh==='vt'; arrestStart(R,'vf',lg,wasVT?'Senkronize olmayan şok T dalgasına denk geldi: VENTRİKÜLER FİBRİLASYON, nabız yok!':'Nabızlı hastaya şok: ritim VF’ye döndü, nabız yok!');
+     return {text:'Şok verildi: ritim VF’ye döndü!',pen:wasVT?[25,'Nabızlı VT’de senkronize olmayan şok (senkronize kardiyoversiyon gerekirdi)']:[30,'Nabzı olan hastaya defibrilasyon']}; }
+   if(f.roscReady) return {text:'Şok verildi; monitörde organize ritim vardı!',pen:[15,'Organize ritme şok (önce ritim/nabız kontrolü)']};
+   if(!RH[f.rh].shock) return {text:`Şok verildi; ${RH[f.rh].name} şoklanabilir ritim değil, ritim değişmedi.`,pen:[15,'Şoklanamaz ritme (asistoli/NEA) şok']};
+   const pens=[]; if(f.lastShock!=null&&R.t-f.lastShock<2) pens.push([5,'2 dk KPR döngüsü tamamlanmadan art arda şok']);
+   f.shocks=(f.shocks||0)+1; f.shocksArr=(f.shocksArr||0)+1; f.lastShock=R.t;
+   s.onShock?.(R,lg);
+   return {text:`Şok ${f.shocksArr} verildi (200 J): “Herkes çekilsin, oksijen uzak!” ${f.cpr?'Ritme bakmadan basıya hemen devam.':'Göğüs basısı hâlâ başlatılmadı!'}`,pens}; },
+ r_sync:(R,s,lg)=>{ if(inArr(R)) return {text:'Cihaz senkronize olamadı: nabızsız ritimde R dalgası algılanmıyor, şok gecikti.',pen:[10,'Nabızsız ritimde senkronize kardiyoversiyon denemesi']};
+   return s.onSync?.(R,lg)||{text:'Kardiyoversiyon endikasyonu yok.',pen:[15,'Endikasyonsuz kardiyoversiyon']}; },
+ r_pace:(R,s,lg)=>{ if(inArr(R)) return {text:'Arrestte transkütan pacing yakalama sağlamadı.',pen:[5,'Arrestte pacing (önerilmez)']};
+   const r=s.onPace?.(R,lg); if(!r) return {text:'Pacing endikasyonu yok.',pen:[10,'Endikasyonsuz pacing']};
+   if(!R.f.sed) r.pens=[...(r.pens||[]),[3,'Bilinci açık hastada analjezi/sedasyonsuz pacing']]; return r; },
+ i_iv:R=>({text:inArr(R)?'Proksimal tibiaya İO erişim sağlandı (periferik damar yolu açılamadı).':'Antekübital 18G damar yolu açıldı, kan örnekleri alındı.'}),
+ i_epi:R=>{ const f=R.f;
+   if(!f.arrest) return {text:'Nabızlı hastaya 1 mg IV bolus adrenalin: TA 220/120, sık ventriküler ektopi!',pen:[20,'Nabızlı hastaya arrest dozu adrenalin bolusu'],hurt:()=>{R.v.sbp+=60;}};
+   const pens=[]; if(f.lastEpi!=null&&R.t-f.lastEpi<3) pens.push([5,'Adrenalin aralığı < 3 dk']);
+   if(RH[f.rh].shock&&!(f.shocksArr>0)) pens.push([5,'Şoklanabilir ritimde ilk şoktan önce adrenalin']);
+   f.epi=(f.epi||0)+1; f.lastEpi=R.t;
+   return {text:`Adrenalin 1 mg (${f.epi}. doz) IV/İO, 20 mL SF ile itildi. Sonraki doz 3–5 dk sonra.`,pens}; },
+ i_amio300:R=>{ const f=R.f;
+   if(!f.arrest) return {text:'Nabızlı hastada 300 mg bolus amiodaron: hipotansiyon derinleşti.',pen:[10,'Nabızlı hastada arrest dozu (300 mg bolus) amiodaron'],hurt:()=>{R.v.sbp-=10;}};
+   if(!RH[f.rh].shock) return {text:'Amiodaron verildi; şoklanamaz ritimde yararı yok.',pen:[10,'Şoklanamaz ritimde antiaritmik']};
+   f.amio=1; return {text:`Amiodaron 300 mg IV/İO bolus verildi.${(f.shocksArr||0)<3?' (Genellikle 3. şoktan sonra verilir.)':''}`}; },
+ i_amio150:R=>{ const f=R.f;
+   if(!f.arrest) return {text:'Antiaritmik ventriküler kaçış ritmini baskıladı: kalp hızı 24/dk!',pen:[15,'Bradikardide antiaritmik'],hurt:()=>{R.v.sbp-=10;}};
+   if(!RH[f.rh].shock) return {text:'Şoklanamaz ritimde antiaritmiğin yararı yok.',pen:[10,'Şoklanamaz ritimde antiaritmik']};
+   f.amio2=1; return f.amio?{text:'Amiodaron 2. doz 150 mg IV/İO verildi.'}:{text:'Amiodaron 150 mg verildi; ilk arrest dozu 300 mg olmalıydı.',pen:[3,'Arrestte amiodaronun ilk dozu 300 mg']}; },
+ i_lido:R=>{ const f=R.f;
+   if(!f.arrest) return {text:'Lidokain sonrası kaçış ritmi yavaşladı!',pen:[15,'Bradikardide antiaritmik'],hurt:()=>{R.v.sbp-=8;}};
+   if(!RH[f.rh].shock) return {text:'Şoklanamaz ritimde antiaritmiğin yararı yok.',pen:[10,'Şoklanamaz ritimde antiaritmik']};
+   f.lido=1; return {text:'Lidokain 1,5 mg/kg IV/İO verildi.'}; },
+ i_atro:R=>inArr(R)?{text:'Atropin verildi; arrestte yararı gösterilmemiştir.',pen:[10,'Arrestte atropin (önerilmez)']}:{text:'Atropin verildi; taşikardi arttı.',pen:[10,'Taşikardide atropin']},
+ i_aden:R=>inArr(R)?{text:'Arrestte adenozinin yeri yok.',pen:[10,'Arrestte adenozin']}:null,
+ i_dilt:R=>inArr(R)?{text:'Arrestte diltiazemin yeri yok.',pen:[10,'Arrestte diltiazem']}:{text:'Diltiazem sonrası TA belirgin düştü!',pen:[15,'Endikasyonsuz kalsiyum kanal blokeri'],hurt:()=>{R.v.sbp-=15;}},
+ i_mg:(R,s)=>ok(s,'i_mg')?null:{text:'Magnezyum verildi.',pen:[3,'Rutin magnezyum (torsades / hipomagnezemi yok)']},
+ i_ca:(R,s)=>ok(s,'i_ca')?null:{text:'Kalsiyum verildi.',pen:[5,'Rutin kalsiyum (hiperkalemi / hipokalsemi yok)']},
+ i_bicarb:(R,s)=>ok(s,'i_bicarb')?null:{text:'Sodyum bikarbonat verildi.',pen:[5,'Rutin sodyum bikarbonat']},
+ i_insdex:(R,s)=>ok(s,'i_insdex')?null:{text:'İnsülin-dekstroz verildi; kan şekeri düşüyor.',pen:[5,'Endikasyonsuz insülin-dekstroz']},
+ i_kcl:(R,s)=>ok(s,'i_kcl')?null:{text:'Potasyum infüzyonu başlandı.',pen:[5,'Endikasyonsuz potasyum']},
+ i_tpa:(R,s)=>ok(s,'i_tpa')?null:{text:'Alteplaz verildi: pulmoner emboli bulgusu yoktu.',pen:[20,'Endikasyonsuz trombolitik (kanama riski)']},
+ i_fluid:R=>{ R.f.fluid=(R.f.fluid||0)+1; if(inArr(R)) return {text:'500 mL kristaloid hızlı bolus.'}; R.v.sbp+=5; return {text:'500 mL kristaloid; TA hafif yükseldi.'}; },
+ i_norad:R=>{ if(inArr(R)) return {text:'Arrestte infüzyon vazopresör yerine 1 mg bolus adrenalin kullanılır.',pen:[5,'Arrestte vazopresör infüzyonu']};
+   R.f.norad=1; return {text:'Noradrenalin 0,1 mcg/kg/dk başlandı, titre ediliyor (OAB ≥ 65, sistolik ≥ 90).'}; },
+ i_dopa:(R,s)=>chrono(R,s,'Dopamin 5 mcg/kg/dk başlandı, titre ediliyor.'),
+ i_epiinf:(R,s)=>chrono(R,s,'Adrenalin 2 mcg/dk infüzyonu başlandı, titre ediliyor.'),
+ i_sed:R=>inArr(R)?{text:'Arrestte sedasyonun yeri yok.',pen:[5,'Arrestte sedasyon']}:{text:'Fentanil 1 mcg/kg + midazolam 1 mg titre edildi; hasta rahat.'},
+ h_bvm:R=>({text:inArr(R)?'BVM + %100 O₂: 30 basıda 2 ventilasyon, her biri ~1 sn, göğüs kalkacak kadar.':'BVM ile destek verildi; hasta spontan soluyor, maske O₂ yeterliydi.'}),
+ h_eti:R=>inArr(R)||R.f.rosc?{text:'Endotrakeal entübasyon (video laringoskop), basıya ara verilmedi. Tüp yerini kapnografi ile doğrulayın.'}:{text:'Bilinci açık, havayolunu koruyan hastaya entübasyon.',pen:[10,'Endikasyonsuz entübasyon']},
+ h_sga:R=>inArr(R)||R.f.rosc?{text:'i-gel yerleştirildi; ventilasyon basıya ara vermeden 6 sn’de bir.'}:{text:'Bilinci açık hastaya supraglottik havayolu tolere edilmedi.',pen:[10,'Endikasyonsuz ileri havayolu']},
+ h_capno:R=>{ const v=R.v; return {text:inArr(R)?`EtCO₂ ${Math.round(v.etco2)} mmHg.${v.etco2<10?' (< 10: bası kalitesini artırın.)':''} Ani yükselme ROSC’u düşündürür.`:`EtCO₂ ${Math.round(v.etco2)} mmHg, dalga formu normal.`}; },
+ h_o2:R=>inArr(R)?{text:'Arrestte maske O₂ yetmez; BVM ile ventilasyon gerekir.'}:null,
+ t_ecg12:R=>inArr(R)?{text:'Arrest sırasında 12 derivasyon EKG çekilemez; ritim monitörden değerlendirilir.'}:null,
+};
+function chrono(R,s,txt){
+  if(inArr(R)) return {text:'Arrestte infüzyon yerine 1 mg bolus adrenalin kullanılır.',pen:[5,'Arrestte infüzyon vazopresör']};
+  if(s.brady){ R.f.chrono=1; return {text:txt+' Kalp hızı 48/dk’ya çıktı, TA yükseliyor.'}; }
+  if(R.f.rosc){ R.f.norad=1; return {text:txt+' ROSC sonrası hipotansiyon için vazopresör desteği.'}; }
+  return {text:txt,pen:[10,'Taşikardide kronotrop / inotrop infüzyon']};
 }
 
-/* ---- bitiş ve değerlendirme ---- */
-function score(alive,reason){
-  const s=sc();
-  const crit=s.crit.map(c=>{ const ts=c.ids.map(i=>R.first[i]).filter(x=>x!=null); const t=ts.length?Math.min(...ts):null;
-    const st=t==null?'n':(t<=c.within?'y':'h'); return {label:c.label,within:c.within,pts:c.pts,t,st,got:st==='y'?c.pts:st==='h'?Math.round(c.pts/2):0}; });
-  const critSum=crit.reduce((a,c)=>a+c.got,0), critMax=crit.reduce((a,c)=>a+c.pts,0), penSum=R.pen.reduce((a,p)=>a+p.pts,0);
-  const def=!!R.f.def, surv=alive?(def?50:20):0;
-  const v=R.v;
-  return {mode:cfgCur.mode,team:cfgCur.team,members:cfgCur.members,scen:s.id,scenTitle:s.title,score:Math.round((alive?R.coins:0)+critSum-penSum+surv),alive,def,minutes:R.t,coinsLeft:R.coins,start:R.start,
-    critSum,critMax,penSum,surv,crit,pen:R.pen,spent:R.spent,log:R.log.slice(-200).map(l=>({t:l.t,text:String(l.text).slice(0,400),cost:l.cost||0})),reason,
-    vitals:{hr:Math.round(v.hr),sbp:Math.round(v.sbp),dbp:Math.round(v.dbp),spo2:Math.round(v.spo2),gcs:Math.round(v.gcs),temp:Math.round(v.temp*10)/10,intub:!!R.f.intub}};
-}
-function debriefHtml(r){
-  const verdict=!r.alive?'Hasta kaybedildi':r.def?'Hasta definitif bakıma ulaştı':'Hasta hayatta, definitif plan eksik';
-  const v=r.vitals||{}, tot=Object.values(r.spent||{}).reduce((a,b)=>a+b,0)||1;
-  return `<div class="at-deb">
-    <section class="ad-p ad-verdict"><div><div class="ad-l">${esc(r.scenTitle)} · ${esc(r.team)} · dk ${r.minutes}</div><h2 class="${r.alive?'ok':'bad'}">${verdict}</h2>
-      <p class="ad-m">${esc(r.reason||'')} Son vitaller: nabız ${v.hr}, TA ${v.sbp}/${v.dbp}, SpO₂ ${v.spo2}, GKS ${v.gcs}${v.intub?'T':''}, ${v.temp} °C.</p></div>
-      <div class="ad-score"><div class="ad-l">Toplam puan</div><div class="mono">${r.score}</div></div></section>
-    <div class="ad-grid">
-      <section class="ad-p"><div class="ad-l">Kritik eylemler · ${r.critSum}/${r.critMax}</div>
-        ${(r.crit||[]).map(c=>`<div class="ad-crit ${c.st}"><span class="ic">${c.st==='y'?'✓':c.st==='h'?'◐':'✗'}</span><span>${esc(c.label)}<br><small>${c.t==null?'Yapılmadı':'dk '+c.t+(c.st==='h'?` (hedef ≤ ${c.within} dk, geç)`:'')}</small></span><span class="mono">+${c.got}</span></div>`).join('')}</section>
-      <div class="ad-col">
-        <section class="ad-p"><div class="ad-l">Puan dökümü</div><div class="ad-bd"><span>Kalan coin${r.alive?"":" (hasta kaybedildi, sayılmaz)"}</span><span class="mono">${r.alive?r.coinsLeft:0}</span><span>Kritik eylemler</span><span class="mono">+${r.critSum}</span><span>Cezalar</span><span class="mono">−${r.penSum}</span><span>Sağkalım bonusu</span><span class="mono">+${r.surv}</span><b>Toplam</b><b class="mono">${r.score}</b></div></section>
-        <section class="ad-p"><div class="ad-l">Hatalar ve cezalar</div>${(r.pen||[]).length?r.pen.map(p=>`<div class="ad-crit n"><span class="ic">!</span><span>${esc(p.reason)}<br><small>dk ${p.t}</small></span><span class="mono">−${p.pts}</span></div>`).join(''):'<div class="ad-m">Ceza yok.</div>'}</section>
-        <section class="ad-p"><div class="ad-l">Coin nereye gitti</div><div class="ad-bars">${Object.entries(r.spent||{}).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<div class="ad-bar"><span>${CATNAME[k]||k}</span><span class="tr"><span style="width:${n/tot*100}%"></span></span><span class="mono">${n}</span></div>`).join('')||'<div class="ad-m">Coin harcanmadı.</div>'}</div></section>
-      </div></div>
-    <section class="ad-p"><div class="ad-l">Zaman çizelgesi</div><div class="at-log full">${(r.log||[]).map(logRow).join('')}</div></section></div>`;
-}
-async function endGame(alive,reason){
-  R.ended=true; pause();
-  const res=score(alive,reason); R.res=res; pjEnd(res);
-  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':'ATLS oyunu'}</button><b>Değerlendirme</b><span class="small" id="atSave">${S.preview?'Önizleme: sonuç kaydedilmedi':'Kaydediliyor…'}</span></div>
-    ${debriefHtml(res)}<div class="g-act"><button class="g-btn ghost" id="atAgain">Aynı senaryoyu tekrar oyna</button><button class="g-btn" id="atNew">Yeni oyun</button></div>`,'atls');
-  window.scrollTo(0,0);
-  $('atX').onclick=exitGame; $('atAgain').onclick=()=>go('atlsPlay',{cfg:cfgCur,back:backTo}); $('atNew').onclick=()=>setupDlg(cfgCur.mode);
-  if(S.preview) return;
-  try{ await setDoc(doc(collection(db,'atlsRuns')),{...res,uid:S.user.uid,email:S.email,name:S.resident?.name||S.user.displayName||S.email,at:serverTimestamp()});
-    if($('atSave')) $('atSave').textContent='Sonuç kaydedildi'; }
-  catch(e){ fail(e,'Sonuç kaydedilemedi'); if($('atSave')) $('atSave').textContent='Sonuç kaydedilemedi'; }
-}
+/* ---- senaryolar ---- */
+const SCEN=[
+{id:'vf',tag:'01',title:'Tanıklı VF arrest',brief:'58 yaş erkek, göğüs ağrısıyla beklerken yığıldı.',mistLabel:'Durum',
+ mist:'Bekleme salonu: 58 yaş erkek, 30 dakikadır göğüs ağrısıyla triajda bekliyor. Aniden yığılıyor. Hemşire: “Yanıt vermiyor!” Sedyeyle resüsitasyon odasına alındı.',
+ init:{v:{hr:0,sbp:0,dbp:0,spo2:0,etco2:4,temp:36.6},f:{arrest:1,rh:'vf',cprQ:1,lastSwap:0,spo2base:90}},
+ tick(R,lg,pen){ base(R,lg,pen); const f=R.f,v=R.v;
+   if(f.arrest) return;
+   toward(v,'sbp',f.norad?106:74+Math.min(f.fluid||0,2)*6,4); v.hr=f.norad?94:112;
+   if(v.sbp<80&&!f.norad){ f.hypo=(f.hypo||0)+1; if(f.hypo>=6&&!f.rearr){ f.rearr=1; arrestStart(R,'vf',lg,'Hipotansiyon sürdü, iskemi ilerledi: hasta yeniden nabızsız — VF!'); } }
+   if(f.cardio&&f.ecgPost) f.def=1; },
+ onShock(R){ const f=R.f, q=f.cpr&&f.cprQ>=.6;
+   if(f.rearr?(q&&f.shocksArr>=1):(q&&f.epi>=1&&((f.shocksArr>=3&&(f.amio||f.lido))||f.shocksArr>=5)))
+     setReady(R,'st',{hr:112,sbp:74,dbp:44,spo2:f.o2?99:90}); },
+ act:{
+   c_cardio:R=>{ R.f.cardio=1; if(R.f.arrest) return {text:'Kardiyoloji haberdar edildi; ROSC sonrası EKG’yi görmek istiyor.'};
+     if(R.f.ecgPost){ R.f.def=1; return {text:'Kardiyoloji EKG’yi gördü: inferior STEMI — hasta acil koroner anjiyografiye alınıyor.'}; } return {text:'Kardiyoloji yolda; 12 derivasyon EKG istiyor.'}; } },
+ find:{
+   k_resp:'Yanıtsız (GKS 5), solunum yüzeyel, karotis nabzı alınıyor.',
+   o_hist:'Eşi: “Yarım saattir göğsünde baskı vardı, sol koluna yayılıyordu.” A: yok · M: atorvastatin, ramipril · P: HT, sigara 30 paket-yıl · L: 2 saat önce · E: bekleme salonunda göğüs ağrısı, ani yığılma.',
+   t_abg:R=>R.f.arrest?'pH 7.16, pCO₂ 54, laktat 6.2 mmol/L, K 4.1, iCa 1.16, glukoz 172.':'pH 7.28, pCO₂ 42, laktat 3.5 mmol/L, K 4.0, glukoz 168.',
+   t_glu:'Kan şekeri 170 mg/dL.',
+   t_echo:R=>R.f.arrest?'Ventrikül duvarında fibrilasyon hareketi; perikard temiz, sağ ventrikül dilate değil.':'İnferior ve posterior duvarda hipokinezi, EF ≈ %40. Perikard temiz.',
+   t_ecg12:R=>{ R.f.ecgPost=1; if(R.f.cardio) R.f.def=1; return 'Sinüs taşikardisi 110/dk; DII, DIII, aVF’de 3 mm ST elevasyonu, DI–aVL’de resiprokal ST depresyonu: İNFERİOR STEMI.'+(R.f.cardio?' Kardiyoloji EKG’yi gördü, hasta anjiyografiye alınıyor.':''); },
+   t_temp:'36,4 °C.',p_neuro:'GKS 5 (E1 V1 M3), pupiller izokorik, ışık refleksi yavaş. Komada: ileri havayolu ve sıcaklık kontrolü düşünülmeli.'},
+ crit:[
+  {label:'Göğüs basısı başladı',ids:['k_cpr'],within:1,pts:15},
+  {label:'Defibrilatör pedleri',ids:['r_pads'],within:1,pts:5},
+  {label:'İlk şok',ids:['r_shock'],within:2,pts:20},
+  {label:'Damar yolu / İO',ids:['i_iv'],within:4,pts:5},
+  {label:'Adrenalin (2. şoktan sonra)',ids:['i_epi'],within:6,pts:10},
+  {label:'Amiodaron / lidokain (3. şoktan sonra)',ids:['i_amio300','i_lido'],within:8,pts:10},
+  {label:'Bası yapan kişi değişimi',ids:['k_swap'],within:5,pts:5},
+  {label:'Dalga formlu kapnografi',ids:['h_capno'],within:8,pts:5},
+  {label:'ROSC sonrası 12 derivasyon EKG',ids:['t_ecg12'],within:16,pts:10},
+  {label:'Hipotansiyona vazopresör',ids:['i_norad','i_dopa','i_epiinf'],within:18,pts:5},
+  {label:'Acil koroner anjiyografi (kardiyoloji)',ids:['c_cardio'],within:20,pts:15},
+  {label:'Sıcaklık kontrolü',ids:['p_ttm'],within:25,pts:5}],
+ hints:['Tanıklı, şoklanabilir arrest: basıya başlayın, pedleri takın ve en kısa sürede şok verin.','Şoktan sonra ritme bakmadan basıya devam; ritim kontrolü 2 dakikada bir. Bası yapan kişiyi değiştirin.','Adrenalin 2. şoktan sonra, amiodaron 300 mg 3. şoktan sonra.','ROSC sonrası: TA, oksijenasyon ve 12 derivasyon EKG. Arrestin nedeni koroner olabilir mi?']},
 
-/* ---- kayıtlar: liste, değerlendirme, liderlik ---- */
-function showRun(r){ modal(`<div class="modal-h"><h2>${esc(r.team)} · ${esc(r.scenTitle)}</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">
-    <div class="small muted" style="margin-bottom:10px">${esc(r.name||'')} · ${fmtDT(r.at)} · ${r.mode==='ekip'?'Ekip oyunu':'Bireysel'}${(r.members||[]).filter(Boolean).length?' · '+r.members.map((m,i)=>m?`${ROLES[i]}: ${esc(m)}`:'').filter(Boolean).join(' · '):''}</div>${debriefHtml(r)}</div>`,'wide'); }
-function runRow(r,admin){
-  return `<div class="tplrow"><div class="grow" style="min-width:0"><b>${esc(r.team)}</b> <span class="badge ${r.alive?'ok':'bad'}">${r.alive?'Hayatta':'Ex'}</span> ${admin&&r.mode!=='ekip'?'<span class="badge">Bireysel</span>':''}
-    <div class="small muted">${esc(r.scenTitle)} · ${r.score} puan · ${fmtDT(r.at)}</div></div>
-    <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-arun="${r.id}">Değerlendirme</button>${admin?`<button class="btn sm ghost danger" data-adel="${r.id}">✕</button>`:''}</div></div>`;
-}
-function leaderboard(runs){
-  modal(`<div class="modal-h"><h2>Altın Saat · liderlik</h2><button class="btn sm ghost" data-close>✕</button></div><div class="modal-b">${SCEN.map(s=>{
-    const top=runs.filter(r=>r.scen===s.id).sort((a,b)=>b.score-a.score).slice(0,10);
-    return `<h3 style="margin-top:12px">${s.title}</h3>${top.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>Ekip / oyuncu</th><th>Sonuç</th><th>Tarih</th><th style="text-align:right">Puan</th></tr></thead><tbody>${top.map((r,i)=>`<tr><td class="mono">${i+1}</td><td>${esc(r.team)}${r.mode!=='ekip'?' <span class="small muted">(bireysel)</span>':''}</td><td>${r.alive?'Hayatta':'Ex'}</td><td class="small">${fmtDT(r.at)}</td><td class="mono" style="text-align:right">${r.score}</td></tr>`).join('')}</tbody></table></div>`:'<div class="small muted">Henüz oynanmadı.</div>'}`; }).join('')}</div>`,'wide');
-}
-async function loadRuns(mine){
-  const q=mine?query(collection(db,'atlsRuns'),where('uid','==',S.user.uid)):collection(db,'atlsRuns');
-  const s=await getDocs(q); return s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(tsMs(b.at)||0)-(tsMs(a.at)||0));
-}
-/* Oyunlar sekmesindeki kart (yönetici) */
-function adminCard(runs){
-  return `<div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">ATLS Ekip Oyunu · Altın Saat</h2><div class="row"><button class="btn" id="atLb">🏆 Liderlik</button><button class="btn primary" id="atNewE">+ Yeni oyun</button></div></div>
-    <p class="small muted">Travma hastası gerçek zamanlı kötüleşir. Ekip xABCDE sırasıyla muayene, tetkik ve müdahaleye coin harcar; zamanında kritik eylem puan, zararlı işlem ceza getirir. Tek ekrana yansıtın, ekip birlikte karar versin. Asistanlar Öğren sekmesinden bireysel de oynayabilir.</p>
-    <div class="list" style="gap:0">${runs.slice(0,15).map(r=>runRow(r,true)).join('')||'<div class="small muted">Henüz oyun yok.</div>'}</div></div>`;
-}
-function bindAdminCard(runs,reload){
-  $('atNewE')&&($('atNewE').onclick=()=>setupDlg('ekip'));
-  $('atLb')&&($('atLb').onclick=()=>leaderboard(runs));
-  bindRows(runs,reload);
-}
-function bindRows(runs,reload){
-  $app.querySelectorAll('[data-arun]').forEach(b=>b.onclick=()=>{ const r=runs.find(x=>x.id===b.dataset.arun); if(r) showRun(r); });
-  $app.querySelectorAll('[data-adel]').forEach(b=>b.onclick=async()=>{ if(!await confirmDlg('Oyun kaydını sil','<p>Bu oyunun sonucu ve değerlendirmesi silinir.</p>','Sil',true)) return;
-    try{ await deleteDoc(doc(db,'atlsRuns',b.dataset.adel)); toast('Silindi'); reload(); }catch(e){ fail(e); } });
-}
-/* Asistan sayfası */
-async function page(){
-  paint(`<div class="spinner"></div>`);
-  let runs=[]; try{ runs=await loadRuns(true); }catch(e){ console.error(e); }
-  const best=id=>{ const x=runs.filter(r=>r.scen===id); return x.length?Math.max(...x.map(r=>r.score)):null; };
-  paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Öğren</button><h1>ATLS oyunu · Altın Saat</h1><div class="sub">Travma hastası gelir ve zaman akar. Her muayene, tetkik ve müdahale coin harcar. Doğru sırayla, az coin harcayarak hastayı definitif bakıma ulaştırın.</div></div><button class="btn primary" id="atNewR">Yeni oyun</button></div>
-    <div class="at-rsc">${SCEN.map(s=>`<div class="card pad"><div class="lbl2">Senaryo ${s.tag}</div><h2 style="margin:2px 0 4px">${s.title}</h2><div class="small muted">${s.brief}</div>
-      <div class="small" style="margin-top:8px">${best(s.id)!=null?`En iyi puanınız: <b class="mono">${best(s.id)}</b>`:'Henüz oynamadınız'}</div></div>`).join('')}</div>
-    <div class="card pad" style="margin-top:16px"><h2 style="margin-top:0">Nasıl oynanır</h2><ul class="small" style="margin:0;padding-left:18px;display:grid;gap:4px">
-      <li>Monitör bağlanmadan vital bulgular görünmez. Damar yolu olmadan sıvı ve ilaç verilemez.</li>
-      <li>Aynı muayeneyi tekrarlamak da coin harcar; yeniden değerlendirmenin bedeli vardır.</li>
-      <li>Bazı işlemler süre yer (BT 10 dk). Tedavi edilmeyen sorun hastayı kötüleştirir.</li>
-      <li>Endikasyonsuz veya zararlı işlem ceza getirir. Takılırsanız 25 coin karşılığı ipucu alabilirsiniz.</li>
-      <li>Puan = kalan coin (hasta yaşıyorsa) + zamanında yapılan kritik eylemler − cezalar + sağkalım bonusu.</li></ul></div>
-    <div class="card pad" style="margin-top:16px"><h2 style="margin-top:0">Oyunlarım</h2><div class="list" style="gap:0">${runs.map(r=>runRow(r,false)).join('')||'<div class="small muted">Henüz oyun yok.</div>'}</div></div>`);
-  $('bk').onclick=()=>go('learn'); $('atNewR').onclick=()=>setupDlg('bireysel');
-  bindRows(runs,page);
-}
-return {setupDlg,play,page,adminCard,bindAdminCard,loadRuns};
+{id:'hiperk',tag:'02',title:'Diyaliz hastasında NEA',brief:'67 yaş kadın, kronik böbrek yetmezliği; gözlemde yanıtsız bulundu.',mistLabel:'Durum',
+ mist:'Gözlem alanı: 67 yaş kadın, haftada 3 gün hemodiyalize giriyor. Halsizlik ve bacaklarda güçsüzlükle gelmişti; triajda nabız 48. Hemşire: “Hasta yanıt vermiyor!”',
+ init:{v:{hr:28,sbp:0,dbp:0,spo2:0,etco2:4,temp:36.2},f:{arrest:1,rh:'pea',cprQ:1,lastSwap:0,spo2base:91}},
+ ok:['i_ca','i_bicarb','i_insdex'],
+ rhDesc:{pea:'Çok geniş, sinüzoidal görünümlü yavaş kompleksler (~28/dk); P dalgası yok.',sr:'Sinüs ritmi 86/dk; QRS hâlâ geniş (130 ms), T dalgaları sivri.'},
+ tick(R,lg,pen){ base(R,lg,pen); const f=R.f,v=R.v;
+   if(f.arrest){
+     if(f.rh==='pea'&&!f.ca&&R.t-f.arrT>=14){ f.rh='asys'; v.hr=0; lg('sys','Kompleksler kayboldu: monitörde düz çizgi.'); }
+     if(f.ca&&R.t-f.caT>=1&&(f.epi||0)>=1&&f.cpr&&f.cprQ>=.6) setReady(R,'sr',{hr:86,sbp:94,dbp:56,spo2:f.o2?99:91});
+     return; }
+   toward(v,'sbp',f.norad?110:100,3); v.hr=f.shift?84:86;
+   if(!f.shift&&!f.neph&&!f.rearr&&R.t-f.roscT>=8){ f.rearr=1; f.ca=0; arrestStart(R,'pea',lg,'Potasyum düşürülmedi: QRS yeniden genişledi — hasta tekrar nabızsız (NEA)!'); v.hr=30; }
+   if(f.neph) f.def=1; },
+ act:{
+   i_ca:R=>{ R.f.ca=1; R.f.caT=R.t; return {text:inArr(R)?'Kalsiyum klorür %10, 10 mL IV/İO verildi: miyokard membranını stabilize eder, potasyumu düşürmez.':'Kalsiyum klorür tekrarlandı; QRS daralıyor.'}; },
+   i_insdex:R=>{ R.f.shift=1; return {text:'İnsülin 10 Ü + %50 dekstroz 50 mL: potasyum 15–30 dk içinde hücre içine kayacak. Kan şekerini saatlik izleyin.'}; },
+   i_bicarb:R=>{ R.f.shift=1; return {text:'Sodyum bikarbonat 50 mEq: asidoz düzelirken potasyum hücre içine kayar.'}; },
+   c_neph:R=>{ R.f.neph=1; if(inArr(R)) return {text:'Nefroloji haberdar edildi; diyaliz için önce ROSC gerekli.'}; R.f.def=1; return {text:'Nefroloji: acil hemodiyaliz için kateter takılacak, hasta diyaliz ünitesine alınıyor.'}; } },
+ find:{
+   k_resp:'Uykulu ama sesle uyanıyor, solunum düzenli, karotis nabzı var.',
+   o_hist:'Kızı: “Son iki diyalizine gitmedi, iki gündür halsizdi, bacakları tutmuyordu.” A: yok · M: ramipril, spironolakton, kalsiyum asetat · P: DM, HT, KBY (hemodiyaliz) · L: dün akşam portakal ve kuru meyve · E: gözlemde yanıtsız bulundu.',
+   t_abg:R=>R.f.shift&&!R.f.arrest?'pH 7.24, K 6.0 mmol/L, HCO₃ 15, laktat 3.0.':'pH 7.05, K 8.6 mmol/L (!), HCO₃ 10, iCa 0.95, laktat 6.6, glukoz 142.',
+   t_glu:R=>R.f.shift?'Kan şekeri 128 mg/dL (insülin sonrası izlem sürüyor).':'Kan şekeri 142 mg/dL.',
+   t_echo:R=>R.f.arrest?'Zayıf, koordinasyonsuz kasılmalar; perikard temiz, sağ ventrikül normal boyutta.':'Global hipokinezi, perikard temiz.',
+   t_ecg12:R=>R.f.shift?'Sinüs 84/dk, QRS 100 ms, T dalgaları hâlâ sivri.':'Sinüs 86/dk, QRS 130 ms, sivri T dalgaları, P dalgaları basık: HİPERKALEMİ bulguları sürüyor.',
+   t_temp:'36,1 °C.',p_neuro:'GKS 9 (E2 V2 M5), pupiller izokorik ve reaktif.'},
+ crit:[
+  {label:'Göğüs basısı başladı',ids:['k_cpr'],within:1,pts:15},
+  {label:'Defibrilatör pedleri',ids:['r_pads'],within:1,pts:5},
+  {label:'Damar yolu / İO',ids:['i_iv'],within:3,pts:5},
+  {label:'Adrenalin (en kısa sürede)',ids:['i_epi'],within:3,pts:15},
+  {label:'Öykü (geri dönüşlü neden)',ids:['o_hist'],within:6,pts:5},
+  {label:'Kan gazı / potasyum',ids:['t_abg'],within:8,pts:10},
+  {label:'Kalsiyum',ids:['i_ca'],within:10,pts:20},
+  {label:'Dalga formlu kapnografi',ids:['h_capno'],within:10,pts:5},
+  {label:'Potasyumu hücre içine kaydır (insülin-dekstroz / bikarbonat)',ids:['i_insdex','i_bicarb'],within:18,pts:10},
+  {label:'Acil hemodiyaliz (nefroloji)',ids:['c_neph'],within:22,pts:15}],
+ hints:['Şoklanamaz ritim: basıya devam edin, adrenalini hemen verin.','Geri dönüşlü nedenler (5H–5T): bu hastanın öyküsünde ne var?','Hiperkalemiye bağlı arrest: önce kalsiyum, sonra potasyumu hücre içine kaydırın.','Kalıcı çözüm için kim gerekli?']},
+
+{id:'brady',tag:'03',title:'Semptomatik bradikardi',brief:'72 yaş erkek, senkop sonrası; bilinç bulanık, hipotansif.',brady:1,
+ mist:'112: “Evde ayağa kalkarken bayılmış. Nabız 30 civarı, TA 70/40, soğuk terli, sorulara geç yanıt veriyor. Nazal 4 L/dk O₂ başlandı, damar yolu açılamadı.”',
+ init:{v:{hr:32,sbp:72,dbp:42,spo2:91,etco2:34,temp:36.4},f:{rh:'chb',cprQ:1,lastSwap:0,spo2base:91}},
+ tick(R,lg,pen){ base(R,lg,pen); const f=R.f,v=R.v;
+   if(f.arrest){ if((f.epi||0)>=1&&f.cpr&&f.cprQ>=.6&&R.t-f.arrT>=2) setReady(R,'chb',{hr:30,sbp:64,dbp:36,spo2:f.o2?96:88}); return; }
+   if(f.paced){ f.rh='paced'; v.hr=70; toward(v,'sbp',106,6); }
+   else if(f.chrono){ v.hr=48; toward(v,'sbp',88,4); }
+   else { v.hr=32; v.sbp-=2; }
+   if(v.sbp<52&&!f.paced){ arrestStart(R,'asys',lg,'Hasta yanıtsızlaştı: ventriküler kaçış ritmi durdu — ASİSTOLİ, nabız yok!'); v.hr=0; }
+   if(f.cardio&&(f.paced||f.chrono)) f.def=1; },
+ onPace(R){ R.f.paced=1; R.f.rh='paced'; return {text:'Transkütan pacing 70/dk: 65 mA’da elektriksel yakalama; femoral nabız 70/dk (mekanik yakalama doğrulandı).'}; },
+ onSync:()=>({text:'Bradikardide kardiyoversiyon endikasyonu yok.',pen:[15,'Bradikardide kardiyoversiyon']}),
+ act:{
+   i_atro:R=>{ if(inArr(R)) return null; const f=R.f; f.atro=(f.atro||0)+1;
+     return {text:f.atro===1?'Atropin 1 mg: kalp hızı değişmedi (32/dk). Geniş QRS’li tam AV blokta (infranodal) atropin çoğunlukla etkisizdir.':`Atropin ${f.atro}. doz: yanıt yok.`,
+       pen:f.atro>=2&&!f.paced&&!f.chrono?[5,'Etkisiz atropini tekrarlayıp pacing / infüzyonu geciktirme']:null}; },
+   i_aden:R=>({text:'Adenozin: 8 sn asistoli, ardından aynı yavaş ritim. Hasta bayılıyor!',pen:[15,'Bradikardide adenozin'],hurt:()=>{R.v.sbp-=8;}}),
+   i_dilt:R=>inArr(R)?null:{text:'Diltiazem sonrası kalp hızı 24/dk, TA 50/30!',pen:[20,'Bradikardide kalsiyum kanal blokeri'],hurt:()=>{R.v.sbp-=16;}},
+   c_cardio:R=>{ R.f.cardio=1; if(!R.f.arrest&&(R.f.paced||R.f.chrono)) R.f.def=1; return {text:'Kardiyoloji: transvenöz geçici pace için hasta kateter laboratuvarına alınacak.'}; } },
+ find:{
+   k_resp:R=>R.f.paced?'Uyanık, oryante (GKS 15); cilt ısınıyor.':'Sorulara geç ve yavaş yanıt (GKS 13), soğuk ve terli; karotis nabzı yavaş ve zayıf.',
+   o_hist:'Eşi: “Bir haftadır iki kez başı döndü, bugün ayağa kalkınca yığıldı.” A: yok · M: amlodipin, metformin · P: HT, DM · L: sabah kahvaltı · E: evde senkop.',
+   t_ecg12:R=>R.f.paced?'Pace ritmi 70/dk; her spike’ı geniş QRS izliyor.':'Tam AV blok: P dalgaları 80/dk, geniş QRS’li ventriküler kaçış 32/dk, AV ilişki yok. Akut ST değişikliği yok.',
+   t_abg:'pH 7.31, laktat 3.6, K 4.6, Mg 2.0, glukoz 156.',t_glu:'Kan şekeri 156 mg/dL.',
+   t_echo:'Bradikardik kontraksiyon, EF ≈ %50, perikard temiz.',t_temp:'36,4 °C.',p_neuro:'GKS 15.'},
+ crit:[
+  {label:'Monitör / pedler',ids:['r_pads'],within:2,pts:10},
+  {label:'O₂ (SpO₂ < 94)',ids:['h_o2'],within:3,pts:5},
+  {label:'Damar yolu',ids:['i_iv'],within:3,pts:5},
+  {label:'12 derivasyon EKG',ids:['t_ecg12'],within:5,pts:10},
+  {label:'Atropin (ilk basamak)',ids:['i_atro'],within:5,pts:5},
+  {label:'Transkütan pacing veya kronotrop infüzyon',ids:['r_pace','i_dopa','i_epiinf'],within:8,pts:25},
+  {label:'Pacing için analjezi / sedasyon',ids:['i_sed'],within:9,pts:5},
+  {label:'Transvenöz pace (kardiyoloji)',ids:['c_cardio'],within:14,pts:15}],
+ hints:['Bradikardi + hipotansiyon + bilinç değişikliği: unstabil. Monitör, damar yolu, 12 derivasyon EKG.','Atropin ilk basamaktır; geniş QRS’li tam AV blokta işe yaramayabilir.','Atropin etkisizse: transkütan pacing ya da dopamin / adrenalin infüzyonu.','Kalıcı çözüm transvenöz pace: kimi çağırırsınız?']},
+
+{id:'vt',tag:'04',title:'Unstabil geniş QRS taşikardi',brief:'61 yaş erkek, çarpıntı ve göğüs baskısı; soğuk terli, hipotansif.',mistLabel:'Triaj notu',
+ mist:'61 yaş erkek, 1 saattir çarpıntı ve göğüs baskısı. Eski MI öyküsü var. Triajda nabız 180, TA 80/50; sorulara yanıt veriyor ama huzursuz.',
+ init:{v:{hr:182,sbp:82,dbp:52,spo2:92,etco2:33,temp:36.7},f:{rh:'vt',cprQ:1,lastSwap:0,spo2base:92}},
+ ok:['i_mg','i_kcl'],
+ tick(R,lg,pen){ base(R,lg,pen); const f=R.f,v=R.v;
+   if(f.arrest) return;
+   if(f.rh==='vt'){ v.hr=182; v.sbp-=1.4; if(v.sbp<55){ arrestStart(R,'pvt',lg,'Hasta yanıtsız, nabız alınmıyor — NABIZSIZ VT!'); v.hr=190; } return; }
+   v.hr=92; toward(v,'sbp',f.norad?118:112,5);
+   if(!f.recur&&!f.amio2&&!f.lido&&!f.mg&&R.t-f.convT>=6){ f.recur=1; f.rh='vt'; v.hr=182; v.sbp=86; lg('sys','Monitör: VT yeniden başladı! Hasta yine huzursuz, TA düşüyor.'); }
+   if(f.cardio) f.def=1; },
+ onShock(R){ const f=R.f; if(((f.cpr&&f.cprQ>=.6)||R.t-f.arrT<=1)&&f.shocksArr>=1){ setReady(R,'sr',{hr:96,sbp:94,dbp:58,spo2:f.o2?99:93}); f.convT=R.t; } },
+ onSync(R){ const f=R.f, v=R.v;
+   if(f.rh==='vt'){ f.rh='sr'; f.convT=R.t; v.hr=96; v.sbp=Math.max(v.sbp,92); return {text:'Senkronize kardiyoversiyon 100 J: SİNÜS RİTMİNE döndü, 96/dk. Hasta rahatladı.'}; }
+   return {text:'Hasta sinüs ritminde; kardiyoversiyon endikasyonu yok.',pen:[15,'Sinüs ritmine kardiyoversiyon']}; },
+ act:{
+   i_aden:R=>inArr(R)?null:(R.f.rh==='vt'?{text:'Adenozin: ritim değişmedi (VT). Unstabil hastada zaman kaybedildi.',pen:[10,'Unstabil taşikardide kardiyoversiyonu ilaçla geciktirme']}:{text:'Sinüs ritminde adenozin endikasyonu yok.',pen:[5,'Endikasyonsuz adenozin']}),
+   i_dilt:R=>inArr(R)?null:{text:'Diltiazem sonrası TA 58/30’a düştü!',pen:[25,'Geniş QRS taşikardide kalsiyum kanal blokeri (VT’de kontrendike)'],hurt:()=>{R.v.sbp-=24;}},
+   i_amio150:R=>{ if(inArr(R)) return null; R.f.amio2=1;
+     return R.f.rh==='vt'?{text:'Amiodaron 150 mg 10 dk’da başlandı; ritim değişmedi. Unstabil hastada önce kardiyoversiyon gerekir.',pen:[10,'Unstabil VT’de kardiyoversiyon yerine önce ilaç']}
+       :{text:'Amiodaron 150 mg 10 dk’da, ardından 1 mg/dk infüzyon: tekrarlama riski azaldı.'}; },
+   i_lido:R=>{ if(inArr(R)) return null; R.f.lido=1;
+     return R.f.rh==='vt'?{text:'Lidokain verildi; ritim değişmedi.',pen:[10,'Unstabil VT’de kardiyoversiyon yerine önce ilaç']}:{text:'Lidokain 1 mg/kg IV, ardından infüzyon.'}; },
+   i_mg:R=>{ R.f.mg=1; return {text:'Magnezyum sülfat 2 g IV, 15 dk’da.'}; },
+   i_kcl:R=>{ R.f.k=1; return {text:'KCl 20 mEq/saat infüzyonu başlandı.'}; },
+   c_cardio:R=>{ R.f.cardio=1; if(!R.f.arrest&&R.f.rh!=='vt') R.f.def=1; return {text:'Kardiyoloji: koroner anjiyografi ve EFS / ICD değerlendirmesi için koroner yoğun bakıma alınacak.'}; } },
+ find:{
+   k_resp:R=>R.f.rh==='vt'?'Huzursuz, sorulara yanıt veriyor; soğuk terli, radiyal nabız zayıf ve çok hızlı.':'Rahatladı, oryante; nabız düzenli.',
+   o_hist:'A: yok · M: aspirin, metoprolol (2 gündür ishal nedeniyle almamış), furosemid · P: 3 yıl önce anterior MI · L: 4 saat önce · E: 2 gündür ishal, 1 saattir çarpıntı ve göğüs baskısı.',
+   t_ecg12:R=>R.f.rh==='vt'?'Geniş QRS (160 ms), düzenli taşikardi 182/dk, AV dissosiyasyon, füzyon atımları: monomorfik VT.':'Sinüs 92/dk; V1–V4’te Q dalgaları (eski anterior MI), akut ST elevasyonu yok, QTc 470 ms.',
+   t_abg:'pH 7.36, K 3.0 mmol/L (düşük), Mg 1.3 mg/dL (düşük), laktat 2.8.',t_glu:'Kan şekeri 118 mg/dL.',
+   t_echo:R=>R.f.rh==='vt'?'Hızlı kontraksiyon, anterior duvar akinetik, EF ≈ %30.':'Anterior-apikal akinezi, EF ≈ %35; perikard temiz.',
+   t_temp:'36,7 °C.',p_neuro:'GKS 15.'},
+ crit:[
+  {label:'Monitör / pedler',ids:['r_pads'],within:2,pts:10},
+  {label:'O₂ (SpO₂ < 94)',ids:['h_o2'],within:3,pts:5},
+  {label:'Damar yolu',ids:['i_iv'],within:3,pts:5},
+  {label:'Senkronize kardiyoversiyon',ids:['r_sync'],within:5,pts:30},
+  {label:'Prosedürel analjezi / sedasyon',ids:['i_sed'],within:5,pts:5},
+  {label:'Elektrolit kontrolü (K, Mg)',ids:['t_abg'],within:10,pts:10},
+  {label:'12 derivasyon EKG',ids:['t_ecg12'],within:10,pts:5},
+  {label:'Mg / K replasmanı',ids:['i_mg','i_kcl'],within:14,pts:5},
+  {label:'Antiaritmik (amiodaron 150 mg / lidokain)',ids:['i_amio150','i_lido'],within:14,pts:10},
+  {label:'Kardiyoloji',ids:['c_cardio'],within:16,pts:15}],
+ hints:['Geniş QRS, düzenli, hızlı ve hasta unstabil: ilaç değil elektrik.','Nabızlı VT’de defibrilasyon değil senkronize kardiyoversiyon.','Dönüş sonrası tekrarlamasın: elektrolitler ve antiaritmik.','Altta yatan yapısal kalp hastalığı için kimi çağırırsınız?']}
+];
+
+return SIM_ENGINE({key:'acls',coll:'aclsRuns',view:'acls',playView:'aclsPlay',brand:'Geri Dönüş',short:'ACLS oyunu',
+  cardTitle:'ACLS Ekip Oyunu · Geri Dönüş',cardDesc:'Arrest ve periarrest senaryoları gerçek zamanlı ilerler. Ekip KPR, ritim kontrolü, şok, ilaç ve geri dönüşlü nedenler için coin harcar; KPR kesintisi, yanlış ritme şok ve doz hataları ceza getirir.',
+  pageTitle:'ACLS oyunu · Geri Dönüş',pageSub:'Arrest veya periarrest hastası gelir ve zaman akar. Kaliteli KPR’yi sürdürün, ritmi tanıyın, doğru zamanda şok ve ilaç verin, geri dönüşlü nedeni bulun.',
+  howto:['Pedler bağlanmadan monitör görünmez. Göğüs basısı sürerken monitörde yalnızca KPR artefaktı görünür; ritmi görmek için ritim + nabız kontrolü yapın.',
+    'Bası yapan kişiyi 2 dakikada bir değiştirin; yorulunca bası kalitesi düşer ve ROSC gecikir.','Arrestte KPR’siz geçen her dakika ceza; 6 dakikayı aşarsa hasta kaybedilir.',
+    'Adrenalin 3–5 dakikada bir; şoklanabilir ritimde 2. şoktan sonra, amiodaron 3. şoktan sonra.','ROSC ritim + nabız kontrolüyle doğrulanır. Sonrasında TA, oksijenasyon, 12 derivasyon EKG ve definitif tedavi.',
+    'Puan = kalan coin (hasta yaşıyorsa) + zamanında yapılan kritik eylemler − cezalar + sağkalım bonusu.'],
+  ROLES:['Ekip lideri','Göğüs basısı','Havayolu','Damar yolu / ilaç','Defibrilatör / monitör','Kayıt / zaman'],CATS,ACTIONS,DEF,SCEN,
+  catName:{K:'KPR',E:'Elektrik',H:'Havayolu',I:'İlaç',T:'Tetkik',P:'ROSC sonrası',C:'Konsült'},
+  quick:{id:'o_hist',label:'Öykü'},searchPh:'Ara: adrenalin, şok, pace, kalsiyum…',
+  monId:'r_pads',monBtn:'Pedleri bağla',monText:'Defibrilatör pedleri yapıştırıldı (sağ subklavikular + apeks); monitör aktif.',ivMsg:'Damar yolu / İO yok. Önce “Damar yolu / İO erişim”.',
+  act:ACT,
+  flags:{r_pads:F=>{F.mon=1;F.pads=1;},i_iv:F=>F.iv=1,h_o2:F=>F.o2=1,h_bvm:F=>F.o2=1,h_sga:F=>{F.o2=1;F.intub=1;},h_eti:F=>{F.o2=1;F.intub=1;},h_capno:F=>F.capno=1,i_sed:F=>F.sed=1,p_o2:F=>F.o2tit=1,p_ttm:F=>F.ttm=1},
+  after(R){ const v=R.v,f=R.f;
+    if(f.arrest){ v.etco2=f.cpr?(f.roscReady?40:Math.round(7+f.cprQ*11+(f.intub?2:0))):4; v.sbp=0; v.dbp=0; }
+    else { toward(v,'etco2',36,6); toward(v,'spo2',f.o2tit?96:f.o2?99:(f.spo2base||94),3); v.dbp=Math.round(v.sbp*.6); }
+    v.sbp=clamp(v.sbp,0,240); v.hr=clamp(v.hr,0,250); v.spo2=clamp(v.spo2,0,100); },
+  dead:R=>R.f.arrest&&(R.f.noflow||0)>=6?'Toplam 6 dakikadan uzun süre göğüs basısı yapılmadı: resüsitasyon başarısız.':null,
+  aliveAtEnd:R=>!R.f.arrest,
+  limitReason:R=>R.f.arrest?'30 dakikalık resüsitasyona rağmen ROSC sağlanamadı.':'Süre doldu.',
+  monLabel:R=>R.f.cpr&&!(R.f.peek>Date.now())?'Defibrilatör · KPR artefaktı':R.f.paced?'Defibrilatör · Pace':'Defibrilatör · Pedler',
+  ecgRate(R){ const r=visRh(R); return r==='cpr'?110:r==='pvt'?190:r==='paced'?70:r==='asys'||r==='vf'?60:Math.max(20,R.v.hr||30); },
+  ecgY(R,st){ const r=visRh(R), p=st.phase;
+    if(r==='cpr') return 40-17*Math.sin(2*Math.PI*p)+(Math.random()-.5)*3;
+    if(r==='vf') return 40+12*Math.sin(st.n*.12)+8*Math.sin(st.n*.27+1.3)+5*Math.sin(st.n*.047+.4)+(Math.random()-.5)*3;
+    if(r==='asys') return 40+(Math.random()-.5)*1.5+Math.sin(st.n*.01);
+    if(r==='vt'||r==='pvt'){ const s=Math.sin(2*Math.PI*p); return 40-24*Math.sign(s)*Math.pow(Math.abs(s),.6); }
+    if(r==='pea') return wideY(p);
+    if(r==='chb'){ st.pa+=80/60/160; if(st.pa>1) st.pa-=1; let y=wideY(p); if(st.pa<.06) y-=Math.sin(st.pa/.06*Math.PI)*5; return y; }
+    if(r==='paced') return p>.1&&p<.112?2:wideY(p);
+    return sinusY(p); },
+  vitals(R,j){ const v=R.v,f=R.f,arr=!!f.arrest;
+    const hr=arr&&f.cpr?'—':f.rh==='vf'?'---':f.rh==='asys'?0:Math.max(0,j(v.hr));
+    return [['Kalp hızı','hr',hr,'/dk',arr||v.hr<50||v.hr>130],
+      ['TA','bp',arr?'—':`${Math.round(v.sbp)}/${Math.round(v.dbp)}`,arr?'':'mmHg',arr||v.sbp<90],
+      ['SpO₂','spo2',arr?'—':clamp(j(v.spo2),50,100),arr?'':'%',arr||v.spo2<92],
+      ['EtCO₂','rr',f.capno?Math.round(v.etco2):'—',f.capno?'mmHg':'',!!f.capno&&v.etco2<10],
+      ['Son ritim kontrolü','gcs',f.lastCheck?f.lastCheck.s:'—',f.lastCheck?`dk ${f.lastCheck.t}`:'',false],
+      ['KPR','tmp',f.cpr?'Sürüyor':arr?'YOK':'—','',arr&&!f.cpr]]; },
+  snap(R){ const v=R.v,f=R.f; return {hr:Math.round(v.hr),sbp:Math.round(v.sbp),dbp:Math.round(v.dbp),spo2:Math.round(v.spo2),etco2:Math.round(v.etco2||0),rh:RH[f.rh].s,arrest:!!f.arrest,rosc:f.rosc||0}; },
+  vline:v=>v.arrest?`Son durum: ${v.rh}, nabız yok${v.etco2?`, EtCO₂ ${v.etco2} mmHg`:''}.`:`Son durum: ${v.rh}, kalp hızı ${v.hr}, TA ${v.sbp}/${v.dbp}, SpO₂ ${v.spo2}.`,
+  verdict:r=>!r.alive?(r.vitals?.rosc?'Yeniden arrest — hasta kaybedildi':'ROSC sağlanamadı'):r.def?'Hasta stabil, definitif tedaviye devredildi':'Hasta hayatta, definitif plan eksik'});
 })();
 
 </script>
