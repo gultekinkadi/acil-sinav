@@ -3700,7 +3700,7 @@ async function viewLearn(){
       <button class="lcard" data-go="sims"><span class="ic">🩺</span><b>Sanal hasta</b><span class="big">${sims.length}</span><span class="small">${sims.filter(x=>L.d.sim[x.id]).length} vaka tamamlandı</span></button>
       <button class="lcard" data-go="practice"><span class="ic">✎</span><b>Alıştırma</b><span class="big">→</span><span class="small">konu konu soru çöz</span></button>
       <button class="lcard" data-go="atls"><span class="ic">⏱</span><b>ATLS oyunu</b><span class="big">3</span><span class="small">Altın Saat · travma senaryosu</span></button>
-      <button class="lcard" data-go="acls"><span class="ic">♥</span><b>ACLS oyunu</b><span class="big">4</span><span class="small">Geri Dönüş · arrest ve periarrest</span></button>
+      <button class="lcard" data-go="acls"><span class="ic">♥</span><b>ACLS oyunu</b><span class="big">10</span><span class="small">Geri Dönüş · arrest, periarrest, megakod</span></button>
     </div>
     ${W?`<div class="card pad wkcard" style="margin-bottom:16px" id="wkHost"></div>`:""}
     <div class="card pad"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Modüller</h2>${req.length?`<span class="badge ${reqDone===req.length?"ok":"warn"}">Zorunlu: ${reqDone}/${req.length} tamamlandı</span>`:""}</div>
@@ -4359,13 +4359,14 @@ function setupDlg(mode){
     <div class="field"><label class="f" for="atT">${mode==='ekip'?'Ekip adı':'Oyuncu / ekip adı'}</label><input type="text" id="atT" value="${esc(c.team)}" placeholder="Örn. Kırmızı Alan"></div>
     <details ${mode==='ekip'?'open':''} style="margin-bottom:12px"><summary class="small"><b>Ekip üyeleri</b>${mode==='ekip'?'':' (isteğe bağlı)'}</summary>
       <div class="grid2" style="margin-top:8px">${ROLES.map((r,i)=>`<div class="field"><label class="f" for="atM${i}">${r}</label><input type="text" id="atM${i}" value="${esc((c.members||[])[i]||'')}"></div>`).join('')}</div></details>
-    <div class="field"><label class="f">Senaryo</label><div class="at-scl">${SCEN.map(s=>`<label class="at-sc"><input type="radio" name="atS" value="${s.id}" ${c.scen===s.id?'checked':''}><span><b>${s.title}</b><span class="small muted">${s.brief}</span></span></label>`).join('')}</div></div>
-    <div class="grid2"><div class="field"><label class="f" for="atC">Başlangıç bütçesi</label><select id="atC">${[100,150,200].map(n=>`<option value="${n}" ${c.coins===n?'selected':''}>${n} coin</option>`).join('')}</select></div>
+    <div class="field"><label class="f">Senaryo</label><div class="at-scl">${SCEN.map((s,i)=>`${s.group&&s.group!==SCEN[i-1]?.group?`<div class="small muted" style="margin-top:6px"><b>${s.group}</b></div>`:''}<label class="at-sc"><input type="radio" name="atS" value="${s.id}" ${c.scen===s.id?'checked':''}><span><b>${s.title}</b><span class="small muted">${s.brief}</span></span></label>`).join('')}</div></div>
+    <div class="grid2"><div class="field"><label class="f" for="atC">Başlangıç bütçesi</label><select id="atC">${(C.coinOpts||[100,150,200]).map(n=>`<option value="${n}" ${c.coins===n?'selected':''}>${n} coin</option>`).join('')}</select></div>
       <div class="field"><label class="f" for="atSp">1 simülasyon dakikası</label><select id="atSp">${[[20,'20 sn (yavaş)'],[12,'12 sn (normal)'],[6,'6 sn (hızlı)']].map(([v,t])=>`<option value="${v}" ${c.speed===v?'selected':''}>${t}</option>`).join('')}</select></div></div>
     ${mode==='ekip'?`<div class="field"><label class="f" for="atMn">Müdahale menüsü</label><select id="atMn"><option value="egitmen" ${c.menu!=='gorunur'?'selected':''}>Yalnız eğitmen görür (ekip ister, siz işaretlersiniz)</option><option value="gorunur" ${c.menu==='gorunur'?'selected':''}>Ekip de görür</option></select>
       <div class="small muted" style="margin-top:4px">“Yalnız eğitmen” seçilirse oyunda <b>Projeksiyon ekranı</b> ayrı bir pencerede açılır; ekip yalnız hastayı, monitörü ve açılan bilgileri görür. O pencereyi projeksiyona taşıyın, menü sizin ekranınızda kalsın.</div></div>`:''}
     <div class="small muted">Monitör bağlanmadan vitaller görünmez. Her muayene, tetkik ve müdahale coin harcar; tedavi edilmeyen sorun hastayı kötüleştirir. Puan = kalan coin (hasta yaşıyorsa) + kritik eylemler − cezalar + sağkalım bonusu.${S.preview?' <b>Önizlemede sonuç kaydedilmez.</b>':''}</div>
   </div><div class="modal-f"><button class="btn" data-close>Vazgeç</button><button class="btn primary" id="atGo">Hastayı karşıla</button></div>`);
+  m.el.querySelectorAll('input[name=atS]').forEach(r=>r.addEventListener('change',()=>{ const x=SCEN.find(s=>s.id===r.value); m.el.querySelector('#atC').value=String(x?.coins||150); }));
   m.el.querySelector('#atGo').onclick=()=>{
     const q=s=>m.el.querySelector(s);
     const cfg={mode,team:q('#atT').value.trim().slice(0,60)||(mode==='ekip'?'İsimsiz ekip':(S.resident?.name||'Oyuncu')),
@@ -4381,7 +4382,7 @@ function play(cfg,back){
   stopGame(); document.body.classList.add('game-mode'); G={unsubs:[],tick:null};
   cfgCur={menu:'gorunur',...cfg}; backTo=back||'games'; tab=CATS[0].id;
   const s=SCEN.find(x=>x.id===cfg.scen)||SCEN[0];
-  R={scen:s.id,t:0,coins:cfg.coins,start:cfg.coins,v:{...s.init.v},f:{fluid:0,...s.init.f},done:{},first:{},spent:{},finds:[],log:[],pen:[],penKeys:{},hint:0,ended:false,running:false};
+  R={scen:s.id,t:0,coins:cfg.coins,start:cfg.coins,v:{...s.init.v},f:{fluid:0,...s.init.f},done:{},first:{},hist:{},spent:{},finds:[],log:[],pen:[],penKeys:{},hint:0,ended:false,running:false};
   if(R.v.dbp==null) R.v.dbp=R.v.sbp*.6; C.init?.(R);
   shell();
   const m=modal(`<div class="modal-h"><h2>${esc(s.title)}</h2></div><div class="modal-b"><div class="lbl2">${s.mistLabel||'112 bildirimi'}</div><p>${esc(s.mist)}</p>
@@ -4405,7 +4406,7 @@ function advance(n){
     R.t+=1; sc().tick(R,lg,pen); C.after?.(R,lg,pen);
     const d=sc().dead?.(R)||C.dead?.(R);
     if(d){ endGame(false,d); return; }
-    if(R.t>=LIMIT){ endGame(aliveNow(),C.limitReason?C.limitReason(R):'Süre doldu.'); return; }
+    if(R.t>=(sc().limit||LIMIT)){ endGame(aliveNow(),C.limitReason?C.limitReason(R):'Süre doldu.'); return; }
   }
   vitals(); finds(); acts(); hud();
 }
@@ -4417,7 +4418,7 @@ function buy(id){
   if(R.coins<a.cost) return toast('Yeterli coin yok',true);
   if(a.iv&&!R.f.iv) return toast(C.ivMsg,true);
   if(a.need&&!R.f[a.need[0]]) return toast(a.need[1],true);
-  R.coins-=a.cost; R.spent[a.cat]=(R.spent[a.cat]||0)+a.cost; R.done[id]=(R.done[id]||0)+1; if(R.first[id]==null) R.first[id]=R.t;
+  R.coins-=a.cost; R.spent[a.cat]=(R.spent[a.cat]||0)+a.cost; R.done[id]=(R.done[id]||0)+1; if(R.first[id]==null) R.first[id]=R.t; (R.hist[id]=R.hist[id]||[]).push(R.t);
   floatCoin(a.cost);
   C.flags?.[id]?.(R.f,R);
   let r=s.act[id]?.(R,s,lg)||C.act?.[id]?.(R,s,lg)||null;
@@ -4613,8 +4614,13 @@ function instructor(){
 /* ---- bitiş ve değerlendirme ---- */
 function score(alive,reason){
   const s=sc();
-  const crit=s.crit.map(c=>{ const ts=c.ids.map(i=>R.first[i]).filter(x=>x!=null); const t=ts.length?Math.min(...ts):null;
-    const st=t==null?'n':(t<=c.within?'y':'h'); return {label:c.label,within:c.within,pts:c.pts,t,st,got:st==='y'?c.pts:st==='h'?Math.round(c.pts/2):0}; });
+  const crit=s.crit.map(c=>{ let t=null, m=0, unr=false;
+    if(c.from){ m=R.f.mark?.[c.from];
+      if(m==null) unr=true;
+      else { const ts=c.ids.flatMap(i=>(R.hist[i]||[]).filter(x=>x>=m)); if(ts.length) t=Math.min(...ts); else if(c.any&&c.ids.some(i=>(R.hist[i]||[]).length)) t=m; } }
+    else { const ts=c.ids.map(i=>R.first[i]).filter(x=>x!=null); t=ts.length?Math.min(...ts):null; }
+    const dt=t==null?null:t-(m||0), st=t==null?'n':(dt<=c.within?'y':'h');
+    return {label:c.label,within:c.within,pts:c.pts,t,st,got:st==='y'?c.pts:st==='h'?Math.round(c.pts/2):0,...(c.from?{rel:dt,unr}:{})}; });
   const critSum=crit.reduce((a,c)=>a+c.got,0), critMax=crit.reduce((a,c)=>a+c.pts,0), penSum=R.pen.reduce((a,p)=>a+p.pts,0);
   const def=!!R.f.def, surv=alive?(def?50:20):0;
   return {mode:cfgCur.mode,team:cfgCur.team,members:cfgCur.members,scen:s.id,scenTitle:s.title,score:Math.round((alive?R.coins:0)+critSum-penSum+surv),alive,def,minutes:R.t,coinsLeft:R.coins,start:R.start,
@@ -4630,7 +4636,7 @@ function debriefHtml(r){
       <div class="ad-score"><div class="ad-l">Toplam puan</div><div class="mono">${r.score}</div></div></section>
     <div class="ad-grid">
       <section class="ad-p"><div class="ad-l">Kritik eylemler · ${r.critSum}/${r.critMax}</div>
-        ${(r.crit||[]).map(c=>`<div class="ad-crit ${c.st}"><span class="ic">${c.st==='y'?'✓':c.st==='h'?'◐':'✗'}</span><span>${esc(c.label)}<br><small>${c.t==null?'Yapılmadı':'dk '+c.t+(c.st==='h'?` (hedef ≤ ${c.within} dk, geç)`:'')}</small></span><span class="mono">+${c.got}</span></div>`).join('')}</section>
+        ${(r.crit||[]).map(c=>`<div class="ad-crit ${c.st}"><span class="ic">${c.st==='y'?'✓':c.st==='h'?'◐':'✗'}</span><span>${esc(c.label)}<br><small>${c.t==null?(c.unr?'Bu aşamaya ulaşılmadı':'Yapılmadı'):'dk '+c.t+(c.rel!=null?` (aşama başından +${c.rel} dk)`:'')+(c.st==='h'?` — hedef ≤ ${c.within} dk, geç`:'')}</small></span><span class="mono">+${c.got}</span></div>`).join('')}</section>
       <div class="ad-col">
         <section class="ad-p"><div class="ad-l">Puan dökümü</div><div class="ad-bd"><span>Kalan coin${r.alive?"":" (hasta kaybedildi, sayılmaz)"}</span><span class="mono">${r.alive?r.coinsLeft:0}</span><span>Kritik eylemler</span><span class="mono">+${r.critSum}</span><span>Cezalar</span><span class="mono">−${r.penSum}</span><span>Sağkalım bonusu</span><span class="mono">+${r.surv}</span><b>Toplam</b><b class="mono">${r.score}</b></div></section>
         <section class="ad-p"><div class="ad-l">Hatalar ve cezalar</div>${(r.pen||[]).length?r.pen.map(p=>`<div class="ad-crit n"><span class="ic">!</span><span>${esc(p.reason)}<br><small>dk ${p.t}</small></span><span class="mono">−${p.pts}</span></div>`).join(''):'<div class="ad-m">Ceza yok.</div>'}</section>
@@ -4690,7 +4696,7 @@ async function page(){
   let runs=[]; try{ runs=await loadRuns(true); }catch(e){ console.error(e); }
   const best=id=>{ const x=runs.filter(r=>r.scen===id); return x.length?Math.max(...x.map(r=>r.score)):null; };
   paint(`<div class="page-head"><div><button class="btn sm ghost" id="bk">← Öğren</button><h1>${C.pageTitle}</h1><div class="sub">${C.pageSub}</div></div><button class="btn primary" id="atNewR">Yeni oyun</button></div>
-    <div class="at-rsc">${SCEN.map(s=>`<div class="card pad"><div class="lbl2">Senaryo ${s.tag}</div><h2 style="margin:2px 0 4px">${s.title}</h2><div class="small muted">${s.brief}</div>
+    <div class="at-rsc">${SCEN.map(s=>`<div class="card pad"><div class="lbl2">${s.group?esc(s.group)+' · ':''}Senaryo ${s.tag}</div><h2 style="margin:2px 0 4px">${s.title}</h2><div class="small muted">${s.brief}</div>
       <div class="small" style="margin-top:8px">${best(s.id)!=null?`En iyi puanınız: <b class="mono">${best(s.id)}</b>`:'Henüz oynamadınız'}</div></div>`).join('')}</div>
     <div class="card pad" style="margin-top:16px"><h2 style="margin-top:0">Nasıl oynanır</h2><ul class="small" style="margin:0;padding-left:18px;display:grid;gap:4px">
       ${C.howto.map(x=>`<li>${x}</li>`).join('')}</ul></div>
@@ -5003,6 +5009,7 @@ const ACTIONS=[
  {id:'i_amio150',cat:'I',kind:'int',cost:10,label:'Amiodaron 150 mg (2. arrest dozu / nabızlıda 10 dk’da)',once:1,iv:1},
  {id:'i_lido',cat:'I',kind:'int',cost:10,label:'Lidokain 1–1,5 mg/kg IV/İO',once:1,iv:1},
  {id:'i_atro',cat:'I',kind:'int',cost:5,label:'Atropin 1 mg IV (3–5 dk’da bir, en çok 3 mg)',iv:1,dis:R=>(R.done.i_atro||0)>=3},
+ {id:'i_vagal',cat:'I',kind:'int',cost:0,label:'Vagal manevra (modifiye Valsalva)'},
  {id:'i_aden',cat:'I',kind:'int',cost:5,label:'Adenozin 6 mg hızlı IV (sonra 12 mg)',iv:1,dis:R=>(R.done.i_aden||0)>=2},
  {id:'i_dilt',cat:'I',kind:'int',cost:10,label:'Diltiazem 0,25 mg/kg IV',once:1,iv:1},
  {id:'i_mg',cat:'I',kind:'int',cost:5,label:'Magnezyum sülfat 2 g IV',once:1,iv:1},
@@ -5051,7 +5058,10 @@ const RH={
  st:{s:'Sinüs taşi.',name:'sinüs taşikardisi',d:'Dar QRS, P dalgaları mevcut, yaklaşık 110/dk.'},
  chb:{s:'Tam AV blok',name:'tam (3. derece) AV blok',d:'P dalgaları düzenli ~80/dk; geniş QRS’ler düzenli ~32/dk; P ile QRS arasında ilişki yok.'},
  vt:{s:'VT',name:'monomorfik ventriküler taşikardi',d:'Düzenli, geniş QRS’li (~180/dk) taşikardi; P seçilmiyor, QRS’ler tek tip.'},
- paced:{s:'Pace',name:'pace ritmi',d:'Her pace spike’ını geniş QRS izliyor (elektriksel yakalama), 70/dk.'}
+ paced:{s:'Pace',name:'pace ritmi',d:'Her pace spike’ını geniş QRS izliyor (elektriksel yakalama), 70/dk.'},
+ sb:{s:'Sinüs bradi.',name:'sinüs bradikardisi',d:'Dar QRS, her QRS’ten önce P dalgası, düzenli, yavaş.'},
+ avb2:{s:'2. derece AV blok',name:'2. derece AV blok (Mobitz II, 2:1)',d:'P dalgaları düzenli ~80/dk; her ikinci P’yi QRS izlemiyor; iletilen atımlarda PR sabit; ventrikül hızı ~40/dk.'},
+ svt:{s:'SVT',name:'supraventriküler taşikardi',d:'Dar QRS’li, düzenli, çok hızlı taşikardi; P dalgası seçilmiyor.'}
 };
 const rhD=(R,s)=>(s.rhDesc&&s.rhDesc[R.f.rh])||RH[R.f.rh].d;
 function wideY(p){ if(p>.12&&p<.32) return 40-26*Math.sin((p-.12)/.2*Math.PI); if(p>=.32&&p<.4) return 40+9*Math.sin((p-.32)/.08*Math.PI); if(p>.46&&p<.68) return 40+8*Math.sin((p-.46)/.22*Math.PI); return 40; }
@@ -5130,6 +5140,7 @@ const ACT={
    f.lido=1; return {text:'Lidokain 1,5 mg/kg IV/İO verildi.'}; },
  i_atro:R=>inArr(R)?{text:'Atropin verildi; arrestte yararı gösterilmemiştir.',pen:[10,'Arrestte atropin (önerilmez)']}:{text:'Atropin verildi; taşikardi arttı.',pen:[10,'Taşikardide atropin']},
  i_aden:R=>inArr(R)?{text:'Arrestte adenozinin yeri yok.',pen:[10,'Arrestte adenozin']}:null,
+ i_vagal:R=>inArr(R)?{text:'Arrestte vagal manevranın yeri yok.',pen:[5,'Arrestte vagal manevra']}:{text:'Vagal manevra yapıldı; ritim değişmedi.',pen:[5,'Endikasyonsuz vagal manevra']},
  i_dilt:R=>inArr(R)?{text:'Arrestte diltiazemin yeri yok.',pen:[10,'Arrestte diltiazem']}:{text:'Diltiazem sonrası TA belirgin düştü!',pen:[15,'Endikasyonsuz kalsiyum kanal blokeri'],hurt:()=>{R.v.sbp-=15;}},
  i_mg:(R,s)=>ok(s,'i_mg')?null:{text:'Magnezyum verildi.',pen:[3,'Rutin magnezyum (torsades / hipomagnezemi yok)']},
  i_ca:(R,s)=>ok(s,'i_ca')?null:{text:'Kalsiyum verildi.',pen:[5,'Rutin kalsiyum (hiperkalemi / hipokalsemi yok)']},
@@ -5152,8 +5163,8 @@ const ACT={
 };
 function chrono(R,s,txt){
   if(inArr(R)) return {text:'Arrestte infüzyon yerine 1 mg bolus adrenalin kullanılır.',pen:[5,'Arrestte infüzyon vazopresör']};
-  if(s.brady){ R.f.chrono=1; return {text:txt+' Kalp hızı 48/dk’ya çıktı, TA yükseliyor.'}; }
   if(R.f.rosc){ R.f.norad=1; return {text:txt+' ROSC sonrası hipotansiyon için vazopresör desteği.'}; }
+  if(s.brady){ R.f.chrono=1; return {text:txt+' Kalp hızı yükseliyor, TA düzeliyor.'}; }
   return {text:txt,pen:[10,'Taşikardide kronotrop / inotrop infüzyon']};
 }
 
@@ -5317,16 +5328,181 @@ const SCEN=[
  hints:['Geniş QRS, düzenli, hızlı ve hasta unstabil: ilaç değil elektrik.','Nabızlı VT’de defibrilasyon değil senkronize kardiyoversiyon.','Dönüş sonrası tekrarlamasın: elektrolitler ve antiaritmik.','Altta yatan yapısal kalp hastalığı için kimi çağırırsınız?']}
 ];
 
+/* ---- Megakod: AHA megakod sınav akışları (aşamalı ritim) ---- */
+const RHN={vf:'VF',pvt:'Nabızsız VT',pea:'NEA',asys:'Asistoli'};
+function goArrest(R,lg,s){ const f=R.f; f.paced=0; f.chrono=0; f.si=0;
+  arrestStart(R,s.seq[0],lg,s.arrestMsg||'Hasta aniden yanıtsızlaştı: solunumu yok, nabız alınmıyor!'); stageInit(R); }
+function stageInit(R){ const f=R.f; f.sT=R.t; f.sShock=0; f.sEpi0=f.epi||0; f.mark['a'+(f.si+1)]=R.t; R.v.hr=f.rh==='pea'?40:0; }
+function megaArrest(R,s){
+  const f=R.f; if(f.roscReady) return;
+  const q=f.cpr&&f.cprQ>=.6, sEpi=(f.epi||0)-(f.sEpi0||0), last=f.si>=s.seq.length-1;
+  const adv=RH[f.rh].shock
+    ? q&&(f.sShock||0)>=3&&(f.epi||0)>=1&&((f.amio||f.lido)||(f.sShock||0)>=5)&&R.t-(f.lastShock??-9)>=1
+    : q&&sEpi>=1&&(R.done.t_ht||sEpi>=2)&&R.t-f.sT>=2;
+  if(!adv) return;
+  if(last){ setReady(R,'st',{hr:104,sbp:86,dbp:52,spo2:f.o2?98:92}); f.mark.rosc=R.t; return; }
+  f.si++; f.rh=s.seq[f.si]; stageInit(R);
+}
+function megaCrit(d){
+  const C=[{label:'Ekip lideri: kod mavi ve rol dağılımı',ids:['k_code'],within:1,pts:5}];
+  const pads={label:'Monitör / pedler',ids:['r_pads'],within:2,pts:5}, iv={label:'Damar yolu',ids:['i_iv'],within:3,pts:5};
+  if(d.pre==='brady') C.push(pads,{label:'O₂ (gerekirse)',ids:['h_o2'],within:3,pts:5},iv,
+    {label:'Semptomatik / unstabil bradikardiyi tanı',ids:['k_resp','k_check','t_ecg12'],within:3,pts:5},
+    {label:'Atropin 1 mg',ids:['i_atro'],within:4,pts:10},
+    {label:'İkinci basamak: pacing veya dopamin / adrenalin infüzyonu',ids:['r_pace','i_dopa','i_epiinf'],within:7,pts:10});
+  if(d.pre==='tachyU') C.push(pads,{label:'O₂ (gerekirse)',ids:['h_o2'],within:3,pts:5},iv,
+    {label:'Unstabil taşikardiyi ve semptomlarını tanı',ids:['k_resp','k_check'],within:2,pts:5},
+    {label:'Hemen senkronize kardiyoversiyon',ids:['r_sync'],within:4,pts:20});
+  if(d.pre==='tachyS') C.push(pads,iv,
+    {label:'Stabil olduğunu tanı (taşikardiye bağlı semptom yok)',ids:['k_resp'],within:3,pts:5},
+    {label:'Spesifik tanı: 12 derivasyon EKG',ids:['t_ecg12'],within:4,pts:10},
+    {label:'Uygun ilk tedavi: vagal manevra / adenozin',ids:['i_vagal','i_aden'],within:5,pts:15});
+  d.seq.forEach((rh,i)=>{ const m='a'+(i+1), n=RHN[rh], first=i===0;
+    if(first) C.push({label:`${n}: göğüs basısına hemen başla`,ids:['k_cpr'],from:m,within:1,pts:10});
+    if(RH[rh].shock) C.push(
+      {label:`${n}: ritmi tanı (ritim kontrolü)`,ids:['k_check'],from:m,within:first?2:3,pts:5},
+      {label:`${n}: “herkes çekilsin” ve şok`,ids:['r_shock'],from:m,within:first?2:3,pts:15},
+      {label:`${n}: adrenalin`,ids:['i_epi'],from:m,within:6,pts:10},
+      {label:`${n}: amiodaron / lidokain`,ids:['i_amio300','i_lido'],from:m,within:8,pts:10});
+    else C.push(
+      {label:`${n}: ritmi tanı (ritim kontrolü)`,ids:['k_check'],from:m,within:3,pts:5},
+      {label:`${n}: adrenalin`,ids:['i_epi'],from:m,within:3,pts:10},
+      {label:`${n}: 5H–5T’yi say`,ids:['t_ht'],from:m,within:5,pts:10});
+    if(first) C.push({label:'Uygun havayolu yönetimi (BVM / ileri havayolu)',ids:['h_bvm','h_sga','h_eti'],from:m,within:6,pts:5,any:1});
+  });
+  C.push(
+    {label:'ROSC’u tanı',ids:['k_check'],from:'rosc',within:3,pts:10},
+    {label:'ROSC: ileri havayolu',ids:['h_eti','h_sga'],from:'rosc',within:8,pts:5,any:1},
+    {label:'ROSC: dalga formlu kapnografi',ids:['h_capno'],from:'rosc',within:8,pts:5,any:1},
+    {label:'ROSC: TA’yı güvenceye al (sıvı / vazopresör)',ids:['i_fluid','i_norad','i_dopa','i_epiinf'],from:'rosc',within:6,pts:5},
+    {label:'ROSC: 12 derivasyon EKG',ids:['t_ecg12'],from:'rosc',within:8,pts:5},
+    {label:'ROSC: SpO₂ izlemi ve O₂ titrasyonu',ids:['p_o2'],from:'rosc',within:8,pts:5},
+    {label:'ROSC: laboratuvar (kan gazı, elektrolit)',ids:['t_abg'],from:'rosc',within:10,pts:5},
+    {label:'ROSC: sıcaklık kontrolü',ids:['p_ttm'],from:'rosc',within:12,pts:5});
+  return C;
+}
+const PRE_HINT={brady:'Semptomatik bradikardi: O₂, monitör, damar yolu; atropin 1 mg, yanıt yoksa transkütan pacing ya da dopamin / adrenalin infüzyonu.',
+  tachyU:'Unstabil taşikardi (hipotansiyon, bilinç değişikliği, göğüs ağrısı): hemen senkronize kardiyoversiyon.',
+  tachyS:'Stabil, dar QRS’li, düzenli taşikardi: 12 derivasyon EKG, vagal manevra, sonra adenozin 6 mg → 12 mg.'};
+function mega(d){
+  const pre=d.pre, isArr=R=>!!R.f.arrest, post=R=>!R.f.arrest&&!!R.f.rosc;
+  const s={id:d.id,tag:d.tag,title:d.title,brief:d.brief,mist:d.mist,mistLabel:d.mistLabel,group:'Megakod (AHA sınav akışları)',
+    limit:40,coins:250,brady:pre==='brady',seq:d.seq,ok:d.ok||[],rhDesc:d.rhDesc||{},
+    init:{v:{...d.v,etco2:34,temp:36.6},f:{rh:d.preRh,cprQ:1,lastSwap:0,spo2base:d.v.spo2,mark:{},si:-1}},
+    tick(R,lg,pen){ base(R,lg,pen); const f=R.f,v=R.v;
+      if(f.arrest){ megaArrest(R,s); return; }
+      if(f.rosc){ toward(v,'sbp',(f.norad||f.fluid)?108:86,4); v.hr=f.norad?96:104; if(f.ttm&&f.ecgPost&&(f.norad||f.fluid)) f.def=1; return; }
+      if(pre==='brady'){
+        if((f.paced||f.chrono)&&f.secondT==null) f.secondT=R.t;
+        if(f.paced){ v.hr=70; toward(v,'sbp',100,6); } else if(f.chrono){ v.hr=58; toward(v,'sbp',94,5); }
+        else if(f.atro&&d.preRh==='sb'){ v.hr=46; toward(v,'sbp',84,3); } else v.sbp-=.6;
+        if((f.secondT!=null&&R.t-f.secondT>=2)||R.t>=7) goArrest(R,lg,s);
+      } else if(pre==='tachyU'){
+        if(f.rh==='svt') v.sbp-=.6; else { v.hr=104; toward(v,'sbp',98,4); }
+        if((f.syncT!=null&&R.t-f.syncT>=2)||R.t>=6) goArrest(R,lg,s);
+      } else {
+        if(f.convT!=null){ v.hr=92; }
+        if((f.convT!=null&&R.t-f.convT>=2)||R.t>=7) goArrest(R,lg,s);
+      } },
+    onShock(R){ R.f.sShock=(R.f.sShock||0)+1; },
+    onPace(R){ if(pre!=='brady'||R.f.rosc) return null; R.f.paced=1; R.f.rh='paced'; return {text:'Transkütan pacing 70/dk: elektriksel ve mekanik yakalama sağlandı (femoral nabız 70/dk).'}; },
+    onSync(R){ const f=R.f,v=R.v;
+      if(f.rh!=='svt') return {text:'Kardiyoversiyon endikasyonu yok.',pen:[15,'Endikasyonsuz kardiyoversiyon']};
+      f.rh='st'; v.hr=104; v.sbp=Math.max(v.sbp,94);
+      if(pre==='tachyU'){ f.syncT=R.t; return {text:'Senkronize kardiyoversiyon (50–100 J): sinüs ritmine döndü, 104/dk.'}; }
+      f.convT=R.t; return {text:'Kardiyoversiyon ile sinüs ritmine döndü.',pen:[10,'Stabil SVT’de ilk basamak vagal manevra / adenozin olmalıydı']}; },
+    act:{
+      i_atro:R=>{ if(isArr(R)||pre!=='brady'||R.f.rosc) return null; const f=R.f; f.atro=(f.atro||0)+1;
+        return {text:d.preRh==='sb'?`Atropin 1 mg (${f.atro}. doz): kalp hızı 46/dk’ya çıktı ama hasta hâlâ hipotansif ve semptomatik. İkinci basamağa hazırlanın.`
+          :`Atropin 1 mg (${f.atro}. doz): yanıt yok; bu tip blokta atropin çoğunlukla etkisizdir. İkinci basamağa geçin.`}; },
+      i_aden:R=>{ if(isArr(R)) return null; const f=R.f;
+        if(f.rh!=='svt') return {text:'Bu ritimde adenozin endikasyonu yok.',pen:[10,'Endikasyonsuz adenozin']};
+        f.aden=(f.aden||0)+1;
+        if(pre==='tachyU') return {text:'Adenozin: birkaç saniyelik AV blok, SVT yeniden başladı. Unstabil hastada kardiyoversiyonu geciktirmeyin.'};
+        if(f.aden===1) return {text:'Adenozin 6 mg hızlı IV + SF ile itildi: birkaç saniyelik AV blok, SVT yeniden başladı. 12 mg verilebilir.'};
+        f.rh='st'; R.v.hr=92; f.convT=R.t; return {text:'Adenozin 12 mg: sinüs ritmine döndü, 92/dk.'}; },
+      i_vagal:R=>{ if(isArr(R)) return {text:'Arrestte vagal manevranın yeri yok.',pen:[5,'Arrestte vagal manevra']};
+        if(R.f.rh!=='svt') return {text:'Vagal manevra endikasyonu yok.',pen:[5,'Endikasyonsuz vagal manevra']};
+        R.f.vagal=1; return {text:'Modifiye Valsalva manevrası yapıldı: ritim değişmedi.'}; },
+      i_dilt:R=>{ if(isArr(R)) return null; const f=R.f;
+        if(pre==='tachyS'&&f.rh==='svt'){ f.rh='st'; R.v.hr=92; f.convT=R.t; return {text:'Diltiazem 0,25 mg/kg: sinüs ritmine döndü, 92/dk.'+(f.aden?'':' (Adenozin ilk basamaktır.)')}; }
+        return null; } },
+    find:{
+      k_resp:R=>post(R)?'Yanıtsız (GKS 6), spontan solunum yüzeyel, karotis nabzı var.':d.resp,
+      o_hist:d.hist,
+      t_ecg12:R=>{ if(post(R)){ R.f.ecgPost=1; return d.ecgPost; } return R.f.rh==='paced'?'Pace ritmi 70/dk; her spike’ı geniş QRS izliyor.':R.f.rh==='st'?'Sinüs taşikardisi; taşikardi sonlandı.':d.ecgPre; },
+      t_abg:R=>R.f.rosc?(d.abgPost||'pH 7.24, pCO₂ 48, laktat 4.6 mmol/L, K 4.2, iCa 1.12, glukoz 172.'):R.f.arrest?'pH 7.12, pCO₂ 58, laktat 7.1 mmol/L, K 4.4, iCa 1.10.':d.abgPre,
+      t_echo:R=>R.f.arrest?(d.echoArr||'Koordinasyonsuz ya da zayıf kardiyak hareket; perikard temiz, sağ ventrikül dilate değil.'):d.echo||'Perikard temiz, EF ≈ %45.',
+      t_glu:'Kan şekeri 164 mg/dL.',t_temp:'36,3 °C.',
+      p_neuro:'GKS 6 (E1 V1 M4); pupiller izokorik ve reaktif. Komada: ileri havayolu ve sıcaklık kontrolü.'},
+    crit:megaCrit(d),
+    hints:[PRE_HINT[pre],...[...new Set(d.seq.map(r=>RH[r].shock?'s':'n'))].map(k=>k==='s'?'VF / nabızsız VT: şok, ardından ritme bakmadan 2 dk KPR. Adrenalin 2. şoktan sonra, amiodaron 300 mg 3. şoktan sonra.':'NEA / asistoli: adrenalini hemen verin ve 5H–5T’yi sayın. Ritim değişebilir; şoktan önce mutlaka ritme bakın.'),
+      'ROSC sonrası: ileri havayolu + kapnografi, TA, 12 derivasyon EKG, SpO₂ titrasyonu, laboratuvar, sıcaklık kontrolü.']};
+  return s;
+}
+SCEN.push(
+ mega({id:'m1',tag:'M1',title:'Megakod 1: Bradikardi → nabızsız VT → NEA',pre:'brady',preRh:'sb',seq:['pvt','pea'],mistLabel:'Triaj notu',
+  brief:'68 yaş erkek, baş dönmesi ve göğüs baskısı; nabız 38. (AHA akışı: senaryo 1/3/8)',
+  mist:'68 yaş erkek, 2 saattir baş dönmesi, bulantı ve göğüste baskı. Soğuk terli, sorulara geç yanıt veriyor. Triajda nabız 38/dk, TA 78/46, SpO₂ %92.',
+  v:{hr:38,sbp:78,dbp:46,spo2:92},rhDesc:{sb:'Dar QRS, her QRS’ten önce P dalgası, düzenli, ~38/dk.'},
+  resp:'Bilinç bulanık, soğuk terli, göğüs baskısı tarifliyor; nabız yavaş ve zayıf: SEMPTOMATİK bradikardi.',
+  hist:'A: yok · M: metformin, ramipril · P: DM, HT · L: 3 saat önce · E: evde başlayan baş dönmesi, bulantı ve göğüs baskısı.',
+  ecgPre:'Sinüs bradikardisi 38/dk; DII, DIII, aVF’de 2 mm ST elevasyonu (inferior MI).',ecgPost:'Sinüs taşikardisi 104/dk; inferior derivasyonlarda ST elevasyonu sürüyor: inferior STEMI (kardiyoloji).',
+  abgPre:'pH 7.30, laktat 3.4 mmol/L, K 4.4, glukoz 188.'}),
+ mega({id:'m2',tag:'M2',title:'Megakod 2: Bradikardi → VF → Asistoli',pre:'brady',preRh:'avb2',seq:['vf','asys'],
+  brief:'74 yaş kadın, halsizlik ve bayılma hissi; nabız 40. (AHA akışı: senaryo 2/5)',
+  mist:'112: “74 yaş kadın, sabahtan beri halsiz, iki kez bayılacak gibi olmuş. Nabız 40, TA 76/44, bilinç bulanık. Nazal O₂ verildi, damar yolu açılamadı.”',
+  v:{hr:40,sbp:76,dbp:44,spo2:93},
+  resp:'Uykulu, sorulara geç yanıt veriyor, cilt soğuk ve nemli: SEMPTOMATİK bradikardi.',
+  hist:'Kızı: “Son haftalarda merdiven çıkarken başı dönüyordu.” A: penisilin · M: furosemid, ramipril · P: kalp yetmezliği, HT · L: kahvaltı · E: halsizlik, presenkop.',
+  ecgPre:'2. derece AV blok Mobitz II (2:1), ventrikül hızı 40/dk, QRS 120 ms.',ecgPost:'Sinüs taşikardisi 104/dk, sol dal bloğu; akut ST elevasyonu yok.',
+  abgPre:'pH 7.33, laktat 3.0 mmol/L, K 4.9, Mg 1.9.'}),
+ mega({id:'m3',tag:'M3',title:'Megakod 3: Unstabil taşikardi → VF → NEA',pre:'tachyU',preRh:'svt',seq:['vf','pea'],mistLabel:'Triaj notu',
+  brief:'55 yaş erkek, çarpıntı ve göğüs ağrısı; TA 78/48, konfüze. (AHA akışı: senaryo 4/7/10)',
+  mist:'55 yaş erkek, 40 dakikadır çarpıntı ve göğüs ağrısı. Soğuk terli, sorulara karışık yanıt veriyor. Nabız 188/dk düzenli, TA 78/48.',
+  v:{hr:188,sbp:78,dbp:48,spo2:93},
+  resp:'Konfüze, soğuk terli, göğüs ağrısı tarifliyor; radiyal nabız zayıf ve çok hızlı: UNSTABİL taşikardi.',
+  hist:'A: yok · M: yok · P: daha önce kendiliğinden geçen çarpıntı atakları · L: 2 saat önce · E: dinlenirken başlayan çarpıntı ve göğüs ağrısı.',
+  ecgPre:'Dar QRS’li düzenli taşikardi 188/dk, P dalgası seçilmiyor: SVT (muhtemel AVNRT); yaygın ST depresyonu.',ecgPost:'Sinüs taşikardisi 104/dk, ST depresyonları geriliyor.',
+  abgPre:'pH 7.31, laktat 3.8 mmol/L, K 3.9.'}),
+ mega({id:'m4',tag:'M4',title:'Megakod 4: Bradikardi → VF → NEA',pre:'brady',preRh:'sb',seq:['vf','pea'],
+  brief:'81 yaş erkek, beta bloker kullanıyor; uykulu, nabız 36. (AHA akışı: senaryo 6/11)',mistLabel:'Sevk notu',
+  mist:'Huzurevinden sevk: 81 yaş erkek, sabahtan beri uykuya meyilli, yemek yememiş. Nabız 36, TA 74/42, SpO₂ %92.',
+  v:{hr:36,sbp:74,dbp:42,spo2:92},rhDesc:{sb:'Dar QRS, her QRS’ten önce P dalgası, düzenli, ~36/dk; PR uzun.'},
+  resp:'Uykulu, sesle uyanıyor ama tekrar uykuya dalıyor; cilt soğuk: SEMPTOMATİK bradikardi.',
+  hist:'Bakıcı: “Dün akşam ilaçlarını iki kez almış olabilir.” A: yok · M: metoprolol 100 mg, amlodipin · P: HT, koroner arter hastalığı · L: dün akşam · E: uyku hali, halsizlik.',
+  ecgPre:'Sinüs bradikardisi 36/dk, 1. derece AV blok (PR 260 ms).',ecgPost:'Sinüs taşikardisi 104/dk, nonspesifik ST-T değişiklikleri.',
+  abgPre:'pH 7.32, laktat 3.2 mmol/L, K 4.6, glukoz 96.'}),
+ mega({id:'m5',tag:'M5',title:'Megakod 5: Stabil taşikardi → NEA → VF',pre:'tachyS',preRh:'svt',seq:['pea','vf'],ok:['i_tpa'],mistLabel:'Triaj notu',
+  brief:'42 yaş kadın, 1 saattir çarpıntı; TA normal, başka şikâyeti yok. (AHA akışı: senaryo 9)',
+  mist:'42 yaş kadın, 1 saattir çarpıntı. Göğüs ağrısı, nefes darlığı, baş dönmesi yok. Nabız 176/dk düzenli, TA 126/80, SpO₂ %97.',
+  v:{hr:176,sbp:126,dbp:80,spo2:97},
+  resp:'Uyanık, oryante, rahat konuşuyor; göğüs ağrısı, nefes darlığı, baş dönmesi yok; cilt sıcak: STABİL taşikardi.',
+  hist:'A: yok · M: oral kontraseptif · P: yok · L: 3 saat önce · E: 12 saatlik otobüs yolculuğundan bugün döndü; çarpıntı dinlenirken başladı. Sol baldırında 2 gündür şişlik.',
+  ecgPre:'Dar QRS’li düzenli taşikardi 176/dk, P dalgası seçilmiyor: SVT (AVNRT).',ecgPost:'Sinüs taşikardisi 104/dk, S1Q3T3, V1–V3’te T negatifliği, sağ dal bloğu.',
+  abgPre:'pH 7.44, pCO₂ 32, laktat 1.8 mmol/L, K 3.9.',
+  echoArr:'Sağ ventrikül belirgin dilate, sol ventrikül küçük ve D şeklinde; perikard temiz.',echo:'Sağ ventrikül dilate, septum düzleşmiş; perikard temiz.'}),
+ mega({id:'m6',tag:'M6',title:'Megakod 6: Bradikardi → VF → Asistoli → NEA',pre:'brady',preRh:'chb',seq:['vf','asys','pea'],
+  brief:'63 yaş erkek, iş yerinde senkop; nabız 32, TA 70/40. (AHA akışı: senaryo 12)',
+  mist:'112: “63 yaş erkek, iş yerinde bayılmış. Nabız 30–32, TA 70/40, soğuk terli, sorulara yavaş yanıt veriyor. Nazal O₂ başlandı.”',
+  v:{hr:32,sbp:70,dbp:40,spo2:91},
+  resp:'Sorulara yavaş yanıt veriyor, soğuk terli, hipotansif: SEMPTOMATİK bradikardi.',
+  hist:'A: yok · M: atorvastatin · P: hiperlipidemi · L: öğlen · E: iş yerinde senkop; son günlerde eforla nefes darlığı.',
+  ecgPre:'Tam AV blok: P dalgaları 80/dk, geniş QRS’li kaçış ritmi 32/dk, AV ilişki yok.',ecgPost:'Sinüs taşikardisi 104/dk, sağ dal bloğu + sol anterior fasiküler blok.',
+  abgPre:'pH 7.30, laktat 3.9 mmol/L, K 4.5, Mg 2.0.'})
+);
+
 return SIM_ENGINE({key:'acls',coll:'aclsRuns',view:'acls',playView:'aclsPlay',brand:'Geri Dönüş',short:'ACLS oyunu',
   cardTitle:'ACLS Ekip Oyunu · Geri Dönüş',cardDesc:'Arrest ve periarrest senaryoları gerçek zamanlı ilerler. Ekip KPR, ritim kontrolü, şok, ilaç ve geri dönüşlü nedenler için coin harcar; KPR kesintisi, yanlış ritme şok ve doz hataları ceza getirir.',
   pageTitle:'ACLS oyunu · Geri Dönüş',pageSub:'Arrest veya periarrest hastası gelir ve zaman akar. Kaliteli KPR’yi sürdürün, ritmi tanıyın, doğru zamanda şok ve ilaç verin, geri dönüşlü nedeni bulun.',
   howto:['Pedler bağlanmadan monitör görünmez. Göğüs basısı sürerken monitörde yalnızca KPR artefaktı görünür; ritmi görmek için ritim + nabız kontrolü yapın.',
     'Bası yapan kişiyi 2 dakikada bir değiştirin; yorulunca bası kalitesi düşer ve ROSC gecikir.','Arrestte KPR’siz geçen her dakika ceza; 6 dakikayı aşarsa hasta kaybedilir.',
     'Adrenalin 3–5 dakikada bir; şoklanabilir ritimde 2. şoktan sonra, amiodaron 3. şoktan sonra.','ROSC ritim + nabız kontrolüyle doğrulanır. Sonrasında TA, oksijenasyon, 12 derivasyon EKG ve definitif tedavi.',
+    'Megakod senaryoları AHA sınav akışlarını izler: ritim, doğru tedaviye rağmen sırayla değişir (ör. bradikardi → VF → asistoli). Her aşamanın adımları o aşamanın başlangıcından itibaren puanlanır; bütçe 250 coin, süre 40 dk.',
     'Puan = kalan coin (hasta yaşıyorsa) + zamanında yapılan kritik eylemler − cezalar + sağkalım bonusu.'],
   ROLES:['Ekip lideri','Göğüs basısı','Havayolu','Damar yolu / ilaç','Defibrilatör / monitör','Kayıt / zaman'],CATS,ACTIONS,DEF,SCEN,
   catName:{K:'KPR',E:'Elektrik',H:'Havayolu',I:'İlaç',T:'Tetkik',P:'ROSC sonrası',C:'Konsült'},
-  quick:{id:'o_hist',label:'Öykü'},searchPh:'Ara: adrenalin, şok, pace, kalsiyum…',
+  quick:{id:'o_hist',label:'Öykü'},searchPh:'Ara: adrenalin, şok, pace, kalsiyum…',coinOpts:[100,150,200,250],
   monId:'r_pads',monBtn:'Pedleri bağla',monText:'Defibrilatör pedleri yapıştırıldı (sağ subklavikular + apeks); monitör aktif.',ivMsg:'Damar yolu / İO yok. Önce “Damar yolu / İO erişim”.',
   act:ACT,
   flags:{r_pads:F=>{F.mon=1;F.pads=1;},i_iv:F=>F.iv=1,h_o2:F=>F.o2=1,h_bvm:F=>F.o2=1,h_sga:F=>{F.o2=1;F.intub=1;},h_eti:F=>{F.o2=1;F.intub=1;},h_capno:F=>F.capno=1,i_sed:F=>F.sed=1,p_o2:F=>F.o2tit=1,p_ttm:F=>F.ttm=1},
@@ -5347,6 +5523,8 @@ return SIM_ENGINE({key:'acls',coll:'aclsRuns',view:'acls',playView:'aclsPlay',br
     if(r==='pea') return wideY(p);
     if(r==='chb'){ st.pa+=80/60/160; if(st.pa>1) st.pa-=1; let y=wideY(p); if(st.pa<.06) y-=Math.sin(st.pa/.06*Math.PI)*5; return y; }
     if(r==='paced') return p>.1&&p<.112?2:wideY(p);
+    if(r==='svt') return p<.1?40:sinusY(p);
+    if(r==='avb2') return sinusY(p)-(p>.55&&p<.63?Math.sin((p-.55)/.08*Math.PI)*5:0);
     return sinusY(p); },
   vitals(R,j){ const v=R.v,f=R.f,arr=!!f.arrest;
     const hr=arr&&f.cpr?'—':f.rh==='vf'?'---':f.rh==='asys'?0:Math.max(0,j(v.hr));
