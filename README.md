@@ -106,7 +106,7 @@ Dört vaka da eğitmenin senaryo + değerlendirme formu belgelerinden: formdaki 
 - Bütçe 300 coin, süre 40 dk; bu vakada kalan coin'in en çok 50'si puana sayılır (eksiksizlik öncelikli).
 
 ## ACLS Ekip Oyunu · Geri Dönüş
-- **Oyunlar → ACLS Ekip Oyunu → + Yeni oyun**; asistanlar **Öğren → ACLS oyunu**. Kurulum, coin, eğitmen modu (ayrı projeksiyon ekranı), listede olmayan istek, değerlendirme ve liderlik ATLS ile aynıdır. Sonuçlar `aclsRuns` koleksiyonunda. Roller: lider, göğüs basısı, havayolu, damar yolu/ilaç, defibrilatör/monitör, kayıt/zaman.
+- **Oyunlar → ACLS Ekip Oyunu → + Yeni oyun**; asistanlar **Öğren → ACLS oyunu**. Kurulum (zaman: 60 sn = gerçek zaman, 20, 12 veya 6 sn), coin, eğitmen modu (ayrı projeksiyon ekranı), listede olmayan istek, değerlendirme ve liderlik ATLS ile aynıdır. Sonuçlar `aclsRuns` koleksiyonunda. Roller: lider, göğüs basısı, havayolu, damar yolu/ilaç, defibrilatör/monitör, kayıt/zaman.
 - Senaryolar: tanıklı VF arrest (inferior STEMI), diyaliz hastasında hiperkalemiye bağlı NEA, semptomatik bradikardi (tam AV blok), unstabil monomorfik VT (hipokalemi/hipomagnezemi).
 - Mekanik: pedler bağlanmadan monitör yok; göğüs basısı sürerken monitörde KPR artefaktı görünür, gerçek ritim yalnız **ritim + nabız kontrolünde** birkaç saniye görünür. Bası yapan kişi 2 dk'da bir değişmezse kalite düşer ve ROSC gecikir; arrestte KPR'siz geçen süre cezalanır, toplam 6 dk'yı aşarsa hasta kaybedilir. ROSC ritim/nabız kontrolüyle doğrulanır (kapnografi bağlıysa EtCO₂ sıçraması görünür). Adrenalin aralığı, şoklanamaz ritme şok, nabızlı hastaya şok/KPR/bolus adrenalin, unstabil VT'de ilaçla gecikme, geniş QRS'de diltiazem gibi hatalar ceza getirir.
 
