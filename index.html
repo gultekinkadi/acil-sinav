@@ -4373,6 +4373,8 @@ const egt=()=>cfgCur&&cfgCur.menu==='egitmen';
 const $=id=>document.getElementById(id);
 const coin=n=>`<span class="at-coin"><i></i>${n}</span>`;
 const sc=()=>SCEN.find(s=>s.id===R.scen);
+/* ekibin gördüğü ekranlarda tanıyı ele vermeyen başlık ve özet */
+const pubTitle=s=>`Vaka ${s.tag}`, pubBrief=s=>String(s.brief||'').replace(/\s*\(AHA akışı[^)]*\)/,'');
 const simBrand=()=>`<div class="at-brand"><b>Gazi Acil Sim</b><span>${esc(C.brand)}</span></div>`, simFoot=()=>`<div class="at-foot"><b>Gazi Acil Sim</b><span>·</span>${FOX}${CAT}<span>ninorly</span></div>`;
 const aliveNow=()=>C.aliveAtEnd?C.aliveAtEnd(R):true;
 function lastCfg(){ try{ return JSON.parse(localStorage.getItem(K+'_cfg')||'null')||{}; }catch(e){ return {}; } }
@@ -4413,7 +4415,7 @@ async function play(cfg,back){
   R={scen:s.id,t:0,coins:cfg.coins,start:cfg.coins,v:{...s.init.v},f:{fluid:0,...s.init.f},done:{},first:{},hist:{},spent:{},finds:[],log:[],pen:[],penKeys:{},hint:0,ended:false,running:false};
   if(R.v.dbp==null) R.v.dbp=R.v.sbp*.6; C.init?.(R);
   shell();
-  const m=modal(`<div class="modal-h"><h2>${esc(s.title)}</h2></div><div class="modal-b"><div class="lbl2">${s.mistLabel||'112 bildirimi'}</div><p>${esc(s.mist)}</p>
+  const m=modal(`<div class="modal-h"><h2>${esc(egt()?s.title:pubTitle(s))}</h2></div><div class="modal-b"><div class="lbl2">${s.mistLabel||'112 bildirimi'}</div><p>${esc(s.mist)}</p>
     <p class="small muted">${esc(cfg.team)} · bütçe ${cfg.coins} coin · 1 simülasyon dakikası = ${cfg.speed} sn</p>
     ${egt()?`<p class="small" style="margin-bottom:0">Önce <b>Projeksiyon ekranını açın</b> ve o pencereyi projeksiyona sürükleyin; menü ve bu pencere sizin ekranınızda kalır.</p>`:''}</div>
     <div class="modal-f">${egt()?`<button class="btn" id="atPjO">Projeksiyon ekranını aç</button>`:''}<button class="btn primary" id="atStart">Hasta geldi, başla</button></div>`,'narrow');
@@ -4471,12 +4473,12 @@ function hint(){
 function shell(){
   const s=sc(), mem=cfgCur.members.map((x,i)=>x?`${ROLES[i]}: ${esc(x)}`:'').filter(Boolean).join(' · ');
   $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':C.short}</button>${simBrand()}
-      <div class="at-team"><b>${esc(cfgCur.team)}</b><small>${egt()?'Eğitmen ekranı · ':''}${esc(s.title)}${mem?' · '+mem:''}</small></div>
+      <div class="at-team"><b>${esc(cfgCur.team)}</b><small>${egt()?'Eğitmen ekranı · '+esc(s.title):esc(pubTitle(s))}${mem?' · '+mem:''}</small></div>
       <div><div class="at-l">Süre</div><div class="at-clock mono" id="atClock">00:00</div></div>
       <div class="at-bank" id="atBank"><div class="at-l">Coin</div><span class="at-coin big"><i></i><span id="atCoins">0</span></span></div>
       <div class="at-ctl">${egt()?'<button class="g-x" id="atPj">Projeksiyon ekranı</button>':''}<button class="g-x" id="atPP">Başlat</button><button class="g-x" id="atIn">Eğitmen</button><button class="g-x at-danger" id="atEnd">Vakayı bitir</button></div></div>
     <div class="at-grid"><div class="at-col">
-      <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(s.brief)}</h2><p class="at-mist">${esc(s.mist)}</p></section>
+      <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(pubBrief(s))}</h2><p class="at-mist">${esc(s.mist)}</p></section>
       <section class="at-mon" id="atMon"></section>
       <section class="at-panel"><div class="at-l">Açılan bilgiler</div><div class="at-finds" id="atFinds"></div></section></div>
      <div class="at-col"><section class="at-panel"><div class="at-quick"><button class="g-x" id="atAmple">${C.quick.label} ${coin(A[C.quick.id].cost)}</button><button class="g-x" id="atHint">Eğitmen ipucu ${coin(HINT_COST)}</button>${cfgCur.mode==='ekip'?'<button class="g-x" id="atCustom">+ Listede olmayan istek</button>':''}</div>
@@ -4576,12 +4578,12 @@ function pjOpen(){
 }
 function pjShell(){
   const root=P('pjRoot'); if(!root||!R) return; const s=sc();
-  root.innerHTML=gameShell(`<div class="at-top">${simBrand()}<div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(s.title)}</small></div><span class="at-state" id="pjSt">Hazır</span>
+  root.innerHTML=gameShell(`<div class="at-top">${simBrand()}<div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(pubTitle(s))}</small></div><span class="at-state" id="pjSt">Hazır</span>
       <div><div class="at-l">Süre</div><div class="at-clock mono" id="pjClock">00:00</div></div>
       <div class="at-bank"><div class="at-l">Coin</div><span class="at-coin big"><i></i><span id="pjCoins">0</span></span></div>
       <button class="g-x" id="pjFs">Tam ekran</button></div>
     <div class="at-grid"><div class="at-col">
-      <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(s.brief)}</h2><p class="at-mist">${esc(s.mist)}</p></section>
+      <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(pubBrief(s))}</h2><p class="at-mist">${esc(s.mist)}</p></section>
       <section class="at-mon" id="pjMon"></section></div>
      <div class="at-col"><section class="at-panel"><div class="at-l">Açılan bilgiler</div><div class="at-finds tall" id="pjFinds"></div></section>
       <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="pjLog"></div></section></div></div>${simFoot()}`,'atls pjv');
