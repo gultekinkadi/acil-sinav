@@ -436,6 +436,10 @@ body.game-mode:has(.gm.atls){background:#0c1211}
 .gm.atls .g-x{display:inline-flex;align-items:center;gap:6px}
 .gm.atls .g-x.at-danger{background:#ff7a6e2e;color:#ffb3ab}
 .at-top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 0;background:#0c1211;border-bottom:1px solid var(--a-line);margin-bottom:14px}
+.at-brand{display:flex;flex-direction:column;line-height:1.1;padding:2px 12px 2px 0;border-right:1px solid var(--a-line)}
+.at-brand b{font-size:15px;letter-spacing:.02em;color:var(--a-acc)}.at-brand span{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--a-muted)}
+.at-foot{display:flex;align-items:center;justify-content:center;gap:5px;padding:22px 0 8px;font-size:12px;color:var(--a-muted)}.at-foot b{color:var(--a-ink);font-weight:600}.at-foot svg{width:16px;height:16px}
+.pjv .at-brand b{font-size:20px}
 .at-team{flex:1;min-width:0;display:flex;flex-direction:column}.at-team b{font-size:20px;line-height:1.1}
 .at-team small{color:var(--a-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .at-l{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--a-muted);font-weight:600}
@@ -4369,6 +4373,7 @@ const egt=()=>cfgCur&&cfgCur.menu==='egitmen';
 const $=id=>document.getElementById(id);
 const coin=n=>`<span class="at-coin"><i></i>${n}</span>`;
 const sc=()=>SCEN.find(s=>s.id===R.scen);
+const simBrand=()=>`<div class="at-brand"><b>Gazi Acil Sim</b><span>${esc(C.brand)}</span></div>`, simFoot=()=>`<div class="at-foot"><b>Gazi Acil Sim</b><span>·</span>${FOX}${CAT}<span>ninorly</span></div>`;
 const aliveNow=()=>C.aliveAtEnd?C.aliveAtEnd(R):true;
 function lastCfg(){ try{ return JSON.parse(localStorage.getItem(K+'_cfg')||'null')||{}; }catch(e){ return {}; } }
 
@@ -4465,7 +4470,7 @@ function hint(){
 /* ---- çizim ---- */
 function shell(){
   const s=sc(), mem=cfgCur.members.map((x,i)=>x?`${ROLES[i]}: ${esc(x)}`:'').filter(Boolean).join(' · ');
-  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':C.short}</button>
+  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':C.short}</button>${simBrand()}
       <div class="at-team"><b>${esc(cfgCur.team)}</b><small>${egt()?'Eğitmen ekranı · ':''}${esc(s.title)}${mem?' · '+mem:''}</small></div>
       <div><div class="at-l">Süre</div><div class="at-clock mono" id="atClock">00:00</div></div>
       <div class="at-bank" id="atBank"><div class="at-l">Coin</div><span class="at-coin big"><i></i><span id="atCoins">0</span></span></div>
@@ -4477,7 +4482,7 @@ function shell(){
      <div class="at-col"><section class="at-panel"><div class="at-quick"><button class="g-x" id="atAmple">${C.quick.label} ${coin(A[C.quick.id].cost)}</button><button class="g-x" id="atHint">Eğitmen ipucu ${coin(HINT_COST)}</button>${cfgCur.mode==='ekip'?'<button class="g-x" id="atCustom">+ Listede olmayan istek</button>':''}</div>
         <input type="search" class="at-q" id="atQ" placeholder="${C.searchPh}" autocomplete="off" aria-label="Müdahale ara">
         <div class="at-tabs" id="atTabs" role="tablist"></div><div class="at-acts" id="atActs"></div></section>
-      <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="atLog"></div></section></div></div>`,'atls');
+      <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="atLog"></div></section></div></div>${simFoot()}`,'atls');
   $('atX').onclick=async()=>{ if(!R.ended&&(R.t>0||R.log.length)){ const was=R.running; pause(); if(!await confirmDlg('Oyundan çık','<p>Vaka yarıda kalır ve sonuç kaydedilmez.</p>','Çık',true)){ if(was) run(); return; } } exitGame(); };
   $('atPP').onclick=()=>R.running?pause():run();
   $('atEnd').onclick=confirmEnd; $('atIn').onclick=instructor; $('atAmple').onclick=()=>buy(C.quick.id); $('atHint').onclick=hint;
@@ -4565,13 +4570,13 @@ function pjOpen(){
   const css=[...document.querySelectorAll('style')].map(x=>x.textContent).join('\n');
   const fonts=[...document.querySelectorAll('link[rel=stylesheet]')].map(l=>l.outerHTML).join('');
   pjWin.document.open();
-  pjWin.document.write(`<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${C.brand} · Projeksiyon</title>${fonts}<style>${css}</style></head><body class="game-mode"><div id="pjRoot"></div></body></html>`);
+  pjWin.document.write(`<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Gazi Acil Sim · ${C.brand}</title>${fonts}<style>${css}</style></head><body class="game-mode"><div id="pjRoot"></div></body></html>`);
   pjWin.document.close();
   pjShell(); toast('Projeksiyon ekranı açıldı; pencereyi projeksiyona taşıyın');
 }
 function pjShell(){
   const root=P('pjRoot'); if(!root||!R) return; const s=sc();
-  root.innerHTML=gameShell(`<div class="at-top"><div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(s.title)}</small></div><span class="at-state" id="pjSt">Hazır</span>
+  root.innerHTML=gameShell(`<div class="at-top">${simBrand()}<div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(s.title)}</small></div><span class="at-state" id="pjSt">Hazır</span>
       <div><div class="at-l">Süre</div><div class="at-clock mono" id="pjClock">00:00</div></div>
       <div class="at-bank"><div class="at-l">Coin</div><span class="at-coin big"><i></i><span id="pjCoins">0</span></span></div>
       <button class="g-x" id="pjFs">Tam ekran</button></div>
@@ -4579,7 +4584,7 @@ function pjShell(){
       <section class="at-panel"><div class="at-l">Hasta</div><h2 class="at-h">${esc(s.brief)}</h2><p class="at-mist">${esc(s.mist)}</p></section>
       <section class="at-mon" id="pjMon"></section></div>
      <div class="at-col"><section class="at-panel"><div class="at-l">Açılan bilgiler</div><div class="at-finds tall" id="pjFinds"></div></section>
-      <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="pjLog"></div></section></div></div>`,'atls pjv');
+      <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="pjLog"></div></section></div></div>${simFoot()}`,'atls pjv');
   P('pjRoot').onclick=e=>{ const im=e.target.closest('img.at-img'); if(!im) return; const d=pjWin.document.createElement('div'); d.className='lightbox'; d.innerHTML=`<img src="${im.src}">`; d.onclick=()=>d.remove(); pjWin.document.body.appendChild(d); };
   P('pjFs').onclick=()=>{ const d=pjWin.document; try{ const r=d.fullscreenElement?d.exitFullscreen():d.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){} };
   if(R.ended&&R.res) return pjEnd(R.res);
@@ -4587,7 +4592,7 @@ function pjShell(){
 }
 function pjEnd(res){
   const root=P('pjRoot'); if(!root) return;
-  root.innerHTML=gameShell(`<div class="at-top"><div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(res.scenTitle)}</small></div><b>Değerlendirme</b></div>${debriefHtml(res)}`,'atls pjv');
+  root.innerHTML=gameShell(`<div class="at-top">${simBrand()}<div class="at-team"><b>${esc(cfgCur.team)}</b><small>${esc(res.scenTitle)}</small></div><b>Değerlendirme</b></div>${debriefHtml(res)}${simFoot()}`,'atls pjv');
   pjWin.scrollTo(0,0);
 }
 /* ---- listede olmayan istek ---- */
@@ -4673,8 +4678,8 @@ function debriefHtml(r){
 async function endGame(alive,reason){
   R.ended=true; pause();
   const res=score(alive,reason); R.res=res; pjEnd(res);
-  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':C.short}</button><b>Değerlendirme</b><span class="small" id="atSave">${S.preview?'Önizleme: sonuç kaydedilmedi':'Kaydediliyor…'}</span></div>
-    ${debriefHtml(res)}<div class="g-act"><button class="g-btn ghost" id="atAgain">Aynı senaryoyu tekrar oyna</button><button class="g-btn" id="atNew">Yeni oyun</button></div>`,'atls');
+  $app.innerHTML=gameShell(`<div class="at-top"><button class="g-x" id="atX">← ${backTo==='games'?'Oyunlar':C.short}</button>${simBrand()}<b>Değerlendirme</b><span class="small" id="atSave">${S.preview?'Önizleme: sonuç kaydedilmedi':'Kaydediliyor…'}</span></div>
+    ${debriefHtml(res)}<div class="g-act"><button class="g-btn ghost" id="atAgain">Aynı senaryoyu tekrar oyna</button><button class="g-btn" id="atNew">Yeni oyun</button></div>${simFoot()}`,'atls');
   window.scrollTo(0,0);
   $('atX').onclick=exitGame; $('atAgain').onclick=()=>go(C.playView,{cfg:cfgCur,back:backTo}); $('atNew').onclick=()=>setupDlg(cfgCur.mode);
   if(S.preview) return;
