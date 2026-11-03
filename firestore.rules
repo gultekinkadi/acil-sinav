@@ -291,8 +291,17 @@ service cloud.firestore {
     match /simCustom/{course} {
       allow read: if isAdmin() || isResident() || isAuthor();
       allow write: if isAdmin() && course in ['atls', 'acls']
-        && request.resource.data.keys().hasOnly(['actions', 'updatedAt'])
-        && request.resource.data.actions is list && request.resource.data.actions.size() <= 150;
+        && request.resource.data.keys().hasOnly(['actions', 'media', 'updatedAt'])
+        && (!('actions' in request.resource.data) || (request.resource.data.actions is list && request.resource.data.actions.size() <= 150))
+        && (!('media' in request.resource.data) || request.resource.data.media is map);
+    }
+    // Oyunlar için görüntü havuzu dizini (görseller images / dicoms koleksiyonlarında, atlasla ortak)
+    match /imgPool/{id} {
+      allow read: if isAdmin();
+      allow create, update: if isAdmin()
+        && request.resource.data.keys().hasOnly(['kind', 'abn', 'caption', 'tags', 'imageId', 'dicomId', 'thumb', 'w', 'h', 'atlasId', 'createdAt'])
+        && (request.resource.data.thumb == null || (request.resource.data.thumb is string && request.resource.data.thumb.size() < 120000));
+      allow delete: if isAdmin();
     }
     match /atlsRuns/{id} {
       allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);

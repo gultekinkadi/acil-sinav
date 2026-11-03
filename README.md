@@ -117,6 +117,14 @@ Dört vaka da eğitmenin senaryo + değerlendirme formu belgelerinden: formdaki 
 - **Yanıtlar:** “Tüm senaryolar” için varsayılan yanıt ve ceza; her senaryo için ayrıca özel yanıt, ceza puanı, vital etkisi (ör. nabız +16, sistolik TA +18) ve **kritik eylem puanı + hedef süre**. Kritik eylem verilen kart o senaryonun değerlendirmesinde “(eğitmen)” etiketiyle sayılır.
 - Kartlar `simCustom/atls` ve `simCustom/acls` belgelerinde tutulur (en çok 150); yalnız yönetici yazar, asistanlar okur. Oyunda sekmede ve aramada “eğitmen” etiketiyle görünür; bir sonraki oyundan itibaren geçerlidir.
 
+## Görüntü havuzu (ATLS / ACLS oyunları)
+- **Oyunlar → 🖼 Görüntü havuzu.** EKG, ritim şeridi, akciğer/pelvis/direkt grafi, USG/FAST, BT/MR ve klinik fotoğraf. Görseller Görüntü atlası ile **aynı depoda** (`images`, `dicoms`); havuz yalnız hafif bir dizin tutar (`imgPool`: tür, normal/patolojik, alt yazı, etiketler, küçük önizleme). Yalnız yönetici görür.
+- **Yükleme:** çoklu görsel; yükleme öncesi **Kırp** ve **Karart** (ad, protokol no, tarih gibi görüntü üzerindeki yazıları kapatmak için). Yeniden kodlama EXIF/konum bilgisini siler. BT/MR serisi: DICOM yükle (anonimleştirilir) veya arşivden seç.
+- **Atlastan aktar:** atlastaki görüntüleri kopyalamadan havuza bağlar. **Atlasa gönder:** havuzdaki görüntüden taslak atlas kaydı açar.
+- **Vakaya bağla:** oyun → senaryo → hangi müdahale/tetkik istendiğinde gösterileceği (eğitmen kartları dahil). Bir tetkike birden çok görüntü bağlanırsa sırayla gösterilir (1. istemde ilki, 2. istemde ikincisi…, sonra son görüntü tekrar eder). Alt yazı varsayılan olarak ekibe gösterilmez. Bağlantılar `simCustom/{atls|acls}.media` alanında; asistan yalnız bağlı görüntüyü kimliğiyle açabilir, havuzu listeleyemez.
+- Oyunda görüntü “Açılan bilgiler” içinde, eğitmen ve projeksiyon ekranında görünür; tıklayınca tam ekran. BT/MR serisi kaydırılabilir görüntüleyiciyle açılır.
+- ACLS'ye “Portabl akciğer grafisi” eklendi (ROSC sonrası grafi bağlamak için).
+
 ## Hata bildirimi
 - Asistanlar (ve soru yazarları) Alıştırma, Tekrar, sanal hasta (oyun sırasında ve vaka sonunda) ve atlas ekranlarındaki **⚑ Hata bildir** düğmesiyle neden seçip not yazarak bildirim gönderir (`reports` koleksiyonu).
 - Yönetici: Soru Bankası veya Eğitim → **⚑ Hata bildirimleri**. Açık/çözülen filtresi, “Soruyu düzenle / İçeriği aç”, “Çözüldü” (yanıt notuyla), Excel'e aktarma. Açık bildirimi olan sorular bankada ⚑ rozetiyle görünür.

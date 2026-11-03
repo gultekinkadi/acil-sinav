@@ -226,6 +226,18 @@ await t("listede olmayan kullanıcı oyun kartlarını okuyamaz", () => assertFa
 await t("bilinmeyen kursa kart yazılamaz", () => assertFails(setDoc(doc(admin, "simCustom/baska"), kart)));
 await t("kart belgesine fazladan alan yazılamaz", () => assertFails(setDoc(doc(admin, "simCustom/atls"), { ...kart, x: 1 })));
 
+console.log("Görüntü havuzu");
+const pimg = { kind: "EKG", abn: "patolojik", caption: "İnferior STEMI", tags: ["STEMI"], imageId: "img1", dicomId: null, thumb: "data:image/jpeg;base64,AAAA", w: 800, h: 600, atlasId: null, createdAt: serverTimestamp() };
+await t("yönetici havuza görüntü ekler", () => assertSucceeds(setDoc(doc(admin, "imgPool/p1"), pimg)));
+await t("asistan havuzu listeleyemez", () => assertFails(getDocs(collection(ayse, "imgPool"))));
+await t("asistan havuz kaydını okuyamaz", () => assertFails(getDoc(doc(ayse, "imgPool/p1"))));
+await t("yazar havuza ekleyemez", () => assertFails(setDoc(doc(yazar, "imgPool/p2"), pimg)));
+await t("havuz kaydına fazladan alan yazılamaz", () => assertFails(setDoc(doc(admin, "imgPool/p3"), { ...pimg, x: 1 })));
+await t("çok büyük önizleme reddedilir", () => assertFails(setDoc(doc(admin, "imgPool/p4"), { ...pimg, thumb: "x".repeat(130000) })));
+await t("yönetici vakaya görüntü bağlar", () => assertSucceeds(setDoc(doc(admin, "simCustom/acls"), { media: { vf: { t_ecg12: [{ p: "p1", imageId: "img1", dicomId: null, cap: "" }] } }, updatedAt: serverTimestamp() }, { mergeFields: ["media", "updatedAt"] })));
+await t("asistan bağlantıları okur", () => assertSucceeds(getDoc(doc(ayse, "simCustom/acls"))));
+await t("asistan bağlantı yazamaz", () => assertFails(setDoc(doc(ayse, "simCustom/acls"), { media: {} }, { merge: true })));
+
 await env.cleanup();
 console.log(`\n${pass} geçti, ${failN} başarısız`);
 process.exit(failN ? 1 : 0);
