@@ -5307,6 +5307,7 @@ const HASTA_D={id:'hastaD',tag:'07',title:'Hasta D: benzin yangını, inhalasyon
      pen:R.done.e_tbsa?null:[3,'Yanık yüzey alanı hesaplanmadan sıvı planı']}),
    t_efast:R=>{ R.f.fastPos=1; return {text:'FAST: sol üst kadranda ve pelviste çok miktarda serbest sıvı — karın içi kanama.'}; },
    t_cxr:R=>({text:'AP akciğer grafisi: sağda çoklu kosta kırıkları'+(R.f.central?'; sol subklavyen kateter uygun konumda':'')+(R.f.intub?'; endotrakeal tüp uygun konumda.':'.'),img:'gorseller/hastaD-akciger-ap.jpg'}),
+   t_pxr:()=>({text:'AP pelvis grafisi: normal sınırlarda; kırık yok.',img:'gorseller/hastaD-pelvis-ap.jpg'}),
    t_dpl:R=>{ R.f.fastPos=1; return {text:'DPL: lavaj kateteri yerleştirilince serbest kan geldi — pozitif.'}; },
    t_ct:R=>({text:'Hasta BT’de kaldı; sevk gecikti.',pen:[15,'Tanısal inceleme için sevki geciktirme'],hurt:()=>{ R.v.sbp-=10; }}),
    k_surgery:R=>{ R.f.surgCall=1; return {text:'Bu hastanede cerrah yok: karın içi kanamayı kontrol edebilecek, acil laparotomi yapabilen en yakın merkeze (≈ 64 km) sevk gerekir; transport 20 dk sonra hazır.'}; },
