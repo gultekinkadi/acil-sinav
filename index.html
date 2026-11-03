@@ -5564,7 +5564,7 @@ const ACTIONS=[
  {id:'r_shock',cat:'E',kind:'int',cost:5,label:'Defibrilasyon — bifazik 200 J',need:['pads','Önce defibrilatör pedlerini bağlayın.']},
  {id:'r_sync',cat:'E',kind:'int',cost:5,label:'Senkronize kardiyoversiyon — 100 J',need:['pads','Önce defibrilatör pedlerini bağlayın.']},
  {id:'r_pace',cat:'E',kind:'int',cost:15,label:'Transkütan pacing (yakalama eşiği + 10 mA)',once:1,need:['pads','Önce defibrilatör pedlerini bağlayın.']},
- {id:'h_o2',cat:'H',kind:'int',cost:5,label:'Maske ile O₂ (hedef SpO₂ %94–98)',once:1},
+ {id:'h_o2',cat:'H',kind:'int',cost:5,label:'Maske ile O₂ (hipoksemi varsa)',once:1},
  {id:'h_bvm',cat:'H',kind:'int',cost:5,label:'Balon-valf-maske + O₂ 15 L/dk (30:2)',once:1},
  {id:'h_opa',cat:'H',kind:'int',cost:5,label:'Orofaringeal airway',once:1},
  {id:'h_sga',cat:'H',kind:'int',cost:10,label:'Supraglottik havayolu (i-gel)',once:1},
@@ -5597,7 +5597,7 @@ const ACTIONS=[
  {id:'t_echo',cat:'T',kind:'test',cost:10,label:'Yatak başı eko (nabız kontrolünde ≤ 10 sn)'},
  {id:'t_temp',cat:'T',kind:'info',cost:5,label:'Vücut ısısı'},
  {id:'t_ht',cat:'T',kind:'info',cost:0,label:'5H–5T: geri dönüşlü nedenleri gözden geçir'},
- {id:'p_o2',cat:'P',kind:'int',cost:5,label:'O₂ titrasyonu (SpO₂ %92–98)',once:1,dis:inArr},
+ {id:'p_o2',cat:'P',kind:'int',cost:5,label:'O₂ titrasyonu (SpO₂ %90–98)',once:1,dis:inArr},
  {id:'p_vent',cat:'P',kind:'int',cost:10,label:'Ventilatör: normokapni (PaCO₂ 35–45)',once:1,dis:inArr,need:['intub','Önce ileri havayolu gerekli.']},
  {id:'p_ttm',cat:'P',kind:'int',cost:10,label:'Sıcaklık kontrolü (32–37,5 °C, ateşi önle)',once:1,dis:inArr},
  {id:'p_neuro',cat:'P',kind:'info',cost:5,label:'Nörolojik değerlendirme (GKS, pupiller)',dis:inArr},
@@ -5611,8 +5611,8 @@ const DEF={
  h_o2:'Rezervuarlı maske ile O₂ başlandı.',h_opa:'Orofaringeal airway yerleştirildi.',
  t_ecg12:'Sinüs ritmi, akut değişiklik yok.',t_cxr:'Portabl akciğer grafisi: belirgin akut patoloji yok; tüp ve kateterler uygun konumda.',t_abg:'Kan gazı ve elektrolitler normal sınırlarda.',t_glu:'Kan şekeri 112 mg/dL.',t_echo:'Perikard temiz, sağ ventrikül normal boyutta.',t_temp:'36,5 °C.',
  t_ht:'5H: hipovolemi, hipoksi, hidrojen iyonu (asidoz), hipo/hiperkalemi, hipotermi. 5T: tansiyon pnömotoraks, tamponad, toksinler, pulmoner tromboz, koroner tromboz. Öykü ve tetkiklerle eleyin.',
- p_o2:'FiO₂ azaltıldı; SpO₂ %92–98 hedefleniyor (hiperoksiden kaçının).',p_vent:'Ventilatör: VT 6–8 mL/kg, PaCO₂ 35–45 mmHg hedefli.',
- p_ttm:'Sıcaklık kontrolü başlandı: hedef 32–37,5 °C, ateş önlenecek.',p_neuro:'Nörolojik değerlendirme yapıldı.',
+ p_o2:'SpO₂ güvenilir ölçülünce FiO₂ azaltıldı; SpO₂ %90–98 (PaO₂ 60–105 mmHg) hedefleniyor, hiperoksiden kaçınılıyor.',p_vent:'Ventilatör: VT 6–8 mL/kg, PaCO₂ 35–45 mmHg hedefli.',
+ p_ttm:'Komut almayan hastada hedefli sıcaklık kontrolü başlandı: 32–37,5 °C, ateş önlenecek.',p_neuro:'Nörolojik değerlendirme yapıldı.',
  o_hist:'Öykü alınamadı.',c_cardio:'Kardiyoloji haberdar edildi.',c_neph:'Nefroloji haberdar edildi.',c_icu:'Yoğun bakım haberdar edildi; yatak hazırlanıyor.'
 };
 
@@ -5718,7 +5718,7 @@ const ACT={
  i_tpa:(R,s)=>ok(s,'i_tpa')?null:{text:'Alteplaz verildi: pulmoner emboli bulgusu yoktu.',pen:[20,'Endikasyonsuz trombolitik (kanama riski)']},
  i_fluid:R=>{ R.f.fluid=(R.f.fluid||0)+1; if(inArr(R)) return {text:'500 mL kristaloid hızlı bolus.'}; R.v.sbp+=5; return {text:'500 mL kristaloid; TA hafif yükseldi.'}; },
  i_norad:R=>{ if(inArr(R)) return {text:'Arrestte infüzyon vazopresör yerine 1 mg bolus adrenalin kullanılır.',pen:[5,'Arrestte vazopresör infüzyonu']};
-   R.f.norad=1; return {text:'Noradrenalin 0,1 mcg/kg/dk başlandı, titre ediliyor (OAB ≥ 65, sistolik ≥ 90).'}; },
+   R.f.norad=1; return {text:'Noradrenalin 0,1 mcg/kg/dk başlandı, titre ediliyor (hedef OAB ≥ 65 mmHg).'}; },
  i_dopa:(R,s)=>chrono(R,s,'Dopamin 5 mcg/kg/dk başlandı, titre ediliyor.'),
  i_epiinf:(R,s)=>chrono(R,s,'Adrenalin 2 mcg/dk infüzyonu başlandı, titre ediliyor.'),
  i_sed:R=>inArr(R)?{text:'Arrestte sedasyonun yeri yok.',pen:[5,'Arrestte sedasyon']}:{text:'Fentanil 1 mcg/kg + midazolam 1 mg titre edildi; hasta rahat.'},
@@ -5978,7 +5978,7 @@ function mega(d){
     onSync(R){ const f=R.f,v=R.v;
       if(f.rh!=='svt') return {text:'Kardiyoversiyon endikasyonu yok.',pen:[15,'Endikasyonsuz kardiyoversiyon']};
       f.rh='st'; v.hr=104; v.sbp=Math.max(v.sbp,94);
-      if(pre==='tachyU'){ f.syncT=R.t; return {text:'Senkronize kardiyoversiyon (50–100 J): sinüs ritmine döndü, 104/dk.'}; }
+      if(pre==='tachyU'){ f.syncT=R.t; return {text:'Senkronize kardiyoversiyon (100 J): sinüs ritmine döndü, 104/dk.'}; }
       f.convT=R.t; return {text:'Kardiyoversiyon ile sinüs ritmine döndü.',pen:[10,'Stabil SVT’de ilk basamak vagal manevra / adenozin olmalıydı']}; },
     act:{
       i_atro:R=>{ if(isArr(R)||pre!=='brady'||R.f.rosc) return null; const f=R.f; f.atro=(f.atro||0)+1;
