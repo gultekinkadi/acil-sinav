@@ -465,6 +465,7 @@ body.game-mode:has(.gm.atls){background:#0c1211}
 .at-find{border:1px solid var(--a-line);border-radius:8px;padding:8px 10px;background:var(--a-panel2)}
 .at-find .h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.at-find .h span{font-size:12px;color:var(--a-muted)}
 .at-find p{margin:3px 0 0;font-size:14px}
+.at-find .at-img{max-height:300px;margin:8px 0 2px;background:#000;border-color:var(--a-line)}.pjv .at-find .at-img{max-height:46vh}
 .at-find.harm{border-color:var(--a-bad);background:var(--a-badsoft)}.at-find.sys{border-style:dashed;border-color:var(--a-warn)}
 .at-find.new{animation:atFlash 1.2s ease-out}@keyframes atFlash{from{box-shadow:0 0 0 3px var(--a-gold)}to{box-shadow:0 0 0 0 transparent}}
 .at-empty{color:var(--a-muted);font-size:14px;padding:6px 0}
@@ -4445,7 +4446,7 @@ function buy(id){
   C.flags?.[id]?.(R.f,R);
   let r=a.custom?customResp(a,s):(s.act[id]?.(R,s,lg)||C.act?.[id]?.(R,s,lg)||null);
   if(!r){ const f=s.find[id]; r={text:typeof f==='function'?f(R):(f||DEF[id]||'Uygulandı.')}; if(id===C.monId&&!s.find[id]) r={text:C.monText}; }
-  R.finds.unshift({t:R.t,label:a.label,text:r.text,kind:r.pen?'harm':a.kind}); lastFind=R.finds[0];
+  R.finds.unshift({t:R.t,label:a.label,text:r.text,kind:r.pen?'harm':a.kind,...(r.img?{img:new URL(r.img,location.href).href}:{})}); lastFind=R.finds[0];
   lg(a.kind,a.label+': '+r.text,a.cost);
   if(r.pen) pen(r.pen[0],r.pen[1]);
   (r.pens||[]).forEach(p=>pen(p[0],p[1]));
@@ -4512,7 +4513,7 @@ function hud(){
 function floatCoin(n){ const b=$('atBank'); if(!b) return; const e=document.createElement('span'); e.className='at-float mono'; e.textContent='−'+n; b.appendChild(e); setTimeout(()=>e.remove(),1000); }
 function finds(){
   if(!$('atFinds')) return;
-  const fh=R.finds.length?R.finds.map(f=>`<div class="at-find ${f.kind==='harm'?'harm':f.kind==='sys'?'sys':''} ${f===lastFind?'new':''}"><div class="h"><b>${esc(f.label)}</b><span class="mono">dk ${String(f.t).padStart(2,'0')}</span></div><p>${esc(f.text)}</p></div>`).join('')
+  const fh=R.finds.length?R.finds.map(f=>`<div class="at-find ${f.kind==='harm'?'harm':f.kind==='sys'?'sys':''} ${f===lastFind?'new':''}"><div class="h"><b>${esc(f.label)}</b><span class="mono">dk ${String(f.t).padStart(2,'0')}</span></div><p>${esc(f.text)}</p>${f.img?`<img class="at-img q-img" src="${esc(f.img)}" alt="${esc(f.label)}" title="Büyütmek için tıklayın">`:''}</div>`).join('')
     :'<div class="at-empty">Coin harcayarak muayene edin, tetkik isteyin. Bulgular burada açılır.</div>';
   $('atFinds').innerHTML=fh; if(P('pjFinds')) P('pjFinds').innerHTML=fh.replace('Coin harcayarak muayene edin, tetkik isteyin.','Ekip ne yapmak istediğini söylesin.');
   lastFind=null;
@@ -4579,6 +4580,7 @@ function pjShell(){
       <section class="at-mon" id="pjMon"></section></div>
      <div class="at-col"><section class="at-panel"><div class="at-l">Açılan bilgiler</div><div class="at-finds tall" id="pjFinds"></div></section>
       <section class="at-panel"><div class="at-l">Zaman çizelgesi</div><div class="at-log" id="pjLog"></div></section></div></div>`,'atls pjv');
+  P('pjRoot').onclick=e=>{ const im=e.target.closest('img.at-img'); if(!im) return; const d=pjWin.document.createElement('div'); d.className='lightbox'; d.innerHTML=`<img src="${im.src}">`; d.onclick=()=>d.remove(); pjWin.document.body.appendChild(d); };
   P('pjFs').onclick=()=>{ const d=pjWin.document; try{ const r=d.fullscreenElement?d.exitFullscreen():d.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){} };
   if(R.ended&&R.res) return pjEnd(R.res);
   lastFind=null; finds(); vitals(); hud();
@@ -5304,6 +5306,7 @@ const HASTA_D={id:'hastaD',tag:'07',title:'Hasta D: benzin yangını, inhalasyon
    c_burnfluid:R=>({text:'Kilo ≈ 70 kg, YYA ≈ %55: 2 mL × 70 × 55 ≈ 7700 mL / 24 saat; yarısı ilk 8 saatte (≈ 485 mL/saat), kalanı sonraki 16 saatte. İdrar çıkışına göre titre edin; travmaya bağlı kayıp için ek hacim gerekebilir.',
      pen:R.done.e_tbsa?null:[3,'Yanık yüzey alanı hesaplanmadan sıvı planı']}),
    t_efast:R=>{ R.f.fastPos=1; return {text:'FAST: sol üst kadranda ve pelviste çok miktarda serbest sıvı — karın içi kanama.'}; },
+   t_cxr:R=>({text:'AP akciğer grafisi: sağda çoklu kosta kırıkları'+(R.f.central?'; sol subklavyen kateter uygun konumda':'')+(R.f.intub?'; endotrakeal tüp uygun konumda.':'.'),img:'gorseller/hastaD-akciger-ap.jpg'}),
    t_dpl:R=>{ R.f.fastPos=1; return {text:'DPL: lavaj kateteri yerleştirilince serbest kan geldi — pozitif.'}; },
    t_ct:R=>({text:'Hasta BT’de kaldı; sevk gecikti.',pen:[15,'Tanısal inceleme için sevki geciktirme'],hurt:()=>{ R.v.sbp-=10; }}),
    k_surgery:R=>{ R.f.surgCall=1; return {text:'Bu hastanede cerrah yok: karın içi kanamayı kontrol edebilecek, acil laparotomi yapabilen en yakın merkeze (≈ 64 km) sevk gerekir; transport 20 dk sonra hazır.'}; },
