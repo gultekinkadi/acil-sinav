@@ -1,5 +1,12 @@
 [
  {
+  "file": "acls-donem6.json",
+  "title": "ACLS — Dönem 6 ön test / son test (AHA 2025)",
+  "desc": "Yüksek kaliteli KPR, ritim tanıma, kardiyak arrest, bradikardi, taşikardi ve ROSC sonrası bakım: 20 soru. Ders öncesi ön test, staj sonu son test ya da Canlı Yarışma için.",
+  "sims": 0,
+  "questions": 20
+ },
+ {
   "file": "ekg-litfl-ornek.json",
   "title": "EKG Atlası (LITFL) — örnek",
   "desc": "İnferior STEMI: işaretli atlas görüntüsü + 2 görselli soru (LITFL, CC BY-NC-SA 4.0).",
