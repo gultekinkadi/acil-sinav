@@ -4872,7 +4872,7 @@ const ACTIONS=[
  {id:'c_monitor',cat:'C',kind:'int',cost:5,label:'Monitör bağla (EKG, SpO₂, NIBP)',once:1},
  {id:'c_skin',cat:'C',kind:'info',cost:5,label:'Cilt, kapiller dolum, nabızlar'},
  {id:'c_iv',cat:'C',kind:'int',cost:5,label:'İki geniş damar yolu (16G) + kan örneği',once:1},
- {id:'c_fluid',cat:'C',kind:'int',cost:5,label:'Isıtılmış kristaloid 1 L',rep:1,iv:1},
+ {id:'c_fluid',cat:'C',kind:'int',cost:5,label:'Isıtılmış kristaloid 500 mL',rep:1,iv:1},
  {id:'c_blood',cat:'C',kind:'int',cost:20,label:'Masif transfüzyon protokolü (MTP)',once:1,iv:1},
  {id:'c_txa',cat:'C',kind:'int',cost:10,label:'Traneksamik asit 1 g',once:1,iv:1},
  {id:'c_pelvis',cat:'C',kind:'info',cost:5,label:'Pelvis muayenesi (tek kez, nazik)'},
@@ -4995,7 +4995,7 @@ const SCEN=[
   c_binder:S=>{S.f.binder=1;return{text:'Pelvik kuşak büyük trokanterler hizasında uygulandı. Kanama hızı azaldı.'}},
   c_blood:S=>{S.f.mtp=1;return{text:'MTP aktive: ES:TDP:TS dengeli oranda başlandı.'}},
   c_txa:S=>{S.f.txa=1;return{text:'TXA 1 g 10 dk’da, ardından 1 g 8 saatte infüzyon.'}},
-  c_fluid:S=>{S.v.sbp+=7;return S.f.fluid>2?{text:'Kristaloid verildi; geçici yanıt.',pen:[10,'Aşırı kristaloid (> 2 L) — dilüsyonel koagülopati']}:{text:'1 L ısıtılmış kristaloid; geçici yanıt.'}},
+  c_fluid:S=>{S.v.sbp+=7;return S.f.fluid>2?{text:'Kristaloid verildi; geçici yanıt.',pen:[10,'Aşırı kristaloid (> 1 L) — dilüsyonel koagülopati']}:{text:'500 mL ısıtılmış kristaloid; geçici yanıt.'}},
   k_ir:S=>{S.f.def=1;return{text:'Girişimsel radyoloji anjiyoembolizasyon için hazır. Kanama kaynağına definitif kontrol planlandı.'}},
   k_surgery:S=>{S.f.def=1;return{text:'Cerrahi: preperitoneal pelvik packing için ameliyathane hazırlanıyor.'}},
   t_foley:()=>({text:'Üretral meada kan varken kateter takılmaya çalışıldı!',pen:[20,'Üretral yaralanma bulgusu varken üriner kateter — KONTRENDİKE']}),
@@ -5103,7 +5103,7 @@ const SCEN=[
  act:{
   c_pericardio:S=>{if(S.f.tamp==='on'){S.f.tamp='temp';S.f.tT=0;S.v.sbp+=14;return{text:'Subksifoid, USG eşliğinde 25 mL pıhtısız kan aspire edildi — TA yükseldi. Bu bir KÖPRÜ; definitif cerrahi gerekli.'}}return{text:'Belirgin sıvı aspire edilemedi.'}},
   k_surgery:S=>{S.f.def=1;return{text:'Göğüs/kalp cerrahisi: acil sternotomi için ameliyathaneye alınıyor.'}},
-  c_fluid:S=>{S.v.sbp+=6;return S.f.fluid>2?{text:'Geçici yanıt.',pen:[10,'Aşırı kristaloid (> 2 L)']}:{text:'Ön yükü artırmak için 1 L bolus; kısa süreli yanıt.'}},
+  c_fluid:S=>{S.v.sbp+=6;return S.f.fluid>2?{text:'Geçici yanıt.',pen:[10,'Aşırı kristaloid (> 1 L)']}:{text:'Ön yükü artırmak için 500 mL bolus; kısa süreli yanıt.'}},
   c_blood:S=>{S.f.mtp=1;return{text:'MTP başlatıldı.'}},
   c_txa:()=>({text:'TXA verildi.'}),
   a_rsi:S=>{S.f.intub=1;if(S.f.tamp!=='fixed'){S.v.sbp-=22;return{text:'İndüksiyon + pozitif basınçlı ventilasyon sonrası TA çöktü!',pen:[15,'Tamponadda definitif tedavi öncesi indüksiyon / PPV']}}return{text:'Entübe edildi.'}},
@@ -5171,7 +5171,7 @@ const HASTA_A={id:'hastaA',tag:'04',title:'Hasta A: kemersiz sürücü, yüz kı
    b_tube_l:R=>{ const f=R.f; if(f.tens==='L'){ R.v.sbp+=12; } f.tens='tube'; R.v.spo2+=3;
      return {text:'Sol 5. interkostal aralık, midaksiller hattın önü: 28–32 Fr göğüs tüpü, su altı drenaja bağlandı. Drenajda devam eden kabarcıklanma (hava kaçağı). SpO₂ %89.'}; },
    b_tube_r:()=>({text:'Sağda patoloji yok.',pen:[15,'Yanlış tarafa göğüs tüpü']}),
-   c_fluid:R=>{ R.f.fluid=(R.f.fluid||0); return {text:R.f.tens==='L'?'Isıtılmış 1000 mL kristaloid; tansiyon sürdükçe yanıt sınırlı.':'Isıtılmış 1000 mL kristaloid: TA 110/74, nabız 112.'}; },
+   c_fluid:R=>{ R.f.fluid=(R.f.fluid||0); return {text:R.f.tens==='L'?'Isıtılmış 500 mL kristaloid; tansiyon sürdükçe yanıt sınırlı.':'Isıtılmış 500 mL kristaloid: TA 110/74, nabız 112.'}; },
    c_binder:()=>({text:'Pelvis stabil.',pen:[5,'Endikasyonsuz pelvik kuşak']}),
    c_pericardio:()=>({text:'Perikardda sıvı yok.',pen:[15,'Endikasyonsuz perikardiyosentez']}),
    t_cxr:R=>R.f.tens==='L'?{text:'Sol tansiyon pnömotoraks, mediastinal şift. Tansiyon pnömotoraks klinik tanıdır.',pen:[10,'Tansiyon pnömotoraksı grafiyle tanımaya çalışma']}
@@ -5261,7 +5261,7 @@ const HASTA_C={id:'hastaC',tag:'06',title:'Hasta C: araçtan fırlama, tansiyon 
    b_tube_fix:R=>{ const f=R.f; if(f.mal&&!f.fixed){ f.fixed=1; R.v.spo2+=6;
        return {text:'Tüp çıkarıldı ve yeniden yerleştirildi: drenajda hava ve sıvı hareketi; sağda solunum sesleri geri geliyor, rengi ve solunumu düzeldi. Kontrol akciğer grafisi isteyin.'}; }
      return {text:'Tüp çalışıyordu; değişiklik gerekmedi.',pen:[5,'Gereksiz göğüs tüpü değişimi']}; },
-   c_fluid:R=>{ R.v.sbp+=8; return {text:'Isıtılmış 1000 mL kristaloid: TA 100/70, nabız 120.'}; },
+   c_fluid:R=>{ R.v.sbp+=8; return {text:'Isıtılmış 500 mL kristaloid: TA 100/70, nabız 120.'}; },
    c_blood:R=>{ R.f.mtp=1; return {text:'Kan hazır: ısıtılmış kan başlandı, masif transfüzyon protokolü aktive edildi.'}; },
    c_binder:R=>{ R.f.binder=1; return {text:'Pelvik stabilizasyon cihazı büyük trokanterler hizasında uygulandı; pelvis hacmi azaldı.'}; },
    c_pelvis:R=>(R.done.c_pelvis||0)>=2?{text:'Pelvis yeniden zorlandı; hasta çığlık attı.',pen:[10,'Pelvik instabilite için tekrarlayan muayene']}:{text:'Sağ pelviste deformite ve krepitasyon, simfizis üzerinde hassasiyet ve şişlik: instabil. Bu muayene tekrarlanmamalı.'},
@@ -5344,7 +5344,7 @@ const HASTA_D={id:'hastaD',tag:'07',title:'Hasta D: benzin yangını, inhalasyon
    a_cric:R=>{ const f=R.f; if(f.intub) return {text:'Havayolu zaten güvencede.',pen:[15,'Endikasyonsuz cerrahi havayolu']}; f.intub=1; R.v.gcs=9;
      return {text:'Cerrahi krikotiroidotomi yapıldı; ventilasyon başladı.',pen:(f.awT||0)>=8?null:[8,'Entübasyon mümkünken cerrahi havayolu']}; },
    b_bvm:R=>{ if(!R.f.intub) return {text:'Maske ile destek verildi; havayolu ödemi ilerledikçe ventilasyon güçleşiyor.'}; R.f.vent=1; return {text:'Ventilatör / balon ile nemlendirilmiş %100 O₂ ile ventilasyon desteği.'}; },
-   c_fluid:R=>{ R.v.sbp+=3; return {text:'Isıtılmış 1000 mL kristaloid: hemodinamik düzelme yok, nabız 140.'}; },
+   c_fluid:R=>{ R.v.sbp+=3; return {text:'Isıtılmış 500 mL kristaloid: hemodinamik düzelme yok, nabız 140.'}; },
    c_blood:R=>{ R.f.mtp=1; return {text:'Çapraz karşılaştırmalı kan 20 dk sonra; ısıtılmış O grubu kan hızla başlandı, masif transfüzyon protokolü aktive edildi.'}; },
    c_central:R=>{ R.f.central=1; return {text:'Sol subklavyen geniş lümenli santral kateter yerleştirildi; konum için akciğer grafisi isteyin. Yardımcı ikinci periferik yolu açmaya çalışıyor.'}; },
    c_legbp:R=>({text:`Alt ekstremiteden TA ${Math.round(R.v.sbp)}/${Math.round(R.v.dbp)} mmHg.`}),
@@ -5451,7 +5451,7 @@ SCEN.push({id:'hastaB',tag:'05',title:'Hasta B: kasksız motosiklet, çoklu trav
      return {text:'Uyluk turnikesi kanamayı durdurdu. Uygulama saatini kaydedin; traksiyon ateli ve basınçlı pansumanla kontrol, distal perfüzyonu korumak için tercih edilir.'}; },
    x_scalp:R=>{ if(!R.f.open) return {text:'Baştaki pansumanın üzerinden bası yapıldı; kaynak görülmeden kanama sürüyor. Pansumanı açın.'};
      R.f.scalpCtl=1; return {text:'Saçlı deri arteriyel kanamasına doğrudan bası ve hızlı sütür: kanama durdu.'}; },
-   c_fluid:R=>{ R.v.sbp+=3; return R.f.fluid>2?{text:'Kristaloid verildi; yanıt yok.',pen:[10,'Aşırı kristaloid (> 2 L), kan ürünü yerine']}:{text:'Isıtılmış 1000 mL kristaloid: TA ve nabız yanıt vermedi.'}; },
+   c_fluid:R=>{ R.v.sbp+=3; return R.f.fluid>2?{text:'Kristaloid verildi; yanıt yok.',pen:[10,'Aşırı kristaloid (> 1 L), kan ürünü yerine']}:{text:'Isıtılmış 500 mL kristaloid: TA ve nabız yanıt vermedi.'}; },
    c_blood:R=>{ R.f.mtp=1; return {text:'Isıtılmış O Rh(−) kan başlandı, masif transfüzyon protokolü aktive edildi (dengeli resüsitasyon). Çapraz karşılaştırmalı kan 20 dk sonra hazır.'}; },
    c_txa:R=>{ R.f.txa=1; return {text:'Traneksamik asit 1 g 10 dk’da, ardından 1 g 8 saatte.'}; },
    c_binder:()=>({text:'Pelvis stabil; kuşak endikasyonu yok.',pen:[5,'Endikasyonsuz pelvik kuşak']}),
